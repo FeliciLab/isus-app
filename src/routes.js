@@ -7,7 +7,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 import HomeScreen from './pages/Home';
 import DetailsScreen from './pages/Details';
-import SettingsScreen from './pages/Settings';
+// import SettingsScreen from './pages/Settings';
 
 const HomeStack = createStackNavigator();
 
@@ -20,16 +20,16 @@ function HomeStackScreen() {
   );
 }
 
-const SettingsStack = createStackNavigator();
+// const SettingsStack = createStackNavigator();
 
-function SettingsStackScreen() {
-  return (
-    <SettingsStack.Navigator headerMode="none">
-      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
-      <SettingsStack.Screen name="Details" component={DetailsScreen} />
-    </SettingsStack.Navigator>
-  );
-}
+// function SettingsStackScreen() {
+//   return (
+//     <SettingsStack.Navigator headerMode="none">
+//       <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+//       <SettingsStack.Screen name="Details" component={DetailsScreen} />
+//     </SettingsStack.Navigator>
+//   );
+// }
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -69,7 +69,7 @@ export default function App() {
         />
         <Tab.Screen
           name="Search"
-          component={SettingsStackScreen}
+          component={HomeStackScreen}
           options={{
             tabBarLabel: 'Pesquisa',
             tabBarIcon: ({ color }) => <Icon name="library-books" color={color} size={20} />
