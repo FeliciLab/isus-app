@@ -1,5 +1,5 @@
 {
-  "name": "isusapp",
+  "name": "iSUS",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -44,6 +44,7 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0",
+    "react-native-rename": "^2.4.1",
     "react-test-renderer": "16.11.0"
   },
   "jest": {

@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'isusapp' do
-  # Pods for isusapp
+target 'iSUS' do
+  # Pods for iSUS
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'isusapp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'isusappTests' do
+  target 'iSUSTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +94,10 @@ target 'isusapp' do
   end
 end
 
-target 'isusapp-tvOS' do
-  # Pods for isusapp-tvOS
+target 'iSUS-tvOS' do
+  # Pods for iSUS-tvOS
 
-  target 'isusapp-tvOSTests' do
+  target 'iSUS-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
