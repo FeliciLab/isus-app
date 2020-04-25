@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import HomeScreen from './pages/Home';
 import DetailsScreen from './pages/Details';
@@ -30,22 +31,23 @@ function SettingsStackScreen() {
   );
 }
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor: '#4CAF50'
-        }}
+        initialRouteName="Home"
+        activeColor="#4CAF50"
+        inactiveColor="#828282"
+        barStyle={{ backgroundColor: '#fff' }}
       >
         <Tab.Screen
           name="Home"
           component={HomeStackScreen}
           options={{
             tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => <Icon name="home" color={color} size={size} />
+            tabBarIcon: ({ color }) => <Icon name="home" color={color} size={20} />
           }}
         />
         <Tab.Screen
@@ -53,7 +55,7 @@ export default function App() {
           component={HomeStackScreen}
           options={{
             tabBarLabel: 'Minha Saúde',
-            tabBarIcon: ({ color, size }) => <Icon name="heart" color={color} size={size} />
+            tabBarIcon: ({ color }) => <Icon name="heart" color={color} size={20} />
           }}
         />
 
@@ -62,9 +64,7 @@ export default function App() {
           component={HomeStackScreen}
           options={{
             tabBarLabel: 'Educação',
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="book-multiple-variant" color={color} size={size} />
-            )
+            tabBarIcon: ({ color }) => <Icon name="book-multiple-variant" color={color} size={20} />
           }}
         />
         <Tab.Screen
@@ -72,7 +72,7 @@ export default function App() {
           component={SettingsStackScreen}
           options={{
             tabBarLabel: 'Pesquisa',
-            tabBarIcon: ({ color, size }) => <Icon name="library-books" color={color} size={size} />
+            tabBarIcon: ({ color }) => <Icon name="library-books" color={color} size={20} />
           }}
         />
       </Tab.Navigator>
