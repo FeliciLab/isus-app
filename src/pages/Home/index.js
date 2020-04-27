@@ -7,16 +7,24 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function HomeScreen() {
   return (
-    <View>
+    <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <View style={styles.headerTop}>
-        <Title>iSUS</Title>
+        <View style={{ flexDirection: 'row' }}>
+          <Icon
+            style={{ alignSelf: 'center', marginHorizontal: 5 }}
+            name="heart"
+            size={26}
+            color="#106839"
+          />
+          <Title>iSUS</Title>
+        </View>
 
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity style={{ marginHorizontal: 10 }}>
             <Icon name="magnify" size={26} color="#111" />
           </TouchableOpacity>
           <TouchableOpacity>
-            <Icon name="dots-vertical" size={28} color="#111" />
+            <Icon name="menu" size={28} color="#111" />
           </TouchableOpacity>
         </View>
       </View>
