@@ -1,4 +1,10 @@
 {
-  "name": "iSUS",
-  "displayName": "iSUS"
+  "name": "isusapp",
+  "displayName": "isusapp",
+  "ios": {
+    "bundleIdentifier": "com.esp.isus"
+  },
+  "android": {
+    "package": "com.esp.isus"
+  }
 }
