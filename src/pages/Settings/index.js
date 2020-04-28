@@ -6,8 +6,10 @@ import {
   Title, Card, Caption, Headline, Paragraph
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <View style={styles.headerTop}>
@@ -25,7 +27,11 @@ export default function HomeScreen() {
           <TouchableOpacity style={{ marginHorizontal: 10 }}>
             <Icon name="magnify" size={26} color="#111" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.toggleDrawer();
+            }}
+          >
             <Icon name="menu" size={28} color="#111" />
           </TouchableOpacity>
         </View>

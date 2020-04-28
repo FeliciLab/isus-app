@@ -3,12 +3,38 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList
+} from '@react-navigation/drawer';
+import { Headline } from 'react-native-paper';
 
+// import { View } from 'react-native';
+import { View } from 'react-native';
 import HomeScreen from './pages/Home';
 import DetailsScreen from './pages/Details';
 import SettingsScreen from './pages/Settings';
 
 const HomeStack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <View style={{ flexDirection: 'row' }}>
+        <Icon
+          style={{ alignSelf: 'center', marginHorizontal: 5 }}
+          name="heart"
+          size={35}
+          color="#106839"
+        />
+        <Headline>iSUS</Headline>
+      </View>
+      <DrawerItemList {...props} />
+    </DrawerContentScrollView>
+  );
+}
 
 function HomeStackScreen() {
   return (
@@ -19,14 +45,55 @@ function HomeStackScreen() {
   );
 }
 
-const SettingsStack = createStackNavigator();
+// const SettingsStack = createStackNavigator();
 
 function SettingsStackScreen() {
   return (
-    <SettingsStack.Navigator headerMode="none">
-      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
-      <SettingsStack.Screen name="Details" component={DetailsScreen} />
-    </SettingsStack.Navigator>
+    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="heart" size={20} />
+        }}
+        Icon="home"
+        name="SUSI"
+        component={SettingsScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="bookmark" size={20} />
+        }}
+        name="Favoritos"
+        component={DetailsScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="bell" size={20} />
+        }}
+        name="Alertas"
+        component={DetailsScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="account-circle" size={20} />
+        }}
+        name="Perfil"
+        component={DetailsScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="settings" size={20} />
+        }}
+        name="Configurações"
+        component={DetailsScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: () => <Icon name="information" size={20} />
+        }}
+        name="Sobre o iSUS"
+        component={DetailsScreen}
+      />
+    </Drawer.Navigator>
   );
 }
 
