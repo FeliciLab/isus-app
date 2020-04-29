@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ImageBackground,
   View, Text, Image, StatusBar, SafeAreaView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +11,7 @@ import intro2 from '../../assets/images/intro2.png';
 import intro3 from '../../assets/images/intro3.png';
 import intro4 from '../../assets/images/intro4.png';
 import intro5 from '../../assets/images/intro5.png';
-
+import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 export default function Welcome() {
   const navigation = useNavigation();
 
@@ -79,12 +80,10 @@ export default function Welcome() {
 
   return (
     <>
-        <StatusBar translucent backgroundColor="transparent" />
-        <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar translucent backgroundColor="transparent" />
+      <SafeAreaView style={{ flex: 1 }}>
+          <ImageBackground source={tutorialbackground} style={{flex: 1, resizeMode: 'cover', justifyContent: 'center'}}>
             <AppIntroSlider
-              style={{
-                backgroundColor: '#4CAF50'
-              }}
               KeyExtractor={item => item.key}
               renderItem={renderItem}
               data={data}
@@ -95,7 +94,8 @@ export default function Welcome() {
               onSkip={moveToHome}
               onDone={moveToHome}
             />
-        </SafeAreaView>
+          </ImageBackground>
+      </SafeAreaView>
     </>
   );
 }
