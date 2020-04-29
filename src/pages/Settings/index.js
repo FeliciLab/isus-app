@@ -52,7 +52,7 @@ export default function HomeScreen() {
           <Title style={{ marginHorizontal: 30 }}>Destaques do dia</Title>
           <Card style={{ margin: 30 }}>
             <View>
-              <View style={{ height: 200, width: 350, backgroundColor: '#cccccc' }} />
+              <View style={{ height: 200, backgroundColor: '#cccccc' }} />
               <View style={{ padding: 15 }}>
                 <Headline>COVID-19</Headline>
                 <Paragraph>body</Paragraph>
@@ -66,7 +66,7 @@ export default function HomeScreen() {
           <Title style={{ marginHorizontal: 30 }}>Painel IntegraSUS</Title>
           <Card style={{ margin: 30 }}>
             <View>
-              <View style={{ height: 200, width: 350, backgroundColor: '#cccccc' }} />
+              <View style={{ height: 200, backgroundColor: '#cccccc' }} />
               <View style={{ padding: 15 }}>
                 <Headline>COVID-19</Headline>
                 <Paragraph>body</Paragraph>
