@@ -12,7 +12,9 @@
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/bottom-tabs": "^5.2.7",
+    "@react-navigation/drawer": "^5.5.1",
     "@react-navigation/material-bottom-tabs": "^5.1.9",
+    "@react-navigation/material-top-tabs": "^5.1.10",
     "@react-navigation/native": "^5.1.4",
     "@react-navigation/stack": "^5.2.9",
     "axios": "^0.19.2",
@@ -25,6 +27,7 @@
     "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
+    "react-native-tab-view": "^2.14.0",
     "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {

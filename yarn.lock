@@ -1131,10 +1131,25 @@
     react-is "^16.13.0"
     use-subscription "^1.4.0"
 
+"@react-navigation/drawer@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@react-navigation/drawer/-/drawer-5.5.1.tgz#f18da67b8528466d4aafd4e1f92b8b8e06c6f26d"
+  integrity sha512-LYgaS7bzyg6vphDLChQlUcyq3UmHl9OJlZa6HFogiZzNVW5pqNbJC5qUlL8Gw8pcH1FpJTUGW6/w4lKOxIGY5w==
+  dependencies:
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 "@react-navigation/material-bottom-tabs@^5.1.9":
   version "5.1.9"
   resolved "https://registry.yarnpkg.com/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-5.1.9.tgz#e309ce9e2612a99423be4c036e8871c8563bcd8d"
   integrity sha512-rXvKltzZ2M/0fHwJbL+HH54QvA1dkS4exy+gIcAb7wJ7pUVqhVTTQYNhPDNRU2M4n90irRg2LuvnWpR+CSH1gg==
+
+"@react-navigation/material-top-tabs@^5.1.10":
+  version "5.1.10"
+  resolved "https://registry.yarnpkg.com/@react-navigation/material-top-tabs/-/material-top-tabs-5.1.10.tgz#4859c701285741c8851c6ee7a01512566319411d"
+  integrity sha512-TXwTwGFsnhBS56/uEQ7ZReBJvVQ9kJ5qPh/+vqJevAGMr8bEUJw5SSfVlcguJEzj40dMmmQvQGOYrDbEuvigvQ==
+  dependencies:
+    color "^3.1.2"
 
 "@react-navigation/native@^5.1.4":
   version "5.1.6"
@@ -6338,6 +6353,11 @@ react-native-screens@^2.4.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.7.0.tgz#2d3cf3c39a665e9ca1c774264fccdb90e7944047"
   integrity sha512-n/23IBOkrTKCfuUd6tFeRkn3lB2QZ3cmvoubRscR0JU/Zl4/ZyKmwnFmUv1/Fr+2GH/H8UTX59kEKDYYg3dMgA==
+
+react-native-tab-view@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-2.14.0.tgz#dd801f82fdb8e92fce9688b78d13923f3a5a2b3f"
+  integrity sha512-Z7XAM3NsMB96c17e9EAveunk7SUgilXWwVUTmWI1u/+p2SeOMUOB87z+//UXrcVlD1e9BPweR73q7dq7krTzTg==
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
