@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-navigation/bottom-tabs": "^5.2.7",
     "@react-navigation/drawer": "^5.5.1",
@@ -21,6 +22,7 @@
     "intl": "^1.2.5",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-app-intro-slider": "^4.0.2",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-paper": "^3.8.0",
     "react-native-reanimated": "^1.7.1",

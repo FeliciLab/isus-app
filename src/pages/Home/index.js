@@ -7,9 +7,21 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const redirectToWelcome = async () => {
+    const item = await AsyncStorage.getItem('@show-tutorial');
+    const resp = JSON.parse(item);
+    if (resp !== false) {
+      return navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }]
+      });
+    }
+  };
+  redirectToWelcome();
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <View style={styles.headerTop}>
