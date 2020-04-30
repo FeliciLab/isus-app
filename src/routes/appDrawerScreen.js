@@ -5,12 +5,14 @@ import {
   DrawerContentScrollView,
   DrawerItemList
 } from '@react-navigation/drawer';
+
+import { createStackNavigator } from '@react-navigation/stack';
 import { Headline } from 'react-native-paper';
 
 import { View } from 'react-native';
 import DetailsScreen from '../pages/Details';
 import HomeScreen from '../pages/Home';
-
+import about from '../pages/Settings/about';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +30,15 @@ function CustomDrawerContent(props) {
       </View>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>
+  );
+}
+
+const AboutStack = createStackNavigator();
+function aboutStackScreen() {
+  return (
+    <AboutStack.Navigator headerMode="none">
+      <AboutStack.Screen name="App" component={about} />
+    </AboutStack.Navigator>
   );
 }
 
@@ -75,7 +86,7 @@ export default function appDrawerScreen() {
           drawerIcon: () => <Icon name="information" size={20} />
         }}
         name="Sobre o iSUS"
-        component={DetailsScreen}
+        component={aboutStackScreen}
       />
     </Drawer.Navigator>
   );

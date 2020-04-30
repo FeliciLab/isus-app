@@ -70,7 +70,7 @@ export default function HomeScreen() {
       </View>
 
       <ScrollView style={{ flex: 1 }}>
-        <Card style={{ margin: 30 }}>
+        <Card onPress={() => navigation.navigate('teste')} style={{ margin: 30 }}>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ height: 120, width: 120, backgroundColor: '#cccccc' }} />
             <View style={{ marginHorizontal: 15 }}>
