@@ -1,7 +1,5 @@
 import * as React from 'react';
-import {
-  StyleSheet, View, TouchableOpacity, ScrollView, Linking
-} from 'react-native';
+import { View, ScrollView, Linking } from 'react-native';
 import {
   Title, Card, Caption, Headline, Paragraph
 } from 'react-native-paper';
@@ -11,7 +9,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-  const redirectToWelcome = async () => {
+
+  async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
     const resp = JSON.parse(item);
     if (resp !== false) {
@@ -20,35 +19,12 @@ export default function HomeScreen() {
         routes: [{ name: 'Welcome' }]
       });
     }
-  };
+    return null;
+  }
+
   redirectToWelcome();
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View style={styles.headerTop}>
-        <View style={{ flexDirection: 'row' }}>
-          <Icon
-            style={{ alignSelf: 'center', marginHorizontal: 5 }}
-            name="heart"
-            size={26}
-            color="#106839"
-          />
-          <Title>iSUS</Title>
-        </View>
-
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={{ marginHorizontal: 10 }}>
-            <Icon name="magnify" size={26} color="#111" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.toggleDrawer();
-            }}
-          >
-            <Icon name="menu" size={28} color="#111" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
       <View style={{ flexDirection: 'row', padding: 20, justifyContent: 'space-evenly' }}>
         <Card
           style={{
@@ -123,13 +99,3 @@ export default function HomeScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  headerTop: {
-    paddingHorizontal: 10,
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  }
-});
