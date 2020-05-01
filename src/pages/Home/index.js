@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { View, ScrollView, Linking } from 'react-native';
 import {
-  Title, Card, Caption, Headline, Paragraph
+  View, ScrollView, Linking, Dimensions
+} from 'react-native';
+import {
+  Title, Card, Caption, Headline
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -23,79 +25,99 @@ export default function HomeScreen() {
   }
 
   redirectToWelcome();
-  return (
-    <View style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View style={{ flexDirection: 'row', padding: 20, justifyContent: 'space-evenly' }}>
-        <Card
-          style={{
-            padding: 10,
-            height: 120,
-            width: 120,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-          onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/')}
-        >
-          <Icon style={{ alignSelf: 'center' }} name="stethoscope" size={40} color="#111" />
-          <Caption style={{ textAlign: 'center' }}>Visite o site do Profissional de Saúde</Caption>
-        </Card>
 
-        <Card
-          style={{
-            padding: 10,
-            height: 120,
-            width: 120,
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
+  function HomeCard({ onPress, icon, title }) {
+    return (
+      <Card
+        style={{
+          marginVertical: 10,
+          padding: 6,
+          height: Dimensions.get('window').width / 3.3,
+          width: Dimensions.get('window').width / 3.3,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+        onPress={onPress}
+      >
+        <Icon style={{ alignSelf: 'center' }} name={icon} size={40} color="#111" />
+        <Caption style={{ textAlign: 'center', fontSize: 10 }}>{title}</Caption>
+      </Card>
+    );
+  }
+
+  return (
+    <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+      <View style={{ flexDirection: 'row', padding: 10, justifyContent: 'space-evenly' }}>
+        <HomeCard
+          title="Visite o site do Profissional de Saúde"
+          icon="stethoscope"
+          onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/')}
+        />
+        <HomeCard
+          title="Visite o nosso Sistema Central de Ventiladores"
+          icon="clipboard-plus"
           onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
-        >
-          <Icon style={{ alignSelf: 'center' }} name="clipboard-plus" size={40} color="#111" />
-          <Caption style={{ textAlign: 'center' }}>
-            Visite o nosso Sistema Central de Ventiladores
-          </Caption>
-        </Card>
+        />
+
+        <HomeCard
+          title="Visite o nosso Sistema Central de Ventiladores"
+          icon="clipboard-plus"
+          onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
+        />
       </View>
 
-      <ScrollView style={{ flex: 1 }}>
-        <Card onPress={() => navigation.navigate('teste')} style={{ margin: 30 }}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={{ height: 120, width: 120, backgroundColor: '#cccccc' }} />
-            <View style={{ marginHorizontal: 15 }}>
-              <Headline>COVID-19</Headline>
-              <Caption style={{ maxWidth: 200 }}>Encontre informações do COVID-19 aqui!</Caption>
-            </View>
+      <Title>Sistema</Title>
+      <View
+        style={{
+          flexDirection: 'row',
+          padding: 10,
+          justifyContent: 'space-evenly',
+          flexWrap: 'wrap'
+        }}
+      >
+        <HomeCard
+          title="Visite o site do Profissional de Saúde"
+          icon="stethoscope"
+          onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/')}
+        />
+        <HomeCard
+          title="Visite o nosso Sistema Central de Ventiladores"
+          icon="clipboard-plus"
+          onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
+        />
+
+        <HomeCard
+          title="Visite o nosso Sistema Central de Ventiladores"
+          icon="clipboard-plus"
+          onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
+        />
+        <HomeCard
+          title="Visite o site do Profissional de Saúde"
+          icon="stethoscope"
+          onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/')}
+        />
+        <HomeCard
+          title="Visite o nosso Sistema Central de Ventiladores"
+          icon="clipboard-plus"
+          onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
+        />
+
+        <HomeCard
+          title="Visite o nosso Sistema Central de Ventiladores"
+          icon="clipboard-plus"
+          onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
+        />
+      </View>
+
+      <Card onPress={() => navigation.navigate('teste')} style={{ margin: 30 }}>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ height: 120, width: 120, backgroundColor: '#cccccc' }} />
+          <View style={{ marginHorizontal: 15 }}>
+            <Headline>COVID-19</Headline>
+            <Caption style={{ maxWidth: 200 }}>Encontre informações do COVID-19 aqui!</Caption>
           </View>
-        </Card>
-
-        <View>
-          <Title style={{ marginHorizontal: 30 }}>Destaques do dia</Title>
-          <Card style={{ margin: 30 }}>
-            <View>
-              <View style={{ height: 200, backgroundColor: '#cccccc' }} />
-              <View style={{ padding: 15 }}>
-                <Headline>COVID-19</Headline>
-                <Paragraph>body</Paragraph>
-                <Caption>Encontre informações do COVID-19 aqui!</Caption>
-              </View>
-            </View>
-          </Card>
         </View>
-
-        <View>
-          <Title style={{ marginHorizontal: 30 }}>Painel IntegraSUS</Title>
-          <Card style={{ margin: 30 }}>
-            <View>
-              <View style={{ height: 200, backgroundColor: '#cccccc' }} />
-              <View style={{ padding: 15 }}>
-                <Headline>COVID-19</Headline>
-                <Paragraph>body</Paragraph>
-                <Caption>Encontre informações do COVID-19 aqui!</Caption>
-              </View>
-            </View>
-          </Card>
-        </View>
-      </ScrollView>
-    </View>
+      </Card>
+    </ScrollView>
   );
 }

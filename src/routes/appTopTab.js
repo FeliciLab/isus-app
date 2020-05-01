@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Education from '../pages/Education';
 import { getCategoriasData } from '../apis/apiHome';
+// import ProjetosPorCategoria from '../pages/ProjetosPorCategoria';
 
 const EducationTab = createMaterialTopTabNavigator();
 export default function EducationTabScreen() {
