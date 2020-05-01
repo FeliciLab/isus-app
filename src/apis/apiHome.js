@@ -1,9 +1,9 @@
 import request from '../services/request';
 
-export function getHomeDAta() {
-  return request.get('/algumacoisa/data');
+export function getCategoriasArquitetura() {
+  return request.get('/categoriasArquitetura');
 }
 
-export function getCategoriasData() {
-  return request.get('/categorias');
+export function getProjetosPorCategoria(id) {
+  return request.get(`/projetosPorCategoria/${id}`);
 }
