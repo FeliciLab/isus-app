@@ -19,32 +19,32 @@ export default function Welcome() {
   const data = [
     {
       key: 'slide-1',
-      title: 'Slogan do App',
-      description: 'Texto explicando o objetivo do aplicativo em geral e seu valor pro usuário',
+      title: 'Bem-vindo ao iSUS',
+      description: 'Encontre informações, serviços e oportunidades, para otimizar seu tempo e apoiar a tomada de decisões baseadas em evidências científicas.',
       img: intro1
     },
     {
       key: 'slide-2',
       title: 'SUSi',
-      description: 'Texto explicando o que o usuário vai encontrar nessa seção',
+      description: 'Interaja com a assistente digital do SUS e receba os conteúdos de forma direcionada, tenha respostas para suas dúvidas e espaço para suas críticas e sugestões sobre o SUS.',
       img: intro2
     },
     {
       key: 'slide-3',
       title: 'Minha Saúde',
-      description: 'Texto explicando o que o usuário vai encontrar nessa seção',
+      description: 'Receba dicas especializadas de como cuidar de sua saúde física e mental, e de como se proteger em situações de atendimento emergencial.',
       img: intro3
     },
     {
       key: 'slide-4',
       title: 'Educação',
-      description: 'Texto explicando o que o usuário vai encontrar nessa seção',
+      description: 'Guias, artigos, palestras, webconferências e outras centenas de materiais produzidos para fortalecer a educação permanente em saúde.',
       img: intro4
     },
     {
       key: 'slide-5',
       title: 'Pesquisa',
-      description: 'Texto explicando o que o usuário vai encontrar nessa seção',
+      description: 'Saiba tudo sobre as chamadas públicas, editais, ensaios clínicos e todas as atualizações no campo da pesquisa e produção de conhecimento.',
       img: intro5
     }
   ];
