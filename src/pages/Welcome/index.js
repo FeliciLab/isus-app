@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   ImageBackground, View, Text, Image, StatusBar, SafeAreaView
 } from 'react-native';
@@ -46,35 +46,39 @@ export default function Welcome() {
       title: 'Pesquisa',
       description: 'Texto explicando o que o usuário vai encontrar nessa seção',
       img: intro5
-    },
+    }
   ];
 
   const renderItem = ({ item }) => (
-        <View style={{
-          flex: 1,
-          justifyContent: 'center'
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center'
+      }}
+    >
+      <Image style={{ alignSelf: 'center' }} source={item.img} />
+      <Text style={{ color: '#F2F2F2', textAlign: 'center', fontSize: 34 }}>{item.title}</Text>
+      <Text
+        style={{
+          alignSelf: 'center',
+          color: '#FFFFFF',
+          textAlign: 'center',
+          fontSize: 18,
+          maxWidth: 278
         }}
-        >
-            <Image style={{ alignSelf: 'center' }} source={item.img} />
-            <Text style={{ color: '#F2F2F2', textAlign: 'center', fontSize: 34 }}>
-                {item.title}
-            </Text>
-            <Text style={{
-              alignSelf: 'center', color: '#FFFFFF', textAlign: 'center', fontSize: 18, maxWidth: 278
-            }}
-            >
-                {item.description}
-            </Text>
-        </View>
+      >
+        {item.description}
+      </Text>
+    </View>
   );
 
   const renderNextButton = () => (
     <View>
-        <Entypo name="chevron-small-right" size={40} color="#FFFFFF" />
+      <Entypo name="chevron-small-right" size={40} color="#FFFFFF" />
     </View>
   );
 
-  const moveToHome = async () => {
+  async function moveToHome() {
     try {
       await AsyncStorage.setItem('@show-tutorial', 'false');
       return navigation.reset({
@@ -84,25 +88,29 @@ export default function Welcome() {
     } catch (e) {
       console.log(e);
     }
-  };
+    return null;
+  }
 
   return (
     <>
       <StatusBar translucent backgroundColor="transparent" />
       <SafeAreaView style={{ flex: 1 }}>
-          <ImageBackground source={tutorialbackground} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
-            <AppIntroSlider
-              KeyExtractor={item => item.key}
-              renderItem={renderItem}
-              data={data}
-              showSkipButton
-              skipLabel="Pular Tutorial"
-              renderDoneButton={renderNextButton}
-              renderNextButton={renderNextButton}
-              onSkip={moveToHome}
-              onDone={moveToHome}
-            />
-          </ImageBackground>
+        <ImageBackground
+          source={tutorialbackground}
+          style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
+        >
+          <AppIntroSlider
+            KeyExtractor={item => item.key}
+            renderItem={renderItem}
+            data={data}
+            showSkipButton
+            skipLabel="Pular Tutorial"
+            renderDoneButton={renderNextButton}
+            renderNextButton={renderNextButton}
+            onSkip={moveToHome}
+            onDone={moveToHome}
+          />
+        </ImageBackground>
       </SafeAreaView>
     </>
   );

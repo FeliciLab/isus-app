@@ -6,13 +6,14 @@ import {
   DrawerItemList
 } from '@react-navigation/drawer';
 
-import { createStackNavigator } from '@react-navigation/stack';
 import { Headline } from 'react-native-paper';
 
 import { View } from 'react-native';
 import DetailsScreen from '../pages/Details';
-import HomeScreen from '../pages/Home';
-import about from '../pages/Settings/about';
+// import HomeScreen from '../pages/Home';
+// import about from '../pages/Settings/about';
+
+import AppTab from './appBottomTab';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,15 +34,6 @@ function CustomDrawerContent(props) {
   );
 }
 
-const AboutStack = createStackNavigator();
-function aboutStackScreen() {
-  return (
-    <AboutStack.Navigator headerMode="none">
-      <AboutStack.Screen name="App" component={about} />
-    </AboutStack.Navigator>
-  );
-}
-
 export default function appDrawerScreen() {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
@@ -51,7 +43,7 @@ export default function appDrawerScreen() {
         }}
         Icon="home"
         name="SUSI"
-        component={HomeScreen}
+        component={AppTab}
       />
       <Drawer.Screen
         options={{
@@ -86,7 +78,7 @@ export default function appDrawerScreen() {
           drawerIcon: () => <Icon name="information" size={20} />
         }}
         name="Sobre o iSUS"
-        component={aboutStackScreen}
+        component={DetailsScreen}
       />
     </Drawer.Navigator>
   );

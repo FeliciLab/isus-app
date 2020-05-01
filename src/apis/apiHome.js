@@ -4,4 +4,6 @@ export function getHomeDAta() {
   return request.get('/algumacoisa/data');
 }
 
-export function teste() {}
+export function getCategoriasData() {
+  return request.get('/categorias');
+}
