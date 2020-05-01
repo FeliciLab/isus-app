@@ -9,7 +9,7 @@ import {
 import { Headline } from 'react-native-paper';
 
 import { View } from 'react-native';
-import DetailsScreen from '../pages/Details';
+// import DetailsScreen from '../pages/Details';
 // import HomeScreen from '../pages/Home';
 // import about from '../pages/Settings/about';
 
@@ -45,7 +45,7 @@ export default function appDrawerScreen() {
         name="SUSI"
         component={AppTab}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         options={{
           drawerIcon: () => <Icon name="bookmark" size={20} />
         }}
@@ -79,7 +79,7 @@ export default function appDrawerScreen() {
         }}
         name="Sobre o iSUS"
         component={DetailsScreen}
-      />
+      /> */}
     </Drawer.Navigator>
   );
 }

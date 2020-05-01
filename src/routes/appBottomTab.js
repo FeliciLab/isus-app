@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import EducationTab from './appTopTab';
-import SettingsStackScreen from '../pages/Settings';
+// import SettingsStackScreen from '../pages/Settings';
 
 import HomeScreen from '../pages/Home';
 
@@ -93,14 +93,14 @@ export default function AppTabScreen() {
           tabBarIcon: ({ color }) => <Icon name="home" color={color} size={20} />
         }}
       />
-      <AppTab.Screen
+      {/* <AppTab.Screen
         name="Health"
         component={SettingsStackScreen}
         options={{
           tabBarLabel: 'Minha Saúde',
           tabBarIcon: ({ color }) => <Icon name="heart" color={color} size={20} />
         }}
-      />
+      /> */}
 
       <AppTab.Screen
         name="Education"
@@ -110,14 +110,14 @@ export default function AppTabScreen() {
           tabBarIcon: ({ color }) => <Icon name="book-multiple-variant" color={color} size={20} />
         }}
       />
-      <AppTab.Screen
+      {/* <AppTab.Screen
         name="Search"
         component={SettingsStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Icon name="library-books" color={color} size={20} />
         }}
-      />
+      /> */}
     </AppTab.Navigator>
   );
 }
