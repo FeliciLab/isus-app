@@ -93,12 +93,11 @@ export default function Welcome() {
 
   return (
     <>
-      <StatusBar translucent backgroundColor="transparent" />
-      <SafeAreaView style={{ flex: 1 }}>
-        <ImageBackground
-          source={tutorialbackground}
-          style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
-        >
+      <ImageBackground
+        source={tutorialbackground}
+        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+        <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+        <SafeAreaView style={{ flex: 1 }}>
           <AppIntroSlider
             KeyExtractor={item => item.key}
             renderItem={renderItem}
@@ -110,8 +109,8 @@ export default function Welcome() {
             onSkip={moveToHome}
             onDone={moveToHome}
           />
-        </ImageBackground>
-      </SafeAreaView>
+        </SafeAreaView>
+      </ImageBackground>
     </>
   );
 }
