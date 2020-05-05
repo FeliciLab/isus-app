@@ -26,40 +26,81 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
-  function HomeCard({ onPress, icon, title }) {
+  function HomeCard({
+    onPress, icon, iconSize, title, width, height
+  }) {
     return (
       <Card
         style={{
           // marginVertical: 10,
+          marginHorizontal: 5,
           padding: 4,
-          height: Dimensions.get('window').width / 4.3,
-          width: Dimensions.get('window').width / 4.3,
+          height: Dimensions.get('window').width / (width || 4.5),
+          width: Dimensions.get('window').width / (height || 4.5),
           justifyContent: 'center',
-          alignItems: 'center',
           borderColor: '#111',
           borderWidth: 0.2
         }}
         onPress={onPress}
       >
-        <Icon style={{ alignSelf: 'center' }} name={icon} size={40} color="#111" />
-        <Caption style={{ textAlign: 'center', fontSize: 8 }}>{title}</Caption>
+        <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
+          <Icon name={icon} size={iconSize || 40} color="#111" />
+        </View>
+        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
       </Card>
     );
   }
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+       <View
+         style={{
+           flexDirection: 'row',
+           justifyContent: 'space-evenly',
+           marginVertical: 20,
+           marginHorizontal: 11
+         }}
+       >
+        <HomeCard
+          title="Minha Saúde"
+          icon="heart"
+          width={3.3}
+          height={3.3}
+          iconSize={60}
+          onPress={() => Linking.openURL('https://integrasus.saude.ce.gov.br')}
+        />
+        <HomeCard
+          title="Central de Ventiladores"
+          icon="clipboard-plus"
+          width={3.3}
+          height={3.3}
+          iconSize={60}
+          onPress={() => Linking.openURL('https://gestao-ventiladores.dev.org.br/')}
+        />
+
+        <HomeCard
+          title="TeleMedicina"
+          icon="wechat"
+          width={3.3}
+          height={3.3}
+          iconSize={60}
+          onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/isus/telemedicina')}
+        />
+
+       </View>
       <Title style={{ margin: 15 }}>Serviços</Title>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          marginVertical: 20
+          marginVertical: 20,
+          marginHorizontal: 11
         }}
       >
         <HomeCard
           title="IntegraSUS"
-          icon="map-marker"
+          icon="heart"
+          iconSize={40}
           onPress={() => Linking.openURL('https://integrasus.saude.ce.gov.br')}
         />
         <HomeCard
@@ -85,7 +126,8 @@ export default function HomeScreen() {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          marginVertical: 20
+          marginVertical: 20,
+          marginHorizontal: 16
         }}
       >
         <HomeCard

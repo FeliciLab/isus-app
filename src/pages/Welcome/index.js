@@ -95,7 +95,8 @@ export default function Welcome() {
     <>
       <ImageBackground
         source={tutorialbackground}
-        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
+      >
         <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
         <SafeAreaView style={{ flex: 1 }}>
           <AppIntroSlider
