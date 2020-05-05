@@ -20,18 +20,24 @@ function HomeStackScreen() {
         component={HomeScreen}
         options={{
           headerStyle: {
-            backgroundColor: '#4CAF50',
+            backgroundColor: '#4CAF50'
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',
           headerTitle: 'iSUS',
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity style={{
+              marginHorizontal: 19
+            }}
+            >
               <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
           ),
           headerLeft: () => (
             <TouchableOpacity
+              style={{
+                marginHorizontal: 19
+              }}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
@@ -57,18 +63,24 @@ function EducationStackScreen() {
           headerStyle: {
             backgroundColor: '#4CAF50',
             elevation: 0,
-            shadowOpacity: 0
+            shadowOpacity: 0,
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',
           headerTitle: 'Educação Permanente',
           headerRight: () => (
-            <TouchableOpacity>
+            <TouchableOpacity style={{
+              marginHorizontal: 19
+            }}
+            >
               <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
           ),
           headerLeft: () => (
             <TouchableOpacity
+              style={{
+                marginHorizontal: 19
+              }}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
