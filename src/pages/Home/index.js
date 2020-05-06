@@ -30,7 +30,6 @@ export default function HomeScreen() {
     return (
       <Card
         style={{
-          // marginVertical: 10,
           padding: 4,
           height: Dimensions.get('window').width / 4.3,
           width: Dimensions.get('window').width / 4.3,
@@ -150,4 +149,3 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
-
