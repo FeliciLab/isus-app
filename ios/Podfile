@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'iSUS' do
-  # Pods for iSUS
+target 'isusapp' do
+  # Pods for isusapp
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,9 @@ target 'iSUS' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'iSUSTests' do
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+  target 'isusappTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,10 +96,10 @@ target 'iSUS' do
   end
 end
 
-target 'iSUS-tvOS' do
-  # Pods for iSUS-tvOS
+target 'isusapp-tvOS' do
+  # Pods for isusapp-tvOS
 
-  target 'iSUS-tvOSTests' do
+  target 'isusapp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

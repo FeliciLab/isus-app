@@ -5,6 +5,7 @@ module.exports = {
     jest: true,
   },
   rules: {
+    "linebreak-style": 0,
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',
