@@ -11,7 +11,7 @@ import { Headline } from 'react-native-paper';
 import { View } from 'react-native';
 // import DetailsScreen from '../pages/Details';
 // import HomeScreen from '../pages/Home';
-// import about from '../pages/Settings/about';
+import AboutScreen from '../pages/About';
 
 import AppTab from './appBottomTab';
 
@@ -72,14 +72,14 @@ export default function appDrawerScreen() {
         }}
         name="Configurações"
         component={DetailsScreen}
-      />
+      /> */}
       <Drawer.Screen
         options={{
           drawerIcon: () => <Icon name="information" size={20} />
         }}
         name="Sobre o iSUS"
-        component={DetailsScreen}
-      /> */}
+        component={AboutScreen}
+      />
     </Drawer.Navigator>
   );
 }

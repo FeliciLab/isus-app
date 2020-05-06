@@ -49,7 +49,11 @@
       "size" : "60x60"
     },
     {
+<<<<<<< HEAD
+      "filename" : "Icon_iSaude_03.png",
+=======
       "filename" : "icon.png",
+>>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
