@@ -72,14 +72,23 @@ export default function appDrawerScreen() {
         }}
         name="Configurações"
         component={DetailsScreen}
+<<<<<<< HEAD
       /> */}
+=======
+      />
+>>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
       <Drawer.Screen
         options={{
           drawerIcon: () => <Icon name="information" size={20} />
         }}
         name="Sobre o iSUS"
+<<<<<<< HEAD
         component={AboutScreen}
       />
+=======
+        component={DetailsScreen}
+      /> */}
+>>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
     </Drawer.Navigator>
   );
 }

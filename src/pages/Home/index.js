@@ -150,7 +150,6 @@ export default function HomeScreen() {
     </ScrollView>
   );
 }
-<<<<<<< HEAD
 
 const styles = StyleSheet.create({
   headerTop: {
@@ -162,5 +161,4 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
-=======
->>>>>>> Sobre
+

@@ -26,8 +26,15 @@ export default function EducationTabScreen() {
     <EducationTab.Navigator
       tabBarOptions={{
         scrollEnabled: true,
-        labelStyle: { fontSize: 10 },
-        indicatorStyle: { backgroundColor: '#4CAF50' }
+        labelStyle: {
+          fontSize: 14
+        },
+        indicatorStyle: { backgroundColor: '#FFF' },
+        inactiveTintColor: 'rgba(0, 0, 0, 0.54)',
+        activeTintColor: '#FFF',
+        style: {
+          backgroundColor: '#4CAF50'
+        }
       }}
     >
       {categorias.map(item => (

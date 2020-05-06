@@ -19,20 +19,30 @@ function HomeStackScreen() {
         name="App"
         component={HomeScreen}
         options={{
+          headerStyle: {
+            backgroundColor: '#4CAF50'
+          },
+          headerTintColor: '#FFF',
           headerTitleAlign: 'center',
           headerTitle: 'iSUS',
           headerRight: () => (
-            <TouchableOpacity>
-              <Icon name="magnify" size={28} color="#111" />
+            <TouchableOpacity style={{
+              marginHorizontal: 19
+            }}
+            >
+              <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
           ),
           headerLeft: () => (
             <TouchableOpacity
+              style={{
+                marginHorizontal: 19
+              }}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
             >
-              <Icon name="menu" size={28} color="#111" />
+              <Icon name="menu" size={28} color="#FFF" />
             </TouchableOpacity>
           )
         }}
@@ -51,23 +61,31 @@ function EducationStackScreen() {
         component={EducationTab}
         options={{
           headerStyle: {
+            backgroundColor: '#4CAF50',
             elevation: 0,
-            shadowOpacity: 0
+            shadowOpacity: 0,
           },
+          headerTintColor: '#FFF',
           headerTitleAlign: 'center',
           headerTitle: 'Educação Permanente',
           headerRight: () => (
-            <TouchableOpacity>
-              <Icon name="magnify" size={28} color="#111" />
+            <TouchableOpacity style={{
+              marginHorizontal: 19
+            }}
+            >
+              <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
           ),
           headerLeft: () => (
             <TouchableOpacity
+              style={{
+                marginHorizontal: 19
+              }}
               onPress={() => {
                 navigation.toggleDrawer();
               }}
             >
-              <Icon name="menu" size={28} color="#111" />
+              <Icon name="menu" size={28} color="#FFF" />
             </TouchableOpacity>
           )
         }}
