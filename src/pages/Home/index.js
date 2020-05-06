@@ -68,7 +68,7 @@ export default function HomeScreen() {
 
   const sections = [
     {
-      id: 1,
+      id: 'section-1',
       title: 'Minha Saúde',
       logo: 'heart',
       color: '#F2453D',
@@ -76,14 +76,14 @@ export default function HomeScreen() {
       onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
     },
     {
-      id: 2,
+      id: 'section-2',
       title: 'Educação',
       logo: Educacao,
       color: '#4CAF50',
       onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
     },
     {
-      id: 3,
+      id: 'section-3',
       title: 'Pesquisa',
       logo: Pesquisa,
       color: '#4054B2',
@@ -93,25 +93,25 @@ export default function HomeScreen() {
 
   const services = [
     {
-      id: 1,
+      id: 'services-1',
       title: 'IntegraSUS',
       logo: Servico1,
       onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
     },
     {
-      id: 2,
+      id: 'services-2',
       title: 'Central de Ventiladores',
       logo: Servico2,
       onPress: () => Linking.openURL('https://gestao-ventiladores.dev.org.br/')
     },
     {
-      id: 3,
+      id: 'services-3',
       title: 'TeleMedicina',
       logo: Servico3,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/telemedicina')
     },
     {
-      id: 4,
+      id: 'services-4',
       title: 'Mapa da saúde',
       logo: Servico4,
       onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
@@ -120,28 +120,28 @@ export default function HomeScreen() {
 
   const anticoronaActions = [
     {
-      id: 1,
+      id: 'action-1',
       title: 'Boletins',
       logo: 'bulletin-board',
       FontIcon: Icon,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/boletins/')
     },
     {
-      id: 2,
+      id: 'action-2',
       title: 'Notificações de casos',
       logo: 'form',
       FontIcon: antIcon,
       onPress: () => Linking.openURL('https://notifica.saude.gov.br/login')
     },
     {
-      id: 3,
+      id: 'action-3',
       title: 'Farmaco-vigilância',
       logo: 'pills',
       FontIcon: FontAwesome5Icon,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/farmacovigilancia/')
     },
     {
-      id: 4,
+      id: 'action-4',
       title: 'Ações do governo',
       logo: Forca4,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
