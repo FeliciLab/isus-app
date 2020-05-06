@@ -20,32 +20,32 @@ export default function Welcome() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades, para otimizar seu tempo e apoiar a tomada de decisões baseadas em evidências científicas.',
+      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões',
       img: intro1
-    },
-    {
-      key: 'slide-2',
-      title: 'SUSi',
-      description: 'Interaja com a assistente digital do SUS e receba os conteúdos de forma direcionada, tenha respostas para suas dúvidas e espaço para suas críticas e sugestões sobre o SUS.',
-      img: intro2
     },
     {
       key: 'slide-3',
       title: 'Minha Saúde',
-      description: 'Receba dicas especializadas de como cuidar de sua saúde física e mental, e de como se proteger em situações de atendimento emergencial.',
+      description: 'Orientações sobre autocuidado, autoproteção e como preservar sua saúde física e mental',
       img: intro3
     },
     {
       key: 'slide-4',
       title: 'Educação',
-      description: 'Guias, artigos, palestras, webconferências e outras centenas de materiais produzidos para fortalecer a educação permanente em saúde.',
+      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde',
       img: intro4
     },
     {
       key: 'slide-5',
       title: 'Pesquisa',
-      description: 'Saiba tudo sobre as chamadas públicas, editais, ensaios clínicos e todas as atualizações no campo da pesquisa e produção de conhecimento.',
+      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento',
       img: intro5
+    },
+    {
+      key: 'slide-2',
+      title: 'SUSi',
+      description: 'Conheça nossa assistente digital e saiba como ela pode te ajudar a ter respostas para suas dúvidas, críticas e sugestões sobre o Sistema Único de Saúde',
+      img: intro2
     }
   ];
 
@@ -95,7 +95,8 @@ export default function Welcome() {
     <>
       <ImageBackground
         source={tutorialbackground}
-        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
+      >
         <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
         <SafeAreaView style={{ flex: 1 }}>
           <AppIntroSlider
