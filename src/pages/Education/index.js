@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {
-  View, FlatList, Image, Dimensions
+  View, FlatList, Image, Dimensions, TouchableOpacity
 } from 'react-native';
 import { Caption } from 'react-native-paper';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getProjetosPorCategoria } from '../../apis/apiHome';
 
 export default function EducationScreen(props) {
+  const navigation = useNavigation();
   console.tron.log(props);
   const { route } = props;
   const { params } = route;
@@ -28,15 +29,16 @@ export default function EducationScreen(props) {
       data={data}
       numColumns={2}
       keyExtractor={item => item.id}
-      style={{ flex: 1 }}
+      style={{ flex: 1, alignSelf: 'center' }}
       renderItem={({ item }) => (
-        <View
+        <TouchableOpacity
           style={{
             height: 200,
             width: Dimensions.get('window').width / 2.2,
             alignItems: 'center',
             margin: 5
           }}
+          onPress={() => navigation.navigate('Educaçao permanente', { item })}
         >
           <Image
             style={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
@@ -46,18 +48,8 @@ export default function EducationScreen(props) {
           <View style={{ marginHorizontal: 15 }}>
             <Caption numberOfLines={3}>{item.post_title}</Caption>
           </View>
-        </View>
+        </TouchableOpacity>
       )}
     />
-    // <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-    //   <View style={{ margin: 10 }}>
-    //     <Card style={{ height: 200, width: 160 }}>
-    //       <View style={{ height: 110, width: 160, backgroundColor: '#cccccc' }} />
-    //       <View style={{ marginHorizontal: 15 }}>
-    //         <Caption>Encontre informações do COVID-19 aqui!</Caption>
-    //       </View>
-    //     </Card>
-    //   </View>
-    // </ScrollView>
   );
 }
