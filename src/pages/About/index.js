@@ -2,9 +2,7 @@ import React from 'react';
 import {
   View, ScrollView, StyleSheet, TouchableOpacity, Text, Image, Linking
 } from 'react-native';
-import {
-  Title, Card, Caption, Paragraph
-} from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import Uece from '../../assets/images/uece.png';
 import Funcap from '../../assets/images/funcap.png';
 import Felicilab from '../../assets/images/felicilab.png';
