@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "fix": "yarn lint --fix",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -26,10 +27,12 @@
     "react-native-gesture-handler": "^1.6.1",
     "react-native-paper": "^3.8.0",
     "react-native-reanimated": "^1.7.1",
+    "react-native-render-html": "^4.2.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
     "react-native-tab-view": "^2.14.0",
-    "react-native-vector-icons": "^6.6.0"
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-webview": "^9.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
