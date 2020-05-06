@@ -18,21 +18,16 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function AboutScreen() {
     const navigation = useNavigation();
-    const [categorias, setCategorias] = useState([
-        {
-          name: 'Menu',
-          slug: 'Menu',
-          term_group: 0,
-          term_id: 0
-        }
-      ]);
-      console.tron.log(categorias);
-    // async function redirectToWelcome() {
-    //     alert('about')
-    // }
-
-    // redirectToWelcome();
-
+    //array com os icones
+    const listImage = [
+        {icon: Gesad},
+        {icon: Uece},
+        {icon: Funcap},
+        {icon: Felicilab},
+        {icon: Esp},
+        {icon: Governo}
+    ]
+   
     return (
     <View style={{ backgroundColor: '#4CAF50', flex: 1 }}>
         <View style={styles.headerTop}>
@@ -58,64 +53,30 @@ export default function AboutScreen() {
             <View
             style={{
                 flexDirection: 'row',
-                //justifyContent: 'space-evenly',
-                //marginVertical: 20,
-                //backgroundColor: '#E5E5E5',
                 height: 123,
                 marginLeft: 10,
             }}>
-                <Text>
-                    <Image style={{ alignSelf: 'center' }} source={Gesad} />
-                </Text>
-                <Text>
-                    <Image style={{ alignSelf: 'center' }} source={Uece} />                        
-                </Text>
-                <Text>
-                    <Image style={{ alignSelf: 'center' }} source={Funcap} />
-                </Text>
-                <Text>
-                    <Image style={{ alignSelf: 'center' }} source={Felicilab} />
-                </Text>
-                <Text>
-                    <Image style={{ alignSelf: 'center' }} source={Esp} />
-                </Text>                
-                <Text>
-                    <Image style={{ alignSelf: 'center' }} source={Governo} />
-                </Text>
+                {listImage.map( (item, index) => (
+                    <Text>
+                        <Image key={index} source={item.icon} />
+                    </Text>
+                ))}               
             </View>
-            <View
-            style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                marginVertical: 20
-            }}
-            >
+            <View style={styles.textContent}>
                 <Text style={styles.spaceRight}>
                 O iSUS está sendo criado para ser o cinto de utilidades dos Profissionais do Sistema Único de Saúde (SUS) 
                 do Ceará. Desenvolvido em meio à pandemia do novo coronavírus, 
                 responde à importante demanda de relacionamento entre trabalhadores, usuários e gestores do SUS.
                 </Text>
             </View>
-            <View
-            style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                marginVertical: 20
-            }}
-            >
+            <View style={styles.textContent}>
                 <Text style={styles.spaceRight}>
                 Com o objetivo de entregar informações, serviços e oportunidades de forma personalizada e 
                 segura, o iSUS otimiza o tempo e apoia a tomada de decisões baseadas em dados e evidências 
                 científicas na palma da mão dos profissionais.
                 </Text>
             </View>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    marginVertical: 20
-                }}
-            >
+            <View style={styles.textContent}>
                 <Text style={styles.spaceRight}>
                 O projeto é uma das ações da Força Tarefa Digital de Combate ao Coronavírus, iniciativa do 
                 Núcleo de Inovação Tecnológica (NIT) da Escola de Saúde Pública do Ceará (ESP), e conta com 
@@ -136,6 +97,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center'
+    },
+    textContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginVertical: 20
     },
     spaceRight: {
         marginLeft: 20,
