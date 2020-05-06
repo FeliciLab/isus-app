@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
-  View, ScrollView, StyleSheet, TouchableOpacity, Text, Image
+  View, ScrollView, StyleSheet, TouchableOpacity, Text, Image, Linking
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -19,15 +19,17 @@ import { useNavigation } from '@react-navigation/native';
 export default function AboutScreen() {
     const navigation = useNavigation();
     //array com os icones
-    const listImage = [
-        {icon: Gesad},
-        {icon: Uece},
-        {icon: Funcap},
-        {icon: Felicilab},
-        {icon: Esp},
-        {icon: Governo}
-    ]
-   
+    // const listImage = [
+    //     {icon: Gesad},
+    //     {icon: Uece},
+    //     {icon: Funcap},
+    //     {icon: Felicilab},
+    //     {icon: Esp},
+    //     {icon: Governo}
+    // ]
+    function info(){
+        alert('info')
+    }
     return (
     <View style={{ backgroundColor: '#4CAF50', flex: 1 }}>
         <View style={styles.headerTop}>
@@ -56,11 +58,24 @@ export default function AboutScreen() {
                 height: 123,
                 marginLeft: 10,
             }}>
-                {listImage.map( (item, index) => (
-                    <Text>
-                        <Image key={index} source={item.icon} />
-                    </Text>
-                ))}               
+                <Text onPress={() => Linking.openURL('http://www.uece.br/gesad/')}>
+                    <Image source={Gesad}/>
+                </Text> 
+                <Text onPress={() => Linking.openURL('http://www.uece.br/')}>
+                    <Image source={Uece} />
+                </Text>
+                <Text onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}>
+                    <Image source={Funcap} />
+                </Text>
+                <Text onPress={() => Linking.openURL('https://escoladesaudepublica.github.io/#FeliciLab')}>
+                    <Image source={Felicilab} />
+                </Text>
+                <Text onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}>
+                    <Image source={Esp} />
+                </Text>
+                <Text onPress={() => Linking.openURL('https://www.ceara.gov.br/')}>
+                    <Image source={Governo} />
+                </Text>         
             </View>
             <View style={styles.textContent}>
                 <Text style={styles.spaceRight}>
