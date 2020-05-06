@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { View, Image, Dimensions } from 'react-native';
 import { Title } from 'react-native-paper';
-import { WebView } from 'react-native-webview';
+// import { WebView } from 'react-native-webview';
+import HTML from 'react-native-render-html';
 
 export default function DescriptionScreen(props) {
   console.tron.log(props);
@@ -25,7 +26,9 @@ export default function DescriptionScreen(props) {
           width: Dimensions.get('window').width
         }}
       >
-        <WebView originWhitelist={['*']} source={{ html: `${item.content}` }} />
+        <View style={{ padding: 10, alignContent: 'center' }}>
+          <HTML html={item.content} />
+        </View>
       </View>
     </View>
   );
