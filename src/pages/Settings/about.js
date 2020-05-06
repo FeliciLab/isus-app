@@ -20,10 +20,10 @@ export default function HomeScreen() {
         </View>
 
         <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={{ marginHorizontal: 10 }}>
+          <TouchableOpacity style={{ marginHorizontal: 19 }}>
             <Icon name="magnify" size={26} color="#111" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity style={{ marginHorizontal: 19 }}>
             <Icon name="menu" size={28} color="#111" />
           </TouchableOpacity>
         </View>

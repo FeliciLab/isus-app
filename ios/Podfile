@@ -77,6 +77,16 @@ target 'isusapp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+=======
+>>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
+=======
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+>>>>>>> Sobre
   target 'isusappTests' do
     inherit! :complete
     # Pods for testing
