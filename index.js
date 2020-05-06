@@ -5,6 +5,9 @@ import App from './src/App';
 
 import { name as appName } from './app.json';
 
+import('./src/utils/reactotronConfig').then(() => console.log('Reactotron Configured'));
+
+
 const theme = {
   ...DefaultTheme,
   colors: {
