@@ -44,8 +44,6 @@ export default function HomeScreen() {
     return (
       <Card
         style={{
-          // marginVertical: 10,
-          marginHorizontal: 5,
           padding: 4,
           height: Dimensions.get('window').width / (width || 4.5),
           width: Dimensions.get('window').width / (height || 4.5),

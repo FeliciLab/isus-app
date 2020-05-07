@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // import AppTab from './appBottomTab';
-import teste from '../pages/Settings/about';
+import Description from '../pages/Education/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen';
 
@@ -13,10 +13,22 @@ export default function App() {
   return (
     <NavigationContainer>
       <RootStack.Navigator>
-      <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
+        <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="Educaçao permanente"
+          component={Description}
+          options={{
+            headerShown: true,
+            headerTintColor: '#FFF',
+            headerStyle: {
+              backgroundColor: '#4CAF50',
+              elevation: 0,
+              shadowOpacity: 0
+            }
+          }}
+        />
         {/* <RootStack.Screen name="App" component={AppTab} options={{ headerShown: false }} /> */}
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
-        <RootStack.Screen name="teste" component={teste} options={{ headerShown: false }} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
