@@ -30,6 +30,7 @@
     "react-native-render-html": "^4.2.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
+    "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.14.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^9.4.0"
@@ -49,10 +50,12 @@
     "eslint-plugin-react": "7.14.2",
     "husky": "^3.0.9",
     "jest": "^25.2.4",
+    "metro-config": "^0.59.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0",
     "react-native-rename": "^2.4.1",
+    "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "16.11.0",
     "reactotron-react-native": "^5.0.0"
   },

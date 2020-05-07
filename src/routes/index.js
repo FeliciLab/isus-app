@@ -17,7 +17,15 @@ export default function App() {
         <RootStack.Screen
           name="Educaçao permanente"
           component={Description}
-          options={{ headerShown: true }}
+          options={{
+            headerShown: true,
+            headerTintColor: '#FFF',
+            headerStyle: {
+              backgroundColor: '#4CAF50',
+              elevation: 0,
+              shadowOpacity: 0
+            }
+          }}
         />
         {/* <RootStack.Screen name="App" component={AppTab} options={{ headerShown: false }} /> */}
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
