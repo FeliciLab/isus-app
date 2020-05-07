@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Description from '../pages/Education/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen';
+import Buscar from '../pages/Buscar';
 
 const RootStack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
           component={Description}
           options={{ headerShown: true }}
         />
+        <RootStack.Screen name="Buscar" component={Buscar} options={{ headerShown: true }} />
         {/* <RootStack.Screen name="App" component={AppTab} options={{ headerShown: false }} /> */}
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       </RootStack.Navigator>
