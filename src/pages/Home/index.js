@@ -55,7 +55,7 @@ export default function HomeScreen() {
       >
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
           {
-            typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} />
+            typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
 
           }
         </View>
@@ -71,21 +71,21 @@ export default function HomeScreen() {
       logo: 'heart',
       color: '#F2453D',
       FontIcon: Icon,
-      onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
+      onPress: () => navigation.navigate('Health')
     },
     {
       id: 'section-2',
       title: 'Educação',
       logo: Educacao,
       color: '#4CAF50',
-      onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
+      onPress: () => navigation.navigate('Education')
     },
     {
       id: 'section-3',
       title: 'Pesquisa',
       logo: Pesquisa,
       color: '#4054B2',
-      onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
+      onPress: () => navigation.navigate('Search')
     }
   ];
 
@@ -159,6 +159,7 @@ export default function HomeScreen() {
          {
            sections.map(section => (
             <HomeCard
+              key={section.id}
               title={section.title}
               Logo={section.logo}
               width={3.3}
