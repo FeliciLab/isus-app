@@ -28,7 +28,19 @@ export default function App() {
             }
           }}
         />
-        <RootStack.Screen name="Buscar" component={Buscar} options={{ headerShown: true }} />
+        <RootStack.Screen
+          name="Buscar"
+          component={Buscar}
+          options={{
+            headerShown: true,
+            headerTintColor: '#FFF',
+            headerStyle: {
+              backgroundColor: '#4CAF50',
+              elevation: 0,
+              shadowOpacity: 0
+            }
+          }}
+        />
         {/* <RootStack.Screen name="App" component={AppTab} options={{ headerShown: false }} /> */}
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       </RootStack.Navigator>
