@@ -219,7 +219,7 @@ export default function HomeScreen() {
       </View>
 
       <Card
-        onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/manejoclinico/')
+        onPress={() => navigation.navigate('clinical management')
         }
         style={{
           marginVertical: 20,
