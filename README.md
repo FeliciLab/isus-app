@@ -32,3 +32,13 @@ yarn android
 ```bash
   yarn ios
 ```
+
+# Design
+### Design de Interfaces:
+Para consultar o Projeto da Interface, acessar: https://www.figma.com/file/FLKurtBDSBYAiYcS5xAPYC/mockup?node-id=0%3A1
+
+### Design Job Pipeline:
+Para consultar o Controle das Atividades, acessar: https://airtable.com/shrIaMWhqdW48mz5t
+
+### Design Backlog:
+Para consultar o Controle do Backlog do Time de Design, acessar: https://airtable.com/shr5uuRvxUWgMYpQG
