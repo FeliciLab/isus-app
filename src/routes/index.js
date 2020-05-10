@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Description from '../pages/Education/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen';
+import Buscar from '../pages/Buscar';
 
 const RootStack = createStackNavigator();
 
@@ -17,6 +18,19 @@ export default function App() {
         <RootStack.Screen
           name="Educaçao permanente"
           component={Description}
+          options={{
+            headerShown: true,
+            headerTintColor: '#FFF',
+            headerStyle: {
+              backgroundColor: '#4CAF50',
+              elevation: 0,
+              shadowOpacity: 0
+            }
+          }}
+        />
+        <RootStack.Screen
+          name="Buscar"
+          component={Buscar}
           options={{
             headerShown: true,
             headerTintColor: '#FFF',
