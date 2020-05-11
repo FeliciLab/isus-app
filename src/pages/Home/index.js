@@ -92,12 +92,12 @@ export default function HomeScreen() {
       >
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
           {typeof Logo === 'string' ? (
-            <FontIcon name={Logo} size={logoSize || 40} color={color} />
+            <FontIcon name={Logo} size={logoSize || 38} color={color} />
           ) : (
-            <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
+            <Logo color={color} width={logoSize || 38} height={logoSize || 38} />
           )}
         </View>
-        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
+        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 14 }}>{title}</Caption>
       </Card>
     );
   }
