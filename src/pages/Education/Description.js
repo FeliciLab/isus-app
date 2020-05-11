@@ -15,25 +15,29 @@ export default function DescriptionScreen(props) {
   const { item } = route.params;
 
   const onShare = async () => {
+    const messagTitle = item.post_title;
+    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
     try {
       const result = await Share.share({
-        title: item.title,
-        url: 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/03/COVID-19-na-América-Latina-as-implicações-do-primeiro-caso-confirmado-no-Brasil.pdf',
+        message: messagTitle + messagLink
+      },
+      {
+        // mostra se o usuário compartilhou ou não a caixa de diálogo
+        dialogTitle: 'Compartilhado Hoje',
+        excludedActivityTypes: [
+          'com.apple.mobilenotes.SharingExtension',
+          'com.apple.reminders.RemindersEditorExtension'
+        ]
       });
-      console.log(item);
+
       if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
+        console.log(item);
       }
     } catch (error) {
       console.log(error.message);
     }
   };
+
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.titleDetail}>
@@ -59,26 +63,23 @@ export default function DescriptionScreen(props) {
       />
       <View
         style={{
-          height: Dimensions.get('window').width / 1.5,
+          // height: Dimensions.get('window').width / 1.5,
           width: Dimensions.get('window').width
         }}
       >
-        <View style={{ padding: 10, alignContent: 'center' }}>
-          <HTML html={item.content} />
-        </View>
+          <View style={{
+            padding: 10,
+            alignContent: 'center'
+          }}
+          >
+            <HTML html={item.content} />
+          </View>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  item: {
-    alignItems: 'center',
-    backgroundColor: '#dcda48',
-    flexGrow: 1,
-    margin: 4,
-    padding: 20
-  },
   text: {
     color: '#333333'
   },
