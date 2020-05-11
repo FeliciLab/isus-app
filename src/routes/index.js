@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 // import AppTab from './appBottomTab';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Description from '../pages/Education/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen';
 import Buscar from '../pages/Buscar';
+import ClinicalManagement from '../pages/ClinicalManagement';
 
 const RootStack = createStackNavigator();
 
@@ -28,6 +30,26 @@ export default function App() {
             }
           }}
         />
+         <RootStack.Screen
+           name="clinical management"
+           component={ClinicalManagement}
+           options={{
+             headerStyle: {
+               backgroundColor: '#4CAF50'
+             },
+             headerTintColor: '#FFF',
+             headerTitleAlign: 'center',
+             headerTitle: 'Manejo Clínico Covid-19',
+             headerRight: () => (
+            <TouchableOpacity style={{
+              marginHorizontal: 19
+            }}
+            >
+              <Icon name="magnify" size={28} color="#FFF" />
+            </TouchableOpacity>
+             )
+           }}
+         />
         <RootStack.Screen
           name="Buscar"
           component={Buscar}

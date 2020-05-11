@@ -11,7 +11,6 @@ import Pesquisa from '../assets/icons/pesquisa.svg';
 import SettingsStackScreen from '../pages/Settings';
 
 import HomeScreen from '../pages/Home';
-import ClinicalScreen from '../pages/ClinicalManagement';
 
 const HomeStack = createStackNavigator();
 function HomeStackScreen() {
@@ -36,38 +35,6 @@ function HomeStackScreen() {
               onPress={() => {
                 navigation.navigate('Buscar');
               }}
-            >
-              <Icon name="magnify" size={28} color="#FFF" />
-            </TouchableOpacity>
-          ),
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.toggleDrawer();
-              }}
-            >
-              <Icon name="menu" size={28} color="#FFF" />
-            </TouchableOpacity>
-          )
-        }}
-      />
-      <HomeStack.Screen
-        name="clinical management"
-        component={ClinicalScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: '#4CAF50'
-          },
-          headerTintColor: '#FFF',
-          headerTitleAlign: 'center',
-          headerTitle: 'Manejo Clínico Covid-19',
-          headerRight: () => (
-            <TouchableOpacity style={{
-              marginHorizontal: 19
-            }}
             >
               <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
