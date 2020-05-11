@@ -29,9 +29,13 @@ function HomeStackScreen() {
           headerTitleAlign: 'center',
           headerTitle: 'iSUS',
           headerRight: () => (
-            <TouchableOpacity style={{
-              marginHorizontal: 19
-            }}
+            <TouchableOpacity
+              style={{
+                marginHorizontal: 19
+              }}
+              onPress={() => {
+                navigation.navigate('Buscar');
+              }}
             >
               <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
@@ -98,15 +102,19 @@ function EducationStackScreen() {
           headerStyle: {
             backgroundColor: '#4CAF50',
             elevation: 0,
-            shadowOpacity: 0,
+            shadowOpacity: 0
           },
           headerTintColor: '#FFF',
           headerTitleAlign: 'center',
           headerTitle: 'Educação Permanente',
           headerRight: () => (
-            <TouchableOpacity style={{
-              marginHorizontal: 19
-            }}
+            <TouchableOpacity
+              style={{
+                marginHorizontal: 19
+              }}
+              onPress={() => {
+                navigation.navigate('Buscar');
+              }}
             >
               <Icon name="magnify" size={28} color="#FFF" />
             </TouchableOpacity>
