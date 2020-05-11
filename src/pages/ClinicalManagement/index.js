@@ -1,6 +1,7 @@
+
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View, StyleSheet
+  Text, ScrollView, View, Linking, StyleSheet, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -14,7 +15,7 @@ import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
-import Estagio4 from '../../assets/icons/estagiosManejo/estagio03.svg';
+import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
 import Raiox1 from '../../assets/icons/estagiosManejo/raiox1.svg';
 import Raiox2 from '../../assets/icons/estagiosManejo/raiox2.svg';
 import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
@@ -46,8 +47,8 @@ export default function ClinicalManagement({ navigation }) {
     });
   });
   // Internal Components
-  const ClinicalButton = ({ label }) => (
-    <TouchableOpacity style={{ marginVertical: 8 }}>
+  const ClinicalButton = ({ label, onPress }) => (
+    <TouchableOpacity style={{ marginVertical: 8 }} onPress={onPress}>
         <View style={style.clinicalButton}>
             <Text style={style.textButton}>
                 {label}
@@ -56,8 +57,7 @@ export default function ClinicalManagement({ navigation }) {
     </TouchableOpacity>
   );
 
-  const CardStage = ({
-    isCollapsed, collapsedMethod, cardHeight, stageTitle, title, subtitle, Logo, HideContent, color
+  const CardStage = ({ id, isCollapsed, collapsedMethod, cardHeight, stageTitle, title, subtitle, Logo, HideContent, color
   }) => (
     <Card elevation={4} style={{ marginVertical: 8, MaxHeight: isCollapsed ? (cardHeight) : (172) }}>
       <Card.Content style={{ flexDirection: 'column' }}>
@@ -78,7 +78,9 @@ export default function ClinicalManagement({ navigation }) {
               }
           </View>
           <View>
-              <Logo />
+            {
+              id === 4 ? <Image source={Logo} /> : <Logo />
+            }
           </View>
         </View>
         <View>
@@ -106,17 +108,21 @@ export default function ClinicalManagement({ navigation }) {
       </View>
       <View style={{ marginVertical: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
           <View>
-            <Text style={{ color: '#4054B2' }}>Telesaúde</Text>
+            <TouchableOpacity onPress={() => Linking.openURL('tel: 08002751475')}>
+              <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Telesaúde</Text>
+            </TouchableOpacity>
           </View>
           <View>
-              <Text style={{ color: '#4054B2' }}>Plantão Corona Vírus</Text>
+            <TouchableOpacity onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/')}>
+              <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Plantão Corona Vírus</Text>
+            </TouchableOpacity>
           </View>
       </View>
     </>
   );
 
   const HiddenStage2 = () => (
-    <View style={{ marginHorizontal: 1 }}>
+    <>
       <Paragraph>
         • Avaliar os fatores de risco, gravidade e necessidade de internação hospitalar.
       </Paragraph>
@@ -130,7 +136,7 @@ export default function ClinicalManagement({ navigation }) {
         Sinais de gravidade
       </Text>
       <Paragraph>
-        {'- SpO²  < 95% em ar ambiente</Paragraph'}
+        {'- SpO²  < 95% em ar ambiente'}
       </Paragraph>
       <Paragraph>
         {'- Sinais de desconforto respiratório ou aumento da frequência respiratória (f < 28irpm)'}
@@ -151,23 +157,71 @@ export default function ClinicalManagement({ navigation }) {
       <Paragraph style={{ marginTop: 15 }}>
         ‎• Realizar TC de torax, e se não acessível, realizar Raio-X.
       </Paragraph>
-      <Paragraph>
-        ‎• Ofertar tratamento ambulatorial e monitoramento clínico remoto por profissional da saúde se indicada quarentena domiciliar, conforme protocolo.
-        - Indicar internação após análise da gravidade e conforme necessidades de tratamento do paciente.
-      </Paragraph>
-    </View>
+      <Text>
+        ‎• Ofertar
+        <Text style={style.bold}> tratamento ambulatorial e monitoramento clínico remoto </Text>
+        por profissional da saúde se indicada quarentena domiciliar,
+        {' '}
+        <Text style={{ textDecorationLine: 'underline', color: '#87BA25' }} onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/')}>
+          conforme protocolo.
+        </Text>
+      </Text>
+      <Paragraph>- Indicar internação após análise da gravidade e conforme necessidades de tratamento do paciente.</Paragraph>
+    </>
   );
 
   const HiddenStage3 = () => (
     <>
       <View style={{ marginTop: 20 }}>
-        <Paragraph>{'‎• Ofertar oxigenoterapia se SpO² < 93%. conforme protocolo.'}</Paragraph>
+        <Paragraph>
+          {'‎• Ofertar'}
+          <Text style={{ fontWeight: 'bold' }}> oxigenoterapia </Text>
+          {'se SpO² < 93%.'}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+        </Paragraph>
         <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
         <Paragraph>- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI.</Paragraph>
-        <Paragraph style={{ marginVertical: 8 }}>• Administrar ATB para infecção bacteriana 2ª (azitromicina +/- amoxacilina clavulananto) e terapia antiviral para Influenza (oseltamivir) em casos suspeitos dessas condições</Paragraph>
-        <Paragraph>• Considerar corticoterapia,  em caso de resposta inflamatória associada à disfução orgânica mantida  ou progressiva conforme protocolo.</Paragraph>
-        <Paragraph style={{ marginVertical: 8 }}>• Considerar  hidroxicloroquina ou cloroquina conforme protocolo. Checar ECG/Intervalo QT:</Paragraph>
-        <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
+        <Paragraph style={{ marginVertical: 8 }}>
+          •
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>Administrar ATB</Text>
+          {' '}
+          para
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>infecção bacteriana</Text>
+          {' '}
+          2ª (azitromicina +/- amoxacilina clavulananto) e
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>
+                    terapia antiviral para Influenza
+          </Text>
+          {' '}
+          (oseltamivir) em casos suspeitos dessas condições
+        </Paragraph>
+        <Paragraph>
+        •
+        {' '}
+        <Text style={{ fontWeight: 'bold' }}>Considerar corticoterapia</Text>
+        ,  em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva
+        {' '}
+        <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+        {' '}
+        </Paragraph>
+        <Paragraph>
+        •
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>Assegurar</Text>
+          {' '}
+          profilaxia de Trombose Venosa Profunda.
+        </Paragraph>
+        <Paragraph style={{ marginVertical: 8 }}>
+          •
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>Considerar  hidroxicloroquina ou cloroquina</Text>
+          {' '}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-esclarecimentos-sobre-uso-da-hidroxicloroquina-e-cloroquina-como-drogas-experimentais/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+          Checar ECG/Intervalo QT:
+        </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Grafico />
         </View>
@@ -179,13 +233,39 @@ export default function ClinicalManagement({ navigation }) {
   const HiddenStage4 = () => (
     <>
       <View style={{ marginTop: 8 }}>
-        <Paragraph>‎• Utilizar ventilação mecânica (VM) protetora conforme protocolo com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.</Paragraph>
-        <Paragraph>- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona) conforme protocolo.</Paragraph>
-        <Paragraph>‎• Administrar corticoterapia, em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva conforme protocolo.</Paragraph>
+        <Paragraph>
+        ‎• Utilizar ventilação mecânica (VM) protetora
+        {' '}
+        <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
+        {' '}
+        com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.
+        </Paragraph>
+        <Paragraph>
+        - Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona)
+        {' '}
+        <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+        {' '}
+        </Paragraph>
+        <Paragraph>
+          {' '}
+          <Text style={{ fontWeight: 'bold' }}>‎• Administrar corticoterapia</Text>
+          , em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva
+          {' '}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+          {' '}
+        </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Pulmao />
         </View>
-        <Paragraph>‎• Administrar anticoagulação com HBPM se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão conforme protocolo.</Paragraph>
+        <Paragraph>
+        •
+        {' '}
+          <Text style={{ fontWeight: 'bold' }}> Administrar anticoagulação com HBPM </Text>
+          se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão
+          {' '}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+          {' '}
+        </Paragraph>
         <Paragraph>‎• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva.</Paragraph>
       </View>
     </>
@@ -251,14 +331,14 @@ export default function ClinicalManagement({ navigation }) {
             <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
             <View>
                 <Banner style={{ marginVertical: 10 }} />
-                <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" />
-                <ClinicalButton label="consulte especialistas! telemedicina" />
+                <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" onPress={() => Linking.openURL('https://www.youtube.com/watch?v=zQi1zpZEYVM')} />
+                <ClinicalButton label="consulte especialistas! telemedicina" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
             </View>
             {/* Card goes here */}
             <View style={{ marginVertical: 16 }}>
             {
                 // eslint-disable-next-line max-len
-                cardItems.map(item => <CardStage key={item.id} cardHeight={item.cardHeight} collapsedMethod={item.collapsedMethod} color={item.color} isCollapsed={item.isCollapsed} stage-title={item.title} HideContent={item.HideContent} stageTitle={item.stageTitle} title={item.title} subtitle={item.subtitle} Logo={item.Logo} />)
+                cardItems.map(item => <CardStage key={item.id} id={item.id} cardHeight={item.cardHeight} collapsedMethod={item.collapsedMethod} color={item.color} isCollapsed={item.isCollapsed} stage-title={item.title} HideContent={item.HideContent} stageTitle={item.stageTitle} title={item.title} subtitle={item.subtitle} Logo={item.Logo} />)
             }
             </View>
 
@@ -277,8 +357,16 @@ export default function ClinicalManagement({ navigation }) {
                     Notifique casos suspeitos de covid-19
                 </Text>
                 <Text style={{ color: '#4054B2' }}>Assegurar a notificação do caso, sua confirmação e inclusão em base de dados da vigilância epdemiológica e do registro eletrônico dos pacientes.</Text>
-                <ClinicalButton label="acesse a plataforma de notificação" />
-                <Text style={{ textAlign: 'center', color: '#4054B2', marginVertical: 30 }}> Diretrizes para diagnóstico e tratamento da COVID-19</Text>
+                <ClinicalButton label="acesse a plataforma de notificação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/')} />
+                <Text
+                  onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/')}
+                  style={{
+                    textAlign: 'center', color: '#4054B2', textDecorationLine: 'underline', marginVertical: 30
+                  }}
+                >
+                {' '}
+                Diretrizes para diagnóstico e tratamento da COVID-19
+                </Text>
             </View>
         </View>
       </ScrollView>
@@ -306,5 +394,8 @@ const style = StyleSheet.create({
     color: '#4054B2',
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  bold: {
+    fontWeight: 'bold'
   }
 });
