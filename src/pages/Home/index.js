@@ -38,6 +38,43 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTintColor: '#FFF',
+      headerTitleAlign: 'center',
+      headerTitle: 'iSUS',
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.navigate('Buscar');
+          }}
+        >
+          <Icon name="magnify" size={28} color="#FFF" />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        >
+          <Icon name="menu" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
+    });
+  });
+
   function HomeCard({
     onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage
   }) {
@@ -58,9 +95,8 @@ export default function HomeScreen() {
           {
             isImage ? <Image source={Logo} /> : typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
           }
-
         </View>
-        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
+        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 14 }}>{title}</Caption>
       </Card>
     );
   }
@@ -115,7 +151,7 @@ export default function HomeScreen() {
       title: 'Mapa da saúde',
       logo: Servico4,
       onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
-    },
+    }
   ];
 
   const anticoronaActions = [
@@ -146,7 +182,7 @@ export default function HomeScreen() {
       logo: Forca4,
       isImage: true,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
-    },
+    }
   ];
 
   return (
@@ -232,7 +268,7 @@ export default function HomeScreen() {
           marginHorizontal: 16,
           borderRadius: 10,
           backgroundColor: '#4054B2',
-          height: 130,
+          height: 130
           // alignItems: 'center'
         }}
       >

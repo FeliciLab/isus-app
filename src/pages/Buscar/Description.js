@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import {
+  View, Image, Dimensions
+} from 'react-native';
 import { Title } from 'react-native-paper';
+
 // import { WebView } from 'react-native-webview';
 import HTML from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +13,7 @@ export default function DescriptionScreen(props) {
   console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
+  console.tron.log(item);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -18,7 +22,7 @@ export default function DescriptionScreen(props) {
         backgroundColor: '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
-      }
+      },
     });
   });
 

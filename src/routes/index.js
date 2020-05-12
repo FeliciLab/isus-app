@@ -9,6 +9,7 @@ import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen';
 import Buscar from '../pages/Buscar';
 import ClinicalManagement from '../pages/ClinicalManagement';
+import BuscarDescription from '../pages/Buscar/Description';
 
 const RootStack = createStackNavigator();
 
@@ -20,15 +21,7 @@ export default function App() {
         <RootStack.Screen
           name="Educaçao permanente"
           component={Description}
-          options={{
-            headerShown: true,
-            headerTintColor: '#FFF',
-            headerStyle: {
-              backgroundColor: '#4CAF50',
-              elevation: 0,
-              shadowOpacity: 0
-            }
-          }}
+          options={{ headerShown: true }}
         />
          <RootStack.Screen
            name="clinical management"
@@ -52,20 +45,25 @@ export default function App() {
          />
         <RootStack.Screen
           name="Buscar"
-          component={Buscar}
-          options={{
-            headerShown: true,
-            headerTintColor: '#FFF',
-            headerStyle: {
-              backgroundColor: '#4CAF50',
-              elevation: 0,
-              shadowOpacity: 0
-            }
-          }}
+          component={searchStackScreen}
+          options={{ headerShown: false }}
         />
-        {/* <RootStack.Screen name="App" component={AppTab} options={{ headerShown: false }} /> */}
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       </RootStack.Navigator>
     </NavigationContainer>
+  );
+}
+
+const searchStack = createStackNavigator();
+function searchStackScreen() {
+  return (
+    <searchStack.Navigator>
+      <searchStack.Screen name="Buscar" component={Buscar} options={{ headerShown: true }} />
+      <searchStack.Screen
+        name="Buscar Description"
+        component={BuscarDescription}
+        options={{ headerShown: true }}
+      />
+    </searchStack.Navigator>
   );
 }
