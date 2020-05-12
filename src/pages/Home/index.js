@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, ScrollView, Linking, Dimensions, Image
+  View, ScrollView, Linking, Dimensions, TouchableOpacity, Image
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -93,6 +93,8 @@ export default function HomeScreen() {
 
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
           {
+            // Provisório enquanto os svgs corretos não chegam
+            // eslint-disable-next-line no-nested-ternary
             isImage ? <Image source={Logo} /> : typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
           }
         </View>
@@ -138,7 +140,7 @@ export default function HomeScreen() {
       id: 'services-2',
       title: 'Central de Ventiladores',
       logo: Servico2,
-      onPress: () => Linking.openURL('https://gestao-ventiladores.dev.org.br/')
+      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/centraldeventiladores/')
     },
     {
       id: 'services-3',
