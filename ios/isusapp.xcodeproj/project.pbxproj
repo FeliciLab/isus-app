@@ -205,21 +205,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DDFA614CE1F47C6D9C268530 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E8C5430A6B54CE59ECAFDDAD /* Pods-isusapp.debug.xcconfig */,
-				3465B101D1F6C84BD3CBA904 /* Pods-isusapp.release.xcconfig */,
-				4DFCF91FB0B12FAAEAB3246C /* Pods-isusapp-isusappTests.debug.xcconfig */,
-				E42AA51CE98EC71F282C1FB6 /* Pods-isusapp-isusappTests.release.xcconfig */,
-				4086A04D6CC84071551F0396 /* Pods-isusapp-tvOS.debug.xcconfig */,
-				B2707F28E725F1328F12A974 /* Pods-isusapp-tvOS.release.xcconfig */,
-				93963D929D4B412DBBCBF726 /* Pods-isusapp-tvOSTests.debug.xcconfig */,
-				C91CF53EB474DA5241C58CE9 /* Pods-isusapp-tvOSTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -750,7 +735,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 2.2.0;
 				DEVELOPMENT_TEAM = XT8X924G47;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -759,7 +744,7 @@
 				);
 				INFOPLIST_FILE = isusapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -779,11 +764,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 2.2.0;
 				DEVELOPMENT_TEAM = XT8X924G47;
 				INFOPLIST_FILE = isusapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

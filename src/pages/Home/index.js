@@ -56,9 +56,9 @@ export default function HomeScreen() {
 
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
           {
-            isImage ? <Image source={Logo} /> :  typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
+            isImage ? <Image source={Logo} /> : typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
           }
-          
+
         </View>
         <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
       </Card>
@@ -151,16 +151,16 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-       <View
-         style={{
-           flexDirection: 'row',
-           justifyContent: 'space-evenly',
-           marginVertical: 20,
-           marginHorizontal: 11
-         }}
-       >
-         {
-           sections.map(section => (
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          marginVertical: 20,
+          marginHorizontal: 11
+        }}
+      >
+        {
+          sections.map(section => (
             <HomeCard
               key={section.id}
               title={section.title}
@@ -173,9 +173,9 @@ export default function HomeScreen() {
               color={section.color}
               onPress={section.onPress}
             />
-           ))
-         }
-       </View>
+          ))
+        }
+      </View>
       <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
       <View
         style={{
