@@ -10,16 +10,16 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import Banner from '../../assets/images/banner.svg';
+import Banner from '../../assets/images/banner.png';
 import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
-import Raiox1 from '../../assets/icons/estagiosManejo/raiox1.svg';
-import Raiox2 from '../../assets/icons/estagiosManejo/raiox2.svg';
+import Raiox1 from '../../assets/icons/estagiosManejo/raiox1.png';
+import Raiox2 from '../../assets/icons/estagiosManejo/raiox2.png';
 import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
-import Pulmao from '../../assets/icons/estagiosManejo/pulmao.svg';
+import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
 
@@ -148,10 +148,10 @@ export default function ClinicalManagement({ navigation }) {
 
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <View>
-          <Raiox1 style={{ marginHorizontal: 5 }} />
+          <Image source={Raiox1} style={{ marginHorizontal: 5 }} />
         </View>
         <View>
-          <Raiox2 style={{ marginHorizontal: 5 }} />
+          <Image source={Raiox2} style={{ marginHorizontal: 5 }} />
         </View>
       </View>
       <Paragraph style={{ marginTop: 15 }}>
@@ -255,7 +255,7 @@ export default function ClinicalManagement({ navigation }) {
           {' '}
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Pulmao />
+          <Image source={Pulmao} />
         </View>
         <Paragraph>
         •
@@ -330,7 +330,7 @@ export default function ClinicalManagement({ navigation }) {
             <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
             <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
             <View>
-                <Banner style={{ marginVertical: 10 }} />
+                <Image source={Banner} style={{ marginVertical: 10 }} />
                 <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" onPress={() => Linking.openURL('https://www.youtube.com/watch?v=zQi1zpZEYVM')} />
                 <ClinicalButton label="consulte especialistas! telemedicina" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
             </View>
