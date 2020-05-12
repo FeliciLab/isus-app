@@ -7,6 +7,7 @@ import EducationTab from './appTopTab';
 import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 import SettingsStackScreen from '../pages/Settings';
+import SearchesScreen from '../pages/Searches';
 
 import HomeScreen from '../pages/Home';
 
@@ -65,7 +66,7 @@ export default function AppTabScreen() {
       />
       <AppTab.Screen
         name="Search"
-        component={SettingsStackScreen}
+        component={SearchesScreen}
         options={{
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />
