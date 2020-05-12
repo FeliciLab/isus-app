@@ -2,10 +2,12 @@ import * as React from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet, Text, Share, TouchableOpacity
+  View, Image, Dimensions, StyleSheet, Text, Share, TouchableOpacity, ToastAndroid, Button
 }
   from 'react-native';
-import { Title } from 'react-native-paper';
+import {
+  Title
+} from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import Shared from '../../assets/images/Share.png';
 
@@ -13,25 +15,31 @@ export default function DescriptionScreen(props) {
   console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
-
+  // MENSAGEM PARA FEEDBACK AO USUÁRIO
+  const showToast = (message) => {
+    ToastAndroid.show(message, ToastAndroid.SHORT);
+  };
   const onShare = async () => {
     const messagTitle = item.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
     try {
       const result = await Share.share({
         message: messagTitle + messagLink
-      },
-      {
-        // mostra se o usuário compartilhou ou não a caixa de diálogo
-        dialogTitle: 'Compartilhado Hoje',
-        excludedActivityTypes: [
-          'com.apple.mobilenotes.SharingExtension',
-          'com.apple.reminders.RemindersEditorExtension'
-        ]
       });
 
       if (result.action === Share.sharedAction) {
-        console.log(item);
+        if (result.activityType) {
+          // PARA IOS
+          // shared with activity type of result.activityType
+          showToast('Compartilhando esse link...');
+        } else {
+          // PARA ANDROID
+          // console.log('shared');
+          showToast('Compartilhando esse link...');
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+        showToast('Cancelando sua ação...');
       }
     } catch (error) {
       console.log(error.message);
@@ -48,9 +56,9 @@ export default function DescriptionScreen(props) {
           <Text> Postado em 23 de Abril de 2020</Text>
         </View>
         <View style={styles.subShare}>
-        <TouchableOpacity onPress={onShare}>
-          <Image source={Shared} />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={onShare}>
+            <Image source={Shared} />
+          </TouchableOpacity>
         </View>
       </View>
       <Image
