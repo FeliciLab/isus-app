@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, ScrollView, Linking, Dimensions
+  View, ScrollView, Linking, Dimensions, TouchableOpacity
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -38,6 +38,43 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTintColor: '#FFF',
+      headerTitleAlign: 'center',
+      headerTitle: 'iSUS',
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.navigate('Buscar');
+          }}
+        >
+          <Icon name="magnify" size={28} color="#FFF" />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        >
+          <Icon name="menu" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
+    });
+  });
+
   function HomeCard({
     onPress, FontIcon, Logo, logoSize, title, width, height, color
   }) {
@@ -54,12 +91,13 @@ export default function HomeScreen() {
         onPress={onPress}
       >
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
-          {
-            typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
-
-          }
+          {typeof Logo === 'string' ? (
+            <FontIcon name={Logo} size={logoSize || 38} color={color} />
+          ) : (
+            <Logo color={color} width={logoSize || 38} height={logoSize || 38} />
+          )}
         </View>
-        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
+        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 14 }}>{title}</Caption>
       </Card>
     );
   }
@@ -113,7 +151,7 @@ export default function HomeScreen() {
       title: 'Mapa da saúde',
       logo: Servico4,
       onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
-    },
+    }
   ];
 
   const anticoronaActions = [
@@ -143,35 +181,33 @@ export default function HomeScreen() {
       title: 'Ações do governo',
       logo: Forca4,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
-    },
+    }
   ];
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-       <View
-         style={{
-           flexDirection: 'row',
-           justifyContent: 'space-evenly',
-           marginVertical: 20,
-           marginHorizontal: 11
-         }}
-       >
-         {
-           sections.map(section => (
-            <HomeCard
-              key={section.id}
-              title={section.title}
-              Logo={section.logo}
-              width={3.3}
-              height={3.3}
-              logoSize={60}
-              FontIcon={section.FontIcon || Icon}
-              color={section.color}
-              onPress={section.onPress}
-            />
-           ))
-         }
-       </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          marginVertical: 20,
+          marginHorizontal: 11
+        }}
+      >
+        {sections.map(section => (
+          <HomeCard
+            key={section.id}
+            title={section.title}
+            Logo={section.logo}
+            width={3.3}
+            height={3.3}
+            logoSize={60}
+            FontIcon={section.FontIcon || Icon}
+            color={section.color}
+            onPress={section.onPress}
+          />
+        ))}
+      </View>
       <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
       <View
         style={{
@@ -181,18 +217,16 @@ export default function HomeScreen() {
           marginHorizontal: 11
         }}
       >
-        {
-          services.map(service => (
-            <HomeCard
-              key={service.id}
-              title={service.title}
-              Logo={service.logo}
-              FontIcon={service.FontIcon || Icon}
-              color="#FF9800"
-              onPress={service.onPress}
-            />
-          ))
-        }
+        {services.map(service => (
+          <HomeCard
+            key={service.id}
+            title={service.title}
+            Logo={service.logo}
+            FontIcon={service.FontIcon || Icon}
+            color="#FF9800"
+            onPress={service.onPress}
+          />
+        ))}
       </View>
 
       <Title style={{ margin: 15, fontSize: 20 }}>Força-tarefa Anticorona</Title>
@@ -204,18 +238,16 @@ export default function HomeScreen() {
           marginHorizontal: 16
         }}
       >
-        {
-          anticoronaActions.map(actions => (
-            <HomeCard
-              key={actions.id}
-              title={actions.title}
-              Logo={actions.logo}
-              FontIcon={actions.FontIcon || Icon}
-              color="rgba(0, 0, 0, 0.6)"
-              onPress={actions.onPress}
-            />
-          ))
-        }
+        {anticoronaActions.map(actions => (
+          <HomeCard
+            key={actions.id}
+            title={actions.title}
+            Logo={actions.logo}
+            FontIcon={actions.FontIcon || Icon}
+            color="rgba(0, 0, 0, 0.6)"
+            onPress={actions.onPress}
+          />
+        ))}
       </View>
 
       <Card
@@ -226,7 +258,7 @@ export default function HomeScreen() {
           marginHorizontal: 16,
           borderRadius: 10,
           backgroundColor: '#4054B2',
-          height: 130,
+          height: 130
           // alignItems: 'center'
         }}
       >
@@ -241,9 +273,10 @@ export default function HomeScreen() {
           >
             <IconPaciente />
           </View>
-          <View style={{
-            flex: 2
-          }}
+          <View
+            style={{
+              flex: 2
+            }}
           >
             <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
               Manejo Clínico de Paciente com Covid-19
