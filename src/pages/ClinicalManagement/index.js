@@ -49,56 +49,57 @@ export default function ClinicalManagement({ navigation }) {
   // Internal Components
   const ClinicalButton = ({ label, onPress }) => (
     <TouchableOpacity style={{ marginVertical: 8 }} onPress={onPress}>
-        <View style={style.clinicalButton}>
-            <Text style={style.textButton}>
-                {label}
-            </Text>
-        </View>
+      <View style={style.clinicalButton}>
+        <Text style={style.textButton}>
+          {label}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 
-  const CardStage = ({ id, isCollapsed, collapsedMethod, cardHeight, stageTitle, title, subtitle, Logo, HideContent, color
+  const CardStage = ({
+    id, isCollapsed, collapsedMethod, cardHeight, stageTitle, title, subtitle, Logo, HideContent, color
   }) => (
-    <Card elevation={4} style={{ marginVertical: 8, MaxHeight: isCollapsed ? (cardHeight) : (172) }}>
-      <Card.Content style={{ flexDirection: 'column' }}>
-        <View style={{
-          flexDirection: 'row', justifyContent: 'space-between'
-        }}
-        >
-          <View style={{ flex: 1 }}>
+      <Card elevation={4} style={{ marginVertical: 8, MaxHeight: isCollapsed ? (cardHeight) : (172) }}>
+        <Card.Content style={{ flexDirection: 'column' }}>
+          <View style={{
+            flexDirection: 'row', justifyContent: 'space-between'
+          }}
+          >
+            <View style={{ flex: 1 }}>
               <Text style={{
                 marginVertical: 7, letterSpacing: 1.5, color: 'rgba(0, 0, 0, 0.87)', fontSize: 10
               }}
               >
-                  { stageTitle }
+                {stageTitle}
               </Text>
-              <Text style={{ color, fontSize: 24 }}>{ title }</Text>
+              <Text style={{ color, fontSize: 24 }}>{title}</Text>
               {
-                subtitle && <Text style={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: 14, marginVertical: 15 }}>{ subtitle }</Text>
+                subtitle && <Text style={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: 14, marginVertical: 15 }}>{subtitle}</Text>
               }
+            </View>
+            <View>
+              {
+                id === 4 ? <Image source={Logo} /> : <Logo />
+              }
+            </View>
           </View>
           <View>
             {
-              id === 4 ? <Image source={Logo} /> : <Logo />
-            }
-          </View>
-        </View>
-        <View>
-            {
               isCollapsed && <HideContent />
             }
-        </View>
-      </Card.Content>
-      <Card.Actions>
-        <Button
-          color={color}
-          style={{ color: '#4054B2', letterSpacing: 0.75 }}
-          onPress={() => collapsedMethod(!isCollapsed)}
-        >
-        { isCollapsed ? 'fechar' : 'Saiba mais' }
-        </Button>
-      </Card.Actions>
-    </Card>
+          </View>
+        </Card.Content>
+        <Card.Actions>
+          <Button
+            color={color}
+            style={{ color: '#4054B2', letterSpacing: 0.75 }}
+            onPress={() => collapsedMethod(!isCollapsed)}
+          >
+            {isCollapsed ? 'fechar' : 'Saiba mais'}
+          </Button>
+        </Card.Actions>
+      </Card>
   );
 
   const HiddenStage1 = () => (
@@ -107,16 +108,16 @@ export default function ClinicalManagement({ navigation }) {
         <Termometro />
       </View>
       <View style={{ marginVertical: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-          <View>
-            <TouchableOpacity onPress={() => Linking.openURL('tel: 08002751475')}>
-              <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Telesaúde</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/')}>
-              <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Plantão Corona Vírus</Text>
-            </TouchableOpacity>
-          </View>
+        <View>
+          <TouchableOpacity onPress={() => Linking.openURL('tel: 08002751475')}>
+            <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Telesaúde</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/')}>
+            <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Plantão Corona Vírus</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </>
   );
@@ -193,22 +194,22 @@ export default function ClinicalManagement({ navigation }) {
           2ª (azitromicina +/- amoxacilina clavulananto) e
           {' '}
           <Text style={{ fontWeight: 'bold' }}>
-                    terapia antiviral para Influenza
+            terapia antiviral para Influenza
           </Text>
           {' '}
           (oseltamivir) em casos suspeitos dessas condições
         </Paragraph>
         <Paragraph>
-        •
+          •
         {' '}
-        <Text style={{ fontWeight: 'bold' }}>Considerar corticoterapia</Text>
+          <Text style={{ fontWeight: 'bold' }}>Considerar corticoterapia</Text>
         ,  em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva
         {' '}
-        <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-        {' '}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+          {' '}
         </Paragraph>
         <Paragraph>
-        •
+          •
           {' '}
           <Text style={{ fontWeight: 'bold' }}>Assegurar</Text>
           {' '}
@@ -234,17 +235,17 @@ export default function ClinicalManagement({ navigation }) {
     <>
       <View style={{ marginTop: 8 }}>
         <Paragraph>
-        ‎• Utilizar ventilação mecânica (VM) protetora
+          ‎• Utilizar ventilação mecânica (VM) protetora
         {' '}
-        <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
-        {' '}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
+          {' '}
         com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.
         </Paragraph>
         <Paragraph>
-        - Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona)
+          - Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona)
         {' '}
-        <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
-        {' '}
+          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+          {' '}
         </Paragraph>
         <Paragraph>
           {' '}
@@ -258,7 +259,7 @@ export default function ClinicalManagement({ navigation }) {
           <Image source={Pulmao} />
         </View>
         <Paragraph>
-        •
+          •
         {' '}
           <Text style={{ fontWeight: 'bold' }}> Administrar anticoagulação com HBPM </Text>
           se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão
@@ -322,54 +323,54 @@ export default function ClinicalManagement({ navigation }) {
   ];
 
   return (
-      <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
-        <View style={{
-          marginTop: 26, flex: 1
-        }}
-        >
-            <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
-            <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
-            <View>
-                <Image source={Banner} style={{ marginVertical: 10 }} />
-                <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" onPress={() => Linking.openURL('https://www.youtube.com/watch?v=zQi1zpZEYVM')} />
-                <ClinicalButton label="consulte especialistas! telemedicina" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
-            </View>
-            {/* Card goes here */}
-            <View style={{ marginVertical: 16 }}>
-            {
-                // eslint-disable-next-line max-len
-                cardItems.map(item => <CardStage key={item.id} id={item.id} cardHeight={item.cardHeight} collapsedMethod={item.collapsedMethod} color={item.color} isCollapsed={item.isCollapsed} stage-title={item.title} HideContent={item.HideContent} stageTitle={item.stageTitle} title={item.title} subtitle={item.subtitle} Logo={item.Logo} />)
-            }
-            </View>
-
-            <View style={{ justifyContent: 'center' }}>
-              <Divider style={{ marginVertical: 15, backgroundColor: 'rgba(0, 0, 0, 0.32)' }} />
-              <Fisiopatologia />
-              <ColetarExames style={{ marginVertical: 15 }} />
-              <Text style={{ color: '#4054B2' }}>Hemograma, PCR, TAP, TPTA, D-dímero, Desidrogenase lática (LDH), Enzimas hepáticas (AST/TGO e ALT/TGP), Creatinina e Ureia, CPK e troponina, pro-calcitonina, ferritina, conforme julgamento clínica e disponibilidade.</Text>
-              <Divider style={{ marginVertical: 15, backgroundColor: 'rgba(0, 0, 0, 0.32)' }} />
-            </View>
-            <View>
-                <Text style={{
-                  fontSize: 20, color: '#4054B2', fontWeight: '500', marginVertical: 8
-                }}
-                >
-                    Notifique casos suspeitos de covid-19
-                </Text>
-                <Text style={{ color: '#4054B2' }}>Assegurar a notificação do caso, sua confirmação e inclusão em base de dados da vigilância epdemiológica e do registro eletrônico dos pacientes.</Text>
-                <ClinicalButton label="acesse a plataforma de notificação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/')} />
-                <Text
-                  onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/')}
-                  style={{
-                    textAlign: 'center', color: '#4054B2', textDecorationLine: 'underline', marginVertical: 30
-                  }}
-                >
-                {' '}
-                Diretrizes para diagnóstico e tratamento da COVID-19
-                </Text>
-            </View>
+    <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
+      <View style={{
+        marginTop: 26, flex: 1
+      }}
+      >
+        <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
+        <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
+        <View>
+          <Image source={Banner} style={{ marginVertical: 10 }} />
+          <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" onPress={() => Linking.openURL('https://www.youtube.com/watch?v=zQi1zpZEYVM')} />
+          <ClinicalButton label="consulte especialistas! telemedicina" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
         </View>
-      </ScrollView>
+        {/* Card goes here */}
+        <View style={{ marginVertical: 16 }}>
+          {
+            // eslint-disable-next-line max-len
+            cardItems.map(item => <CardStage key={item.id} id={item.id} cardHeight={item.cardHeight} collapsedMethod={item.collapsedMethod} color={item.color} isCollapsed={item.isCollapsed} stage-title={item.title} HideContent={item.HideContent} stageTitle={item.stageTitle} title={item.title} subtitle={item.subtitle} Logo={item.Logo} />)
+          }
+        </View>
+
+        <View style={{ justifyContent: 'center' }}>
+          <Divider style={{ marginVertical: 15, backgroundColor: 'rgba(0, 0, 0, 0.32)' }} />
+          <Fisiopatologia />
+          <ColetarExames style={{ marginVertical: 15 }} />
+          <Text style={{ color: '#4054B2' }}>Hemograma, PCR, TAP, TPTA, D-dímero, Desidrogenase lática (LDH), Enzimas hepáticas (AST/TGO e ALT/TGP), Creatinina e Ureia, CPK e troponina, pro-calcitonina, ferritina, conforme julgamento clínica e disponibilidade.</Text>
+          <Divider style={{ marginVertical: 15, backgroundColor: 'rgba(0, 0, 0, 0.32)' }} />
+        </View>
+        <View>
+          <Text style={{
+            fontSize: 20, color: '#4054B2', fontWeight: '500', marginVertical: 8
+          }}
+          >
+            Notifique casos suspeitos de covid-19
+          </Text>
+          <Text style={{ color: '#4054B2' }}>Assegurar a notificação do caso, sua confirmação e inclusão em base de dados da vigilância epdemiológica e do registro eletrônico dos pacientes.</Text>
+          <ClinicalButton label="acesse a plataforma de notificação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/')} />
+          <Text
+            onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/')}
+            style={{
+              textAlign: 'center', color: '#4054B2', textDecorationLine: 'underline', marginVertical: 30
+            }}
+          >
+            {' '}
+                Diretrizes para diagnóstico e tratamento da COVID-19
+          </Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
