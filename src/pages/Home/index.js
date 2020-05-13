@@ -38,6 +38,43 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTintColor: '#FFF',
+      headerTitleAlign: 'center',
+      headerTitle: 'iSUS',
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.navigate('Buscar');
+          }}
+        >
+          <Icon name="magnify" size={28} color="#FFF" />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        >
+          <Icon name="menu" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
+    });
+  });
+
   function HomeCard({
     onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage
   }) {
@@ -237,7 +274,13 @@ export default function HomeScreen() {
           // alignItems: 'center'
         }}
       >
-        <View style={{ marginHorizontal: 24, flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+        <View style={{
+          marginHorizontal: 24,
+          flexDirection: 'row',
+          alignItems: 'center',
+          flex: 1
+        }}
+        >
           <View
             style={{
               height: 80,

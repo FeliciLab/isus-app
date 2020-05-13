@@ -58,9 +58,24 @@ export default function ClinicalManagement({ navigation }) {
   );
 
   const CardStage = ({
-    id, isCollapsed, collapsedMethod, cardHeight, stageTitle, title, subtitle, Logo, HideContent, color
+    id,
+    isCollapsed,
+    collapsedMethod,
+    cardHeight,
+    stageTitle,
+    title,
+    subtitle,
+    Logo,
+    HideContent,
+    color
   }) => (
-      <Card elevation={4} style={{ marginVertical: 8, MaxHeight: isCollapsed ? (cardHeight) : (172) }}>
+      <Card
+        elevation={4}
+        style={{
+          marginVertical: 8,
+          MaxHeight: isCollapsed ? (cardHeight) : (172)
+        }}
+      >
         <Card.Content style={{ flexDirection: 'column' }}>
           <View style={{
             flexDirection: 'row', justifyContent: 'space-between'
@@ -167,7 +182,10 @@ export default function ClinicalManagement({ navigation }) {
           conforme protocolo.
         </Text>
       </Text>
-      <Paragraph>- Indicar internação após análise da gravidade e conforme necessidades de tratamento do paciente.</Paragraph>
+      <Paragraph>
+        - Indicar internação após análise da gravidade e
+        conforme necessidades de tratamento do paciente.
+      </Paragraph>
     </>
   );
 
@@ -181,7 +199,10 @@ export default function ClinicalManagement({ navigation }) {
           <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
         </Paragraph>
         <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
-        <Paragraph>- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI.</Paragraph>
+        <Paragraph>
+          - Em caso de má resposta ou piora indicar intubação orotraquel
+          eletiva e transferência para UTI.
+        </Paragraph>
         <Paragraph style={{ marginVertical: 8 }}>
           •
           {' '}
@@ -242,7 +263,8 @@ export default function ClinicalManagement({ navigation }) {
         com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.
         </Paragraph>
         <Paragraph>
-          - Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona)
+          - Considerar manobras de resgate de
+          hipoxemia refratária (titulação da PEEP e posição prona)
         {' '}
           <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
           {' '}
@@ -267,7 +289,11 @@ export default function ClinicalManagement({ navigation }) {
           <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
           {' '}
         </Paragraph>
-        <Paragraph>‎• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva.</Paragraph>
+        <Text>
+          • Assegurar visitas horizontais,suporte de
+          telemedicina e boas práticas
+          em terapia intensiva.
+        </Text>
       </View>
     </>
   );
@@ -366,7 +392,7 @@ export default function ClinicalManagement({ navigation }) {
             }}
           >
             {' '}
-                Diretrizes para diagnóstico e tratamento da COVID-19
+              Diretrizes para diagnóstico e tratamento da COVID-19
           </Text>
         </View>
       </View>
