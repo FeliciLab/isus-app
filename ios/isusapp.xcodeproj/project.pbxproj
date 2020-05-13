@@ -16,17 +16,10 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* isusappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* isusappTests.m */; };
-<<<<<<< HEAD
 		3A962EFA44819D66B2A20172 /* libPods-isusapp-isusappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C3E7747A78CFEF85265E57 /* libPods-isusapp-isusappTests.a */; };
 		4F8957EF7D4EFC6EF6BBA4B3 /* libPods-isusapp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3F5F633F7DB231B440049B /* libPods-isusapp-tvOSTests.a */; };
 		781A4DE59E9BAA5757117AC8 /* libPods-isusapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E3A0FEDDEAF4F287CAACB3 /* libPods-isusapp.a */; };
 		D619BEBC4532F9D5E66E7D82 /* libPods-isusapp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A004A9B02B18223602881FEC /* libPods-isusapp-tvOS.a */; };
-=======
-		6D67715D0565EDF0823DBC81 /* libPods-isusapp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB2BEFB5C88C74AEDFD6CFB /* libPods-isusapp-tvOSTests.a */; };
-		7DEDD7E34FEB8B1996884C1E /* libPods-isusapp-isusappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE519921622DDD0C1328273 /* libPods-isusapp-isusappTests.a */; };
-		BB51A3E91E3FB4400ACFC9EA /* libPods-isusapp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E25542B5CFD59043932DFC8F /* libPods-isusapp-tvOS.a */; };
-		E332D7A0A3B1ADA6562EBD2F /* libPods-isusapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B3AD100CF71D5254675B3E7 /* libPods-isusapp.a */; };
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +44,7 @@
 		00E356EE1AD99517003FC87E /* isusappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = isusappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* isusappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = isusappTests.m; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		11374CC6623269CD3160F6C3 /* Pods-isusapp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOSTests/Pods-isusapp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-=======
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 		13B07F961A680F5B00A75B9A /* iSUS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSUS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = isusapp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = isusapp/AppDelegate.m; sourceTree = "<group>"; };
@@ -65,7 +55,6 @@
 		2A3F5F633F7DB231B440049B /* libPods-isusapp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* isusapp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "isusapp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* isusapp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "isusapp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-<<<<<<< HEAD
 		453E6F448A27A67F3D70A70D /* Pods-isusapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOSTests/Pods-isusapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7531BE025CAC415C4376CBDA /* Pods-isusapp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOS/Pods-isusapp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7B0C941442B39F352A0DB398 /* Pods-isusapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp.release.xcconfig"; path = "Target Support Files/Pods-isusapp/Pods-isusapp.release.xcconfig"; sourceTree = "<group>"; };
@@ -76,20 +65,6 @@
 		CBC2F0E1200BC89DC638F477 /* Pods-isusapp-isusappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-isusappTests.release.xcconfig"; path = "Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1416B94285DC5DC975EF0A1 /* Pods-isusapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp.debug.xcconfig"; path = "Target Support Files/Pods-isusapp/Pods-isusapp.debug.xcconfig"; sourceTree = "<group>"; };
 		D4D9AC0C976FFC2970D3E5AE /* Pods-isusapp-isusappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-isusappTests.debug.xcconfig"; path = "Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests.debug.xcconfig"; sourceTree = "<group>"; };
-=======
-		3465B101D1F6C84BD3CBA904 /* Pods-isusapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp.release.xcconfig"; path = "Target Support Files/Pods-isusapp/Pods-isusapp.release.xcconfig"; sourceTree = "<group>"; };
-		4086A04D6CC84071551F0396 /* Pods-isusapp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOS/Pods-isusapp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4DFCF91FB0B12FAAEAB3246C /* Pods-isusapp-isusappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-isusappTests.debug.xcconfig"; path = "Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4EB2BEFB5C88C74AEDFD6CFB /* libPods-isusapp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B3AD100CF71D5254675B3E7 /* libPods-isusapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93963D929D4B412DBBCBF726 /* Pods-isusapp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOSTests/Pods-isusapp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		AFE519921622DDD0C1328273 /* libPods-isusapp-isusappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp-isusappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2707F28E725F1328F12A974 /* Pods-isusapp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOS/Pods-isusapp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		C91CF53EB474DA5241C58CE9 /* Pods-isusapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOSTests/Pods-isusapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		E25542B5CFD59043932DFC8F /* libPods-isusapp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E42AA51CE98EC71F282C1FB6 /* Pods-isusapp-isusappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-isusappTests.release.xcconfig"; path = "Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests.release.xcconfig"; sourceTree = "<group>"; };
-		E8C5430A6B54CE59ECAFDDAD /* Pods-isusapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp.debug.xcconfig"; path = "Target Support Files/Pods-isusapp/Pods-isusapp.debug.xcconfig"; sourceTree = "<group>"; };
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -99,11 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				3A962EFA44819D66B2A20172 /* libPods-isusapp-isusappTests.a in Frameworks */,
-=======
-				7DEDD7E34FEB8B1996884C1E /* libPods-isusapp-isusappTests.a in Frameworks */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,11 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				781A4DE59E9BAA5757117AC8 /* libPods-isusapp.a in Frameworks */,
-=======
-				E332D7A0A3B1ADA6562EBD2F /* libPods-isusapp.a in Frameworks */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,11 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				D619BEBC4532F9D5E66E7D82 /* libPods-isusapp-tvOS.a in Frameworks */,
-=======
-				BB51A3E91E3FB4400ACFC9EA /* libPods-isusapp-tvOS.a in Frameworks */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,11 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				4F8957EF7D4EFC6EF6BBA4B3 /* libPods-isusapp-tvOSTests.a in Frameworks */,
-=======
-				6D67715D0565EDF0823DBC81 /* libPods-isusapp-tvOSTests.a in Frameworks */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,17 +156,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-<<<<<<< HEAD
 				C6E3A0FEDDEAF4F287CAACB3 /* libPods-isusapp.a */,
 				B7C3E7747A78CFEF85265E57 /* libPods-isusapp-isusappTests.a */,
 				A004A9B02B18223602881FEC /* libPods-isusapp-tvOS.a */,
 				2A3F5F633F7DB231B440049B /* libPods-isusapp-tvOSTests.a */,
-=======
-				8B3AD100CF71D5254675B3E7 /* libPods-isusapp.a */,
-				AFE519921622DDD0C1328273 /* libPods-isusapp-isusappTests.a */,
-				E25542B5CFD59043932DFC8F /* libPods-isusapp-tvOS.a */,
-				4EB2BEFB5C88C74AEDFD6CFB /* libPods-isusapp-tvOSTests.a */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -234,12 +186,8 @@
 				00E356EF1AD99517003FC87E /* isusappTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-<<<<<<< HEAD
 				02AF053420CBFDA77B2F0EDF /* Pods */,
 				33CB8F85A7A7401FAC49E620 /* Resources */,
-=======
-				DDFA614CE1F47C6D9C268530 /* Pods */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -257,21 +205,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DDFA614CE1F47C6D9C268530 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E8C5430A6B54CE59ECAFDDAD /* Pods-isusapp.debug.xcconfig */,
-				3465B101D1F6C84BD3CBA904 /* Pods-isusapp.release.xcconfig */,
-				4DFCF91FB0B12FAAEAB3246C /* Pods-isusapp-isusappTests.debug.xcconfig */,
-				E42AA51CE98EC71F282C1FB6 /* Pods-isusapp-isusappTests.release.xcconfig */,
-				4086A04D6CC84071551F0396 /* Pods-isusapp-tvOS.debug.xcconfig */,
-				B2707F28E725F1328F12A974 /* Pods-isusapp-tvOS.release.xcconfig */,
-				93963D929D4B412DBBCBF726 /* Pods-isusapp-tvOSTests.debug.xcconfig */,
-				C91CF53EB474DA5241C58CE9 /* Pods-isusapp-tvOSTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -279,19 +212,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "isusappTests" */;
 			buildPhases = (
-<<<<<<< HEAD
 				6E2D526ABDB85FE595F59895 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				3709E7CF5284F585C0438BCD /* [CP] Copy Pods Resources */,
-=======
-				213D0BDA48B66492CFF229D3 /* [CP] Check Pods Manifest.lock */,
-				00E356EA1AD99517003FC87E /* Sources */,
-				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
-				BB3F7DD29A3BCF5B875A0079 /* [CP] Copy Pods Resources */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			buildRules = (
 			);
@@ -307,21 +232,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "isusapp" */;
 			buildPhases = (
-<<<<<<< HEAD
 				A825F4248813694ABD6D5E96 /* [CP] Check Pods Manifest.lock */,
-=======
-				F78E67B61F18479874A5A915 /* [CP] Check Pods Manifest.lock */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-<<<<<<< HEAD
 				D2EAD0616A60757F897A487C /* [CP] Copy Pods Resources */,
-=======
-				7FC6C087A5B42EA6F27BDF95 /* [CP] Copy Pods Resources */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			buildRules = (
 			);
@@ -336,11 +253,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "isusapp-tvOS" */;
 			buildPhases = (
-<<<<<<< HEAD
 				31A24196FD22D77510E031B8 /* [CP] Check Pods Manifest.lock */,
-=======
-				7E773F75AE90E176437ED3D3 /* [CP] Check Pods Manifest.lock */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -360,11 +273,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "isusapp-tvOSTests" */;
 			buildPhases = (
-<<<<<<< HEAD
 				1DAAFD6874FA6C809D3315E8 /* [CP] Check Pods Manifest.lock */,
-=======
-				C4FE0518598F003826A0F11C /* [CP] Check Pods Manifest.lock */,
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -476,11 +385,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-<<<<<<< HEAD
 		1DAAFD6874FA6C809D3315E8 /* [CP] Check Pods Manifest.lock */ = {
-=======
-		213D0BDA48B66492CFF229D3 /* [CP] Check Pods Manifest.lock */ = {
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -495,11 +400,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-<<<<<<< HEAD
 				"$(DERIVED_FILE_DIR)/Pods-isusapp-tvOSTests-checkManifestLockResult.txt",
-=======
-				"$(DERIVED_FILE_DIR)/Pods-isusapp-isusappTests-checkManifestLockResult.txt",
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -520,11 +421,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-<<<<<<< HEAD
 		31A24196FD22D77510E031B8 /* [CP] Check Pods Manifest.lock */ = {
-=======
-		7E773F75AE90E176437ED3D3 /* [CP] Check Pods Manifest.lock */ = {
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -546,21 +443,13 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-<<<<<<< HEAD
 		3709E7CF5284F585C0438BCD /* [CP] Copy Pods Resources */ = {
-=======
-		7FC6C087A5B42EA6F27BDF95 /* [CP] Copy Pods Resources */ = {
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-<<<<<<< HEAD
 				"${PODS_ROOT}/Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests-resources.sh",
-=======
-				"${PODS_ROOT}/Target Support Files/Pods-isusapp/Pods-isusapp-resources.sh",
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -599,7 +488,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-<<<<<<< HEAD
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
@@ -648,22 +536,12 @@
 			showEnvVarsInLog = 0;
 		};
 		D2EAD0616A60757F897A487C /* [CP] Copy Pods Resources */ = {
-=======
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-isusapp/Pods-isusapp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB3F7DD29A3BCF5B875A0079 /* [CP] Copy Pods Resources */ = {
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-<<<<<<< HEAD
 				"${PODS_ROOT}/Target Support Files/Pods-isusapp/Pods-isusapp-resources.sh",
-=======
-				"${PODS_ROOT}/Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests-resources.sh",
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -702,55 +580,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-<<<<<<< HEAD
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-isusapp/Pods-isusapp-resources.sh\"\n";
-=======
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C4FE0518598F003826A0F11C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-isusapp-tvOSTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F78E67B61F18479874A5A915 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-isusapp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -858,11 +688,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = D4D9AC0C976FFC2970D3E5AE /* Pods-isusapp-isusappTests.debug.xcconfig */;
-=======
-			baseConfigurationReference = 4DFCF91FB0B12FAAEAB3246C /* Pods-isusapp-isusappTests.debug.xcconfig */;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -885,11 +711,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = CBC2F0E1200BC89DC638F477 /* Pods-isusapp-isusappTests.release.xcconfig */;
-=======
-			baseConfigurationReference = E42AA51CE98EC71F282C1FB6 /* Pods-isusapp-isusappTests.release.xcconfig */;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -909,19 +731,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = D1416B94285DC5DC975EF0A1 /* Pods-isusapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.0;
-=======
-			baseConfigurationReference = E8C5430A6B54CE59ECAFDDAD /* Pods-isusapp.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.1.0;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
+				CURRENT_PROJECT_VERSION = 2.2.0;
 				DEVELOPMENT_TEAM = XT8X924G47;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -930,11 +744,7 @@
 				);
 				INFOPLIST_FILE = isusapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-<<<<<<< HEAD
-				MARKETING_VERSION = 2.0.0;
-=======
-				MARKETING_VERSION = 2.1.0;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -950,27 +760,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 7B0C941442B39F352A0DB398 /* Pods-isusapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.0;
+				CURRENT_PROJECT_VERSION = 2.2.0;
 				DEVELOPMENT_TEAM = XT8X924G47;
 				INFOPLIST_FILE = isusapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.0;
-=======
-			baseConfigurationReference = 3465B101D1F6C84BD3CBA904 /* Pods-isusapp.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 2.1.0;
-				DEVELOPMENT_TEAM = XT8X924G47;
-				INFOPLIST_FILE = isusapp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.1.0;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
+				MARKETING_VERSION = 2.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -985,11 +783,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = BFA3265B1FA5BCBBB9D749F2 /* Pods-isusapp-tvOS.debug.xcconfig */;
-=======
-			baseConfigurationReference = 4086A04D6CC84071551F0396 /* Pods-isusapp-tvOS.debug.xcconfig */;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1017,11 +811,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 7531BE025CAC415C4376CBDA /* Pods-isusapp-tvOS.release.xcconfig */;
-=======
-			baseConfigurationReference = B2707F28E725F1328F12A974 /* Pods-isusapp-tvOS.release.xcconfig */;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1049,11 +839,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 11374CC6623269CD3160F6C3 /* Pods-isusapp-tvOSTests.debug.xcconfig */;
-=======
-			baseConfigurationReference = 93963D929D4B412DBBCBF726 /* Pods-isusapp-tvOSTests.debug.xcconfig */;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1080,11 +866,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 453E6F448A27A67F3D70A70D /* Pods-isusapp-tvOSTests.release.xcconfig */;
-=======
-			baseConfigurationReference = C91CF53EB474DA5241C58CE9 /* Pods-isusapp-tvOSTests.release.xcconfig */;
->>>>>>> 80dded1468a94309aba538ff5b4682c97b8ca617
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
