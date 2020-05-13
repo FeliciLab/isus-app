@@ -42,3 +42,23 @@ Para consultar o Controle das Atividades, acessar: https://airtable.com/shrIaMWh
 
 ### Design Backlog:
 Para consultar o Controle do Backlog do Time de Design, acessar: https://airtable.com/shr5uuRvxUWgMYpQG
+
+# Erros comuns iOS:
+
+### xcrun: error: SDK "iphoneos" cannot be located
+https://www.ryadel.com/en/xcode-sdk-iphoneos-cannot-be-located-mac-osx-error-fix/
+
+### Error: EMFILE: too many open files, watch at FSEvent.FSWatcher._handle.onchange (internal/fs/watchers.js:129:28)
+https://stackoverflow.com/questions/58675179/error-emfile-too-many-open-files-react-native-cli
+
+### Invariant Violation: "isusapp" has not been registered. This can happen if: 
+
+basta ajustar o arquivo app.json para o seguinte padrão:
+```json
+  {
+    "name": "isusapp",
+    "displayName": "iSUS",
+    ...
+  }
+```
+
