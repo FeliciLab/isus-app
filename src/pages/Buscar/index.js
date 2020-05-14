@@ -6,6 +6,7 @@ import {
   TextInput, Button, Caption, Divider
 } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
 export default function HomeScreen() {
@@ -19,6 +20,29 @@ export default function HomeScreen() {
     console.tron.log('data', response.data.data);
     setData(response.data.data);
   }
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: '#FFF',
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
+    });
+  });
 
   return (
     <View style={{ flex: 1 }}>
@@ -36,7 +60,7 @@ export default function HomeScreen() {
           <>
             <TouchableOpacity
               style={{ margin: 10, padding: 10, backgroundColor: 'transparent' }}
-              onPress={() => navigation.navigate('Educaçao permanente', { item })}
+              onPress={() => navigation.navigate('Buscar Description', { item })}
             >
               <Divider />
               <View style={{ flexDirection: 'row' }}>
