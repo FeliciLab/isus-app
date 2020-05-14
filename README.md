@@ -12,7 +12,7 @@ O projeto foi homologado para as seguintes versões:
 * iOS - Usando o XCode.
 
 ## Start do Projeto.
-* Ao baixar o projeto, instale as dependências usando:
+* Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
  yarn install 
 ```
