@@ -8,7 +8,7 @@ import { getProjetosPorCategoria } from '../../apis/apiHome';
 
 export default function EducationScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
+  // console.log(props);
   const { route } = props;
   const { params } = route;
 

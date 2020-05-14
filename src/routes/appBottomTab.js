@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import AppDrawerScreen from './appDrawerScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import EducationTab from './appTopTab';
+import TopTab from './appTopTab';
 import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 import SettingsStackScreen from '../pages/Settings';
@@ -24,8 +24,16 @@ const EducationStack = createStackNavigator();
 function EducationStackScreen() {
   return (
     <EducationStack.Navigator>
-      <EducationStack.Screen name="App" component={EducationTab} options={{ headerShown: true }} />
+      <EducationStack.Screen name="App" component={TopTab} options={{ headerShown: true }} />
     </EducationStack.Navigator>
+  );
+}
+const SearchesStack = createStackNavigator();
+function SearchesStackScreen() {
+  return (
+    <SearchesStack.Navigator>
+      <SearchesStack.Screen name="App" component={SearchesScreen} options={{ headerShown: true }} />
+    </SearchesStack.Navigator>
   );
 }
 
@@ -66,7 +74,7 @@ export default function AppTabScreen() {
       />
       <AppTab.Screen
         name="Search"
-        component={SearchesScreen}
+        component={SearchesStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />

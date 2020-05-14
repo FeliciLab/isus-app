@@ -7,7 +7,8 @@ import Education from '../pages/Education';
 import { getCategoriasArquitetura } from '../apis/apiHome';
 // import ProjetosPorCategoria from '../pages/ProjetosPorCategoria';
 
-const EducationTab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator();
+
 export default function EducationTabScreen() {
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
@@ -58,13 +59,13 @@ export default function EducationTabScreen() {
 
   useEffect(() => {
     getCategoriasArquitetura().then((response) => {
-      setCategorias(response.data['Pesquisa Científica']);
+      setCategorias(response.data['Educação']);
     });
   }, []);
 
   console.tron.log(categorias);
   return (
-    <EducationTab.Navigator
+    <Tab.Navigator
       tabBarOptions={{
         scrollEnabled: true,
         labelStyle: {
@@ -79,13 +80,13 @@ export default function EducationTabScreen() {
       }}
     >
       {categorias.map(item => (
-        <EducationTab.Screen
+        <Tab.Screen
           key={item.term_id}
           name={item.name}
           component={Education}
           initialParams={item}
         />
       ))}
-    </EducationTab.Navigator>
+    </Tab.Navigator>
   );
 }

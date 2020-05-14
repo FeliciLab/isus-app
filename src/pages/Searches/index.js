@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   FlatList,
@@ -13,44 +13,84 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Education from '../Education';
-import { getProjetosPorCategoria } from '../../apis/apiHome';
+import { getProjetosPorCategoria, getCategoriasArquitetura } from '../../apis/apiHome';
 
-export default function SearchesScreen() {
+
+export default function SearchesScreen(props) {
   const navigation = useNavigation();
-  const termIdInitial = 6;
-  const [data, setData] = React.useState([]);
+  const { route } = props;
+  const { params } = route;
+  console.log(params);
+  let termIdInitial = 443;
+  const [data, setData] = useState([]);
+  const [categorias, setCategorias] = useState([
+    {
+      name: 'Menu',
+      slug: 'Menu',
+      term_group: 0,
+      term_id: 0
+    }
+  ]);
   const Tab = createMaterialTopTabNavigator();
+
   useFocusEffect(
     React.useCallback(() => {
       getProjetosPorCategoria(termIdInitial).then((response) => {
         setData(response.data.data);
       });
+      getCategoriasArquitetura().then((response) => {
+        console.log('response.data');
+        // console.log(response.data);
+        console.log(response.data['Pesquisa Científica']);
+        setCategorias(response.data['Pesquisa Científica']);
+      });
+      // getCategoriasArquitetura().then((response) => {
+      //   setCategorias(response.data['Pesquisa Científica']);
+      //   // console.log('setCategorias');
+      //   // console.log(setCategorias);
+      // });
     }, [])
   );
-  const subCategorias = [
-    { term_id: 443, name: 'Epidemologia' },
-    { term_id: 445, name: 'Prevenção' },
-    { term_id: 446, name: 'Manifestações clínicas' },
-    { term_id: 447, name: 'Tratamento' },
-    { term_id: 448, name: 'Fatores de risco' },
-    { term_id: 449, name: 'Terapia intensiva' },
-    { term_id: 450, name: 'Especialidades' }
-  ];
-  console.log(subCategorias);
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTintColor: '#FFF',
+      headerTitleAlign: 'center',
+      headerTitle: 'Pesquisa científica',
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.navigate('Buscar');
+          }}
+        >
+          <Icon name="magnify" size={28} color="#FFF" />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        >
+          <Icon name="menu" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
+    });
+  });
+
   return (
     <ScrollView style={{ backgroundColor: '#ffffff', flex: 1 }}>
-      <View style={style.headerTop}>
-          <View style={{ flexDirection: 'row' }}>
-            <TouchableOpacity
-              style={{ marginHorizontal: 14 }}
-              onPress={() => {
-                navigation.toggleDrawer();
-              }}
-            >
-              <Icon name="menu" size={28} color="#ffffff" />
-            </TouchableOpacity>
-          </View>
-      </View>
       <View style={style.headerTop}>
           <View style={{ flexDirection: 'row' }}>
             <Tab.Navigator
@@ -67,12 +107,20 @@ export default function SearchesScreen() {
                 }
               }}
             >
-              {subCategorias.map(item => (
+              {categorias.map(item => (
                 <Tab.Screen
                   key={item.term_id}
                   name={item.name}
                   component={Education}
                   initialParams={item}
+                  clickButton={() => {
+                    termIdInitial = item.term_id;
+                    console.log(termIdInitial);
+                    getProjetosPorCategoria(termIdInitial).then((response) => {
+                      console.log('getProjetosPorCategoria');
+                      setData(response.data.data);
+                    });
+                  }}
                 />
               ))}
             </Tab.Navigator>
