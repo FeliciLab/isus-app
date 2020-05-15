@@ -10,8 +10,6 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import antIcon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Educacao from '../../assets/icons/educacao.svg';
-import Pesquisa from '../../assets/icons/pesquisa.svg';
 import Servico1 from '../../assets/icons/servicos/servico_1.png';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
@@ -75,6 +73,49 @@ export default function HomeScreen() {
     });
   });
 
+  function Banner() {
+    return (
+      <Card
+        onPress={() => navigation.navigate('clinical management')
+        }
+        style={{
+          marginVertical: 20,
+          marginHorizontal: 16,
+          borderRadius: 10,
+          backgroundColor: '#4054B2',
+          height: 130,
+          // alignItems: 'center'
+        }}
+      >
+        <View style={{
+          marginHorizontal: 24,
+          flexDirection: 'row',
+          alignItems: 'center',
+          flex: 1
+        }}
+        >
+          <View
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 80,
+            }}
+          >
+            <Image source={IconPaciente} />
+          </View>
+          <View style={{ flex: 1, paddingHorizontal: 12 }}>
+            <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
+              Manejo Clínico de Paciente com Covid-19
+            </Paragraph>
+            <Caption style={{ color: '#F2F2F2' }}>
+              Orientações sobre cada estágio de atendimento a pacientes com Covid-19
+            </Caption>
+          </View>
+        </View>
+      </Card>
+    );
+  }
+
   function HomeCard({
     onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage
   }) {
@@ -102,31 +143,6 @@ export default function HomeScreen() {
       </Card>
     );
   }
-
-  const sections = [
-    {
-      id: 'section-1',
-      title: 'Minha Saúde',
-      logo: 'heart',
-      color: '#F2453D',
-      FontIcon: Icon,
-      onPress: () => navigation.navigate('Health')
-    },
-    {
-      id: 'section-2',
-      title: 'Educação',
-      logo: Educacao,
-      color: '#4CAF50',
-      onPress: () => navigation.navigate('Education')
-    },
-    {
-      id: 'section-3',
-      title: 'Pesquisa',
-      logo: Pesquisa,
-      color: '#4054B2',
-      onPress: () => navigation.navigate('Search')
-    }
-  ];
 
   const services = [
     {
@@ -189,31 +205,9 @@ export default function HomeScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          marginVertical: 20,
-          marginHorizontal: 11
-        }}
-      >
-        {
-          sections.map(section => (
-            <HomeCard
-              key={section.id}
-              title={section.title}
-              Logo={section.logo}
-              width={3.3}
-              height={3.3}
-              logoSize={60}
-              isImage={section.isImage || false}
-              FontIcon={section.FontIcon || Icon}
-              color={section.color}
-              onPress={section.onPress}
-            />
-          ))
-        }
-      </View>
+
+      <Banner />
+
       <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
       <View
         style={{
@@ -262,44 +256,6 @@ export default function HomeScreen() {
         }
       </View>
 
-      <Card
-        onPress={() => navigation.navigate('clinical management')
-        }
-        style={{
-          marginVertical: 20,
-          marginHorizontal: 16,
-          borderRadius: 10,
-          backgroundColor: '#4054B2',
-          height: 130,
-          // alignItems: 'center'
-        }}
-      >
-        <View style={{
-          marginHorizontal: 24,
-          flexDirection: 'row',
-          alignItems: 'center',
-          flex: 1
-        }}
-        >
-          <View
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 80,
-            }}
-          >
-            <Image source={IconPaciente} />
-          </View>
-          <View style={{ flex: 1, paddingHorizontal: 12 }}>
-            <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
-              Manejo Clínico de Paciente com Covid-19
-            </Paragraph>
-            <Caption style={{ color: '#F2F2F2' }}>
-              Orientações sobre cada estágio de atendimento a pacientes com Covid-19
-            </Caption>
-          </View>
-        </View>
-      </Card>
     </ScrollView>
   );
 }
