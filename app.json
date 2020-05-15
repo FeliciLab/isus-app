@@ -1,6 +1,6 @@
 {
-  "name": "iSUS",
-  "displayName": "isusapp",
+  "name": "isusapp",
+  "displayName": "iSUS",
   "ios": {
     "bundleIdentifier": "com.esp.isus"
   },
