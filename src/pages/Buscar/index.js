@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
-export default function HomeScreen() {
+export default function SearchScreen() {
   const navigation = useNavigation();
 
   const [text, setText] = React.useState('');
@@ -44,59 +44,64 @@ export default function HomeScreen() {
     });
   });
 
+  function createItem(item) {
+    return (
+      <>
+        <TouchableOpacity
+          style={{ margin: 10, padding: 10, backgroundColor: 'transparent' }}
+          onPress={() => navigation.navigate('Buscar Description', { item })}
+        >
+          <Divider />
+          <View style={{ flexDirection: 'row' }}>
+            {item.image ? (
+              <Image
+                resizeMode="contain"
+                style={{
+                  height: 80,
+                  width: 80,
+                  borderRadius: 80,
+                  margin: 10
+                }}
+                source={{ uri: `${item.image}` }}
+              />
+            ) : (
+                <View
+                  style={{
+                    height: 80,
+                    width: 80,
+                    borderRadius: 80,
+                    margin: 10,
+                    borderWidth: 40,
+                    borderColor: '#fff'
+                  }}
+                />
+            )}
+            <Caption style={{ justifyContent: 'center', alignSelf: 'center', maxWidth: 200 }}>
+              {item.post_title}
+            </Caption>
+          </View>
+          <Divider />
+        </TouchableOpacity>
+      </>
+    );
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <TextInput label="Buscar" value={text} onChangeText={Text => setText(Text)} />
       <Button mode="contained" onPress={() => search()}>
         Procurar
       </Button>
-      <FlatList
-        // showsVerticalScrollIndicator={false}
-        data={data}
-        // numColumns={2}
-        keyExtractor={item => item.ID}
-        style={{ flex: 1 }}
-        renderItem={({ item }) => (
-          <>
-            <TouchableOpacity
-              style={{ margin: 10, padding: 10, backgroundColor: 'transparent' }}
-              onPress={() => navigation.navigate('Buscar Description', { item })}
-            >
-              <Divider />
-              <View style={{ flexDirection: 'row' }}>
-                {item.image ? (
-                  <Image
-                    resizeMode="contain"
-                    style={{
-                      height: 80,
-                      width: 80,
-                      borderRadius: 80,
-                      margin: 10
-                    }}
-                    source={{ uri: `${item.image}` }}
-                  />
-                ) : (
-                  <View
-                    style={{
-                      height: 80,
-                      width: 80,
-                      borderRadius: 80,
-                      margin: 10,
-                      borderWidth: 40,
-                      borderColor: '#fff'
-                    }}
-                  />
-                )}
-
-                <Caption style={{ justifyContent: 'center', alignSelf: 'center', maxWidth: 200 }}>
-                  {item.post_title}
-                </Caption>
-              </View>
-              <Divider />
-            </TouchableOpacity>
-          </>
-        )}
-      />
+      {data.length === 0 ? (<Caption style={{ textAlign: 'center', marginTop: 20 }}>Nenhuma informação foi encontrada.</Caption>) : (
+        <FlatList
+          // showsVerticalScrollIndicator={false}
+          data={data}
+          // numColumns={2}
+          keyExtractor={item => item.ID}
+          style={{ flex: 1 }}
+          renderItem={({ item }) => createItem(item)}
+        />
+      )}
     </View>
   );
 }
