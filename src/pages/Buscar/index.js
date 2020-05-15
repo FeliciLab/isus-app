@@ -1,10 +1,8 @@
 import * as React from 'react';
 import {
-  View, FlatList, TouchableOpacity, Image
+  View, FlatList, TouchableOpacity, Image, TextInput
 } from 'react-native';
-import {
-  TextInput, Button, Caption, Divider
-} from 'react-native-paper';
+import { Caption, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
@@ -17,7 +15,6 @@ export default function SearchScreen() {
 
   async function search() {
     const response = await getBusca(text);
-    console.tron.log('data', response.data.data);
     setData(response.data.data);
   }
 
@@ -29,6 +26,32 @@ export default function SearchScreen() {
         elevation: 0,
         shadowOpacity: 0
       },
+
+      headerTitle: () => (
+        <TextInput
+          autoFocus
+          placeholder="Buscar"
+          value={text}
+          style={{ backgroundColor: 'transparent', width: 200, fontSize: 15 }}
+          onChangeText={Text => setText(Text)}
+        />
+      ),
+
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 18,
+            backgroundColor: '#fff',
+            padding: 5,
+            borderRadius: 10
+          }}
+          mode="contained"
+          onPress={() => search()}
+        >
+          <Caption>Buscar</Caption>
+        </TouchableOpacity>
+      ),
+
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -65,16 +88,16 @@ export default function SearchScreen() {
                 source={{ uri: `${item.image}` }}
               />
             ) : (
-                <View
-                  style={{
-                    height: 80,
-                    width: 80,
-                    borderRadius: 80,
-                    margin: 10,
-                    borderWidth: 40,
-                    borderColor: '#fff'
-                  }}
-                />
+              <View
+                style={{
+                  height: 80,
+                  width: 80,
+                  borderRadius: 80,
+                  margin: 10,
+                  borderWidth: 40,
+                  borderColor: '#fff'
+                }}
+              />
             )}
             <Caption style={{ justifyContent: 'center', alignSelf: 'center', maxWidth: 200 }}>
               {item.post_title}
@@ -88,11 +111,11 @@ export default function SearchScreen() {
 
   return (
     <View style={{ flex: 1 }}>
-      <TextInput label="Buscar" value={text} onChangeText={Text => setText(Text)} />
-      <Button mode="contained" onPress={() => search()}>
-        Procurar
-      </Button>
-      {data.length === 0 ? (<Caption style={{ textAlign: 'center', marginTop: 20 }}>Nenhuma informação foi encontrada.</Caption>) : (
+      {data.length === 0 ? (
+        <Caption style={{ textAlign: 'center', marginTop: 20 }}>
+          Nenhuma informação foi encontrada.
+        </Caption>
+      ) : (
         <FlatList
           // showsVerticalScrollIndicator={false}
           data={data}
