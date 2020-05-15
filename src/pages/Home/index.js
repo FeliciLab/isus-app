@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, ScrollView, Linking, Dimensions
+  View, ScrollView, Linking, Dimensions, TouchableOpacity, Image
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -12,12 +12,12 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Educacao from '../../assets/icons/educacao.svg';
 import Pesquisa from '../../assets/icons/pesquisa.svg';
-import Servico1 from '../../assets/icons/servicos/servico_1.svg';
+import Servico1 from '../../assets/icons/servicos/servico_1.png';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
 import Servico4 from '../../assets/icons/servicos/servico_4.svg';
-import Forca4 from '../../assets/icons/forca_4.svg';
-import IconPaciente from '../../assets/icons/icon_paciente.svg';
+import Forca4 from '../../assets/icons/forca_4.png';
+import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
 
@@ -38,8 +38,45 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTintColor: '#FFF',
+      headerTitleAlign: 'center',
+      headerTitle: 'iSUS',
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.navigate('Buscar');
+          }}
+        >
+          <Icon name="magnify" size={28} color="#FFF" />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.toggleDrawer();
+          }}
+        >
+          <Icon name="menu" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
+    });
+  });
+
   function HomeCard({
-    onPress, FontIcon, Logo, logoSize, title, width, height, color
+    onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage
   }) {
     return (
       <Card
@@ -53,10 +90,12 @@ export default function HomeScreen() {
         }}
         onPress={onPress}
       >
+
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
           {
-            typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
-
+            // Provisório enquanto os svgs corretos não chegam
+            // eslint-disable-next-line no-nested-ternary
+            isImage ? <Image source={Logo} /> : typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
           }
         </View>
         <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
@@ -94,13 +133,14 @@ export default function HomeScreen() {
       id: 'services-1',
       title: 'IntegraSUS',
       logo: Servico1,
+      isImage: true,
       onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
     },
     {
       id: 'services-2',
       title: 'Central de Ventiladores',
       logo: Servico2,
-      onPress: () => Linking.openURL('https://gestao-ventiladores.dev.org.br/')
+      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/centraldeventiladores/')
     },
     {
       id: 'services-3',
@@ -142,22 +182,23 @@ export default function HomeScreen() {
       id: 'action-4',
       title: 'Ações do governo',
       logo: Forca4,
+      isImage: true,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
     },
   ];
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-       <View
-         style={{
-           flexDirection: 'row',
-           justifyContent: 'space-evenly',
-           marginVertical: 20,
-           marginHorizontal: 11
-         }}
-       >
-         {
-           sections.map(section => (
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          marginVertical: 20,
+          marginHorizontal: 11
+        }}
+      >
+        {
+          sections.map(section => (
             <HomeCard
               key={section.id}
               title={section.title}
@@ -165,13 +206,14 @@ export default function HomeScreen() {
               width={3.3}
               height={3.3}
               logoSize={60}
+              isImage={section.isImage || false}
               FontIcon={section.FontIcon || Icon}
               color={section.color}
               onPress={section.onPress}
             />
-           ))
-         }
-       </View>
+          ))
+        }
+      </View>
       <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
       <View
         style={{
@@ -187,6 +229,7 @@ export default function HomeScreen() {
               key={service.id}
               title={service.title}
               Logo={service.logo}
+              isImage={service.isImage || false}
               FontIcon={service.FontIcon || Icon}
               color="#FF9800"
               onPress={service.onPress}
@@ -210,6 +253,7 @@ export default function HomeScreen() {
               key={actions.id}
               title={actions.title}
               Logo={actions.logo}
+              isImage={actions.isImage || false}
               FontIcon={actions.FontIcon || Icon}
               color="rgba(0, 0, 0, 0.6)"
               onPress={actions.onPress}
@@ -219,7 +263,7 @@ export default function HomeScreen() {
       </View>
 
       <Card
-        onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/manejoclinico/')
+        onPress={() => navigation.navigate('clinical management')
         }
         style={{
           marginVertical: 20,
@@ -230,21 +274,23 @@ export default function HomeScreen() {
           // alignItems: 'center'
         }}
       >
-        <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+        <View style={{
+          marginHorizontal: 24,
+          flexDirection: 'row',
+          alignItems: 'center',
+          flex: 1
+        }}
+        >
           <View
             style={{
               height: 80,
               width: 80,
               borderRadius: 80,
-              marginHorizontal: 24
             }}
           >
-            <IconPaciente />
+            <Image source={IconPaciente} />
           </View>
-          <View style={{
-            flex: 2
-          }}
-          >
+          <View style={{ flex: 1, paddingHorizontal: 12 }}>
             <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
               Manejo Clínico de Paciente com Covid-19
             </Paragraph>
