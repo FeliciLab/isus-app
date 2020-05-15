@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 // import AppTab from './appBottomTab';
-import Description from '../pages/Education/Description';
+import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen';
 import Buscar from '../pages/Buscar';
@@ -17,7 +17,7 @@ export default function App() {
       <RootStack.Navigator>
         <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
         <RootStack.Screen
-          name="Educaçao permanente"
+          name="Descrição"
           component={Description}
           options={{ headerShown: true }}
         />

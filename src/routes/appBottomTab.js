@@ -7,7 +7,7 @@ import TopTab from './appTopTab';
 import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 import SettingsStackScreen from '../pages/Settings';
-import SearchesScreen from '../pages/Searches';
+import ContentScreen from '../pages/Content';
 
 import HomeScreen from '../pages/Home';
 
@@ -15,7 +15,7 @@ const HomeStack = createStackNavigator();
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="App" component={HomeScreen} options={{ headerShown: true }} />
+      <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
     </HomeStack.Navigator>
   );
 }
@@ -24,7 +24,7 @@ const EducationStack = createStackNavigator();
 function EducationStackScreen() {
   return (
     <EducationStack.Navigator>
-      <EducationStack.Screen name="App" component={TopTab} options={{ headerShown: true }} />
+      <EducationStack.Screen name="Educação" initialParams={<ContentScreen />} component={TopTab} options={{ headerShown: true }} />
     </EducationStack.Navigator>
   );
 }
@@ -32,7 +32,7 @@ const SearchesStack = createStackNavigator();
 function SearchesStackScreen() {
   return (
     <SearchesStack.Navigator>
-      <SearchesStack.Screen name="App" component={SearchesScreen} options={{ headerShown: true }} />
+      <SearchesStack.Screen name="Pesquisa Científica" initialParams={<ContentScreen />} component={TopTab} options={{ headerShown: true }} />
     </SearchesStack.Navigator>
   );
 }

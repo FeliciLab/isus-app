@@ -3,13 +3,15 @@ import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
-import Education from '../pages/Education';
 import { getCategoriasArquitetura } from '../apis/apiHome';
-// import ProjetosPorCategoria from '../pages/ProjetosPorCategoria';
 
 const Tab = createMaterialTopTabNavigator();
+let genericComponent;
 
-export default function EducationTabScreen() {
+export default function EducationTabScreen(props) {
+  const { route } = props;
+  genericComponent = route.params.type;
+
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
     {
@@ -29,7 +31,7 @@ export default function EducationTabScreen() {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'Educação Permanente',
+      headerTitle: props.route.name,
       headerRight: () => (
         <TouchableOpacity
           style={{
@@ -59,7 +61,8 @@ export default function EducationTabScreen() {
 
   useEffect(() => {
     getCategoriasArquitetura().then((response) => {
-      setCategorias(response.data['Educação']);
+      console.log('response.data[props.route.name]', response.data[props.route.name]);
+      setCategorias(response.data[props.route.name]);
     });
   }, []);
 
@@ -83,7 +86,7 @@ export default function EducationTabScreen() {
         <Tab.Screen
           key={item.term_id}
           name={item.name}
-          component={Education}
+          component={genericComponent}
           initialParams={item}
         />
       ))}

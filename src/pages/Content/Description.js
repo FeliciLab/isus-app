@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
 
