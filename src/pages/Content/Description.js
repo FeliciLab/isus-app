@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet, Platform, Text, Share, TouchableOpacity, ToastAndroid, Button
+  View, Image, Dimensions, StyleSheet, ScrollView,
+  Platform, Text, Share, TouchableOpacity, ToastAndroid
 }
   from 'react-native';
 import {
@@ -85,39 +86,41 @@ export default function DescriptionScreen(props) {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={styles.titleDetail}>
-        <Title>{item.post_title}</Title>
-      </View>
-      <View style={styles.sub}>
-        <View style={styles.subText}>
-          <Text>{formateDate(item.data)}</Text>
+    <ScrollView>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <View style={styles.titleDetail}>
+          <Title>{item.post_title}</Title>
         </View>
-        {shareImage()}
-      </View>
-      <Image
-        resizeMode="contain"
-        style={{
-          height: Dimensions.get('window').width / 1.5,
-          width: Dimensions.get('window').width
-        }}
-        source={{ uri: `${item.image}` }}
-      />
-      <View
-        style={{
-          // height: Dimensions.get('window').width / 1.5,
-          width: Dimensions.get('window').width
-        }}
-      >
-          <View style={{
-            padding: 10,
-            alignContent: 'center'
-          }}
-          >
-            <HTML html={item.content} />
+        <View style={styles.sub}>
+          <View style={styles.subText}>
+            <Text>{formateDate(item.data)}</Text>
           </View>
+          {shareImage()}
+        </View>
+        <Image
+          resizeMode="contain"
+          style={{
+            height: Dimensions.get('window').width / 1.5,
+            width: Dimensions.get('window').width
+          }}
+          source={{ uri: `${item.image}` }}
+        />
+        <View
+          style={{
+            // height: Dimensions.get('window').width / 1.5,
+            width: Dimensions.get('window').width
+          }}
+        >
+            <View style={{
+              padding: 10,
+              alignContent: 'center'
+            }}
+            >
+              <HTML html={item.content} />
+            </View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
     color: '#333333'
   },
   titleDetail: {
-    marginTop: 32,
+    marginTop: 20,
     marginLeft: 18,
     marginRight: 16,
     fontFamily: 'Roboto',
