@@ -76,29 +76,29 @@ export default function HomeScreen() {
   function Banner() {
     return (
       <Card
-        onPress={() => navigation.navigate('clinical management')
-        }
+        onPress={() => navigation.navigate('clinical management')}
         style={{
           marginVertical: 20,
           marginHorizontal: 16,
           borderRadius: 10,
           backgroundColor: '#4054B2',
-          height: 130,
+          height: 130
           // alignItems: 'center'
         }}
       >
-        <View style={{
-          marginHorizontal: 24,
-          flexDirection: 'row',
-          alignItems: 'center',
-          flex: 1
-        }}
+        <View
+          style={{
+            marginHorizontal: 24,
+            flexDirection: 'row',
+            alignItems: 'center',
+            flex: 1
+          }}
         >
           <View
             style={{
               height: 80,
               width: 80,
-              borderRadius: 80,
+              borderRadius: 80
             }}
           >
             <Image source={IconPaciente} />
@@ -131,13 +131,16 @@ export default function HomeScreen() {
         }}
         onPress={onPress}
       >
-
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
-          {
-            // Provisório enquanto os svgs corretos não chegam
-            // eslint-disable-next-line no-nested-ternary
-            isImage ? <Image source={Logo} /> : typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
-          }
+          {// Provisório enquanto os svgs corretos não chegam
+          // eslint-disable-next-line no-nested-ternary
+          isImage ? (
+            <Image source={Logo} />
+          ) : typeof Logo === 'string' ? (
+            <FontIcon name={Logo} size={logoSize || 40} color={color} />
+          ) : (
+            <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
+          )}
         </View>
         <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
       </Card>
@@ -169,7 +172,7 @@ export default function HomeScreen() {
       title: 'Mapa da saúde',
       logo: Servico4,
       onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
-    },
+    }
   ];
 
   const anticoronaActions = [
@@ -200,12 +203,11 @@ export default function HomeScreen() {
       logo: Forca4,
       isImage: true,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
-    },
+    }
   ];
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-
       <Banner />
 
       <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
@@ -217,19 +219,17 @@ export default function HomeScreen() {
           marginHorizontal: 11
         }}
       >
-        {
-          services.map(service => (
-            <HomeCard
-              key={service.id}
-              title={service.title}
-              Logo={service.logo}
-              isImage={service.isImage || false}
-              FontIcon={service.FontIcon || Icon}
-              color="#FF9800"
-              onPress={service.onPress}
-            />
-          ))
-        }
+        {services.map(service => (
+          <HomeCard
+            key={service.id}
+            title={service.title}
+            Logo={service.logo}
+            isImage={service.isImage || false}
+            FontIcon={service.FontIcon || Icon}
+            color="#FF9800"
+            onPress={service.onPress}
+          />
+        ))}
       </View>
 
       <Title style={{ margin: 15, fontSize: 20 }}>Força-tarefa Anticorona</Title>
@@ -241,21 +241,18 @@ export default function HomeScreen() {
           marginHorizontal: 16
         }}
       >
-        {
-          anticoronaActions.map(actions => (
-            <HomeCard
-              key={actions.id}
-              title={actions.title}
-              Logo={actions.logo}
-              isImage={actions.isImage || false}
-              FontIcon={actions.FontIcon || Icon}
-              color="rgba(0, 0, 0, 0.6)"
-              onPress={actions.onPress}
-            />
-          ))
-        }
+        {anticoronaActions.map(actions => (
+          <HomeCard
+            key={actions.id}
+            title={actions.title}
+            Logo={actions.logo}
+            isImage={actions.isImage || false}
+            FontIcon={actions.FontIcon || Icon}
+            color="rgba(0, 0, 0, 0.6)"
+            onPress={actions.onPress}
+          />
+        ))}
       </View>
-
     </ScrollView>
   );
 }
