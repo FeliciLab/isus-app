@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
   spaceRight: {
     margin: 10,
     fontSize: 14,
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     lineHeight: 20,
     letterSpacing: 0.25,
