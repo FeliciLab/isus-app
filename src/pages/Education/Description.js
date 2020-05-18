@@ -9,9 +9,11 @@ import {
   Title
 } from 'react-native-paper';
 import HTML from 'react-native-render-html';
+import { useNavigation } from '@react-navigation/native';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
+  const navigation = useNavigation();
   console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
@@ -45,6 +47,17 @@ export default function DescriptionScreen(props) {
       console.log(error.message);
     }
   };
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: '#FFF',
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      }
+    });
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
