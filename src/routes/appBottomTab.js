@@ -3,104 +3,37 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import AppDrawerScreen from './appDrawerScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import EducationTab from './appTopTab';
+import TopTab from './appTopTab';
 import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 import SettingsStackScreen from '../pages/Settings';
+import ContentScreen from '../pages/Content';
 
 import HomeScreen from '../pages/Home';
 
 const HomeStack = createStackNavigator();
 function HomeStackScreen() {
-  const navigation = useNavigation();
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="App"
-        component={HomeScreen}
-        options={{
-          headerStyle: {
-            backgroundColor: '#4CAF50'
-          },
-          headerTintColor: '#FFF',
-          headerTitleAlign: 'center',
-          headerTitle: 'iSUS',
-          headerRight: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.navigate('Buscar');
-              }}
-            >
-              <Icon name="magnify" size={28} color="#FFF" />
-            </TouchableOpacity>
-          ),
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.toggleDrawer();
-              }}
-            >
-              <Icon name="menu" size={28} color="#FFF" />
-            </TouchableOpacity>
-          )
-        }}
-      />
+      <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
     </HomeStack.Navigator>
   );
 }
 
 const EducationStack = createStackNavigator();
 function EducationStackScreen() {
-  const navigation = useNavigation();
   return (
     <EducationStack.Navigator>
-      <EducationStack.Screen
-        name="App"
-        component={EducationTab}
-        options={{
-          headerStyle: {
-            backgroundColor: '#4CAF50',
-            elevation: 0,
-            shadowOpacity: 0
-          },
-          headerTintColor: '#FFF',
-          headerTitleAlign: 'center',
-          headerTitle: 'Educação Permanente',
-          headerRight: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.navigate('Buscar');
-              }}
-            >
-              <Icon name="magnify" size={28} color="#FFF" />
-            </TouchableOpacity>
-          ),
-          headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.toggleDrawer();
-              }}
-            >
-              <Icon name="menu" size={28} color="#FFF" />
-            </TouchableOpacity>
-          )
-        }}
-      />
+      <EducationStack.Screen name="Educação" initialParams={<ContentScreen />} component={TopTab} options={{ headerShown: true }} />
     </EducationStack.Navigator>
+  );
+}
+const SearchesStack = createStackNavigator();
+function SearchesStackScreen() {
+  return (
+    <SearchesStack.Navigator>
+      <SearchesStack.Screen name="Pesquisa Científica" initialParams={<ContentScreen />} component={TopTab} options={{ headerShown: true }} />
+    </SearchesStack.Navigator>
   );
 }
 
@@ -141,7 +74,7 @@ export default function AppTabScreen() {
       />
       <AppTab.Screen
         name="Search"
-        component={SettingsStackScreen}
+        component={SearchesStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />
