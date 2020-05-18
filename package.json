@@ -21,6 +21,7 @@
     "@react-navigation/stack": "^5.2.9",
     "axios": "^0.19.2",
     "intl": "^1.2.5",
+    "moment": "^2.25.3",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-app-intro-slider": "^4.0.2",
