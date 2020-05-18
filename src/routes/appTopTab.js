@@ -3,12 +3,15 @@ import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
-import Education from '../pages/Education';
 import { getCategoriasArquitetura } from '../apis/apiHome';
-// import ProjetosPorCategoria from '../pages/ProjetosPorCategoria';
 
-const EducationTab = createMaterialTopTabNavigator();
-export default function EducationTabScreen() {
+const Tab = createMaterialTopTabNavigator();
+let genericComponent;
+
+export default function EducationTabScreen(props) {
+  const { route } = props;
+  genericComponent = route.params.type;
+
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
     {
@@ -28,7 +31,7 @@ export default function EducationTabScreen() {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'Educação Permanente',
+      headerTitle: props.route.name,
       headerRight: () => (
         <TouchableOpacity
           style={{
@@ -58,13 +61,14 @@ export default function EducationTabScreen() {
 
   useEffect(() => {
     getCategoriasArquitetura().then((response) => {
-      setCategorias(response.data['Pesquisa Científica']);
+      console.log('response.data[props.route.name]', response.data[props.route.name]);
+      setCategorias(response.data[props.route.name]);
     });
   }, []);
 
   console.tron.log(categorias);
   return (
-    <EducationTab.Navigator
+    <Tab.Navigator
       tabBarOptions={{
         scrollEnabled: true,
         labelStyle: {
@@ -79,13 +83,13 @@ export default function EducationTabScreen() {
       }}
     >
       {categorias.map(item => (
-        <EducationTab.Screen
+        <Tab.Screen
           key={item.term_id}
           name={item.name}
-          component={Education}
+          component={genericComponent}
           initialParams={item}
         />
       ))}
-    </EducationTab.Navigator>
+    </Tab.Navigator>
   );
 }

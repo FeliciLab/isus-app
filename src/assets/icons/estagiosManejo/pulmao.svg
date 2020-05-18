@@ -99,8 +99,5 @@
 <clipPath id="clip0">
 <rect width="230" height="85" fill="white"/>
 </clipPath>
-<image id="image0" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEAxQDFAAD/7AARRHVja3kAAQAEAAAAHgAA/+4AIUFkb2JlAGTAAAAAAQMA"/>
-<image id="image1" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEBLAEsAAD/7AARRHVja3kAAQAEAAAAHgAA/+4AIUFkb2JlAGTAAAAAAQMA"/>
-<image id="image2" xlink:href="data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEAxADEAAD/7AARRHVja3kAAQAEAAAAHgAA/+4AIUFkb2JlAGTAAAAAAQMA"/>
 </defs>
 </svg>
