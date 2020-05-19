@@ -13,7 +13,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Servico1 from '../../assets/icons/servicos/servico_1.png';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
-import Servico4 from '../../assets/icons/servicos/servico_4.svg';
 import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
 import Forca4 from '../../assets/icons/forca_4.png';
 import IconPaciente from '../../assets/icons/icon_paciente.png';
@@ -174,9 +173,10 @@ export default function HomeScreen() {
     },
     {
       id: 'services-4',
-      title: 'Mapa da saúde',
-      logo: Servico4,
-      onPress: () => navigation.navigate('webview', { title: 'Mapa da saúde', url: 'http://mapas.esp.ce.gov.br' })
+      title: 'Ações do governo',
+      logo: Forca4,
+      isImage: true,
+      onPress: () => navigation.navigate('webview', { title: 'Ações do governo', url: 'https://coronavirus.ceara.gov.br/isus/governo/' })
     },
   ];
 
@@ -204,13 +204,6 @@ export default function HomeScreen() {
     },
     {
       id: 'action-4',
-      title: 'Ações do governo',
-      logo: Forca4,
-      isImage: true,
-      onPress: () => navigation.navigate('webview', { title: 'Ações do governo', url: 'https://coronavirus.ceara.gov.br/isus/governo/' })
-    },
-    {
-      id: 'action-5',
       title: 'Notas Técnicas',
       logo: NotasTecnicasIcon,
       onPress: () => navigation.navigate('webview', { title: 'Notas Técnicas', url: notasTecnicasLink })
@@ -237,7 +230,7 @@ export default function HomeScreen() {
               key={service.id}
               title={service.title}
               Logo={service.logo}
-              margin={1.75}
+              margin={1.60}
               isImage={service.isImage || false}
               FontIcon={service.FontIcon || Icon}
               color="#FF9800"
@@ -262,7 +255,7 @@ export default function HomeScreen() {
             <HomeCard
               key={actions.id}
               title={actions.title}
-              margin={1.75}
+              margin={1.60}
               Logo={actions.logo}
               isImage={actions.isImage || false}
               FontIcon={actions.FontIcon || Icon}
