@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, ScrollView, Linking, Dimensions, TouchableOpacity, Image
+  View, ScrollView, Dimensions, TouchableOpacity, Image
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -153,26 +153,26 @@ export default function HomeScreen() {
       title: 'IntegraSUS',
       logo: Servico1,
       isImage: true,
-      onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
+      onPress: () => navigation.navigate('webview', { title: 'IntegraSUS', url: 'https://integrasus.saude.ce.gov.br' })
     },
     {
       id: 'services-2',
       title: 'Central de Ventiladores',
       logo: Servico2,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/centraldeventiladores/')
+      onPress: () => navigation.navigate('webview', { title: 'Central de Ventiladores', url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/' })
     },
     {
       id: 'services-3',
       title: 'TeleMedicina',
       logo: Servico3,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/telemedicina')
+      onPress: () => navigation.navigate('webview', { title: 'TeleMedicina', url: 'https://coronavirus.ceara.gov.br/isus/telemedicina' })
     },
     {
       id: 'services-4',
       title: 'Mapa da saúde',
       logo: Servico4,
-      onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
-    }
+      onPress: () => navigation.navigate('webview', { title: 'Mapa da saúde', url: 'http://mapas.esp.ce.gov.br' })
+    },
   ];
 
   const anticoronaActions = [
@@ -181,29 +181,29 @@ export default function HomeScreen() {
       title: 'Boletins',
       logo: 'bulletin-board',
       FontIcon: Icon,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/boletins/')
+      onPress: () => navigation.navigate('webview', { title: 'Boletins', url: 'https://coronavirus.ceara.gov.br/isus/boletins/' })
     },
     {
       id: 'action-2',
       title: 'Notificações de casos',
       logo: 'form',
       FontIcon: antIcon,
-      onPress: () => Linking.openURL('https://notifica.saude.gov.br/login')
+      onPress: () => navigation.navigate('webview', { title: 'Notificações de casos', url: 'https://notifica.saude.gov.br/login' })
     },
     {
       id: 'action-3',
       title: 'Farmaco-vigilância',
       logo: 'pills',
       FontIcon: FontAwesome5Icon,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/farmacovigilancia/')
+      onPress: () => navigation.navigate('webview', { title: 'Farmaco-vigilância', url: 'https://coronavirus.ceara.gov.br/isus/farmacovigilancia/' })
     },
     {
       id: 'action-4',
       title: 'Ações do governo',
       logo: Forca4,
       isImage: true,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
-    }
+      onPress: () => navigation.navigate('webview', { title: 'Ações do governo', url: 'https://coronavirus.ceara.gov.br/isus/governo/' })
+    },
   ];
 
   return (
