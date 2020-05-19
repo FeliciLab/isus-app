@@ -22,7 +22,7 @@ export default function WebViewPage({ navigation, route }) {
             marginHorizontal: 19
           }}
           onPress={() => {
-            navigator.navigate('Home');
+            navigator.goBack();
           }}
         >
           <Icon name="arrow-left" size={28} color="#FFF" />
