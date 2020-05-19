@@ -6,7 +6,6 @@ import {
   Platform, Text, Share, TouchableOpacity
 }
   from 'react-native';
-// , ToastAndroid
 import {
   Title
 } from 'react-native-paper';
@@ -14,7 +13,7 @@ import HTML from 'react-native-render-html';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useNavigation } from '@react-navigation/native';
-import Toast from 'react-native-simple-toast';
+// import Toast from 'react-native-simple-toast';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
@@ -33,18 +32,14 @@ export default function DescriptionScreen(props) {
       const result = await Share.share({
         message: messagTitle + messagLink
       });
-      resultTeste(result);
+      if (result.action === Share.dismissedAction) {
+        // dismissed
+        console.log('Cancelando sua ação...');
+      }
     } catch (error) {
       console.log(error.message);
     }
   };
-
-  function resultTeste(result) {
-    if (result.action === Share.sharedAction) {
-      // showToast('Compartilhando esse link...');
-      Toast.show('This is a long toast.', Toast.LONG);
-    }
-  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
