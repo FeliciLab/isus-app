@@ -6,9 +6,8 @@ import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getProjetosPorCategoria } from '../../apis/apiHome';
 
-export default function EducationScreen(props) {
+export default function InformationScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
   const { route } = props;
   const { params } = route;
 
@@ -17,7 +16,6 @@ export default function EducationScreen(props) {
   useFocusEffect(
     React.useCallback(() => {
       getProjetosPorCategoria(params.term_id).then((response) => {
-        console.tron.log('response', response.data.data);
         setData(response.data.data);
       });
     }, [props])
@@ -38,7 +36,7 @@ export default function EducationScreen(props) {
             alignItems: 'center',
             margin: 5
           }}
-          onPress={() => navigation.navigate('Educaçao permanente', { item })}
+          onPress={() => navigation.navigate('Descrição', { item })}
         >
           <Image
             style={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
