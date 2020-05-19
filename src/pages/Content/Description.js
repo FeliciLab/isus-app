@@ -53,7 +53,7 @@ export default function DescriptionScreen(props) {
   });
 
   function shareImage() {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'android') {
       return (
       <View />
       );
