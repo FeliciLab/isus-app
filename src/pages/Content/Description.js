@@ -17,7 +17,7 @@ import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
+  // console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
   // MENSAGEM PARA FEEDBACK AO USUÁRIO
@@ -31,25 +31,17 @@ export default function DescriptionScreen(props) {
       const result = await Share.share({
         message: messagTitle + messagLink
       });
-
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // PARA IOS
-          // shared with activity type of result.activityType
-          showToast('Compartilhando esse link...');
-        } else {
-          // PARA ANDROID
-          // console.log('shared');
-          showToast('Compartilhando esse link...');
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-        showToast('Cancelando sua ação...');
-      }
+      resultTeste(result);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
+
+  function resultTeste(result) {
+    if (result.action === Share.sharedAction) {
+      showToast('Compartilhando esse link...');
+    }
+  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -86,8 +78,8 @@ export default function DescriptionScreen(props) {
   }
 
   return (
-    <ScrollView>
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+    <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View>
         <View style={styles.titleDetail}>
           <Title>{item.post_title}</Title>
         </View>
@@ -129,7 +121,7 @@ const styles = StyleSheet.create({
     color: '#333333'
   },
   titleDetail: {
-    marginTop: 20,
+    marginTop: 32,
     marginLeft: 18,
     marginRight: 16,
     fontFamily: 'Roboto',
