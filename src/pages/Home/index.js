@@ -171,13 +171,8 @@ export default function HomeScreen() {
       id: 'services-4',
       title: 'Mapa da saúde',
       logo: Servico4,
-<<<<<<< HEAD
       onPress: () => navigation.navigate('webview', { title: 'Mapa da saúde', url: 'http://mapas.esp.ce.gov.br' })
     },
-=======
-      onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
-    }
->>>>>>> develop
   ];
 
   const anticoronaActions = [
@@ -207,13 +202,8 @@ export default function HomeScreen() {
       title: 'Ações do governo',
       logo: Forca4,
       isImage: true,
-<<<<<<< HEAD
       onPress: () => navigation.navigate('webview', { title: 'Ações do governo', url: 'https://coronavirus.ceara.gov.br/isus/governo/' })
     },
-=======
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
-    }
->>>>>>> develop
   ];
 
   return (
