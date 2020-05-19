@@ -14,10 +14,13 @@ import Servico1 from '../../assets/icons/servicos/servico_1.png';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
 import Servico4 from '../../assets/icons/servicos/servico_4.svg';
+import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
 import Forca4 from '../../assets/icons/forca_4.png';
 import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
+
+const notasTecnicasLink = 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -117,14 +120,16 @@ export default function HomeScreen() {
   }
 
   function HomeCard({
-    onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage
+    onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage, margin
   }) {
+    margin = margin || 0;
     return (
       <Card
         style={{
           padding: 4,
           height: Dimensions.get('window').width / (width || 4.5),
           width: Dimensions.get('window').width / (height || 4.5),
+          margin,
           justifyContent: 'center',
           borderColor: color,
           borderWidth: 1
@@ -201,6 +206,12 @@ export default function HomeScreen() {
       isImage: true,
       onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
     },
+    {
+      id: 'action-5',
+      title: 'Notas Técnicas',
+      logo: NotasTecnicasIcon,
+      onPress: () => Linking.openURL(notasTecnicasLink)
+    }
   ];
 
   return (
@@ -212,9 +223,10 @@ export default function HomeScreen() {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-evenly',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
           marginVertical: 20,
-          marginHorizontal: 11
+          marginHorizontal: 16
         }}
       >
         {
@@ -223,6 +235,7 @@ export default function HomeScreen() {
               key={service.id}
               title={service.title}
               Logo={service.logo}
+              margin={1.75}
               isImage={service.isImage || false}
               FontIcon={service.FontIcon || Icon}
               color="#FF9800"
@@ -236,7 +249,8 @@ export default function HomeScreen() {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-evenly',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
           marginVertical: 20,
           marginHorizontal: 16
         }}
@@ -246,6 +260,7 @@ export default function HomeScreen() {
             <HomeCard
               key={actions.id}
               title={actions.title}
+              margin={1.75}
               Logo={actions.logo}
               isImage={actions.isImage || false}
               FontIcon={actions.FontIcon || Icon}
