@@ -142,7 +142,7 @@ export default function ClinicalManagement({ navigation }) {
           </TouchableOpacity>
         </View>
         <View>
-          <TouchableOpacity onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/')}>
+          <TouchableOpacity onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })}>
             <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Plantão Corona Vírus</Text>
           </TouchableOpacity>
         </View>
@@ -191,7 +191,7 @@ export default function ClinicalManagement({ navigation }) {
         <Text style={style.bold}> tratamento ambulatorial e monitoramento clínico remoto </Text>
         por profissional da saúde se indicada quarentena domiciliar,
         {' '}
-        <Text style={{ textDecorationLine: 'underline', color: '#87BA25' }} onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/')}>
+        <Text style={{ textDecorationLine: 'underline', color: '#87BA25' }} onPress={() => navigation.navigate('webview', { title: 'Notas Técnicas', url: 'https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/' })}>
           conforme protocolo.
         </Text>
       </Text>
@@ -209,7 +209,7 @@ export default function ClinicalManagement({ navigation }) {
           {'‎• Ofertar'}
           <Text style={{ fontWeight: 'bold' }}> oxigenoterapia </Text>
           {'se SpO² < 93%.'}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
         </Paragraph>
         <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
         <Paragraph>
@@ -239,7 +239,7 @@ export default function ClinicalManagement({ navigation }) {
           <Text style={{ fontWeight: 'bold' }}>Considerar corticoterapia</Text>
         ,  em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva
         {' '}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
           {' '}
         </Paragraph>
         <Paragraph>
@@ -254,7 +254,7 @@ export default function ClinicalManagement({ navigation }) {
           {' '}
           <Text style={{ fontWeight: 'bold' }}>Considerar  hidroxicloroquina ou cloroquina</Text>
           {' '}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-esclarecimentos-sobre-uso-da-hidroxicloroquina-e-cloroquina-como-drogas-experimentais/')} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-esclarecimentos-sobre-uso-da-hidroxicloroquina-e-cloroquina-como-drogas-experimentais/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
           Checar ECG/Intervalo QT:
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
@@ -271,7 +271,7 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph>
           ‎• Utilizar ventilação mecânica (VM) protetora
         {' '}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
           {' '}
         com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.
         </Paragraph>
@@ -279,7 +279,7 @@ export default function ClinicalManagement({ navigation }) {
           - Considerar manobras de resgate de
           hipoxemia refratária (titulação da PEEP e posição prona)
         {' '}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
           {' '}
         </Paragraph>
         <Paragraph>
@@ -287,7 +287,12 @@ export default function ClinicalManagement({ navigation }) {
           <Text style={{ fontWeight: 'bold' }}>‎• Administrar corticoterapia</Text>
           , em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva
           {' '}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+          <Text
+            onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/' })}
+            style={{ color: '#F2453D', textDecorationLine: 'underline' }}
+          >
+conforme protocolo.
+          </Text>
           {' '}
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
@@ -299,7 +304,7 @@ export default function ClinicalManagement({ navigation }) {
           <Text style={{ fontWeight: 'bold' }}> Administrar anticoagulação com HBPM </Text>
           se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão
           {' '}
-          <Text onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/')} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
           {' '}
         </Paragraph>
         <Text>
@@ -397,9 +402,9 @@ export default function ClinicalManagement({ navigation }) {
             Notifique casos suspeitos de covid-19
           </Text>
           <Text style={{ color: '#4054B2' }}>Assegurar a notificação do caso, sua confirmação e inclusão em base de dados da vigilância epdemiológica e do registro eletrônico dos pacientes.</Text>
-          <ClinicalButton label="acesse a plataforma de notificação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/')} />
+          <ClinicalButton label="acesse a plataforma de notificação" onPress={() => navigation.navigate('webview', { title: 'Plataforma de notificação', url: 'https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/' })} />
           <Text
-            onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/')}
+            onPress={() => navigation.navigate('webview', { title: 'Diretrizes', url: 'https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/' })}
             style={{
               textAlign: 'center', color: '#4054B2', textDecorationLine: 'underline', marginVertical: 30
             }}
