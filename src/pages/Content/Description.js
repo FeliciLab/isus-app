@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet, ScrollView,
-  Platform, Text, Share, TouchableOpacity
+  View, Image, Dimensions, StyleSheet,
+  ScrollView, Text, Share, TouchableOpacity
 }
   from 'react-native';
 import {
@@ -13,7 +13,6 @@ import HTML from 'react-native-render-html';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useNavigation } from '@react-navigation/native';
-// import Toast from 'react-native-simple-toast';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
@@ -21,21 +20,14 @@ export default function DescriptionScreen(props) {
   console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
-  // MENSAGEM PARA FEEDBACK AO USUÁRIO
-  // const showToast = (message) => {
-  //   ToastAndroid.show(message, ToastAndroid.SHORT);
-  // };
+
   const onShare = async () => {
     const messagTitle = item.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
     try {
-      const result = await Share.share({
+      await Share.share({
         message: messagTitle + messagLink
       });
-      if (result.action === Share.dismissedAction) {
-        // dismissed
-        console.log('Cancelando sua ação...');
-      }
     } catch (error) {
       console.log(error.message);
     }
@@ -52,20 +44,6 @@ export default function DescriptionScreen(props) {
     });
   });
 
-  function shareImage() {
-    if (Platform.OS === 'android') {
-      return (
-      <View />
-      );
-    }
-    return (
-    <View style={styles.subShare}>
-      <TouchableOpacity onPress={onShare}>
-        <Image source={Shared} />
-      </TouchableOpacity>
-    </View>
-    );
-  }
   function Capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -85,7 +63,11 @@ export default function DescriptionScreen(props) {
           <View style={styles.subText}>
             <Text>{formateDate(item.data)}</Text>
           </View>
-          {shareImage()}
+          <View style={styles.subShare}>
+            <TouchableOpacity onPress={onShare}>
+              <Image source={Shared} />
+            </TouchableOpacity>
+          </View>
         </View>
         <Image
           resizeMode="contain"
