@@ -9,7 +9,7 @@
     />
     <item
     android:width="313dp"
-    android:height="15dp"
+    android:height="30dp"
     android:drawable="@drawable/text"
     android:orientation="vertical"
     android:gravity="center_horizontal|bottom"
