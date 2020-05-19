@@ -7,7 +7,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   Card, Button, Paragraph, Divider
 } from 'react-native-paper';
-
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import Banner from '../../assets/images/banner.png';
@@ -32,6 +31,20 @@ export default function ClinicalManagement({ navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerStyle: {
+        backgroundColor: '#4CAF50'
+      },
+      headerTintColor: '#FFF',
+      headerTitleAlign: 'center',
+      headerTitle: 'Manejo Clínico Covid-19',
+      headerRight: () => (
+        <TouchableOpacity style={{
+          marginHorizontal: 19
+        }}
+        >
+          <Icon name="magnify" size={28} color="#FFF" />
+        </TouchableOpacity>
+      ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
