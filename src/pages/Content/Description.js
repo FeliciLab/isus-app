@@ -3,9 +3,10 @@ import * as React from 'react';
 import {
   // eslint-disable-next-line no-unused-vars
   View, Image, Dimensions, StyleSheet, ScrollView,
-  Platform, Text, Share, TouchableOpacity, ToastAndroid
+  Platform, Text, Share, TouchableOpacity
 }
   from 'react-native';
+// , ToastAndroid
 import {
   Title
 } from 'react-native-paper';
@@ -13,17 +14,18 @@ import HTML from 'react-native-render-html';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-simple-toast';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  // console.tron.log(props);
+  console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
   // MENSAGEM PARA FEEDBACK AO USUÁRIO
-  const showToast = (message) => {
-    ToastAndroid.show(message, ToastAndroid.SHORT);
-  };
+  // const showToast = (message) => {
+  //   ToastAndroid.show(message, ToastAndroid.SHORT);
+  // };
   const onShare = async () => {
     const messagTitle = item.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
@@ -33,13 +35,14 @@ export default function DescriptionScreen(props) {
       });
       resultTeste(result);
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 
   function resultTeste(result) {
     if (result.action === Share.sharedAction) {
-      showToast('Compartilhando esse link...');
+      // showToast('Compartilhando esse link...');
+      Toast.show('This is a long toast.', Toast.LONG);
     }
   }
 
@@ -78,8 +81,8 @@ export default function DescriptionScreen(props) {
   }
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View>
+    <ScrollView>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={styles.titleDetail}>
           <Title>{item.post_title}</Title>
         </View>
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
     color: '#333333'
   },
   titleDetail: {
-    marginTop: 32,
+    marginTop: 20,
     marginLeft: 18,
     marginRight: 16,
     fontFamily: 'Roboto',
