@@ -2,16 +2,21 @@ import * as React from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet, Text, Share, TouchableOpacity, ToastAndroid, Button
+  View, Image, Dimensions, StyleSheet, ScrollView,
+  Platform, Text, Share, TouchableOpacity, ToastAndroid
 }
   from 'react-native';
 import {
   Title
 } from 'react-native-paper';
 import HTML from 'react-native-render-html';
+import Moment from 'moment';
+import 'moment/locale/pt-br';
+import { useNavigation } from '@react-navigation/native';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
+  const navigation = useNavigation();
   console.tron.log(props);
   const { route } = props;
   const { item } = route.params;
@@ -46,44 +51,76 @@ export default function DescriptionScreen(props) {
     }
   };
 
-  return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={styles.titleDetail}>
-        <Title>{item.post_title}</Title>
-      </View>
-      <View style={styles.sub}>
-        <View style={styles.subText}>
-          <Text> Postado em 23 de Abril de 2020</Text>
-        </View>
-        <View style={styles.subShare}>
-          <TouchableOpacity onPress={onShare}>
-            <Image source={Shared} />
-          </TouchableOpacity>
-        </View>
-      </View>
-      <Image
-        resizeMode="contain"
-        style={{
-          height: Dimensions.get('window').width / 1.5,
-          width: Dimensions.get('window').width
-        }}
-        source={{ uri: `${item.image}` }}
-      />
-      <View
-        style={{
-          // height: Dimensions.get('window').width / 1.5,
-          width: Dimensions.get('window').width
-        }}
-      >
-          <View style={{
-            padding: 10,
-            alignContent: 'center'
-          }}
-          >
-            <HTML html={item.content} />
-          </View>
-      </View>
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: '#FFF',
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      }
+    });
+  });
+
+  function shareImage() {
+    if (Platform.OS === 'ios') {
+      return (
+      <View />
+      );
+    }
+    return (
+    <View style={styles.subShare}>
+      <TouchableOpacity onPress={onShare}>
+        <Image source={Shared} />
+      </TouchableOpacity>
     </View>
+    );
+  }
+  function Capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  function formateDate(date) {
+    Moment.locale('pt-br');
+    return `Postado em ${Moment(date).format('D')} de ${Capitalize(Moment(date).format('MMMM'))} de ${Moment(date).format('YYYY')}`;
+  }
+
+  return (
+    <ScrollView>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <View style={styles.titleDetail}>
+          <Title>{item.post_title}</Title>
+        </View>
+        <View style={styles.sub}>
+          <View style={styles.subText}>
+            <Text>{formateDate(item.data)}</Text>
+          </View>
+          {shareImage()}
+        </View>
+        <Image
+          resizeMode="contain"
+          style={{
+            height: Dimensions.get('window').width / 1.5,
+            width: Dimensions.get('window').width
+          }}
+          source={{ uri: `${item.image}` }}
+        />
+        <View
+          style={{
+            // height: Dimensions.get('window').width / 1.5,
+            width: Dimensions.get('window').width
+          }}
+        >
+            <View style={{
+              padding: 10,
+              alignContent: 'center'
+            }}
+            >
+              <HTML html={item.content} />
+            </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -92,7 +129,7 @@ const styles = StyleSheet.create({
     color: '#333333'
   },
   titleDetail: {
-    marginTop: 32,
+    marginTop: 20,
     marginLeft: 18,
     marginRight: 16,
     fontFamily: 'Roboto',
