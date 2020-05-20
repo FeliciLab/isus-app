@@ -18,6 +18,11 @@ export default function SearchScreen() {
     setData(response.data.data);
   }
 
+  function runSearch(Text) {
+    setText(Text);
+    search();
+  }
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
@@ -34,9 +39,10 @@ export default function SearchScreen() {
           placeholderTextColor="#FFFFFF"
           value={text}
           style={style.inputTextPlace}
-          returnKeyType="search"
-          onBlur={() => search()}
-          onChangeText={Text => setText(Text)}
+          // returnKeyType="search"
+          // onBlur={() => search()}
+          // onChangeText={Text => setText(Text)}
+          onChangeText={Text => runSearch(Text)}
         />
       ),
 
@@ -44,9 +50,6 @@ export default function SearchScreen() {
         <TouchableOpacity
           style={{
             marginHorizontal: 20,
-            // backgroundColor: '#fff',
-            // padding: 5,
-            // borderRadius: 10
           }}
           mode="contained"
           onPress={() => search()}
