@@ -33,7 +33,7 @@ export default function SearchScreen() {
           placeholder="Buscar"
           placeholderTextColor="#FFFFFF"
           value={text}
-          style={style.inputTextPlace}
+          style={style.searchHeaderText}
           returnKeyType="search"
           onBlur={() => search()}
           onChangeText={Text => setText(Text)}
@@ -42,12 +42,7 @@ export default function SearchScreen() {
 
       headerRight: () => (
         <TouchableOpacity
-          style={{
-            marginHorizontal: 20,
-            // backgroundColor: '#fff',
-            // padding: 5,
-            // borderRadius: 10
-          }}
+          style={style.headerSearchIcon}
           mode="contained"
           onPress={() => search()}
         >
@@ -57,9 +52,7 @@ export default function SearchScreen() {
 
       headerLeft: () => (
         <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
+          style={style.headerBack}
           onPress={() => {
             navigation.goBack();
           }}
@@ -72,34 +65,24 @@ export default function SearchScreen() {
 
   function createItem(item) {
     return (
-      <View style={{ backgroundColor: '#fff' }}>
+      <View style={style.backgroundColor}>
         <TouchableOpacity
-          style={{ backgroundColor: '#fff' }}
+          style={style.backgroundColor}
           onPress={() => navigation.navigate('Descrição', { item })}
         >
-          <View style={{ flexDirection: 'row' }}>
+          <View style={style.content}>
             {item.image ? (
               <Image
                 resizeMode="contain"
-                style={{
-                  height: 80,
-                  width: 80,
-                  marginLeft: 32,
-                }}
+                style={style.contentImage}
                 source={{ uri: `${item.image}` }}
               />
             ) : (
               <View
-                style={{
-                  height: 80,
-                  width: 80,
-                  margin: 10,
-                  borderWidth: 40,
-                  borderColor: '#fff'
-                }}
+                style={style.contentImage}
               />
             )}
-            <Caption style={style.subTitle}>
+            <Caption style={style.contentSubtitle}>
               {item.post_title}
             </Caption>
           </View>
@@ -110,18 +93,16 @@ export default function SearchScreen() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={style.emptyBackground}>
       {data.length === 0 ? (
-        <Caption style={{ textAlign: 'center', marginTop: 20 }}>
+        <Caption style={style.emptyText}>
           Nenhuma informação foi encontrada.
         </Caption>
       ) : (
         <FlatList
-          // showsVerticalScrollIndicator={false}
           data={data}
-          // numColumns={2}
           keyExtractor={item => item.ID}
-          style={{ flex: 1 }}
+          style={style.emptyBackground}
           renderItem={({ item }) => createItem(item)}
         />
       )}
@@ -129,7 +110,13 @@ export default function SearchScreen() {
   );
 }
 const style = StyleSheet.create({
-  inputTextPlace: {
+  backgroundColor: {
+    backgroundColor: '#fff'
+  },
+  searchHeaderBack: {
+    marginHorizontal: 19
+  },
+  searchHeaderText: {
     backgroundColor: 'transparent',
     width: 200,
     fontFamily: 'Roboto',
@@ -141,7 +128,15 @@ const style = StyleSheet.create({
     color: '#F2F2F2',
     opacity: 0.87
   },
-  subTitle: {
+  searchHeaderIcon: {
+    marginHorizontal: 20,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 13
+  },
+  contentSubtitle: {
     maxWidth: 200,
     height: 60,
     left: 16,
@@ -150,10 +145,21 @@ const style = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 14,
+    textAlignVertical: 'center',
     lineHeight: 20,
     letterSpacing: 0.25,
     color: '#00000099',
-    marginTop: 13
   },
-
+  contentImage: {
+    height: 80,
+    width: 80,
+    marginLeft: 32,
+  },
+  emptyBackground: {
+    flex: 1,
+  },
+  emptyText: {
+    textAlign: 'center',
+    marginTop: 20
+  },
 });
