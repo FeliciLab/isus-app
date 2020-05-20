@@ -33,10 +33,10 @@ export default function appDrawerScreen() {
     <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen
         options={{
-          drawerIcon: () => <Icon name="heart" size={20} />
+          drawerIcon: () => <Icon name="home" size={20} />
         }}
         Icon="home"
-        name="SUSI"
+        name="Home"
         component={AppTab}
       />
       {/* <Drawer.Screen

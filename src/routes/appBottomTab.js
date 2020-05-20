@@ -3,10 +3,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import AppDrawerScreen from './appDrawerScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import EducationTab from './appTopTab';
+import TopTab from './appTopTab';
 import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
-import SettingsStackScreen from '../pages/Settings';
+// import SettingsStackScreen from '../pages/Settings';
+import ContentScreen from '../pages/Content';
 
 import HomeScreen from '../pages/Home';
 
@@ -14,7 +15,7 @@ const HomeStack = createStackNavigator();
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="App" component={HomeScreen} options={{ headerShown: true }} />
+      <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
     </HomeStack.Navigator>
   );
 }
@@ -23,8 +24,26 @@ const EducationStack = createStackNavigator();
 function EducationStackScreen() {
   return (
     <EducationStack.Navigator>
-      <EducationStack.Screen name="App" component={EducationTab} options={{ headerShown: true }} />
+      <EducationStack.Screen
+        name="Educação"
+        initialParams={<ContentScreen />}
+        component={TopTab}
+        options={{ headerShown: true }}
+      />
     </EducationStack.Navigator>
+  );
+}
+const SearchesStack = createStackNavigator();
+function SearchesStackScreen() {
+  return (
+    <SearchesStack.Navigator>
+      <SearchesStack.Screen
+        name="Pesquisa Científica"
+        initialParams={<ContentScreen />}
+        component={TopTab}
+        options={{ headerShown: true }}
+      />
+    </SearchesStack.Navigator>
   );
 }
 
@@ -46,14 +65,14 @@ export default function AppTabScreen() {
         }}
       />
 
-      <AppTab.Screen
+      {/* <AppTab.Screen
         name="Health"
         component={SettingsStackScreen} // Teste
         options={{
           tabBarLabel: 'Minha Saúde',
           tabBarIcon: ({ color }) => <Icon name="heart" color={color} size={20} />
         }}
-      />
+      /> */}
 
       <AppTab.Screen
         name="Education"
@@ -65,7 +84,7 @@ export default function AppTabScreen() {
       />
       <AppTab.Screen
         name="Search"
-        component={SettingsStackScreen}
+        component={SearchesStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />
