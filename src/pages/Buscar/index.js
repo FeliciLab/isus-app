@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, FlatList, TouchableOpacity, Image, TextInput
+  View, FlatList, TouchableOpacity, Image, TextInput, StyleSheet
 } from 'react-native';
 import { Caption, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -31,8 +31,11 @@ export default function SearchScreen() {
         <TextInput
           autoFocus
           placeholder="Buscar"
+          placeholderTextColor="#FFFFFF"
           value={text}
-          style={{ backgroundColor: 'transparent', width: 200, fontSize: 15 }}
+          style={style.inputTextPlace}
+          returnKeyType="search"
+          onBlur={() => search()}
           onChangeText={Text => setText(Text)}
         />
       ),
@@ -40,15 +43,15 @@ export default function SearchScreen() {
       headerRight: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 18,
-            backgroundColor: '#fff',
-            padding: 5,
-            borderRadius: 10
+            marginHorizontal: 20,
+            // backgroundColor: '#fff',
+            // padding: 5,
+            // borderRadius: 10
           }}
           mode="contained"
           onPress={() => search()}
         >
-          <Caption>Buscar</Caption>
+          <Icon name="magnify" size={25} color="#DADADA" />
         </TouchableOpacity>
       ),
 
@@ -69,12 +72,11 @@ export default function SearchScreen() {
 
   function createItem(item) {
     return (
-      <>
+      <View style={{ backgroundColor: '#fff' }}>
         <TouchableOpacity
-          style={{ margin: 10, padding: 10, backgroundColor: 'transparent' }}
+          style={{ backgroundColor: '#fff' }}
           onPress={() => navigation.navigate('Buscar Description', { item })}
         >
-          <Divider />
           <View style={{ flexDirection: 'row' }}>
             {item.image ? (
               <Image
@@ -82,8 +84,7 @@ export default function SearchScreen() {
                 style={{
                   height: 80,
                   width: 80,
-                  borderRadius: 80,
-                  margin: 10
+                  marginLeft: 32,
                 }}
                 source={{ uri: `${item.image}` }}
               />
@@ -92,20 +93,19 @@ export default function SearchScreen() {
                 style={{
                   height: 80,
                   width: 80,
-                  borderRadius: 80,
                   margin: 10,
                   borderWidth: 40,
                   borderColor: '#fff'
                 }}
               />
             )}
-            <Caption style={{ justifyContent: 'center', alignSelf: 'center', maxWidth: 200 }}>
+            <Caption style={style.subTitle}>
               {item.post_title}
             </Caption>
           </View>
           <Divider />
         </TouchableOpacity>
-      </>
+      </View>
     );
   }
 
@@ -128,3 +128,32 @@ export default function SearchScreen() {
     </View>
   );
 }
+const style = StyleSheet.create({
+  inputTextPlace: {
+    backgroundColor: 'transparent',
+    width: 200,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 18,
+    lineHeight: 28,
+    letterSpacing: 0.5,
+    color: '#F2F2F2',
+    opacity: 0.87
+  },
+  subTitle: {
+    maxWidth: 200,
+    height: 60,
+    left: 16,
+    right: 16,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0.25,
+    color: '#00000099',
+    marginTop: 13
+  }
+
+});
