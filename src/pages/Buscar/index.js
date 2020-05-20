@@ -75,7 +75,7 @@ export default function SearchScreen() {
       <View style={{ backgroundColor: '#fff' }}>
         <TouchableOpacity
           style={{ backgroundColor: '#fff' }}
-          onPress={() => navigation.navigate('Buscar Description', { item })}
+          onPress={() => navigation.navigate('Descrição', { item })}
         >
           <View style={{ flexDirection: 'row' }}>
             {item.image ? (
@@ -103,7 +103,7 @@ export default function SearchScreen() {
               {item.post_title}
             </Caption>
           </View>
-          <Divider />
+          <Divider style={style.divider} />
         </TouchableOpacity>
       </View>
     );
@@ -154,6 +154,6 @@ const style = StyleSheet.create({
     letterSpacing: 0.25,
     color: '#00000099',
     marginTop: 13
-  }
+  },
 
 });
