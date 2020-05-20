@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, ScrollView, Linking, Dimensions, TouchableOpacity, Image
+  View, ScrollView, Dimensions, TouchableOpacity, Image
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -13,11 +13,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Servico1 from '../../assets/icons/servicos/servico_1.png';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
-import Servico4 from '../../assets/icons/servicos/servico_4.svg';
+import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
 import Forca4 from '../../assets/icons/forca_4.png';
 import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
+
+const notasTecnicasLink = 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -76,29 +78,29 @@ export default function HomeScreen() {
   function Banner() {
     return (
       <Card
-        onPress={() => navigation.navigate('clinical management')
-        }
+        onPress={() => navigation.navigate('clinical management')}
         style={{
           marginVertical: 20,
           marginHorizontal: 16,
           borderRadius: 10,
           backgroundColor: '#4054B2',
-          height: 130,
+          height: 130
           // alignItems: 'center'
         }}
       >
-        <View style={{
-          marginHorizontal: 24,
-          flexDirection: 'row',
-          alignItems: 'center',
-          flex: 1
-        }}
+        <View
+          style={{
+            marginHorizontal: 24,
+            flexDirection: 'row',
+            alignItems: 'center',
+            flex: 1
+          }}
         >
           <View
             style={{
               height: 80,
               width: 80,
-              borderRadius: 80,
+              borderRadius: 80
             }}
           >
             <Image source={IconPaciente} />
@@ -117,27 +119,32 @@ export default function HomeScreen() {
   }
 
   function HomeCard({
-    onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage
+    onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage, margin
   }) {
+    margin = margin || 0;
     return (
       <Card
         style={{
           padding: 4,
           height: Dimensions.get('window').width / (width || 4.5),
           width: Dimensions.get('window').width / (height || 4.5),
+          margin,
           justifyContent: 'center',
           borderColor: color,
           borderWidth: 1
         }}
         onPress={onPress}
       >
-
         <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
-          {
-            // Provisório enquanto os svgs corretos não chegam
-            // eslint-disable-next-line no-nested-ternary
-            isImage ? <Image source={Logo} /> : typeof Logo === 'string' ? <FontIcon name={Logo} size={logoSize || 40} color={color} /> : <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
-          }
+          {// Provisório enquanto os svgs corretos não chegam
+          // eslint-disable-next-line no-nested-ternary
+          isImage ? (
+            <Image source={Logo} />
+          ) : typeof Logo === 'string' ? (
+            <FontIcon name={Logo} size={logoSize || 40} color={color} />
+          ) : (
+            <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
+          )}
         </View>
         <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
       </Card>
@@ -150,25 +157,26 @@ export default function HomeScreen() {
       title: 'IntegraSUS',
       logo: Servico1,
       isImage: true,
-      onPress: () => Linking.openURL('https://integrasus.saude.ce.gov.br')
+      onPress: () => navigation.navigate('webview', { title: 'IntegraSUS', url: 'https://integrasus.saude.ce.gov.br' })
     },
     {
       id: 'services-2',
       title: 'Central de Ventiladores',
       logo: Servico2,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/centraldeventiladores/')
+      onPress: () => navigation.navigate('webview', { title: 'Central de Ventiladores', url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/' })
     },
     {
       id: 'services-3',
       title: 'TeleMedicina',
       logo: Servico3,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/telemedicina')
+      onPress: () => navigation.navigate('webview', { title: 'TeleMedicina', url: 'https://coronavirus.ceara.gov.br/isus/telemedicina' })
     },
     {
       id: 'services-4',
-      title: 'Mapa da saúde',
-      logo: Servico4,
-      onPress: () => Linking.openURL('https://mapas.esp.ce.gov.br')
+      title: 'Ações do governo',
+      logo: Forca4,
+      isImage: true,
+      onPress: () => navigation.navigate('webview', { title: 'Ações do governo', url: 'https://coronavirus.ceara.gov.br/isus/governo/' })
     },
   ];
 
@@ -178,43 +186,42 @@ export default function HomeScreen() {
       title: 'Boletins',
       logo: 'bulletin-board',
       FontIcon: Icon,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/boletins/')
+      onPress: () => navigation.navigate('webview', { title: 'Boletins', url: 'https://coronavirus.ceara.gov.br/isus/boletins/' })
     },
     {
       id: 'action-2',
       title: 'Notificações de casos',
       logo: 'form',
       FontIcon: antIcon,
-      onPress: () => Linking.openURL('https://notifica.saude.gov.br/login')
+      onPress: () => navigation.navigate('webview', { title: 'Notificações de casos', url: 'https://notifica.saude.gov.br/login' })
     },
     {
       id: 'action-3',
       title: 'Farmaco-vigilância',
       logo: 'pills',
       FontIcon: FontAwesome5Icon,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/farmacovigilancia/')
+      onPress: () => navigation.navigate('webview', { title: 'Farmaco-vigilância', url: 'https://coronavirus.ceara.gov.br/isus/farmacovigilancia/' })
     },
     {
       id: 'action-4',
-      title: 'Ações do governo',
-      logo: Forca4,
-      isImage: true,
-      onPress: () => Linking.openURL('https://coronavirus.ceara.gov.br/isus/governo/')
-    },
+      title: 'Notas Técnicas',
+      logo: NotasTecnicasIcon,
+      onPress: () => navigation.navigate('webview', { title: 'Notas Técnicas', url: notasTecnicasLink })
+    }
   ];
 
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-
       <Banner />
 
       <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-evenly',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
           marginVertical: 20,
-          marginHorizontal: 11
+          marginHorizontal: 16
         }}
       >
         {
@@ -223,6 +230,7 @@ export default function HomeScreen() {
               key={service.id}
               title={service.title}
               Logo={service.logo}
+              margin={1.60}
               isImage={service.isImage || false}
               FontIcon={service.FontIcon || Icon}
               color="#FF9800"
@@ -236,7 +244,8 @@ export default function HomeScreen() {
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-evenly',
+          justifyContent: 'flex-start',
+          flexWrap: 'wrap',
           marginVertical: 20,
           marginHorizontal: 16
         }}
@@ -246,6 +255,7 @@ export default function HomeScreen() {
             <HomeCard
               key={actions.id}
               title={actions.title}
+              margin={1.60}
               Logo={actions.logo}
               isImage={actions.isImage || false}
               FontIcon={actions.FontIcon || Icon}
@@ -255,7 +265,6 @@ export default function HomeScreen() {
           ))
         }
       </View>
-
     </ScrollView>
   );
 }
