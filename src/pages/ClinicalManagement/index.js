@@ -38,9 +38,13 @@ export default function ClinicalManagement({ navigation }) {
       headerTitleAlign: 'center',
       headerTitle: 'Manejo Clínico Covid-19',
       headerRight: () => (
-        <TouchableOpacity style={{
-          marginHorizontal: 19
-        }}
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.navigate('Buscar');
+          }}
         >
           <Icon name="magnify" size={28} color="#FFF" />
         </TouchableOpacity>
