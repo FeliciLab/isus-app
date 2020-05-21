@@ -53,12 +53,16 @@ export default function AboutScreen() {
   });
 
   return (
-    <ScrollView style={{ paddingBottom: 32, backgroundColor: '#fff', flex: 1 }}>
+    <ScrollView style={{
+      paddingHorizontal: 14, paddingBottom: 32, backgroundColor: '#fff', flex: 1
+    }}
+    >
 
 
     <View
       style={{
-        paddingTop: 32
+        paddingTop: 18,
+        paddingBottom: 18
       }}
     >
       <Text style={styles.spaceRight}>
@@ -88,7 +92,7 @@ export default function AboutScreen() {
         style={{
           flexDirection: 'row',
           height: 100,
-          justifyContent: 'space-evenly'
+          justifyContent: 'space-between'
         }}
       >
         <Text onPress={() => Linking.openURL('http://www.uece.br/')}>
