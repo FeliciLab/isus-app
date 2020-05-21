@@ -1,79 +1,78 @@
 import * as React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList
+  DrawerItem
 } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Headline } from 'react-native-paper';
-import { View } from 'react-native';
+import { View, Image, Dimensions } from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
+import Heart from '../assets/icons/heart.png';
 
 function CustomDrawerContent(props) {
+  const {
+    navigation: { navigate },
+    routeName
+  } = props;
   return (
     <DrawerContentScrollView {...props}>
-      <View style={{ flexDirection: 'row' }}>
-        <Icon
-          style={{ alignSelf: 'center', marginHorizontal: 5 }}
-          name="heart"
-          size={35}
-          color="#106839"
-        />
-        <Headline>iSUS</Headline>
+      <View
+        style={{
+          flexDirection: 'row',
+          marginTop: 20,
+          borderBottomWidth: 0.5,
+          borderBottomColor: '#c4c4c4'
+        }}
+      >
+        <Image source={Heart} resizeMode="contain" style={{ margin: 10 }} />
+        <Headline style={{ alignSelf: 'flex-end', fontWeight: 'bold' }}>iSUS</Headline>
       </View>
-      <DrawerItemList {...props} />
+      <DrawerItem
+        icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
+        label="Home"
+        labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+        inactiveTintColor="#111"
+        activeTintColor="#111"
+        inactiveBackgroundColor="transparent"
+        activeBackgroundColor="transparent"
+        focused={routeName === 'HOME'}
+        onPress={() => navigate('HOME')}
+      />
+      <DrawerItem
+        icon={() => <Icon name="information-outline" size={20} color="#111" />}
+        label="Sobre o iSUS"
+        labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+        inactiveTintColor="#111"
+        activeTintColor="#111"
+        inactiveBackgroundColor="transparent"
+        activeBackgroundColor="transparent"
+        focused={routeName === 'SOBRE'}
+        onPress={() => navigate('SOBRE')}
+      />
     </DrawerContentScrollView>
   );
 }
+
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
   return (
-    <Drawer.Navigator drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen
-        options={{
-          drawerIcon: () => <Icon name="home" size={20} />
-        }}
-        Icon="home"
-        name="Home"
-        component={AppTab}
-      />
-      {/* <Drawer.Screen
-        options={{
-          drawerIcon: () => <Icon name="bookmark" size={20} />
-        }}
-        name="Favoritos"
-        component={DetailsScreen}
-      />
-      <Drawer.Screen
-        options={{
-          drawerIcon: () => <Icon name="bell" size={20} />
-        }}
-        name="Alertas"
-        component={DetailsScreen}
-      />
-      <Drawer.Screen
-        options={{
-          drawerIcon: () => <Icon name="account-circle" size={20} />
-        }}
-        name="Perfil"
-        component={DetailsScreen}
-      />
-      <Drawer.Screen
-        options={{
-          drawerIcon: () => <Icon name="settings" size={20} />
-        }}
-        name="Configurações"
-        component={DetailsScreen}
-      /> */}
-      <Drawer.Screen
-        options={{
-          drawerIcon: () => <Icon name="information" size={20} />
-        }}
-        name="Sobre o iSUS"
-        component={AboutStackScreen}
-      />
+    <Drawer.Navigator
+      initialRouteName="SERVICE"
+      drawerPosition="left"
+      drawerStyle={{
+        backgroundColor: '#fff',
+        width: Dimensions.get('screen').width / 1.5
+      }}
+      drawerContent={props => (
+        <CustomDrawerContent {...props} routeName={props.state.routeNames[props.state.index]} />
+      )}
+    >
+      <Drawer.Screen name="HOME" component={AppTab} />
+      <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
     </Drawer.Navigator>
   );
 }
