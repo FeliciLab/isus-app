@@ -1,6 +1,12 @@
 import * as React from 'react';
 import {
-  View, FlatList, TouchableOpacity, Image, TextInput
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  StyleSheet,
+  Text
 } from 'react-native';
 import { Caption, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -9,13 +15,18 @@ import { getBusca } from '../../apis/apiHome';
 
 export default function SearchScreen() {
   const navigation = useNavigation();
-
   const [text, setText] = React.useState('');
   const [data, setData] = React.useState([]);
 
   async function search() {
     const response = await getBusca(text);
     setData(response.data.data);
+  }
+
+  // eslint-disable-next-line no-shadow
+  function runSearch(text) {
+    setText(text);
+    search();
   }
 
   React.useLayoutEffect(() => {
@@ -31,32 +42,27 @@ export default function SearchScreen() {
         <TextInput
           autoFocus
           placeholder="Buscar"
+          placeholderTextColor="#FFFFFF"
           value={text}
-          style={{ backgroundColor: 'transparent', width: 200, fontSize: 15 }}
-          onChangeText={Text => setText(Text)}
+          style={style.searchHeaderText}
+          // eslint-disable-next-line no-shadow
+          onChangeText={text => runSearch(text)}
         />
       ),
 
       headerRight: () => (
         <TouchableOpacity
-          style={{
-            marginHorizontal: 18,
-            backgroundColor: '#fff',
-            padding: 5,
-            borderRadius: 10
-          }}
+          style={style.headerSearchIcon}
           mode="contained"
           onPress={() => search()}
         >
-          <Caption>Buscar</Caption>
+        {/* * <Icon name="magnify" size={25} color="#DADADA" /> * */}
         </TouchableOpacity>
       ),
 
       headerLeft: () => (
         <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
+          style={style.headerBack}
           onPress={() => {
             navigation.goBack();
           }}
@@ -69,62 +75,134 @@ export default function SearchScreen() {
 
   function createItem(item) {
     return (
-      <>
+      <View style={style.backgroundColor}>
         <TouchableOpacity
-          style={{ margin: 10, padding: 10, backgroundColor: 'transparent' }}
-          onPress={() => navigation.navigate('Buscar Description', { item })}
+          style={style.backgroundColor}
+          onPress={() => navigation.navigate('Descrição', { item })}
         >
-          <Divider />
-          <View style={{ flexDirection: 'row' }}>
+          <View style={style.content}>
             {item.image ? (
               <Image
                 resizeMode="contain"
-                style={{
-                  height: 80,
-                  width: 80,
-                  borderRadius: 80,
-                  margin: 10
-                }}
+                style={style.contentImage}
                 source={{ uri: `${item.image}` }}
               />
             ) : (
               <View
-                style={{
-                  height: 80,
-                  width: 80,
-                  borderRadius: 80,
-                  margin: 10,
-                  borderWidth: 40,
-                  borderColor: '#fff'
-                }}
+                style={style.contentImage}
               />
             )}
-            <Caption style={{ justifyContent: 'center', alignSelf: 'center', maxWidth: 200 }}>
+            <Caption style={style.contentSubtitle}>
               {item.post_title}
             </Caption>
           </View>
-          <Divider />
+          <Divider style={style.divider} />
         </TouchableOpacity>
-      </>
+      </View>
+    );
+  }
+  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
+  ENCONTRE NENHUM ARTIGO */
+  // eslint-disable-next-line no-shadow
+  function infoPreview(len, text) {
+    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+    if (text.length === 0 && len === 0) {
+      return (
+        <Caption style={style.emptyText}>
+          Busque por conteúdos em
+            <Text style={style.textNegrito}> Educação Permanente </Text>
+            e
+            <Text style={style.textNegrito}> Pesquisas Científicas. </Text>
+        </Caption>
+      );
+    }
+    return (
+      <Caption style={style.emptyText}>
+        Nenhuma informação encontrada
+      </Caption>
     );
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={style.emptyBackground}>
       {data.length === 0 ? (
-        <Caption style={{ textAlign: 'center', marginTop: 20 }}>
-          Nenhuma informação foi encontrada.
-        </Caption>
+        infoPreview(data.length, text)
       ) : (
         <FlatList
-          // showsVerticalScrollIndicator={false}
           data={data}
-          // numColumns={2}
-          keyExtractor={item => item.ID}
-          style={{ flex: 1 }}
+          keyExtractor={item => item.ID.toString()}
+          style={style.emptyBackground}
           renderItem={({ item }) => createItem(item)}
         />
       )}
     </View>
   );
 }
+const style = StyleSheet.create({
+  backgroundColor: {
+    backgroundColor: '#fff'
+  },
+  searchHeaderBack: {
+    marginHorizontal: 19
+  },
+  searchHeaderText: {
+    backgroundColor: 'transparent',
+    width: 200,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 18,
+    lineHeight: 28,
+    letterSpacing: 0.5,
+    color: '#F2F2F2',
+    opacity: 0.87
+  },
+  searchHeaderIcon: {
+    marginHorizontal: 20,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 13
+  },
+  contentSubtitle: {
+    maxWidth: 200,
+    height: 60,
+    left: 16,
+    right: 16,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 14,
+    textAlignVertical: 'center',
+    lineHeight: 20,
+    letterSpacing: 0.25,
+    color: '#00000099',
+  },
+  contentImage: {
+    height: 80,
+    width: 80,
+    marginLeft: 32,
+  },
+  emptyBackground: {
+    flex: 1,
+  },
+  emptyText: {
+    marginTop: 20,
+    color: '#00000099',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    lineHeight: 28,
+    letterSpacing: 0.5,
+    fontSize: 14,
+    position: 'absolute',
+    left: '3.89%',
+    // right: '3.89%',
+    top: '2.72%',
+    // bottom: '85.42%',
+  },
+  textNegrito: {
+    fontWeight: 'bold'
+  }
+});
