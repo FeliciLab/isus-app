@@ -22,7 +22,7 @@ export default function Welcome() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões',
+      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisõesEncontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões',
       img: bemVindo
     },
     {
@@ -59,9 +59,27 @@ export default function Welcome() {
 
   const renderItem = ({ item }) => (
     <View style={style.descriptionView}>
-      <Image style={{ alignSelf: 'center' }} source={item.img} />
-      <Text style={style.descriptionTitle}>{item.title}</Text>
-      <Text style={style.descriptionText}>{item.description}</Text>
+      <View style={style.viewTop} />
+      <View style={style.viewCenter}>
+        <View style={style.descriptionView}>
+          <View style={style.viewImg}>
+            <Image
+              style={{
+                alignSelf: 'center',
+                alignItems: 'flex-end'
+              }}
+              source={item.img}
+            />
+          </View>
+          <View style={style.viewTitle}>
+            <Text style={style.descriptionTitle}>{item.title}</Text>
+          </View>
+          <View style={style.viewContent}>
+            <Text style={style.descriptionText}>{item.description}</Text>
+          </View>
+        </View>
+      </View>
+      <View style={style.viewFooter} />
     </View>
   );
 
@@ -85,7 +103,6 @@ export default function Welcome() {
   }
 
   return (
-    <>
       <ImageBackground
         source={tutorialbackground}
         style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
@@ -112,11 +129,34 @@ export default function Welcome() {
           />
         </SafeAreaView>
       </ImageBackground>
-    </>
   );
 }
 
 const style = StyleSheet.create({
+  viewTop: {
+    flex: 1
+  },
+  viewCenter: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  viewFooter: {
+    flex: 1,
+    // backgroundColor: '#D612F9'
+  },
+  viewImg: {
+    flex: 2,
+    // backgroundColor: '#7A12F9',
+    alignItems: 'flex-end'
+  },
+  viewTitle: {
+    backgroundColor: '#110A4B'
+  },
+  viewContent: {
+    flex: 1,
+    backgroundColor: '#017023'
+  },
   skipTutorial: {
     fontFamily: 'Roboto',
     fontStyle: 'normal',
@@ -131,7 +171,8 @@ const style = StyleSheet.create({
   descriptionView: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // backgroundColor: 'red'
   },
   descriptionTitle: {
     color: '#F2F2F2',
