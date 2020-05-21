@@ -1,6 +1,12 @@
 import * as React from 'react';
 import {
-  View, FlatList, TouchableOpacity, Image, TextInput, StyleSheet
+  View,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  StyleSheet,
+  Text
 } from 'react-native';
 import { Caption, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +15,6 @@ import { getBusca } from '../../apis/apiHome';
 
 export default function SearchScreen() {
   const navigation = useNavigation();
-
   const [text, setText] = React.useState('');
   const [data, setData] = React.useState([]);
 
@@ -18,8 +23,9 @@ export default function SearchScreen() {
     setData(response.data.data);
   }
 
-  function runSearch(Text) {
-    setText(Text);
+  // eslint-disable-next-line no-shadow
+  function runSearch(text) {
+    setText(text);
     search();
   }
 
@@ -39,7 +45,8 @@ export default function SearchScreen() {
           placeholderTextColor="#FFFFFF"
           value={text}
           style={style.searchHeaderText}
-          onChangeText={Text => runSearch(Text)}
+          // eslint-disable-next-line no-shadow
+          onChangeText={text => runSearch(text)}
         />
       ),
 
@@ -49,7 +56,7 @@ export default function SearchScreen() {
           mode="contained"
           onPress={() => search()}
         >
-          <Icon name="magnify" size={25} color="#DADADA" />
+        {/* * <Icon name="magnify" size={25} color="#DADADA" /> * */}
         </TouchableOpacity>
       ),
 
@@ -94,13 +101,32 @@ export default function SearchScreen() {
       </View>
     );
   }
+  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
+  ENCONTRE NENHUM ARTIGO */
+  // eslint-disable-next-line no-shadow
+  function infoPreview(len, text) {
+    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+    if (text.length === 0 && len === 0) {
+      return (
+        <Caption style={style.emptyText}>
+          Busque por conteúdos em
+            <Text style={style.textNegrito}> Educação Permanente </Text>
+            e
+            <Text style={style.textNegrito}> Pesquisas Científicas. </Text>
+        </Caption>
+      );
+    }
+    return (
+      <Caption style={style.emptyText}>
+        Nenhuma informação encontrada
+      </Caption>
+    );
+  }
 
   return (
     <View style={style.emptyBackground}>
       {data.length === 0 ? (
-        <Caption style={style.emptyText}>
-          Nenhuma informação foi encontrada.
-        </Caption>
+        infoPreview(data.length, text)
       ) : (
         <FlatList
           data={data}
@@ -162,7 +188,21 @@ const style = StyleSheet.create({
     flex: 1,
   },
   emptyText: {
-    textAlign: 'center',
-    marginTop: 20
+    marginTop: 20,
+    color: '#00000099',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    lineHeight: 28,
+    letterSpacing: 0.5,
+    fontSize: 14,
+    position: 'absolute',
+    left: '3.89%',
+    // right: '3.89%',
+    top: '2.72%',
+    // bottom: '85.42%',
   },
+  textNegrito: {
+    fontWeight: 'bold'
+  }
 });
