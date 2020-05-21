@@ -169,7 +169,7 @@ export default function ClinicalManagement({ navigation }) {
         Sinais de gravidade
       </Text>
       <Paragraph>
-        {'- SpO²  < 95% em ar ambiente'}
+        {'- SpO₂  < 95% em ar ambiente'}
       </Paragraph>
       <Paragraph>
         {'- Sinais de desconforto respiratório ou aumento da frequência respiratória (f < 28irpm)'}
@@ -212,7 +212,7 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph>
           {'‎• Ofertar'}
           <Text style={{ fontWeight: 'bold' }}> oxigenoterapia </Text>
-          {'se SpO² < 93%.'}
+          {'se SpO₂ < 93%.'}
           <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
         </Paragraph>
         <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
