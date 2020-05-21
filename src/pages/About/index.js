@@ -53,34 +53,14 @@ export default function AboutScreen() {
   });
 
   return (
-    <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          height: 100,
-          justifyContent: 'space-evenly'
-        }}
-      >
-        <Text onPress={() => Linking.openURL('http://www.uece.br/gesad/')}>
-          <Image source={Gesad} />
-        </Text>
-        <Text onPress={() => Linking.openURL('http://www.uece.br/')}>
-          <Image source={Uece} />
-        </Text>
-        <Text onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}>
-          <Image source={Funcap} />
-        </Text>
-        <Text onPress={() => Linking.openURL('https://escoladesaudepublica.github.io/#FeliciLab')}>
-          <Image source={Felicilab} />
-        </Text>
-        <Text onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}>
-          <Image source={Esp} />
-        </Text>
-        <Text onPress={() => Linking.openURL('https://www.ceara.gov.br/')}>
-          <Image source={Governo} />
-        </Text>
-      </View>
+    <ScrollView style={{ paddingBottom: 32, backgroundColor: '#fff', flex: 1 }}>
 
+
+    <View
+      style={{
+        paddingTop: 32
+      }}
+    >
       <Text style={styles.spaceRight}>
         O iSUS está sendo criado para ser o cinto de utilidades dos Profissionais do Sistema Único
         de Saúde (SUS) do Ceará. Desenvolvido em meio à pandemia do novo coronavírus, responde à
@@ -99,8 +79,48 @@ export default function AboutScreen() {
         apoio da Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap),
         por meio do projeto "SMART Health: suporte à tomada de decisão inteligente de profissionais
         da saúde e gestores no combate à transmissão da Covid-19 no Ceará", desenvolvido em parceria
-        com o Grupo de Engenharia de Software Adaptativo e Distribuído
+        com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da Uece.
       </Text>
+
+    </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          justifyContent: 'space-evenly'
+        }}
+      >
+        <Text onPress={() => Linking.openURL('http://www.uece.br/')}>
+          <Image source={Uece} />
+        </Text>
+        <Text onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}>
+          <Image source={Funcap} />
+        </Text>
+        <Text onPress={() => Linking.openURL('https://escoladesaudepublica.github.io/#FeliciLab')}>
+          <Image source={Felicilab} />
+        </Text>
+        <Text onPress={() => Linking.openURL('https://www.ceara.gov.br/')}>
+          <Image source={Governo} />
+        </Text>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 100,
+          justifyContent: 'center'
+        }}
+      >
+
+      <Text style={{ marginHorizontal: 20 }} onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}>
+          <Image source={Esp} />
+      </Text>
+
+      <Text style={{ marginHorizontal: 20 }} onPress={() => Linking.openURL('http://www.uece.br/gesad/')}>
+          <Image source={Gesad} />
+      </Text>
+      </View>
     </ScrollView>
   );
 }
@@ -119,6 +139,6 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     lineHeight: 20,
     letterSpacing: 0.25,
-    textAlign: 'left'
+    textAlign: 'justify'
   }
 });
