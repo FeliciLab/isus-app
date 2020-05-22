@@ -8,7 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import bemVindo from '../../assets/images/bemVindo.png';
-import minhaSaude from '../../assets/images/minhaSaude.png';
+import minhaSaude from '../../assets/images/minhasaude.png';
 import educacao from '../../assets/images/educacao.png';
 import pesquisa from '../../assets/images/pesquisa.png';
 import diagnostico from '../../assets/images/diagnostico.png';
@@ -22,7 +22,7 @@ export default function Welcome() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisõesEncontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões',
+      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisõess',
       img: bemVindo
     },
     {
@@ -66,12 +66,12 @@ export default function Welcome() {
             <Image
               style={{
                 alignSelf: 'center',
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
               }}
               source={item.img}
             />
           </View>
-          <View style={style.viewTitle}>
+          <View>
             <Text style={style.descriptionTitle}>{item.title}</Text>
           </View>
           <View style={style.viewContent}>
@@ -148,14 +148,15 @@ const style = StyleSheet.create({
   viewImg: {
     flex: 2,
     // backgroundColor: '#7A12F9',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    flexDirection: 'column-reverse',
+    marginBottom: 5
   },
   viewTitle: {
-    backgroundColor: '#110A4B'
+    // backgroundColor: '#110A4B'
   },
   viewContent: {
     flex: 1,
-    backgroundColor: '#017023'
   },
   skipTutorial: {
     fontFamily: 'Roboto',
@@ -172,7 +173,6 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    // backgroundColor: 'red'
   },
   descriptionTitle: {
     color: '#F2F2F2',
