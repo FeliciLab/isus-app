@@ -84,13 +84,14 @@ export default function HomeScreen() {
           marginHorizontal: 16,
           borderRadius: 10,
           backgroundColor: '#4054B2',
-          height: 130
+          minHeight: 130,
+          alignCotent: 'stretch'
           // alignItems: 'center'
         }}
       >
         <View
           style={{
-            marginHorizontal: 24,
+            marginHorizontal: 12,
             flexDirection: 'row',
             alignItems: 'center',
             flex: 1
