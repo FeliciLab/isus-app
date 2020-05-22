@@ -109,14 +109,12 @@ export default function Welcome() {
       >
         <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
         <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flexDirection: 'row-reverse', top: 60, right: 40 }}>
-          <TouchableOpacity
-            onPress={moveToHome}
-          >
-            <Text style={style.skipTutorial}>
-              Pular Tutorial
-            </Text>
-          </TouchableOpacity>
+        <View style={{ marginTop: 60, right: 40, flexDirection: 'row-reverse' }}>
+            <TouchableOpacity onPress={moveToHome}>
+              <Text style={style.skipTutorial}>
+                Pular Tutorial
+              </Text>
+            </TouchableOpacity>
         </View>
           <AppIntroSlider
             KeyExtractor={item => item.key}
@@ -134,7 +132,7 @@ export default function Welcome() {
 
 const style = StyleSheet.create({
   viewTop: {
-    flex: 1
+    backgroundColor: '#000',
   },
   viewCenter: {
     flex: 3,
@@ -154,7 +152,6 @@ const style = StyleSheet.create({
     flex: 1,
   },
   skipTutorial: {
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: 16,
@@ -177,7 +174,6 @@ const style = StyleSheet.create({
   descriptionText: {
     alignSelf: 'center',
     maxWidth: 278,
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 18,

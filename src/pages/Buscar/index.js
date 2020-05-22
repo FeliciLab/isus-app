@@ -148,7 +148,6 @@ const style = StyleSheet.create({
   searchHeaderText: {
     backgroundColor: 'transparent',
     width: 200,
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 18,
@@ -170,7 +169,6 @@ const style = StyleSheet.create({
     height: 60,
     left: 16,
     right: 16,
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 14,
@@ -190,7 +188,6 @@ const style = StyleSheet.create({
   emptyText: {
     marginTop: 20,
     color: '#00000099',
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     lineHeight: 28,
