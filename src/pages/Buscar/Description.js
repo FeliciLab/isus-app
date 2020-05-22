@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 18,
     marginRight: 16,
-    fontFamily: 'Roboto',
     fontWeight: 'normal',
     lineHeight: 28,
     color: '#666666'
@@ -117,7 +116,6 @@ const styles = StyleSheet.create({
     marginLeft: 18,
     marginTop: 12,
     marginBottom: 12,
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 12,
@@ -129,7 +127,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginTop: 12,
     marginBottom: 12,
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 12,
