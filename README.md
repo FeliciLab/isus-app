@@ -1,5 +1,5 @@
 # App iSUS
-### v2.4.2
+### v2.4.3
 
 ## Tech Stack
 * React Native
