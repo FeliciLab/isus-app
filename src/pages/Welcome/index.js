@@ -1,16 +1,18 @@
 import React from 'react';
 import {
-  ImageBackground, View, Text, Image, StatusBar, SafeAreaView
+  ImageBackground, View, Text, Image, StatusBar, SafeAreaView, StyleSheet
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import intro1 from '../../assets/images/intro1.png';
-import intro2 from '../../assets/images/intro2.png';
-import intro3 from '../../assets/images/intro3.png';
-import intro4 from '../../assets/images/intro4.png';
-import intro5 from '../../assets/images/intro5.png';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import bemVindo from '../../assets/images/bemVindo.png';
+import minhaSaude from '../../assets/images/minhasaude.png';
+import educacao from '../../assets/images/educacao.png';
+import pesquisa from '../../assets/images/pesquisa.png';
+import diagnostico from '../../assets/images/diagnostico.png';
+import manejoClinico from '../../assets/images/manejoClinico.png';
 import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 
 export default function Welcome() {
@@ -20,55 +22,64 @@ export default function Welcome() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões',
-      img: intro1
-    },
-    {
-      key: 'slide-3',
-      title: 'Minha Saúde',
-      description: 'Orientações sobre autocuidado, autoproteção e como preservar sua saúde física e mental',
-      img: intro3
-    },
-    {
-      key: 'slide-4',
-      title: 'Educação',
-      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde',
-      img: intro4
-    },
-    {
-      key: 'slide-5',
-      title: 'Pesquisa',
-      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento',
-      img: intro5
+      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisõess',
+      img: bemVindo
     },
     {
       key: 'slide-2',
-      title: 'SUSi',
-      description: 'Conheça nossa assistente digital e saiba como ela pode te ajudar a ter respostas para suas dúvidas, críticas e sugestões sobre o Sistema Único de Saúde',
-      img: intro2
+      title: 'Minha Saúde',
+      description: 'Orientações sobre autocuidado, autoproteção e como preservar sua saúde física e mental',
+      img: minhaSaude
+    },
+    {
+      key: 'slide-3',
+      title: 'Educação',
+      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde',
+      img: educacao
+    },
+    {
+      key: 'slide-4',
+      title: 'Pesquisa',
+      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento',
+      img: pesquisa
+    },
+    {
+      key: 'slide-5',
+      title: 'Manejo Clínico',
+      description: 'Conheça as diversas etapas e instrumentos de avaliação no tratamento dos pacientes com Covid-19.',
+      img: manejoClinico
+    },
+    {
+      key: 'slide-6',
+      title: 'Apoio ao Diagnóstico',
+      description: 'Ferramentas e canais para apoio ao diagnóstico de pacientes.',
+      img: diagnostico
     }
   ];
 
   const renderItem = ({ item }) => (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center'
-      }}
-    >
-      <Image style={{ alignSelf: 'center' }} source={item.img} />
-      <Text style={{ color: '#F2F2F2', textAlign: 'center', fontSize: 34 }}>{item.title}</Text>
-      <Text
-        style={{
-          alignSelf: 'center',
-          color: '#FFFFFF',
-          textAlign: 'center',
-          fontSize: 18,
-          maxWidth: 278
-        }}
-      >
-        {item.description}
-      </Text>
+    <View style={style.descriptionView}>
+      <View style={style.viewTop} />
+      <View style={style.viewCenter}>
+        <View style={style.descriptionView}>
+          <View style={style.viewImg}>
+            <Image
+              style={{
+                alignSelf: 'center',
+                alignItems: 'flex-end',
+              }}
+              source={item.img}
+            />
+          </View>
+          <View>
+            <Text style={style.descriptionTitle}>{item.title}</Text>
+          </View>
+          <View style={style.viewContent}>
+            <Text style={style.descriptionText}>{item.description}</Text>
+          </View>
+        </View>
+      </View>
+      <View style={style.viewFooter} />
     </View>
   );
 
@@ -92,19 +103,25 @@ export default function Welcome() {
   }
 
   return (
-    <>
       <ImageBackground
         source={tutorialbackground}
         style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
       >
         <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
         <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flexDirection: 'row-reverse', top: 60, right: 40 }}>
+          <TouchableOpacity
+            onPress={moveToHome}
+          >
+            <Text style={style.skipTutorial}>
+              Pular Tutorial
+            </Text>
+          </TouchableOpacity>
+        </View>
           <AppIntroSlider
             KeyExtractor={item => item.key}
             renderItem={renderItem}
             data={data}
-            showSkipButton
-            skipLabel="Pular Tutorial"
             renderDoneButton={renderNextButton}
             renderNextButton={renderNextButton}
             onSkip={moveToHome}
@@ -112,6 +129,61 @@ export default function Welcome() {
           />
         </SafeAreaView>
       </ImageBackground>
-    </>
   );
 }
+
+const style = StyleSheet.create({
+  viewTop: {
+    flex: 1
+  },
+  viewCenter: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  viewFooter: {
+    flex: 1,
+  },
+  viewImg: {
+    flex: 2,
+    alignItems: 'flex-end',
+    flexDirection: 'column-reverse',
+    marginBottom: 5
+  },
+  viewContent: {
+    flex: 1,
+  },
+  skipTutorial: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 16,
+    textAlign: 'center',
+    letterSpacing: 0.75,
+    textTransform: 'uppercase',
+    color: '#F2F2F2',
+  },
+  descriptionView: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  descriptionTitle: {
+    color: '#F2F2F2',
+    textAlign: 'center',
+    fontSize: 34
+  },
+  descriptionText: {
+    alignSelf: 'center',
+    maxWidth: 278,
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 18,
+    lineHeight: 28,
+    textAlign: 'center',
+    letterSpacing: 0.5,
+    color: '#FFFFFF',
+  },
+});
