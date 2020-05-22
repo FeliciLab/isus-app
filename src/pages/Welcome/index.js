@@ -143,17 +143,12 @@ const style = StyleSheet.create({
   },
   viewFooter: {
     flex: 1,
-    // backgroundColor: '#D612F9'
   },
   viewImg: {
     flex: 2,
-    // backgroundColor: '#7A12F9',
     alignItems: 'flex-end',
     flexDirection: 'column-reverse',
     marginBottom: 5
-  },
-  viewTitle: {
-    // backgroundColor: '#110A4B'
   },
   viewContent: {
     flex: 1,
