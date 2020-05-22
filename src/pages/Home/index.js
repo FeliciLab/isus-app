@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  View, ScrollView, Dimensions, TouchableOpacity, Image
+  View, ScrollView, TouchableOpacity, Image, FlatList
 } from 'react-native';
 import {
   Title, Card, Caption, Paragraph
@@ -110,9 +110,6 @@ export default function HomeScreen() {
             <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
               Manejo Clínico de Paciente com Covid-19
             </Paragraph>
-            <Caption style={{ color: '#F2F2F2' }}>
-              Orientações sobre cada estágio de atendimento a pacientes com Covid-19
-            </Caption>
           </View>
         </View>
       </Card>
@@ -120,19 +117,20 @@ export default function HomeScreen() {
   }
 
   function HomeCard({
-    onPress, FontIcon, Logo, logoSize, title, width, height, color, isImage, margin
+    onPress, FontIcon, Logo, logoSize, title, color, isImage, margin
   }) {
     margin = margin || 0;
     return (
       <Card
         style={{
           padding: 4,
-          height: Dimensions.get('window').width / (width || 4.5),
-          width: Dimensions.get('window').width / (height || 4.5),
+          height: 135,
+          width: 135,
           margin,
           justifyContent: 'center',
           borderColor: color,
-          borderWidth: 1
+          borderWidth: 0.6,
+          borderRadius: 8
         }}
         onPress={onPress}
       >
@@ -140,14 +138,14 @@ export default function HomeScreen() {
           {// Provisório enquanto os svgs corretos não chegam
           // eslint-disable-next-line no-nested-ternary
           isImage ? (
-            <Image source={Logo} />
+            <Image source={Logo} style={{ height: 50, width: 50 }} resizeMode="contain" />
           ) : typeof Logo === 'string' ? (
-            <FontIcon name={Logo} size={logoSize || 40} color={color} />
+            <FontIcon name={Logo} size={logoSize || 50} color={color} />
           ) : (
-            <Logo color={color} width={logoSize || 40} height={logoSize || 40} />
+            <Logo color={color} width={logoSize || 50} height={logoSize || 50} />
           )}
         </View>
-        <Caption style={{ textAlign: 'center', fontSize: 11, lineHeight: 10 }}>{title}</Caption>
+        <Caption style={{ textAlign: 'center', fontSize: 12, lineHeight: 16 }}>{title}</Caption>
       </Card>
     );
   }
@@ -158,27 +156,39 @@ export default function HomeScreen() {
       title: 'IntegraSUS',
       logo: Servico1,
       isImage: true,
-      onPress: () => navigation.navigate('webview', { title: 'IntegraSUS', url: 'https://integrasus.saude.ce.gov.br' })
+      onPress: () => navigation.navigate('webview', {
+        title: 'IntegraSUS',
+        url: 'https://integrasus.saude.ce.gov.br'
+      })
     },
     {
       id: 'services-2',
       title: 'Central de Ventiladores',
       logo: Servico2,
-      onPress: () => navigation.navigate('webview', { title: 'Central de Ventiladores', url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/' })
+      onPress: () => navigation.navigate('webview', {
+        title: 'Central de Ventiladores',
+        url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
+      })
     },
     {
       id: 'services-3',
       title: 'TeleMedicina',
       logo: Servico3,
-      onPress: () => navigation.navigate('webview', { title: 'TeleMedicina', url: 'https://coronavirus.ceara.gov.br/isus/telemedicina' })
+      onPress: () => navigation.navigate('webview', {
+        title: 'TeleMedicina',
+        url: 'https://coronavirus.ceara.gov.br/isus/telemedicina'
+      })
     },
     {
       id: 'services-4',
       title: 'Ações do governo',
       logo: Forca4,
       isImage: true,
-      onPress: () => navigation.navigate('webview', { title: 'Ações do governo', url: 'https://coronavirus.ceara.gov.br/isus/governo/' })
-    },
+      onPress: () => navigation.navigate('webview', {
+        title: 'Ações do governo',
+        url: 'https://coronavirus.ceara.gov.br/isus/governo/'
+      })
+    }
   ];
 
   const anticoronaActions = [
@@ -187,21 +197,30 @@ export default function HomeScreen() {
       title: 'Boletins',
       logo: 'bulletin-board',
       FontIcon: Icon,
-      onPress: () => navigation.navigate('webview', { title: 'Boletins', url: 'https://coronavirus.ceara.gov.br/isus/boletins/' })
+      onPress: () => navigation.navigate('webview', {
+        title: 'Boletins',
+        url: 'https://coronavirus.ceara.gov.br/isus/boletins/'
+      })
     },
     {
       id: 'action-2',
       title: 'Notificações de casos',
       logo: 'form',
       FontIcon: antIcon,
-      onPress: () => navigation.navigate('webview', { title: 'Notificações de casos', url: 'https://notifica.saude.gov.br/login' })
+      onPress: () => navigation.navigate('webview', {
+        title: 'Notificações de casos',
+        url: 'https://notifica.saude.gov.br/login'
+      })
     },
     {
       id: 'action-3',
       title: 'Farmaco-vigilância',
       logo: 'pills',
       FontIcon: FontAwesome5Icon,
-      onPress: () => navigation.navigate('webview', { title: 'Farmaco-vigilância', url: 'https://coronavirus.ceara.gov.br/isus/farmacovigilancia/' })
+      onPress: () => navigation.navigate('webview', {
+        title: 'Farmaco-vigilância',
+        url: 'https://coronavirus.ceara.gov.br/isus/farmacovigilancia/'
+      })
     },
     {
       id: 'action-4',
@@ -210,62 +229,60 @@ export default function HomeScreen() {
       onPress: () => navigation.navigate('webview', { title: 'Notas Técnicas', url: notasTecnicasLink })
     }
   ];
-
+  console.tron.log(services);
   return (
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
       <Banner />
 
-      <Title style={{ margin: 15, color: '#FF9800', fontSize: 20 }}>Serviços</Title>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          flexWrap: 'wrap',
-          marginVertical: 20,
-          marginHorizontal: 16
-        }}
-      >
-        {
-          services.map(service => (
-            <HomeCard
-              key={service.id}
-              title={service.title}
-              Logo={service.logo}
-              margin={1.60}
-              isImage={service.isImage || false}
-              FontIcon={service.FontIcon || Icon}
-              color="#FF9800"
-              onPress={service.onPress}
-            />
-          ))
-        }
-      </View>
+      <Title style={{ alignSelf: 'center', color: '#FF9800' }}>Serviços</Title>
 
-      <Title style={{ margin: 15, fontSize: 20 }}>Força-tarefa Anticorona</Title>
-      <View
+      <FlatList
+        data={services}
+        numColumns={2}
+        keyExtractor={(item, index) => `${index}`}
         style={{
           flexDirection: 'row',
-          justifyContent: 'flex-start',
-          flexWrap: 'wrap',
-          marginVertical: 20,
-          marginHorizontal: 16
+          alignSelf: 'center'
         }}
-      >
-        {
-          anticoronaActions.map(actions => (
-            <HomeCard
-              key={actions.id}
-              title={actions.title}
-              margin={1.60}
-              Logo={actions.logo}
-              isImage={actions.isImage || false}
-              FontIcon={actions.FontIcon || Icon}
-              color="rgba(0, 0, 0, 0.6)"
-              onPress={actions.onPress}
-            />
-          ))
-        }
-      </View>
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <HomeCard
+            key={item.id}
+            title={item.title}
+            Logo={item.logo}
+            margin={10}
+            isImage={item.isImage || false}
+            FontIcon={item.FontIcon || Icon}
+            color="#FF9800"
+            onPress={item.onPress}
+          />
+        )}
+      />
+
+      <Title style={{ alignSelf: 'center' }}>Força-tarefa Anticorona</Title>
+
+      <FlatList
+        data={anticoronaActions}
+        numColumns={2}
+        keyExtractor={(item, index) => `${index}`}
+        style={{
+          flexDirection: 'row',
+          alignSelf: 'center'
+        }}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <HomeCard
+            key={item.id}
+            title={item.title}
+            margin={10}
+            Logo={item.logo}
+            isImage={item.isImage || false}
+            FontIcon={item.FontIcon || Icon}
+            color="rgba(0, 0, 0, 0.6)"
+            onPress={item.onPress}
+          />
+        )}
+      />
     </ScrollView>
   );
 }
