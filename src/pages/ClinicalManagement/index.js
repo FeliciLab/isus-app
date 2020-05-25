@@ -9,6 +9,7 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import RNFetchBlob from 'rn-fetch-blob';
 import Banner from '../../assets/images/banner.png';
 import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
@@ -370,13 +371,30 @@ conforme protocolo.
     }
   ];
 
+  function savePdf() {
+    const source = { uri: 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf' };
+
+
+    const { config } = RNFetchBlob;
+    config({ path: source }).fetch('GET', 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf', {
+    }).then((res) => {
+      console.log('O arquivo salvo está em ', res.path());
+    });
+  }
+
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
-      <View style={{
-        marginTop: 26, flex: 1
-      }}
-      >
-        <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
+      <View style={{ marginTop: 26, flex: 1 }}>
+        <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
+
+        <View>
+            <TouchableOpacity onPress={savePdf} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
+            <Icon name="download" size={28} color="#BDBDBD" />
+            </TouchableOpacity>
+
+        </View>
+
         <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
         <View>
           <Image source={Banner} style={{ marginVertical: 10 }} />
