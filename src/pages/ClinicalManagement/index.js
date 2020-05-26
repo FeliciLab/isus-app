@@ -1,7 +1,7 @@
 
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View, Linking, StyleSheet, Image
+  Text, ScrollView, View, Linking, StyleSheet, Image, PermissionsAndroid
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -22,6 +22,7 @@ import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
+import pdf from '../../assets/files/pdf-base64.json';
 
 export default function ClinicalManagement({ navigation }) {
   const [stage1Collapse, setStage1Collapse] = useState(false);
@@ -371,16 +372,36 @@ conforme protocolo.
     }
   ];
 
-  function savePdf() {
-    const source = { uri: 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf' };
+  const permissionToStorage = async () => {
+    const { PERMISSIONS, RESULTS } = PermissionsAndroid;
+    try {
+      const granted = await PermissionsAndroid.request(PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+        title: 'Precisamos de Acesso ao seu armazenamento',
+        message:
+          'Precisamos de Acesso ao seu armazenamento para salvar arquivos importantes',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      });
+      if (granted === RESULTS.GRANTED) {
+        savePdf();
+      } else {
+        console.log('Permission Denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
-
-    const { config } = RNFetchBlob;
-    config({ path: source }).fetch('GET', 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf', {
-    }).then((res) => {
-      console.log('O arquivo salvo está em ', res.path());
-    });
-  }
+  const savePdf = () => {
+    const filePath = RNFetchBlob.fs.dirs.DownloadDir;
+    RNFetchBlob.fs.createFile(`${filePath}/manejo.pdf`, pdf.data, 'base64')
+      .then((response) => {
+        console.log('Success Log: ', response);
+      })
+      .catch((errors) => {
+        console.log(' Error Log: ', errors);
+      });
+  };
 
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
@@ -388,7 +409,7 @@ conforme protocolo.
         <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
 
         <View>
-            <TouchableOpacity onPress={savePdf} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <TouchableOpacity onPress={permissionToStorage} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
             <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
             <Icon name="download" size={28} color="#BDBDBD" />
             </TouchableOpacity>
