@@ -13,6 +13,7 @@ import HTML from 'react-native-render-html';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
@@ -40,7 +41,18 @@ export default function DescriptionScreen(props) {
         backgroundColor: '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
-      }
+      },
+      headerTitleAlign: 'center',
+      headerLeft: () => (
+        <TouchableOpacity
+          style={styles.searchHeaderBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
     });
   });
 
@@ -99,6 +111,9 @@ export default function DescriptionScreen(props) {
 const styles = StyleSheet.create({
   text: {
     color: '#333333'
+  },
+  searchHeaderBack: {
+    marginHorizontal: 19
   },
   titleDetail: {
     marginTop: 20,
