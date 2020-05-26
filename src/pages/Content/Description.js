@@ -18,9 +18,9 @@ import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
   const { route } = props;
-  const { item } = route.params;
+  const { params } = route;
+  const item = params.object;
 
   const onShare = async () => {
     const messagTitle = item.post_title;
@@ -37,6 +37,7 @@ export default function DescriptionScreen(props) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
+      headerTitle: route.params.title,
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,

@@ -6,17 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 import { getCategoriasArquitetura } from '../apis/apiHome';
 
 const Tab = createMaterialTopTabNavigator();
+const indexComponent = 0;
+const indexTitle = 1;
 let genericComponent;
 
 export default function EducationTabScreen(props) {
   const { route } = props;
-  genericComponent = route.params.type;
+  genericComponent = route.params[indexComponent].type;
 
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
     {
-      name: 'Menu',
-      slug: 'Menu',
+      name: ' ',
+      slug: ' ',
       term_group: 0,
       term_id: 0
     }
@@ -25,7 +27,7 @@ export default function EducationTabScreen(props) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#4CAF40',
         elevation: 0,
         shadowOpacity: 0
       },
@@ -61,12 +63,16 @@ export default function EducationTabScreen(props) {
 
   useEffect(() => {
     getCategoriasArquitetura().then((response) => {
-      console.log('response.data[props.route.name]', response.data[props.route.name]);
       setCategorias(response.data[props.route.name]);
     });
   }, []);
 
-  console.tron.log(categorias);
+  function addTitle(item) {
+    const title = route.params[indexTitle];
+    item.title_description = title;
+    return item;
+  }
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -87,7 +93,7 @@ export default function EducationTabScreen(props) {
           key={item.term_id}
           name={item.name}
           component={genericComponent}
-          initialParams={item}
+          initialParams={addTitle(item)}
         />
       ))}
     </Tab.Navigator>

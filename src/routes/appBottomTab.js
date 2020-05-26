@@ -12,6 +12,8 @@ import ContentScreen from '../pages/Content';
 import HomeScreen from '../pages/Home';
 
 const HomeStack = createStackNavigator();
+let articleTitle = '';
+
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator>
@@ -22,11 +24,12 @@ function HomeStackScreen() {
 
 const EducationStack = createStackNavigator();
 function EducationStackScreen() {
+  articleTitle = 'Educação';
   return (
     <EducationStack.Navigator>
       <EducationStack.Screen
-        name="Educação"
-        initialParams={<ContentScreen />}
+        name={articleTitle}
+        initialParams={[<ContentScreen />, articleTitle]}
         component={TopTab}
         options={{ headerShown: true }}
       />
@@ -35,11 +38,12 @@ function EducationStackScreen() {
 }
 const SearchesStack = createStackNavigator();
 function SearchesStackScreen() {
+  articleTitle = 'Pesquisa Científica';
   return (
     <SearchesStack.Navigator>
       <SearchesStack.Screen
-        name="Pesquisa Científica"
-        initialParams={<ContentScreen />}
+        name={articleTitle}
+        initialParams={[<ContentScreen />, articleTitle]}
         component={TopTab}
         options={{ headerShown: true }}
       />
