@@ -8,11 +8,12 @@ import { getCategoriasArquitetura } from '../apis/apiHome';
 const Tab = createMaterialTopTabNavigator();
 const indexComponent = 0;
 const indexTitle = 1;
-let genericComponent;
+
 
 export default function EducationTabScreen(props) {
   const { route } = props;
-  genericComponent = route.params[indexComponent].type;
+  const genericComponent = route.params[indexComponent].type;
+  const title = route.params[indexTitle];
 
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
@@ -33,7 +34,7 @@ export default function EducationTabScreen(props) {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: props.route.name,
+      headerTitle: title,
       headerRight: () => (
         <TouchableOpacity
           style={{
@@ -68,7 +69,6 @@ export default function EducationTabScreen(props) {
   }, []);
 
   function addTitle(item) {
-    const title = route.params[indexTitle];
     item.title_description = title;
     return item;
   }

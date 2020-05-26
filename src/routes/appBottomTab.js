@@ -12,7 +12,7 @@ import ContentScreen from '../pages/Content';
 import HomeScreen from '../pages/Home';
 
 const HomeStack = createStackNavigator();
-let articleTitle = '';
+let title = '';
 
 function HomeStackScreen() {
   return (
@@ -24,12 +24,12 @@ function HomeStackScreen() {
 
 const EducationStack = createStackNavigator();
 function EducationStackScreen() {
-  articleTitle = 'Educação';
+  title = 'Educação Permanente';
   return (
     <EducationStack.Navigator>
       <EducationStack.Screen
-        name={articleTitle}
-        initialParams={[<ContentScreen />, articleTitle]}
+        name="Educação"
+        initialParams={[<ContentScreen />, title]}
         component={TopTab}
         options={{ headerShown: true }}
       />
@@ -38,12 +38,12 @@ function EducationStackScreen() {
 }
 const SearchesStack = createStackNavigator();
 function SearchesStackScreen() {
-  articleTitle = 'Pesquisa Científica';
+  title = 'Pesquisa Científica';
   return (
     <SearchesStack.Navigator>
       <SearchesStack.Screen
-        name={articleTitle}
-        initialParams={[<ContentScreen />, articleTitle]}
+        name={title}
+        initialParams={[<ContentScreen />, title]}
         component={TopTab}
         options={{ headerShown: true }}
       />
