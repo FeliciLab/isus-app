@@ -1,7 +1,7 @@
 
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View, Linking, StyleSheet, Image, PermissionsAndroid
+  Text, ScrollView, View, Linking, StyleSheet, Image, PermissionsAndroid, Platform
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -22,7 +22,6 @@ import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
-import pdf from '../../assets/files/pdf-base64.json';
 
 export default function ClinicalManagement({ navigation }) {
   const [stage1Collapse, setStage1Collapse] = useState(false);
@@ -393,23 +392,34 @@ conforme protocolo.
   };
 
   const savePdf = () => {
-    const filePath = RNFetchBlob.fs.dirs.DownloadDir;
-    RNFetchBlob.fs.createFile(`${filePath}/manejo.pdf`, pdf.data, 'base64')
+    const filePath = RNFetchBlob.fs.dirs.DocumentDir;
+    const resourceUrl = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
+
+    RNFetchBlob
+      .config({
+        fileCache: true,
+        path: `${filePath}/Manejo Clinico.pdf`,
+      })
+      .fetch('GET', resourceUrl)
       .then((response) => {
         console.log('Success Log: ', response);
+        if (Platform.OS === 'ios') {
+          RNFetchBlob.ios.openDocument(response.data);
+        } else {
+          RNFetchBlob.android.actionViewIntent(response.data, 'application/pdf');
+        }
       })
       .catch((errors) => {
         console.log(' Error Log: ', errors);
       });
   };
-
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
       <View style={{ marginTop: 26, flex: 1 }}>
         <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
 
         <View>
-            <TouchableOpacity onPress={permissionToStorage} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <TouchableOpacity onPress={Platform.OS === 'android' ? permissionToStorage : savePdf} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
             <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
             <Icon name="download" size={28} color="#BDBDBD" />
             </TouchableOpacity>
