@@ -15,13 +15,12 @@ import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
-import Raiox1 from '../../assets/icons/estagiosManejo/raiox1.png';
-import Raiox2 from '../../assets/icons/estagiosManejo/raiox2.png';
 import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
-import initialOrientation from '../../assets/text-content/orientacoes-iniciais.json';
+import initialOrientation from './text-content/orientacoes-iniciais.json';
+import emergency from './text-content/emergencia.json';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -225,53 +224,85 @@ export default function ClinicalManagement({ navigation }) {
 
   const HiddenStage2 = () => (
     <>
-      <Paragraph>
-        • Avaliar os fatores de risco, gravidade e necessidade de internação hospitalar.
-      </Paragraph>
-      <Paragraph>
-        • Mais de 5 dias de evolução com piora dos sintomas indicam o maior risco de complicações.
-      </Paragraph>
+    <Text style={style.hiddenCardTitle}>{emergency.presentialEvaluation.title}</Text>
+    <Text style={style.hiddenCardText}>{emergency.presentialEvaluation.description}</Text>
+
+    <View key={emergency.presentialEvaluation.sections.severitySigns.title}>
       <Text style={{
-        marginVertical: 8, fontSize: 20, fontWeight: 'bold', color: textColor
+        marginTop: 16, marginBottom: 8, fontSize: 18, color: textColor
       }}
       >
-        Sinais de gravidade
+        {emergency.presentialEvaluation.sections.severitySigns.title}
       </Text>
-      <Paragraph>
-        {'- SpO₂  < 95% em ar ambiente'}
-      </Paragraph>
-      <Paragraph>
-        {'- Sinais de desconforto respiratório ou aumento da frequência respiratória (f < 28irpm)'}
-      </Paragraph>
-      <Paragraph>- Cianose (central e de extremidades)</Paragraph>
-      <Paragraph>{'- Hipotensão (PAS < 90mmHg em relação a PA habitual dos pacientes).'}</Paragraph>
-      <Paragraph>- Alteração do estado mental ou do nível de consciência.</Paragraph>
-      <Paragraph>- Piora nas condições clínicas de doença de base.</Paragraph>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <View>
-          <Image source={Raiox1} style={{ marginHorizontal: 5 }} />
-        </View>
-        <View>
-          <Image source={Raiox2} style={{ marginHorizontal: 5 }} />
-        </View>
-      </View>
-      <Paragraph style={{ marginTop: 15 }}>
-        ‎• Realizar TC de torax, e se não acessível, realizar Raio-X.
-      </Paragraph>
-      <Text>
-        ‎• Ofertar
-        <Text style={style.bold}> tratamento ambulatorial e monitoramento clínico remoto </Text>
-        por profissional da saúde se indicada quarentena domiciliar,
-        {' '}
-        <Text style={{ textDecorationLine: 'underline', color: '#87BA25' }} onPress={() => navigation.navigate('webview', { title: 'Notas Técnicas', url: 'https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/' })}>
-          conforme protocolo.
+      {emergency.presentialEvaluation.sections.severitySigns.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>
+          {item}
+        </Paragraph>
+      ))}
+    </View>
+    <View key={emergency.presentialEvaluation.sections.hospitalizationCriteria.title}>
+      <Text style={{
+        marginTop: 16, marginBottom: 8, fontSize: 18, color: textColor
+      }}
+      >
+        {emergency.presentialEvaluation.sections.hospitalizationCriteria.title}
+      </Text>
+      {emergency.presentialEvaluation.sections.hospitalizationCriteria.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>
+          {item}
+        </Paragraph>
+      ))}
+    </View>
+    <View style={{
+      flex: 1,
+      paddingHorizontal: 6,
+      paddingVertical: 3,
+      marginTop: 16,
+      marginBottom: 16,
+      backgroundColor: '#eaf5ea',
+      alignItems: 'center',
+      borderRadius: 2
+    }}
+    >
+      <Text style={{ ...style.hiddenCardText, marginBottom: 8 }}>
+        {emergency.presentialEvaluation.sections.info.description}
+      </Text>
+      {emergency.presentialEvaluation.sections.info.items.map(item => (
+        <Text style={{ alignSelf: 'flex-start', color: textColor, fontSize: 14 }}>
+          {item}
         </Text>
+      ))}
+    </View>
+    <Text style={style.hiddenCardTitle}>{emergency.technicalNotes.title}</Text>
+    <View style={{ marginTop: 16, marginBottom: 8 }}>
+      <Text style={{ marginBottom: 8, fontSize: 18, color: textColor }}>
+        {emergency.technicalNotes.medicines.title}
       </Text>
-      <Paragraph>
-        - Indicar internação após análise da gravidade e
-        conforme necessidades de tratamento do paciente.
-      </Paragraph>
+      <Text style={style.hiddenCardText}>
+        {emergency.technicalNotes.medicines.usageCriteria.description}
+      </Text>
+      {emergency.technicalNotes.medicines.usageCriteria.items.map(item => (
+        <View>
+          <Paragraph style={style.hiddenCardText}>{item.title}</Paragraph>
+          {item.subItemList && item.subItemList.map(subItem => (
+            <Text style={{ color: textColor, fontSize: 14, marginHorizontal: 22 }}>{subItem}</Text>
+          ))}
+        </View>
+      ))}
+    </View>
+    <View style={{
+      flex: 1,
+      marginTop: 16,
+      backgroundColor: 'rgba(242, 69, 61, 0.12)',
+      alignItems: 'flex-start',
+      borderRadius: 2,
+      paddingHorizontal: 7
+    }}
+    >
+      <Text style={{ fontWeight: 'bold' }}>
+        {emergency.technicalNotes.warningLabel.title}
+      </Text>
+    </View>
     </>
   );
 
