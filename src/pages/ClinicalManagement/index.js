@@ -9,18 +9,21 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Banner from '../../assets/images/banner.png';
-import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
-import Raiox1 from '../../assets/icons/estagiosManejo/raiox1.png';
-import Raiox2 from '../../assets/icons/estagiosManejo/raiox2.png';
-import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
+import initialOrientation from './text-content/orientacoes-iniciais.json';
+import emergency from './text-content/emergencia.json';
+import Internacao from './text-content/internacao-hospitalar.json';
+import UTI from './text-content/UTI.json';
+
+const textColor = 'rgba(0,0,0,0.6)';
 
 export default function ClinicalManagement({ navigation }) {
   const [stage1Collapse, setStage1Collapse] = useState(false);
@@ -107,7 +110,16 @@ export default function ClinicalManagement({ navigation }) {
               </Text>
               <Text style={{ color, fontSize: 24 }}>{title}</Text>
               {
-                subtitle && <Text style={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: 14, marginVertical: 15 }}>{subtitle}</Text>
+                subtitle && !isCollapsed && (
+                <Text style={{
+                  color: textColor,
+                  fontSize: 14,
+                  marginVertical: 15
+                }}
+                >
+                {subtitle}
+                </Text>
+                )
               }
             </View>
             <View>
@@ -136,135 +148,255 @@ export default function ClinicalManagement({ navigation }) {
 
   const HiddenStage1 = () => (
     <>
-      <View style={{ flexDirection: 'row' }}>
-        <Termometro />
+    <Text style={style.hiddenCardTitle}>{initialOrientation.title}</Text>
+    <Text style={style.hiddenCardText}>{initialOrientation.description}</Text>
+
+    {initialOrientation.sections.symptoms.map((symptom => (
+    <View key={symptom.title}>
+      <Text style={{ marginTop: 16, fontSize: 18, color: textColor }}>
+        {symptom.title}
+      </Text>
+      {symptom.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>
+          {item}
+        </Paragraph>
+      ))}
+    </View>
+    )))}
+    <View style={{
+      flex: 1, marginTop: 16, backgroundColor: 'rgba(242, 69, 61, 0.12)', alignItems: 'center', borderRadius: 2
+    }}
+    >
+      <Text style={{
+        marginTop: 2, marginBottom: 3, marginHorizontal: 7, color: textColor
+      }}
+      >
+        <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.warningLabel.title} `}</Text>
+        <Text>{initialOrientation.sections.warningLabel.text}</Text>
+      </Text>
+    </View>
+    <View key={initialOrientation.sections.riskGroup.title}>
+      <Text style={{
+        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
+      }}
+      >
+        {initialOrientation.sections.riskGroup.title}
+      </Text>
+      {initialOrientation.sections.riskGroup.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
+      ))}
+    </View>
+    <View style={{
+      flex: 1,
+      marginVertical: 8,
+      alignItems: 'center',
+      borderRadius: 2
+    }}
+    >
+      <Text style={{ color: textColor }}>
+        <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.observation.title} `}</Text>
+        <Text>{initialOrientation.sections.observation.text}</Text>
+      </Text>
+    </View>
+    <View key={initialOrientation.sections.alerts.title}>
+      <Text style={{
+        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
+      }}
+      >
+        {initialOrientation.sections.alerts.title}
+      </Text>
+      {initialOrientation.sections.alerts.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
+      ))}
+    </View>
+    <View style={{
+      marginVertical: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-evenly'
+    }}
+    >
+      <View style={{ width: '30%' }}>
+        <ClinicalButton onPress={() => Linking.openURL('tel: 08002751475')} label="TELE-UTI" />
       </View>
-      <View style={{ marginVertical: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-        <View>
-          <TouchableOpacity onPress={() => Linking.openURL('tel: 08002751475')}>
-            <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Telesaúde</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })}>
-            <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Plantão Corona Vírus</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={{ width: '60%' }}>
+        <ClinicalButton onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })} label="PLANTÃO CORONAVÍRUS" />
       </View>
+    </View>
     </>
   );
 
   const HiddenStage2 = () => (
     <>
-      <Paragraph>
-        • Avaliar os fatores de risco, gravidade e necessidade de internação hospitalar.
-      </Paragraph>
-      <Paragraph>
-        • Mais de 5 dias de evolução com piora dos sintomas indicam o maior risco de complicações.
-      </Paragraph>
+    <Text style={style.hiddenCardTitle}>{emergency.presentialEvaluation.title}</Text>
+    <Text style={style.hiddenCardText}>{emergency.presentialEvaluation.description}</Text>
+
+    <View key={emergency.presentialEvaluation.sections.severitySigns.title}>
       <Text style={{
-        marginVertical: 8, fontSize: 20, fontWeight: 'bold', color: 'rgba(0, 0, 0, 0.6)'
+        marginTop: 16, marginBottom: 8, fontSize: 18, color: textColor
       }}
       >
-        Sinais de gravidade
+        {emergency.presentialEvaluation.sections.severitySigns.title}
       </Text>
-      <Paragraph>
-        {'- SpO₂  < 95% em ar ambiente'}
-      </Paragraph>
-      <Paragraph>
-        {'- Sinais de desconforto respiratório ou aumento da frequência respiratória (f < 28irpm)'}
-      </Paragraph>
-      <Paragraph>- Cianose (central e de extremidades)</Paragraph>
-      <Paragraph>{'- Hipotensão (PAS < 90mmHg em relação a PA habitual dos pacientes).'}</Paragraph>
-      <Paragraph>- Alteração do estado mental ou do nível de consciência.</Paragraph>
-      <Paragraph>- Piora nas condições clínicas de doença de base.</Paragraph>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <View>
-          <Image source={Raiox1} style={{ marginHorizontal: 5 }} />
-        </View>
-        <View>
-          <Image source={Raiox2} style={{ marginHorizontal: 5 }} />
-        </View>
-      </View>
-      <Paragraph style={{ marginTop: 15 }}>
-        ‎• Realizar TC de torax, e se não acessível, realizar Raio-X.
-      </Paragraph>
-      <Text>
-        ‎• Ofertar
-        <Text style={style.bold}> tratamento ambulatorial e monitoramento clínico remoto </Text>
-        por profissional da saúde se indicada quarentena domiciliar,
-        {' '}
-        <Text style={{ textDecorationLine: 'underline', color: '#87BA25' }} onPress={() => navigation.navigate('webview', { title: 'Notas Técnicas', url: 'https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/' })}>
-          conforme protocolo.
+      {emergency.presentialEvaluation.sections.severitySigns.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>
+          {item}
+        </Paragraph>
+      ))}
+    </View>
+    <View key={emergency.presentialEvaluation.sections.hospitalizationCriteria.title}>
+      <Text style={{
+        marginTop: 16, marginBottom: 8, fontSize: 18, color: textColor
+      }}
+      >
+        {emergency.presentialEvaluation.sections.hospitalizationCriteria.title}
+      </Text>
+      {emergency.presentialEvaluation.sections.hospitalizationCriteria.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>
+          {item}
+        </Paragraph>
+      ))}
+       <Text
+         onPress={() => navigation.navigate('webview', { title: emergency.presentialEvaluation.sections.hospitalizationCriteria.link.title, url: emergency.presentialEvaluation.sections.hospitalizationCriteria.link.url })}
+         style={{
+           color: '#87BA25'
+         }}
+       >
+          {emergency.presentialEvaluation.sections.hospitalizationCriteria.link.text}
+       </Text>
+    </View>
+    <View style={{
+      flex: 1,
+      paddingHorizontal: 6,
+      paddingVertical: 3,
+      marginTop: 16,
+      marginBottom: 16,
+      backgroundColor: '#eaf5ea',
+      alignItems: 'center',
+      borderRadius: 2
+    }}
+    >
+      <Text style={{ ...style.hiddenCardText, marginBottom: 8 }}>
+        {emergency.presentialEvaluation.sections.info.description}
+      </Text>
+      {emergency.presentialEvaluation.sections.info.items.map(item => (
+        <Text style={{ alignSelf: 'flex-start', color: textColor, fontSize: 14 }}>
+          {item}
         </Text>
+      ))}
+    </View>
+    <Text style={style.hiddenCardTitle}>
+      {emergency.technicalNotes.title}
+    </Text>
+    <View style={{ marginTop: 16, marginBottom: 8 }}>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ marginRight: 8 }}>
+          <FontAwesome5Icon name="pills" color="rgba(0, 0, 0, 0.54)" size={22} />
+        </View>
+        <Text style={{ marginBottom: 8, fontSize: 18, color: textColor }}>
+          {emergency.technicalNotes.medicines.title}
+        </Text>
+      </View>
+      <Text style={style.hiddenCardText}>
+        {emergency.technicalNotes.medicines.usageCriteria.description}
       </Text>
-      <Paragraph>
-        - Indicar internação após análise da gravidade e
-        conforme necessidades de tratamento do paciente.
-      </Paragraph>
+      {emergency.technicalNotes.medicines.usageCriteria.items.map(item => (
+        <View>
+          <Paragraph style={style.hiddenCardText}>{item.title}</Paragraph>
+          {item.subItemList && item.subItemList.map(subItem => (
+            <Text style={{ color: textColor, fontSize: 14, marginHorizontal: 22 }}>{subItem}</Text>
+          ))}
+        </View>
+      ))}
+    </View>
+    <View style={{
+      flex: 1,
+      marginTop: 16,
+      backgroundColor: 'rgba(242, 69, 61, 0.12)',
+      alignItems: 'flex-start',
+      borderRadius: 2,
+      paddingHorizontal: 7,
+      paddingTop: 7,
+      paddingBottom: 9,
+      width: '100%'
+    }}
+    >
+    <Text>
+      <Text style={{ fontWeight: 'bold' }}>
+        {` ${emergency.technicalNotes.warningLabel.title} `}
+      </Text>
+      <Text style={style.hiddenCardText}>{`${emergency.technicalNotes.warningLabel.text.firstPhrase} `}</Text>
+      <Text style={style.hiddenCardText}>
+        {emergency.technicalNotes.warningLabel.text.patientFollowingLink.text}
+      </Text>
+      <Text style={style.hiddenCardText}>
+      {`\n${emergency.technicalNotes.warningLabel.text.secondPhrase} `}
+      </Text>
+      <Text
+        onPress={() => Linking.openURL(
+          emergency.technicalNotes.warningLabel.text.consciousnessTermLink.url
+        )}
+        style={{ color: '#87BA25' }}
+      >
+       {emergency.technicalNotes.warningLabel.text.consciousnessTermLink.text}
+      </Text>
+    </Text>
+    </View>
+    <View style={{ marginTop: 7, marginHorizontal: 8 }}>
+      <Text style={style.hiddenCardText}>
+        {emergency.technicalNotes.dosage.title}
+      </Text>
+      {emergency.technicalNotes.dosage.medicines.map(medicine => (
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ fontWeight: 'bold' }}>
+          {medicine.name}
+          </Text>
+          {medicine.dosages.map(dosage => (
+            <Text style={style.hiddenCardText}>{dosage}</Text>
+          ))}
+        </View>
+      ))}
+    </View>
     </>
   );
-
   const HiddenStage3 = () => (
     <>
       <View style={{ marginTop: 20 }}>
         <Paragraph>
-          {'‎• Ofertar'}
-          <Text style={{ fontWeight: 'bold' }}> oxigenoterapia </Text>
-          {'se SpO₂ < 93%.'}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-        </Paragraph>
-        <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
-        <Paragraph>
-          - Em caso de má resposta ou piora indicar intubação orotraquel
-          eletiva e transferência para UTI.
-        </Paragraph>
-        <Paragraph style={{ marginVertical: 8 }}>
-          •
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>Administrar ATB</Text>
-          {' '}
-          para
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>infecção bacteriana</Text>
-          {' '}
-          2ª (azitromicina +/- amoxacilina clavulananto) e
-          {' '}
+          {Internacao.sections.paragraphOne.firstPhrase}
           <Text style={{ fontWeight: 'bold' }}>
-            terapia antiviral para Influenza
+            {Internacao.sections.paragraphOne.bold}
           </Text>
-          {' '}
-          (oseltamivir) em casos suspeitos dessas condições
+          {Internacao.sections.paragraphOne.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphOne.link.title, url: Internacao.sections.paragraphOne.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphOne.link.text}</Text>
+        </Paragraph>
+
+        {Internacao.sections.paragraphOne.items.map(item => (
+          <Paragraph>
+            {item}
+          </Paragraph>
+        ))}
+        <Paragraph style={{ marginVertical: 8 }}>
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphTwo.bold}</Text>
+          {Internacao.sections.paragraphTwo.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphTwo.link.title, url: Internacao.sections.paragraphTwo.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
+          {Internacao.sections.paragraphTwo.ThirdPhrase}
         </Paragraph>
         <Paragraph>
-          •
-        {' '}
-          <Text style={{ fontWeight: 'bold' }}>Considerar corticoterapia</Text>
-        ,  em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva
-        {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-          {' '}
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphThree.bold}</Text>
+          {Internacao.sections.paragraphThree.secondPhrase}
+        <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphThree.link.title, url: Internacao.sections.paragraphThree.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphThree.link.text}</Text>
         </Paragraph>
         <Paragraph>
-          •
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>Assegurar</Text>
-          {' '}
-          profilaxia de Trombose Venosa Profunda.
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFour.bold}</Text>
+          {Internacao.sections.paragraphFour.secondPhrase}
         </Paragraph>
         <Paragraph style={{ marginVertical: 8 }}>
-          •
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>Considerar  hidroxicloroquina ou cloroquina</Text>
-          {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-esclarecimentos-sobre-uso-da-hidroxicloroquina-e-cloroquina-como-drogas-experimentais/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-          Checar ECG/Intervalo QT:
+          {Internacao.sections.paragraphFive.firstPhrase}
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFive.bold}</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFive.link.title, url: Internacao.sections.paragraphFive.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFive.link.text}</Text>
         </Paragraph>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Grafico />
-        </View>
-        <Paragraph>‎• Tranferir para UTI em caso de disfunções orgânicas em evolução.</Paragraph>
+
+        <Paragraph>
+          {Internacao.sections.paragraphSix}
+        </Paragraph>
       </View>
     </>
   );
@@ -273,48 +405,38 @@ export default function ClinicalManagement({ navigation }) {
     <>
       <View style={{ marginTop: 8 }}>
         <Paragraph>
-          ‎• Utilizar ventilação mecânica (VM) protetora
-        {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
-          {' '}
-        com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.
+          {UTI.sections.paragraphOne.firstPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.link.title, url: UTI.sections.paragraphOne.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.link.text}</Text>
+          {UTI.sections.paragraphOne.secondPhrase}
         </Paragraph>
         <Paragraph>
-          - Considerar manobras de resgate de
-          hipoxemia refratária (titulação da PEEP e posição prona)
-        {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
-          {' '}
+          {UTI.sections.paragraphOne.item.firstPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.item.link.title, url: UTI.sections.paragraphOne.item.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.item.link.text}</Text>
         </Paragraph>
         <Paragraph>
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>‎• Administrar corticoterapia</Text>
-          , em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva
-          {' '}
+          <Text style={{ fontWeight: 'bold' }}>{UTI.sections.paragraphTwo.bold}</Text>
+          {UTI.sections.paragraphTwo.secondPhrase}
           <Text
-            onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/' })}
+            onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphTwo.link.title, url: UTI.sections.paragraphTwo.link.url })}
             style={{ color: '#F2453D', textDecorationLine: 'underline' }}
           >
-conforme protocolo.
+            {UTI.sections.paragraphTwo.link.text}
           </Text>
-          {' '}
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Image source={Pulmao} />
         </View>
         <Paragraph>
-          •
-        {' '}
-          <Text style={{ fontWeight: 'bold' }}> Administrar anticoagulação com HBPM </Text>
-          se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão
-          {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
-          {' '}
+          <Text style={{ fontWeight: 'bold' }}>
+            {UTI.sections.paragraphThree.bold}
+          </Text>
+          {UTI.sections.paragraphThree.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphThree.link.title, url: UTI.sections.paragraphThree.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>
+          {UTI.sections.paragraphThree.link.text}
+          </Text>
         </Paragraph>
         <Text>
-          • Assegurar visitas horizontais,suporte de
-          telemedicina e boas práticas
-          em terapia intensiva.
+          {UTI.sections.paragraphFour}
         </Text>
       </View>
     </>
@@ -324,13 +446,13 @@ conforme protocolo.
     {
       id: 1,
       stageTitle: 'Estágio 01 (2-5 dias)',
-      title: 'Casa',
-      subtitle: 'Auto-avaliação',
+      title: 'Orientações iniciais',
+      subtitle: 'Sintomas e sinais',
       Logo: Estagio1,
       color: '#4054B2',
       isCollapsed: stage1Collapse,
       collapsedMethod: setStage1Collapse,
-      cardHeight: 436,
+      cardHeight: 10000,
       HideContent: HiddenStage1
     },
     {
@@ -369,7 +491,6 @@ conforme protocolo.
       HideContent: HiddenStage4
     }
   ];
-
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
       <View style={{
@@ -377,17 +498,42 @@ conforme protocolo.
       }}
       >
         <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
-        <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
+        <Text style={{ color: textColor, marginVertical: 16 }}>
+          Adotar todas as medidas para prevenção de contágio pela Covid-19 por ocasião do
+          atendimento, incluindo o uso correto dos EPIs disponibilizados:
+        </Text>
         <View>
-          <Image source={Banner} style={{ marginVertical: 10 }} />
-          <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" onPress={() => Linking.openURL('https://www.youtube.com/watch?v=zQi1zpZEYVM')} />
-          <ClinicalButton label="consulte especialistas! telemedicina" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
+          <Image source={Banner} style={{ marginVertical: 10, width: 378, height: 185 }} resizeMode="contain" />
+          <ClinicalButton label="confira orientações de paramentação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/medidas-de-protecao/')} />
+          <ClinicalButton label="consulte especialistas no tele-UTI" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
+          <Text style={{ color: textColor, marginVertical: 16 }}>
+            Discussão de casos de pacientes críticos (UTI e emergências) com intensivistas e
+            pneumologistas:
+            {'\n'}
+            <Text style={{ fontWeight: 'bold' }}>seg a sex - 24h / sab e dom - 8h às 17h</Text>
+          </Text>
         </View>
         {/* Card goes here */}
         <View style={{ marginVertical: 16 }}>
           {
             // eslint-disable-next-line max-len
-            cardItems.map(item => <CardStage key={item.id} id={item.id} cardHeight={item.cardHeight} collapsedMethod={item.collapsedMethod} color={item.color} isCollapsed={item.isCollapsed} stage-title={item.title} HideContent={item.HideContent} stageTitle={item.stageTitle} title={item.title} subtitle={item.subtitle} Logo={item.Logo} />)
+            cardItems.map(item => (
+            <CardStage
+              key={item.id}
+              id={item.id}
+              cardHeight={item.cardHeight}
+              collapsedMethod={item.collapsedMethod}
+              color={item.color}
+              isCollapsed={item.isCollapsed}
+              stage-title={item.title}
+              HideContent={item.HideContent}
+              stageTitle={item.stageTitle}
+              title={item.title}
+              subtitle={item.subtitle}
+              content={item.content}
+              Logo={item.Logo}
+            />
+            ))
           }
         </View>
 
@@ -446,5 +592,15 @@ const style = StyleSheet.create({
   },
   bold: {
     fontWeight: 'bold'
+  },
+  hiddenCardTitle: {
+    marginVertical: 8,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: textColor
+  },
+  hiddenCardText: {
+    color: textColor,
+    fontSize: 14
   }
 });
