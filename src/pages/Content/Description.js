@@ -13,13 +13,14 @@ import HTML from 'react-native-render-html';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Shared from '../../assets/images/Share.png';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
   const { route } = props;
-  const { item } = route.params;
+  const { params } = route;
+  const item = params.object;
 
   const onShare = async () => {
     const messagTitle = item.post_title;
@@ -36,11 +37,23 @@ export default function DescriptionScreen(props) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
+      headerTitle: route.params.title,
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
-      }
+      },
+      headerTitleAlign: 'center',
+      headerLeft: () => (
+        <TouchableOpacity
+          style={styles.searchHeaderBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
     });
   });
 
@@ -99,6 +112,9 @@ export default function DescriptionScreen(props) {
 const styles = StyleSheet.create({
   text: {
     color: '#333333'
+  },
+  searchHeaderBack: {
+    marginHorizontal: 19
   },
   titleDetail: {
     marginTop: 20,
