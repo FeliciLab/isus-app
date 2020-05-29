@@ -1,0 +1,52 @@
+{
+    "sections": {
+        "paragraphOne": {
+            "firstPhrase": "‎• Ofertar",
+            "Bold": "oxigenoterapia",
+            "secondPhrase": "se SpO₂ < 93%",
+            "link": {
+                "title": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/",
+                "text": "conforme protocolo."
+            },
+            "items": [
+                "- Colher gasométrica arterial em uso de oxigênio.",
+                "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI."
+            ]
+        },
+        "paragraphTwo": {
+            "Bold": "Administrar ATB",
+            "secondPhrase": "para infecção bacteriana secundária (azitromicina +/- ceftriaxona ou amoxacilina clavulanato) e",
+            "link": {
+                "title": "Protocolo",
+                "url": "",
+                "text": "oseltamivir até o segundo dia de doença"
+            },
+            "ThirdPhrase": ", quando indicado."
+        },
+        "paragraphThree": {
+            "Bold": "Considerar corticoterapia",
+            "secondPhrase": ", em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva",
+            "link": {
+                "title": "Protocolo",
+                "url": "",
+                "text": "conforme protocolo."
+            },
+            "ThirdPhrase": ", quando indicado."
+        },
+        "paragraphFour": {
+            "Bold": "Assegurar",
+            "secondPhrase": "profilaxia de Trombose Venosa Profunda.",
+        },
+        "paragraphFive": {
+            "firstPhrase": "A prescrição rotineira de antimaláricos para pacientes hospitalizados com diagnóstico suspeito ou confirmado de Covid-19",
+            "bold": " não é recomendada",
+            "link": {
+                "title": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-esclarece-sobre-usos-da-de-hidroxicloroquina-e-cloroquina-em-pacientes-hospitalizados",
+                "text": " conforme protocolo."
+            }
+        },
+        "paragraphSix": "•  Tranferir para UTI em caso de disfunções orgânicas em evolução."
+    }
+}

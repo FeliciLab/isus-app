@@ -21,7 +21,7 @@ import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
-import initialOrientation from '../../assets/text-content/orientacoes-iniciais.json';
+import initialOrientation from './text-content/orientacoes-iniciais.json';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
