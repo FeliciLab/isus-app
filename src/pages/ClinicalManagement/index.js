@@ -22,6 +22,7 @@ import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
 import initialOrientation from './text-content/orientacoes-iniciais.json';
+import UTI from './text-content/UTI.json';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -342,48 +343,38 @@ export default function ClinicalManagement({ navigation }) {
     <>
       <View style={{ marginTop: 8 }}>
         <Paragraph>
-          ‎• Utilizar ventilação mecânica (VM) protetora
-        {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo</Text>
-          {' '}
-        com individualização de parâmetros,  sedação +/- bloqueio neuro-muscular.
+          {UTI.sections.paragraphOne.firstPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.link.title, url: UTI.sections.paragraphOne.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.link.text}</Text>
+          {UTI.sections.paragraphOne.secondPhrase}
         </Paragraph>
         <Paragraph>
-          - Considerar manobras de resgate de
-          hipoxemia refratária (titulação da PEEP e posição prona)
-        {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
-          {' '}
+          {UTI.sections.paragraphOne.item.firstPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.item.link.title, url: UTI.sections.paragraphOne.item.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.item.link.text}</Text>
         </Paragraph>
         <Paragraph>
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>‎• Administrar corticoterapia</Text>
-          , em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva
-          {' '}
+          <Text style={{ fontWeight: 'bold' }}>{UTI.sections.paragraphTwo.bold}</Text>
+          {UTI.sections.paragraphTwo.secondPhrase}
           <Text
-            onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/' })}
+            onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphTwo.link.title, url: UTI.sections.paragraphTwo.link.url })}
             style={{ color: '#F2453D', textDecorationLine: 'underline' }}
           >
-conforme protocolo.
+            {UTI.sections.paragraphTwo.link.text}
           </Text>
-          {' '}
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Image source={Pulmao} />
         </View>
         <Paragraph>
-          •
-        {' '}
-          <Text style={{ fontWeight: 'bold' }}> Administrar anticoagulação com HBPM </Text>
-          se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão
-          {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/' })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>conforme protocolo.</Text>
-          {' '}
+          <Text style={{ fontWeight: 'bold' }}>
+            {UTI.sections.paragraphThree.bold}
+          </Text>
+          {UTI.sections.paragraphThree.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphThree.link.title, url: UTI.sections.paragraphThree.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>
+          {UTI.sections.paragraphThree.link.text}
+          </Text>
         </Paragraph>
         <Text>
-          • Assegurar visitas horizontais,suporte de
-          telemedicina e boas práticas
-          em terapia intensiva.
+          {UTI.sections.paragraphFour}
         </Text>
       </View>
     </>
