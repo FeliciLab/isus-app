@@ -1,5 +1,5 @@
 # App iSUS
-### v2.4.5
+### v2.4.6
 
 ## Tech Stack
 * React Native
@@ -14,10 +14,10 @@ O projeto foi homologado para as seguintes versões:
 ## Start do Projeto.
 * Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
- yarn install 
+ yarn install
 ```
 
-### Usando Android 
+### Usando Android
 * Com o Android Studio e o Java SDK previamente instalados, digite o seguinte comando:
 ```bash
 yarn android
