@@ -62,7 +62,7 @@ export default function SearchScreen() {
 
       headerLeft: () => (
         <TouchableOpacity
-          style={style.headerBack}
+          style={style.searchHeaderBack}
           onPress={() => {
             navigation.goBack();
           }}
@@ -143,7 +143,7 @@ const style = StyleSheet.create({
     backgroundColor: '#fff'
   },
   searchHeaderBack: {
-    marginHorizontal: 19
+    marginHorizontal: 20
   },
   searchHeaderText: {
     backgroundColor: 'transparent',
