@@ -46,7 +46,7 @@
             "title": "Corticoide + azitromicina",
             "usageCriteria": {
                 "description": "Uso em pacientes com os três critérios abaixo:",
-                "items": [ 
+                "items": [
                     {
                         "title": "• Mais de 5 dias de doença"
                     },
@@ -78,7 +78,7 @@
         "warningLabel": {
             "title": "Importante:",
             "text": {
-                "firstPhrase": "iniciar o", 
+                "firstPhrase": "iniciar o",
                 "patientFollowingLink": {
                     "title": "Monitoramento",
                     "text": "monitoramento e/ou acompanhamento dos pacientes.",
@@ -89,7 +89,7 @@
                     "title": "TCC",
                     "text": "Termo de Ciência e Consentimento (TCC).",
                     "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/TERMO-DE-CI%C3%8ANCIA-E-CONSENTIMENTO-TCC-26.05.pdf"
-                } 
+                }
             }
         },
         "dosage": {

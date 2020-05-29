@@ -330,11 +330,8 @@ export default function ClinicalManagement({ navigation }) {
       {`\n${emergency.technicalNotes.warningLabel.text.secondPhrase} `}
       </Text>
       <Text
-        onPress={() => navigation.navigate(
-          'webview', {
-            title: emergency.technicalNotes.warningLabel.text.consciousnessTermLink.title,
-            url: emergency.technicalNotes.warningLabel.text.consciousnessTermLink.url
-          }
+        onPress={() => Linking.openURL(
+          emergency.technicalNotes.warningLabel.text.consciousnessTermLink.url
         )}
         style={{ color: '#87BA25' }}
       >
@@ -444,6 +441,7 @@ export default function ClinicalManagement({ navigation }) {
       </View>
     </>
   );
+
   const cardItems = [
     {
       id: 1,
