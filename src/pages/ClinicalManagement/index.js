@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Banner from '../../assets/images/banner.png';
-// import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
