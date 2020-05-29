@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import Banner from '../../assets/images/banner.png';
-import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
+// import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
@@ -21,6 +21,9 @@ import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
+import initialOrientation from '../../assets/text-content/orientacoes-iniciais.json';
+
+const textColor = 'rgba(0,0,0,0.6)';
 
 export default function ClinicalManagement({ navigation }) {
   const [stage1Collapse, setStage1Collapse] = useState(false);
@@ -107,7 +110,16 @@ export default function ClinicalManagement({ navigation }) {
               </Text>
               <Text style={{ color, fontSize: 24 }}>{title}</Text>
               {
-                subtitle && <Text style={{ color: 'rgba(0, 0, 0, 0.6)', fontSize: 14, marginVertical: 15 }}>{subtitle}</Text>
+                subtitle && !isCollapsed && (
+                <Text style={{
+                  color: textColor,
+                  fontSize: 14,
+                  marginVertical: 15
+                }}
+                >
+                {subtitle}
+                </Text>
+                )
               }
             </View>
             <View>
@@ -136,21 +148,78 @@ export default function ClinicalManagement({ navigation }) {
 
   const HiddenStage1 = () => (
     <>
-      <View style={{ flexDirection: 'row' }}>
-        <Termometro />
+    <Text style={style.hiddenCardTitle}>{initialOrientation.title}</Text>
+    <Text style={style.hiddenCardText}>{initialOrientation.description}</Text>
+
+    {initialOrientation.sections.symptoms.map((symptom => (
+    <View key={symptom.title}>
+      <Text style={{ marginTop: 16, fontSize: 18, color: textColor }}>
+        {symptom.title}
+      </Text>
+      {symptom.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>
+          {item}
+        </Paragraph>
+      ))}
+    </View>
+    )))}
+    <View style={{
+      flex: 1, marginTop: 16, backgroundColor: 'rgba(242, 69, 61, 0.12)', alignItems: 'center', borderRadius: 2
+    }}
+    >
+      <Text style={{
+        marginTop: 2, marginBottom: 3, marginHorizontal: 7, color: textColor
+      }}
+      >
+        <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.warningLabel.title} `}</Text>
+        <Text>{initialOrientation.sections.warningLabel.text}</Text>
+      </Text>
+    </View>
+    <View key={initialOrientation.sections.riskGroup.title}>
+      <Text style={{
+        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
+      }}
+      >
+        {initialOrientation.sections.riskGroup.title}
+      </Text>
+      {initialOrientation.sections.riskGroup.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
+      ))}
+    </View>
+    <View style={{
+      flex: 1,
+      marginVertical: 8,
+      alignItems: 'center',
+      borderRadius: 2
+    }}
+    >
+      <Text style={{ color: textColor }}>
+        <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.observation.title} `}</Text>
+        <Text>{initialOrientation.sections.observation.text}</Text>
+      </Text>
+    </View>
+    <View key={initialOrientation.sections.alerts.title}>
+      <Text style={{
+        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
+      }}
+      >
+        {initialOrientation.sections.alerts.title}
+      </Text>
+      {initialOrientation.sections.alerts.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
+      ))}
+    </View>
+    <View style={{
+      marginVertical: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-evenly'
+    }}
+    >
+      <View style={{ width: '30%' }}>
+        <ClinicalButton onPress={() => Linking.openURL('tel: 08002751475')} label="TELE-UTI" />
       </View>
-      <View style={{ marginVertical: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-        <View>
-          <TouchableOpacity onPress={() => Linking.openURL('tel: 08002751475')}>
-            <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Telesaúde</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <TouchableOpacity onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })}>
-            <Text style={{ textDecorationLine: 'underline', color: '#4054B2' }}>Plantão Corona Vírus</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={{ width: '60%' }}>
+        <ClinicalButton onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })} label="PLANTÃO CORONAVÍRUS" />
       </View>
+    </View>
     </>
   );
 
@@ -163,7 +232,7 @@ export default function ClinicalManagement({ navigation }) {
         • Mais de 5 dias de evolução com piora dos sintomas indicam o maior risco de complicações.
       </Paragraph>
       <Text style={{
-        marginVertical: 8, fontSize: 20, fontWeight: 'bold', color: 'rgba(0, 0, 0, 0.6)'
+        marginVertical: 8, fontSize: 20, fontWeight: 'bold', color: textColor
       }}
       >
         Sinais de gravidade
@@ -319,18 +388,17 @@ conforme protocolo.
       </View>
     </>
   );
-
   const cardItems = [
     {
       id: 1,
       stageTitle: 'Estágio 01 (2-5 dias)',
-      title: 'Casa',
-      subtitle: 'Auto-avaliação',
+      title: 'Orientações iniciais',
+      subtitle: 'Sintomas e sinais',
       Logo: Estagio1,
       color: '#4054B2',
       isCollapsed: stage1Collapse,
       collapsedMethod: setStage1Collapse,
-      cardHeight: 436,
+      cardHeight: 10000,
       HideContent: HiddenStage1
     },
     {
@@ -369,7 +437,6 @@ conforme protocolo.
       HideContent: HiddenStage4
     }
   ];
-
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
       <View style={{
@@ -377,17 +444,42 @@ conforme protocolo.
       }}
       >
         <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
-        <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
+        <Text style={{ color: textColor, marginVertical: 16 }}>
+          Adotar todas as medidas para prevenção de contágio pela Covid-19 por ocasião do
+          atendimento, incluindo o uso correto dos EPIs disponibilizados:
+        </Text>
         <View>
-          <Image source={Banner} style={{ marginVertical: 10 }} />
-          <ClinicalButton label="CONFIRA VÍDEOS DE PARAMENTAÇÃO" onPress={() => Linking.openURL('https://www.youtube.com/watch?v=zQi1zpZEYVM')} />
-          <ClinicalButton label="consulte especialistas! telemedicina" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
+          <Image source={Banner} style={{ marginVertical: 10, width: 378, height: 185 }} resizeMode="contain" />
+          <ClinicalButton label="confira orientações de paramentação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/medidas-de-protecao/')} />
+          <ClinicalButton label="consulte especialistas no tele-UTI" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
+          <Text style={{ color: textColor, marginVertical: 16 }}>
+            Discussão de casos de pacientes críticos (UTI e emergências) com intensivistas e
+            pneumologistas:
+            {'\n'}
+            <Text style={{ fontWeight: 'bold' }}>seg a sex - 24h / sab e dom - 8h às 17h</Text>
+          </Text>
         </View>
         {/* Card goes here */}
         <View style={{ marginVertical: 16 }}>
           {
             // eslint-disable-next-line max-len
-            cardItems.map(item => <CardStage key={item.id} id={item.id} cardHeight={item.cardHeight} collapsedMethod={item.collapsedMethod} color={item.color} isCollapsed={item.isCollapsed} stage-title={item.title} HideContent={item.HideContent} stageTitle={item.stageTitle} title={item.title} subtitle={item.subtitle} Logo={item.Logo} />)
+            cardItems.map(item => (
+            <CardStage
+              key={item.id}
+              id={item.id}
+              cardHeight={item.cardHeight}
+              collapsedMethod={item.collapsedMethod}
+              color={item.color}
+              isCollapsed={item.isCollapsed}
+              stage-title={item.title}
+              HideContent={item.HideContent}
+              stageTitle={item.stageTitle}
+              title={item.title}
+              subtitle={item.subtitle}
+              content={item.content}
+              Logo={item.Logo}
+            />
+            ))
           }
         </View>
 
@@ -446,5 +538,15 @@ const style = StyleSheet.create({
   },
   bold: {
     fontWeight: 'bold'
+  },
+  hiddenCardTitle: {
+    marginVertical: 8,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: textColor
+  },
+  hiddenCardText: {
+    color: textColor,
+    fontSize: 14
   }
 });
