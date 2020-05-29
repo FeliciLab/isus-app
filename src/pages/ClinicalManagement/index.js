@@ -253,6 +253,14 @@ export default function ClinicalManagement({ navigation }) {
           {item}
         </Paragraph>
       ))}
+       <Text
+         onPress={() => navigation.navigate('webview', { title: emergency.presentialEvaluation.sections.hospitalizationCriteria.link.title, url: emergency.presentialEvaluation.sections.hospitalizationCriteria.link.url })}
+         style={{
+           color: '#87BA25'
+         }}
+       >
+          {emergency.presentialEvaluation.sections.hospitalizationCriteria.link.text}
+       </Text>
     </View>
     <View style={{
       flex: 1,
