@@ -1,5 +1,5 @@
 # App iSUS
-### v2.4.5
+### v2.4.6
 Esse é o repositório do aplicativo iSUS. 
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
@@ -31,10 +31,10 @@ O projeto foi homologado para as seguintes versões:
 ## Start do Projeto.
 * Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
- yarn install 
+ yarn install
 ```
 
-### Usando Android 
+### Usando Android
 * Com o Android Studio e o Java SDK previamente instalados, digite o seguinte comando:
 ```bash
 yarn android
