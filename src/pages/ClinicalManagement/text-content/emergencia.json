@@ -73,7 +73,20 @@
         },
         "warningLabel": {
             "title": "Importante:",
-            "text": "iniciar o monitoramento e/ou acompanhamento dos pacientes. Providenciar Termo de Ciência e Consentimento (TCC)."
+            "text": {
+                "firstPhrase": "iniciar o", 
+                "patientFollowingLink": {
+                    "title": "Monitoramento",
+                    "text": "monitoramento e/ou acompanhamento dos pacientes.",
+                    "url": ""
+                },
+                "secondPhrase": "Providenciar",
+                "consciousnessTermLink": {
+                    "title": "TCC",
+                    "text": "Termo de Ciência e Consentimento (TCC).",
+                    "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/TERMO-DE-CI%C3%8ANCIA-E-CONSENTIMENTO-TCC-26.05.pdf"
+                } 
+            }
         },
         "dosage": {
             "title": "DOSAGENS",

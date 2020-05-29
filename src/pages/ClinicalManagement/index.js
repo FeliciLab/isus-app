@@ -9,6 +9,7 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Banner from '../../assets/images/banner.png';
 // import Termometro from '../../assets/icons/estagiosManejo/termometro.svg';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
@@ -274,11 +275,18 @@ export default function ClinicalManagement({ navigation }) {
         </Text>
       ))}
     </View>
-    <Text style={style.hiddenCardTitle}>{emergency.technicalNotes.title}</Text>
+    <Text style={style.hiddenCardTitle}>
+      {emergency.technicalNotes.title}
+    </Text>
     <View style={{ marginTop: 16, marginBottom: 8 }}>
-      <Text style={{ marginBottom: 8, fontSize: 18, color: textColor }}>
-        {emergency.technicalNotes.medicines.title}
-      </Text>
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ marginRight: 8 }}>
+          <FontAwesome5Icon name="pills" color="rgba(0, 0, 0, 0.54)" size={22} />
+        </View>
+        <Text style={{ marginBottom: 8, fontSize: 18, color: textColor }}>
+          {emergency.technicalNotes.medicines.title}
+        </Text>
+      </View>
       <Text style={style.hiddenCardText}>
         {emergency.technicalNotes.medicines.usageCriteria.description}
       </Text>
@@ -297,16 +305,53 @@ export default function ClinicalManagement({ navigation }) {
       backgroundColor: 'rgba(242, 69, 61, 0.12)',
       alignItems: 'flex-start',
       borderRadius: 2,
-      paddingHorizontal: 7
+      paddingHorizontal: 7,
+      paddingTop: 7,
+      paddingBottom: 9,
+      width: '100%'
     }}
     >
+    <Text>
       <Text style={{ fontWeight: 'bold' }}>
-        {emergency.technicalNotes.warningLabel.title}
+        {` ${emergency.technicalNotes.warningLabel.title} `}
       </Text>
+      <Text style={style.hiddenCardText}>{`${emergency.technicalNotes.warningLabel.text.firstPhrase} `}</Text>
+      <Text style={style.hiddenCardText}>
+        {emergency.technicalNotes.warningLabel.text.patientFollowingLink.text}
+      </Text>
+      <Text style={style.hiddenCardText}>
+      {`\n${emergency.technicalNotes.warningLabel.text.secondPhrase} `}
+      </Text>
+      <Text
+        onPress={() => navigation.navigate(
+          'webview', {
+            title: emergency.technicalNotes.warningLabel.text.consciousnessTermLink.title,
+            url: emergency.technicalNotes.warningLabel.text.consciousnessTermLink.url
+          }
+        )}
+        style={{ color: '#87BA25' }}
+      >
+       {emergency.technicalNotes.warningLabel.text.consciousnessTermLink.text}
+      </Text>
+    </Text>
+    </View>
+    <View style={{ marginTop: 7, marginHorizontal: 8 }}>
+      <Text style={style.hiddenCardText}>
+        {emergency.technicalNotes.dosage.title}
+      </Text>
+      {emergency.technicalNotes.dosage.medicines.map(medicine => (
+        <View style={{ marginBottom: 20 }}>
+          <Text style={{ fontWeight: 'bold' }}>
+          {medicine.name}
+          </Text>
+          {medicine.dosages.map(dosage => (
+            <Text style={style.hiddenCardText}>{dosage}</Text>
+          ))}
+        </View>
+      ))}
     </View>
     </>
   );
-
   const HiddenStage3 = () => (
     <>
       <View style={{ marginTop: 20 }}>
