@@ -17,11 +17,11 @@ import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
 import Raiox1 from '../../assets/icons/estagiosManejo/raiox1.png';
 import Raiox2 from '../../assets/icons/estagiosManejo/raiox2.png';
-import Grafico from '../../assets/icons/estagiosManejo/grafico.svg';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
 import initialOrientation from './text-content/orientacoes-iniciais.json';
+import Internacao from './text-content/internacao-hospitalar.json';
 import UTI from './text-content/UTI.json';
 
 const textColor = 'rgba(0,0,0,0.6)';
@@ -280,61 +280,43 @@ export default function ClinicalManagement({ navigation }) {
     <>
       <View style={{ marginTop: 20 }}>
         <Paragraph>
-          {'‎• Ofertar'}
-          <Text style={{ fontWeight: 'bold' }}> oxigenoterapia </Text>
-          {'se SpO₂ < 93%.'}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Protocolo', url: 'https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-        </Paragraph>
-        <Paragraph>- Colher gasométrica arterial em uso de oxigênio.</Paragraph>
-        <Paragraph>
-          - Em caso de má resposta ou piora indicar intubação orotraquel
-          eletiva e transferência para UTI.
-        </Paragraph>
-        <Paragraph style={{ marginVertical: 8 }}>
-          •
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>Administrar ATB</Text>
-          {' '}
-          para
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>infecção bacteriana</Text>
-          {' '}
-          2ª (azitromicina +/- amoxacilina clavulananto) e
-          {' '}
+          {Internacao.sections.paragraphOne.firstPhrase}
           <Text style={{ fontWeight: 'bold' }}>
-            terapia antiviral para Influenza
+            {Internacao.sections.paragraphOne.bold}
           </Text>
-          {' '}
-          (oseltamivir) em casos suspeitos dessas condições
+          {Internacao.sections.paragraphOne.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphOne.link.title, url: Internacao.sections.paragraphOne.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphOne.link.text}</Text>
+        </Paragraph>
+
+        {Internacao.sections.paragraphOne.items.map(item => (
+          <Paragraph>
+            {item}
+          </Paragraph>
+        ))}
+        <Paragraph style={{ marginVertical: 8 }}>
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphTwo.bold}</Text>
+          {Internacao.sections.paragraphTwo.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphTwo.link.title, url: Internacao.sections.paragraphTwo.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
+          {Internacao.sections.paragraphTwo.ThirdPhrase}
         </Paragraph>
         <Paragraph>
-          •
-        {' '}
-          <Text style={{ fontWeight: 'bold' }}>Considerar corticoterapia</Text>
-        ,  em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva
-        {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-          {' '}
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphThree.bold}</Text>
+          {Internacao.sections.paragraphThree.secondPhrase}
+        <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphThree.link.title, url: Internacao.sections.paragraphThree.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphThree.link.text}</Text>
         </Paragraph>
         <Paragraph>
-          •
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>Assegurar</Text>
-          {' '}
-          profilaxia de Trombose Venosa Profunda.
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFour.bold}</Text>
+          {Internacao.sections.paragraphFour.secondPhrase}
         </Paragraph>
         <Paragraph style={{ marginVertical: 8 }}>
-          •
-          {' '}
-          <Text style={{ fontWeight: 'bold' }}>Considerar  hidroxicloroquina ou cloroquina</Text>
-          {' '}
-          <Text onPress={() => navigation.navigate('webview', { title: 'Nota Técnica', url: 'https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-esclarecimentos-sobre-uso-da-hidroxicloroquina-e-cloroquina-como-drogas-experimentais/' })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>conforme protocolo.</Text>
-          Checar ECG/Intervalo QT:
+          {Internacao.sections.paragraphFive.firstPhrase}
+          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFive.bold}</Text>
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFive.link.title, url: Internacao.sections.paragraphFive.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFive.link.text}</Text>
         </Paragraph>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Grafico />
-        </View>
-        <Paragraph>‎• Tranferir para UTI em caso de disfunções orgânicas em evolução.</Paragraph>
+
+        <Paragraph>
+          {Internacao.sections.paragraphSix}
+        </Paragraph>
       </View>
     </>
   );
