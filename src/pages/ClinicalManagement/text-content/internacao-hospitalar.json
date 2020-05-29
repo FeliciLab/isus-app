@@ -1,46 +1,46 @@
 {
     "sections": {
         "paragraphOne": {
-            "firstPhrase": "‎• Ofertar",
-            "Bold": "oxigenoterapia",
-            "secondPhrase": "se SpO₂ < 93%",
+            "firstPhrase": "‎• Ofertar ",
+            "bold": "oxigenoterapia ",
+            "secondPhrase": "se SpO₂ < 93% ",
             "link": {
                 "title": "Protocolo",
-                "url": "https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/",
+                "url": "https://www.google.com/url?q=https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/&sa=D&ust=1590786816157000&usg=AFQjCNGUi_20LqV2vfBws894JPrKHJmFkA",
                 "text": "conforme protocolo."
             },
             "items": [
                 "- Colher gasométrica arterial em uso de oxigênio.",
-                "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI."
+                "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI.",
+                "- Considerar prona num paciente com ventilação espontânea."
             ]
         },
         "paragraphTwo": {
-            "Bold": "Administrar ATB",
-            "secondPhrase": "para infecção bacteriana secundária (azitromicina +/- ceftriaxona ou amoxacilina clavulanato) e",
+            "bold": "• Administrar ATB ",
+            "secondPhrase": "para infecção bacteriana secundária (azitromicina +/- ceftriaxona ou amoxacilina clavulanato) e ",
             "link": {
                 "title": "Protocolo",
-                "url": "",
+                "url": "https://www.google.com/url?q=https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
                 "text": "oseltamivir até o segundo dia de doença"
             },
             "ThirdPhrase": ", quando indicado."
         },
         "paragraphThree": {
-            "Bold": "Considerar corticoterapia",
-            "secondPhrase": ", em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva",
+            "bold": "• Considerar corticoterapia",
+            "secondPhrase": ", em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva ",
             "link": {
                 "title": "Protocolo",
-                "url": "",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/",
                 "text": "conforme protocolo."
-            },
-            "ThirdPhrase": ", quando indicado."
+            }
         },
         "paragraphFour": {
-            "Bold": "Assegurar",
-            "secondPhrase": "profilaxia de Trombose Venosa Profunda.",
+            "bold": "• Assegurar ",
+            "secondPhrase": "profilaxia de Trombose Venosa Profunda e avaliar eventos embólicos."
         },
         "paragraphFive": {
             "firstPhrase": "A prescrição rotineira de antimaláricos para pacientes hospitalizados com diagnóstico suspeito ou confirmado de Covid-19",
-            "bold": " não é recomendada",
+            "bold": " não é recomendada, ",
             "link": {
                 "title": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-esclarece-sobre-usos-da-de-hidroxicloroquina-e-cloroquina-em-pacientes-hospitalizados",
