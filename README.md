@@ -1,5 +1,5 @@
 # App iSUS
-### v2.4.6
+### v2.4.7
 Esse é o repositório do aplicativo iSUS. 
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
@@ -74,4 +74,3 @@ Controle do Backlog do Time de Design: https://airtable.com/shr5uuRvxUWgMYpQG
 O projeto é uma iniciativa da Escola de Saúde Pública do Ceará (ESP), com apoio da Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap), por meio do projeto "SMART Health", desenvolvido em parceria com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da Universidade Estadual do Ceará (UECE).
 
 O criação do aplicativo é uma das ações da Força Tarefa Digital de Combate ao Coronavírus, que estão sendo realizadas de forma aberta para promover a inovação e viabilizar a colaboração em rede.
-
