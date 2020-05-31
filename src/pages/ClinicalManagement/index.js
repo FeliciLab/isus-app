@@ -68,8 +68,8 @@ export default function ClinicalManagement({ navigation }) {
   });
   // Internal Components
   const ClinicalButton = ({ label, onPress }) => (
-    <TouchableOpacity style={{ marginVertical: 8 }} onPress={onPress}>
-      <View style={style.clinicalButton}>
+    <TouchableOpacity onPress={onPress}>
+      <View style={{ ...style.clinicalButton, marginHorizontal: 2, marginVertical: 8 }}>
         <Text style={style.textButton}>
           {label}
         </Text>
