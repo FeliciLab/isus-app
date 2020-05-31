@@ -93,6 +93,7 @@ export default function ClinicalManagement({ navigation }) {
         elevation={4}
         style={{
           marginVertical: 8,
+          marginHorizontal: 1,
           MaxHeight: isCollapsed ? (cardHeight) : (172)
         }}
       >
@@ -503,7 +504,12 @@ export default function ClinicalManagement({ navigation }) {
           atendimento, incluindo o uso correto dos EPIs disponibilizados:
         </Text>
         <View>
-          <Image source={Banner} style={{ marginVertical: 10, width: 378, height: 185 }} resizeMode="contain" />
+          <Image
+            source={Banner}
+            style={{
+              width: '100%', height: '100%', minHeight: 168, flex: 1, resizeMode: 'contain', marginVertical: 5
+            }}
+          />
           <ClinicalButton label="confira orientações de paramentação" onPress={() => Linking.openURL('https://coronavirus.ceara.gov.br/profissional/medidas-de-protecao/')} />
           <ClinicalButton label="consulte especialistas no tele-UTI" onPress={() => Linking.openURL('https://wa.me/5585984390220')} />
           <Text style={{ color: textColor, marginVertical: 16 }}>
