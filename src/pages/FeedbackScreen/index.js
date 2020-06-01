@@ -5,7 +5,8 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -67,96 +68,98 @@ export default function FeedbackScreen() {
     });
   });
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
-      <View style={{ flex: 1, padding: 10 }}>
-        <Text
-          style={{
-            letterSpacing: 0.25,
-            fontSize: 14,
-            lineHeight: 20,
-            color: '#828282'
-          }}
-        >
-          Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
-          problemas e melhorar o app rapidamendamente.
-        </Text>
+    <ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <View style={{ flex: 1, padding: 10 }}>
+          <Text
+            style={{
+              letterSpacing: 0.25,
+              fontSize: 14,
+              lineHeight: 20,
+              color: '#828282'
+            }}
+          >
+            Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
+            problemas e melhorar o app rapidamendamente.
+          </Text>
 
-        <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-          <View style={{ flexDirection: 'row', marginRight: 20 }}>
-            <RadioButton
-              value="first"
-              status={checked ? 'checked' : 'unchecked'}
-              onPress={() => setState(!checked)}
-            />
-            <Text style={{ alignSelf: 'center' }}>Sugestões</Text>
+          <View style={{ flexDirection: 'row', marginVertical: 10 }}>
+            <View style={{ flexDirection: 'row', marginRight: 20 }}>
+              <RadioButton
+                value="first"
+                status={checked ? 'checked' : 'unchecked'}
+                onPress={() => setState(!checked)}
+              />
+              <Text style={{ alignSelf: 'center' }}>Sugestões</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <RadioButton
+                value="first"
+                status={checked ? 'unchecked' : 'checked'}
+                onPress={() => setState(!checked)}
+              />
+              <Text style={{ alignSelf: 'center' }}>Problemas</Text>
+            </View>
           </View>
-          <View style={{ flexDirection: 'row' }}>
-            <RadioButton
-              value="first"
-              status={checked ? 'unchecked' : 'checked'}
-              onPress={() => setState(!checked)}
-            />
-            <Text style={{ alignSelf: 'center' }}>Problemas</Text>
-          </View>
+
+          <TextInput
+            numberOfLines={5}
+            mode="outlined"
+            ref={feedbackInput}
+            multiline
+            label="Motivo"
+            onChangeText={text => setFeedback(text)}
+          />
+
+          <Text
+            style={{
+              letterSpacing: 0.25,
+              fontSize: 12,
+              lineHeight: 20,
+              color: '#828282',
+              marginVertical: 10
+            }}
+          >
+            Lembre de espificar a seção do app que você refere
+          </Text>
+
+          <TextInput
+            mode="outlined"
+            ref={emailInput}
+            label="Email"
+            onChangeText={text => setEmail(text)}
+          />
+
         </View>
-
-        <TextInput
-          numberOfLines={5}
-          mode="outlined"
-          ref={feedbackInput}
-          multiline
-          label="Motivo"
-          onChangeText={text => setFeedback(text)}
-        />
-
-        <Text
-          style={{
-            letterSpacing: 0.25,
-            fontSize: 12,
-            lineHeight: 20,
-            color: '#828282',
-            marginVertical: 10
+        <Button
+          disabled={!!(feedback === '' || email === '')}
+          style={feedback === '' || email === '' ? styles.buttonDisabled : styles.button}
+          labelStyle={{ color: '#fff' }}
+          mode="contained"
+          onPress={() => {
+            onSubmit(checked, feedback, email);
+            setStatusSnackbar(true);
           }}
         >
-          Lembre de espificar a seção do app que você refere
-        </Text>
+          Enviar
+        </Button>
 
-        <TextInput
-          mode="outlined"
-          ref={emailInput}
-          label="Email"
-          onChangeText={text => setEmail(text)}
-        />
-
-      </View>
-      <Button
-        disabled={!!(feedback === '' || email === '')}
-        style={feedback === '' || email === '' ? styles.buttonDisabled : styles.button}
-        labelStyle={{ color: '#fff' }}
-        mode="contained"
-        onPress={() => {
-          onSubmit(checked, feedback, email);
-          setStatusSnackbar(true);
-        }}
-      >
-        Enviar
-      </Button>
-
-      <Snackbar
-        style={{ backgroundColor: '#1e1e1e' }}
-        visible={statusSnackbar}
-        onDismiss={() => setStatusSnackbar(false)}
-        action={{
-          label: 'ok',
-          onPress: () => setStatusSnackbar(false)
-        }}
-      >
-        Enviado
-      </Snackbar>
-    </KeyboardAvoidingView>
+        <Snackbar
+          style={{ backgroundColor: '#1e1e1e' }}
+          visible={statusSnackbar}
+          onDismiss={() => setStatusSnackbar(false)}
+          action={{
+            label: 'ok',
+            onPress: () => setStatusSnackbar(false)
+          }}
+        >
+          Enviado
+        </Snackbar>
+      </KeyboardAvoidingView>
+    </ScrollView>
   );
 }
 
