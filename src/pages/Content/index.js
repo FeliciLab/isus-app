@@ -10,7 +10,6 @@ export default function InformationScreen(props) {
   const navigation = useNavigation();
   const { route } = props;
   const { params } = route;
-
   const [data, setData] = React.useState([]);
 
   useFocusEffect(
@@ -36,7 +35,7 @@ export default function InformationScreen(props) {
             alignItems: 'center',
             margin: 5
           }}
-          onPress={() => navigation.navigate('Descrição', { item })}
+          onPress={() => navigation.navigate('Descrição', { object: item, title: params.title_description })}
         >
           <Image
             style={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
