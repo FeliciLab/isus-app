@@ -5,16 +5,14 @@ import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import { StatusBar } from 'react-native';
 import React, { useEffect } from 'react';
-import OneSignal from 'react-native-onesignal'; // Import package from node modules
+import OneSignal from 'react-native-onesignal';
 import Routes from './routes';
-import { useNavigation } from '@react-navigation/native';
+import { navigationRef, navigate } from './routes/rootNavigation';
 
 export default function App(properties) {
-  const navigation = useNavigation();
   useEffect(() => {
     OneSignal.setLogLevel(6, 0);
 
-    // Replace 'YOUR_ONESIGNAL_APP_ID' with your OneSignal App ID.
     OneSignal.init('917766a7-c01e-4655-89a1-86f648be2fc8', { kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2 });
     OneSignal.inFocusDisplaying(2);
 
@@ -42,10 +40,18 @@ export default function App(properties) {
     console.log('isActive: ', openResult.notification.isAppInFocus);
     console.log('openResult: ', openResult);
 
-    navigation.navigate('webview', {
-      title: 'Notificação',
-      url: 'https://google.com.br'
-    });
+    let url = openResult.notification.payload.launchURL;
+
+    if (url.startsWith('isus')) {
+      url = url.substring(12);
+      console.log(url);
+      console.log(openResult.notification.payload.additionalData);
+      navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
+    }
+
+    console.log(openResult.notification.payload.additionalData);
+    console.log(openResult.notification.payload.additionalData.targetURL);
+    navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
   }
 
   function onIds(device) {
@@ -55,7 +61,7 @@ export default function App(properties) {
   return (
     <>
         <StatusBar backgroundColor="#4CAF50" />
-        <Routes />
+        <Routes navigationRef={navigationRef} />
     </>
   );
 }
