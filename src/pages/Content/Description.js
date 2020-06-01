@@ -19,7 +19,6 @@ import { getProjectPorId } from '../../apis/apiHome';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  // console.log(props);
   const { route } = props;
   const { params } = route;
   const [item, setItem] = React.useState([]);
