@@ -1,7 +1,6 @@
-
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View, Linking, StyleSheet, Image, PermissionsAndroid, Platform
+  Text, ScrollView, View, Linking, StyleSheet, Image, Platform
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -9,7 +8,6 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import RNFetchBlob from 'rn-fetch-blob';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Banner from '../../assets/images/banner.png';
 import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
@@ -23,6 +21,7 @@ import initialOrientation from './text-content/orientacoes-iniciais.json';
 import emergency from './text-content/emergencia.json';
 import Internacao from './text-content/internacao-hospitalar.json';
 import UTI from './text-content/UTI.json';
+import { permissionToStorage, savePdf } from '../../utils/PDF';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -32,6 +31,9 @@ export default function ClinicalManagement({ navigation }) {
   const [stage3Collapse, setStage3Collapse] = useState(false);
   const [stage4Collapse, setStage4Collapse] = useState(false);
   const navigator = useNavigation();
+
+  const manejoOriginUrl = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
+  const manejoDestPath = 'Manejo Clinico.pdf';
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -418,7 +420,7 @@ export default function ClinicalManagement({ navigation }) {
           </Text>
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Image source={Pulmao} />
+          <Image source={Pulmao} style={{ marginBottom: 16 }} />
         </View>
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>
@@ -486,55 +488,14 @@ export default function ClinicalManagement({ navigation }) {
     }
   ];
 
-  const permissionToStorage = async () => {
-    const { PERMISSIONS, RESULTS } = PermissionsAndroid;
-    try {
-      const granted = await PermissionsAndroid.request(PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
-        title: 'Precisamos de Acesso ao seu armazenamento',
-        message:
-          'Precisamos de Acesso ao seu armazenamento para salvar arquivos importantes',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      });
-      if (granted === RESULTS.GRANTED) {
-        savePdf();
-      } else {
-        console.log('Permission Denied');
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
 
-  const savePdf = () => {
-    const filePath = RNFetchBlob.fs.dirs.DocumentDir;
-    const resourceUrl = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
-
-    RNFetchBlob
-      .config({
-        fileCache: true,
-        path: `${filePath}/Manejo Clinico.pdf`,
-      })
-      .fetch('GET', resourceUrl)
-      .then((response) => {
-        console.log('Success Log: ', response);
-        if (Platform.OS === 'ios') {
-          RNFetchBlob.ios.openDocument(response.data);
-        } else {
-          RNFetchBlob.android.actionViewIntent(response.data, 'application/pdf');
-        }
-      })
-      .catch((errors) => {
-        console.log(' Error Log: ', errors);
-      });
-  };
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
       <View style={{ marginTop: 26, flex: 1 }}>
         <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
 
         <View>
-            <TouchableOpacity onPress={Platform.OS === 'android' ? permissionToStorage : savePdf} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <TouchableOpacity onPress={Platform.OS === 'android' ? permissionToStorage(manejoOriginUrl, manejoDestPath) : savePdf(manejoOriginUrl, manejoDestPath)} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
             <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
             <Icon name="download" size={28} color="#BDBDBD" />
             </TouchableOpacity>

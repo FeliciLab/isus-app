@@ -100,14 +100,14 @@
                 {
                     "name": "Prednisona",
                     "dosages": [
-                        "Peso > 50 Kg: 40 mg No dia por 5 dias;",
-                        "Peso < 50 Kg: 0,5 mg/kg, máximo de 20 mg."
+                        "Peso > 50 Kg: 40-60mg/d (2 a 3 cp de 20mg por dia);",
+                        "Peso < 50 Kg: 0,5 mg/kg/d até 30mg/d (1cp + ½cp de 20 mg por dia)."
                     ]
                 },
                 {
                     "name" : "Azitromicina",
                     "dosages": [
-                        "500 mg vo 01 vez ao dia por 3 dias"
+                        "500mg 01cp via oral  01x/dia por 3 dias."
                     ]
                 }
             ]
