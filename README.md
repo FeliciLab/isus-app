@@ -1,6 +1,6 @@
 # App iSUS
-### v2.4.7
-Esse é o repositório do aplicativo iSUS. 
+### v2.4.8
+Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
 
@@ -14,7 +14,7 @@ Esse é o repositório do aplicativo iSUS.
 
 O iSUS é um produto digital criado para ser um cinto de utilidades e apoiar os profissionais do Sistema Único de Saúde (SUS) no combate ao Covid-19, diante de desafios de urgência, emergência e proteção à vida.
 
-Desenvolvido em meio à pandemia do novo coronavírus, responde à demanda de relacionamento entre usuários, trabalhadores e gestores do SUS. 
+Desenvolvido em meio à pandemia do novo coronavírus, responde à demanda de relacionamento entre usuários, trabalhadores e gestores do SUS.
 
 O objetivo é entregar informações, serviços e oportunidades, de forma automatizada, personalizada e segura, na palma da mão dos profissionais, otimizando seu tempo e apoiando a tomada de decisões baseadas em dados e evidências científicas.
 
