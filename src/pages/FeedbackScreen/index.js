@@ -15,11 +15,21 @@ import {
 import { postFeedback } from '../../apis/apiHome';
 
 export default function FeedbackScreen() {
+  const feedbackInput = React.createRef();
+  const emailInput = React.createRef();
   const [checked, setState] = React.useState(true);
   const [feedback, setFeedback] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [statusSnackbar, setStatusSnackbar] = React.useState(false);
   const navigation = useNavigation();
+  const onSubmit = () => {
+    postFeedback(checked, feedback, email);
+    feedbackInput.current.clear();
+    emailInput.current.clear();
+    setFeedback('');
+    setEmail('');
+  };
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -96,6 +106,7 @@ export default function FeedbackScreen() {
         <TextInput
           numberOfLines={5}
           mode="outlined"
+          ref={feedbackInput}
           multiline
           label="Motivo"
           onChangeText={text => setFeedback(text)}
@@ -113,7 +124,13 @@ export default function FeedbackScreen() {
           Lembre de espificar a seção do app que você refere
         </Text>
 
-        <TextInput mode="outlined" label="Email" onChangeText={text => setEmail(text)} />
+        <TextInput
+          mode="outlined"
+          ref={emailInput}
+          label="Email"
+          onChangeText={text => setEmail(text)}
+        />
+
       </View>
       <Button
         disabled={!!(feedback === '' || email === '')}
@@ -121,7 +138,7 @@ export default function FeedbackScreen() {
         labelStyle={{ color: '#fff' }}
         mode="contained"
         onPress={() => {
-          postFeedback(checked, feedback, email);
+          onSubmit(checked, feedback, email);
           setStatusSnackbar(true);
         }}
       >
