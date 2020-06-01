@@ -254,14 +254,6 @@ export default function ClinicalManagement({ navigation }) {
           {item}
         </Paragraph>
       ))}
-       <Text
-         onPress={() => navigation.navigate('webview', { title: emergency.presentialEvaluation.sections.hospitalizationCriteria.link.title, url: emergency.presentialEvaluation.sections.hospitalizationCriteria.link.url })}
-         style={{
-           color: '#87BA25'
-         }}
-       >
-          {emergency.presentialEvaluation.sections.hospitalizationCriteria.link.text}
-       </Text>
     </View>
     <View style={{
       flex: 1,
@@ -283,8 +275,8 @@ export default function ClinicalManagement({ navigation }) {
         </Text>
       ))}
     </View>
-    <Text style={style.hiddenCardTitle}>
-      {emergency.technicalNotes.title}
+    <Text style={{ ...style.hiddenCardTitle, color: '#87BA25' }} onPress={() => navigation.navigate('webview', { title: emergency.technicalNotes.title.link.title, url: emergency.technicalNotes.title.link.url })}>
+      {emergency.technicalNotes.title.link.text}
     </Text>
     <View style={{ marginTop: 16, marginBottom: 8 }}>
       <View style={{ flexDirection: 'row' }}>
