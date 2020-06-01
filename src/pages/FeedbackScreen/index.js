@@ -87,22 +87,25 @@ export default function FeedbackScreen() {
           </Text>
 
           <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-            <View style={{ flexDirection: 'row', marginRight: 20 }}>
+            <TouchableOpacity
+              style={{ flexDirection: 'row', marginRight: 20 }}
+              onPress={() => setState(!checked)}
+            >
               <RadioButton
                 value="first"
                 status={checked ? 'checked' : 'unchecked'}
                 onPress={() => setState(!checked)}
               />
               <Text style={{ alignSelf: 'center' }}>Sugestões</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => setState(!checked)}>
               <RadioButton
                 value="first"
                 status={checked ? 'unchecked' : 'checked'}
                 onPress={() => setState(!checked)}
               />
               <Text style={{ alignSelf: 'center' }}>Problemas</Text>
-            </View>
+            </TouchableOpacity>
           </View>
 
           <TextInput
@@ -132,7 +135,6 @@ export default function FeedbackScreen() {
             label="Email"
             onChangeText={text => setEmail(text)}
           />
-
         </View>
         <Button
           disabled={!!(feedback === '' || email === '')}
