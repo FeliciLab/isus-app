@@ -115,13 +115,21 @@ export default function DescriptionScreen(props) {
             width: Dimensions.get('window').width
           }}
         >
-            <View style={{
-              padding: 10,
-              alignContent: 'center'
-            }}
-            >
-              <HTML html={item.post_content} />
-            </View>
+          <View style={{
+            padding: 10,
+            alignContent: 'center'
+          }}
+          >
+            <HTML
+              html={item.post_content}
+              onLinkPress={(event, href) => {
+                navigation.navigate('webview', {
+                  title: 'Acesso ao conteúdo',
+                  url: href
+                });
+              }}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
