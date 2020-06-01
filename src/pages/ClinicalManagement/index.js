@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View, Linking, StyleSheet, Image, Platform
+  Text, ScrollView, View, Linking, StyleSheet, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
@@ -21,7 +21,7 @@ import initialOrientation from './text-content/orientacoes-iniciais.json';
 import emergency from './text-content/emergencia.json';
 import Internacao from './text-content/internacao-hospitalar.json';
 import UTI from './text-content/UTI.json';
-import { permissionToStorage, savePdf } from '../../utils/PDF';
+import checkPlatform from '../../utils/PDF';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -372,7 +372,7 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph style={{ marginVertical: 8 }}>
           <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphTwo.bold}</Text>
           {Internacao.sections.paragraphTwo.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphTwo.link.title, url: Internacao.sections.paragraphTwo.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
+          <Text onPress={() => (checkPlatform(Internacao.sections.paragraphTwo.link.url, 'Restricao do uso do oseltamivir.pdf'))} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
           {Internacao.sections.paragraphTwo.ThirdPhrase}
         </Paragraph>
         <Paragraph>
@@ -496,7 +496,7 @@ export default function ClinicalManagement({ navigation }) {
 
         <View>
             <TouchableOpacity
-              onPress={() => (Platform.OS === 'android' ? permissionToStorage(manejoOriginUrl, manejoDestPath) : savePdf(manejoOriginUrl, manejoDestPath))}
+              onPress={() => (checkPlatform(manejoOriginUrl, manejoDestPath))}
               style={{ justifyContent: 'space-between', flexDirection: 'row' }}
             >
             <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>

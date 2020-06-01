@@ -1,6 +1,14 @@
 import RNFetchBlob from 'rn-fetch-blob';
 import { PermissionsAndroid, Platform } from 'react-native';
 
+const checkPlatform = (originUrl, destPath) => {
+  if (Platform.OS === 'android') {
+    permissionToStorage(originUrl, destPath);
+  } else {
+    savePdf(originUrl, destPath);
+  }
+};
+
 const permissionToStorage = async (originUrl, destPath) => {
   const { PERMISSIONS, RESULTS } = PermissionsAndroid;
   try {
@@ -43,4 +51,4 @@ const savePdf = (originUrl, destPath) => {
     });
 };
 
-export { permissionToStorage, savePdf };
+export default checkPlatform;
