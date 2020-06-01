@@ -22,13 +22,9 @@
                     "‎• Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
                     "‎• IO2 < 300;",
                     "‎• Vulnerabilidade social;",
-                    "‎• Avaliar internação na presença dos sinais de alerta descritos acima."
-                ],
-                "link": {
-                    "title": "Protocolo",
-                    "url": "https://www.uptodate.com/contents/image?imageKey=ID%2F127820&topicKey=ID%2F126981",
-                    "text": "• Marcadores laboratoriais prognósticos alterados associados à piora clínica."
-                }
+                    "‎• Avaliar internação na presença dos sinais de alerta descritos acima.",
+                    "• Marcadores laboratoriais prognósticos alterados associados à piora clínica."
+                ]
             },
             "info": {
                 "description": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
@@ -41,7 +37,13 @@
         }
     },
     "technicalNotes": {
-        "title": "Notas Técnicas para o manejo ambulatorial",
+        "title": {
+            "link": {
+                "text": "Notas Técnicas para o manejo ambulatorial",
+                "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
+                "title": "Nota Técnica"
+            }
+        },
         "medicines": {
             "title": "Corticoide + azitromicina",
             "usageCriteria": {
