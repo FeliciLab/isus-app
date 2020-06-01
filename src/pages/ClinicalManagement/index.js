@@ -495,7 +495,10 @@ export default function ClinicalManagement({ navigation }) {
         <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
 
         <View>
-            <TouchableOpacity onPress={Platform.OS === 'android' ? permissionToStorage(manejoOriginUrl, manejoDestPath) : savePdf(manejoOriginUrl, manejoDestPath)} style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+            <TouchableOpacity
+              onPress={() => (Platform.OS === 'android' ? permissionToStorage(manejoOriginUrl, manejoDestPath) : savePdf(manejoOriginUrl, manejoDestPath))}
+              style={{ justifyContent: 'space-between', flexDirection: 'row' }}
+            >
             <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
             <Icon name="download" size={28} color="#BDBDBD" />
             </TouchableOpacity>
