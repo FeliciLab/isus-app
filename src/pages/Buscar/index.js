@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
+
 export default function SearchScreen() {
   const navigation = useNavigation();
   const [text, setText] = React.useState('');
@@ -74,6 +75,7 @@ export default function SearchScreen() {
   });
 
   function createItem(item) {
+    console.log(item);
     return (
       <View style={style.backgroundColor}>
         <TouchableOpacity

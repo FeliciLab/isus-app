@@ -14,7 +14,7 @@ import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Shared from '../../assets/images/Share.png';
+import Shared from 'react-native-vector-icons/SimpleLineIcons';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -69,16 +69,16 @@ export default function DescriptionScreen(props) {
   return (
     <ScrollView>
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View style={styles.titleDetail}>
-          <Title>{item.post_title}</Title>
+        <View>
+          <Title style={styles.textTitleDetail}>{item.post_title}</Title>
         </View>
         <View style={styles.sub}>
-          <View style={styles.subText}>
-            <Text>{formateDate(item.data)}</Text>
+          <View>
+            <Text style={styles.textData}>{formateDate(item.data)}</Text>
           </View>
           <View style={styles.subShare}>
             <TouchableOpacity onPress={onShare}>
-              <Image source={Shared} />
+              <Shared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
             </TouchableOpacity>
           </View>
         </View>
@@ -103,6 +103,9 @@ export default function DescriptionScreen(props) {
           >
             <HTML
               html={item.content}
+              renderers={
+                 <View style={{ width: '100%', height: 1, backgroundColor: 'blue' }} />
+              }
               onLinkPress={(event, href) => {
                 navigation.navigate('webview', {
                   title: 'Acesso ao conteúdo',
@@ -119,35 +122,43 @@ export default function DescriptionScreen(props) {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#333333'
+    // color: 'rgba(0, 0, 0, 0.6)'
   },
   searchHeaderBack: {
     marginHorizontal: 19
   },
-  titleDetail: {
-    marginTop: 20,
-    marginLeft: 18,
+  textTitleDetail: {
+    marginTop: 24,
+    marginLeft: 16,
     marginRight: 16,
+    fontFamily: 'Roboto',
     fontWeight: 'normal',
+    fontSize: 24,
     lineHeight: 28,
-    color: '#666666'
+    color: '#00000099',
+    fontStyle: 'normal',
   },
   sub: {
     flexDirection: 'row',
     margin: 1,
     justifyContent: 'space-between',
-    marginTop: 12
-  },
-  subText: {
-    marginLeft: 18,
     marginTop: 12,
-    marginBottom: 12,
+  },
+  textData: {
+    marginLeft: 16,
+    marginTop: 20,
+    marginBottom: 20,
+    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.4,
-    color: '#666666'
+    color: '#0000008A'
+  },
+  contentText: {
+    marginLeft: 16,
+    backgroundColor: 'red',
   },
   subShare: {
     marginRight: 20,
