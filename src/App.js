@@ -34,23 +34,6 @@ export default function App(properties) {
   }
 
   function onOpened(openResult) {
-    console.log('Launch URL:', openResult.notification.payload.launchURL);
-    console.log('Message: ', openResult.notification.payload.body);
-    console.log('Data: ', openResult.notification.payload.additionalData);
-    console.log('isActive: ', openResult.notification.isAppInFocus);
-    console.log('openResult: ', openResult);
-
-    let url = openResult.notification.payload.launchURL;
-
-    if (url.startsWith('isus')) {
-      url = url.substring(12);
-      console.log(url);
-      console.log(openResult.notification.payload.additionalData);
-      navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
-    }
-
-    console.log(openResult.notification.payload.additionalData);
-    console.log(openResult.notification.payload.additionalData.targetURL);
     navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
   }
 
