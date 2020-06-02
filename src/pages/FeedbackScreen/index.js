@@ -13,13 +13,17 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   RadioButton, TextInput, Button, Snackbar
 } from 'react-native-paper';
+import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
+import Tag from './Tag';
 
 export default function FeedbackScreen() {
   const feedbackInput = React.createRef();
   const emailInput = React.createRef();
   const [checked, setState] = React.useState(true);
   const [feedback, setFeedback] = React.useState('');
+  const [image, setImage] = React.useState('');
+  const [imageFileName, setImageFileName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [statusSnackbar, setStatusSnackbar] = React.useState(false);
   const navigation = useNavigation();
@@ -29,6 +33,9 @@ export default function FeedbackScreen() {
     emailInput.current.clear();
     setFeedback('');
     setEmail('');
+    setImage('');
+    setImageFileName('');
+    console.log(image);
   };
 
   React.useLayoutEffect(() => {
@@ -128,6 +135,24 @@ export default function FeedbackScreen() {
           >
             Lembre de especificar a seção do app que você refere
           </Text>
+
+          <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+            <Button
+              mode="text"
+              color="#FF9800"
+              compact
+              onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, (response) => {
+                if (response.didCancel) {
+                  console.log('cancelou');
+                }
+                setImage(response.data);
+                setImageFileName(response.fileName);
+              })}
+            >
+                ANEXAR IMAGEM
+            </Button>
+            <Tag text={imageFileName} onClose={() => setImageFileName('')} />
+          </View>
 
           <TextInput
             mode="outlined"
