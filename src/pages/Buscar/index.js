@@ -80,7 +80,7 @@ export default function SearchScreen() {
       <View style={style.backgroundColor}>
         <TouchableOpacity
           style={style.backgroundColor}
-          onPress={() => navigation.navigate('Descrição', { item })}
+          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
         >
           <View style={style.content}>
             {item.image ? (

@@ -14,7 +14,7 @@ import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Shared from '../../assets/images/Share.png';
+import IconShared from 'react-native-vector-icons/SimpleLineIcons';
 import { getProjectPorId } from '../../apis/apiHome';
 
 export default function DescriptionScreen(props) {
@@ -31,7 +31,7 @@ export default function DescriptionScreen(props) {
       });
     }, [props])
   );
-
+  console.log(item);
   const onShare = async () => {
     const messagTitle = item.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
@@ -92,11 +92,11 @@ export default function DescriptionScreen(props) {
         </View>
         <View style={styles.sub}>
           <View>
-            <Text style={styles.textData}>{formateDate(item.data)}</Text>
+            <Text style={styles.textData}>{formateDate(item.post_date)}</Text>
           </View>
           <View style={styles.subShare}>
             <TouchableOpacity onPress={onShare}>
-              <Shared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
+              <IconShared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
             </TouchableOpacity>
           </View>
         </View>
