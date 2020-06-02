@@ -18,7 +18,7 @@
                 "title": "Critérios de internação",
                 "items": [
                     "‎• Frequência respiratória (f > 30 irpm);",
-                    "‎• Saturação de SpO₂ < 93% em ar ambiente;",
+                    "‎• SpO₂ < 93% em ar ambiente;",
                     "‎• Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
                     "‎• PaO₂/FIO₂ < 300;",
                     "‎• Vulnerabilidade social;",
@@ -39,7 +39,7 @@
     "technicalNotes": {
         "title": {
             "link": {
-                "text": "Notas Técnicas para o manejo ambulatorial",
+                "text": "Nota Técnica para o manejo ambulatorial",
                 "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
                 "title": "Nota Técnica"
             }
