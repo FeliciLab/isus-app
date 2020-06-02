@@ -12,14 +12,25 @@ import {
 import HTML from 'react-native-render-html';
 import Moment from 'moment';
 import 'moment/locale/pt-br';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Shared from '../../assets/images/Share.png';
+import { getProjectPorId } from '../../apis/apiHome';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  console.tron.log(props);
   const { route } = props;
-  const { item } = route.params;
+  const { params } = route;
+  const [item, setItem] = React.useState([]);
+  // const item = params.object;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getProjectPorId(params.object.id).then((response) => {
+        setItem(response.data);
+      });
+    }, [props])
+  );
 
   const onShare = async () => {
     const messagTitle = item.post_title;
@@ -36,11 +47,23 @@ export default function DescriptionScreen(props) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
+      headerTitle: route.params.title,
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
-      }
+      },
+      headerTitleAlign: 'center',
+      headerLeft: () => (
+        <TouchableOpacity
+          style={styles.searchHeaderBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#FFF" />
+        </TouchableOpacity>
+      )
     });
   });
 
@@ -49,8 +72,16 @@ export default function DescriptionScreen(props) {
   }
 
   function formateDate(date) {
+    /* Antes de começar a renderizar as informações, mostrará a data do dia */
+    // eslint-disable-next-line no-shadow
+    let postData;
+    if (date === '') {
+      postData = new Date();
+    } else {
+      postData = date;
+    }
     Moment.locale('pt-br');
-    return `Postado em ${Moment(date).format('D')} de ${Capitalize(Moment(date).format('MMMM'))} de ${Moment(date).format('YYYY')}`;
+    return `Postado em ${Moment(postData).format('D')} de ${Capitalize(Moment(postData).format('MMMM'))} de ${Moment(postData).format('YYYY')}`;
   }
 
   return (
@@ -61,7 +92,7 @@ export default function DescriptionScreen(props) {
         </View>
         <View style={styles.sub}>
           <View style={styles.subText}>
-            <Text>{formateDate(item.data)}</Text>
+            <Text>{formateDate(item.post_date)}</Text>
           </View>
           <View style={styles.subShare}>
             <TouchableOpacity onPress={onShare}>
@@ -83,13 +114,21 @@ export default function DescriptionScreen(props) {
             width: Dimensions.get('window').width
           }}
         >
-            <View style={{
-              padding: 10,
-              alignContent: 'center'
-            }}
-            >
-              <HTML html={item.content} />
-            </View>
+          <View style={{
+            padding: 10,
+            alignContent: 'center'
+          }}
+          >
+            <HTML
+              html={item.post_content}
+              onLinkPress={(event, href) => {
+                navigation.navigate('webview', {
+                  title: 'Acesso ao conteúdo',
+                  url: href
+                });
+              }}
+            />
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -99,6 +138,9 @@ export default function DescriptionScreen(props) {
 const styles = StyleSheet.create({
   text: {
     color: '#333333'
+  },
+  searchHeaderBack: {
+    marginHorizontal: 19
   },
   titleDetail: {
     marginTop: 20,

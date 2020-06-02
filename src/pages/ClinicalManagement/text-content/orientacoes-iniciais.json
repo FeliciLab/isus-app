@@ -1,0 +1,79 @@
+{
+    "title": "Sintomas e sinais de COVID-19",
+    "description": "Febre (pode estar ausente na minoria dos casos) e  pode ou não estar associada a:",
+    "sections": {
+        "symptoms": [
+            {
+                "title": "Sintomas gerais:",
+                "items": [
+                    "• Mialgia;",
+                    "• Cefaleia;",
+                    "• Adinamia;",
+                    "• Prostração;",
+                    "• Anorexia."
+                ]
+            },
+            {
+                "title": "Sintomas de acometimento de vias aéreas:",
+                "items": [
+                    "• Coriza",
+                    "• Congestão nasal",
+                    "• Tosse",
+                    "• Desconforto respiratório",
+                    "• Dispneia"
+                ]
+            },
+            {
+                "title": "Sintomas gastrointestinais (15-25%)",
+                "items": [
+                    "• Náuseas e vômitos",
+                    "• Diarreia",
+                    "• Diarreia profusa com Desidratação",
+                    "• Dor Abdominal"
+                ]
+            },
+            {
+                "title": "Sintomas sensoriais",
+                "items": [
+                    "• Anosmia, hiposmia e/ou disgeusia"
+                ]
+            },
+            {
+                "title": "Alterações Dermatológicas",
+                "items": [
+                    "• Rash: erupções morbiliformes, urticária, erupções em mãos e pés, livedo etc. (fazer diagnóstico diferencial com doenças exantemáticas, infecciosas - dengue, por exemplo - e reações medicamentosas)."
+                ]
+            }
+        ],
+        "warningLabel": {
+            "title": "Importante:",
+            "text": "todos os sintomas podem se sobrepor."
+        },
+        "riskGroup": {
+            "title": "Grupos de risco",
+            "items": [
+                "• Mais de 60 anos;",
+                "• Diabetes;",
+                "• Hipertensão;",
+                "• Doenças pulmonares e cardíacas crônicas;",
+                "• Gestantes;",
+                "• Neoplasias;",
+                "• Doença renal crônica (estágios 3 ou 4);",
+                "• Condições associadas à imunossupressão."
+            ]
+        },
+        "observation": {
+            "title": "Observação:",
+            "text": "considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
+        },
+        "alerts": {
+            "title": "Sinais de alerta",
+            "items": [
+                "• Dispneia;",
+                "• Desconforto respiratório;",
+                "• Dor torácica;",
+                "• Febre persistente maior que 38°C, sobretudo após o 5° dia de doença."
+            ]
+        }
+    }
+}

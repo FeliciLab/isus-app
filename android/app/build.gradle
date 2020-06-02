@@ -132,8 +132,8 @@ android {
         applicationId "com.esp.isus"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10
-        versionName "2.4.3"
+        versionCode 16
+        versionName "2.5.0"
         manifestPlaceholders = [onesignal_app_id: "917766a7-c01e-4655-89a1-86f648be2fc8",onesignal_google_project_number: "827144828772"]
     }
     splits {

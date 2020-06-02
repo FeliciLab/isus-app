@@ -11,3 +11,23 @@ export function getProjetosPorCategoria(id) {
 export function getBusca(item) {
   return request.get(`/buscaPorProjetos?search=${item}`);
 }
+
+export function getProjectPorId(item) {
+  return request.get(`/projeto/${item}`);
+}
+
+export function postFeedback(categoria, email, texto) {
+  const nomeCategoria = () => {
+    if (categoria) {
+      const nome = 'Sugestoes';
+      return nome;
+    }
+    const nome = 'Problemas';
+    return nome;
+  };
+  return request.post('feedback', {
+    categoria: nomeCategoria(),
+    email,
+    texto
+  });
+}
