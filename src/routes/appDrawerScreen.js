@@ -5,13 +5,12 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Headline } from 'react-native-paper';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
-import Heart from '../assets/icons/heart.png';
+import Heart from '../assets/icons/isus_hor.svg';
 import FeedbackScreen from '../pages/FeedbackScreen';
 
 function CustomDrawerContent(props) {
@@ -29,8 +28,7 @@ function CustomDrawerContent(props) {
           borderBottomColor: '#c4c4c4'
         }}
       >
-        <Image source={Heart} resizeMode="contain" style={{ margin: 10 }} />
-        <Headline style={{ alignSelf: 'flex-end', fontWeight: 'bold' }}>iSUS</Headline>
+        <Heart size={40} style={{ margin: 10 }} />
       </View>
       <DrawerItem
         icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
@@ -103,7 +101,11 @@ const FeedbackStack = createStackNavigator();
 function FeedbackStackScreen() {
   return (
     <FeedbackStack.Navigator>
-      <FeedbackStack.Screen name="FEEDBACK" component={FeedbackScreen} options={{ headerShown: true }} />
+      <FeedbackStack.Screen
+        name="FEEDBACK"
+        component={FeedbackScreen}
+        options={{ headerShown: true }}
+      />
     </FeedbackStack.Navigator>
   );
 }

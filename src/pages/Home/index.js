@@ -10,12 +10,12 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import antIcon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Servico1 from '../../assets/icons/servicos/servico_1.png';
+import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
 import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
-import Forca4 from '../../assets/icons/forca_4.png';
-import IconPaciente from '../../assets/icons/icon_paciente.png';
+import Forca4 from '../../assets/icons/ceara_icon.svg';
+import IconPaciente from '../../assets/icons/icon_paciente.svg';
 
 import normalize from '../../utils/normalize';
 
@@ -104,7 +104,7 @@ export default function HomeScreen() {
               borderRadius: 80
             }}
           >
-            <Image source={IconPaciente} />
+            <IconPaciente size={30} />
           </View>
           <View style={{ flex: 1, paddingHorizontal: 12 }}>
             <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
@@ -134,18 +134,36 @@ export default function HomeScreen() {
         }}
         onPress={onPress}
       >
-        <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
+        <View
+          style={{
+            flex: 1,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            marginBottom: 20
+          }}
+        >
           {// Provisório enquanto os svgs corretos não chegam
           // eslint-disable-next-line no-nested-ternary
           isImage ? (
             <Image source={Logo} style={{ height: 50, width: 50 }} resizeMode="contain" />
           ) : typeof Logo === 'string' ? (
-            <FontIcon name={Logo} size={logoSize || 50} color={color} />
+            <FontIcon name={Logo} size={logoSize || 60} color={color} />
           ) : (
-            <Logo color={color} width={logoSize || 50} height={logoSize || 50} />
+            <Logo color={color} width={logoSize || 60} height={logoSize || 60} />
           )}
         </View>
-        <Caption style={{ textAlign: 'center', fontSize: 12, lineHeight: 16 }}>{title}</Caption>
+        <Caption
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            textAlign: 'center',
+            fontSize: 12,
+            lineHeight: 16,
+            alignSelf: 'center'
+          }}
+        >
+          {title}
+        </Caption>
       </Card>
     );
   }
@@ -155,7 +173,7 @@ export default function HomeScreen() {
       id: 'services-1',
       title: 'IntegraSUS',
       logo: Servico1,
-      isImage: true,
+
       onPress: () => navigation.navigate('webview', {
         title: 'IntegraSUS',
         url: 'https://integrasus.saude.ce.gov.br'
@@ -183,7 +201,6 @@ export default function HomeScreen() {
       id: 'services-4',
       title: 'Ações do governo',
       logo: Forca4,
-      isImage: true,
       onPress: () => navigation.navigate('webview', {
         title: 'Ações do governo',
         url: 'https://coronavirus.ceara.gov.br/isus/governo/'
