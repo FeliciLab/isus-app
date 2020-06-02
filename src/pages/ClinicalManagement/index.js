@@ -1,4 +1,3 @@
-
 import React, { useState, useLayoutEffect } from 'react';
 import {
   Text, ScrollView, View, Linking, StyleSheet, Image
@@ -22,6 +21,7 @@ import initialOrientation from './text-content/orientacoes-iniciais.json';
 import emergency from './text-content/emergencia.json';
 import Internacao from './text-content/internacao-hospitalar.json';
 import UTI from './text-content/UTI.json';
+import checkPlatform from '../../utils/PDF';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -31,6 +31,9 @@ export default function ClinicalManagement({ navigation }) {
   const [stage3Collapse, setStage3Collapse] = useState(false);
   const [stage4Collapse, setStage4Collapse] = useState(false);
   const navigator = useNavigation();
+
+  const manejoOriginUrl = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
+  const manejoDestPath = 'Manejo Clinico.pdf';
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -369,7 +372,7 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph style={{ marginVertical: 8 }}>
           <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphTwo.bold}</Text>
           {Internacao.sections.paragraphTwo.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphTwo.link.title, url: Internacao.sections.paragraphTwo.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
+          <Text onPress={() => (checkPlatform(Internacao.sections.paragraphTwo.link.url, 'Restricao do uso do oseltamivir.pdf'))} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
           {Internacao.sections.paragraphTwo.ThirdPhrase}
         </Paragraph>
         <Paragraph>
@@ -417,7 +420,7 @@ export default function ClinicalManagement({ navigation }) {
           </Text>
         </Paragraph>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Image source={Pulmao} />
+          <Image source={Pulmao} style={{ marginBottom: 16 }} />
         </View>
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>
@@ -484,17 +487,26 @@ export default function ClinicalManagement({ navigation }) {
       HideContent: HiddenStage4
     }
   ];
+
+
   return (
     <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
-      <View style={{
-        marginTop: 26, flex: 1
-      }}
-      >
-        <Text style={{ fontSize: 24, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
-        <Text style={{ color: textColor, marginVertical: 16 }}>
-          Adotar todas as medidas para prevenção de contágio pela Covid-19 por ocasião do
-          atendimento, incluindo o uso correto dos EPIs disponibilizados:
-        </Text>
+      <View style={{ marginTop: 26, flex: 1 }}>
+        <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
+
+        <View>
+            <TouchableOpacity
+              onPress={() => (checkPlatform(manejoOriginUrl, manejoDestPath))}
+              style={{ justifyContent: 'space-between', flexDirection: 'row' }}
+            >
+            <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
+            <Icon name="download" size={28} color="#BDBDBD" />
+            </TouchableOpacity>
+
+        </View>
+
+        <Text style={{ color: 'rgba(0, 0, 0, 0.6)', marginVertical: 16 }}>Adotar todas as medidas para prevenção de contágio pela COVID-19 por ocasião de atendimento, incluindo o uso correto dos EPIs disponibilizados.</Text>
+
         <View>
           <Image
             source={Banner}
@@ -539,7 +551,7 @@ export default function ClinicalManagement({ navigation }) {
           <Divider style={{ marginVertical: 15, backgroundColor: 'rgba(0, 0, 0, 0.32)' }} />
           <Fisiopatologia />
           <ColetarExames style={{ marginVertical: 15 }} />
-          <Text style={{ color: '#4054B2' }}>Hemograma, PCR, TAP, TPTA, D-dímero, Desidrogenase lática (LDH), Enzimas hepáticas (AST/TGO e ALT/TGP), Creatinina e Ureia, CPK e troponina, pro-calcitonina, ferritina, conforme julgamento clínica e disponibilidade.</Text>
+          <Text style={{ color: '#4054B2' }}>Hemograma, PCR, TAP, TPTA, D-dímero, Desidrogenase lática (LDH), Enzimas hepáticas (AST/TGO e ALT/TGP), Creatinina e Ureia, CPK e troponina, pro-calcitonina, ferritina, conforme julgamento clínico e disponibilidade.</Text>
           <Divider style={{ marginVertical: 15, backgroundColor: 'rgba(0, 0, 0, 0.32)' }} />
         </View>
         <View>

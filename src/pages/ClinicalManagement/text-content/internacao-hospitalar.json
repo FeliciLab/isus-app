@@ -6,11 +6,11 @@
             "secondPhrase": "se SpO₂ < 93% ",
             "link": {
                 "title": "Protocolo",
-                "url": "https://www.google.com/url?q=https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/&sa=D&ust=1590786816157000&usg=AFQjCNGUi_20LqV2vfBws894JPrKHJmFkA",
+                "url": "https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/&sa=D&ust=1590786816157000&usg=AFQjCNGUi_20LqV2vfBws894JPrKHJmFkA",
                 "text": "conforme protocolo."
             },
             "items": [
-                "- Colher gasométrica arterial em uso de oxigênio.",
+                "- Colher gasometria arterial em uso de oxigênio.",
                 "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI.",
                 "- Considerar prona num paciente com ventilação espontânea."
             ]
@@ -20,7 +20,7 @@
             "secondPhrase": "para infecção bacteriana secundária (azitromicina +/- ceftriaxona ou amoxacilina clavulanato) e ",
             "link": {
                 "title": "Protocolo",
-                "url": "https://www.google.com/url?q=https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
+                "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
                 "text": "oseltamivir até o segundo dia de doença"
             },
             "ThirdPhrase": ", quando indicado."

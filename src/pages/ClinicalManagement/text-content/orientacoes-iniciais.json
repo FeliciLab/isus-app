@@ -26,7 +26,7 @@
             {
                 "title": "Sintomas gastrointestinais (15-25%)",
                 "items": [
-                    "• Náusease vômitos",
+                    "• Náuseas e vômitos",
                     "• Diarreia",
                     "• Diarreia profusa com Desidratação",
                     "• Dor Abdominal"
@@ -64,7 +64,7 @@
         },
         "observation": {
             "title": "Observação:",
-            "text": "considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m2."
+            "text": "considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
         },
         "alerts": {
             "title": "Sinais de alerta",
