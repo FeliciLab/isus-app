@@ -20,7 +20,7 @@
                     "‎• Frequência respiratória (f > 30 irpm);",
                     "‎• Saturação de SpO₂ < 93% em ar ambiente;",
                     "‎• Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
-                    "‎• IO2 < 300;",
+                    "‎• PaO₂/FIO₂ < 300;",
                     "‎• Vulnerabilidade social;",
                     "‎• Avaliar internação na presença dos sinais de alerta descritos acima.",
                     "• Marcadores laboratoriais prognósticos alterados associados à piora clínica."
@@ -62,16 +62,16 @@
                             "- Tabagismo",
                             "- Neoplasias malignas",
                             "- Doença renal crônica em estágio avançado (graus 3, 4 e 5);",
-                            "- Obesidade (IMC>35kg/m2)"
+                            "- Obesidade (IMC>35kg/m²)"
                         ]
                     },
                     {
                         "title": "‎• Com os seguintes sinais clínicos:",
                         "subItemList": [
                             "- Frequência respiratória (f > 20 irpm < 26 irpm);",
-                            "- SpO2 < 96% > 93%;",
+                            "- SpO₂ < 96% > 93%;",
                             "- Persistência da febre (diária, sem melhora, acima de 38ºC)",
-                            "- Piora progressiva de outros sintomas relacionados à Covid-19 (tosse, prostração, prostração, hiporexia, diarreia)"
+                            "- Piora progressiva de outros sintomas relacionados à Covid-19 (tosse, prostração, hiporexia, diarreia)"
                         ]
                     }
                 ]
@@ -100,14 +100,14 @@
                 {
                     "name": "Prednisona",
                     "dosages": [
-                        "Peso > 50 Kg: 40 mg No dia por 5 dias;",
-                        "Peso < 50 Kg: 0,5 mg/kg, máximo de 20 mg."
+                        "Peso > 50 Kg: 40-60mg/d (2 a 3 cp de 20mg por dia);",
+                        "Peso < 50 Kg: 0,5 mg/kg/d até 30mg/d (1cp + ½cp de 20 mg por dia)."
                     ]
                 },
                 {
                     "name" : "Azitromicina",
                     "dosages": [
-                        "500 mg vo 01 vez ao dia por 3 dias"
+                        "500mg 01cp via oral  01x/dia por 3 dias."
                     ]
                 }
             ]
