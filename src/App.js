@@ -1,6 +1,3 @@
-/* eslint-disable import/order */
-/* eslint-disable no-unused-vars */
-/* eslint-disable class-methods-use-this */
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import { StatusBar } from 'react-native';
@@ -9,7 +6,7 @@ import OneSignal from 'react-native-onesignal';
 import Routes from './routes';
 import { navigationRef, navigate } from './routes/rootNavigation';
 
-export default function App(properties) {
+export default function App() {
   useEffect(() => {
     OneSignal.setLogLevel(6, 0);
 
@@ -18,27 +15,15 @@ export default function App(properties) {
 
     OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
 
-    OneSignal.addEventListener('received', onReceived);
     OneSignal.addEventListener('opened', onOpened);
-    OneSignal.addEventListener('ids', onIds);
 
     return function cleanup() {
-      OneSignal.removeEventListener('received', onReceived);
       OneSignal.removeEventListener('opened', onOpened);
-      OneSignal.removeEventListener('ids', onIds);
     };
   }, []);
 
-  function onReceived(notification) {
-    console.log('Notification received: ', notification);
-  }
-
   function onOpened(openResult) {
     navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
-  }
-
-  function onIds(device) {
-    console.log('Device info: ', device);
   }
 
   return (
@@ -48,6 +33,4 @@ export default function App(properties) {
     </>
   );
 }
-function myiOSPromptCallback(permission) {
-  // do something with permission value
-}
+function myiOSPromptCallback() {}
