@@ -6,18 +6,17 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default function Tag({ text, onClose }) {
-  if (!text) {
-    return <View />;
-  }
+  if (!text) return <View />;
+
   return (
-        <View style={styles.tagContainer}>
-            <View style={styles.textContainer}>
-                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tagText}>{text}</Text>
-            </View>
-            <TouchableOpacity style={styles.closeIcon} onPress={onClose}>
-                <Icon name="close-circle" size={20} />
-            </TouchableOpacity>
+    <View style={styles.tagContainer}>
+        <View style={styles.textContainer}>
+            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tagText}>{text}</Text>
         </View>
+        <TouchableOpacity style={styles.closeIcon} onPress={onClose}>
+            <Icon name="close-circle" size={20} />
+        </TouchableOpacity>
+    </View>
   );
 }
 

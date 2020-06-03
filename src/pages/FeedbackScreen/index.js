@@ -38,6 +38,11 @@ export default function FeedbackScreen() {
     console.log(image);
   };
 
+  const clearImageFile = () => {
+    setImageFileName('');
+    setImage('');
+  };
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -141,17 +146,16 @@ export default function FeedbackScreen() {
               mode="text"
               color="#FF9800"
               compact
-              onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, (response) => {
-                if (response.didCancel) {
-                  console.log('cancelou');
-                }
-                setImage(response.data);
-                setImageFileName(response.fileName);
+              onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, ({ didCancel, fileName, data }) => {
+                if (didCancel) return;
+                if (!fileName) setImageFileName('Sem nome');
+                else setImageFileName(fileName);
+                setImage(data);
               })}
             >
                 ANEXAR IMAGEM
             </Button>
-            <Tag text={imageFileName} onClose={() => setImageFileName('')} />
+            <Tag text={imageFileName} onClose={() => clearImageFile()} />
           </View>
 
           <TextInput
