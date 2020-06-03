@@ -12,9 +12,9 @@ import WebViewPage from '../pages/WebView';
 
 const RootStack = createStackNavigator();
 
-export default function App() {
+export default function App({ navigationRef }) {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator>
         <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
         <RootStack.Screen
