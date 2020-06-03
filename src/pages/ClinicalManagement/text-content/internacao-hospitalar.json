@@ -12,7 +12,7 @@
             "items": [
                 "- Colher gasometria arterial em uso de oxigênio.",
                 "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI.",
-                "- Considerar prona num paciente com ventilação espontânea."
+                "- Considerar posição prona num paciente com ventilação espontânea."
             ]
         },
         "paragraphTwo": {
@@ -36,7 +36,12 @@
         },
         "paragraphFour": {
             "bold": "• Assegurar ",
-            "secondPhrase": "profilaxia de Trombose Venosa Profunda e avaliar eventos embólicos."
+            "secondPhrase": "profilaxia de Trombose Venosa Profunda e avaliar eventos embólicos, ",
+            "link": {
+                "title": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/",
+                "text": "conforme protocolo."
+            }
         },
         "paragraphFive": {
             "firstPhrase": "A prescrição rotineira de antimaláricos para pacientes hospitalizados com diagnóstico suspeito ou confirmado de Covid-19",
@@ -44,7 +49,7 @@
             "link": {
                 "title": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-esclarece-sobre-usos-da-de-hidroxicloroquina-e-cloroquina-em-pacientes-hospitalizados",
-                "text": " conforme protocolo."
+                "text": "conforme protocolo."
             }
         },
         "paragraphSix": "•  Tranferir para UTI em caso de disfunções orgânicas em evolução."

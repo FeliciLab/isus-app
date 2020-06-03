@@ -383,6 +383,7 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFour.bold}</Text>
           {Internacao.sections.paragraphFour.secondPhrase}
+          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFour.link.title, url: Internacao.sections.paragraphFour.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFour.link.text}</Text>
         </Paragraph>
         <Paragraph style={{ marginVertical: 8 }}>
           {Internacao.sections.paragraphFive.firstPhrase}

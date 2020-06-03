@@ -15,7 +15,7 @@ import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../assets/icons/servicos/servico_3.svg';
 import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
 import Forca4 from '../../assets/icons/ceara_icon.svg';
-import IconPaciente from '../../assets/icons/icon_paciente.svg';
+import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
 
@@ -104,7 +104,7 @@ export default function HomeScreen() {
               borderRadius: 80
             }}
           >
-            <IconPaciente size={30} />
+            <Image source={IconPaciente} style={{ height: 80, width: 80 }} resizeMode="contain" />
           </View>
           <View style={{ flex: 1, paddingHorizontal: 12 }}>
             <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
