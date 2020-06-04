@@ -49,7 +49,8 @@ yarn android
 ```bash
   yarn ios
 ```
-
+### Deploy da Aplicação (Android):
+  Para deploy da app para as lojas, solicitar acesso a keystore e as key-informations.
 ## Erros comuns iOS:
 
 #### xcrun: error: SDK "iphoneos" cannot be located
