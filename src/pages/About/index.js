@@ -102,6 +102,20 @@ export default function AboutScreen() {
           O super app do profissional da saúde
         </Text>
       </View>
+      <Text style={styles.spaceRight}>
+        Com o objetivo de entregar informações, serviços e oportunidades de forma personalizada e
+        segura, o iSUS otimiza o tempo e apoia a tomada de decisões baseadas em dados e evidências
+        científicas na palma da mão dos profissionais.
+      </Text>
+
+      <Text style={styles.spaceRight}>
+        O projeto é uma das ações da Força Tarefa Digital de Combate ao Coronavírus, iniciativa do
+        Núcleo de Inovação Tecnológica (NIT) da Escola de Saúde Pública do Ceará (ESP), e conta com
+        apoio da Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap),
+        por meio do projeto "SMART Health: suporte à tomada de decisão inteligente de profissionais
+        da saúde e gestores no combate à transmissão da Covid-19 no Ceará", desenvolvido em parceria
+        com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da Uece.
+      </Text>
     <Text style={styles.spaceRight}>
       O iSUS está sendo criado para ser o cinto de utilidades dos Profissionais do Sistema Único
       de Saúde (SUS) do Ceará. Desenvolvido em meio à pandemia do novo coronavírus, responde à
