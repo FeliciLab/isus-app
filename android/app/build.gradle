@@ -151,6 +151,7 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        // Para deploy da app para as lojas, solicitar acesso a keystore e as key-informations.
     }
     buildTypes {
         debug {
