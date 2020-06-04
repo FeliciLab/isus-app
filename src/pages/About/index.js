@@ -4,6 +4,7 @@ import {
   View, ScrollView, StyleSheet, TouchableOpacity, Text, Image, Linking
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Uece from '../../assets/images/uece.png';
 import Funcap from '../../assets/images/funcap.png';
@@ -55,6 +56,14 @@ export default function AboutScreen() {
     });
   });
 
+  function link(text, linkTo) {
+    return (
+      <Text style={{ marginHorizontal: 20, color: '#D2EBD3' }} onPress={() => Linking.openURL(linkTo)}>
+      {text}
+      </Text>
+    );
+  }
+
   return (
     <ScrollView style={{
       paddingHorizontal: 14, paddingBottom: 32, backgroundColor: '#fff', flex: 1
@@ -85,42 +94,66 @@ export default function AboutScreen() {
         />
         <Image source={NomeIsus} />
       </View>
-      <View>
+      <View
+        style={{
+          // flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          // backgroundColor: 'red',
+          height: 50
+        }}
+      >
+        <View style={{ width: '20%', height: 50 }} />
+        <View style={{ width: '60%', height: 50 }}>
         <Text
           style={{
             fontSize: 20,
-            position: 'absolute',
+            color: 'rgba(0, 0, 0, 0.87)',
             height: 46,
             fontFamily: 'Roboto',
-            // fontStyle: 'normal',
-            // fontWeight: 500,
-            // lineHeight: 23,
-            // textAlign: 'center',
-            // letterSpacing: 0.15,
+            fontStyle: 'normal',
+            fontWeight: '500',
+            lineHeight: 23,
+            textAlign: 'center',
+            letterSpacing: 0.15,
           }}
         >
           O super app do profissional da saúde
         </Text>
+        </View>
+        <View style={{ width: '20%', height: 50 }} />
       </View>
+      <Title style={[styles.styleTextDefault, styles.Titleisus]}>
+          O que é o iSUS?
+      </Title>
       <Text style={styles.spaceRight}>
-        Com o objetivo de entregar informações, serviços e oportunidades de forma personalizada e
-        segura, o iSUS otimiza o tempo e apoia a tomada de decisões baseadas em dados e evidências
-        científicas na palma da mão dos profissionais.
+        O iSUS é um produto digital criado para ser um cinto de
+        utilidades e apoiar os profissionais do Sistema Único de
+        Saúde (SUS) no combate ao Covid-19, diante de desafios de
+        urgência, emergência e proteção à vida.
       </Text>
-
       <Text style={styles.spaceRight}>
-        O projeto é uma das ações da Força Tarefa Digital de Combate ao Coronavírus, iniciativa do
-        Núcleo de Inovação Tecnológica (NIT) da Escola de Saúde Pública do Ceará (ESP), e conta com
-        apoio da Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap),
-        por meio do projeto "SMART Health: suporte à tomada de decisão inteligente de profissionais
-        da saúde e gestores no combate à transmissão da Covid-19 no Ceará", desenvolvido em parceria
-        com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da Uece.
+        Desenvolvido em meio à pandemia do novo coronavírus,
+        responde à demanda de relacionamento entre usuários,
+        trabalhadores e gestores do SUS.
       </Text>
-    <Text style={styles.spaceRight}>
-      O iSUS está sendo criado para ser o cinto de utilidades dos Profissionais do Sistema Único
-      de Saúde (SUS) do Ceará. Desenvolvido em meio à pandemia do novo coronavírus, responde à
-      importante demanda de relacionamento entre trabalhadores, usuários e gestores do SUS.
-    </Text>
+      <Text style={styles.spaceRight}>
+        O objetivo é entregar informações, serviços e oportunidades, de forma
+        automatizada, personalizada e segura, na palma da mão dos profissionais,
+        otimizando seu tempo e
+        apoiando a tomada de decisões baseadas em dados e evidências científicas.
+      </Text>
+      <Title style={[styles.styleTextDefault, styles.Titleisus]}>
+          Quem faz?
+      </Title>
+      <Text style={styles.spaceRight}>
+        O objetivo é entregar informações,
+          { link('Escola de saúde publica', 'https://www.esp.ce.gov.br/') }
+          ,de forma automatizada, personalizada e segura,
+          na palma da mão dos profissionais, otimizando seu
+          tempo e apoiando a tomada de decisões baseadas em
+          dados e evidências científicas.
+      </Text>
     </View>
 
       <View
@@ -171,13 +204,29 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-
   spaceRight: {
-    margin: 10,
+    marginLeft: 16,
+    marginTop: 16,
+    fontFamily: 'Roboto',
     fontSize: 14,
     fontStyle: 'normal',
+    fontWeight: 'normal',
     lineHeight: 20,
     letterSpacing: 0.25,
-    textAlign: 'justify'
+    color: 'rgba(0, 0, 0, 0.6)',
+    // textAlign: 'justify'
+  },
+  styleTextDefault: {
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    lineHeight: 23,
+    letterSpacing: 0.15,
+  },
+  Titleisus: {
+    marginTop: 25,
+    marginLeft: 16,
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontSize: 20
   }
 });
