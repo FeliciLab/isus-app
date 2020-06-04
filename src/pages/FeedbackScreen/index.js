@@ -126,7 +126,7 @@ export default function FeedbackScreen() {
               marginVertical: 10
             }}
           >
-            Lembre de espificar a seção do app que você refere
+            Lembre-se de especificar a seção do app a que você se refere
           </Text>
 
           <TextInput
