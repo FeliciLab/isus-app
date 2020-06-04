@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -134,7 +135,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 31
         versionName "3.0.1"
-        manifestPlaceholders = [onesignal_app_id: "917766a7-c01e-4655-89a1-86f648be2fc8",onesignal_google_project_number: "827144828772"]
+        resValue "string", "build_config_package", "com.esp.isus"
+        manifestPlaceholders = [onesignal_app_id: project.env.get("ONE_SIGNAL_KEY"), onesignal_google_project_number: project.env.get("ONE_SIGNAL_PROJECT_NUMBER")]
     }
     splits {
         abi {
@@ -193,6 +195,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+	implementation project(':react-native-config')
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
