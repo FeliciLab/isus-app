@@ -6,14 +6,15 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import Uece from '../../assets/images/uece.png';
-import Funcap from '../../assets/images/funcap.png';
-import Felicilab from '../../assets/images/felicilab.png';
-import Esp from '../../assets/images/esp.png';
-import Gesad from '../../assets/images/gesad.png';
+import Uece from '../../assets/images/euce2.png';
+import Funcap from '../../assets/images/funcap1.png';
+import Felicilab from '../../assets/images/FeliciLab_quad.png';
+import Esp from '../../assets/images/espNew.png';
+import Gesad from '../../assets/images/gesad2.png';
 import Governo from '../../assets/images/governo.png';
 import LogoIsus from '../../assets/images/LogoIsus.png';
 import NomeIsus from '../../assets/images/isusNome.png';
+import Thoughtworks from '../../assets/images/Thoughtworks_logo.png';
 
 
 export default function AboutScreen() {
@@ -58,7 +59,7 @@ export default function AboutScreen() {
 
   function link(text, linkTo) {
     return (
-      <Text style={{ marginHorizontal: 20, color: '#D2EBD3' }} onPress={() => Linking.openURL(linkTo)}>
+      <Text style={{ marginHorizontal: 20, color: '#4CAF50', textDecorationLine: 'underline' }} onPress={() => Linking.openURL(linkTo)}>
       {text}
       </Text>
     );
@@ -69,8 +70,6 @@ export default function AboutScreen() {
       paddingHorizontal: 14, paddingBottom: 32, backgroundColor: '#fff', flex: 1
     }}
     >
-
-
     <View
       style={{
         paddingTop: 18,
@@ -147,14 +146,154 @@ export default function AboutScreen() {
           Quem faz?
       </Title>
       <Text style={styles.spaceRight}>
-        O objetivo é entregar informações,
+        Iniciativa da
+          {' '}
           { link('Escola de saúde publica', 'https://www.esp.ce.gov.br/') }
-          ,de forma automatizada, personalizada e segura,
-          na palma da mão dos profissionais, otimizando seu
-          tempo e apoiando a tomada de decisões baseadas em
-          dados e evidências científicas.
+          , com apoio da
+          {' '}
+          { link('Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap)', 'https://www.funcap.ce.gov.br/') }
+          , por meio do projeto "SMART Health", desenvolvido em parceria com o
+          {' '}
+          { link('Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD)', 'https://http://www.uece.br/gesad/') }
+          {' '}
+          da
+          {' '}
+          { link('Universidade Estadual do Ceará (UECE)', 'http://www.uece.br/') }
+      </Text>
+      <Text style={styles.spaceRight}>
+        A criação do aplicativo compõe as ações da
+          {' '}
+          { link('Força Tarefa Digital de Combate ao Coronavírus', 'http://bit.ly/ForcaTarefaAntiCorona') }
+          , que estão sendo realizadas de forma aberta para promover a inovação e
+          viabilizar a colaboração em rede.
+      </Text>
+      <Text style={styles.spaceRight}>
+        O projeto conta ainda com o apoio da
+          {' '}
+          { link('ThoughtWorks', 'https://www.thoughtworks.com/pt') }
+          , consultoria em tecnologia que está apoiando o projeto de forma
+          voluntária, como parte de seu enfrentamento à pandemia.
+      </Text>
+      <Title style={[styles.styleTextDefault, styles.Titleisus]}>
+        Colabore!
+      </Title>
+      <Text style={styles.spaceRight}>
+        Faça parte do time do iSUS acessando o
+          {' '}
+          { link('repositório no github', 'https://github.com/EscolaDeSaudePublica/isus-app') }
+          {' '}
+          para ver os códigos fonte, o
+          {' '}
+          { link('painel de atividades', 'https://github.com/orgs/EscolaDeSaudePublica/projects/20') }
+          {' '}
+          para acompanhar o processo de desenvolvimento ou fale com a gente através do
+          {' '}
+          { link('grupo no Telegram', 'https://t.me/grupoanticorona') }
       </Text>
     </View>
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 233,
+        // backgroundColor: '#E07878',
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-around',
+          // backgroundColor: '#8252E4',
+          alignItems: 'center',
+          // flexDirection: 'column'
+        }}
+      >
+        <Text
+          onPress={() => Linking.openURL('http://www.uece.br/')}
+        >
+            <Image source={Gesad} />
+        </Text>
+        <Text
+          onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}
+          style={{ height: 60 }}
+        >
+          <Image
+            source={Funcap}
+          />
+        </Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-around',
+          // backgroundColor: '#8252E4',
+          alignItems: 'center'
+          // flexDirection: 'row'
+        }}
+      >
+        <Text
+          onPress={() => Linking.openURL('http://www.uece.br/')}
+          style={{
+            height: 90,
+            marginTop: -20,
+            paddingTop: -10,
+            // backgroundColor: '#8252E4',
+          }}
+        >
+            <Image source={Uece} />
+        </Text>
+        <Text
+          onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}
+          style={{ marginTop: -40 }}
+        >
+          <Image source={Thoughtworks} />
+        </Text>
+      </View>
+
+    </View>
+
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height: 233,
+        // backgroundColor: '#E07878',
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          // flexDirection: 'column'
+        }}
+      >
+        <Text
+          onPress={() => Linking.openURL('http://www.uece.br/')}
+          style={{ height: 130, alignItems: 'center' }}
+        >
+            <Image source={Felicilab} />
+        </Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-around',
+          // backgroundColor: '#8252E4',
+          alignItems: 'center'
+          // flexDirection: 'row'
+        }}
+      >
+        <Text
+          onPress={() => Linking.openURL('http://www.uece.br/')}
+          style={{ height: 120 }}
+        >
+            <Image source={Esp} />
+        </Text>
+      </View>
+
+    </View>
+
 
       <View
         style={{
