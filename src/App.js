@@ -3,14 +3,19 @@ import 'intl/locale-data/jsonp/pt-BR';
 import { StatusBar } from 'react-native';
 import React, { useEffect } from 'react';
 import OneSignal from 'react-native-onesignal';
+import Config from 'react-native-config';
 import Routes from './routes';
 import { navigationRef, navigate } from './routes/rootNavigation';
 
 export default function App() {
   useEffect(() => {
     OneSignal.setLogLevel(6, 0);
-
-    OneSignal.init('917766a7-c01e-4655-89a1-86f648be2fc8', { kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2 });
+    OneSignal.init(Config.ONE_SIGNAL_KEY,
+      {
+        kOSSettingsKeyAutoPrompt: false,
+        kOSSettingsKeyInAppLaunchURL: false,
+        kOSSettingsKeyInFocusDisplayOption: 2
+      });
     OneSignal.inFocusDisplaying(2);
 
     // OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);

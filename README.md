@@ -29,9 +29,15 @@ O projeto foi homologado para as seguintes versões:
 * iOS - Usando o XCode.
 
 ## Start do Projeto.
+
 * Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
  yarn install
+```
+
+* Crie o arquivo `.env` como cópia do `.env.example` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
+```bash
+ cp .env.example .env
 ```
 
 ### Usando Android
