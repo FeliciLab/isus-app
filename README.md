@@ -35,7 +35,10 @@ O projeto foi homologado para as seguintes versões:
  yarn install
 ```
 
-* Mude o nome do arquivo `.env.example` para `.env` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
+* Crie o arquivo `.env` como cópia do `.env.example` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
+```bash
+ cp .env.example .env
+```
 
 ### Usando Android
 * Com o Android Studio e o Java SDK previamente instalados, digite o seguinte comando:
