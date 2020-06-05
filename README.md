@@ -1,5 +1,5 @@
 # App iSUS
-### v3.0.2
+### v3.0.3
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
@@ -29,9 +29,15 @@ O projeto foi homologado para as seguintes versões:
 * iOS - Usando o XCode.
 
 ## Start do Projeto.
+
 * Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
  yarn install
+```
+
+* Crie o arquivo `.env` como cópia do `.env.example` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
+```bash
+ cp .env.example .env
 ```
 
 ### Usando Android
