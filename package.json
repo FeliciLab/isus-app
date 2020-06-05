@@ -26,6 +26,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-app-intro-slider": "^4.0.2",
+    "react-native-code-push": "^6.2.1",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-onesignal": "^3.7.3",
     "react-native-paper": "^3.10.1",

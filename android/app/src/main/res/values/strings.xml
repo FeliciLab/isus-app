@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">iSUS</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">LEhS6e0yKxo2bNfoh-1sXOJD4the1Ycn93jFW</string>
 </resources>
