@@ -29,10 +29,13 @@ O projeto foi homologado para as seguintes versões:
 * iOS - Usando o XCode.
 
 ## Start do Projeto.
+
 * Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
  yarn install
 ```
+
+* Mude o nome do arquivo `.env.example` para `.env` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
 
 ### Usando Android
 * Com o Android Studio e o Java SDK previamente instalados, digite o seguinte comando:
