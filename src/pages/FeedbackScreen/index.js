@@ -29,21 +29,29 @@ export default function FeedbackScreen() {
   const [statusSnackbar, setStatusSnackbar] = React.useState(false);
   const [erro, setErro] = React.useState(false);
   const [mensagemErro, setMensagemErro] = React.useState('');
+  const [carregando, setCarregando] = React.useState(false);
   const navigation = useNavigation();
   const onSubmit = async () => {
-    const { data } = await postFeedback(checked, feedback, email, image);
-    console.log(data);
-    if (data.errors) {
-      setMensagemErro(extrairMensagemErro(data));
+    try {
+      const { data } = await postFeedback(checked, feedback, email, image);
+      console.log(data);
+      if (data.errors) {
+        setMensagemErro(extrairMensagemErro(data));
+        setErro(true);
+        setCarregando(false);
+      } else {
+        setFeedback('');
+        setEmail('');
+        setImage('');
+        setImageFileName('');
+        setCarregando(false);
+        setStatusSnackbar(true);
+      }
+    } catch (err) {
+      setMensagemErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
       setErro(true);
-    } else {
-      feedbackInput.current.clear();
-      emailInput.current.clear();
-      setFeedback('');
-      setEmail('');
-      setImage('');
-      setImageFileName('');
-      setStatusSnackbar(true);
+      setCarregando(false);
+      console.log(err);
     }
   };
 
@@ -150,6 +158,7 @@ export default function FeedbackScreen() {
             mode="outlined"
             ref={feedbackInput}
             multiline
+            value={feedback}
             label="Motivo"
             onChangeText={text => setFeedback(text)}
           />
@@ -173,8 +182,7 @@ export default function FeedbackScreen() {
               compact
               onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, (response) => {
                 if (response.didCancel) return;
-                if (!response.fileName) setImageFileName('Sem nome');
-                else setImageFileName(response.fileName);
+                setImageFileName(response.fileName);
                 setImage(parsearResponse(response));
               })}
             >
@@ -187,6 +195,7 @@ export default function FeedbackScreen() {
             mode="outlined"
             ref={emailInput}
             label="Email"
+            value={email}
             onChangeText={text => setEmail(text)}
           />
         </View>
@@ -195,7 +204,9 @@ export default function FeedbackScreen() {
           style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
+          loading={carregando}
           onPress={() => {
+            setCarregando(true);
             onSubmit(checked, feedback, email, image);
           }}
         >
