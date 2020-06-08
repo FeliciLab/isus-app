@@ -140,8 +140,18 @@ Utilizamos _kebab-case_ para a formatação do nome das branches, esse nome é c
 
 ## Commits 
 #### GitMoji :stuck_out_tongue_winking_eye:
+
+
 Usamos o GitMoji no começo dos commits para categorizar mais intuitivamente em que tipo de atividade o commit atuou.
-Você pode ler sobre gitmoji [aqui](https://gitmoji.carloscuesta.me/).
+
+[gitmoji-cli](11eb9e40-ae47-11e6-90db-a1ad8a87b495.gif)
+> O cliente interativo do [gitmoji](https://github.com/carloscuesta/gitmoji) sendo usado para fazer a mensagem do commit.
+
+para instalar o gitmoji você só precisa ter o nom instalado e rodar o comando:
+
+```bash 
+npm i -g gitmoji-cli
+```
 
 #### O que esse commit faz?
 É está pergunta que fazemos para escrever a mensagem do commit, assim conseguimos padronizar o commit, sempre começando com uma flexão verbal.
