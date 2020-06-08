@@ -4,11 +4,33 @@ Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
 
+- [O que é?](##O-que-é?)
+- [Tech Stack](##Tech-Stack)
+- [Start do Projeto](##Start-do-Projeto.)
+  - [Usando Android](###Usando-Android)
+  - [Usando o iOS](###Usando-o-iOS)
+  - [Deploy da Aplicação (Android):](###Deploy-da-Aplicação-(Android):)
+- [Erros comuns iOS:](##Erros-comuns-iOS:)
+- [UX Design](#UX-Design)
+  - [Design de Interfaces](###Design-de-Interfaces:)
+  - [Design Job Pipeline](###Design-Job-Pipeline:)
+  - [Design Backlog](###Design-Backlog:)
+- [Padrões de Desenvolvimento](#Padrões-de-Desenvolvimento)
+  - [Línguagem ubíqua](##Línguagem-ubíqua)
+  - [Git Flow](##Git-Flow)
+    - [Instalação](###Instalação)
+  - [Branches](##Branches)
+  - [Commits](##Commits)
+    - [GitMoji :stuck_out_tongue_winking_eye:](####GitMoji-:stuck_out_tongue_winking_eye:)
+    - [O que esse commit faz?](####O-que-esse-commit-faz?)
+  - [Estilização dos componentes](##Estilização-dos-componentes)
+- [Quem Faz?](#Quem-Faz?)
+
+
 **Veja também:**
 - nossa [Tech Stack](https://github.com/EscolaDeSaudePublica/isus-app#tech-stack)
 - nosso [Kanban](https://github.com/orgs/EscolaDeSaudePublica/projects/20)
 - nosso [Grupo no Telegram](https://t.me/grupoanticorona)
-
 
 ## O que é?
 
@@ -57,6 +79,8 @@ yarn android
 ```
 ### Deploy da Aplicação (Android):
   Para deploy da app para as lojas, solicitar acesso a keystore e as key-informations.
+
+
 ## Erros comuns iOS:
 
 #### xcrun: error: SDK "iphoneos" cannot be located
@@ -75,6 +99,69 @@ Controle das Atividades: https://airtable.com/shrIaMWhqdW48mz5t
 
 ### Design Backlog:
 Controle do Backlog do Time de Design: https://airtable.com/shr5uuRvxUWgMYpQG
+
+
+# Padrões de Desenvolvimento
+
+## Línguagem ubíqua
+Pela conveniente e constante proximidade com o negócio decidimos utilizar o português em todo código novo da iSUS, em nossos commits e no nome de nossas branches, no código, isso se da em métodos, classes e nomes de arquivos.
+
+## Git Flow
+
+Adotamos o git flow como conjuntos de extensões para o git.
+O Git Flow permite operações de alto nível para repositórios, usando o modelo de branches de Vincent Driessen.
+
+Você pode aprender o fluxo de uso comum do git flow [aqui](https://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
+
+### Instalação
+
+Linux: 
+  ```bash
+  $ apt-get install git-flow
+  ```
+Mac OS:
+* Homebrew
+   ```bash
+    $ brew install git-flow-avh 
+   ```
+* Macports
+  ```bash
+    $ port install git-flow-avh 
+   ```
+Windows:
+  ```bash
+  $ wget -q -O - --no-check-certificate https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh install stable | bash 
+  ```
+
+## Branches
+Utilizamos _kebab-case_ para a formatação do nome das branches, esse nome é composto pelo número da estória seguido pelo seu titulo, se o número da estória fosse 42, seria como no exemplo abaixo.
+
+    feature/#42-titulo-da-estoria
+
+## Commits 
+#### GitMoji :stuck_out_tongue_winking_eye:
+Usamos o GitMoji no começo dos commits para categorizar mais intuitivamente em que tipo de atividade o commit atuou.
+Você pode ler sobre gitmoji [aqui](https://gitmoji.carloscuesta.me/).
+
+#### O que esse commit faz?
+É está pergunta que fazemos para escrever a mensagem do commit, assim conseguimos padronizar o commit, sempre começando com uma flexão verbal.
+
+Um exemplo desse exercício mental seria:
+  ```
+  - o que esse commit faz?
+  - (esse commit) Altera o icone da Home no menu inferior. 
+  ```
+
+Também colocamos o número da estória no ínicio do título do commit.
+
+um exemplo desse nosso padrão de commit é:
+    
+    #42 :art: Agrupa os estilos do componente card-informativo.
+
+## Estilização dos componentes
+Estamos trabalhando com stylesheet, agrupado por componentes, mas temos o plano de utilizar o [styled-components](https://styled-components.com/).
+
+
 
 # Quem Faz?
 
