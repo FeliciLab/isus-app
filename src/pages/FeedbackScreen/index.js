@@ -27,15 +27,24 @@ export default function FeedbackScreen() {
   const [imageFileName, setImageFileName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [statusSnackbar, setStatusSnackbar] = React.useState(false);
+  const [erro, setErro] = React.useState(false);
+  const [mensagemErro, setMensagemErro] = React.useState('');
   const navigation = useNavigation();
-  const onSubmit = () => {
-    postFeedback(checked, feedback, email, image);
-    feedbackInput.current.clear();
-    emailInput.current.clear();
-    setFeedback('');
-    setEmail('');
-    setImage('');
-    setImageFileName('');
+  const onSubmit = async () => {
+    const { data } = await postFeedback(checked, feedback, email, image);
+    console.log(data);
+    if (data.errors) {
+      setMensagemErro(extrairMensagemErro(data));
+      setErro(true);
+    } else {
+      feedbackInput.current.clear();
+      emailInput.current.clear();
+      setFeedback('');
+      setEmail('');
+      setImage('');
+      setImageFileName('');
+      setStatusSnackbar(true);
+    }
   };
 
   const clearImageFile = () => {
@@ -49,6 +58,12 @@ export default function FeedbackScreen() {
     tamanho: imagem.fileSize,
     dados: imagem.data
   });
+
+  const extrairMensagemErro = (response) => {
+    if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
+    if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
+    return '';
+  };
 
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const feedbackValido = () => feedback !== '';
@@ -182,7 +197,6 @@ export default function FeedbackScreen() {
           mode="contained"
           onPress={() => {
             onSubmit(checked, feedback, email, image);
-            setStatusSnackbar(true);
           }}
         >
           Enviar
@@ -198,6 +212,17 @@ export default function FeedbackScreen() {
           }}
         >
           Enviado
+        </Snackbar>
+        <Snackbar
+          style={{ backgroundColor: '#1e1e1e' }}
+          visible={erro}
+          onDismiss={() => setErro(false)}
+          action={{
+            label: 'ok',
+            onPress: () => setErro(false)
+          }}
+        >
+          {mensagemErro}
         </Snackbar>
       </KeyboardAvoidingView>
     </ScrollView>
