@@ -23,19 +23,19 @@ export default function FeedbackScreen() {
   const emailInput = React.createRef();
   const [checked, setState] = React.useState(true);
   const [feedback, setFeedback] = React.useState('');
-  const [image, setImage] = React.useState('');
-  const [imageFileName, setImageFileName] = React.useState('');
+  const [imagem, setImagem] = React.useState('');
+  const [nomeImagem, setNomeImagem] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
   const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
-  const [mensagemErro, setMensagemErro] = React.useState('');
+  const [mensagemDeErro, setMensagemDeErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
   const navigation = useNavigation();
   const onSubmit = async () => {
     try {
-      const { data } = await postFeedback(checked, feedback, email, image);
+      const { data } = await postFeedback(checked, feedback, email, imagem);
       if (data.errors) {
-        setMensagemErro(extrairMensagemErro(data));
+        setMensagemDeErro(extrairMensagemDeErro(data));
         setErroAoEnviar(true);
         setCarregando(false);
       } else {
@@ -44,33 +44,33 @@ export default function FeedbackScreen() {
         setSucessoAoEnviar(true);
       }
     } catch (err) {
-      if (err.message === 'Network Error') setMensagemErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
-      else setMensagemErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      if (err.message === 'Network Error') setMensagemDeErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
+      else setMensagemDeErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
       setErroAoEnviar(true);
       setCarregando(false);
     }
   };
 
-  const clearImageFile = () => {
-    setImageFileName('');
-    setImage('');
-  };
-
   const limparCampos = () => {
     setFeedback('');
     setEmail('');
-    setImage('');
-    setImageFileName('');
+    setImagem('');
+    setNomeImagem('');
   };
 
-  const parsearResponse = imagem => ({
-    nome: imagem.fileName,
-    tipo: imagem.type,
-    tamanho: imagem.fileSize,
-    dados: imagem.data
+  const limparArquivoDeImagem = () => {
+    setNomeImagem('');
+    setImagem('');
+  };
+
+  const parsearResponse = response => ({
+    nome: response.fileName,
+    tipo: response.type,
+    tamanho: response.fileSize,
+    dados: response.data
   });
 
-  const extrairMensagemErro = (response) => {
+  const extrairMensagemDeErro = (response) => {
     if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
     if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
     return '';
@@ -78,6 +78,12 @@ export default function FeedbackScreen() {
 
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const feedbackValido = () => feedback !== '';
+
+  const tratarResponse = (response) => {
+    if (response.didCancel) return;
+    setNomeImagem(response.fileName);
+    setImagem(parsearResponse(response));
+  };
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -183,15 +189,13 @@ export default function FeedbackScreen() {
               mode="text"
               color="#FF9800"
               compact
-              onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, (response) => {
-                if (response.didCancel) return;
-                setImageFileName(response.fileName);
-                setImage(parsearResponse(response));
-              })}
+              onPress={
+                () => ImagePicker.launchImageLibrary({}, response => tratarResponse(response))
+              }
             >
                 ANEXAR IMAGEM
             </Button>
-            <Tag text={imageFileName} onClose={() => clearImageFile()} />
+            <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} />
           </View>
 
           <TextInput
@@ -210,7 +214,7 @@ export default function FeedbackScreen() {
           loading={carregando}
           onPress={() => {
             setCarregando(true);
-            onSubmit(checked, feedback, email, image);
+            onSubmit(checked, feedback, email, imagem);
           }}
         >
           Enviar
@@ -236,7 +240,7 @@ export default function FeedbackScreen() {
             onPress: () => setErroAoEnviar(false)
           }}
         >
-          {mensagemErro}
+          {mensagemDeErro}
         </Snackbar>
       </KeyboardAvoidingView>
     </ScrollView>
