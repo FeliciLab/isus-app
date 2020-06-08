@@ -26,38 +26,41 @@ export default function FeedbackScreen() {
   const [image, setImage] = React.useState('');
   const [imageFileName, setImageFileName] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [statusSnackbar, setStatusSnackbar] = React.useState(false);
-  const [erro, setErro] = React.useState(false);
+  const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
+  const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
   const [mensagemErro, setMensagemErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
   const navigation = useNavigation();
   const onSubmit = async () => {
     try {
       const { data } = await postFeedback(checked, feedback, email, image);
-      console.log(data);
       if (data.errors) {
         setMensagemErro(extrairMensagemErro(data));
-        setErro(true);
+        setErroAoEnviar(true);
         setCarregando(false);
       } else {
-        setFeedback('');
-        setEmail('');
-        setImage('');
-        setImageFileName('');
+        limparCampos();
         setCarregando(false);
-        setStatusSnackbar(true);
+        setSucessoAoEnviar(true);
       }
     } catch (err) {
-      setMensagemErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
-      setErro(true);
+      if (err.message === 'Network Error') setMensagemErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
+      else setMensagemErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      setErroAoEnviar(true);
       setCarregando(false);
-      console.log(err);
     }
   };
 
   const clearImageFile = () => {
     setImageFileName('');
     setImage('');
+  };
+
+  const limparCampos = () => {
+    setFeedback('');
+    setEmail('');
+    setImage('');
+    setImageFileName('');
   };
 
   const parsearResponse = imagem => ({
@@ -215,22 +218,22 @@ export default function FeedbackScreen() {
 
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}
-          visible={statusSnackbar}
-          onDismiss={() => setStatusSnackbar(false)}
+          visible={sucessoAoEnviar}
+          onDismiss={() => setSucessoAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setStatusSnackbar(false)
+            onPress: () => setSucessoAoEnviar(false)
           }}
         >
           Enviado
         </Snackbar>
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}
-          visible={erro}
-          onDismiss={() => setErro(false)}
+          visible={erroAoEnviar}
+          onDismiss={() => setErroAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setErro(false)
+            onPress: () => setErroAoEnviar(false)
           }}
         >
           {mensagemErro}
