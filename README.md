@@ -9,7 +9,7 @@ Esse é o repositório do aplicativo iSUS.
 - [Start do Projeto](#start-do-projeto)
   - [Usando Android](#usando-android)
   - [Usando o iOS](#usando-o-iOS)
-  - [Deploy da Aplicação (Android)](#deploy-da-Aplicação-(Android))
+  - [Deploy da Aplicação (Android)](#deploy-da-Aplicação-Android)
 - [Erros comuns iOS](#erros-comuns-iOS)
 - [UX Design](#UX-Design)
   - [Design de Interfaces](#design-de-Interfaces)
@@ -24,7 +24,7 @@ Esse é o repositório do aplicativo iSUS.
     - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
     - [O que esse commit faz?](#o-que-esse-commit-faz)
   - [Estilização dos componentes](#estilização-dos-componentes)
-- [Quem Faz?](#Quem-Faz?)
+- [Quem Faz?](#Quem-Faz)
 
 
 **Veja também:**
