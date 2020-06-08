@@ -16,6 +16,7 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
+import Regex from '../../utils/regex';
 
 export default function FeedbackScreen() {
   const feedbackInput = React.createRef();
@@ -48,6 +49,9 @@ export default function FeedbackScreen() {
     tamanho: imagem.fileSize,
     dados: imagem.data
   });
+
+  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
+  const feedbackValido = () => feedback !== '';
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -172,8 +176,8 @@ export default function FeedbackScreen() {
           />
         </View>
         <Button
-          disabled={!!(feedback === '' || email === '')}
-          style={feedback === '' || email === '' ? styles.buttonDisabled : styles.button}
+          disabled={!!(!feedbackValido() || !emailValido())}
+          style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           onPress={() => {
