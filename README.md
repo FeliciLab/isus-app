@@ -12,15 +12,15 @@ Esse é o repositório do aplicativo iSUS.
   - [Deploy da Aplicação (Android)](###Deploy-da-Aplicação-(Android))
 - [Erros comuns iOS](##Erros-comuns-iOS)
 - [UX Design](#UX-Design)
-  - [Design de Interfaces](###Design-de-Interfaces:)
-  - [Design Job Pipeline](###Design-Job-Pipeline:)
-  - [Design Backlog](###Design-Backlog:)
-- [Padrões de Desenvolvimento](#Padrões-de-Desenvolvimento)
-  - [Línguagem ubíqua](##Línguagem-ubíqua)
-  - [Git Flow](##Git-Flow)
-    - [Instalação](###Instalação)
-  - [Branches](##Branches)
-  - [Commits](##Commits)
+  - [Design de Interfaces](#design-de-Interfaces)
+  - [Design Job Pipeline](#design-Job-Pipeline)
+  - [Design Backlog](#design-Backlog:)
+- [Padrões de Desenvolvimento](#padrões-de-Desenvolvimento)
+  - [Linguagem ubíqua](#linguagem-ubíqua)
+  - [Git Flow](#git-Flow)
+    - [Instalação](#instalação)
+  - [Branches](#branches)
+  - [Commits](#commits)
     - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
     - [O que esse commit faz?](#O-que-esse-commit-faz?)
   - [Estilização dos componentes](#Estilização-dos-componentes)
@@ -103,7 +103,7 @@ Controle do Backlog do Time de Design: https://airtable.com/shr5uuRvxUWgMYpQG
 
 # Padrões de Desenvolvimento
 
-## Línguagem ubíqua
+## Linguagem ubíqua
 Pela conveniente e constante proximidade com o negócio decidimos utilizar o português em todo código novo da iSUS, em nossos commits e no nome de nossas branches, no código, isso se da em métodos, classes e nomes de arquivos.
 
 ## Git Flow
