@@ -9,8 +9,8 @@ Esse é o repositório do aplicativo iSUS.
 - [Start do Projeto](##Start-do-Projeto.)
   - [Usando Android](###Usando-Android)
   - [Usando o iOS](###Usando-o-iOS)
-  - [Deploy da Aplicação (Android):](###Deploy-da-Aplicação-(Android):)
-- [Erros comuns iOS:](##Erros-comuns-iOS:)
+  - [Deploy da Aplicação (Android)](###Deploy-da-Aplicação-(Android))
+- [Erros comuns iOS](##Erros-comuns-iOS)
 - [UX Design](#UX-Design)
   - [Design de Interfaces](###Design-de-Interfaces:)
   - [Design Job Pipeline](###Design-Job-Pipeline:)
@@ -77,11 +77,11 @@ yarn android
 ```bash
   yarn ios
 ```
-### Deploy da Aplicação (Android):
+### Deploy da Aplicação (Android)
   Para deploy da app para as lojas, solicitar acesso a keystore e as key-informations.
 
 
-## Erros comuns iOS:
+## Erros comuns iOS
 
 #### xcrun: error: SDK "iphoneos" cannot be located
 https://www.ryadel.com/en/xcode-sdk-iphoneos-cannot-be-located-mac-osx-error-fix/
