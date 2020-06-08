@@ -5,20 +5,30 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Dimensions } from 'react-native';
+import {
+  View,
+  Dimensions,
+  Text,
+  StyleSheet
+} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
 import Heart from '../assets/icons/isus_hor.svg';
 import FeedbackScreen from '../pages/FeedbackScreen';
+import packageJson from '../../package.json';
 
 function CustomDrawerContent(props) {
   const {
     navigation: { navigate },
     routeName
   } = props;
+
+  const versaoSistema = packageJson.version;
+
   return (
+
     <DrawerContentScrollView {...props}>
       <View
         style={{
@@ -30,6 +40,7 @@ function CustomDrawerContent(props) {
       >
         <Heart size={40} style={{ margin: 10 }} />
       </View>
+
       <DrawerItem
         icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
         label="Home"
@@ -63,6 +74,14 @@ function CustomDrawerContent(props) {
         focused={routeName === 'SOBRE'}
         onPress={() => navigate('SOBRE')}
       />
+      {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
+      {/* Caso adicione um item, a margemTop deve diminuir também */}
+      <View style={styles.viewVersao}>
+        <Text style={styles.textoVersao}>
+          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
+          Versão { versaoSistema }
+        </Text>
+      </View>
     </DrawerContentScrollView>
   );
 }
@@ -109,3 +128,20 @@ function FeedbackStackScreen() {
     </FeedbackStack.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  viewVersao: {
+    position: 'relative',
+    marginTop: '130%',
+    marginLeft: 16,
+  },
+  textoVersao: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontFamily: 'Roboto',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 16,
+    lineHeight: 16,
+    letterSpacing: 0.4,
+  }
+});
