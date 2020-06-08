@@ -16,7 +16,7 @@ export function getProjectPorId(item) {
   return request.get(`/projeto/${item}`);
 }
 
-export function postFeedback(categoria, email, texto) {
+export function postFeedback(categoria, texto, email, imagem) {
   const nomeCategoria = () => {
     if (categoria) {
       const nome = 'Sugestoes';
@@ -25,9 +25,18 @@ export function postFeedback(categoria, email, texto) {
     const nome = 'Problemas';
     return nome;
   };
+
+  if (!imagem) {
+    return request.post('feedback', {
+      categoria: nomeCategoria(),
+      email,
+      texto
+    });
+  }
   return request.post('feedback', {
     categoria: nomeCategoria(),
     email,
-    texto
+    texto,
+    imagem
   });
 }

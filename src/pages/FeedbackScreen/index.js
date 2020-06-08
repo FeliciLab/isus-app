@@ -28,20 +28,26 @@ export default function FeedbackScreen() {
   const [statusSnackbar, setStatusSnackbar] = React.useState(false);
   const navigation = useNavigation();
   const onSubmit = () => {
-    postFeedback(checked, feedback, email);
+    postFeedback(checked, feedback, email, image);
     feedbackInput.current.clear();
     emailInput.current.clear();
     setFeedback('');
     setEmail('');
     setImage('');
     setImageFileName('');
-    console.log(image);
   };
 
   const clearImageFile = () => {
     setImageFileName('');
     setImage('');
   };
+
+  const parsearResponse = imagem => ({
+    nome: imagem.fileName,
+    tipo: imagem.type,
+    tamanho: imagem.fileSize,
+    dados: imagem.data
+  });
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -146,11 +152,11 @@ export default function FeedbackScreen() {
               mode="text"
               color="#FF9800"
               compact
-              onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, ({ didCancel, fileName, data }) => {
-                if (didCancel) return;
-                if (!fileName) setImageFileName('Sem nome');
-                else setImageFileName(fileName);
-                setImage(data);
+              onPress={() => ImagePicker.launchImageLibrary({ title: 'Teste' }, (response) => {
+                if (response.didCancel) return;
+                if (!response.fileName) setImageFileName('Sem nome');
+                else setImageFileName(response.fileName);
+                setImage(parsearResponse(response));
               })}
             >
                 ANEXAR IMAGEM
@@ -171,7 +177,7 @@ export default function FeedbackScreen() {
           labelStyle={{ color: '#fff' }}
           mode="contained"
           onPress={() => {
-            onSubmit(checked, feedback, email);
+            onSubmit(checked, feedback, email, image);
             setStatusSnackbar(true);
           }}
         >
