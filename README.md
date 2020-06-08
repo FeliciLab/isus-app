@@ -21,9 +21,9 @@ Esse é o repositório do aplicativo iSUS.
     - [Instalação](###Instalação)
   - [Branches](##Branches)
   - [Commits](##Commits)
-    - [GitMoji :stuck_out_tongue_winking_eye:](####GitMoji-:stuck_out_tongue_winking_eye:)
-    - [O que esse commit faz?](####O-que-esse-commit-faz?)
-  - [Estilização dos componentes](##Estilização-dos-componentes)
+    - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
+    - [O que esse commit faz?](#O-que-esse-commit-faz?)
+  - [Estilização dos componentes](#Estilização-dos-componentes)
 - [Quem Faz?](#Quem-Faz?)
 
 
