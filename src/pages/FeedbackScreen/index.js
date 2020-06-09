@@ -144,7 +144,7 @@ export default function FeedbackScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <View style={{ flex: 1, padding: 10 }}>
+        <View style={{ flex: 1, padding: 15 }}>
           <Text
             style={{
               letterSpacing: 0.25,
@@ -201,7 +201,7 @@ export default function FeedbackScreen() {
             Lembre-se de especificar a seção do app a que você se refere
           </Text>
 
-          <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+          <View style={{ flexDirection: 'row', marginBottom: 18, marginTop: 8 }}>
             <Button
               mode="text"
               color="#FF9800"
