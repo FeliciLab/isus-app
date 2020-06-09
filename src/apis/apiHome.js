@@ -1,4 +1,5 @@
 import request from '../services/request';
+import { vazio } from '../utils/objectUtils';
 
 export function getCategoriasArquitetura() {
   return request.get('/categoriasArquitetura');
@@ -26,7 +27,7 @@ export function postFeedback(categoria, texto, email, imagem) {
     return nome;
   };
 
-  if (!imagem) {
+  if (vazio(imagem)) {
     return request.post('feedback', {
       categoria: nomeCategoria(),
       email,

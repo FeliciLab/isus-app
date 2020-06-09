@@ -17,6 +17,7 @@ import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
 import Regex from '../../utils/regex';
+import { vazio } from '../../utils/objectUtils';
 
 export default function FeedbackScreen() {
   const feedbackInput = React.createRef();
@@ -34,7 +35,11 @@ export default function FeedbackScreen() {
   const navigation = useNavigation();
 
   React.useEffect(() => {
-    setImagem(parsearResponse(responseDaBiblioteca));
+    if (vazio(responseDaBiblioteca)) {
+      setImagem({});
+    } else {
+      setImagem(parsearResponse(responseDaBiblioteca));
+    }
   }, [responseDaBiblioteca]);
 
   const onSubmit = async () => {
@@ -193,7 +198,7 @@ export default function FeedbackScreen() {
               marginVertical: 10
             }}
           >
-            Lembre de especificar a seção do app que você refere
+            Lembre-se de especificar a seção do app a que você se refere
           </Text>
 
           <View style={{ flexDirection: 'row', marginBottom: 10 }}>

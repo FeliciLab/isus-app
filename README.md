@@ -1,14 +1,36 @@
 # App iSUS
-### v2.5.1
+### v3.0.5
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
+
+- [O que é?](#o-que-é)
+- [Tech Stack](#tech-stack)
+- [Start do Projeto](#start-do-projeto)
+  - [Usando Android](#usando-android)
+  - [Usando o iOS](#usando-o-ios)
+  - [Deploy da Aplicação (Android)](#deploy-da-Aplicação-android)
+- [Erros comuns iOS](#erros-comuns-ios)
+- [UX Design](#ux-Design)
+  - [Design de Interfaces](#design-de-interfaces)
+  - [Design Job Pipeline](#design-job-pipeline)
+  - [Design Backlog](#design-backlog)
+- [Padrões de Desenvolvimento](#padrões-de-desenvolvimento)
+  - [Linguagem ubíqua](#linguagem-ubíqua)
+  - [Git Flow](#git-flow)
+    - [Instalação](#instalação)
+  - [Branches](#branches)
+  - [Commits](#commits)
+    - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
+    - [O que esse commit faz?](#o-que-esse-commit-faz)
+  - [Estilização dos componentes](#estilização-dos-componentes)
+- [Quem Faz?](#quem-faz)
+
 
 **Veja também:**
 - nossa [Tech Stack](https://github.com/EscolaDeSaudePublica/isus-app#tech-stack)
 - nosso [Kanban](https://github.com/orgs/EscolaDeSaudePublica/projects/20)
 - nosso [Grupo no Telegram](https://t.me/grupoanticorona)
-
 
 ## O que é?
 
@@ -29,9 +51,15 @@ O projeto foi homologado para as seguintes versões:
 * iOS - Usando o XCode.
 
 ## Start do Projeto.
+
 * Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 ```bash
  yarn install
+```
+
+* Crie o arquivo `.env` como cópia do `.env.example` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
+```bash
+ cp .env.example .env
 ```
 
 ### Usando Android
@@ -49,8 +77,11 @@ yarn android
 ```bash
   yarn ios
 ```
+### Deploy da Aplicação (Android)
+  Para deploy da app para as lojas, solicitar acesso a keystore e as key-informations.
 
-## Erros comuns iOS:
+
+## Erros comuns iOS
 
 #### xcrun: error: SDK "iphoneos" cannot be located
 https://www.ryadel.com/en/xcode-sdk-iphoneos-cannot-be-located-mac-osx-error-fix/
@@ -68,6 +99,79 @@ Controle das Atividades: https://airtable.com/shrIaMWhqdW48mz5t
 
 ### Design Backlog:
 Controle do Backlog do Time de Design: https://airtable.com/shr5uuRvxUWgMYpQG
+
+
+# Padrões de Desenvolvimento
+
+## Linguagem ubíqua
+Pela conveniente e constante proximidade com o negócio decidimos utilizar o português em todo código novo da iSUS, em nossos commits e no nome de nossas branches, no código, isso se da em métodos, classes e nomes de arquivos.
+
+## Git Flow
+
+Adotamos o git flow como conjuntos de extensões para o git.
+O Git Flow permite operações de alto nível para repositórios, usando o modelo de branches de Vincent Driessen.
+
+Você pode aprender o fluxo de uso comum do git flow [aqui](https://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
+
+### Instalação
+
+Linux: 
+  ```bash
+  $ apt-get install git-flow
+  ```
+Mac OS:
+* Homebrew
+   ```bash
+    $ brew install git-flow-avh 
+   ```
+* Macports
+  ```bash
+    $ port install git-flow-avh 
+   ```
+Windows:
+  ```bash
+  $ wget -q -O - --no-check-certificate https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh install stable | bash 
+  ```
+
+## Branches
+Utilizamos _kebab-case_ para a formatação do nome das branches, esse nome é composto pelo número da estória seguido pelo seu titulo, se o número da estória fosse 42, seria como no exemplo abaixo.
+
+    feature/#42-titulo-da-estoria
+
+## Commits 
+#### GitMoji :stuck_out_tongue_winking_eye:
+
+
+Usamos o GitMoji no começo dos commits para categorizar mais intuitivamente em que tipo de atividade o commit atuou.
+
+![gitmoji-cli](11eb9e40-ae47-11e6-90db-a1ad8a87b495.gif)
+> O cliente interativo do [gitmoji](https://github.com/carloscuesta/gitmoji) sendo usado para fazer a mensagem do commit.
+
+para instalar o gitmoji você só precisa ter o nom instalado e rodar o comando:
+
+```bash 
+npm i -g gitmoji-cli
+```
+
+#### O que esse commit faz?
+É está pergunta que fazemos para escrever a mensagem do commit, assim conseguimos padronizar o commit, sempre começando com uma flexão verbal.
+
+Um exemplo desse exercício mental seria:
+  ```
+  - o que esse commit faz?
+  - (esse commit) Altera o icone da Home no menu inferior. 
+  ```
+
+Também colocamos o número da estória no ínicio do título do commit.
+
+um exemplo desse nosso padrão de commit é:
+    
+    #42 :art: Agrupa os estilos do componente card-informativo.
+
+## Estilização dos componentes
+Estamos trabalhando com stylesheet, agrupado por componentes, mas temos o plano de utilizar o [styled-components](https://styled-components.com/).
+
+
 
 # Quem Faz?
 
