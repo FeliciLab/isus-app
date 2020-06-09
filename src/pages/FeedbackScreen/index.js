@@ -23,14 +23,20 @@ export default function FeedbackScreen() {
   const emailInput = React.createRef();
   const [checked, setState] = React.useState(true);
   const [feedback, setFeedback] = React.useState('');
-  const [imagem, setImagem] = React.useState('');
+  const [imagem, setImagem] = React.useState({});
   const [nomeImagem, setNomeImagem] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
   const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
   const [mensagemDeErro, setMensagemDeErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
+  const [responseDaBiblioteca, setResponseDaBiblioteca] = React.useState({});
   const navigation = useNavigation();
+
+  React.useEffect(() => {
+    setImagem(parsearResponse(responseDaBiblioteca));
+  }, [responseDaBiblioteca]);
+
   const onSubmit = async () => {
     try {
       const { data } = await postFeedback(checked, feedback, email, imagem);
@@ -54,17 +60,20 @@ export default function FeedbackScreen() {
   const limparCampos = () => {
     setFeedback('');
     setEmail('');
-    setImagem('');
+    setImagem({});
     setNomeImagem('');
   };
 
   const limparArquivoDeImagem = () => {
     setNomeImagem('');
-    setImagem('');
+    setImagem({});
   };
 
+  const extrairCaminhoDoArquivo = path => `~${path.substring(path.indexOf('/Documents'))}`;
+  const extrairNomeDoArquivo = path => path.split('/').pop();
+
   const parsearResponse = response => ({
-    nome: response.fileName,
+    nome: nomeImagem,
     tipo: response.type,
     tamanho: response.fileSize,
     dados: response.data
@@ -79,10 +88,13 @@ export default function FeedbackScreen() {
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const feedbackValido = () => feedback !== '';
 
-  const tratarResponse = (response) => {
+  const tratarResponseDaBiblioteca = (response) => {
     if (response.didCancel) return;
-    setNomeImagem(response.fileName);
-    setImagem(parsearResponse(response));
+    let path = response.uri;
+    if (Platform.OS === 'ios') path = extrairCaminhoDoArquivo(path);
+    if (!response.fileName) setNomeImagem(extrairNomeDoArquivo(path));
+    else setNomeImagem(response.fileName);
+    setResponseDaBiblioteca(response);
   };
 
   React.useLayoutEffect(() => {
@@ -190,7 +202,10 @@ export default function FeedbackScreen() {
               color="#FF9800"
               compact
               onPress={
-                () => ImagePicker.launchImageLibrary({}, response => tratarResponse(response))
+                () => ImagePicker.launchImageLibrary(
+                  {},
+                  response => tratarResponseDaBiblioteca(response)
+                )
               }
             >
                 ANEXAR IMAGEM
