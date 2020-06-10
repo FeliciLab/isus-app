@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import {
   Text, View, StyleSheet
@@ -14,29 +15,30 @@ const Estágio2 = ({ navigation }) => {
     título, seções
   } = Emergecia.AvaliçãoPresencial;
 
+
   const RenderizarTexto = ({ seção }) => {
     if (typeof seção.descrição === 'object') {
       return (
             <Paragraph>
-            <Text style={estilo.TextoCinza}>
-                {seção.indetificador}
-                {'  '}
-                •
-                {'  '}
-                {seção.descrição.texto1}
-            </Text>
-            {' '}
-            <Text style={estilo.Link} onPress={() => navigation.navigate('webview', { title: seção.descrição.link1.título, url: seção.descrição.link1.url })}>
-                {seção.descrição.link1.texto}
-            </Text>
-            <Text style={estilo.TextoCinza}>
-                {' '}
-                { seção.descrição.texto2 }
-                {' '}
-            </Text>
-            <Text style={estilo.Link} onPress={() => (checkPlatform(seção.descrição.link2.url, 'Restricao do uso do oseltamivir.pdf'))}>
-                {seção.descrição.link2.texto}
-            </Text>
+              <Text style={estilo.TextoCinza}>
+                  {seção.indetificador}
+                  {'  '}
+                  •
+                  {'  '}
+                  {seção.descrição.trecho1}
+              </Text>
+              {' '}
+              <Text style={estilo.Link} onPress={() => navigation.navigate('webview', { title: seção.descrição.link1.título, url: seção.descrição.link1.url })}>
+                  {seção.descrição.link1.trecho}
+              </Text>
+              <Text style={estilo.TextoCinza}>
+                  {' '}
+                  { seção.descrição.trecho2 }
+                  {' '}
+              </Text>
+              <Text style={estilo.Link} onPress={() => (checkPlatform(seção.descrição.link2.url, 'Restricao do uso do oseltamivir.pdf'))}>
+                  {seção.descrição.link2.trecho}
+              </Text>
             </Paragraph>
       );
     }
@@ -44,21 +46,44 @@ const Estágio2 = ({ navigation }) => {
       <>
         <Text style={estilo.TextoCinza}>
             {seção.indetificador}
-            {'  '}
-            •
-            {'  '}
+            {
+              seção.indetificador !== null ? ' • ' : ''
+            }
             {seção.descrição}
         </Text>
         {seção.parágrafos && seção.parágrafos.map(parágrafo => (
         <Paragraph style={estilo.TextoCinza}>
-            -
-            {' '}
-            {parágrafo}
+          {
+            seção.indetificador !== null ? ' - ' : ' • '
+          }
+          <>
+          <RenderizarParágrafo parágrafo={parágrafo} />
+          </>
         </Paragraph>
         ))}
       </>
     );
   };
+
+  const RenderizarParágrafo = ({ parágrafo }) => {
+    if (typeof parágrafo === 'object') {
+      return (
+        <Paragraph>
+          <Text style={estilo.TextoCinza}>{ parágrafo.trecho1 }</Text>
+          <Text style={estilo.Link} onPress={() => navigation.navigate('webview', { title: parágrafo.link1.título, url: parágrafo.link1.url })}>
+            { parágrafo.link1.trecho }
+          </Text>
+          <Text style={estilo.TextoCinza}>{ parágrafo.trecho2 }</Text>
+        </Paragraph>
+      );
+    }
+    return (
+      <>
+       {parágrafo}
+      </>
+    );
+  };
+
   return (
     <>
       <Text style={estilo.TítuloDoCard}>{título}</Text>
