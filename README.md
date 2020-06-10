@@ -142,12 +142,12 @@ Utilizamos _kebab-case_ para a formatação do nome das branches, esse nome é c
 #### GitMoji :stuck_out_tongue_winking_eye:
 
 
-Usamos o GitMoji no começo dos commits para categorizar mais intuitivamente em que tipo de atividade o commit atuou.
+Usamos o GitMoji nos commits para categorizar mais intuitivamente em que tipo de atividade o commit atuou.
 
 ![gitmoji-cli](11eb9e40-ae47-11e6-90db-a1ad8a87b495.gif)
 > O cliente interativo do [gitmoji](https://github.com/carloscuesta/gitmoji) sendo usado para fazer a mensagem do commit.
 
-para instalar o gitmoji você só precisa ter o nom instalado e rodar o comando:
+para instalar o gitmoji você só precisa ter o npm instalado e rodar o comando:
 
 ```bash 
 npm i -g gitmoji-cli
