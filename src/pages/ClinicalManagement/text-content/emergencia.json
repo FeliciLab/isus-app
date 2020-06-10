@@ -32,12 +32,16 @@
                 "indetificador": "06",
                 "descrição": "Efetuar internação nas seguintes condições:",
                 "parágrafos": [
-                    "Frequência respiratória (f > 30 irpm)",
-                    "Insuficiência respiratória",
-                    "Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente)",
-                    "SpO₂ < 93%; - Rápida deterioração clínica; - Cianose",
-                    "Alterações graves do estado mental ou neurológicas; - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax; - IO₂ < 300",
-                    "Julgamento clínico"
+                    "Frequência respiratória (f > 30 irpm);",
+                    "Insuficiência respiratória;",
+                    "Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
+                    "SpO₂ < 93%;",
+                    "Rápida deterioração clínica;",
+                    "Cianose;",
+                    "Alterações graves do estado mental ou neurológicas;",
+                    "Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
+                    "IO₂ < 300;",
+                    "Julgamento clínico."
                 ]
             },
             {
