@@ -74,14 +74,12 @@ export default function AboutScreen() {
         <Image source={LogoIsus} style={{ marginRight: 10 }} />
         <Image source={NomeIsus} />
         </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ width: '20%', height: 50 }} />
-          <View style={{ width: '60%', height: 50 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <View style={{ maxWidth: 200 }}>
             <Text style={styles.tituloSuper}>
               O super app do profissional da saúde
             </Text>
           </View>
-        <View style={{ width: '20%', height: 50 }} />
         </View>
         <View>
           <Title style={[styles.styleTextDefault, styles.Titleisus]}>
@@ -241,7 +239,6 @@ const styles = StyleSheet.create({
   },
   spaceRight: {
     marginTop: 16,
-    fontFamily: 'Roboto',
     fontSize: 14,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -251,7 +248,6 @@ const styles = StyleSheet.create({
     textAlign: 'left'
   },
   styleTextDefault: {
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 23,
@@ -266,13 +262,13 @@ const styles = StyleSheet.create({
   tituloSuper: {
     fontSize: 20,
     color: 'rgba(0, 0, 0, 0.87)',
-    height: 46,
-    fontFamily: 'Roboto',
+    minHeight: 46,
+    flexWrap: 'wrap',
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 23,
     textAlign: 'center',
-    letterSpacing: 0.15,
+    letterSpacing: 0.15
   },
   viewFooterTop: {
     height: 80,
