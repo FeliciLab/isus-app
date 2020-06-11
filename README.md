@@ -1,5 +1,5 @@
 # App iSUS
-### v3.0.6
+### v3.1.0
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
