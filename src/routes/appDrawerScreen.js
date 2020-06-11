@@ -26,54 +26,53 @@ function CustomDrawerContent(props) {
   } = props;
 
   const versaoSistema = packageJson.version;
-
   return (
-
-    <DrawerContentScrollView {...props}>
-      <View
-        style={{
-          flexDirection: 'row',
-          marginTop: 20,
-          borderBottomWidth: 0.5,
-          borderBottomColor: '#c4c4c4'
-        }}
-      >
-        <Heart size={40} style={{ margin: 10 }} />
-      </View>
-
-      <DrawerItem
-        icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
-        label="Home"
-        labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
-        inactiveTintColor="#111"
-        activeTintColor="#111"
-        inactiveBackgroundColor="transparent"
-        activeBackgroundColor="transparent"
-        focused={routeName === 'HOME'}
-        onPress={() => navigate('HOME')}
-      />
-      <DrawerItem
-        icon={() => <Icon name="face" size={20} color="#111" />}
-        label="FeedBack"
-        labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
-        inactiveTintColor="#111"
-        activeTintColor="#111"
-        inactiveBackgroundColor="transparent"
-        activeBackgroundColor="transparent"
-        focused={routeName === 'FEEDBACK'}
-        onPress={() => navigate('FEEDBACK')}
-      />
-      <DrawerItem
-        icon={() => <Icon name="information-outline" size={20} color="#111" />}
-        label="Sobre o iSUS"
-        labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
-        inactiveTintColor="#111"
-        activeTintColor="#111"
-        inactiveBackgroundColor="transparent"
-        activeBackgroundColor="transparent"
-        focused={routeName === 'SOBRE'}
-        onPress={() => navigate('SOBRE')}
-      />
+    <>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: 20,
+            borderBottomWidth: 0.5,
+            borderBottomColor: '#c4c4c4'
+          }}
+        >
+          <Heart size={40} style={{ margin: 10 }} />
+        </View>
+      <DrawerContentScrollView {...props}>
+        <DrawerItem
+          icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
+          label="Home"
+          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'HOME'}
+          onPress={() => navigate('HOME')}
+        />
+        <DrawerItem
+          icon={() => <Icon name="face" size={20} color="#111" />}
+          label="FeedBack"
+          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'FEEDBACK'}
+          onPress={() => navigate('FEEDBACK')}
+        />
+        <DrawerItem
+          icon={() => <Icon name="information-outline" size={20} color="#111" />}
+          label="Sobre o iSUS"
+          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'SOBRE'}
+          onPress={() => navigate('SOBRE')}
+        />
+      </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={styles.viewVersao}>
@@ -82,7 +81,7 @@ function CustomDrawerContent(props) {
           Versão { versaoSistema }
         </Text>
       </View>
-    </DrawerContentScrollView>
+    </>
   );
 }
 
@@ -131,9 +130,7 @@ function FeedbackStackScreen() {
 
 const styles = StyleSheet.create({
   viewVersao: {
-    position: 'relative',
-    marginTop: '130%',
-    marginLeft: 16,
+    margin: 16,
   },
   textoVersao: {
     color: 'rgba(0, 0, 0, 0.6)',
