@@ -93,7 +93,7 @@ export default function FeedbackScreen() {
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const feedbackValido = () => feedback !== '';
 
-  const tratarResponseDaBiblioteca = (response) => {
+  const definirNomeDaImagem = (response) => {
     if (response.didCancel) return;
     let path = response.uri;
     if (Platform.OS === 'ios') path = extrairCaminhoDoArquivo(path);
@@ -209,7 +209,7 @@ export default function FeedbackScreen() {
               onPress={
                 () => ImagePicker.launchImageLibrary(
                   {},
-                  response => tratarResponseDaBiblioteca(response)
+                  response => definirNomeDaImagem(response)
                 )
               }
             >
