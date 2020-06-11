@@ -285,11 +285,9 @@ const styles = StyleSheet.create({
   viewFeliciEsp: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    borderTopColor: '#c3c3c3',
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'transparent',
-    borderWidth: 1
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.12)'
   },
   viewEstado: {
     alignItems: 'center',
