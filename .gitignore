@@ -62,4 +62,6 @@ buck-out/
 # android-keystore.jks
 android-keystore.jks
 
-/.env
+# Environment variables
+.env
+.env.production
