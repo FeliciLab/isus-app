@@ -61,3 +61,5 @@ buck-out/
 
 # android-keystore.jks
 android-keystore.jks
+
+/.env
