@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
   },
   textoVersao: {
     color: 'rgba(0, 0, 0, 0.6)',
-    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'normal',
     fontSize: 16,
