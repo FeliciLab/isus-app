@@ -1,4 +1,5 @@
 import request from '../services/request';
+import { vazio } from '../utils/objectUtils';
 
 export function getCategoriasArquitetura() {
   return request.get('/categoriasArquitetura');
@@ -16,7 +17,7 @@ export function getProjectPorId(item) {
   return request.get(`/projeto/${item}`);
 }
 
-export function postFeedback(categoria, email, texto) {
+export function postFeedback(categoria, texto, email, imagem) {
   const nomeCategoria = () => {
     if (categoria) {
       const nome = 'Sugestoes';
@@ -25,9 +26,18 @@ export function postFeedback(categoria, email, texto) {
     const nome = 'Problemas';
     return nome;
   };
+
+  if (vazio(imagem)) {
+    return request.post('feedback', {
+      categoria: nomeCategoria(),
+      email,
+      texto
+    });
+  }
   return request.post('feedback', {
     categoria: nomeCategoria(),
     email,
-    texto
+    texto,
+    imagem
   });
 }
