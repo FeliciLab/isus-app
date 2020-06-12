@@ -20,5 +20,11 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>$(PRODUCT_NAME) requer acesso à biblioteca de imagens.</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
 </dict>
 </plist>
