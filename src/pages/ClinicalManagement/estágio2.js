@@ -31,11 +31,6 @@ const Estágio2 = ({ navigation }) => {
               <Text style={estilo.Link} onPress={() => navigation.navigate('webview', { title: seção.descrição.link1.título, url: seção.descrição.link1.url })}>
                   {seção.descrição.link1.trecho}
               </Text>
-              <Text style={estilo.TextoCinza}>
-                  {' '}
-                  { seção.descrição.trecho2 }
-                  {' '}
-              </Text>
               <Text style={estilo.Link} onPress={() => (checkPlatform(seção.descrição.link2.url, 'Restricao do uso do oseltamivir.pdf'))}>
                   {seção.descrição.link2.trecho}
               </Text>
