@@ -8,7 +8,7 @@
             },
             {
                 "indetificador": "02",
-                "descrição": "Verificar em que fase da doença da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
+                "descrição": "Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
             },
             {
                 "indetificador": "03",
@@ -16,7 +16,7 @@
             },
             {
                 "indetificador": "04",
-                "descrição": "Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com sintomas de infecção de trato respiratório inferior, com desconforto respiratório e/ou dispneia e/ou ou hipoxemia;"
+                "descrição": "Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
             },
             {
                 "indetificador": "05",
@@ -40,7 +40,7 @@
                     "Cianose;",
                     "Alterações graves do estado mental ou neurológicas;",
                     "Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
-                    "IO₂ < 300;",
+                    "Relação PaO2/FiO2 < 300;",
                     "Julgamento clínico."
                 ]
             },
@@ -72,9 +72,8 @@
                         "link1": {
                             "título": "Protocolo",
                             "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
-                            "trecho": "corticoide + azitromicina"
-                        },
-                        "trecho2": ", de acordo com os critérios abaixo."
+                            "trecho": "corticoide + azitromicina."
+                        }
                     }
                 ]
             }
