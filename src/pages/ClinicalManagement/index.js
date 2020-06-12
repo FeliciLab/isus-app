@@ -175,8 +175,9 @@ export default function ClinicalManagement({ navigation }) {
       }}
       >
         <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.warningLabel.title} `}</Text>
-        <Text>{initialOrientation.sections.warningLabel.text}</Text>
+        <Text>{initialOrientation.sections.warningLabel.texto1}</Text>
       </Text>
+      <Text style={style.textColor}>{initialOrientation.sections.warningLabel.texto2}</Text>
     </View>
     <View key={initialOrientation.sections.riskGroup.title}>
       <Text style={{
@@ -209,6 +210,17 @@ export default function ClinicalManagement({ navigation }) {
         {initialOrientation.sections.alerts.title}
       </Text>
       {initialOrientation.sections.alerts.items.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
+      ))}
+    </View>
+    <View key={initialOrientation.sections.sinaisDeGravidade}>
+      <Text style={{
+        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
+      }}
+      >
+        {initialOrientation.sections.sinaisDeGravidade.title}
+      </Text>
+      {initialOrientation.sections.sinaisDeGravidade.itens.map(item => (
         <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
       ))}
     </View>
@@ -467,6 +479,9 @@ const style = StyleSheet.create({
     shadowRadius: 2.62,
 
     elevation: 4
+  },
+  textColor: {
+    color: 'rgba(0, 0, 0, 0.6)'
   },
   textButton: {
     textTransform: 'uppercase',

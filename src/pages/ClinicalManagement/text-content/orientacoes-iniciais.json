@@ -1,10 +1,10 @@
 {
     "title": "Sintomas e sinais de COVID-19",
-    "description": "Febre (pode estar ausente na minoria dos casos) e  pode ou não estar associada a:",
+    "description": "Febre (subjetiva ou aferida) associada a:",
     "sections": {
         "symptoms": [
             {
-                "title": "Sintomas gerais:",
+                "title": "Sintomas gerais (sistêmicos):",
                 "items": [
                     "• Mialgia;",
                     "• Cefaleia;",
@@ -16,20 +16,21 @@
             {
                 "title": "Sintomas de acometimento de vias aéreas:",
                 "items": [
-                    "• Coriza",
-                    "• Congestão nasal",
-                    "• Tosse",
-                    "• Desconforto respiratório",
-                    "• Dispneia"
+                    "• Coriza;",
+                    "• Congestão nasal;",
+                    "• Dor de garganta (odinofagia);",
+                    "• Tosse;",
+                    "• Desconforto respiratório;",
+                    "• Dispneia."
                 ]
             },
             {
                 "title": "Sintomas gastrointestinais (15-25%)",
                 "items": [
-                    "• Náuseas e vômitos",
-                    "• Diarreia",
-                    "• Diarreia profusa com Desidratação",
-                    "• Dor Abdominal"
+                    "• Náuseas e vômitos;",
+                    "• Diarreia;",
+                    "• Diarreia profusa com Desidratação;",
+                    "• Dor Abdominal."
                 ]
             },
             {
@@ -41,13 +42,15 @@
             {
                 "title": "Alterações Dermatológicas",
                 "items": [
-                    "• Rash: erupções morbiliformes, urticária, erupções em mãos e pés, livedo etc. (fazer diagnóstico diferencial com doenças exantemáticas, infecciosas - dengue, por exemplo - e reações medicamentosas)."
+                    "• Rash: erupções morbiliformes, urticária, erupções em mãos e pés, livedo etc.",
+                    "- Fazer diagnóstico diferencial com doenças exantemáticas/infecciosas e reações medicamentosas (ainda sem frequência definida)."
                 ]
             }
         ],
         "warningLabel": {
             "title": "Importante:",
-            "text": "todos os sintomas podem se sobrepor."
+            "texto1": "• Os sintomas listados podem apresentar diversas combinações, com intensidade variável;",
+            "texto2": "• A febre pode estar ausente na minoria dos casos."
         },
         "riskGroup": {
             "title": "Grupos de risco",
@@ -72,7 +75,18 @@
                 "• Dispneia;",
                 "• Desconforto respiratório;",
                 "• Dor torácica;",
-                "• Febre persistente maior que 38°C, sobretudo após o 5° dia de doença."
+                "• Edema de membros inferiores."
+            ]
+        },
+        "sinaisDeGravidade": {
+            "title": "Sinais de gravidade",
+            "itens": [
+                "• SpO2 < 95% em ar ambiente;",
+                "• Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
+                "• Piora nas condições clínicas de base;",
+                "• Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
+                "• Cianose;",
+                "• Alterações confusionais ou neurológicas graves.",
             ]
         }
     }

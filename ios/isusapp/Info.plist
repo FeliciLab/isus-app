@@ -69,6 +69,12 @@
   <key> UISupportsDocumentBrowser </key>
   <true/>
   <key> UIFileSharingEnabled </key>
-  <true/>	
-  </dict>
+  <true/>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>$(PRODUCT_NAME) requer acesso à biblioteca de imagens.</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
+</dict>
 </plist>
