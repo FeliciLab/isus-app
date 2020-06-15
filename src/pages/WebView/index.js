@@ -5,6 +5,7 @@ import {
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Carregamento from './Carregamento';
 
 export default function WebViewPage({ navigation, route }) {
   const navigator = useNavigation();
@@ -33,9 +34,9 @@ export default function WebViewPage({ navigation, route }) {
 
   return (
     <WebView
-      source={{
-        uri: route.params.url
-      }}
+      source={{ uri: route.params.url }}
+      startInLoadingState
+      renderLoading={() => <Carregamento />}
     />
 
   );
