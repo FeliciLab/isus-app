@@ -28,7 +28,7 @@ const Estágio2 = ({ navigation }) => {
                   {seção.descrição.trecho1}
               </Text>
               {' '}
-              <Text style={estilo.Link} onPress={() => navigation.navigate('webview', { title: seção.descrição.link1.título, url: seção.descrição.link1.url })}>
+              <Text style={estilo.Link} onPress={() => navigation.navigate('manejoWebview', { title: seção.descrição.link1.título, url: seção.descrição.link1.url })}>
                   {seção.descrição.link1.trecho}
               </Text>
               <Text style={estilo.TextoCinza}>
@@ -70,7 +70,7 @@ const Estágio2 = ({ navigation }) => {
       return (
         <Paragraph>
           <Text style={estilo.TextoCinza}>{ parágrafo.trecho1 }</Text>
-          <Text style={estilo.Link} onPress={() => navigation.navigate('webview', { title: parágrafo.link1.título, url: parágrafo.link1.url })}>
+          <Text style={estilo.Link} onPress={() => navigation.navigate('manejoWebview', { title: parágrafo.link1.título, url: parágrafo.link1.url })}>
             { parágrafo.link1.trecho }
           </Text>
           <Text style={estilo.TextoCinza}>{ parágrafo.trecho2 }</Text>

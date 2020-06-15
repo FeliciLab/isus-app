@@ -5,9 +5,10 @@ import {
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Carregamento from './Carregamento';
 
-export default function WebViewPage({ navigation, route }) {
+export default function WebViewPage({
+  navigation, route, showSkeleton, loadingComponent
+}) {
   const navigator = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -33,11 +34,17 @@ export default function WebViewPage({ navigation, route }) {
   });
 
   return (
-    <WebView
-      source={{ uri: route.params.url }}
-      startInLoadingState
-      renderLoading={() => <Carregamento />}
-    />
-
-  );
+    showSkeleton
+      ? (
+<WebView
+  source={{ uri: route.params.url }}
+  startInLoadingState={showSkeleton}
+  renderLoading={() => loadingComponent}
+/>
+      )
+      : (
+<WebView
+  source={{ uri: route.params.url }}
+/>
+      ));
 }
