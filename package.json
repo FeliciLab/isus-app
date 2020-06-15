@@ -1,10 +1,10 @@
 {
   "name": "iSUS",
-  "version": "3.0.2",
+  "version": "3.1.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/isusapp main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/isusapp/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "fix": "yarn lint --fix",
@@ -26,7 +26,9 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-app-intro-slider": "^4.0.2",
+    "react-native-config": "^1.2.0",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-image-picker": "^2.3.1",
     "react-native-onesignal": "^3.7.3",
     "react-native-paper": "^3.10.1",
     "react-native-reanimated": "^1.7.1",

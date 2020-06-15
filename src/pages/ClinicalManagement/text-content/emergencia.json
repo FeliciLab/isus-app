@@ -1,116 +1,82 @@
 {
-    "presentialEvaluation": {
-        "title": "Avaliação presencial",
-        "description": "Observar sinais, sintomas, critérios de gravidade e avaliar necessidade de internação.",
-        "sections": {
-            "severitySigns": {
-                "title": "Sinais de gravidade",
-                "items": [
-                    "• SpO₂ < 95% em ar ambiente.",
-                    "‎• Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25irpm).",
-                    "• Cianose.",
-                    "• Alterações confusionais ou neurológicas graves.",
-                    "‎• Piora nas condições clínicas de doença de base.",
-                    "‎• Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente)."
+    "AvaliçãoPresencial": {
+        "título": "Avaliação presencial",
+        "seções": [
+            {
+                "indetificador": "01",
+                "descrição": "Checar sinais e sintomas que sugiram Covid-19;"
+            },
+            {
+                "indetificador": "02",
+                "descrição": "Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
+            },
+            {
+                "indetificador": "03",
+                "descrição": "Realizar estratificação de risco (Grupos A, B, C e D);"
+            },
+            {
+                "indetificador": "04",
+                "descrição": "Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
+            },
+            {
+                "indetificador": "05",
+                "descrição": "Considerar internação nas seguintes condições:",
+                "parágrafos": [
+                    "SpO₂ < 95% em ar ambiente;",
+                    "Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
+                    "Piora nas condições clínicas de base;",
+                    "Vulnerabilidade social."
                 ]
             },
-            "hospitalizationCriteria": {
-                "title": "Critérios de internação",
-                "items": [
-                    "‎• Frequência respiratória (f > 30 irpm);",
-                    "‎• SpO₂ < 93% em ar ambiente;",
-                    "‎• Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
-                    "‎• PaO₂/FIO₂ < 300;",
-                    "‎• Vulnerabilidade social;",
-                    "‎• Avaliar internação na presença dos sinais de alerta descritos acima.",
-                    "• Marcadores laboratoriais prognósticos alterados associados à piora clínica."
+            {
+                "indetificador": "06",
+                "descrição": "Efetuar internação nas seguintes condições:",
+                "parágrafos": [
+                    "Frequência respiratória (f > 30 irpm);",
+                    "Insuficiência respiratória;",
+                    "Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
+                    "SpO₂ < 93%;",
+                    "Rápida deterioração clínica;",
+                    "Cianose;",
+                    "Alterações graves do estado mental ou neurológicas;",
+                    "Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
+                    "Relação PaO2/FiO2 < 300;",
+                    "Julgamento clínico."
                 ]
             },
-            "info": {
-                "description": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
-                "items": [
-                    "‎• Sinais de alerta e/ou",
-                    "‎• Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou",
-                    "• Pacientes que irão utilizar  corticoide + azitromicina, de acordo com os critérios abaixo."
-                ]
-            }
-        }
-    },
-    "technicalNotes": {
-        "title": {
-            "link": {
-                "text": "Nota Técnica para o manejo ambulatorial",
-                "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
-                "title": "Nota Técnica"
-            }
-        },
-        "medicines": {
-            "title": "Corticoide + azitromicina",
-            "usageCriteria": {
-                "description": "Uso em pacientes com os três critérios abaixo:",
-                "items": [
-                    {
-                        "title": "• Mais de 5 dias de doença"
+            {
+                "indetificador": "07",
+                "descrição": {
+                    "trecho1": "Avaliar indicação para uso de",
+                    "link1": {
+                        "título": "Protocolo",
+                        "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
+                        "trecho": "corticoide + azitromicina"
                     },
+                    "trecho2": "e",
+                    "link2": {
+                        "título": "Protocolo",
+                        "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
+                        "trecho": "oseltamivir."
+                    }
+                }
+            },
+            {
+                "indetificador": null,
+                "descrição": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
+                "parágrafos": [
+                    "Sinais de alerta e/ou",
+                    "Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou",
                     {
-                        "title": "‎• Mais de 60 anos e/ou seguintes comorbidades e condições:",
-                        "subItemList" : [
-                            "- Diabetes mellitus",
-                            "- Hipertensão arterial sistêmica",
-                            "- Doença cardiovascular",
-                            "- Doença pulmonar crônica",
-                            "- Tabagismo",
-                            "- Neoplasias malignas",
-                            "- Doença renal crônica em estágio avançado (graus 3, 4 e 5);",
-                            "- Obesidade (IMC>35kg/m²)"
-                        ]
-                    },
-                    {
-                        "title": "‎• Com os seguintes sinais clínicos:",
-                        "subItemList": [
-                            "- Frequência respiratória (f > 20 irpm < 26 irpm);",
-                            "- SpO₂ < 96% > 93%;",
-                            "- Persistência da febre (diária, sem melhora, acima de 38ºC)",
-                            "- Piora progressiva de outros sintomas relacionados à Covid-19 (tosse, prostração, hiporexia, diarreia)"
-                        ]
+                        "trecho1": "Pacientes que irão utilizar ",
+                        "link1": {
+                            "título": "Protocolo",
+                            "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
+                            "trecho": "corticoide + azitromicina."
+                        }
                     }
                 ]
             }
-        },
-        "warningLabel": {
-            "title": "Importante:",
-            "text": {
-                "firstPhrase": "iniciar o",
-                "patientFollowingLink": {
-                    "title": "Monitoramento",
-                    "text": "monitoramento e/ou acompanhamento dos pacientes.",
-                    "url": ""
-                },
-                "secondPhrase": "Providenciar",
-                "consciousnessTermLink": {
-                    "title": "TCC",
-                    "text": "Termo de Ciência e Consentimento (TCC).",
-                    "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/TERMO-DE-CI%C3%8ANCIA-E-CONSENTIMENTO-TCC-26.05.pdf"
-                }
-            }
-        },
-        "dosage": {
-            "title": "DOSAGENS",
-            "medicines": [
-                {
-                    "name": "Prednisona",
-                    "dosages": [
-                        "Peso > 50 Kg: 40-60mg/d (2 a 3 cp de 20mg por dia);",
-                        "Peso < 50 Kg: 0,5 mg/kg/d até 30mg/d (1cp + ½cp de 20 mg por dia)."
-                    ]
-                },
-                {
-                    "name" : "Azitromicina",
-                    "dosages": [
-                        "500mg 01cp via oral  01x/dia por 3 dias."
-                    ]
-                }
-            ]
-        }
+        ]
     }
 }

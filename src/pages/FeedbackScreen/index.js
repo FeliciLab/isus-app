@@ -13,22 +13,93 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   RadioButton, TextInput, Button, Snackbar
 } from 'react-native-paper';
+import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
+import Tag from './Tag';
+import Regex from '../../utils/regex';
+import { vazio } from '../../utils/objectUtils';
 
 export default function FeedbackScreen() {
   const feedbackInput = React.createRef();
   const emailInput = React.createRef();
   const [checked, setState] = React.useState(true);
   const [feedback, setFeedback] = React.useState('');
+  const [imagem, setImagem] = React.useState({});
+  const [nomeImagem, setNomeImagem] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [statusSnackbar, setStatusSnackbar] = React.useState(false);
+  const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
+  const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
+  const [mensagemDeErro, setMensagemDeErro] = React.useState('');
+  const [carregando, setCarregando] = React.useState(false);
+  const [responseDaBiblioteca, setResponseDaBiblioteca] = React.useState({});
   const navigation = useNavigation();
-  const onSubmit = () => {
-    postFeedback(checked, feedback, email);
-    feedbackInput.current.clear();
-    emailInput.current.clear();
+
+  React.useEffect(() => {
+    if (vazio(responseDaBiblioteca)) {
+      setImagem({});
+    } else {
+      setImagem(parsearResponse(responseDaBiblioteca));
+    }
+  }, [responseDaBiblioteca]);
+
+  const onSubmit = async () => {
+    try {
+      const { data } = await postFeedback(checked, feedback, email, imagem);
+      if (data.errors) {
+        setMensagemDeErro(extrairMensagemDeErro(data));
+        setErroAoEnviar(true);
+        setCarregando(false);
+      } else {
+        limparCampos();
+        setCarregando(false);
+        setSucessoAoEnviar(true);
+      }
+    } catch (err) {
+      if (err.message === 'Network Error') setMensagemDeErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
+      else setMensagemDeErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      setErroAoEnviar(true);
+      setCarregando(false);
+    }
+  };
+
+  const limparCampos = () => {
     setFeedback('');
     setEmail('');
+    setImagem({});
+    setNomeImagem('');
+  };
+
+  const limparArquivoDeImagem = () => {
+    setNomeImagem('');
+    setImagem({});
+  };
+
+  const extrairCaminhoDoArquivo = path => `~${path.substring(path.indexOf('/Documents'))}`;
+  const extrairNomeDoArquivo = path => path.split('/').pop();
+
+  const parsearResponse = response => ({
+    nome: nomeImagem,
+    tipo: response.type,
+    tamanho: response.fileSize,
+    dados: response.data
+  });
+
+  const extrairMensagemDeErro = (response) => {
+    if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
+    if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
+    return '';
+  };
+
+  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
+  const feedbackValido = () => feedback !== '';
+
+  const definirNomeDaImagem = (response) => {
+    if (response.didCancel) return;
+    let path = response.uri;
+    if (Platform.OS === 'ios') path = extrairCaminhoDoArquivo(path);
+    if (!response.fileName) setNomeImagem(extrairNomeDoArquivo(path));
+    else setNomeImagem(response.fileName);
+    setResponseDaBiblioteca(response);
   };
 
   React.useLayoutEffect(() => {
@@ -73,7 +144,7 @@ export default function FeedbackScreen() {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <View style={{ flex: 1, padding: 10 }}>
+        <View style={{ flex: 1, padding: 15 }}>
           <Text
             style={{
               letterSpacing: 0.25,
@@ -113,6 +184,7 @@ export default function FeedbackScreen() {
             mode="outlined"
             ref={feedbackInput}
             multiline
+            value={feedback}
             label="Motivo"
             onChangeText={text => setFeedback(text)}
           />
@@ -129,21 +201,40 @@ export default function FeedbackScreen() {
             Lembre-se de especificar a seção do app a que você se refere
           </Text>
 
+          <View style={{ flexDirection: 'row', marginBottom: 18, marginTop: 8 }}>
+            <Button
+              mode="text"
+              color="#FF9800"
+              compact
+              onPress={
+                () => ImagePicker.launchImageLibrary(
+                  {},
+                  response => definirNomeDaImagem(response)
+                )
+              }
+            >
+                ANEXAR IMAGEM
+            </Button>
+            <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} />
+          </View>
+
           <TextInput
             mode="outlined"
             ref={emailInput}
             label="Email"
+            value={email}
             onChangeText={text => setEmail(text)}
           />
         </View>
         <Button
-          disabled={!!(feedback === '' || email === '')}
-          style={feedback === '' || email === '' ? styles.buttonDisabled : styles.button}
+          disabled={!!(!feedbackValido() || !emailValido())}
+          style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
+          loading={carregando}
           onPress={() => {
-            onSubmit(checked, feedback, email);
-            setStatusSnackbar(true);
+            setCarregando(true);
+            onSubmit(checked, feedback, email, imagem);
           }}
         >
           Enviar
@@ -151,14 +242,25 @@ export default function FeedbackScreen() {
 
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}
-          visible={statusSnackbar}
-          onDismiss={() => setStatusSnackbar(false)}
+          visible={sucessoAoEnviar}
+          onDismiss={() => setSucessoAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setStatusSnackbar(false)
+            onPress: () => setSucessoAoEnviar(false)
           }}
         >
           Enviado
+        </Snackbar>
+        <Snackbar
+          style={{ backgroundColor: '#1e1e1e' }}
+          visible={erroAoEnviar}
+          onDismiss={() => setErroAoEnviar(false)}
+          action={{
+            label: 'ok',
+            onPress: () => setErroAoEnviar(false)
+          }}
+        >
+          {mensagemDeErro}
         </Snackbar>
       </KeyboardAvoidingView>
     </ScrollView>
