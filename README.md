@@ -1,5 +1,5 @@
 # App iSUS
-### v3.1.2
+### v3.1.3
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
@@ -115,22 +115,22 @@ Você pode aprender o fluxo de uso comum do git flow [aqui](https://danielkummer
 
 ### Instalação
 
-Linux: 
+Linux:
   ```bash
   $ apt-get install git-flow
   ```
 Mac OS:
 * Homebrew
    ```bash
-    $ brew install git-flow-avh 
+    $ brew install git-flow-avh
    ```
 * Macports
   ```bash
-    $ port install git-flow-avh 
+    $ port install git-flow-avh
    ```
 Windows:
   ```bash
-  $ wget -q -O - --no-check-certificate https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh install stable | bash 
+  $ wget -q -O - --no-check-certificate https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh install stable | bash
   ```
 
 ## Branches
@@ -138,7 +138,7 @@ Utilizamos _kebab-case_ para a formatação do nome das branches, esse nome é c
 
     feature/#42-titulo-da-estoria
 
-## Commits 
+## Commits
 #### GitMoji :stuck_out_tongue_winking_eye:
 
 
@@ -149,7 +149,7 @@ Usamos o GitMoji nos commits para categorizar mais intuitivamente em que tipo de
 
 para instalar o gitmoji você só precisa ter o npm instalado e rodar o comando:
 
-```bash 
+```bash
 npm i -g gitmoji-cli
 ```
 
@@ -159,13 +159,13 @@ npm i -g gitmoji-cli
 Um exemplo desse exercício mental seria:
   ```
   - o que esse commit faz?
-  - (esse commit) Altera o icone da Home no menu inferior. 
+  - (esse commit) Altera o icone da Home no menu inferior.
   ```
 
 Também colocamos o número da estória no ínicio do título do commit.
 
 um exemplo desse nosso padrão de commit é:
-    
+
     #42 :art: Agrupa os estilos do componente card-informativo.
 
 ## Estilização dos componentes
