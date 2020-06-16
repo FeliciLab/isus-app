@@ -9,10 +9,10 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import Banner from '../../assets/images/banner.png';
-import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
-import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
-import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
-import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
+import Estagio1SVG from '../../assets/icons/estagiosManejo/estagio01.svg';
+import Estagio2SVG from '../../assets/icons/estagiosManejo/estagio02.svg';
+import Estagio3SVG from '../../assets/icons/estagiosManejo/estagio03.svg';
+import Estagio4SVG from '../../assets/icons/estagiosManejo/estagio04.png';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
@@ -319,7 +319,7 @@ export default function ClinicalManagement({ navigation }) {
       stageTitle: 'Estágio 01 (2-5 dias)',
       title: 'Orientações iniciais',
       subtitle: 'Sintomas e sinais',
-      Logo: Estagio1,
+      Logo: Estagio1SVG,
       color: '#4054B2',
       isCollapsed: stage1Collapse,
       collapsedMethod: setStage1Collapse,
@@ -331,7 +331,7 @@ export default function ClinicalManagement({ navigation }) {
       stageTitle: 'Estágio 02 (5-7 dias)',
       title: 'UAPS/UPA/EMERGÊNCIA',
       subtitle: 'Atendimento médico',
-      Logo: Estagio2,
+      Logo: Estagio2SVG,
       color: '#87BA25',
       isCollapsed: stage2Collapse,
       collapsedMethod: setStage2Collapse,
@@ -342,7 +342,7 @@ export default function ClinicalManagement({ navigation }) {
       id: 3,
       stageTitle: 'Estágio 03 (7-10 dias)',
       title: 'Internação Hospitalar',
-      Logo: Estagio3,
+      Logo: Estagio3SVG,
       color: '#FF9800',
       isCollapsed: stage3Collapse,
       collapsedMethod: setStage3Collapse,
@@ -354,7 +354,7 @@ export default function ClinicalManagement({ navigation }) {
       stageTitle: 'Estágio 04 (11-20 dias)',
       title: 'UTI',
       subtitle: 'Ventilação mecânica',
-      Logo: Estagio4,
+      Logo: Estagio4SVG,
       color: '#F2453D',
       isCollapsed: stage4Collapse,
       collapsedMethod: setStage4Collapse,
