@@ -1,10 +1,10 @@
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View, Linking, StyleSheet, Image
+  Text, ScrollView, View, Linking, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
-  Card, Button, Paragraph, Divider
+  Card, Button, Divider
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -13,14 +13,15 @@ import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
-import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
-import initialOrientation from './text-content/orientacoes-iniciais.json';
-import Internacao from './text-content/internacao-hospitalar.json';
-import UTI from './text-content/UTI.json';
 import checkPlatform from '../../utils/PDF';
+import Estágio1 from './estágio1';
 import Estágio2 from './estágio2';
+import Estágio3 from './estágio3';
+import Estágio4 from './estágio4';
+
+import ClinicalButton from './ClinicalButton';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -68,16 +69,6 @@ export default function ClinicalManagement({ navigation }) {
       )
     });
   });
-  // Internal Components
-  const ClinicalButton = ({ label, onPress }) => (
-    <TouchableOpacity onPress={onPress}>
-      <View style={{ ...style.clinicalButton, marginHorizontal: 2, marginVertical: 8 }}>
-        <Text style={style.textButton}>
-          {label}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
 
   const CardStage = ({
     id,
@@ -149,182 +140,6 @@ export default function ClinicalManagement({ navigation }) {
       </Card>
   );
 
-  const HiddenStage1 = () => (
-    <>
-    <Text style={style.hiddenCardTitle}>{initialOrientation.title}</Text>
-    <Text style={style.hiddenCardText}>{initialOrientation.description}</Text>
-
-    {initialOrientation.sections.symptoms.map((symptom => (
-    <View key={symptom.title}>
-      <Text style={{ marginTop: 16, fontSize: 18, color: textColor }}>
-        {symptom.title}
-      </Text>
-      {symptom.items.map(item => (
-        <Paragraph style={{ color: textColor, fontSize: 14 }}>
-          {item}
-        </Paragraph>
-      ))}
-    </View>
-    )))}
-    <View style={{
-      flex: 1, marginTop: 16, backgroundColor: 'rgba(242, 69, 61, 0.12)', alignItems: 'center', borderRadius: 2
-    }}
-    >
-      <Text style={{
-        marginTop: 2, marginBottom: 3, marginHorizontal: 7, color: textColor
-      }}
-      >
-        <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.warningLabel.title} `}</Text>
-        <Text>{initialOrientation.sections.warningLabel.texto1}</Text>
-      </Text>
-      <Text style={style.textColor}>{initialOrientation.sections.warningLabel.texto2}</Text>
-    </View>
-    <View key={initialOrientation.sections.riskGroup.title}>
-      <Text style={{
-        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
-      }}
-      >
-        {initialOrientation.sections.riskGroup.title}
-      </Text>
-      {initialOrientation.sections.riskGroup.items.map(item => (
-        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
-      ))}
-    </View>
-    <View style={{
-      flex: 1,
-      marginVertical: 8,
-      alignItems: 'center',
-      borderRadius: 2
-    }}
-    >
-      <Text style={{ color: textColor }}>
-        <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.observation.title} `}</Text>
-        <Text>{initialOrientation.sections.observation.text}</Text>
-      </Text>
-    </View>
-    <View key={initialOrientation.sections.alerts.title}>
-      <Text style={{
-        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
-      }}
-      >
-        {initialOrientation.sections.alerts.title}
-      </Text>
-      {initialOrientation.sections.alerts.items.map(item => (
-        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
-      ))}
-    </View>
-    <View key={initialOrientation.sections.sinaisDeGravidade}>
-      <Text style={{
-        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
-      }}
-      >
-        {initialOrientation.sections.sinaisDeGravidade.title}
-      </Text>
-      {initialOrientation.sections.sinaisDeGravidade.itens.map(item => (
-        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
-      ))}
-    </View>
-    <View style={{
-      marginVertical: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-evenly'
-    }}
-    >
-      <View style={{ width: '30%' }}>
-        <ClinicalButton onPress={() => Linking.openURL('tel: 08002751475')} label="TELE-UTI" />
-      </View>
-      <View style={{ width: '60%' }}>
-        <ClinicalButton onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })} label="PLANTÃO CORONAVÍRUS" />
-      </View>
-    </View>
-    </>
-  );
-
-  const HiddenStage3 = () => (
-    <>
-      <View style={{ marginTop: 20 }}>
-        <Paragraph>
-          {Internacao.sections.paragraphOne.firstPhrase}
-          <Text style={{ fontWeight: 'bold' }}>
-            {Internacao.sections.paragraphOne.bold}
-          </Text>
-          {Internacao.sections.paragraphOne.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphOne.link.title, url: Internacao.sections.paragraphOne.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphOne.link.text}</Text>
-        </Paragraph>
-
-        {Internacao.sections.paragraphOne.items.map(item => (
-          <Paragraph>
-            {item}
-          </Paragraph>
-        ))}
-        <Paragraph style={{ marginVertical: 8 }}>
-          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphTwo.bold}</Text>
-          {Internacao.sections.paragraphTwo.secondPhrase}
-          <Text onPress={() => (checkPlatform(Internacao.sections.paragraphTwo.link.url, 'Restricao do uso do oseltamivir.pdf'))} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphTwo.link.text}</Text>
-          {Internacao.sections.paragraphTwo.ThirdPhrase}
-        </Paragraph>
-        <Paragraph>
-          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphThree.bold}</Text>
-          {Internacao.sections.paragraphThree.secondPhrase}
-        <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphThree.link.title, url: Internacao.sections.paragraphThree.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphThree.link.text}</Text>
-        </Paragraph>
-        <Paragraph>
-          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFour.bold}</Text>
-          {Internacao.sections.paragraphFour.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFour.link.title, url: Internacao.sections.paragraphFour.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFour.link.text}</Text>
-        </Paragraph>
-        <Paragraph style={{ marginVertical: 8 }}>
-          {Internacao.sections.paragraphFive.firstPhrase}
-          <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFive.bold}</Text>
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFive.link.title, url: Internacao.sections.paragraphFive.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFive.link.text}</Text>
-        </Paragraph>
-
-        <Paragraph>
-          {Internacao.sections.paragraphSix}
-        </Paragraph>
-      </View>
-    </>
-  );
-
-  const HiddenStage4 = () => (
-    <>
-      <View style={{ marginTop: 8 }}>
-        <Paragraph>
-          {UTI.sections.paragraphOne.firstPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.link.title, url: UTI.sections.paragraphOne.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.link.text}</Text>
-          {UTI.sections.paragraphOne.secondPhrase}
-        </Paragraph>
-        <Paragraph>
-          {UTI.sections.paragraphOne.item.firstPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.item.link.title, url: UTI.sections.paragraphOne.item.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.item.link.text}</Text>
-        </Paragraph>
-        <Paragraph>
-          <Text style={{ fontWeight: 'bold' }}>{UTI.sections.paragraphTwo.bold}</Text>
-          {UTI.sections.paragraphTwo.secondPhrase}
-          <Text
-            onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphTwo.link.title, url: UTI.sections.paragraphTwo.link.url })}
-            style={{ color: '#F2453D', textDecorationLine: 'underline' }}
-          >
-            {UTI.sections.paragraphTwo.link.text}
-          </Text>
-        </Paragraph>
-        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-          <Image source={Pulmao} style={{ marginBottom: 16 }} />
-        </View>
-        <Paragraph>
-          <Text style={{ fontWeight: 'bold' }}>
-            {UTI.sections.paragraphThree.bold}
-          </Text>
-          {UTI.sections.paragraphThree.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphThree.link.title, url: UTI.sections.paragraphThree.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>
-          {UTI.sections.paragraphThree.link.text}
-          </Text>
-        </Paragraph>
-        <Text>
-          {UTI.sections.paragraphFour}
-        </Text>
-      </View>
-    </>
-  );
-
   const cardItems = [
     {
       id: 1,
@@ -336,7 +151,7 @@ export default function ClinicalManagement({ navigation }) {
       isCollapsed: stage1Collapse,
       collapsedMethod: setStage1Collapse,
       cardHeight: 10000,
-      HideContent: HiddenStage1
+      HideContent: Estágio1
     },
     {
       id: 2,
@@ -359,7 +174,7 @@ export default function ClinicalManagement({ navigation }) {
       isCollapsed: stage3Collapse,
       collapsedMethod: setStage3Collapse,
       cardHeight: 738,
-      HideContent: HiddenStage3
+      HideContent: Estágio3
     },
     {
       id: 4,
@@ -371,7 +186,7 @@ export default function ClinicalManagement({ navigation }) {
       isCollapsed: stage4Collapse,
       collapsedMethod: setStage4Collapse,
       cardHeight: 665,
-      HideContent: HiddenStage4
+      HideContent: Estágio4
     }
   ];
 
@@ -464,43 +279,3 @@ export default function ClinicalManagement({ navigation }) {
     </ScrollView>
   );
 }
-
-const style = StyleSheet.create({
-  clinicalButton: {
-    backgroundColor: '#F2C94C',
-    padding: 10,
-    borderRadius: 200,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4
-  },
-  textColor: {
-    color: 'rgba(0, 0, 0, 0.6)'
-  },
-  textButton: {
-    textTransform: 'uppercase',
-    textAlign: 'center',
-    color: '#4054B2',
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  bold: {
-    fontWeight: 'bold'
-  },
-  hiddenCardTitle: {
-    marginVertical: 8,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: textColor
-  },
-  hiddenCardText: {
-    color: textColor,
-    fontSize: 14
-  }
-});

@@ -80,13 +80,13 @@
         },
         "sinaisDeGravidade": {
             "title": "Sinais de gravidade",
-            "itens": [
+            "items": [
                 "• SpO2 < 95% em ar ambiente;",
                 "• Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
                 "• Piora nas condições clínicas de base;",
                 "• Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
                 "• Cianose;",
-                "• Alterações confusionais ou neurológicas graves.",
+                "• Alterações confusionais ou neurológicas graves."
             ]
         }
     }
