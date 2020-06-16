@@ -29,7 +29,10 @@ export default function App() {
   }, []);
 
   function onOpened(openResult) {
-    navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
+    if (openResult.notification.payload.url) {
+      return navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
+    }
+    return navigate('App');
   }
 
   function myiOSPromptCallback(permission) {
