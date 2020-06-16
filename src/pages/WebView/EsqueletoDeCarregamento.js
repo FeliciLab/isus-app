@@ -8,16 +8,19 @@ import {
 } from 'rn-placeholder';
 
 export default function EsqueletoDeCarregamento() {
+  const {
+    container, cabecalho, conteudo, titulo, imagem
+  } = styles;
   return (
-  <View style={styles.container}>
+  <View style={container}>
     <Placeholder
       Animation={Shine}
     >
-      <PlaceholderMedia size={80} style={styles.cabecalho} />
-      <View style={styles.conteudo}>
-        <PlaceholderLine style={styles.titulo} />
+      <PlaceholderMedia size={80} style={cabecalho} />
+      <View style={conteudo}>
+        <PlaceholderLine style={titulo} />
         <PlaceholderLine width={20} />
-        <PlaceholderMedia size={80} style={styles.imagem} />
+        <PlaceholderMedia size={80} style={imagem} />
         <PlaceholderLine />
         <PlaceholderLine />
         <PlaceholderLine />

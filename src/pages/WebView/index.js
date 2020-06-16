@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function WebViewPage({
-  navigation, route, showSkeleton, loadingComponent
+  navigation, route, mostrarEsqueletoDeCarregamento, esqueletoDeCarregamento
 }) {
   const navigator = useNavigation();
   useLayoutEffect(() => {
@@ -34,12 +34,12 @@ export default function WebViewPage({
   });
 
   return (
-    showSkeleton
+    mostrarEsqueletoDeCarregamento
       ? (
 <WebView
   source={{ uri: route.params.url }}
-  startInLoadingState={showSkeleton}
-  renderLoading={() => loadingComponent}
+  startInLoadingState={mostrarEsqueletoDeCarregamento}
+  renderLoading={() => esqueletoDeCarregamento}
 />
       )
       : (

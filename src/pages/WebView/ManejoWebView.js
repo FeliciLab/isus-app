@@ -7,8 +7,8 @@ export default function ManejoWebViewPage({ navigation, route }) {
     <WebViewPage
       route={route}
       navigation={navigation}
-      showSkeleton
-      loadingComponent={<EsqueletoDeCarregamento />}
+      mostrarEsqueletoDeCarregamento
+      esqueletoDeCarregamento={<EsqueletoDeCarregamento />}
     />
   );
 }
