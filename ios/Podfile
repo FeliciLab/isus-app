@@ -104,6 +104,6 @@ target 'isusapp-tvOS' do
 end
 
 target 'OneSignalNotificationServiceExtension' do
-  pod 'OneSignal', '>= 2.11.2', '< 3.0'
+  pod 'OneSignal', '>= 2.6.2', '< 3.0'
 end
 
