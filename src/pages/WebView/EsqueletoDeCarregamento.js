@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
+import {
+  View,
+  Dimensions,
+  PixelRatio,
+  StyleSheet,
+} from 'react-native';
 import {
   Placeholder,
   PlaceholderLine,
@@ -11,6 +16,16 @@ export default function EsqueletoDeCarregamento() {
   const {
     container, cabecalho, conteudo, titulo, imagem
   } = styles;
+
+  const calculaLinhasdeArtigo = () => {
+    const tamanho = (PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height) - 130 - 24 - 24 - 130) / 100;
+    const linhas = [];
+    for (let i = 1; i < tamanho; i += 1) {
+      linhas.push(<PlaceholderLine />);
+    }
+    return linhas;
+  };
+
   return (
   <View style={container}>
     <Placeholder
@@ -21,13 +36,7 @@ export default function EsqueletoDeCarregamento() {
         <PlaceholderLine style={titulo} />
         <PlaceholderLine width={20} />
         <PlaceholderMedia size={80} style={imagem} />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
+        {calculaLinhasdeArtigo()}
       </View>
     </Placeholder>
   </View>
