@@ -9,6 +9,7 @@ import Buscar from '../pages/Buscar';
 import ClinicalManagement from '../pages/ClinicalManagement';
 import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
+import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 
 const RootStack = createStackNavigator();
 
@@ -29,6 +30,10 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="webview"
           component={WebViewPage}
+        />
+        <RootStack.Screen
+          name="manejoWebview"
+          component={ManejoWebViewPage}
         />
         <RootStack.Screen
           name="Buscar"

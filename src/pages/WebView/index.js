@@ -6,7 +6,9 @@ import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function WebViewPage({ navigation, route }) {
+export default function WebViewPage({
+  navigation, route, mostrarEsqueletoDeCarregamento, esqueletoDeCarregamento
+}) {
   const navigator = useNavigation();
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -32,11 +34,17 @@ export default function WebViewPage({ navigation, route }) {
   });
 
   return (
-    <WebView
-      source={{
-        uri: route.params.url
-      }}
-    />
-
-  );
+    mostrarEsqueletoDeCarregamento
+      ? (
+<WebView
+  source={{ uri: route.params.url }}
+  startInLoadingState={mostrarEsqueletoDeCarregamento}
+  renderLoading={() => esqueletoDeCarregamento}
+/>
+      )
+      : (
+<WebView
+  source={{ uri: route.params.url }}
+/>
+      ));
 }
