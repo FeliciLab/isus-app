@@ -40,7 +40,7 @@
                     "Cianose;",
                     "Alterações graves do estado mental ou neurológicas;",
                     "Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
-                    "Relação PaO2/FiO2 < 300;",
+                    "Relação PaO₂/FIO₂ < 300;",
                     "Julgamento clínico."
                 ]
             },
@@ -53,7 +53,7 @@
                         "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
                         "trecho": "corticoide + azitromicina"
                     },
-                    "trecho2": "e",
+                    "trecho2": " e ",
                     "link2": {
                         "título": "Protocolo",
                         "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
