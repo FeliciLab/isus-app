@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key> LSSupportsOpeningDocumentsInPlace </key>
+	<true/>
+	<key> UIFileSharingEnabled </key>
+	<true/>
+	<key> UISupportsDocumentBrowser </key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -37,8 +43,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) requer acesso à biblioteca de imagens.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons.ttf</string>
@@ -52,6 +62,11 @@
 		<string>Entypo.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -63,18 +78,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-  <false/>
-  <key> LSSupportsOpeningDocumentsInPlace </key>
-  <true/>
-  <key> UISupportsDocumentBrowser </key>
-  <true/>
-  <key> UIFileSharingEnabled </key>
-  <true/>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>$(PRODUCT_NAME) requer acesso à biblioteca de imagens.</string>
-  <key>NSLocationAlwaysUsageDescription</key>
-  <string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
-  <key>NSLocationWhenInUseUsageDescription</key>
-  <string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
+	<false/>
 </dict>
 </plist>
