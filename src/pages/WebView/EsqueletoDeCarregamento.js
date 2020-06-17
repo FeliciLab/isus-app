@@ -18,9 +18,9 @@ export default function EsqueletoDeCarregamento() {
   } = styles;
 
   const calculaLinhasdeArtigo = () => {
-    const tamanho = (PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height) - 130 - 24 - 24 - 130) / 100;
+    const alturaDisponivel = (PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height) - 130 - 24 - 24 - 130) / 100;
     const linhas = [];
-    for (let i = 1; i < tamanho; i += 1) {
+    for (let i = 1; i < alturaDisponivel; i += 1) {
       linhas.push(<PlaceholderLine />);
     }
     return linhas;
