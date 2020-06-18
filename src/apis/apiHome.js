@@ -9,8 +9,9 @@ export function getProjetosPorCategoria(id) {
   return request.get(`/projetosPorCategoria/${id}`);
 }
 
-export function getBusca(item) {
-  return request.get(`/buscaPorProjetos?search=${item}`);
+export function getBusca(item, page) {
+  console.log('url: ', `${baseURL}buscaPorProjetos?search=${item}&page=${page}`);
+  return request.get(`/buscaPorProjetos?search=${item}&page=${page}`);
 }
 
 export function getProjectPorId(item) {

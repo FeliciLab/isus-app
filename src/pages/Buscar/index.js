@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   FlatList,
@@ -6,31 +6,175 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  Text
+  Text,
+  ActivityIndicator
 } from 'react-native';
 import { Caption, Divider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
+const baseURL = 'https://api.github.com';
+const searchTerm = 'react';
+const perPage = 20;
 
-export default function SearchScreen() {
-  const navigation = useNavigation();
-  const [text, setText] = React.useState('');
-  const [data, setData] = React.useState([]);
+export default class Buscar extends Component {
 
-  async function search() {
-    const response = await getBusca(text);
-    setData(response.data.data);
+  constructor(props) {
+    super(props);
+    this.state = {
+      // eslint-disable-next-line react/no-unused-state
+      data: [],
+      page: 1,
+      loading: false,
+      text: '',
+    };
   }
 
+  componentDidMount() {
+    this.loadRepositories();
+    //this.search();
+  }
+
+  loadRepositories = async () => {
+    if (this.state.loading) return;
+
+    const { page } = this.state;
+
+    this.setState({ loading: true });
+
+    const response = await fetch(`${baseURL}/search/repositories?q=${searchTerm}&per_page=${perPage}&page=${page}`);
+    const repositories = await response.json();
+
+    this.setState({
+      data: [ ...this.state.data, ...repositories.items ],
+      page: page + 1,
+      loading: false,
+    });
+  }
+
+  renderItem = ({ item }) => (
+    <View style={styles.listItem}>
+      <Text>{item.full_name}</Text>
+    </View>
+  );
+
+  createItem(item) {
+    console.log(item);
+    return (
+      <View style={styles.backgroundColor}>
+        <TouchableOpacity
+          style={styles.backgroundColor}
+          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
+        >
+          <View style={styles.content}>
+            {item.image ? (
+              <Image
+                resizeMode="contain"
+                style={styles.contentImage}
+                source={{ uri: `${item.image}` }}
+              />
+            ) : (
+              <View
+                style={styles.contentImage}
+              />
+            )}
+            <Caption style={styles.contentSubtitle}>
+              {item.post_title}
+            </Caption>
+          </View>
+          <Divider style={styles.divider} />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
+  ENCONTRE NENHUM ARTIGO */
   // eslint-disable-next-line no-shadow
-  function runSearch(text) {
-    setText(text);
-    search();
+  infoPreview(len, text) {
+    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+    if (this.state.text.length === 0 && len === 0) {
+      return (
+        <Caption style={styles.emptyText}>
+          Busque por conteúdos em
+            <Text style={styles.textNegrito}> Educação Permanente </Text>
+            e
+            <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
+        </Caption>
+      );
+    }
+    return (
+      <Caption style={styles.emptyText}>
+        Nenhuma informação encontrada
+      </Caption>
+    );
   }
 
-  React.useLayoutEffect(() => {
+  renderFooter = () => {
+    if (!this.state.loading) return null;
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator color="#468A04" size="large" />
+      </View>
+    );
+  };
+  
+  async search() {
+    const { page } = this.state;
+    const response = await getBusca(this.state.text, this.state.page);
+    console.log(response.data.data);
+    this.setState({
+      data: [ ...this.state.data, ...response.data.data ],
+      page: page + 1,
+      loading: false,
+    });
+    // setData(response.data.data);
+    // console.log({ page });
+    // const numberPage = (page + 1);
+    // setPage(numberPage);
+    // setLoad(false);
+    // console.log('load depois ');
+    // console.log({ load });
+  }
+  runSearch(text) {
+    console.log({text})
+    this.setState({ text: text})
+    console.log(this.state.text)
+    this.search()
+  }
+
+  createItem(item, navigation) {
+    console.log(item);
+    return (
+      <View style={styles.backgroundColor}>
+        <TouchableOpacity
+          style={styles.backgroundColor}
+          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
+        >
+          <View style={styles.content}>
+            {item.image ? (
+              <Image
+                resizeMode="contain"
+                style={styles.contentImage}
+                source={{ uri: `${item.image}` }}
+              />
+            ) : (
+              <View
+                style={styles.contentImage}
+              />
+            )}
+            <Caption style={styles.contentSubtitle}>
+              {item.post_title}
+            </Caption>
+          </View>
+          <Divider style={styles.divider} />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  render() {
+    const { navigation } = this.props;
     navigation.setOptions({
       headerTintColor: '#FFF',
       headerStyle: {
@@ -44,26 +188,16 @@ export default function SearchScreen() {
           autoFocus
           placeholder="Buscar"
           placeholderTextColor="#FFFFFF"
-          value={text}
-          style={style.searchHeaderText}
+          value={this.state.text}
+          style={styles.searchHeaderText}
           // eslint-disable-next-line no-shadow
-          onChangeText={text => runSearch(text)}
+          onChangeText={text => this.runSearch(text)}
         />
-      ),
-
-      headerRight: () => (
-        <TouchableOpacity
-          style={style.headerSearchIcon}
-          mode="contained"
-          onPress={() => search()}
-        >
-        {/* * <Icon name="magnify" size={25} color="#DADADA" /> * */}
-        </TouchableOpacity>
       ),
 
       headerLeft: () => (
         <TouchableOpacity
-          style={style.searchHeaderBack}
+          style={styles.searchHeaderBack}
           onPress={() => {
             navigation.goBack();
           }}
@@ -72,75 +206,34 @@ export default function SearchScreen() {
         </TouchableOpacity>
       )
     });
-  });
-
-  function createItem(item) {
-    console.log(item);
+    
     return (
-      <View style={style.backgroundColor}>
-        <TouchableOpacity
-          style={style.backgroundColor}
-          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
-        >
-          <View style={style.content}>
-            {item.image ? (
-              <Image
-                resizeMode="contain"
-                style={style.contentImage}
-                source={{ uri: `${item.image}` }}
-              />
-            ) : (
-              <View
-                style={style.contentImage}
-              />
-            )}
-            <Caption style={style.contentSubtitle}>
-              {item.post_title}
-            </Caption>
-          </View>
-          <Divider style={style.divider} />
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        // contentContainerStyle={styles.list}
+        data={this.state.data}
+        // keyExtractor={item => item.ID.toString()}
+        keyExtractor={item => item.id}
+        //renderItem={({ item }) => this.createItem(item, navigation)}
+        renderItem={this.renderItem}
+        //onEndReached={this.search}
+        onEndReached={this.loadRepositories}
+        onEndReachedThreshold={0.1}
+        ListFooterComponent={this.renderFooter}
+      />
     );
   }
-  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
-  ENCONTRE NENHUM ARTIGO */
-  // eslint-disable-next-line no-shadow
-  function infoPreview(len, text) {
-    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
-    if (text.length === 0 && len === 0) {
-      return (
-        <Caption style={style.emptyText}>
-          Busque por conteúdos em
-            <Text style={style.textNegrito}> Educação Permanente </Text>
-            e
-            <Text style={style.textNegrito}> Pesquisas Científicas. </Text>
-        </Caption>
-      );
-    }
-    return (
-      <Caption style={style.emptyText}>
-        Nenhuma informação encontrada
-      </Caption>
-    );
-  }
-
-  return (
-    <View style={style.emptyBackground}>
-      {data.length === 0 ? (
-        infoPreview(data.length, text)
-      ) : (
-        <FlatList
-          data={data}
-          keyExtractor={item => item.ID.toString()}
-          style={style.emptyBackground}
-          renderItem={({ item }) => createItem(item)}
-        />
-      )}
-    </View>
-  );
 }
-const style = StyleSheet.create({
+
+const styles = StyleSheet.create({
+  list: {
+    paddingHorizontal: 20,
+  },
+
+  listItem: {
+    backgroundColor: '#EEE',
+    marginTop: 20,
+    padding: 30,
+  },
   backgroundColor: {
     backgroundColor: '#fff'
   },
