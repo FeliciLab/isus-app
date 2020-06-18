@@ -3,51 +3,44 @@
         "título": "Avaliação presencial",
         "seções": [
             {
-                "indetificador": "01",
-                "descrição": "Checar sinais e sintomas que sugiram Covid-19;"
+                "descrição": "01 • Checar sinais e sintomas que sugiram Covid-19;"
             },
             {
-                "indetificador": "02",
-                "descrição": "Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
+                "descrição": "02 • Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
             },
             {
-                "indetificador": "03",
-                "descrição": "Realizar estratificação de risco (Grupos A, B, C e D);"
+                "descrição": "03 • Realizar estratificação de risco (Grupos A, B, C e D);"
             },
             {
-                "indetificador": "04",
-                "descrição": "Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
+                "descrição": "04 • Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
             },
             {
-                "indetificador": "05",
-                "descrição": "Considerar internação nas seguintes condições:",
+                "descrição": "05 • Considerar internação nas seguintes condições:",
                 "parágrafos": [
-                    "SpO₂ < 95% em ar ambiente;",
-                    "Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
-                    "Piora nas condições clínicas de base;",
-                    "Vulnerabilidade social."
+                    " - SpO₂ < 95% em ar ambiente;",
+                    " - Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
+                    " - Piora nas condições clínicas de base;",
+                    " - Vulnerabilidade social."
                 ]
             },
             {
-                "indetificador": "06",
-                "descrição": "Efetuar internação nas seguintes condições:",
+                "descrição": "06 • Efetuar internação nas seguintes condições:",
                 "parágrafos": [
-                    "Frequência respiratória (f > 30 irpm);",
-                    "Insuficiência respiratória;",
-                    "Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
-                    "SpO₂ < 93%;",
-                    "Rápida deterioração clínica;",
-                    "Cianose;",
-                    "Alterações graves do estado mental ou neurológicas;",
-                    "Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
-                    "Relação PaO₂/FIO₂ < 300;",
-                    "Julgamento clínico."
+                    " - Frequência respiratória (f > 30 irpm);",
+                    " - Insuficiência respiratória;",
+                    " - Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
+                    " - SpO₂ < 93%;",
+                    " - Rápida deterioração clínica;",
+                    " - Cianose;",
+                    " - Alterações graves do estado mental ou neurológicas;",
+                    " - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
+                    " - Relação PaO₂/FIO₂ < 300;",
+                    " - Julgamento clínico."
                 ]
             },
             {
-                "indetificador": "07",
                 "descrição": {
-                    "trecho1": "Avaliar indicação para uso de",
+                    "trecho1": "07 • Avaliar indicação para uso de",
                     "link1": {
                         "título": "Protocolo",
                         "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
@@ -62,13 +55,12 @@
                 }
             },
             {
-                "indetificador": null,
                 "descrição": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
                 "parágrafos": [
-                    "Sinais de alerta e/ou",
-                    "Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou",
+                    " • Sinais de alerta e/ou",
+                    " • Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou",
                     {
-                        "trecho1": "Pacientes que irão utilizar ",
+                        "trecho1": " • Pacientes que irão utilizar ",
                         "link1": {
                             "título": "Protocolo",
                             "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",

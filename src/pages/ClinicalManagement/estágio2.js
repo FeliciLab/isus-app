@@ -21,10 +21,6 @@ const Estágio2 = ({ navigation }) => {
       return (
             <Paragraph>
               <Text style={estilo.TextoCinza}>
-                  {seção.indetificador}
-                  {'  '}
-                  •
-                  {'  '}
                   {seção.descrição.trecho1}
               </Text>
               {' '}
@@ -43,21 +39,12 @@ const Estágio2 = ({ navigation }) => {
     return (
       <>
         <Text style={estilo.TextoCinza}>
-            {seção.indetificador}
-            {
-              seção.indetificador !== null ? ' • ' : ''
-            }
             {seção.descrição}
         </Text>
         {seção.parágrafos && seção.parágrafos.map(parágrafo => (
-        <Paragraph style={estilo.TextoCinza}>
-          {
-            seção.indetificador !== null ? ' - ' : ' • '
-          }
-          <>
-          <RenderizarParágrafo parágrafo={parágrafo} />
-          </>
-        </Paragraph>
+          <Paragraph key={parágrafo} style={estilo.TextoCinza}>
+            <RenderizarParágrafo parágrafo={parágrafo} />
+          </Paragraph>
         ))}
       </>
     );
@@ -86,7 +73,7 @@ const Estágio2 = ({ navigation }) => {
     <>
       <Text style={estilo.TítuloDoCard}>{título}</Text>
       {seções.map(seção => (
-        <View key={seção.indetificador} style={{ marginTop: 15 }}>
+        <View key={seção} style={{ marginTop: 15 }}>
             <RenderizarTexto seção={seção} />
         </View>
       ))}
