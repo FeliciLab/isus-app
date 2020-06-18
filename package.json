@@ -1,10 +1,10 @@
 {
   "name": "iSUS",
-  "version": "3.0.2",
+  "version": "3.1.4",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/isusapp main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/isusapp/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "fix": "yarn lint --fix",
@@ -24,10 +24,17 @@
     "intl": "^1.2.5",
     "moment": "^2.25.3",
     "react": "16.11.0",
+    "react-content-loader": "^5.0.4",
+    "react-fade-in": "^1.1.0",
     "react-native": "0.62.2",
     "react-native-app-intro-slider": "^4.0.2",
+<<<<<<< HEAD
     "react-native-code-push": "^6.2.1",
+=======
+    "react-native-config": "^1.2.0",
+>>>>>>> master
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-image-picker": "^2.3.1",
     "react-native-onesignal": "^3.7.3",
     "react-native-paper": "^3.10.1",
     "react-native-reanimated": "^1.7.1",
@@ -38,7 +45,8 @@
     "react-native-tab-view": "^2.14.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^9.4.0",
-    "rn-fetch-blob": "^0.12.0"
+    "rn-fetch-blob": "^0.12.0",
+    "rn-placeholder": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -8,20 +8,19 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Banner from '../../assets/images/banner.png';
-import Estagio1 from '../../assets/icons/estagiosManejo/estagio01.svg';
-import Estagio2 from '../../assets/icons/estagiosManejo/estagio02.svg';
-import Estagio3 from '../../assets/icons/estagiosManejo/estagio03.svg';
-import Estagio4 from '../../assets/icons/estagiosManejo/estagio04.png';
+import Estagio1SVG from '../../assets/icons/estagiosManejo/estagio01.svg';
+import Estagio2SVG from '../../assets/icons/estagiosManejo/estagio02.svg';
+import Estagio3SVG from '../../assets/icons/estagiosManejo/estagio03.svg';
+import Estagio4SVG from '../../assets/icons/estagiosManejo/estagio04.png';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
 import initialOrientation from './text-content/orientacoes-iniciais.json';
-import emergency from './text-content/emergencia.json';
 import Internacao from './text-content/internacao-hospitalar.json';
 import UTI from './text-content/UTI.json';
 import checkPlatform from '../../utils/PDF';
+import Estágio2 from './estágio2';
 
 const textColor = 'rgba(0,0,0,0.6)';
 
@@ -134,7 +133,7 @@ export default function ClinicalManagement({ navigation }) {
           </View>
           <View>
             {
-              isCollapsed && <HideContent />
+              isCollapsed && <HideContent navigation={navigation} />
             }
           </View>
         </Card.Content>
@@ -176,8 +175,9 @@ export default function ClinicalManagement({ navigation }) {
       }}
       >
         <Text style={{ fontWeight: 'bold' }}>{`${initialOrientation.sections.warningLabel.title} `}</Text>
-        <Text>{initialOrientation.sections.warningLabel.text}</Text>
+        <Text>{initialOrientation.sections.warningLabel.texto1}</Text>
       </Text>
+      <Text style={style.textColor}>{initialOrientation.sections.warningLabel.texto2}</Text>
     </View>
     <View key={initialOrientation.sections.riskGroup.title}>
       <Text style={{
@@ -213,6 +213,17 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
       ))}
     </View>
+    <View key={initialOrientation.sections.sinaisDeGravidade}>
+      <Text style={{
+        fontWeight: 'bold', marginTop: 16, fontSize: 18, color: textColor
+      }}
+      >
+        {initialOrientation.sections.sinaisDeGravidade.title}
+      </Text>
+      {initialOrientation.sections.sinaisDeGravidade.itens.map(item => (
+        <Paragraph style={{ color: textColor, fontSize: 14 }}>{item}</Paragraph>
+      ))}
+    </View>
     <View style={{
       marginVertical: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-evenly'
     }}
@@ -227,131 +238,6 @@ export default function ClinicalManagement({ navigation }) {
     </>
   );
 
-  const HiddenStage2 = () => (
-    <>
-    <Text style={style.hiddenCardTitle}>{emergency.presentialEvaluation.title}</Text>
-    <Text style={style.hiddenCardText}>{emergency.presentialEvaluation.description}</Text>
-
-    <View key={emergency.presentialEvaluation.sections.severitySigns.title}>
-      <Text style={{
-        marginTop: 16, marginBottom: 8, fontSize: 18, color: textColor
-      }}
-      >
-        {emergency.presentialEvaluation.sections.severitySigns.title}
-      </Text>
-      {emergency.presentialEvaluation.sections.severitySigns.items.map(item => (
-        <Paragraph style={{ color: textColor, fontSize: 14 }}>
-          {item}
-        </Paragraph>
-      ))}
-    </View>
-    <View key={emergency.presentialEvaluation.sections.hospitalizationCriteria.title}>
-      <Text style={{
-        marginTop: 16, marginBottom: 8, fontSize: 18, color: textColor
-      }}
-      >
-        {emergency.presentialEvaluation.sections.hospitalizationCriteria.title}
-      </Text>
-      {emergency.presentialEvaluation.sections.hospitalizationCriteria.items.map(item => (
-        <Paragraph style={{ color: textColor, fontSize: 14 }}>
-          {item}
-        </Paragraph>
-      ))}
-    </View>
-    <View style={{
-      flex: 1,
-      paddingHorizontal: 6,
-      paddingVertical: 3,
-      marginTop: 16,
-      marginBottom: 16,
-      backgroundColor: '#eaf5ea',
-      alignItems: 'center',
-      borderRadius: 2
-    }}
-    >
-      <Text style={{ ...style.hiddenCardText, marginBottom: 8 }}>
-        {emergency.presentialEvaluation.sections.info.description}
-      </Text>
-      {emergency.presentialEvaluation.sections.info.items.map(item => (
-        <Text style={{ alignSelf: 'flex-start', color: textColor, fontSize: 14 }}>
-          {item}
-        </Text>
-      ))}
-    </View>
-    <Text style={{ ...style.hiddenCardTitle, color: '#87BA25' }} onPress={() => navigation.navigate('webview', { title: emergency.technicalNotes.title.link.title, url: emergency.technicalNotes.title.link.url })}>
-      {emergency.technicalNotes.title.link.text}
-    </Text>
-    <View style={{ marginTop: 16, marginBottom: 8 }}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ marginRight: 8 }}>
-          <FontAwesome5Icon name="pills" color="rgba(0, 0, 0, 0.54)" size={22} />
-        </View>
-        <Text style={{ marginBottom: 8, fontSize: 18, color: textColor }}>
-          {emergency.technicalNotes.medicines.title}
-        </Text>
-      </View>
-      <Text style={style.hiddenCardText}>
-        {emergency.technicalNotes.medicines.usageCriteria.description}
-      </Text>
-      {emergency.technicalNotes.medicines.usageCriteria.items.map(item => (
-        <View>
-          <Paragraph style={style.hiddenCardText}>{item.title}</Paragraph>
-          {item.subItemList && item.subItemList.map(subItem => (
-            <Text style={{ color: textColor, fontSize: 14, marginHorizontal: 22 }}>{subItem}</Text>
-          ))}
-        </View>
-      ))}
-    </View>
-    <View style={{
-      flex: 1,
-      marginTop: 16,
-      backgroundColor: 'rgba(242, 69, 61, 0.12)',
-      alignItems: 'flex-start',
-      borderRadius: 2,
-      paddingHorizontal: 7,
-      paddingTop: 7,
-      paddingBottom: 9,
-      width: '100%'
-    }}
-    >
-    <Text>
-      <Text style={{ fontWeight: 'bold' }}>
-        {` ${emergency.technicalNotes.warningLabel.title} `}
-      </Text>
-      <Text style={style.hiddenCardText}>{`${emergency.technicalNotes.warningLabel.text.firstPhrase} `}</Text>
-      <Text style={style.hiddenCardText}>
-        {emergency.technicalNotes.warningLabel.text.patientFollowingLink.text}
-      </Text>
-      <Text style={style.hiddenCardText}>
-      {`\n${emergency.technicalNotes.warningLabel.text.secondPhrase} `}
-      </Text>
-      <Text
-        onPress={() => Linking.openURL(
-          emergency.technicalNotes.warningLabel.text.consciousnessTermLink.url
-        )}
-        style={{ color: '#87BA25' }}
-      >
-       {emergency.technicalNotes.warningLabel.text.consciousnessTermLink.text}
-      </Text>
-    </Text>
-    </View>
-    <View style={{ marginTop: 7, marginHorizontal: 8 }}>
-      <Text style={style.hiddenCardText}>
-        {emergency.technicalNotes.dosage.title}
-      </Text>
-      {emergency.technicalNotes.dosage.medicines.map(medicine => (
-        <View style={{ marginBottom: 20 }}>
-          <Text style={{ fontWeight: 'bold' }}>
-          {medicine.name}
-          </Text>
-          {medicine.dosages.map(dosage => (
-            <Text style={style.hiddenCardText}>{dosage}</Text>
-          ))}
-        </View>
-      ))}
-    </View>
-    </>
-  );
   const HiddenStage3 = () => (
     <>
       <View style={{ marginTop: 20 }}>
@@ -361,7 +247,7 @@ export default function ClinicalManagement({ navigation }) {
             {Internacao.sections.paragraphOne.bold}
           </Text>
           {Internacao.sections.paragraphOne.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphOne.link.title, url: Internacao.sections.paragraphOne.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphOne.link.text}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: Internacao.sections.paragraphOne.link.title, url: Internacao.sections.paragraphOne.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphOne.link.text}</Text>
         </Paragraph>
 
         {Internacao.sections.paragraphOne.items.map(item => (
@@ -378,17 +264,17 @@ export default function ClinicalManagement({ navigation }) {
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphThree.bold}</Text>
           {Internacao.sections.paragraphThree.secondPhrase}
-        <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphThree.link.title, url: Internacao.sections.paragraphThree.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphThree.link.text}</Text>
+        <Text onPress={() => navigation.navigate('manejoWebview', { title: Internacao.sections.paragraphThree.link.title, url: Internacao.sections.paragraphThree.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphThree.link.text}</Text>
         </Paragraph>
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFour.bold}</Text>
           {Internacao.sections.paragraphFour.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFour.link.title, url: Internacao.sections.paragraphFour.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFour.link.text}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: Internacao.sections.paragraphFour.link.title, url: Internacao.sections.paragraphFour.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFour.link.text}</Text>
         </Paragraph>
         <Paragraph style={{ marginVertical: 8 }}>
           {Internacao.sections.paragraphFive.firstPhrase}
           <Text style={{ fontWeight: 'bold' }}>{Internacao.sections.paragraphFive.bold}</Text>
-          <Text onPress={() => navigation.navigate('webview', { title: Internacao.sections.paragraphFive.link.title, url: Internacao.sections.paragraphFive.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFive.link.text}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: Internacao.sections.paragraphFive.link.title, url: Internacao.sections.paragraphFive.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{Internacao.sections.paragraphFive.link.text}</Text>
         </Paragraph>
 
         <Paragraph>
@@ -403,18 +289,18 @@ export default function ClinicalManagement({ navigation }) {
       <View style={{ marginTop: 8 }}>
         <Paragraph>
           {UTI.sections.paragraphOne.firstPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.link.title, url: UTI.sections.paragraphOne.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.link.text}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: UTI.sections.paragraphOne.link.title, url: UTI.sections.paragraphOne.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.link.text}</Text>
           {UTI.sections.paragraphOne.secondPhrase}
         </Paragraph>
         <Paragraph>
           {UTI.sections.paragraphOne.item.firstPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphOne.item.link.title, url: UTI.sections.paragraphOne.item.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.item.link.text}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: UTI.sections.paragraphOne.item.link.title, url: UTI.sections.paragraphOne.item.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>{UTI.sections.paragraphOne.item.link.text}</Text>
         </Paragraph>
         <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>{UTI.sections.paragraphTwo.bold}</Text>
           {UTI.sections.paragraphTwo.secondPhrase}
           <Text
-            onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphTwo.link.title, url: UTI.sections.paragraphTwo.link.url })}
+            onPress={() => navigation.navigate('manejoWebview', { title: UTI.sections.paragraphTwo.link.title, url: UTI.sections.paragraphTwo.link.url })}
             style={{ color: '#F2453D', textDecorationLine: 'underline' }}
           >
             {UTI.sections.paragraphTwo.link.text}
@@ -428,7 +314,7 @@ export default function ClinicalManagement({ navigation }) {
             {UTI.sections.paragraphThree.bold}
           </Text>
           {UTI.sections.paragraphThree.secondPhrase}
-          <Text onPress={() => navigation.navigate('webview', { title: UTI.sections.paragraphThree.link.title, url: UTI.sections.paragraphThree.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: UTI.sections.paragraphThree.link.title, url: UTI.sections.paragraphThree.link.url })} style={{ color: '#F2453D', textDecorationLine: 'underline' }}>
           {UTI.sections.paragraphThree.link.text}
           </Text>
         </Paragraph>
@@ -445,7 +331,7 @@ export default function ClinicalManagement({ navigation }) {
       stageTitle: 'Estágio 01 (2-5 dias)',
       title: 'Orientações iniciais',
       subtitle: 'Sintomas e sinais',
-      Logo: Estagio1,
+      Logo: Estagio1SVG,
       color: '#4054B2',
       isCollapsed: stage1Collapse,
       collapsedMethod: setStage1Collapse,
@@ -457,18 +343,18 @@ export default function ClinicalManagement({ navigation }) {
       stageTitle: 'Estágio 02 (5-7 dias)',
       title: 'UAPS/UPA/EMERGÊNCIA',
       subtitle: 'Atendimento médico',
-      Logo: Estagio2,
+      Logo: Estagio2SVG,
       color: '#87BA25',
       isCollapsed: stage2Collapse,
       collapsedMethod: setStage2Collapse,
       cardHeight: 801,
-      HideContent: HiddenStage2
+      HideContent: Estágio2
     },
     {
       id: 3,
       stageTitle: 'Estágio 03 (7-10 dias)',
       title: 'Internação Hospitalar',
-      Logo: Estagio3,
+      Logo: Estagio3SVG,
       color: '#FF9800',
       isCollapsed: stage3Collapse,
       collapsedMethod: setStage3Collapse,
@@ -480,7 +366,7 @@ export default function ClinicalManagement({ navigation }) {
       stageTitle: 'Estágio 04 (11-20 dias)',
       title: 'UTI',
       subtitle: 'Ventilação mecânica',
-      Logo: Estagio4,
+      Logo: Estagio4SVG,
       color: '#F2453D',
       isCollapsed: stage4Collapse,
       collapsedMethod: setStage4Collapse,
@@ -563,9 +449,9 @@ export default function ClinicalManagement({ navigation }) {
             Notifique casos suspeitos de covid-19
           </Text>
           <Text style={{ color: '#4054B2' }}>Assegurar a notificação do caso, sua confirmação e inclusão em base de dados da vigilância epdemiológica e do registro eletrônico dos pacientes.</Text>
-          <ClinicalButton label="acesse a plataforma de notificação" onPress={() => navigation.navigate('webview', { title: 'Plataforma de notificação', url: 'https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/' })} />
+          <ClinicalButton label="acesse a plataforma de notificação" onPress={() => navigation.navigate('manejoWebview', { title: 'Plataforma de notificação', url: 'https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/' })} />
           <Text
-            onPress={() => navigation.navigate('webview', { title: 'Diretrizes', url: 'https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/' })}
+            onPress={() => navigation.navigate('manejoWebview', { title: 'Diretrizes', url: 'https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/' })}
             style={{
               textAlign: 'center', color: '#4054B2', textDecorationLine: 'underline', marginVertical: 30
             }}
@@ -593,6 +479,9 @@ const style = StyleSheet.create({
     shadowRadius: 2.62,
 
     elevation: 4
+  },
+  textColor: {
+    color: 'rgba(0, 0, 0, 0.6)'
   },
   textButton: {
     textTransform: 'uppercase',
