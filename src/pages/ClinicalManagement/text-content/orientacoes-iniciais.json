@@ -89,5 +89,14 @@
                 "• Alterações confusionais ou neurológicas graves."
             ]
         }
+    },
+    "botãoTeleUTI": {
+        "título":"TELE-UTI",
+        "telefone": "tel: 08002751475"
+    },
+    "botãoPlantãoCoronavirus": {
+        "título":"PLANTÃO CORONAVÍRUS",
+        "url": "https://coronavirus.ceara.gov.br/",
+        "títuloWebview": "Plantão Corona Vírus"
     }
 }

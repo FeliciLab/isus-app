@@ -13,11 +13,15 @@ const corDoTextoPadrão = 'rgba(0,0,0,0.6)';
 
 const Estágio1 = ({ navigation }) => {
   const {
-    hiddenCardTitle, hiddenCardText, containerDoAviso, negrito, containerDeTextoDoAviso,
+    containerDoAviso, negrito, containerDeTextoDoAviso,
     itemDeTopico, tituloDeTopico,
     containerDaObservação, containerDoBotão,
     largura30, largura60, CorDoTexto
   } = styles;
+
+  const {
+    título, descrição, seções, botãoTeleUTI, botãoPlantãoCoronavirus
+  } = orientaçãoInicial;
 
   const mostrarSintomas = sintomas => (
     sintomas.map(sintoma => mostrarTituloEConteudo(sintoma))
@@ -38,38 +42,41 @@ const Estágio1 = ({ navigation }) => {
 
   return (
     <>
-  <Text style={hiddenCardTitle}>{orientaçãoInicial.título}</Text>
-  <Text style={hiddenCardText}>{orientaçãoInicial.descrição}</Text>
+  <Text style={tituloDeTopico}>{título}</Text>
+  <Text style={itemDeTopico}>{descrição}</Text>
 
-  { mostrarSintomas(orientaçãoInicial.seções.sintomas) }
+  { mostrarSintomas(seções.sintomas) }
 
   <View style={containerDoAviso}>
     <Text style={containerDeTextoDoAviso}>
-      <Text style={negrito}>{`${orientaçãoInicial.seções.atenção.título} `}</Text>
-      <Text style={CorDoTexto}>{orientaçãoInicial.seções.atenção.texto1}</Text>
+      <Text style={negrito}>{`${seções.atenção.título} `}</Text>
+      <Text style={CorDoTexto}>{seções.atenção.texto1}</Text>
     </Text>
-    <Text style={CorDoTexto}>{orientaçãoInicial.seções.atenção.texto2}</Text>
+    <Text style={CorDoTexto}>{seções.atenção.texto2}</Text>
   </View>
 
- { mostrarTituloEConteudo(orientaçãoInicial.seções.grupoDeRisco) }
+ { mostrarTituloEConteudo(seções.grupoDeRisco) }
 
   <View style={containerDaObservação}>
     <Text style={CorDoTexto}>
-      <Text style={negrito}>{`${orientaçãoInicial.seções.observação.título}`}</Text>
-      <Text style={CorDoTexto}>{orientaçãoInicial.seções.observação.texto}</Text>
+      <Text style={negrito}>{`${seções.observação.título}`}</Text>
+      <Text style={CorDoTexto}>{seções.observação.texto}</Text>
     </Text>
   </View>
 
-  { mostrarTituloEConteudo(orientaçãoInicial.seções.alertas) }
+  { mostrarTituloEConteudo(seções.alertas) }
 
-  { mostrarTituloEConteudo(orientaçãoInicial.seções.sinaisDeGravidade) }
+  { mostrarTituloEConteudo(seções.sinaisDeGravidade) }
 
   <View style={containerDoBotão}>
     <View style={largura30}>
-      <ClinicalButton onPress={() => Linking.openURL('tel: 08002751475')} label="TELE-UTI" />
+     <ClinicalButton
+       onPress={() => Linking.openURL(botãoTeleUTI.telefone)}
+       label={botãoTeleUTI.título}
+     />
     </View>
     <View style={largura60}>
-      <ClinicalButton onPress={() => navigation.navigate('webview', { título: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })} label="PLANTÃO CORONAVÍRUS" />
+      <ClinicalButton onPress={() => navigation.navigate('webview', { título: botãoPlantãoCoronavirus.títuloWebview, url: botãoPlantãoCoronavirus.url })} label={botãoPlantãoCoronavirus.título} />
     </View>
   </View>
     </>
