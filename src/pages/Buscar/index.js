@@ -14,10 +14,6 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
-const baseURL = 'https://api.github.com';
-const searchTerm = 'react';
-const perPage = 20;
-
 export default class Buscar extends Component {
 
   constructor(props) {
@@ -28,84 +24,47 @@ export default class Buscar extends Component {
       page: 1,
       loading: false,
       text: '',
+      ultimoTermo: ''
     };
-  }
-
-  componentDidMount() {
-    this.loadRepositories();
-    //this.search();
   }
 
   loadRepositories = async () => {
     if (this.state.loading) return;
-
-    const { page } = this.state;
-
     this.setState({ loading: true });
-
-    const response = await fetch(`${baseURL}/search/repositories?q=${searchTerm}&per_page=${perPage}&page=${page}`);
-    const repositories = await response.json();
-
+    // Verificando a ultima consulta, caso seja diferente, reseta os valores do objeto
+    if(this.state.ultimoTermo !== this.state.text) {
+      this.state.data = [];
+      this.state.page = 1;
+    }
+    this.setState({ ultimoTermo: this.state.text })
+    const response = await getBusca(this.state.text, this.state.page);
     this.setState({
-      data: [ ...this.state.data, ...repositories.items ],
-      page: page + 1,
+      data: [ ...this.state.data, ...response.data.data ],
+      page: this.state.page + 1,
       loading: false,
-    });
+    });      
+
   }
 
-  renderItem = ({ item }) => (
-    <View style={styles.listItem}>
-      <Text>{item.full_name}</Text>
-    </View>
-  );
-
-  createItem(item) {
-    console.log(item);
+  verificarListaVazia = () => {    
     return (
-      <View style={styles.backgroundColor}>
-        <TouchableOpacity
-          style={styles.backgroundColor}
-          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
-        >
-          <View style={styles.content}>
-            {item.image ? (
-              <Image
-                resizeMode="contain"
-                style={styles.contentImage}
-                source={{ uri: `${item.image}` }}
-              />
-            ) : (
-              <View
-                style={styles.contentImage}
-              />
-            )}
-            <Caption style={styles.contentSubtitle}>
-              {item.post_title}
-            </Caption>
-          </View>
-          <Divider style={styles.divider} />
-        </TouchableOpacity>
-      </View>
-    );
+      <Caption style={styles.emptyText}>
+        Nenhuma informação encontrada ou faça a sua pesquisa
+      </Caption>
+    );    
   }
+
   /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
   ENCONTRE NENHUM ARTIGO */
   // eslint-disable-next-line no-shadow
-  infoPreview(len, text) {
+  infoPreview() {
     // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
-    if (this.state.text.length === 0 && len === 0) {
-      return (
-        <Caption style={styles.emptyText}>
-          Busque por conteúdos em
-            <Text style={styles.textNegrito}> Educação Permanente </Text>
-            e
-            <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
-        </Caption>
-      );
-    }
     return (
       <Caption style={styles.emptyText}>
-        Nenhuma informação encontrada
+        Busque por conteúdos em
+          <Text style={styles.textNegrito}> Educação Permanente </Text>
+          e
+          <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
       </Caption>
     );
   }
@@ -118,29 +77,11 @@ export default class Buscar extends Component {
       </View>
     );
   };
-  
-  async search() {
-    const { page } = this.state;
-    const response = await getBusca(this.state.text, this.state.page);
-    console.log(response.data.data);
-    this.setState({
-      data: [ ...this.state.data, ...response.data.data ],
-      page: page + 1,
-      loading: false,
-    });
-    // setData(response.data.data);
-    // console.log({ page });
-    // const numberPage = (page + 1);
-    // setPage(numberPage);
-    // setLoad(false);
-    // console.log('load depois ');
-    // console.log({ load });
-  }
-  runSearch(text) {
-    console.log({text})
-    this.setState({ text: text})
-    console.log(this.state.text)
-    this.search()
+
+
+  runSearch(texto) {
+    console.log({texto})
+    this.setState({ text: texto})
   }
 
   createItem(item, navigation) {
@@ -191,8 +132,20 @@ export default class Buscar extends Component {
           value={this.state.text}
           style={styles.searchHeaderText}
           // eslint-disable-next-line no-shadow
-          onChangeText={text => this.runSearch(text)}
+          onChangeText={text =>this.setState({text: text})}
         />
+      ),
+
+      headerRight: () => (
+        <TouchableOpacity
+          style={{
+            marginRight: 23
+          }}
+          mode="contained"
+          onPress={() => this.loadRepositories()}
+        >
+          <Icon name="magnify" size={30} color="#ffffff" />
+        </TouchableOpacity>
       ),
 
       headerLeft: () => (
@@ -208,19 +161,23 @@ export default class Buscar extends Component {
     });
     
     return (
-      <FlatList
-        // contentContainerStyle={styles.list}
-        data={this.state.data}
-        // keyExtractor={item => item.ID.toString()}
-        keyExtractor={item => item.id}
-        //renderItem={({ item }) => this.createItem(item, navigation)}
-        renderItem={this.renderItem}
-        //onEndReached={this.search}
-        onEndReached={this.loadRepositories}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={this.renderFooter}
-      />
+      <View style={styles.emptyBackground}>
+        {this.state.text.length === 0 ? (          
+          this.infoPreview()
+        ) : (
+          <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => this.createItem(item, navigation)}
+          keyExtractor={item => item.id}
+          onEndReached={this.loadRepositories}
+          onEndReachedThreshold={0.2}
+          ListFooterComponent={this.renderFooter}
+          ListEmptyComponent={this.verificarListaVazia}
+        />
+        )}
+      </View>
     );
+
   }
 }
 
@@ -281,18 +238,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   emptyText: {
-    marginTop: 20,
+    flex: 1,
+    alignContent: 'center',
+    flexDirection: 'row',
+    padding: 10,
+    fontSize: 15,
     color: '#00000099',
     fontStyle: 'normal',
     fontWeight: 'normal',
     lineHeight: 28,
     letterSpacing: 0.5,
-    fontSize: 14,
-    position: 'absolute',
-    left: '3.89%',
-    // right: '3.89%',
-    top: '2.72%',
-    // bottom: '85.42%',
   },
   textNegrito: {
     fontWeight: 'bold'
