@@ -19,6 +19,7 @@
 		3A962EFA44819D66B2A20172 /* libPods-isusapp-isusappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C3E7747A78CFEF85265E57 /* libPods-isusapp-isusappTests.a */; };
 		4F8957EF7D4EFC6EF6BBA4B3 /* libPods-isusapp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3F5F633F7DB231B440049B /* libPods-isusapp-tvOSTests.a */; };
 		781A4DE59E9BAA5757117AC8 /* libPods-isusapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E3A0FEDDEAF4F287CAACB3 /* libPods-isusapp.a */; };
+		8B1175D7249BDE8600835874 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B1175D6249BDE8600835874 /* AppCenter-Config.plist */; };
 		D619BEBC4532F9D5E66E7D82 /* libPods-isusapp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A004A9B02B18223602881FEC /* libPods-isusapp-tvOS.a */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		453E6F448A27A67F3D70A70D /* Pods-isusapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOSTests/Pods-isusapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		7531BE025CAC415C4376CBDA /* Pods-isusapp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOS/Pods-isusapp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		7B0C941442B39F352A0DB398 /* Pods-isusapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp.release.xcconfig"; path = "Target Support Files/Pods-isusapp/Pods-isusapp.release.xcconfig"; sourceTree = "<group>"; };
+		8B1175D6249BDE8600835874 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		A004A9B02B18223602881FEC /* libPods-isusapp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7C3E7747A78CFEF85265E57 /* libPods-isusapp-isusappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp-isusappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA3265B1FA5BCBBB9D749F2 /* Pods-isusapp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-isusapp-tvOS/Pods-isusapp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8B1175D6249BDE8600835874 /* AppCenter-Config.plist */,
 				13B07FAE1A68108700A75B9A /* isusapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* isusappTests */,
@@ -350,6 +353,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				8B1175D7249BDE8600835874 /* AppCenter-Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

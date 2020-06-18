@@ -4,9 +4,17 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+#import <CodePush/CodePush.h>
+
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
-#import <CodePush/CodePush.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
 #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
