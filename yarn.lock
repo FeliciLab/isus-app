@@ -7078,6 +7078,16 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
+raw-body@^2.2.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.4.1.tgz#30ac82f98bb5ae8c152e67149dac8d55153b168c"
+  integrity sha512-9WmIKF6mkvA0SLmA2Knm9+qj89e+j1zqgyn8aXGd7+nAduPoqgI9lO57SAZNn/Byzo5P7JhXTyg9PzaJbH73bA==
+  dependencies:
+    bytes "3.1.0"
+    http-errors "1.7.3"
+    iconv-lite "0.4.24"
+    unpipe "1.0.0"
+
 react-content-loader@^5.0.4:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-5.0.4.tgz#1493491d2f6b309d281d84144a655417ea734486"
@@ -7105,6 +7115,19 @@ react-native-app-intro-slider@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/react-native-app-intro-slider/-/react-native-app-intro-slider-4.0.2.tgz#890a7a4c1f190ef27a54801bb67f2bb089d891b5"
   integrity sha512-sZbBBGxAB/MUP/urNxC+W1/KGu/uwshI1nFuuIKSNlcnLW8E5jp+lmWQoRNdx8K26vEBd13cnWV/1T5XCYhSAQ==
+
+react-native-code-push@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-code-push/-/react-native-code-push-6.2.1.tgz#016bd75b9d2e4d8024de3b249cc2313e8769f6b8"
+  integrity sha512-FrvIq16fqVKWdDCh/akj5Hf59eJQDJEwUHAYo1BCo1I+q5GOCZuLs97n2ec+E/x0JOoszRcjVqKSEFXldODoNg==
+  dependencies:
+    code-push "^3.1.0"
+    glob "^7.1.6"
+    hoist-non-react-statics "^3.3.2"
+    inquirer "^7.1.0"
+    plist "3.0.1"
+    semver "^7.2.1"
+    xcode "2.1.0"
 
 react-native-config@^1.2.0:
   version "1.2.0"
