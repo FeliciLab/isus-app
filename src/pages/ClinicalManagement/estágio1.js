@@ -9,12 +9,14 @@ import {
 import orientaçãoInicial from './text-content/orientacoes-iniciais.json';
 import ClinicalButton from './ClinicalButton';
 
-const defaultTextColor = 'rgba(0,0,0,0.6)';
+const corDoTextoPadrão = 'rgba(0,0,0,0.6)';
 
 const Estágio1 = ({ navigation }) => {
   const {
-    hiddenCardTitle, hiddenCardText, containerDoAviso, negrito,
-    textColor, containerDeTextoDoAviso, itemDeTopico, tituloDeTopico
+    hiddenCardTitle, hiddenCardText, containerDoAviso, negrito, containerDeTextoDoAviso,
+    itemDeTopico, tituloDeTopico,
+    containerDaObservação, containerDoBotão,
+    largura30, largura60, CorDoTexto
   } = styles;
 
   const mostrarSintomas = sintomas => (
@@ -22,59 +24,52 @@ const Estágio1 = ({ navigation }) => {
   );
 
   const mostrarTituloEConteudo = topico => (
-    <View key={topico.title}>
+    <View key={topico.título}>
       <Text style={tituloDeTopico}>
-        {topico.title}
+        {topico.título}
       </Text>
-      {topico.items.map(item => (
-        <Paragraph style={itemDeTopico}>{item}</Paragraph>
-      ))}
+      <View style={{ marginTop: 8 }}>
+        {topico.itens.map(item => (
+          <Paragraph style={itemDeTopico}>{item}</Paragraph>
+        ))}
+      </View>
     </View>
   );
 
   return (
     <>
-  <Text style={hiddenCardTitle}>{orientaçãoInicial.title}</Text>
-  <Text style={hiddenCardText}>{orientaçãoInicial.description}</Text>
+  <Text style={hiddenCardTitle}>{orientaçãoInicial.título}</Text>
+  <Text style={hiddenCardText}>{orientaçãoInicial.descrição}</Text>
 
-  { mostrarSintomas(orientaçãoInicial.sections.symptoms) }
+  { mostrarSintomas(orientaçãoInicial.seções.sintomas) }
 
   <View style={containerDoAviso}>
     <Text style={containerDeTextoDoAviso}>
-      <Text style={negrito}>{`${orientaçãoInicial.sections.warningLabel.title} `}</Text>
-      <Text>{orientaçãoInicial.sections.warningLabel.texto1}</Text>
+      <Text style={negrito}>{`${orientaçãoInicial.seções.atenção.título} `}</Text>
+      <Text style={CorDoTexto}>{orientaçãoInicial.seções.atenção.texto1}</Text>
     </Text>
-    <Text style={textColor}>{orientaçãoInicial.sections.warningLabel.texto2}</Text>
+    <Text style={CorDoTexto}>{orientaçãoInicial.seções.atenção.texto2}</Text>
   </View>
 
- { mostrarTituloEConteudo(orientaçãoInicial.sections.riskGroup) }
+ { mostrarTituloEConteudo(orientaçãoInicial.seções.grupoDeRisco) }
 
-  <View style={{
-    flex: 1,
-    marginVertical: 8,
-    alignItems: 'center',
-    borderRadius: 2
-  }}
-  >
-    <Text style={{ color: textColor }}>
-      <Text style={{ fontWeight: 'bold' }}>{`${orientaçãoInicial.sections.observation.title} `}</Text>
-      <Text>{orientaçãoInicial.sections.observation.text}</Text>
+  <View style={containerDaObservação}>
+    <Text style={CorDoTexto}>
+      <Text style={negrito}>{`${orientaçãoInicial.seções.observação.título}`}</Text>
+      <Text style={CorDoTexto}>{orientaçãoInicial.seções.observação.texto}</Text>
     </Text>
   </View>
 
-  { mostrarTituloEConteudo(orientaçãoInicial.sections.alerts) }
+  { mostrarTituloEConteudo(orientaçãoInicial.seções.alertas) }
 
-  { mostrarTituloEConteudo(orientaçãoInicial.sections.sinaisDeGravidade) }
+  { mostrarTituloEConteudo(orientaçãoInicial.seções.sinaisDeGravidade) }
 
-  <View style={{
-    marginVertical: 20, flexDirection: 'row', width: '100%', justifyContent: 'space-evenly'
-  }}
-  >
-    <View style={{ width: '30%' }}>
+  <View style={containerDoBotão}>
+    <View style={largura30}>
       <ClinicalButton onPress={() => Linking.openURL('tel: 08002751475')} label="TELE-UTI" />
     </View>
-    <View style={{ width: '60%' }}>
-      <ClinicalButton onPress={() => navigation.navigate('webview', { title: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })} label="PLANTÃO CORONAVÍRUS" />
+    <View style={largura60}>
+      <ClinicalButton onPress={() => navigation.navigate('webview', { título: 'Plantão Corona Vírus', url: 'https://coronavirus.ceara.gov.br/' })} label="PLANTÃO CORONAVÍRUS" />
     </View>
   </View>
     </>
@@ -83,18 +78,22 @@ const Estágio1 = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   tituloDeTopico: {
-    fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 16
+    marginTop: 16,
+    color: corDoTextoPadrão
+  },
+  containerDoItem: {
+    marginTop: 8
   },
   itemDeTopico: {
+    color: corDoTextoPadrão,
     fontSize: 14
   },
   containerDeTextoDoAviso: {
     marginTop: 2,
     marginBottom: 3,
     marginHorizontal: 7,
-    color: defaultTextColor
+    color: corDoTextoPadrão
   },
   containerDoAviso: {
     flex: 1,
@@ -103,11 +102,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 2
   },
+  containerDaObservação: {
+    flex: 1,
+    marginVertical: 8,
+    alignItems: 'center',
+    borderRadius: 2
+  },
+  containerDoBotão: {
+    marginVertical: 20,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-evenly'
+  },
   Link: {
     color: '#87BA25'
   },
-  textColor: {
-    color: 'rgba(0, 0, 0, 0.6)'
+  CorDoTexto: {
+    color: corDoTextoPadrão
   },
   negrito: {
     fontWeight: 'bold'
@@ -116,8 +127,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'rgba(0,0,0,0.6)'
+    color: corDoTextoPadrão
   },
+  largura30: { width: '30%' },
+  largura60: { width: '60%' }
 });
 
 export default Estágio1;
