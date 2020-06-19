@@ -1,42 +1,44 @@
 {
-    "sections": {
-        "paragraphOne": {
-            "firstPhrase": "• Utilizar ventilação mecânica (VM) protetora ",
+    "seções": [
+        {
+            "texto1": "• Utilizar ventilação mecânica (VM) protetora ",
             "link": {
-                "title": "Protocolo",
+                "título": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/",
-                "text": "conforme protocolo"
+                "texto": "conforme protocolo"
             },
-            "secondPhrase": " com individualização de parâmetros, sedação +/- bloqueio neuromuscular.",
+            "texto2": " com individualização de parâmetros, sedação +/- bloqueio neuromuscular.",
             "item": {
-                "firstPhrase": "- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona) ",
+                "texto": "- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona) ",
                 "link": {
-                    "title": "Protocolo",
+                    "título": "Protocolo",
                     "url": "https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/",
-                    "text": "conforme protocolo."
+                    "texto": "conforme protocolo."
                 }
             }
         },
-        "paragraphTwo": {
-            "bold": "‎• Administrar corticoterapia",
-            "secondPhrase": ", em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva ",
+        {
+            "destaque": "‎• Administrar corticoterapia",
+            "texto1": ", em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva ",
             "link": {
-                "title": "Protocolo",
+                "título": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/",
-                "text": "conforme protocolo."
+                "texto": "conforme protocolo."
             }
 
         },
-        "paragraphThree": {
-            "bold": "‎• Administrar anticoagulação com HBPM ",
+        {
+            "destaque": "‎• Administrar anticoagulação com HBPM ",
             "secondPhrase": "se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão ",
             "link": {
-                "title": "Protocolo",
+                "título": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/",
-                "text": "conforme protocolo."
+                "texto": "conforme protocolo."
             }
 
         },
-        "paragraphFour": "• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva."
-    }
+        {
+         "texto": "• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva."
+        }
+    ]
 }

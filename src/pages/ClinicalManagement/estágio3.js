@@ -1,76 +1,82 @@
 import React from 'react';
 import {
-  Text, View
+  Text, View,
+  StyleSheet
 } from 'react-native';
 
 import { Paragraph } from 'react-native-paper';
 import checkPlatform from '../../utils/PDF';
 import Internação from './text-content/internacao-hospitalar.json';
 
-
 const Estágio3 = ({ navigation }) => {
-  const tópicos = [
-    tópico1 => (
+  const seções = [
+    seção1 => (
       <>
         <Paragraph>
-          {tópico1.texto1}
-          <Text style={{ fontWeight: 'bold' }}>
-            {tópico1.destaque}
+          {seção1.texto1}
+          <Text style={estilo.destaque}>
+            {seção1.destaque}
           </Text>
-          {tópico1.texto2}
-          <Text onPress={() => navigation.navigate('webview', { title: tópico1.link.título, url: tópico1.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{tópico1.link.texto}</Text>
+          {seção1.texto2}
+          <Text onPress={() => navigation.navigate('webview', { title: seção1.link.título, url: seção1.link.url })} style={estilo.link}>{seção1.link.texto}</Text>
         </Paragraph>
-        {tópico1.itens.map(item => (
+        {seção1.itens.map(item => (
             <Paragraph>
               {item}
             </Paragraph>
         ))}
       </>
     ),
-    tópico2 => (
-      <Paragraph style={{ marginVertical: 8 }}>
-      <Text style={{ fontWeight: 'bold' }}>{tópico2.destaque}</Text>
-      {tópico2.texto1}
-      <Text onPress={() => (checkPlatform(tópico2.link.url, 'Restricao do uso do oseltamivir.pdf'))} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{tópico2.link.texto}</Text>
-      {tópico2.texto2}
+    seção2 => (
+      <Paragraph style={estilo.margin8}>
+      <Text style={estilo.destaque}>{seção2.destaque}</Text>
+      {seção2.texto1}
+      <Text onPress={() => (checkPlatform(seção2.link.url, 'Restricao do uso do oseltamivir.pdf'))} style={estilo.link}>{seção2.link.texto}</Text>
+      {seção2.texto2}
       </Paragraph>
     ),
-    tópico3 => (
+    seção3 => (
       <Paragraph>
-        <Text style={{ fontWeight: 'bold' }}>{tópico3.destaque}</Text>
-        {tópico3.texto1}
-      <Text onPress={() => navigation.navigate('webview', { title: tópico3.link.título, url: tópico3.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{tópico3.link.texto}</Text>
+        <Text style={estilo.destaque}>{seção3.destaque}</Text>
+        {seção3.texto1}
+      <Text onPress={() => navigation.navigate('webview', { title: seção3.link.título, url: seção3.link.url })} style={estilo.link}>{seção3.link.texto}</Text>
       </Paragraph>
     ),
-    tópico4 => (
+    seção4 => (
       <Paragraph>
-        <Text style={{ fontWeight: 'bold' }}>{tópico4.destaque}</Text>
-        {tópico4.texto1}
-        <Text onPress={() => navigation.navigate('webview', { title: tópico4.link.título, url: tópico4.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{tópico4.link.texto}</Text>
+        <Text style={estilo.destaque}>{seção4.destaque}</Text>
+        {seção4.texto1}
+        <Text onPress={() => navigation.navigate('webview', { title: seção4.link.título, url: seção4.link.url })} style={estilo.link}>{seção4.link.texto}</Text>
       </Paragraph>
     ),
-    tópico5 => (
-      <Paragraph style={{ marginVertical: 8 }}>
-        {tópico5.texto1}
-        <Text style={{ fontWeight: 'bold' }}>{tópico5.destaque}</Text>
-        <Text onPress={() => navigation.navigate('webview', { title: tópico5.link.título, url: tópico5.link.url })} style={{ textDecorationLine: 'underline', color: '#FF9800' }}>{ tópico5.link.text }</Text>
+    seção5 => (
+      <Paragraph style={estilo.margin8}>
+        {seção5.texto1}
+        <Text style={estilo.destaque}>{seção5.destaque}</Text>
+        <Text onPress={() => navigation.navigate('webview', { title: seção5.link.título, url: seção5.link.url })} style={estilo.link}>{ seção5.link.text }</Text>
       </Paragraph>
     ),
-    tópico6 => (
+    seção6 => (
       <Paragraph>
-        {tópico6.texto}
+        {seção6.texto}
       </Paragraph>
     )
-
   ];
 
   return (
     <>
-    <View style={{ marginTop: 20 }}>
-      { tópicos.map((gerarTópico, index) => gerarTópico(Internação.tópicos[index]))}
+    <View style={estilo.margin20}>
+      { seções.map((gerarSeção, index) => gerarSeção(Internação.seções[index]))}
     </View>
     </>
   );
 };
+
+const estilo = StyleSheet.create({
+  destaque: { fontWeight: 'bold' },
+  link: { textDecorationLine: 'underline', color: '#FF9800' },
+  margin8: { marginVertical: 8 },
+  margin20: { marginTop: 20 }
+});
 
 export default Estágio3;

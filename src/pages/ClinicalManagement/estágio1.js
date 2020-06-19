@@ -32,7 +32,7 @@ const Estágio1 = ({ navigation }) => {
       <Text style={tituloDeTopico}>
         {topico.título}
       </Text>
-      <View style={{ marginTop: 8 }}>
+      <View style={styles.margin8}>
         {topico.itens.map(item => (
           <Paragraph style={itemDeTopico}>{item}</Paragraph>
         ))}
@@ -101,6 +101,9 @@ const styles = StyleSheet.create({
     marginBottom: 3,
     marginHorizontal: 7,
     color: corDoTextoPadrão
+  },
+  margin8: {
+    marginTop: 8
   },
   containerDoAviso: {
     flex: 1,
