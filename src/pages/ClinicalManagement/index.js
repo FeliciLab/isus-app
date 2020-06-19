@@ -3,11 +3,10 @@ import {
   Text, ScrollView, View, Linking, Image
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {
-  Card, Button, Divider
-} from 'react-native-paper';
+import { Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import CartãoDeEstágio from './cartãodeEstágio';
 import Banner from '../../assets/images/banner.png';
 import Estagio1SVG from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2SVG from '../../assets/icons/estagiosManejo/estagio02.svg';
@@ -69,76 +68,6 @@ export default function ClinicalManagement({ navigation }) {
       )
     });
   });
-
-  const CardStage = ({
-    id,
-    isCollapsed,
-    collapsedMethod,
-    cardHeight,
-    stageTitle,
-    title,
-    subtitle,
-    Logo,
-    HideContent,
-    color
-  }) => (
-      <Card
-        elevation={4}
-        style={{
-          marginVertical: 8,
-          marginHorizontal: 1,
-          MaxHeight: isCollapsed ? (cardHeight) : (172)
-        }}
-      >
-        <Card.Content style={{ flexDirection: 'column' }}>
-          <View style={{
-            flexDirection: 'row', justifyContent: 'space-between'
-          }}
-          >
-            <View style={{ flex: 1 }}>
-              <Text style={{
-                marginVertical: 7, letterSpacing: 1.5, color: 'rgba(0, 0, 0, 0.87)', fontSize: 10
-              }}
-              >
-                {stageTitle}
-              </Text>
-              <Text style={{ color, fontSize: 24 }}>{title}</Text>
-              {
-                subtitle && !isCollapsed && (
-                <Text style={{
-                  color: textColor,
-                  fontSize: 14,
-                  marginVertical: 15
-                }}
-                >
-                {subtitle}
-                </Text>
-                )
-              }
-            </View>
-            <View>
-              {
-                id === 4 ? <Image source={Logo} /> : <Logo />
-              }
-            </View>
-          </View>
-          <View>
-            {
-              isCollapsed && <HideContent navigation={navigation} />
-            }
-          </View>
-        </Card.Content>
-        <Card.Actions>
-          <Button
-            color={color}
-            style={{ color: '#4054B2', letterSpacing: 0.75 }}
-            onPress={() => collapsedMethod(!isCollapsed)}
-          >
-            {isCollapsed ? 'fechar' : 'Saiba mais'}
-          </Button>
-        </Card.Actions>
-      </Card>
-  );
 
   const cardItems = [
     {
@@ -229,23 +158,7 @@ export default function ClinicalManagement({ navigation }) {
         <View style={{ marginVertical: 16 }}>
           {
             // eslint-disable-next-line max-len
-            cardItems.map(item => (
-            <CardStage
-              key={item.id}
-              id={item.id}
-              cardHeight={item.cardHeight}
-              collapsedMethod={item.collapsedMethod}
-              color={item.color}
-              isCollapsed={item.isCollapsed}
-              stage-title={item.title}
-              HideContent={item.HideContent}
-              stageTitle={item.stageTitle}
-              title={item.title}
-              subtitle={item.subtitle}
-              content={item.content}
-              Logo={item.Logo}
-            />
-            ))
+            cardItems.map(item => CartãoDeEstágio(item))
           }
         </View>
 
