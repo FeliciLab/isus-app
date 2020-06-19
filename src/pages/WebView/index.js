@@ -12,6 +12,8 @@ export default function WebViewPage({ navigation, route }) {
   const widthView = Dimensions.get('window').width;
   console.log(widthView);
   let res = '';
+  
+  // verificando o tamanho da tela do dispositivo para limitar os caracteres.
   if (widthView <= 320) {
     // eslint-disable-next-line no-unused-expressions
     (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 24).trim()}...` : res = route.params.title;
@@ -19,7 +21,6 @@ export default function WebViewPage({ navigation, route }) {
     // eslint-disable-next-line no-unused-expressions
     (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 35).trim()}...` : res = route.params.title;
   }
-  console.log(res);
 
   useLayoutEffect(() => {
     navigation.setOptions({

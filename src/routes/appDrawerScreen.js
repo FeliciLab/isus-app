@@ -34,7 +34,7 @@ function CustomDrawerContent(props) {
         <View
           style={{
             flexDirection: 'row',
-            marginTop: 40,
+            marginTop: 20,
             borderBottomWidth: 0.5,
             borderBottomColor: '#C4C4C4',
           }}
@@ -42,7 +42,7 @@ function CustomDrawerContent(props) {
           <Heart size={40} style={{ margin: 10 }} />
         </View>
       </SafeAreaView>
-      <DrawerContentScrollView {...props} style={{ marginTop: -10 }}>
+      <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
         <DrawerItem
           icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
           label="Home"
