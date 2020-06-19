@@ -24,7 +24,8 @@ export default class Buscar extends Component {
       page: 1,
       loading: false,
       text: '',
-      ultimoTermo: ''
+      ultimoTermo: '',
+      relogio: 0
     };
   }
 
@@ -46,19 +47,20 @@ export default class Buscar extends Component {
 
   }
 
-  verificarListaVazia = () => {    
+  infoPesquisando = () => {    
     return (
       <Caption style={styles.emptyText}>
-        Nenhuma informação encontrada ou faça a sua pesquisa
+        Pesquisando por: <Text style={styles.textNegrito}>{this.state.text}</Text>
       </Caption>
     );    
   }
-
+car
   /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
   ENCONTRE NENHUM ARTIGO */
   // eslint-disable-next-line no-shadow
   infoPreview() {
     // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+    this.state.data = [];
     return (
       <Caption style={styles.emptyText}>
         Busque por conteúdos em
@@ -114,6 +116,15 @@ export default class Buscar extends Component {
     );
   }
 
+
+  teste(text, load) {
+    clearTimeout(this.state.relogio);
+    this.setState({text: text});
+    console.log('dentro de teste');
+    this.state.relogio = setTimeout(function(){ load() }, 3000);
+  }
+
+
   render() {
     const { navigation } = this.props;
     navigation.setOptions({
@@ -132,7 +143,7 @@ export default class Buscar extends Component {
           value={this.state.text}
           style={styles.searchHeaderText}
           // eslint-disable-next-line no-shadow
-          onChangeText={text =>this.setState({text: text})}
+          onChangeText={text => this.teste(text, () => { this.loadRepositories() } )}
         />
       ),
 
@@ -144,7 +155,7 @@ export default class Buscar extends Component {
           mode="contained"
           onPress={() => this.loadRepositories()}
         >
-          <Icon name="magnify" size={30} color="#ffffff" />
+          {/** <Icon name="magnify" size={30} color="#ffffff" /> **/}
         </TouchableOpacity>
       ),
 
@@ -166,13 +177,15 @@ export default class Buscar extends Component {
           this.infoPreview()
         ) : (
           <FlatList
+          contentContainerStyle={{ flexGrow: 1 }}
           data={this.state.data}
+          extraData={this.state}
           renderItem={({ item }) => this.createItem(item, navigation)}
           keyExtractor={item => item.id}
           onEndReached={this.loadRepositories}
           onEndReachedThreshold={0.2}
           ListFooterComponent={this.renderFooter}
-          ListEmptyComponent={this.verificarListaVazia}
+          ListEmptyComponent={this.infoPesquisando}
         />
         )}
       </View>
