@@ -10,11 +10,10 @@ export default function WebViewPage({
   navigation, route, mostrarEsqueletoDeCarregamento, esqueletoDeCarregamento
 }) {
   const navigator = useNavigation();
-  console.log(route.params.title.length)  
+  console.log(route.params.title.length);
   const widthView = Dimensions.get('window').width;
   console.log(widthView);
   let res = '';
-  
   // verificando o tamanho da tela do dispositivo para limitar os caracteres.
   if (widthView <= 320) {
     // eslint-disable-next-line no-unused-expressions
