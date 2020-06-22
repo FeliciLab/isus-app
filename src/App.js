@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import OneSignal from 'react-native-onesignal';
 import Routes from './routes';
 import { navigationRef, navigate } from './routes/rootNavigation';
+import OneSignalActions from './utils/oneSignalActions';
 
 export default function App() {
   useEffect(() => {
@@ -15,16 +16,13 @@ export default function App() {
 
     OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
 
-    // OneSignal.getPermissionSubscriptionState((status) => {
-    //   if (status.hasPrompted === false) {
-    //     OneSignal.addTrigger('prompt_ios', 'true');
-    //   }
-    // });
-
     OneSignal.addEventListener('opened', onOpened);
+    OneSignal.addEventListener('inAppMessageClicked', onInAppClicked);
+
 
     return function cleanup() {
       OneSignal.removeEventListener('opened', onOpened);
+      OneSignal.removeEventListener('inAppMessageClicked', onInAppClicked);
     };
   }, []);
 
@@ -33,6 +31,15 @@ export default function App() {
       return navigate('webview', { title: openResult.notification.payload.title, url: openResult.notification.payload.launchURL });
     }
     return navigate('App');
+  }
+
+  function onInAppClicked(result) {
+    if (result.click_name === OneSignalActions.FEEDBACK_SIM) {
+      navigate('App', { screen: 'FEEDBACK' });
+      OneSignal.sendTag('acessou_feedback', 'sim');
+    } else {
+      OneSignal.sendTag('acessou_feedback', 'nao');
+    }
   }
 
   function myiOSPromptCallback(permission) {
