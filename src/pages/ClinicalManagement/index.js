@@ -31,8 +31,8 @@ export default function ClinicalManagement({ navigation }) {
   const [stage4Collapse, setStage4Collapse] = useState(false);
   const navigator = useNavigation();
 
-  const manejoOriginUrl = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
-  const manejoDestPath = 'Manejo Clinico.pdf';
+  const urlPDFDoManejo = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/06/Manejo-Cl%C3%ADnico-dos-pacientes-com-Covid-19.pdf';
+  const caminhoDestinoManejo = 'Manejo Clinico.pdf';
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -383,7 +383,7 @@ export default function ClinicalManagement({ navigation }) {
 
         <View>
             <TouchableOpacity
-              onPress={() => (checkPlatform(manejoOriginUrl, manejoDestPath))}
+              onPress={() => (checkPlatform(urlPDFDoManejo, caminhoDestinoManejo))}
               style={{ justifyContent: 'space-between', flexDirection: 'row' }}
             >
             <Text style={{ marginTop: 12, fontSize: 14, color: '#BDBDBD' }}>Realize o download em PDF</Text>
