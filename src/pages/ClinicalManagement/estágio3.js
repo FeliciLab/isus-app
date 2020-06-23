@@ -6,7 +6,7 @@ import {
 
 import { Paragraph } from 'react-native-paper';
 import checkPlatform from '../../utils/PDF';
-import Internação from './text-content/internacao-hospitalar.json';
+import Internação from './json/estágio3.json';
 
 const Estágio3 = ({ navigation }) => {
   const seções = [
@@ -21,8 +21,8 @@ const Estágio3 = ({ navigation }) => {
           <Text onPress={() => navigation.navigate('webview', { title: seção1.link.título, url: seção1.link.url })} style={estilo.link}>{seção1.link.texto}</Text>
         </Paragraph>
         {seção1.itens.map(item => (
-            <Paragraph>
-              {item}
+            <Paragraph key={item.id}>
+              {item.descrição}
             </Paragraph>
         ))}
       </>

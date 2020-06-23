@@ -7,7 +7,7 @@ import {
 import {
   Paragraph
 } from 'react-native-paper';
-import Emergecia from './text-content/emergencia.json';
+import Emergecia from './json/estágio2.json';
 import checkPlatform from '../../utils/PDF';
 
 const Estágio2 = ({ navigation }) => {
@@ -72,15 +72,12 @@ const Estágio2 = ({ navigation }) => {
   return (
     <>
       <Text style={estilo.TítuloDoCard}>{título}</Text>
-      {seções.map((seção) => {
-        console.log(seção.id);
-        return (
+      {seções.map(seção => (
           <View key={seção.id} style={{ marginTop: 15 }}>
             <RenderizarTexto seção={seção} />
           </View>
 
-        );
-      })
+      ))
     }
     </>
   );

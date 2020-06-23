@@ -24,18 +24,22 @@
                 "parágrafos": [
                     {
                         "id": "5.1",
+                        "temURL": false,
                         "texto": "- SpO₂ < 95% em ar ambiente;"
                     },
                     {
                         "id": "5.2",
+                        "temURL": false,
                         "texto": " - Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);"
                     },
                     {
                         "id": "5.3",
+                        "temURL": false,
                         "texto": " - Piora nas condições clínicas de base;"
                     },
                     {
                         "id": "5.4",
+                        "temURL": false,
                         "texto": " - Vulnerabilidade social."
                     }
                 ]
@@ -46,42 +50,52 @@
                 "parágrafos": [
                     {
                         "id": "6.1",
+                        "temURL": false,
                         "texto":   " - Frequência respiratória (f > 30 irpm);"
                     },
                     {
                         "id": "6.2",
+                        "temURL": false,
                         "texto":   " - Insuficiência respiratória;"
                     },
                     {
                         "id": "6.3",
+                        "temURL": false,
                         "texto":   " - Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);"
                     },
                     {
                         "id": "6.4",
+                        "temURL": false,
                         "texto":   " - SpO₂ < 93%;"
                     },
                     {
                         "id": "6.5",
+                        "temURL": false,
                         "texto": " - Rápida deterioração clínica;"
                     },
                     {
                         "id": "6.6",
+                        "temURL": false,
                         "texto": " - Cianose;"
                     },
                     {
                         "id": "6.7",
+                        "temURL": false,
                         "texto": " - Alterações graves do estado mental ou neurológicas;"
                     },
                     {
                         "id": "6.8",
+                        "temURL": false,
                         "texto":   " - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;"
                     },
                     {
                         "id": "6.9",
+                        "temURL": false,
                         "texto":   " - Relação PaO₂/FIO₂ < 300;"
                     },
                     {
                         "id": "6.10",
+                        "temURL": false,
                         "texto":  " - Julgamento clínico."
                     }
                 ]
@@ -109,10 +123,12 @@
                 "parágrafos": [
                     {
                         "id": "8.1",
+                        "temURL": false,
                         "texto": " • Sinais de alerta e/ou"
                     },
                     {
                         "id": "8.2",
+                        "temURL": false,
                         "texto": " • Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou"
                     },
                     {

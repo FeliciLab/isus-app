@@ -10,9 +10,18 @@
                 "texto": "conforme protocolo."
             },
             "itens": [
-                "- Colher gasometria arterial em uso de oxigênio.",
-                "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI.",
-                "- Considerar posição prona no paciente com ventilação espontânea."
+                {
+                    "id": "1.1",
+                    "descrição":"- Colher gasometria arterial em uso de oxigênio."
+                },
+                {
+                    "id": "1.2",
+                    "descrição": "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI."
+                },
+                {
+                    "id": "1.3",
+                    "descrição": "- Considerar posição prona no paciente com ventilação espontânea."
+                }
             ]
         },
         {

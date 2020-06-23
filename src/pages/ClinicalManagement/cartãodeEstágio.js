@@ -19,7 +19,11 @@ const CartãoDeEstágio = estágio => (
                 <Text style={estilo.estiloDoEstágio}>
                     {estágio.títuloEstágio}
                 </Text>
-                <Text style={estilo.estiloDoEstágio2}>{estágio.título}</Text>
+               <Text
+                 style={{ ...estilo.estiloDoEstágio2, color: estágio.cor }}
+               >
+                 {estágio.título}
+               </Text>
                 {
                     estágio.subtítulo && (
                         <Text style={estilo.subtítuloDoEstágio}>
@@ -73,8 +77,7 @@ const estilo = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.87)',
     fontSize: 10
   },
-  estiloDoEstágio2: {
-    color: 'rgba(0,0,0,0.6)',
+  estilo2DoEstágio: {
     fontSize: 24
   },
   subtítuloDoEstágio: {

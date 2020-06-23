@@ -6,7 +6,7 @@ import {
   Paragraph
 } from 'react-native-paper';
 
-import orientaçãoInicial from './text-content/orientacoes-iniciais.json';
+import orientaçãoInicial from './json/estágio1.json';
 import ClinicalButton from './ClinicalButton';
 
 const corDoTextoPadrão = 'rgba(0,0,0,0.6)';

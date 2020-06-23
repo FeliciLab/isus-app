@@ -1,6 +1,7 @@
 {
     "seções": [
         {
+            "id": 1,
             "texto1": "• Utilizar ventilação mecânica (VM) protetora ",
             "link": {
                 "título": "Protocolo",
@@ -18,6 +19,7 @@
             }
         },
         {
+            "id": 2,
             "destaque": "‎• Administrar corticoterapia",
             "texto1": ", em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva ",
             "link": {
@@ -28,6 +30,7 @@
 
         },
         {
+            "id": 3,
             "destaque": "‎• Administrar anticoagulação com HBPM ",
             "secondPhrase": "se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão ",
             "link": {
@@ -38,7 +41,8 @@
 
         },
         {
-         "texto": "• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva."
+            "id": 4,
+            "texto": "• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva."
         }
     ]
 }

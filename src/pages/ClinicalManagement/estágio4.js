@@ -6,7 +6,7 @@ import {
 import {
   Paragraph
 } from 'react-native-paper';
-import UTI from './text-content/UTI.json';
+import UTI from './json/estágio4.json';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 
 const Estágio4 = ({ navigation }) => {
