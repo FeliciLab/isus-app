@@ -6,6 +6,7 @@ import {
 
 const CartãoDeEstágio = estágio => (
     <Card
+      key={estágio.id}
       elevation={4}
       style={{
         ...estilo.cartão,
@@ -16,9 +17,9 @@ const CartãoDeEstágio = estágio => (
         <View style={estilo.containerDoCartão}>
             <View style={estilo.subcontainerDoCartão}>
                 <Text style={estilo.estiloDoEstágio}>
-                    {estágio.stageTitle}
+                    {estágio.títuloEstágio}
                 </Text>
-                <Text style={estilo.estiloDoEstágio2}>{estágio.title}</Text>
+                <Text style={estilo.estiloDoEstágio2}>{estágio.título}</Text>
                 {
                     estágio.subtítulo && (
                         <Text style={estilo.subtítuloDoEstágio}>
@@ -35,7 +36,7 @@ const CartãoDeEstágio = estágio => (
         </View>
         <View>
         {
-            estágio.estáColapsado && <estágio.HideContent navigation={estágio.navigation} />
+            estágio.estáAberto && <estágio.conteúdoOculto navigation={estágio.navigation} />
         }
         </View>
     </Card.Content>
@@ -43,7 +44,7 @@ const CartãoDeEstágio = estágio => (
         <Button
           color={estágio.cor}
           style={estilo.cartãoBotão}
-          onPress={() => estágio.MétodoDeAbertura(!estágio.estáAberto)}
+          onPress={() => estágio.métodoDeAbertura(!estágio.estáAberto)}
         >
         {estágio.estáAberto ? 'fechar' : 'Saiba mais'}
         </Button>

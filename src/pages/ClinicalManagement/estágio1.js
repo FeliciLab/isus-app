@@ -34,7 +34,7 @@ const Estágio1 = ({ navigation }) => {
       </Text>
       <View style={styles.margin8}>
         {topico.itens.map(item => (
-          <Paragraph style={itemDeTopico}>{item}</Paragraph>
+          <Paragraph key={item} style={itemDeTopico}>{item}</Paragraph>
         ))}
       </View>
     </View>

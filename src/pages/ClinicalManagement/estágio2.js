@@ -42,7 +42,7 @@ const Estágio2 = ({ navigation }) => {
             {seção.descrição}
         </Text>
         {seção.parágrafos && seção.parágrafos.map(parágrafo => (
-          <Paragraph key={parágrafo} style={estilo.TextoCinza}>
+          <Paragraph key={parágrafo.id} style={estilo.TextoCinza}>
             <RenderizarParágrafo parágrafo={parágrafo} />
           </Paragraph>
         ))}
@@ -51,7 +51,7 @@ const Estágio2 = ({ navigation }) => {
   };
 
   const RenderizarParágrafo = ({ parágrafo }) => {
-    if (typeof parágrafo === 'object') {
+    if (parágrafo.temURL) {
       return (
         <Paragraph>
           <Text style={estilo.TextoCinza}>{ parágrafo.trecho1 }</Text>
@@ -64,7 +64,7 @@ const Estágio2 = ({ navigation }) => {
     }
     return (
       <>
-       {parágrafo}
+       {parágrafo.texto}
       </>
     );
   };
@@ -72,11 +72,16 @@ const Estágio2 = ({ navigation }) => {
   return (
     <>
       <Text style={estilo.TítuloDoCard}>{título}</Text>
-      {seções.map(seção => (
-        <View key={seção} style={{ marginTop: 15 }}>
+      {seções.map((seção) => {
+        console.log(seção.id);
+        return (
+          <View key={seção.id} style={{ marginTop: 15 }}>
             <RenderizarTexto seção={seção} />
-        </View>
-      ))}
+          </View>
+
+        );
+      })
+    }
     </>
   );
 };

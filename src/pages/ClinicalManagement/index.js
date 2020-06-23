@@ -72,50 +72,50 @@ export default function ClinicalManagement({ navigation }) {
   const cardItems = [
     {
       id: 1,
-      stageTitle: 'Estágio 01 (2-5 dias)',
-      title: 'Orientações iniciais',
-      subtitle: 'Sintomas e sinais',
+      títuloEstágio: 'Estágio 01 (2-5 dias)',
+      título: 'Orientações iniciais',
+      subtítulo: 'Sintomas e sinais',
       Logo: Estagio1SVG,
-      color: '#4054B2',
-      isCollapsed: stage1Collapse,
-      collapsedMethod: setStage1Collapse,
-      cardHeight: 10000,
-      HideContent: Estágio1
+      cor: '#4054B2',
+      estáAberto: stage1Collapse,
+      métodoDeAbertura: setStage1Collapse,
+      alturaCard: 10000,
+      conteúdoOculto: Estágio1
     },
     {
       id: 2,
-      stageTitle: 'Estágio 02 (5-7 dias)',
-      title: 'UAPS/UPA/EMERGÊNCIA',
-      subtitle: 'Atendimento médico',
+      títuloEstágio: 'Estágio 02 (5-7 dias)',
+      título: 'UAPS/UPA/EMERGÊNCIA',
+      subtítulo: 'Atendimento médico',
       Logo: Estagio2SVG,
-      color: '#87BA25',
-      isCollapsed: stage2Collapse,
-      collapsedMethod: setStage2Collapse,
-      cardHeight: 801,
-      HideContent: Estágio2
+      cor: '#87BA25',
+      estáAberto: stage2Collapse,
+      métodoDeAbertura: setStage2Collapse,
+      alturaCard: 801,
+      conteúdoOculto: Estágio2
     },
     {
       id: 3,
-      stageTitle: 'Estágio 03 (7-10 dias)',
-      title: 'Internação Hospitalar',
+      títuloEstágio: 'Estágio 03 (7-10 dias)',
+      título: 'Internação Hospitalar',
       Logo: Estagio3SVG,
-      color: '#FF9800',
-      isCollapsed: stage3Collapse,
-      collapsedMethod: setStage3Collapse,
-      cardHeight: 738,
-      HideContent: Estágio3
+      cor: '#FF9800',
+      estáAberto: stage3Collapse,
+      métodoDeAbertura: setStage3Collapse,
+      alturaCard: 738,
+      conteúdoOculto: Estágio3
     },
     {
       id: 4,
-      stageTitle: 'Estágio 04 (11-20 dias)',
-      title: 'UTI',
-      subtitle: 'Ventilação mecânica',
+      títuloEstágio: 'Estágio 04 (11-20 dias)',
+      título: 'UTI',
+      subtítulo: 'Ventilação mecânica',
       Logo: Estagio4SVG,
-      color: '#F2453D',
-      isCollapsed: stage4Collapse,
-      collapsedMethod: setStage4Collapse,
-      cardHeight: 665,
-      HideContent: Estágio4
+      cor: '#F2453D',
+      estáAberto: stage4Collapse,
+      métodoDeAbertura: setStage4Collapse,
+      alturaCard: 665,
+      conteúdoOculto: Estágio4
     }
   ];
 

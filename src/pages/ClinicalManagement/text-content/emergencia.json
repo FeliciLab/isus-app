@@ -3,42 +3,91 @@
         "título": "Avaliação presencial",
         "seções": [
             {
+                "id": 1,
                 "descrição": "01 • Checar sinais e sintomas que sugiram Covid-19;"
             },
             {
+                "id": 2,
                 "descrição": "02 • Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
             },
             {
+                "id": 3,
                 "descrição": "03 • Realizar estratificação de risco (Grupos A, B, C e D);"
             },
             {
+                "id": 4,
                 "descrição": "04 • Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
             },
             {
+                "id": 5,
                 "descrição": "05 • Considerar internação nas seguintes condições:",
                 "parágrafos": [
-                    " - SpO₂ < 95% em ar ambiente;",
-                    " - Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
-                    " - Piora nas condições clínicas de base;",
-                    " - Vulnerabilidade social."
+                    {
+                        "id": "5.1",
+                        "texto": "- SpO₂ < 95% em ar ambiente;"
+                    },
+                    {
+                        "id": "5.2",
+                        "texto": " - Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);"
+                    },
+                    {
+                        "id": "5.3",
+                        "texto": " - Piora nas condições clínicas de base;"
+                    },
+                    {
+                        "id": "5.4",
+                        "texto": " - Vulnerabilidade social."
+                    }
                 ]
             },
             {
+                "id": 6,
                 "descrição": "06 • Efetuar internação nas seguintes condições:",
                 "parágrafos": [
-                    " - Frequência respiratória (f > 30 irpm);",
-                    " - Insuficiência respiratória;",
-                    " - Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
-                    " - SpO₂ < 93%;",
-                    " - Rápida deterioração clínica;",
-                    " - Cianose;",
-                    " - Alterações graves do estado mental ou neurológicas;",
-                    " - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;",
-                    " - Relação PaO₂/FIO₂ < 300;",
-                    " - Julgamento clínico."
+                    {
+                        "id": "6.1",
+                        "texto":   " - Frequência respiratória (f > 30 irpm);"
+                    },
+                    {
+                        "id": "6.2",
+                        "texto":   " - Insuficiência respiratória;"
+                    },
+                    {
+                        "id": "6.3",
+                        "texto":   " - Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);"
+                    },
+                    {
+                        "id": "6.4",
+                        "texto":   " - SpO₂ < 93%;"
+                    },
+                    {
+                        "id": "6.5",
+                        "texto": " - Rápida deterioração clínica;"
+                    },
+                    {
+                        "id": "6.6",
+                        "texto": " - Cianose;"
+                    },
+                    {
+                        "id": "6.7",
+                        "texto": " - Alterações graves do estado mental ou neurológicas;"
+                    },
+                    {
+                        "id": "6.8",
+                        "texto":   " - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;"
+                    },
+                    {
+                        "id": "6.9",
+                        "texto":   " - Relação PaO₂/FIO₂ < 300;"
+                    },
+                    {
+                        "id": "6.10",
+                        "texto":  " - Julgamento clínico."
+                    }
                 ]
             },
             {
+                "id": 7,
                 "descrição": {
                     "trecho1": "07 • Avaliar indicação para uso de",
                     "link1": {
@@ -55,11 +104,20 @@
                 }
             },
             {
+                "id": 8,
                 "descrição": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
                 "parágrafos": [
-                    " • Sinais de alerta e/ou",
-                    " • Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou",
                     {
+                        "id": "8.1",
+                        "texto": " • Sinais de alerta e/ou"
+                    },
+                    {
+                        "id": "8.2",
+                        "texto": " • Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou"
+                    },
+                    {
+                        "id": "8.3",
+                        "temURL": true,
                         "trecho1": " • Pacientes que irão utilizar ",
                         "link1": {
                             "título": "Protocolo",
