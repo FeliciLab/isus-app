@@ -34,7 +34,9 @@ export default function App() {
   }
 
   function onInAppClicked(result) {
-    if (result.click_name === OneSignalActions.FEEDBACK_SIM) {
+    const açãoDoBotãoClicado = Platform.OS === 'ios' ? result.clickName : result.click_name;
+
+    if (açãoDoBotãoClicado === OneSignalActions.FEEDBACK_SIM) {
       navigate('App', { screen: 'FEEDBACK' });
       OneSignal.sendTag('acessou_feedback', 'sim');
     } else {
