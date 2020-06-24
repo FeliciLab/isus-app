@@ -20,7 +20,7 @@ const CartãoDeEstágio = estágio => (
                     {estágio.títuloEstágio}
                 </Text>
                <Text
-                 style={{ ...estilo.estiloDoEstágio2, color: estágio.cor }}
+                 style={{ ...estilo.estilo2DoEstágio, color: estágio.cor }}
                >
                  {estágio.título}
                </Text>
