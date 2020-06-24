@@ -5,7 +5,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import checkPlatform from '../../utils/PDF';
 
-export default function BotãoBaixarPDF() {
+export default function BotaoBaixarPDF() {
   const UrlOrigemManejo = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
   const CaminhoDestino = 'Manejo Clinico.pdf';
 
@@ -13,9 +13,9 @@ export default function BotãoBaixarPDF() {
         <View>
           <TouchableOpacity
             onPress={() => (checkPlatform(UrlOrigemManejo, CaminhoDestino))}
-            style={estilo.Botão}
+            style={estilo.Botao}
           >
-          <Text style={estilo.descriçãoDownload}>Realize o download em PDF</Text>
+          <Text style={estilo.descricaoDownload}>Realize o download em PDF</Text>
           <Icon name="download" size={28} color="#BDBDBD" />
           </TouchableOpacity>
         </View>
@@ -23,12 +23,12 @@ export default function BotãoBaixarPDF() {
 }
 
 const estilo = StyleSheet.create({
-  descriçãoDownload: {
+  descricaoDownload: {
     marginTop: 12,
     fontSize: 14,
     color: '#BDBDBD'
   },
-  Botão: {
+  Botao: {
     justifyContent: 'space-between',
     flexDirection: 'row'
   }

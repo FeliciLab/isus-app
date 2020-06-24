@@ -6,13 +6,13 @@ import {
 import {
   Paragraph
 } from 'react-native-paper';
-import UTI from './json/estágio4.json';
+import UTI from './json/estagio4.json';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 
 const Estágio4 = ({ navigation }) => {
   const seções = [
     seção1 => (
-      <>
+      <View key="1">
         <Paragraph style={estilo.corDoTexto}>
           {seção1.texto1}
           <Text onPress={() => navigation.navigate('webview', { title: seção1.link.título, url: seção1.link.url })} style={estilo.link}>{seção1.link.text}</Text>
@@ -22,27 +22,27 @@ const Estágio4 = ({ navigation }) => {
             {seção1.item.texto}
             <Text onPress={() => navigation.navigate('webview', { title: seção1.item.link.título, url: seção1.item.link.url })} style={estilo.link}>{seção1.item.link.texto}</Text>
         </Paragraph>
-      </>
+      </View>
     ),
     seção2 => (
-      <>
-      <Paragraph style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
-        <Text style={estilo.destaque}>{seção2.destaque}</Text>
-        {seção2.texto1}
-        <Text
-          onPress={() => navigation.navigate('webview', { title: seção2.link.título, url: seção2.link.url })}
-          style={estilo.link}
-        >
-          {seção2.link.texto}
-        </Text>
-      </Paragraph>
-      <View style={estilo.containerImagem}>
-          <Image source={Pulmao} />
+      <View key="2">
+        <Paragraph style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
+          <Text style={estilo.destaque}>{seção2.destaque}</Text>
+          {seção2.texto1}
+          <Text
+            onPress={() => navigation.navigate('webview', { title: seção2.link.título, url: seção2.link.url })}
+            style={estilo.link}
+          >
+            {seção2.link.texto}
+          </Text>
+        </Paragraph>
+        <View style={estilo.containerImagem}>
+            <Image source={Pulmao} />
+        </View>
       </View>
-      </>
     ),
     seção3 => (
-      <Paragraph style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
+      <Paragraph key="3" style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
         <Text style={estilo.destaque}>
           {seção3.destaque}
         </Text>
@@ -53,7 +53,7 @@ const Estágio4 = ({ navigation }) => {
       </Paragraph>
     ),
     seção4 => (
-      <Text style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
+      <Text key="4" style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
         {seção4.texto}
       </Text>
     )

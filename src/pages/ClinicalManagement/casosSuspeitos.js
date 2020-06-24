@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import BotãoManejoClinico from './botãoManejoClinico';
+import BotaoManejoClinico from './botaoManejoClinico';
 
 export default function CasosSuspeitos({ navigation }) {
-  const URLPlataformaNotificação = 'https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/';
+  const URLPlataformaNotificacao = 'https://coronavirus.ceara.gov.br/project/fichas-de-notificacao/';
 
   const URLDiretrizes = 'https://coronavirus.ceara.gov.br/project/diretrizes-para-diagnostico-e-tratamento-da-covid-19/';
 
@@ -18,7 +18,7 @@ export default function CasosSuspeitos({ navigation }) {
             sua confirmação e inclusão em base de dados da
             vigilância epdemiológica e do registro eletrônico dos pacientes.
           </Text>
-          <BotãoManejoClinico label="acesse a plataforma de notificação" onPress={() => navigation.navigate('manejoWebview', { title: 'Plataforma de notificação', url: URLPlataformaNotificação })} />
+          <BotaoManejoClinico label="acesse a plataforma de notificação" onPress={() => navigation.navigate('manejoWebview', { title: 'Plataforma de notificação', url: URLPlataformaNotificacao })} />
           <Text
             onPress={() => navigation.navigate('manejoWebview', {
               title: 'Diretrizes',

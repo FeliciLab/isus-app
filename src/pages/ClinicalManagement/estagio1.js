@@ -7,31 +7,31 @@ import {
   Paragraph
 } from 'react-native-paper';
 
-import orientaçãoInicial from './json/estágio1.json';
-import BotãoManejoClinico from './botãoManejoClinico';
+import orientacaoInicial from './json/estagio1.json';
+import BotaoManejoClinico from './botaoManejoClinico';
 
-const corDoTextoPadrão = 'rgba(0,0,0,0.6)';
+const corDoTextoPadrao = 'rgba(0,0,0,0.6)';
 
-const Estágio1 = ({ navigation }) => {
+const Estagio1 = ({ navigation }) => {
   const {
     containerDoAviso, negrito, containerDeTextoDoAviso,
     itemDeTopico, tituloDeTopico,
-    containerDaObservação, containerDoBotão,
+    containerDaObservacao, containerDoBotao,
     largura30, largura60, CorDoTexto
   } = styles;
 
   const {
-    título, descrição, seções, botãoTeleUTI, botãoPlantãoCoronavirus
-  } = orientaçãoInicial;
+    titulo, descricao, secoes, botaoTeleUTI, botaoPlantaoCoronavirus
+  } = orientacaoInicial;
 
   const mostrarSintomas = sintomas => (
     sintomas.map(sintoma => mostrarTituloEConteudo(sintoma))
   );
 
   const mostrarTituloEConteudo = topico => (
-    <View key={topico.título}>
+    <View key={topico.titulo}>
       <Text style={tituloDeTopico}>
-        {topico.título}
+        {topico.titulo}
       </Text>
       <View style={styles.margin8}>
         {topico.itens.map(item => (
@@ -43,41 +43,41 @@ const Estágio1 = ({ navigation }) => {
 
   return (
     <>
-  <Text style={tituloDeTopico}>{título}</Text>
-  <Text style={itemDeTopico}>{descrição}</Text>
+  <Text style={tituloDeTopico}>{titulo}</Text>
+  <Text style={itemDeTopico}>{descricao}</Text>
 
-  { mostrarSintomas(seções.sintomas) }
+  { mostrarSintomas(secoes.sintomas) }
 
   <View style={containerDoAviso}>
     <Text style={containerDeTextoDoAviso}>
-      <Text style={negrito}>{`${seções.atenção.título} `}</Text>
-      <Text style={CorDoTexto}>{seções.atenção.texto1}</Text>
+      <Text style={negrito}>{`${secoes.atencao.titulo} `}</Text>
+      <Text style={CorDoTexto}>{secoes.atencao.texto1}</Text>
     </Text>
-    <Text style={CorDoTexto}>{seções.atenção.texto2}</Text>
+    <Text style={CorDoTexto}>{secoes.atencao.texto2}</Text>
   </View>
 
- { mostrarTituloEConteudo(seções.grupoDeRisco) }
+ { mostrarTituloEConteudo(secoes.grupoDeRisco) }
 
-  <View style={containerDaObservação}>
+  <View style={containerDaObservacao}>
     <Text style={CorDoTexto}>
-      <Text style={negrito}>{`${seções.observação.título}`}</Text>
-      <Text style={CorDoTexto}>{seções.observação.texto}</Text>
+      <Text style={negrito}>{`${secoes.observacao.titulo}`}</Text>
+      <Text style={CorDoTexto}>{secoes.observacao.texto}</Text>
     </Text>
   </View>
 
-  { mostrarTituloEConteudo(seções.alertas) }
+  { mostrarTituloEConteudo(secoes.alertas) }
 
-  { mostrarTituloEConteudo(seções.sinaisDeGravidade) }
+  { mostrarTituloEConteudo(secoes.sinaisDeGravidade) }
 
-  <View style={containerDoBotão}>
+  <View style={containerDoBotao}>
     <View style={largura30}>
-     <BotãoManejoClinico
-       onPress={() => Linking.openURL(botãoTeleUTI.telefone)}
-       label={botãoTeleUTI.título}
+     <BotaoManejoClinico
+       onPress={() => Linking.openURL(botaoTeleUTI.telefone)}
+       label={botaoTeleUTI.titulo}
      />
     </View>
     <View style={largura60}>
-      <BotãoManejoClinico onPress={() => navigation.navigate('webview', { título: botãoPlantãoCoronavirus.títuloWebview, url: botãoPlantãoCoronavirus.url })} label={botãoPlantãoCoronavirus.título} />
+      <BotaoManejoClinico onPress={() => navigation.navigate('webview', { titulo: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
     </View>
   </View>
     </>
@@ -88,20 +88,20 @@ const styles = StyleSheet.create({
   tituloDeTopico: {
     fontSize: 18,
     marginTop: 16,
-    color: corDoTextoPadrão
+    color: corDoTextoPadrao
   },
   containerDoItem: {
     marginTop: 8
   },
   itemDeTopico: {
-    color: corDoTextoPadrão,
+    color: corDoTextoPadrao,
     fontSize: 14
   },
   containerDeTextoDoAviso: {
     marginTop: 2,
     marginBottom: 3,
     marginHorizontal: 7,
-    color: corDoTextoPadrão
+    color: corDoTextoPadrao
   },
   margin8: {
     marginTop: 8
@@ -113,13 +113,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 2
   },
-  containerDaObservação: {
+  containerDaObservaçao: {
     flex: 1,
     marginVertical: 8,
     alignItems: 'center',
     borderRadius: 2
   },
-  containerDoBotão: {
+  containerDoBotao: {
     marginVertical: 20,
     flexDirection: 'row',
     width: '100%',
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     color: '#87BA25'
   },
   CorDoTexto: {
-    color: corDoTextoPadrão
+    color: corDoTextoPadrao
   },
   negrito: {
     fontWeight: 'bold'
@@ -138,10 +138,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontSize: 20,
     fontWeight: 'bold',
-    color: corDoTextoPadrão
+    color: corDoTextoPadrao
   },
   largura30: { width: '30%' },
   largura60: { width: '60%' }
 });
 
-export default Estágio1;
+export default Estagio1;

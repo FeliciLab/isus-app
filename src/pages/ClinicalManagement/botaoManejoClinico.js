@@ -3,10 +3,10 @@ import {
   TouchableOpacity, View, Text, StyleSheet
 } from 'react-native';
 
-const BotãoManejoClinico = ({ label, onPress }) => (
+const BotaoManejoClinico = ({ label, onPress }) => (
   <TouchableOpacity onPress={onPress}>
-    <View style={estilo.botãoManejo}>
-      <Text style={estilo.textoBotão}>
+    <View style={estilo.botaoManejo}>
+      <Text style={estilo.textoBotao}>
         {label}
       </Text>
     </View>
@@ -14,7 +14,7 @@ const BotãoManejoClinico = ({ label, onPress }) => (
 );
 
 const estilo = StyleSheet.create({
-  botãoManejo: {
+  botaoManejo: {
     backgroundColor: '#F2C94C',
     padding: 10,
     borderRadius: 200,
@@ -29,7 +29,7 @@ const estilo = StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4
   },
-  textoBotão: {
+  textoBotao: {
     textTransform: 'uppercase',
     textAlign: 'center',
     color: '#4054B2',
@@ -38,4 +38,4 @@ const estilo = StyleSheet.create({
   },
 });
 
-export default BotãoManejoClinico;
+export default BotaoManejoClinico;
