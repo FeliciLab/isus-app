@@ -1,13 +1,28 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  TouchableOpacity
+  TouchableOpacity, Dimensions
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function WebViewPage({ navigation, route }) {
+export default function WebViewPage({
+  navigation, route, mostrarEsqueletoDeCarregamento, esqueletoDeCarregamento
+}) {
   const navigator = useNavigation();
+  console.log(route.params.title.length);
+  const widthView = Dimensions.get('window').width;
+  console.log(widthView);
+  let res = '';
+  // verificando o tamanho da tela do dispositivo para limitar os caracteres.
+  if (widthView <= 320) {
+    // eslint-disable-next-line no-unused-expressions
+    (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 24).trim()}...` : res = route.params.title;
+  } else {
+    // eslint-disable-next-line no-unused-expressions
+    (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 35).trim()}...` : res = route.params.title;
+  }
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -15,7 +30,7 @@ export default function WebViewPage({ navigation, route }) {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: route.params.title,
+      headerTitle: res,
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -32,11 +47,17 @@ export default function WebViewPage({ navigation, route }) {
   });
 
   return (
-    <WebView
-      source={{
-        uri: route.params.url
-      }}
-    />
-
-  );
+    mostrarEsqueletoDeCarregamento
+      ? (
+<WebView
+  source={{ uri: route.params.url }}
+  startInLoadingState={mostrarEsqueletoDeCarregamento}
+  renderLoading={() => esqueletoDeCarregamento}
+/>
+      )
+      : (
+<WebView
+  source={{ uri: route.params.url }}
+/>
+      ));
 }

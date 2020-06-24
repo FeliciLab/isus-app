@@ -6858,6 +6858,11 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
+react-content-loader@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-5.0.4.tgz#1493491d2f6b309d281d84144a655417ea734486"
+  integrity sha512-hxv4Td1kQxFOmIUbBZ2S3HGZ/jJr28aJvM+8fndm9TmNOE7tSde7WSTL6R68aTS6qE0BA3ptcWIErrP704pQSw==
+
 react-devtools-core@^4.0.6:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-4.6.0.tgz#2443b3c6fac78b801702af188abc6d83d56224e6"
@@ -6865,6 +6870,11 @@ react-devtools-core@^4.0.6:
   dependencies:
     shell-quote "^1.6.1"
     ws "^7"
+
+react-fade-in@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-fade-in/-/react-fade-in-1.1.0.tgz#82272eba4ae5843fed333e2c7f74dc5dbdab3864"
+  integrity sha512-sR36bwyimCRapcHEuEjbQkQzUuCh3BIOeQvrUc9X4HBN6nswZ3nuq1Zb0vh3lG1Xx2ZMduGMw8u4AwNGbHkI0g==
 
 react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.1"
@@ -7405,6 +7415,11 @@ rn-host-detect@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/rn-host-detect/-/rn-host-detect-1.2.0.tgz#8b0396fc05631ec60c1cb8789e5070cdb04d0da0"
   integrity sha512-btNg5kzHcjZZ7t7mvvV/4wNJ9e3MPgrWivkRgWURzXL0JJ0pwWlU4zrbmdlz3HHzHOxhBhHB4D+/dbMFfu4/4A==
+
+rn-placeholder@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rn-placeholder/-/rn-placeholder-3.0.1.tgz#5073210e9d35791e379df9604414d3c6d531a3ee"
+  integrity sha512-hpJiCiNXMvljCaDFdjLATYmHaU2RZg8Nv+g/VaAdLzGIMlV7/pFxvR4B+tYd93iVOMbHuKDmfqGYobAlTHOVIw==
 
 rsvp@^4.8.4:
   version "4.8.5"
