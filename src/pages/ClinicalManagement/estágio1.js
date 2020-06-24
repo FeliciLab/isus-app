@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import {
   Text, View, StyleSheet, Linking
@@ -7,7 +8,7 @@ import {
 } from 'react-native-paper';
 
 import orientaçãoInicial from './json/estágio1.json';
-import ClinicalButton from './ClinicalButton';
+import BotãoManejoClinico from './botãoManejoClinico';
 
 const corDoTextoPadrão = 'rgba(0,0,0,0.6)';
 
@@ -70,13 +71,13 @@ const Estágio1 = ({ navigation }) => {
 
   <View style={containerDoBotão}>
     <View style={largura30}>
-     <ClinicalButton
+     <BotãoManejoClinico
        onPress={() => Linking.openURL(botãoTeleUTI.telefone)}
        label={botãoTeleUTI.título}
      />
     </View>
     <View style={largura60}>
-      <ClinicalButton onPress={() => navigation.navigate('webview', { título: botãoPlantãoCoronavirus.títuloWebview, url: botãoPlantãoCoronavirus.url })} label={botãoPlantãoCoronavirus.título} />
+      <BotãoManejoClinico onPress={() => navigation.navigate('webview', { título: botãoPlantãoCoronavirus.títuloWebview, url: botãoPlantãoCoronavirus.url })} label={botãoPlantãoCoronavirus.título} />
     </View>
   </View>
     </>
