@@ -7,16 +7,16 @@ import {
 import {
   Paragraph
 } from 'react-native-paper';
-import Emergecia from './json/estagio2.json';
+import emergecia from './json/estagio2.json';
 import checkPlatform from '../../utils/PDF';
 
 const Estagio2 = ({ navigation }) => {
   const {
     titulo, secoes
-  } = Emergecia.AvalicaoPresencial;
+  } = emergecia;
 
   const RenderizarTexto = ({ secao }) => {
-    if (typeof secao.descrição === 'object') {
+    if (typeof secao.descricao === 'object') {
       return (
             <Paragraph>
               <Text style={estilo.TextoCinza}>
@@ -38,9 +38,9 @@ const Estagio2 = ({ navigation }) => {
     return (
       <>
         <Text style={estilo.TextoCinza}>
-            {secao.descrição}
+            {secao.descricao}
         </Text>
-        {secao.paragrafos && secao.parágrafos.map(paragrafo => (
+        {secao.paragrafos && secao.paragrafos.map(paragrafo => (
           <Paragraph key={paragrafo.id} style={estilo.TextoCinza}>
             <RenderizarParagrafo paragrafo={paragrafo} />
           </Paragraph>
@@ -73,7 +73,7 @@ const Estagio2 = ({ navigation }) => {
       <Text style={estilo.TituloDoCard}>{titulo}</Text>
       {secoes.map(secao => (
           <View key={secao.id} style={{ marginTop: 15 }}>
-            <RenderizarTexto seção={secao} />
+            <RenderizarTexto secao={secao} />
           </View>
 
       ))

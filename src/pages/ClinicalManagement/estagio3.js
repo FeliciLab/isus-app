@@ -6,7 +6,7 @@ import {
 
 import { Paragraph } from 'react-native-paper';
 import checkPlatform from '../../utils/PDF';
-import Iternacao from './json/estagio3.json';
+import iternacao from './json/estagio3.json';
 
 const Estagio3 = ({ navigation }) => {
   const secoes = [
@@ -22,7 +22,7 @@ const Estagio3 = ({ navigation }) => {
         </Paragraph>
         {secao1.itens.map(item => (
             <Paragraph key={item.id}>
-              {item.descrição}
+              {item.descricao}
             </Paragraph>
         ))}
       </View>
@@ -39,21 +39,21 @@ const Estagio3 = ({ navigation }) => {
       <Paragraph key="3">
         <Text style={estilo.destaque}>{secao3.destaque}</Text>
         {secao3.texto1}
-      <Text onPress={() => navigation.navigate('webview', { title: secao3.link.título, url: secao3.link.url })} style={estilo.link}>{secao3.link.texto}</Text>
+      <Text onPress={() => navigation.navigate('webview', { title: secao3.link.titulo, url: secao3.link.url })} style={estilo.link}>{secao3.link.texto}</Text>
       </Paragraph>
     ),
     secao4 => (
       <Paragraph key="4">
         <Text style={estilo.destaque}>{secao4.destaque}</Text>
         {secao4.texto1}
-        <Text onPress={() => navigation.navigate('webview', { title: secao4.link.título, url: secao4.link.url })} style={estilo.link}>{secao4.link.texto}</Text>
+        <Text onPress={() => navigation.navigate('webview', { title: secao4.link.titulo, url: secao4.link.url })} style={estilo.link}>{secao4.link.texto}</Text>
       </Paragraph>
     ),
     secao5 => (
       <Paragraph key="5" style={estilo.margin8}>
         {secao5.texto1}
         <Text style={estilo.destaque}>{secao5.destaque}</Text>
-        <Text onPress={() => navigation.navigate('webview', { title: secao5.link.título, url: secao5.link.url })} style={estilo.link}>{ secao5.link.text }</Text>
+        <Text onPress={() => navigation.navigate('webview', { title: secao5.link.titulo, url: secao5.link.url })} style={estilo.link}>{ secao5.link.text }</Text>
       </Paragraph>
     ),
     secao6 => (
@@ -66,7 +66,7 @@ const Estagio3 = ({ navigation }) => {
   return (
     <>
     <View style={estilo.margin20}>
-      { secoes.map((gerarSecao, index) => gerarSecao(Iternacao.secoes[index]))}
+      { secoes.map((gerarSecao, index) => gerarSecao(iternacao.secoes[index]))}
     </View>
     </>
   );

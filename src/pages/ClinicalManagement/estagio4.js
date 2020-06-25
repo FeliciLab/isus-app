@@ -6,34 +6,34 @@ import {
 import {
   Paragraph
 } from 'react-native-paper';
-import UTI from './json/estagio4.json';
+import estagio4 from './json/estagio4.json';
 import Pulmao from '../../assets/icons/estagiosManejo/pulmao.png';
 
-const Estágio4 = ({ navigation }) => {
-  const seções = [
-    seção1 => (
+const Estagio4 = ({ navigation }) => {
+  const secoes = [
+    secao1 => (
       <View key="1">
         <Paragraph style={estilo.corDoTexto}>
-          {seção1.texto1}
-          <Text onPress={() => navigation.navigate('webview', { title: seção1.link.título, url: seção1.link.url })} style={estilo.link}>{seção1.link.text}</Text>
-          {seção1.texto2}
+          {secao1.texto1}
+          <Text onPress={() => navigation.navigate('webview', { title: secao1.link.titulo, url: secao1.link.url })} style={estilo.link}>{secao1.link.text}</Text>
+          {secao1.texto2}
         </Paragraph>
         <Paragraph style={estilo.corDoTexto}>
-            {seção1.item.texto}
-            <Text onPress={() => navigation.navigate('webview', { title: seção1.item.link.título, url: seção1.item.link.url })} style={estilo.link}>{seção1.item.link.texto}</Text>
+            {secao1.item.texto}
+            <Text onPress={() => navigation.navigate('webview', { title: secao1.item.link.titulo, url: secao1.item.link.url })} style={estilo.link}>{secao1.item.link.texto}</Text>
         </Paragraph>
       </View>
     ),
-    seção2 => (
+    secao2 => (
       <View key="2">
         <Paragraph style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
-          <Text style={estilo.destaque}>{seção2.destaque}</Text>
-          {seção2.texto1}
+          <Text style={estilo.destaque}>{secao2.destaque}</Text>
+          {secao2.texto1}
           <Text
-            onPress={() => navigation.navigate('webview', { title: seção2.link.título, url: seção2.link.url })}
+            onPress={() => navigation.navigate('webview', { title: secao2.link.titulo, url: secao2.link.url })}
             style={estilo.link}
           >
-            {seção2.link.texto}
+            {secao2.link.texto}
           </Text>
         </Paragraph>
         <View style={estilo.containerImagem}>
@@ -41,20 +41,20 @@ const Estágio4 = ({ navigation }) => {
         </View>
       </View>
     ),
-    seção3 => (
+    secao3 => (
       <Paragraph key="3" style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
         <Text style={estilo.destaque}>
-          {seção3.destaque}
+          {secao3.destaque}
         </Text>
-        {seção3.texto1}
-        <Text onPress={() => navigation.navigate('webview', { title: seção3.link.título, url: seção3.link.url })} style={estilo.link}>
-        {seção3.link.texto}
+        {secao3.texto1}
+        <Text onPress={() => navigation.navigate('webview', { title: secao3.link.titulo, url: secao3.link.url })} style={estilo.link}>
+        {secao3.link.texto}
         </Text>
       </Paragraph>
     ),
-    seção4 => (
+    secao4 => (
       <Text key="4" style={{ ...estilo.margin12, ...estilo.corDoTexto }}>
-        {seção4.texto}
+        {secao4.texto}
       </Text>
     )
   ];
@@ -62,7 +62,7 @@ const Estágio4 = ({ navigation }) => {
   return (
     <>
       <View style={estilo.margin12}>
-        { seções.map((gerarSeção, index) => gerarSeção(UTI.seções[index])) }
+        { secoes.map((gerarSecao, index) => gerarSecao(estagio4.secoes[index])) }
       </View>
     </>
   );
@@ -76,4 +76,4 @@ const estilo = StyleSheet.create({
   containerImagem: { flexDirection: 'row', justifyContent: 'center', marginBottom: 16 }
 });
 
-export default Estágio4;
+export default Estagio4;

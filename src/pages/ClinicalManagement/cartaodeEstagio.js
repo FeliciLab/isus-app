@@ -4,7 +4,7 @@ import {
   View, Text, Image, StyleSheet
 } from 'react-native';
 
-const CartaoDeEstagio = estagio => (
+const CartaoDeEstagio = (estagio, navigation) => (
     <Card
       key={estagio.id}
       elevation={4}
@@ -40,7 +40,7 @@ const CartaoDeEstagio = estagio => (
         </View>
         <View>
         {
-            estagio.estaAberto && <estagio.conteudoOculto navigation={estagio.navigation} />
+            estagio.estaAberto && <estagio.conteudoOculto navigation={navigation} />
         }
         </View>
     </Card.Content>
@@ -48,7 +48,7 @@ const CartaoDeEstagio = estagio => (
         <Button
           color={estagio.cor}
           style={estilo.cartaoBotao}
-          onPress={() => estagio.métodoDeAbertura(!estagio.estaAberto)}
+          onPress={() => estagio.metodoDeAbertura(!estagio.estaAberto)}
         >
         {estagio.estaAberto ? 'fechar' : 'Saiba mais'}
         </Button>

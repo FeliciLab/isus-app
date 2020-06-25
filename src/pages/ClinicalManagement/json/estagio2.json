@@ -1,148 +1,146 @@
 {
-    "AvaliçãoPresencial": {
-        "título": "Avaliação presencial",
-        "seções": [
-            {
-                "id": 1,
-                "descrição": "01 • Checar sinais e sintomas que sugiram Covid-19;"
-            },
-            {
-                "id": 2,
-                "descrição": "02 • Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
-            },
-            {
-                "id": 3,
-                "descrição": "03 • Realizar estratificação de risco (Grupos A, B, C e D);"
-            },
-            {
-                "id": 4,
-                "descrição": "04 • Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
-            },
-            {
-                "id": 5,
-                "descrição": "05 • Considerar internação nas seguintes condições:",
-                "parágrafos": [
-                    {
-                        "id": "5.1",
-                        "temURL": false,
-                        "texto": "- SpO₂ < 95% em ar ambiente;"
-                    },
-                    {
-                        "id": "5.2",
-                        "temURL": false,
-                        "texto": " - Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);"
-                    },
-                    {
-                        "id": "5.3",
-                        "temURL": false,
-                        "texto": " - Piora nas condições clínicas de base;"
-                    },
-                    {
-                        "id": "5.4",
-                        "temURL": false,
-                        "texto": " - Vulnerabilidade social."
-                    }
-                ]
-            },
-            {
-                "id": 6,
-                "descrição": "06 • Efetuar internação nas seguintes condições:",
-                "parágrafos": [
-                    {
-                        "id": "6.1",
-                        "temURL": false,
-                        "texto":   " - Frequência respiratória (f > 30 irpm);"
-                    },
-                    {
-                        "id": "6.2",
-                        "temURL": false,
-                        "texto":   " - Insuficiência respiratória;"
-                    },
-                    {
-                        "id": "6.3",
-                        "temURL": false,
-                        "texto":   " - Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);"
-                    },
-                    {
-                        "id": "6.4",
-                        "temURL": false,
-                        "texto":   " - SpO₂ < 93%;"
-                    },
-                    {
-                        "id": "6.5",
-                        "temURL": false,
-                        "texto": " - Rápida deterioração clínica;"
-                    },
-                    {
-                        "id": "6.6",
-                        "temURL": false,
-                        "texto": " - Cianose;"
-                    },
-                    {
-                        "id": "6.7",
-                        "temURL": false,
-                        "texto": " - Alterações graves do estado mental ou neurológicas;"
-                    },
-                    {
-                        "id": "6.8",
-                        "temURL": false,
-                        "texto":   " - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;"
-                    },
-                    {
-                        "id": "6.9",
-                        "temURL": false,
-                        "texto":   " - Relação PaO₂/FIO₂ < 300;"
-                    },
-                    {
-                        "id": "6.10",
-                        "temURL": false,
-                        "texto":  " - Julgamento clínico."
-                    }
-                ]
-            },
-            {
-                "id": 7,
-                "descrição": {
-                    "trecho1": "07 • Avaliar indicação para uso de",
+    "titulo": "Avaliação presencial",
+    "secoes": [
+        {
+            "id": 1,
+            "descricao": "01 • Checar sinais e sintomas que sugiram Covid-19;"
+        },
+        {
+            "id": 2,
+            "descricao": "02 • Verificar em que fase da doença o paciente se encontra (checar o dia do início dos sintomas com a máxima precisão possível);"
+        },
+        {
+            "id": 3,
+            "descricao": "03 • Realizar estratificação de risco (Grupos A, B, C e D);"
+        },
+        {
+            "id": 4,
+            "descricao": "04 • Solicitar Tomografia Computadorizada de Alta Resolução (TCAR) de tórax em pacientes com desconforto respiratório ou dispneia e/ou hipoxemia ou com piora clínica;"
+        },
+        {
+            "id": 5,
+            "descricao": "05 • Considerar internação nas seguintes condições:",
+            "paragrafos": [
+                {
+                    "id": "5.1",
+                    "temURL": false,
+                    "texto": "- SpO₂ < 95% em ar ambiente;"
+                },
+                {
+                    "id": "5.2",
+                    "temURL": false,
+                    "texto": " - Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);"
+                },
+                {
+                    "id": "5.3",
+                    "temURL": false,
+                    "texto": " - Piora nas condições clínicas de base;"
+                },
+                {
+                    "id": "5.4",
+                    "temURL": false,
+                    "texto": " - Vulnerabilidade social."
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "descricao": "06 • Efetuar internação nas seguintes condições:",
+            "paragrafos": [
+                {
+                    "id": "6.1",
+                    "temURL": false,
+                    "texto":   " - Frequência respiratória (f > 30 irpm);"
+                },
+                {
+                    "id": "6.2",
+                    "temURL": false,
+                    "texto":   " - Insuficiência respiratória;"
+                },
+                {
+                    "id": "6.3",
+                    "temURL": false,
+                    "texto":   " - Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);"
+                },
+                {
+                    "id": "6.4",
+                    "temURL": false,
+                    "texto":   " - SpO₂ < 93%;"
+                },
+                {
+                    "id": "6.5",
+                    "temURL": false,
+                    "texto": " - Rápida deterioração clínica;"
+                },
+                {
+                    "id": "6.6",
+                    "temURL": false,
+                    "texto": " - Cianose;"
+                },
+                {
+                    "id": "6.7",
+                    "temURL": false,
+                    "texto": " - Alterações graves do estado mental ou neurológicas;"
+                },
+                {
+                    "id": "6.8",
+                    "temURL": false,
+                    "texto":   " - Acometimento > 50% na Tomografia Computadorizada de Alta Resolução (TCAR) de tórax;"
+                },
+                {
+                    "id": "6.9",
+                    "temURL": false,
+                    "texto":   " - Relação PaO₂/FIO₂ < 300;"
+                },
+                {
+                    "id": "6.10",
+                    "temURL": false,
+                    "texto":  " - Julgamento clínico."
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "descricao": {
+                "trecho1": "07 • Avaliar indicação para uso de",
+                "link1": {
+                    "titulo": "Protocolo",
+                    "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
+                    "trecho": "corticoide + azitromicina"
+                },
+                "trecho2": " e ",
+                "link2": {
+                    "titulo": "Protocolo",
+                    "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
+                    "trecho": "oseltamivir."
+                }
+            }
+        },
+        {
+            "id": 8,
+            "descricao": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
+            "paragrafos": [
+                {
+                    "id": "8.1",
+                    "temURL": false,
+                    "texto": " • Sinais de alerta e/ou"
+                },
+                {
+                    "id": "8.2",
+                    "temURL": false,
+                    "texto": " • Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou"
+                },
+                {
+                    "id": "8.3",
+                    "temURL": true,
+                    "trecho1": " • Pacientes que irão utilizar ",
                     "link1": {
-                        "título": "Protocolo",
+                        "titulo": "Protocolo",
                         "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
-                        "trecho": "corticoide + azitromicina"
-                    },
-                    "trecho2": " e ",
-                    "link2": {
-                        "título": "Protocolo",
-                        "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
-                        "trecho": "oseltamivir."
+                        "trecho": "corticoide + azitromicina."
                     }
                 }
-            },
-            {
-                "id": 8,
-                "descrição": "Após avaliação presencial, caso não sejam identificados critérios de internação, manter monitoramento de todos os pacientes com:",
-                "parágrafos": [
-                    {
-                        "id": "8.1",
-                        "temURL": false,
-                        "texto": " • Sinais de alerta e/ou"
-                    },
-                    {
-                        "id": "8.2",
-                        "temURL": false,
-                        "texto": " • Pacientes dos grupos de risco, mesmo com sintomas leves, e/ou"
-                    },
-                    {
-                        "id": "8.3",
-                        "temURL": true,
-                        "trecho1": " • Pacientes que irão utilizar ",
-                        "link1": {
-                            "título": "Protocolo",
-                            "url": "https://coronavirus.ceara.gov.br/project/nt-tratamento-farmaco-amb/",
-                            "trecho": "corticoide + azitromicina."
-                        }
-                    }
-                ]
-            }
-        ]
-    }
+            ]
+        }
+    ]
 }

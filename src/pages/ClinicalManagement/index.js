@@ -7,7 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import CartãoDeEstágio from './cartaodeEstagio';
+import CartaoDeEstagio from './cartaodeEstagio';
 
 import Estagio1SVG from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2SVG from '../../assets/icons/estagiosManejo/estagio02.svg';
@@ -15,19 +15,19 @@ import Estagio3SVG from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4SVG from '../../assets/icons/estagiosManejo/estagio04.png';
 import Fisiopatologia from '../../assets/icons/estagiosManejo/fisiopatologia.svg';
 import ColetarExames from '../../assets/icons/estagiosManejo/coletarexames.svg';
-import Estágio1 from './estagio1';
-import Estágio2 from './estagio2';
-import Estágio3 from './estagio3';
-import Estágio4 from './estágio4';
-import BotãoBaixarPDF from './botaoBaixarPDF';
+import Estagio1 from './estagio1';
+import Estagio2 from './estagio2';
+import Estagio3 from './estagio3';
+import Estagio4 from './estagio4';
+import BotaoBaixarPDF from './botaoBaixarPDF';
 import CasosSuspeitos from './casosSuspeitos';
-import ParamentaçãoEPI from './paramentaçãoEPI';
+import ParamentacaoEPI from './paramentacaoEPI';
 
 export default function ClinicalManagement({ navigation }) {
-  const [cartãoEstágio1Aberto, alternarAberturaCartãoEstágio1] = useState(false);
-  const [cartãoEstágio2Aberto, alternarAberturaCartãoEstágio2] = useState(false);
-  const [cartãoEstágio3Aberto, alternarAberturaCartãoEstágio3] = useState(false);
-  const [cartãoEstágio4Aberto, alternarAberturaCartãoEstágio4] = useState(false);
+  const [cartaoEstagio1Aberto, alternarAberturaCartaoEstagio1] = useState(false);
+  const [cartaoEstagio2Aberto, alternarAberturaCartaoEstagio2] = useState(false);
+  const [cartaoEstagio3Aberto, alternarAberturaCartaoEstagio3] = useState(false);
+  const [cartaoEstagio4Aberto, alternarAberturaCartaoEstagio4] = useState(false);
   const navigator = useNavigation();
 
 
@@ -69,50 +69,50 @@ export default function ClinicalManagement({ navigation }) {
   const cardItems = [
     {
       id: 1,
-      títuloEstágio: 'Estágio 01 (2-5 dias)',
-      título: 'Orientações iniciais',
-      subtítulo: 'Sintomas e sinais',
+      tituloEstagio: 'Estágio 01 (2-5 dias)',
+      titulo: 'Orientações iniciais',
+      subtitulo: 'Sintomas e sinais',
       Logo: Estagio1SVG,
       cor: '#4054B2',
-      estáAberto: cartãoEstágio1Aberto,
-      métodoDeAbertura: alternarAberturaCartãoEstágio1,
+      estaAberto: cartaoEstagio1Aberto,
+      metodoDeAbertura: alternarAberturaCartaoEstagio1,
       alturaCard: 10000,
-      conteúdoOculto: Estágio1
+      conteudoOculto: Estagio1
     },
     {
       id: 2,
-      títuloEstágio: 'Estágio 02 (5-7 dias)',
-      título: 'UAPS/UPA/EMERGÊNCIA',
-      subtítulo: 'Atendimento médico',
+      tituloEstagio: 'Estágio 02 (5-7 dias)',
+      titulo: 'UAPS/UPA/EMERGÊNCIA',
+      subtitulo: 'Atendimento médico',
       Logo: Estagio2SVG,
       cor: '#87BA25',
-      estáAberto: cartãoEstágio2Aberto,
-      métodoDeAbertura: alternarAberturaCartãoEstágio2,
+      estaAberto: cartaoEstagio2Aberto,
+      metodoDeAbertura: alternarAberturaCartaoEstagio2,
       alturaCard: 801,
-      conteúdoOculto: Estágio2
+      conteudoOculto: Estagio2
     },
     {
       id: 3,
-      títuloEstágio: 'Estágio 03 (7-10 dias)',
-      título: 'Internação Hospitalar',
+      tituloEstagio: 'Estágio 03 (7-10 dias)',
+      titulo: 'Internação Hospitalar',
       Logo: Estagio3SVG,
       cor: '#FF9800',
-      estáAberto: cartãoEstágio3Aberto,
-      métodoDeAbertura: alternarAberturaCartãoEstágio3,
+      estaAberto: cartaoEstagio3Aberto,
+      metodoDeAbertura: alternarAberturaCartaoEstagio3,
       alturaCard: 738,
-      conteúdoOculto: Estágio3
+      conteudoOculto: Estagio3
     },
     {
       id: 4,
-      títuloEstágio: 'Estágio 04 (11-20 dias)',
-      título: 'UTI',
-      subtítulo: 'Ventilação mecânica',
+      tituloEstagio: 'Estágio 04 (11-20 dias)',
+      titulo: 'UTI',
+      subtitulo: 'Ventilação mecânica',
       Logo: Estagio4SVG,
       cor: '#F2453D',
-      estáAberto: cartãoEstágio4Aberto,
-      métodoDeAbertura: alternarAberturaCartãoEstágio4,
+      estaAberto: cartaoEstagio4Aberto,
+      metodoDeAbertura: alternarAberturaCartaoEstagio4,
       alturaCard: 665,
-      conteúdoOculto: Estágio4
+      conteudoOculto: Estagio4
     }
   ];
 
@@ -123,15 +123,15 @@ export default function ClinicalManagement({ navigation }) {
         <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
 
         {/* DownloadPDF goes Here */}
-        { BotãoBaixarPDF() }
+        { BotaoBaixarPDF() }
 
         {/* Paramentação EPI */}
-        <ParamentaçãoEPI />
+        <ParamentacaoEPI />
 
         {/* Card goes here */}
         <View style={{ marginVertical: 16 }}>
           {
-            cardItems.map(item => CartãoDeEstágio(item))
+            cardItems.map(item => CartaoDeEstagio(item, navigation))
           }
         </View>
 

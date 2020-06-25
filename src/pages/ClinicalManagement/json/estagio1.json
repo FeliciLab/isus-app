@@ -1,10 +1,10 @@
 {
-    "título": "Sintomas e sinais de COVID-19",
-    "descrição": "Febre (subjetiva ou aferida) associada a:",
-    "seções": {
+    "titulo": "Sintomas e sinais de COVID-19",
+    "descricao": "Febre (subjetiva ou aferida) associada a:",
+    "secoes": {
         "sintomas": [
             {
-                "título": "Sintomas gerais (sistêmicos):",
+                "titulo": "Sintomas gerais (sistêmicos):",
                 "itens": [
                     "• Mialgia;",
                     "• Cefaleia;",
@@ -14,7 +14,7 @@
                 ]
             },
             {
-                "título": "Sintomas de acometimento de vias aéreas:",
+                "titulo": "Sintomas de acometimento de vias aéreas:",
                 "itens": [
                     "• Coriza;",
                     "• Congestão nasal;",
@@ -25,7 +25,7 @@
                 ]
             },
             {
-                "título": "Sintomas gastrointestinais (15-25%)",
+                "titulo": "Sintomas gastrointestinais (15-25%)",
                 "itens": [
                     "• Náuseas e vômitos;",
                     "• Diarreia;",
@@ -34,26 +34,26 @@
                 ]
             },
             {
-                "título": "Sintomas sensoriais",
+                "titulo": "Sintomas sensoriais",
                 "itens": [
                     "• Anosmia, hiposmia e/ou disgeusia"
                 ]
             },
             {
-                "título": "Alterações Dermatológicas",
+                "titulo": "Alterações Dermatológicas",
                 "itens": [
                     "• Rash: erupções morbiliformes, urticária, erupções em mãos e pés, livedo etc.",
                     "- Fazer diagnóstico diferencial com doenças exantemáticas/infecciosas e reações medicamentosas (ainda sem frequência definida)."
                 ]
             }
         ],
-        "atenção": {
-            "título": "Importante:",
+        "atencao": {
+            "titulo": "Importante:",
             "texto1": "• Os sintomas listados podem apresentar diversas combinações, com intensidade variável;",
             "texto2": "• A febre pode estar ausente na minoria dos casos."
         },
         "grupoDeRisco": {
-            "título": "Grupos de risco",
+            "titulo": "Grupos de risco",
             "itens": [
                 "• Mais de 60 anos;",
                 "• Diabetes;",
@@ -65,12 +65,12 @@
                 "• Condições associadas à imunossupressão."
             ]
         },
-        "observação": {
-            "título": "Observação:",
+        "observacao": {
+            "titulo": "Observação:",
             "texto": "considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
         },
         "alertas": {
-            "título": "Sinais de alerta",
+            "titulo": "Sinais de alerta",
             "itens": [
                 "• Dispneia;",
                 "• Desconforto respiratório;",
@@ -79,7 +79,7 @@
             ]
         },
         "sinaisDeGravidade": {
-            "título": "Sinais de gravidade",
+            "titulo": "Sinais de gravidade",
             "itens": [
                 "• SpO₂ < 95% em ar ambiente;",
                 "• Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
@@ -90,13 +90,13 @@
             ]
         }
     },
-    "botãoTeleUTI": {
-        "título":"TELE-UTI",
+    "botaoTeleUTI": {
+        "titulo":"TELE-UTI",
         "telefone": "tel: 08002751475"
     },
-    "botãoPlantãoCoronavirus": {
-        "título":"PLANTÃO CORONAVÍRUS",
+    "botaoPlantaoCoronavirus": {
+        "titulo":"PLANTÃO CORONAVÍRUS",
         "url": "https://coronavirus.ceara.gov.br/",
-        "títuloWebview": "Plantão Corona Vírus"
+        "tituloWebview": "Plantão Corona Vírus"
     }
 }

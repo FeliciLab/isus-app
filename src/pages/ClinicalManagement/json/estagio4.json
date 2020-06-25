@@ -1,10 +1,10 @@
 {
-    "seções": [
+    "secoes": [
         {
             "id": 1,
             "texto1": "• Utilizar ventilação mecânica (VM) protetora ",
             "link": {
-                "título": "Protocolo",
+                "titulo": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/",
                 "texto": "conforme protocolo"
             },
@@ -12,7 +12,7 @@
             "item": {
                 "texto": "- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona) ",
                 "link": {
-                    "título": "Protocolo",
+                    "titulo": "Protocolo",
                     "url": "https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/",
                     "texto": "conforme protocolo."
                 }
@@ -23,7 +23,7 @@
             "destaque": "‎• Administrar corticoterapia",
             "texto1": ", em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva ",
             "link": {
-                "título": "Protocolo",
+                "titulo": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/",
                 "texto": "conforme protocolo."
             }
@@ -34,7 +34,7 @@
             "destaque": "‎• Administrar anticoagulação com HBPM ",
             "secondPhrase": "se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão ",
             "link": {
-                "título": "Protocolo",
+                "titulo": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/",
                 "texto": "conforme protocolo."
             }

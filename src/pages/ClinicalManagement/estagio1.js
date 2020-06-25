@@ -77,7 +77,7 @@ const Estagio1 = ({ navigation }) => {
      />
     </View>
     <View style={largura60}>
-      <BotaoManejoClinico onPress={() => navigation.navigate('webview', { titulo: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
+      <BotaoManejoClinico onPress={() => navigation.navigate('webview', { title: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
     </View>
   </View>
     </>
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   negrito: {
     fontWeight: 'bold'
   },
-  TítuloDoCard: {
+  TituloDoCard: {
     marginVertical: 8,
     fontSize: 20,
     fontWeight: 'bold',
