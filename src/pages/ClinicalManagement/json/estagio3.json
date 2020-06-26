@@ -1,0 +1,70 @@
+{
+    "secoes": [
+        {
+            "texto1": "‎• Ofertar ",
+            "destaque": "oxigenoterapia ",
+            "texto2": "se SpO₂ < 93% ",
+            "link": {
+                "titulo": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/saude-publica-versao-atualizada-de-seu-protocolo-de-insuficiencia-respiratoria-2/",
+                "texto": "conforme protocolo."
+            },
+            "itens": [
+                {
+                    "id": "1.1",
+                    "descricao":"- Colher gasometria arterial em uso de oxigênio."
+                },
+                {
+                    "id": "1.2",
+                    "descricao": "- Em caso de má resposta ou piora indicar intubação orotraquel eletiva e transferência para UTI."
+                },
+                {
+                    "id": "1.3",
+                    "descricao": "- Considerar posição prona no paciente com ventilação espontânea."
+                }
+            ]
+        },
+        {
+            "destaque": "• Administrar ATB ",
+            "texto1": "para infecção bacteriana secundária (azitromicina +/- ceftriaxona ou amoxacilina clavulanato) e ",
+            "link": {
+                "titulo": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/15173617-parecer-67-2020-restricao-do-uso-do-oseltamivir.pdf",
+                "texto": "oseltamivir até o segundo dia de doença"
+            },
+            "texto2": ", quando indicado."
+
+        },
+        {
+            "destaque": "• Considerar corticoterapia",
+            "texto1": ", em caso de resposta inflamatória associada à disfução orgânica mantida ou progressiva ",
+            "link": {
+                "titulo": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-orienta-sobre-uso-de-corticoesteroides-para-pacientes-internados-em-servicos-de-saude-publicos-e-privados-no-estado-do-ceara/",
+                "texto": "conforme protocolo."
+            }
+        },
+        {
+            "destaque": "• Assegurar ",
+            "texto1": "profilaxia de Trombose Venosa Profunda e avaliar eventos embólicos, ",
+            "link": {
+                "titulo": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/",
+                "texto": "conforme protocolo."
+            }
+        },
+        {
+            "texto1": "A prescrição rotineira de antimaláricos para pacientes hospitalizados com diagnóstico suspeito ou confirmado de Covid-19",
+            "destaque": " não é recomendada, ",
+            "link": {
+                "titulo": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-esclarece-sobre-usos-da-de-hidroxicloroquina-e-cloroquina-em-pacientes-hospitalizados",
+                "texto": "conforme protocolo."
+            }
+        },
+        {
+            "texto": "•  Tranferir para UTI em caso de disfunções orgânicas em evolução."
+        }
+    ]
+}
+
