@@ -32,7 +32,7 @@
         {
             "id": 3,
             "destaque": "‎• Administrar anticoagulação com HBPM ",
-            "secondPhrase": "se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão ",
+            "texto1": "se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão ",
             "link": {
                 "titulo": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-traz-recomendacoes-sobre-o-uso-de-anticoagulantes-em-pacientes-internados-com-suspeita-ou-infeccao-confirmada-por-covid-19/",

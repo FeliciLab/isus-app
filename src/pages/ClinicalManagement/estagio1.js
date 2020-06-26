@@ -24,13 +24,15 @@ const Estagio1 = ({ navigation }) => {
     titulo, descricao, secoes, botaoTeleUTI, botaoPlantaoCoronavirus
   } = orientacaoInicial;
 
+  // sintomas
   const mostrarSintomas = sintomas => (
-    sintomas.map(sintoma => mostrarTituloEConteudo(sintoma))
+    sintomas.map(sintoma => mostrarTituloEConteudo(sintoma, true))
   );
 
-  const mostrarTituloEConteudo = topico => (
+  // sintoma + itens
+  const mostrarTituloEConteudo = (topico, eUmSintoma = false) => (
     <View key={topico.titulo}>
-      <Text style={tituloDeTopico}>
+      <Text style={eUmSintoma ? { ...tituloDeTopico } : { ...tituloDeTopico, ...negrito }}>
         {topico.titulo}
       </Text>
       <View style={styles.margin8}>
@@ -43,7 +45,7 @@ const Estagio1 = ({ navigation }) => {
 
   return (
     <>
-  <Text style={tituloDeTopico}>{titulo}</Text>
+  <Text style={{ ...tituloDeTopico, ...negrito }}>{titulo}</Text>
   <Text style={itemDeTopico}>{descricao}</Text>
 
   { mostrarSintomas(secoes.sintomas) }
@@ -113,9 +115,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 2
   },
-  containerDaObservaçao: {
+  containerDaObservacao: {
     flex: 1,
-    marginVertical: 8,
+    marginTop: 16,
     alignItems: 'center',
     borderRadius: 2
   },

@@ -36,7 +36,7 @@
             {
                 "titulo": "Sintomas sensoriais",
                 "itens": [
-                    "• Anosmia, hiposmia e/ou disgeusia"
+                    "• Anosmia, hiposmia e/ou disgeusia."
                 ]
             },
             {
@@ -67,7 +67,7 @@
         },
         "observacao": {
             "titulo": "Observação:",
-            "texto": "considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
+            "texto": " considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
         },
         "alertas": {
             "titulo": "Sinais de alerta",

@@ -3,7 +3,6 @@ import React, { useState, useLayoutEffect } from 'react';
 import {
   Text, ScrollView, View, StyleSheet
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import CartaoDeEstagio from './cartaodeEstagio';
 import ExamesLaboratoriais from './examesLaboratoriais';
 import BotaoBaixarPDF from './botaoBaixarPDF';
@@ -17,7 +16,7 @@ export default function ClinicalManagement({ navigation }) {
   const [cartaoEstagio2Aberto, alternarAberturaCartaoEstagio2] = useState(false);
   const [cartaoEstagio3Aberto, alternarAberturaCartaoEstagio3] = useState(false);
   const [cartaoEstagio4Aberto, alternarAberturaCartaoEstagio4] = useState(false);
-  const navigator = useNavigation();
+  // const navigator = useNavigation();
 
   const itensDoCartao = pegarItensDoCartao({
     cartaoEstagio1Aberto,
@@ -32,7 +31,6 @@ export default function ClinicalManagement({ navigation }) {
 
   useLayoutEffect(() => header(navigation));
 
-
   return (
     <ScrollView style={estilos.background}>
       <View style={estilos.conteudo}>
@@ -45,7 +43,7 @@ export default function ClinicalManagement({ navigation }) {
           }
         </View>
         <ExamesLaboratoriais />
-        { CasosSuspeitos(navigator) }
+        { CasosSuspeitos(navigation) }
       </View>
     </ScrollView>
   );

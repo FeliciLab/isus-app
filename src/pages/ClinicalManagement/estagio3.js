@@ -53,7 +53,7 @@ const Estagio3 = ({ navigation }) => {
       <Paragraph key="5" style={estilo.margin8}>
         {secao5.texto1}
         <Text style={estilo.destaque}>{secao5.destaque}</Text>
-        <Text onPress={() => navigation.navigate('webview', { title: secao5.link.titulo, url: secao5.link.url })} style={estilo.link}>{ secao5.link.text }</Text>
+        <Text onPress={() => navigation.navigate('webview', { title: secao5.link.titulo, url: secao5.link.url })} style={estilo.link}>{ secao5.link.texto }</Text>
       </Paragraph>
     ),
     secao6 => (
