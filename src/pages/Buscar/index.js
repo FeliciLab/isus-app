@@ -1,3 +1,5 @@
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import {
   View,
@@ -10,12 +12,10 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { Caption, Divider } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
 export default class Buscar extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -33,45 +33,48 @@ export default class Buscar extends Component {
     if (this.state.loading) return;
     this.setState({ loading: true });
     // Verificando a ultima consulta, caso seja diferente, reseta os valores do objeto
-    if(this.state.ultimoTermo !== this.state.text) {
+    if (this.state.ultimoTermo !== this.state.text) {
       this.state.data = [];
       this.state.page = 1;
     }
-    this.setState({ ultimoTermo: this.state.text })
+    this.setState({ ultimoTermo: this.state.text });
     const response = await getBusca(this.state.text, this.state.page);
     this.setState({
-      data: [ ...this.state.data, ...response.data.data ],
+      data: [...this.state.data, ...response.data.data],
       page: this.state.page + 1,
       loading: false,
-    });      
-
+    });
   }
 
-  infoPesquisando = () => {    
-    return (
+  infoPesquisando = () => (
       <Caption style={styles.emptyText}>
-        Pesquisando por: <Text style={styles.textNegrito}>{this.state.text}</Text>
+        Pesquisando por:
+{' '}
+<Text style={styles.textNegrito}>{this.state.text}</Text>
       </Caption>
-    );    
-  }
+  )
+
+// eslint-disable-next-line react/sort-comp
 car
-  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
+
+/* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
   ENCONTRE NENHUM ARTIGO */
-  // eslint-disable-next-line no-shadow
-  infoPreview() {
-    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
-    this.state.data = [];
-    return (
+// eslint-disable-next-line no-shadow
+infoPreview() {
+  // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+  this.state.data = [];
+  return (
       <Caption style={styles.emptyText}>
         Busque por conteúdos em
           <Text style={styles.textNegrito}> Educação Permanente </Text>
           e
           <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
       </Caption>
-    );
-  }
+  );
+}
 
   renderFooter = () => {
+    // eslint-disable-next-line react/destructuring-assignment
     if (!this.state.loading) return null;
     return (
       <View style={styles.loading}>
@@ -82,10 +85,11 @@ car
 
 
   runSearch(texto) {
-    console.log({texto})
-    this.setState({ text: texto})
+    console.log({ texto });
+    this.setState({ text: texto });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   createItem(item, navigation) {
     console.log(item);
     return (
@@ -118,10 +122,11 @@ car
 
 
   teste(text, load) {
+    // eslint-disable-next-line react/destructuring-assignment
     clearTimeout(this.state.relogio);
-    this.setState({text: text});
+    this.setState({ text });
     console.log('dentro de teste');
-    this.state.relogio = setTimeout(function(){ load() }, 3000);
+    this.state.relogio = setTimeout(() => { load(); }, 3000);
   }
 
 
@@ -143,7 +148,7 @@ car
           value={this.state.text}
           style={styles.searchHeaderText}
           // eslint-disable-next-line no-shadow
-          onChangeText={text => this.teste(text, () => { this.loadRepositories() } )}
+          onChangeText={text => this.teste(text, () => { this.loadRepositories(); })}
         />
       ),
 
@@ -155,7 +160,7 @@ car
           mode="contained"
           onPress={() => this.loadRepositories()}
         >
-          {/** <Icon name="magnify" size={30} color="#ffffff" /> **/}
+          {/** <Icon name="magnify" size={30} color="#ffffff" /> * */}
         </TouchableOpacity>
       ),
 
@@ -170,27 +175,26 @@ car
         </TouchableOpacity>
       )
     });
-    
+
     return (
       <View style={styles.emptyBackground}>
-        {this.state.text.length === 0 ? (          
+        {this.state.text.length === 0 ? (
           this.infoPreview()
         ) : (
           <FlatList
-          contentContainerStyle={{ flexGrow: 1 }}
-          data={this.state.data}
-          extraData={this.state}
-          renderItem={({ item }) => this.createItem(item, navigation)}
-          keyExtractor={item => item.id}
-          onEndReached={this.loadRepositories}
-          onEndReachedThreshold={0.2}
-          ListFooterComponent={this.renderFooter}
-          ListEmptyComponent={this.infoPesquisando}
-        />
+            contentContainerStyle={{ flexGrow: 1 }}
+            data={this.state.data}
+            extraData={this.state}
+            renderItem={({ item }) => this.createItem(item, navigation)}
+            keyExtractor={item => item.id}
+            onEndReached={this.loadRepositories}
+            onEndReachedThreshold={0.2}
+            ListFooterComponent={this.renderFooter}
+            ListEmptyComponent={this.infoPesquisando}
+          />
         )}
       </View>
     );
-
   }
 }
 

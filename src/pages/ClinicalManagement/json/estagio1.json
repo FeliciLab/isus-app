@@ -1,11 +1,11 @@
 {
-    "title": "Sintomas e sinais de COVID-19",
-    "description": "Febre (subjetiva ou aferida) associada a:",
-    "sections": {
-        "symptoms": [
+    "titulo": "Sintomas e sinais de COVID-19",
+    "descricao": "Febre (subjetiva ou aferida) associada a:",
+    "secoes": {
+        "sintomas": [
             {
-                "title": "Sintomas gerais (sistêmicos):",
-                "items": [
+                "titulo": "Sintomas gerais (sistêmicos):",
+                "itens": [
                     "• Mialgia;",
                     "• Cefaleia;",
                     "• Adinamia;",
@@ -14,8 +14,8 @@
                 ]
             },
             {
-                "title": "Sintomas de acometimento de vias aéreas:",
-                "items": [
+                "titulo": "Sintomas de acometimento de vias aéreas:",
+                "itens": [
                     "• Coriza;",
                     "• Congestão nasal;",
                     "• Dor de garganta (odinofagia);",
@@ -25,8 +25,8 @@
                 ]
             },
             {
-                "title": "Sintomas gastrointestinais (15-25%)",
-                "items": [
+                "titulo": "Sintomas gastrointestinais (15-25%)",
+                "itens": [
                     "• Náuseas e vômitos;",
                     "• Diarreia;",
                     "• Diarreia profusa com Desidratação;",
@@ -34,27 +34,27 @@
                 ]
             },
             {
-                "title": "Sintomas sensoriais",
-                "items": [
-                    "• Anosmia, hiposmia e/ou disgeusia"
+                "titulo": "Sintomas sensoriais",
+                "itens": [
+                    "• Anosmia, hiposmia e/ou disgeusia."
                 ]
             },
             {
-                "title": "Alterações Dermatológicas",
-                "items": [
+                "titulo": "Alterações Dermatológicas",
+                "itens": [
                     "• Rash: erupções morbiliformes, urticária, erupções em mãos e pés, livedo etc.",
                     "- Fazer diagnóstico diferencial com doenças exantemáticas/infecciosas e reações medicamentosas (ainda sem frequência definida)."
                 ]
             }
         ],
-        "warningLabel": {
-            "title": "Importante:",
+        "atencao": {
+            "titulo": "Importante:",
             "texto1": "• Os sintomas listados podem apresentar diversas combinações, com intensidade variável;",
             "texto2": "• A febre pode estar ausente na minoria dos casos."
         },
-        "riskGroup": {
-            "title": "Grupos de risco",
-            "items": [
+        "grupoDeRisco": {
+            "titulo": "Grupos de risco",
+            "itens": [
                 "• Mais de 60 anos;",
                 "• Diabetes;",
                 "• Hipertensão;",
@@ -65,13 +65,13 @@
                 "• Condições associadas à imunossupressão."
             ]
         },
-        "observation": {
-            "title": "Observação:",
-            "text": "considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
+        "observacao": {
+            "titulo": "Observação:",
+            "texto": " considerar para monitorização e avaliação pacientes Obesos com IMC > 35 Kg/m²."
         },
-        "alerts": {
-            "title": "Sinais de alerta",
-            "items": [
+        "alertas": {
+            "titulo": "Sinais de alerta",
+            "itens": [
                 "• Dispneia;",
                 "• Desconforto respiratório;",
                 "• Dor torácica;",
@@ -79,15 +79,24 @@
             ]
         },
         "sinaisDeGravidade": {
-            "title": "Sinais de gravidade",
+            "titulo": "Sinais de gravidade",
             "itens": [
-                "• SpO2 < 95% em ar ambiente;",
+                "• SpO₂ < 95% em ar ambiente;",
                 "• Sinais de desconforto respiratório ou aumento da frequência respiratória (f > 25 irpm);",
                 "• Piora nas condições clínicas de base;",
                 "• Hipotensão (PAS < 90mmHg ou queda de 30-40mmHg em relação à PA habitual do paciente);",
                 "• Cianose;",
-                "• Alterações confusionais ou neurológicas graves.",
+                "• Alterações confusionais ou neurológicas graves."
             ]
         }
+    },
+    "botaoTeleUTI": {
+        "titulo":"TELE-UTI",
+        "telefone": "tel: 08002751475"
+    },
+    "botaoPlantaoCoronavirus": {
+        "titulo":"PLANTÃO CORONAVÍRUS",
+        "url": "https://coronavirus.ceara.gov.br/",
+        "tituloWebview": "Plantão Corona Vírus"
     }
 }
