@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import React, { useState, useLayoutEffect } from 'react';
 import {
-  Text, ScrollView, View
+  Text, ScrollView, View, StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CartaoDeEstagio from './cartaodeEstagio';
@@ -34,12 +34,12 @@ export default function ClinicalManagement({ navigation }) {
 
 
   return (
-    <ScrollView style={{ paddingHorizontal: 16, backgroundColor: '#fff' }}>
-      <View style={{ marginTop: 26, flex: 1 }}>
-        <Text style={{ fontSize: 26, color: '#4054B2' }}>Manejo clínico dos pacientes com Covid-19</Text>
+    <ScrollView style={estilos.background}>
+      <View style={estilos.conteudo}>
+        <Text style={estilos.titulo}>Manejo clínico dos pacientes com Covid-19</Text>
         { BotaoBaixarPDF() }
         <ParamentacaoEPI />
-        <View style={{ marginVertical: 16 }}>
+        <View style={estilos.margemVertical}>
           {
             itensDoCartao.map(item => CartaoDeEstagio(item, navigation))
           }
@@ -50,3 +50,10 @@ export default function ClinicalManagement({ navigation }) {
     </ScrollView>
   );
 }
+
+const estilos = StyleSheet.create({
+  background: { paddingHorizontal: 16, backgroundColor: '#fff' },
+  titulo: { fontSize: 26, color: '#4054B2' },
+  margemVertical: { marginVertical: 16 },
+  conteudo: { marginTop: 26, flex: 1 }
+});

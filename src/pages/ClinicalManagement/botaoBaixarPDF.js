@@ -10,15 +10,15 @@ export default function BotaoBaixarPDF() {
   const CaminhoDestino = 'Manejo Clinico.pdf';
 
   return (
-        <View>
-          <TouchableOpacity
-            onPress={() => (checkPlatform(UrlOrigemManejo, CaminhoDestino))}
-            style={estilo.Botao}
-          >
-          <Text style={estilo.descricaoDownload}>Realize o download em PDF</Text>
-          <Icon name="download" size={28} color="#BDBDBD" />
-          </TouchableOpacity>
-        </View>
+    <View>
+      <TouchableOpacity
+        onPress={() => (checkPlatform(UrlOrigemManejo, CaminhoDestino))}
+        style={estilo.Botao}
+      >
+      <Text style={estilo.descricaoDownload}>Realize o download em PDF</Text>
+      <Icon name="download" size={28} color="#BDBDBD" />
+      </TouchableOpacity>
+    </View>
   );
 }
 
