@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import checkPlatform from '../../utils/PDF';
 
 export default function BotaoBaixarPDF() {
-  const UrlOrigemManejo = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/11.05-Manejo-Cl%C3%ADnico-Mobile-1.pdf';
+  const UrlOrigemManejo = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/06/Manejo-Cl%C3%ADnico-dos-pacientes-com-Covid-19.pdf';
   const CaminhoDestino = 'Manejo Clinico.pdf';
 
   return (
