@@ -1,4 +1,6 @@
-import * as React from 'react';
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable react/destructuring-assignment */
+import React, { Component } from 'react';
 import {
   View,
   FlatList,
@@ -6,31 +8,130 @@ import {
   Image,
   TextInput,
   StyleSheet,
-  Text
+  Text,
+  ActivityIndicator
 } from 'react-native';
 import { Caption, Divider } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
-
-export default function SearchScreen() {
-  const navigation = useNavigation();
-  const [text, setText] = React.useState('');
-  const [data, setData] = React.useState([]);
-
-  async function search() {
-    const response = await getBusca(text);
-    setData(response.data.data);
+export default class Buscar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // eslint-disable-next-line react/no-unused-state
+      data: [],
+      page: 1,
+      loading: false,
+      text: '',
+      ultimoTermo: '',
+      relogio: 0
+    };
   }
 
-  // eslint-disable-next-line no-shadow
-  function runSearch(text) {
-    setText(text);
-    search();
+  loadRepositories = async () => {
+    if (this.state.loading) return;
+    this.setState({ loading: true });
+    // Verificando a ultima consulta, caso seja diferente, reseta os valores do objeto
+    if (this.state.ultimoTermo !== this.state.text) {
+      this.state.data = [];
+      this.state.page = 1;
+    }
+    this.setState({ ultimoTermo: this.state.text });
+    const response = await getBusca(this.state.text, this.state.page);
+    this.setState({
+      data: [...this.state.data, ...response.data.data],
+      page: this.state.page + 1,
+      loading: false,
+    });
   }
 
-  React.useLayoutEffect(() => {
+  infoPesquisando = () => (
+      <Caption style={styles.emptyText}>
+        Pesquisando por:
+{' '}
+<Text style={styles.textNegrito}>{this.state.text}</Text>
+      </Caption>
+  )
+
+// eslint-disable-next-line react/sort-comp
+car
+
+/* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
+  ENCONTRE NENHUM ARTIGO */
+// eslint-disable-next-line no-shadow
+infoPreview() {
+  // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+  this.state.data = [];
+  return (
+      <Caption style={styles.emptyText}>
+        Busque por conteúdos em
+          <Text style={styles.textNegrito}> Educação Permanente </Text>
+          e
+          <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
+      </Caption>
+  );
+}
+
+  renderFooter = () => {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (!this.state.loading) return null;
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator color="#468A04" size="large" />
+      </View>
+    );
+  };
+
+
+  runSearch(texto) {
+    console.log({ texto });
+    this.setState({ text: texto });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  createItem(item, navigation) {
+    console.log(item);
+    return (
+      <View style={styles.backgroundColor}>
+        <TouchableOpacity
+          style={styles.backgroundColor}
+          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
+        >
+          <View style={styles.content}>
+            {item.image ? (
+              <Image
+                resizeMode="contain"
+                style={styles.contentImage}
+                source={{ uri: `${item.image}` }}
+              />
+            ) : (
+              <View
+                style={styles.contentImage}
+              />
+            )}
+            <Caption style={styles.contentSubtitle}>
+              {item.post_title}
+            </Caption>
+          </View>
+          <Divider style={styles.divider} />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+
+  teste(text, load) {
+    // eslint-disable-next-line react/destructuring-assignment
+    clearTimeout(this.state.relogio);
+    this.setState({ text });
+    console.log('dentro de teste');
+    this.state.relogio = setTimeout(() => { load(); }, 3000);
+  }
+
+
+  render() {
+    const { navigation } = this.props;
     navigation.setOptions({
       headerTintColor: '#FFF',
       headerStyle: {
@@ -44,26 +145,28 @@ export default function SearchScreen() {
           autoFocus
           placeholder="Buscar"
           placeholderTextColor="#FFFFFF"
-          value={text}
-          style={style.searchHeaderText}
+          value={this.state.text}
+          style={styles.searchHeaderText}
           // eslint-disable-next-line no-shadow
-          onChangeText={text => runSearch(text)}
+          onChangeText={text => this.teste(text, () => { this.loadRepositories(); })}
         />
       ),
 
       headerRight: () => (
         <TouchableOpacity
-          style={style.headerSearchIcon}
+          style={{
+            marginRight: 23
+          }}
           mode="contained"
-          onPress={() => search()}
+          onPress={() => this.loadRepositories()}
         >
-        {/* * <Icon name="magnify" size={25} color="#DADADA" /> * */}
+          {/** <Icon name="magnify" size={30} color="#ffffff" /> * */}
         </TouchableOpacity>
       ),
 
       headerLeft: () => (
         <TouchableOpacity
-          style={style.searchHeaderBack}
+          style={styles.searchHeaderBack}
           onPress={() => {
             navigation.goBack();
           }}
@@ -72,75 +175,39 @@ export default function SearchScreen() {
         </TouchableOpacity>
       )
     });
-  });
 
-  function createItem(item) {
-    console.log(item);
     return (
-      <View style={style.backgroundColor}>
-        <TouchableOpacity
-          style={style.backgroundColor}
-          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
-        >
-          <View style={style.content}>
-            {item.image ? (
-              <Image
-                resizeMode="contain"
-                style={style.contentImage}
-                source={{ uri: `${item.image}` }}
-              />
-            ) : (
-              <View
-                style={style.contentImage}
-              />
-            )}
-            <Caption style={style.contentSubtitle}>
-              {item.post_title}
-            </Caption>
-          </View>
-          <Divider style={style.divider} />
-        </TouchableOpacity>
+      <View style={styles.emptyBackground}>
+        {this.state.text.length === 0 ? (
+          this.infoPreview()
+        ) : (
+          <FlatList
+            contentContainerStyle={{ flexGrow: 1 }}
+            data={this.state.data}
+            extraData={this.state}
+            renderItem={({ item }) => this.createItem(item, navigation)}
+            keyExtractor={item => item.id}
+            onEndReached={this.loadRepositories}
+            onEndReachedThreshold={0.2}
+            ListFooterComponent={this.renderFooter}
+            ListEmptyComponent={this.infoPesquisando}
+          />
+        )}
       </View>
     );
   }
-  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
-  ENCONTRE NENHUM ARTIGO */
-  // eslint-disable-next-line no-shadow
-  function infoPreview(len, text) {
-    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
-    if (text.length === 0 && len === 0) {
-      return (
-        <Caption style={style.emptyText}>
-          Busque por conteúdos em
-            <Text style={style.textNegrito}> Educação Permanente </Text>
-            e
-            <Text style={style.textNegrito}> Pesquisas Científicas. </Text>
-        </Caption>
-      );
-    }
-    return (
-      <Caption style={style.emptyText}>
-        Nenhuma informação encontrada
-      </Caption>
-    );
-  }
-
-  return (
-    <View style={style.emptyBackground}>
-      {data.length === 0 ? (
-        infoPreview(data.length, text)
-      ) : (
-        <FlatList
-          data={data}
-          keyExtractor={item => item.ID.toString()}
-          style={style.emptyBackground}
-          renderItem={({ item }) => createItem(item)}
-        />
-      )}
-    </View>
-  );
 }
-const style = StyleSheet.create({
+
+const styles = StyleSheet.create({
+  list: {
+    paddingHorizontal: 20,
+  },
+
+  listItem: {
+    backgroundColor: '#EEE',
+    marginTop: 20,
+    padding: 30,
+  },
   backgroundColor: {
     backgroundColor: '#fff'
   },
@@ -188,18 +255,16 @@ const style = StyleSheet.create({
     flex: 1,
   },
   emptyText: {
-    marginTop: 20,
+    flex: 1,
+    alignContent: 'center',
+    flexDirection: 'row',
+    padding: 10,
+    fontSize: 15,
     color: '#00000099',
     fontStyle: 'normal',
     fontWeight: 'normal',
     lineHeight: 28,
     letterSpacing: 0.5,
-    fontSize: 14,
-    position: 'absolute',
-    left: '3.89%',
-    // right: '3.89%',
-    top: '2.72%',
-    // bottom: '85.42%',
   },
   textNegrito: {
     fontWeight: 'bold'
