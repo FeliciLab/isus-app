@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">iSUS</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">LEhS6e0yKxo2bNfoh-1sXOJD4the1Ycn93jFW</string>
+    <string name="app_name">isus</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">@string/CODE_PUSH_DEPLOYMENT_KEY</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 </resources>
