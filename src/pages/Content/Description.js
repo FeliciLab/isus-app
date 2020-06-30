@@ -16,6 +16,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconShared from 'react-native-vector-icons/SimpleLineIcons';
 import { getProjectPorId } from '../../apis/apiHome';
+import BarraInferior from './barraInferior';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -85,53 +86,56 @@ export default function DescriptionScreen(props) {
   }
 
   return (
-    <ScrollView>
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View>
-          <Title style={styles.textTitleDetail}>{item.post_title}</Title>
-        </View>
-        <View style={styles.sub}>
+    <>
+      <ScrollView>
+        <View style={{ flex: 1, backgroundColor: '#fff' }}>
           <View>
-            <Text style={styles.textData}>{formateDate(item.post_date)}</Text>
+            <Title style={styles.textTitleDetail}>{item.post_title}</Title>
           </View>
-          <View style={styles.subShare}>
-            <TouchableOpacity onPress={onShare}>
-              <IconShared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
-            </TouchableOpacity>
+          <View style={styles.sub}>
+            <View>
+              <Text style={styles.textData}>{formateDate(item.post_date)}</Text>
+            </View>
+            <View style={styles.subShare}>
+              <TouchableOpacity onPress={onShare}>
+                <IconShared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        <Image
-          resizeMode="contain"
-          style={{
-            height: Dimensions.get('window').width / 1.5,
-            width: Dimensions.get('window').width
-          }}
-          source={{ uri: `${item.image}` }}
-        />
-        <View
-          style={{
-            // height: Dimensions.get('window').width / 1.5,
-            width: Dimensions.get('window').width
-          }}
-        >
-          <View style={{
-            padding: 10,
-            alignContent: 'center'
-          }}
+          <Image
+            resizeMode="contain"
+            style={{
+              height: Dimensions.get('window').width / 1.5,
+              width: Dimensions.get('window').width
+            }}
+            source={{ uri: `${item.image}` }}
+          />
+          <View
+            style={{
+              // height: Dimensions.get('window').width / 1.5,
+              width: Dimensions.get('window').width
+            }}
           >
-            <HTML
-              html={item.post_content}
-              onLinkPress={(event, href) => {
-                navigation.navigate('webview', {
-                  title: 'Acesso ao conteúdo',
-                  url: href
-                });
-              }}
-            />
+            <View style={{
+              padding: 10,
+              alignContent: 'center'
+            }}
+            >
+              <HTML
+                html={item.post_content}
+                onLinkPress={(event, href) => {
+                  navigation.navigate('webview', {
+                    title: 'Acesso ao conteúdo',
+                    url: href
+                  });
+                }}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <BarraInferior />
+    </>
   );
 }
 
