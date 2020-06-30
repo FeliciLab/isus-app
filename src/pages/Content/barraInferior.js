@@ -1,12 +1,17 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { StyleSheet, View, Text } from 'react-native';
+import {
+  StyleSheet, View, Text, Platform
+} from 'react-native';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 function BarraInferior() {
+  SimpleLineIcons.loadFont();
+
   console.log('hello!');
   return (
     <>
-        <Appbar style={estilos.inferior}>
+        <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                 <View style={{ marginVertical: 11 }}>
                     <Text style={estilos.texto}>
@@ -50,6 +55,10 @@ const estilos = StyleSheet.create({
     fontSize: 10,
     lineHeight: 16,
     fontWeight: 'bold',
+  },
+  safeAreaiOS: {
+    height: 80,
+    paddingBottom: 20
   }
 });
 
