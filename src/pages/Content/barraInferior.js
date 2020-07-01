@@ -4,8 +4,10 @@ import {
   StyleSheet, View, Text, Platform
 } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import formatarDataDePostagem from '../../utils/dateUtils';
 
-function BarraInferior() {
+
+function BarraInferior({ aoCompartilhar, dataDePostagem }) {
   SimpleLineIcons.loadFont();
 
   console.log('hello!');
@@ -18,11 +20,11 @@ function BarraInferior() {
                         postado em
                     </Text>
                     <Text style={estilos.texto}>
-                        23 de abril de 2020
+                        {formatarDataDePostagem(dataDePostagem)}
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Appbar.Action icon="share-variant" onPress={() => console.log('Pressed mail')} />
+                    <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
                     <Appbar.Action icon="cloud-download" onPress={() => console.log('Pressed label')} />
                 </View>
             </View>

@@ -3,18 +3,16 @@ import * as React from 'react';
 import {
   // eslint-disable-next-line no-unused-vars
   View, Image, Dimensions, StyleSheet,
-  ScrollView, Text, Share, TouchableOpacity
+  ScrollView, Share, TouchableOpacity
 }
   from 'react-native';
 import {
   Title
 } from 'react-native-paper';
 import HTML from 'react-native-render-html';
-import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconShared from 'react-native-vector-icons/SimpleLineIcons';
 import { getProjectPorId } from '../../apis/apiHome';
 import BarraInferior from './barraInferior';
 
@@ -33,7 +31,7 @@ export default function DescriptionScreen(props) {
     }, [props])
   );
   console.log(item);
-  const onShare = async () => {
+  const aoCompartilhar = async () => {
     const messagTitle = item.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
     try {
@@ -68,23 +66,6 @@ export default function DescriptionScreen(props) {
     });
   });
 
-  function Capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  function formateDate(date) {
-    /* Antes de começar a renderizar as informações, mostrará a data do dia */
-    // eslint-disable-next-line no-shadow
-    let postData;
-    if (date === '') {
-      postData = new Date();
-    } else {
-      postData = date;
-    }
-    Moment.locale('pt-br');
-    return `Postado em ${Moment(postData).format('D')} de ${Capitalize(Moment(postData).format('MMMM'))} de ${Moment(postData).format('YYYY')}`;
-  }
-
   return (
     <>
       <ScrollView>
@@ -92,16 +73,7 @@ export default function DescriptionScreen(props) {
           <View>
             <Title style={styles.textTitleDetail}>{item.post_title}</Title>
           </View>
-          <View style={styles.sub}>
-            <View>
-              <Text style={styles.textData}>{formateDate(item.post_date)}</Text>
-            </View>
-            <View style={styles.subShare}>
-              <TouchableOpacity onPress={onShare}>
-                <IconShared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
-              </TouchableOpacity>
-            </View>
-          </View>
+          <View style={styles.sub} />
           <Image
             resizeMode="contain"
             style={{
@@ -134,7 +106,7 @@ export default function DescriptionScreen(props) {
           </View>
         </View>
       </ScrollView>
-      <BarraInferior />
+      <BarraInferior aoCompartilhar={aoCompartilhar} dataDePostagem={item.post_date} />
     </>
   );
 }
