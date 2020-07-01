@@ -7,10 +7,10 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import formatarDataDePostagem from '../../utils/dateUtils';
 
 
-function BarraInferior({ aoCompartilhar, dataDePostagem }) {
+function BarraInferior({ aoBaixarConteudo, aoCompartilhar, dataDePostagem }) {
   SimpleLineIcons.loadFont();
 
-  console.log('hello!');
+  console.log();
   return (
     <>
         <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
@@ -25,7 +25,7 @@ function BarraInferior({ aoCompartilhar, dataDePostagem }) {
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
-                    <Appbar.Action icon="cloud-download" onPress={() => console.log('Pressed label')} />
+                    <Appbar.Action icon="cloud-download" onPress={aoBaixarConteudo} />
                 </View>
             </View>
         </Appbar>

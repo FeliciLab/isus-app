@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useCallback, useLayoutEffect } from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
@@ -13,6 +13,7 @@ import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { salvarDados, pegarDados } from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
 import BarraInferior from './barraInferior';
 
@@ -20,20 +21,33 @@ export default function DescriptionScreen(props) {
   const navigation = useNavigation();
   const { route } = props;
   const { params } = route;
-  const [item, setItem] = React.useState([]);
-  // const item = params.object;
+  const [postagem, alterarPostagem] = useState([]);
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(false);
+  // const postagem = params.object;
+  console.log('id', params.object);
+
 
   useFocusEffect(
-    React.useCallback(() => {
-      getProjectPorId(params.object.id).then((response) => {
-        setItem(response.data);
-      });
+    useCallback(() => {
+      if (conteudoBaixado) {
+        pegarDados(`@postagem_${params.object.id}`).then((response) => {
+          alterarPostagem(response.data);
+        }).catch((err) => {
+          console.log(err);
+        });
+      } else {
+        getProjectPorId(params.object.id).then((response) => {
+          alterarPostagem(response.data);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }
     }, [props])
   );
-  console.log(item);
+  // console.log(postagem);
   const aoCompartilhar = async () => {
-    const messagTitle = item.post_title;
-    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
+    const messagTitle = postagem.post_title;
+    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(postagem.slug);
     try {
       await Share.share({
         message: messagTitle + messagLink
@@ -43,7 +57,13 @@ export default function DescriptionScreen(props) {
     }
   };
 
-  React.useLayoutEffect(() => {
+  const aoBaixarConteudo = async () => {
+    console.log(postagem);
+    await salvarDados(`@postagem_${postagem.id}`, postagem);
+    alterarConteudoBaixado(true);
+    // Fazer o Feedbacks (snackbar)
+  };
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
       headerTitle: route.params.title,
@@ -71,7 +91,7 @@ export default function DescriptionScreen(props) {
       <ScrollView>
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
           <View>
-            <Title style={styles.textTitleDetail}>{item.post_title}</Title>
+            <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
           <Image
@@ -80,7 +100,7 @@ export default function DescriptionScreen(props) {
               height: Dimensions.get('window').width / 1.5,
               width: Dimensions.get('window').width
             }}
-            source={{ uri: `${item.image}` }}
+            source={{ uri: `${postagem.image}` }}
           />
           <View
             style={{
@@ -94,7 +114,7 @@ export default function DescriptionScreen(props) {
             }}
             >
               <HTML
-                html={item.post_content}
+                html={postagem.post_content}
                 onLinkPress={(event, href) => {
                   navigation.navigate('webview', {
                     title: 'Acesso ao conteúdo',
@@ -106,7 +126,11 @@ export default function DescriptionScreen(props) {
           </View>
         </View>
       </ScrollView>
-      <BarraInferior aoCompartilhar={aoCompartilhar} dataDePostagem={item.post_date} />
+      <BarraInferior
+        aoBaixarConteudo={aoBaixarConteudo}
+        aoCompartilhar={aoCompartilhar}
+        dataDePostagem={postagem.post_date}
+      />
     </>
   );
 }
