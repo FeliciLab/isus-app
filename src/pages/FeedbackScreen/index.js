@@ -91,10 +91,19 @@ export default function FeedbackScreen() {
   };
 
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
-  const feedbackValido = () => feedback !== '';
+  const feedbackValido = () => feedback.replace(/\s/g, '').length;
+
+  const verificaErroDePermissao = erro => (erro === "Permissions weren't granted" ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
+    : erro);
 
   const definirNomeDaImagem = (response) => {
     if (response.didCancel) return;
+    if (response.error) {
+      const erro = verificaErroDePermissao(response.error);
+      setMensagemDeErro(erro);
+      setErroAoEnviar(true);
+      return;
+    }
     let path = response.uri;
     if (Platform.OS === 'ios') path = extrairCaminhoDoArquivo(path);
     if (!response.fileName) setNomeImagem(extrairNomeDoArquivo(path));
