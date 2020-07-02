@@ -4,7 +4,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { getCategoriasArquitetura } from '../apis/apiHome';
-import { salvarDados } from '../services/armazenamento';
+import { salvarDados, pegarDados } from '../services/armazenamento';
+
 
 const Tab = createMaterialTopTabNavigator();
 const indexComponent = 0;
@@ -64,16 +65,19 @@ export default function EducationTabScreen(props) {
   });
 
   useEffect(() => {
-    (async () => {
+    const pegarCategorias = async () => {
       try {
-        console.log('try categorias');
         const resposta = await getCategoriasArquitetura();
         setCategorias(resposta.data[props.route.name]);
         await salvarDados(`@categorias_${props.route.name}`, resposta.data[props.route.name]);
       } catch (err) {
-        console.log('erro de pegar categorias => ', err);
+        if (err.message === 'Network Error') {
+          const resposta = await pegarDados(`@categorias_${props.route.name}`);
+          setCategorias(resposta);
+        }
       }
-    })();
+    };
+    pegarCategorias();
   }, []);
 
   function addTitle(item) {
