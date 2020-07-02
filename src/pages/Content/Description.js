@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useLayoutEffect } from 'react';
+import React, {
+  useState, useCallback, useLayoutEffect
+} from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
@@ -21,10 +23,8 @@ export default function DescriptionScreen(props) {
   const navigation = useNavigation();
   const { route } = props;
   const { params } = route;
-  const [postagem, alterarPostagem] = useState([]);
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(false);
-  // const postagem = params.object;
-  console.log('id', params.object);
+  const [postagem, alterarPostagem] = useState({});
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(() => (!!params.object.offline));
 
   useFocusEffect(
     useCallback(() => {
@@ -41,8 +41,8 @@ export default function DescriptionScreen(props) {
 
   const pegarConteudoDoStorage = async () => {
     try {
-      const resposta = await pegarDados(`@postagem_${params.object.id}`);
-      alterarPostagem(resposta.data);
+      const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      alterarPostagem(resposta);
     } catch (err) {
       console.log(err);
     }
@@ -70,8 +70,7 @@ export default function DescriptionScreen(props) {
   };
 
   const aoBaixarConteudo = async () => {
-    console.log(postagem);
-    await salvarDados(`@postagem_${postagem.id}`, postagem);
+    await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id });
     alterarConteudoBaixado(true);
     // Fazer o Feedbacks (snackbar)
   };
