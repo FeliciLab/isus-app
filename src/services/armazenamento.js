@@ -72,6 +72,12 @@ const pegarDadosDeChavesCom = async (parteDaChave) => {
 };
 
 
+const Armazenamento = {
+  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom
+};
+
 export {
   salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom
 };
+
+export default Armazenamento;
