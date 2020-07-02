@@ -26,25 +26,37 @@ export default function DescriptionScreen(props) {
   // const postagem = params.object;
   console.log('id', params.object);
 
-
   useFocusEffect(
     useCallback(() => {
-      if (conteudoBaixado) {
-        pegarDados(`@postagem_${params.object.id}`).then((response) => {
-          alterarPostagem(response.data);
-        }).catch((err) => {
-          console.log(err);
-        });
-      } else {
-        getProjectPorId(params.object.id).then((response) => {
-          alterarPostagem(response.data);
-        }).catch((err) => {
-          console.log(err);
-        });
+      async function pegarConteudo() {
+        if (conteudoBaixado) {
+          await pegarConteudoDoStorage();
+        } else {
+          await pegarConteudoDaApi();
+        }
       }
+      pegarConteudo();
     }, [props])
   );
-  // console.log(postagem);
+
+  const pegarConteudoDoStorage = async () => {
+    try {
+      const resposta = await pegarDados(`@postagem_${params.object.id}`);
+      alterarPostagem(resposta.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const pegarConteudoDaApi = async () => {
+    try {
+      const resposta = await getProjectPorId(params.object.id);
+      alterarPostagem(resposta.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const aoCompartilhar = async () => {
     const messagTitle = postagem.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(postagem.slug);
@@ -63,6 +75,7 @@ export default function DescriptionScreen(props) {
     alterarConteudoBaixado(true);
     // Fazer o Feedbacks (snackbar)
   };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
