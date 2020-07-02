@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 /**
- * Salva os dados no ASyncStorage
+ * Salva os dados no AsyncStorage
  * @param {String} chave Chave de acesso ao valor.
- * @param {{}} valor valor a ser armazenado.
+ * @param {{}} valor Valor a ser armazenado.
  */
 const salvarDados = async (chave, valor) => {
   try {
@@ -15,7 +15,7 @@ const salvarDados = async (chave, valor) => {
 };
 
 /**
- * Pega os dados no ASyncStorage
+ * Pega os dados no AsyncStorage
  * @param {String} chave Chave de acesso ao valor.
  */
 const pegarDados = async (chave) => {
@@ -28,5 +28,50 @@ const pegarDados = async (chave) => {
   return null;
 };
 
+/**
+ * Pega todas as chaves de dados no AsyncStorage
+ */
+const pegarTodasAsChaves = async () => {
+  try {
+    const chaves = await AsyncStorage.getAllKeys();
+    return chaves;
+  } catch (e) {
+    console.log(e);
+  }
+  return null;
+};
 
-export { salvarDados, pegarDados };
+/**
+ * Pega todas as chaves que contenham uma parte de uma String
+ * @param {String} parteDaChave Parte do nome de alguma chave
+ */
+const pegarChavesCom = async (parteDaChave) => {
+  try {
+    const chaves = await pegarTodasAsChaves();
+    const chavesEncontradas = chaves.filter(chave => chave.includes(parteDaChave));
+    return chavesEncontradas;
+  } catch (e) {
+    console.log(e);
+  }
+  return null;
+};
+
+/**
+ * Pega os dados de chaves que contenham uma parte de uma string
+ * @param {String} parteDaChave Parte do nome de alguma chave
+ */
+const pegarDadosDeChavesCom = async (parteDaChave) => {
+  try {
+    const chavesEncontradas = await pegarChavesCom(parteDaChave);
+    const dadosEncontrados = chavesEncontradas.map(chave => pegarDados(chave));
+    return Promise.all(dadosEncontrados);
+  } catch (e) {
+    console.log(e);
+  }
+  return null;
+};
+
+
+export {
+  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom
+};
