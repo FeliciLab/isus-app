@@ -29,18 +29,6 @@ const pegarDados = async (chave) => {
 };
 
 /**
- * remove os dados no AsyncStorage
- * @param {String} chave Chave de acesso ao valor.
- */
-const removeDados = async (chave) => {
-  try {
-    await AsyncStorage.removeItem(chave);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-/**
  * Pega todas as chaves de dados no AsyncStorage
  */
 const pegarTodasAsChaves = async () => {
@@ -83,13 +71,25 @@ const pegarDadosDeChavesCom = async (parteDaChave) => {
   return null;
 };
 
+/**
+ * Remove um dado do AsyncStorage
+ * @param {String} chave Chave de acesso ao valor
+ */
+const removerDados = async (chave) => {
+  try {
+    await AsyncStorage.removeItem(chave);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 
 const Armazenamento = {
-  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom, removeDados
+  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom, removerDados
 };
 
 export {
-  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom, removeDados
+  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom, removerDados
 };
 
 export default Armazenamento;
