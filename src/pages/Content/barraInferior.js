@@ -46,20 +46,18 @@ function BarraInferior({
 
 const estilos = StyleSheet.create({
   inferior: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
     backgroundColor: '#FFFFFF',
-    shadowColor: '#000',
+    // shadowColor: '#000',
+    borderTopColor: '#ccc',
+    borderTopWidth: 1,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 0,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
-    paddingHorizontal: 16,
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
+    paddingHorizontal: 16
   },
   texto: {
     color: 'rgba(0, 0, 0, 0.6)',
@@ -68,10 +66,6 @@ const estilos = StyleSheet.create({
     fontSize: 10,
     lineHeight: 16,
     fontWeight: 'bold',
-  },
-  safeAreaiOS: {
-    height: 80,
-    paddingBottom: 20
   }
 });
 
