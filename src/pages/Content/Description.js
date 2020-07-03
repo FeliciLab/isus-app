@@ -81,7 +81,7 @@ export default function DescriptionScreen(props) {
 
   const baixarConteudo = async () => {
     try {
-      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id });
+      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id, offline: true });
       alterarConteudoBaixado(true);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {

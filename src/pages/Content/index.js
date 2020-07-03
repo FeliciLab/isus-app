@@ -28,33 +28,31 @@ export default function InformationScreen(props) {
 
   const pegarConteudoDoStorage = async () => {
     const resposta = await pegarDadosDeChavesCom(`@categoria_${params.term_id}`);
-    const postsOffline = resposta.map(post => ({ ...post, offline: true }));
-    alterarPostagens(postsOffline);
+    alterarPostagens(resposta);
   };
 
   const pegarConteudoDaApi = async () => {
     const resposta = await getProjetosPorCategoria(params.term_id);
-    const postagems = resposta.data.data;
-    const posts = postagems.map(postagem => pegarDados(`@categoria_${params.term_id}_postagem_${postagem.id}`));
-    const ps = await Promise.all(posts);
-    const postagensOffline = [];
-    ps.forEach((p) => {
-      if (p) {
-        postagensOffline.push({ ...p, offline: true });
-      }
-    });
+    const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
+    const postagensAtualizadas = marcarPostagensBaixadas(resposta.data.data, postagensBaixadas);
+    alterarPostagens(postagensAtualizadas);
+  };
 
-    const idsOffline = postagensOffline.map(post => post.id);
+  const pegarPostagensBaixadas = async (posts) => {
+    const postagensBuscadas = posts.map(postagem => pegarDados(`@categoria_${params.term_id}_postagem_${postagem.id}`));
+    const postagensEncontradas = await Promise.all(postagensBuscadas);
+    return postagensEncontradas.filter(postagem => (!!postagem));
+  };
 
-    resposta.data.data.forEach((post, index) => {
+  const marcarPostagensBaixadas = (posts, postsBaixados) => {
+    const idsOffline = postsBaixados.map(post => post.id);
+
+    posts.forEach((post, index) => {
       const idx = idsOffline.indexOf(post.id);
-      if (idx !== -1) resposta.data.data.splice(index, 1, postagensOffline[idx]);
+      if (idx !== -1) posts.splice(index, 1, { ...post, offline: true });
     });
 
-    console.log('RESULTADO', resposta.data.data);
-
-    alterarPostagens(resposta.data.data);
-    // alterarPostagens(resposta.data.data);
+    return posts;
   };
 
   return (
