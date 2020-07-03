@@ -9,7 +9,7 @@ import {
 }
   from 'react-native';
 import {
-  Title
+  Title, Snackbar
 } from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
@@ -25,6 +25,8 @@ export default function DescriptionScreen(props) {
   const { params } = route;
   const [postagem, alterarPostagem] = useState({});
   const [conteudoBaixado, alterarConteudoBaixado] = useState(() => (!!params.object.offline));
+  const [visivel, alterarVisibilidade] = useState(false);
+  const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -72,7 +74,17 @@ export default function DescriptionScreen(props) {
   const aoBaixarConteudo = async () => {
     await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id });
     alterarConteudoBaixado(true);
+    console.log('categoria', params.object);
     // Fazer o Feedbacks (snackbar)
+    mostrarFeedback(`A página foi salva offline em "${params.title}"`);
+  };
+
+  const mostrarFeedback = (texto) => {
+    alterarTextoDoFeedback(texto);
+    alterarVisibilidade(true);
+    setTimeout(() => {
+      alterarVisibilidade(false);
+    }, 3000);
   };
 
   useLayoutEffect(() => {
@@ -138,6 +150,12 @@ export default function DescriptionScreen(props) {
           </View>
         </View>
       </ScrollView>
+      <Snackbar
+        style={{ marginBottom: 70 }}
+        visible={visivel}
+      >
+        {textoDoFeedback}
+      </Snackbar>
       <BarraInferior
         aoBaixarConteudo={aoBaixarConteudo}
         aoCompartilhar={aoCompartilhar}
