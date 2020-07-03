@@ -5,7 +5,7 @@ import {
 import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getProjetosPorCategoria } from '../../apis/apiHome';
-import { pegarDadosDeChavesCom } from '../../services/armazenamento';
+import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 
 export default function InformationScreen(props) {
   const navigation = useNavigation();
@@ -34,7 +34,27 @@ export default function InformationScreen(props) {
 
   const pegarConteudoDaApi = async () => {
     const resposta = await getProjetosPorCategoria(params.term_id);
+    const postagems = resposta.data.data;
+    const posts = postagems.map(postagem => pegarDados(`@categoria_${params.term_id}_postagem_${postagem.id}`));
+    const ps = await Promise.all(posts);
+    const postagensOffline = [];
+    ps.forEach((p) => {
+      if (p) {
+        postagensOffline.push({ ...p, offline: true });
+      }
+    });
+
+    const idsOffline = postagensOffline.map(post => post.id);
+
+    resposta.data.data.forEach((post, index) => {
+      const idx = idsOffline.indexOf(post.id);
+      if (idx !== -1) resposta.data.data.splice(index, 1, postagensOffline[idx]);
+    });
+
+    console.log('RESULTADO', resposta.data.data);
+
     alterarPostagens(resposta.data.data);
+    // alterarPostagens(resposta.data.data);
   };
 
   return (
