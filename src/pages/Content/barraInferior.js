@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Appbar } from 'react-native-paper';
 import {
   StyleSheet, View, Text, Platform
@@ -7,8 +7,19 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import formatarDataDePostagem from '../../utils/dateUtils';
 
 
-function BarraInferior({ aoBaixarConteudo, aoCompartilhar, dataDePostagem }) {
+function BarraInferior({
+  aoClicarEmBaixar, aoCompartilhar, dataDePostagem, conteudoBaixado
+}) {
+  const [iconeDownload, alterarIconeDownload] = useState();
   SimpleLineIcons.loadFont();
+
+  useEffect(() => {
+    if (conteudoBaixado) {
+      alterarIconeDownload('cloud-check');
+    } else {
+      alterarIconeDownload('cloud-download');
+    }
+  }, [conteudoBaixado]);
 
   console.log();
   return (
@@ -25,7 +36,7 @@ function BarraInferior({ aoBaixarConteudo, aoCompartilhar, dataDePostagem }) {
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
-                    <Appbar.Action icon="cloud-download" onPress={aoBaixarConteudo} />
+                    <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
                 </View>
             </View>
         </Appbar>
