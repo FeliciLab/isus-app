@@ -4,8 +4,8 @@ import React, {
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet,
-  ScrollView, Share, TouchableOpacity
+  View, Image, Dimensions, StyleSheet, Platform,
+  ScrollView, Share, TouchableOpacity, SafeAreaView
 }
   from 'react-native';
 import {
@@ -132,7 +132,7 @@ export default function DescriptionScreen(props) {
   });
 
   return (
-    <>
+    <SafeAreaView style={styles.safeiOS}>
       <ScrollView>
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
           <View>
@@ -172,7 +172,7 @@ export default function DescriptionScreen(props) {
         </View>
       </ScrollView>
       <Snackbar
-        style={{ marginBottom: 70 }}
+        style={{ marginBottom: 100 }}
         visible={visivel}
       >
         {textoDoFeedback}
@@ -183,7 +183,7 @@ export default function DescriptionScreen(props) {
         dataDePostagem={postagem.post_date}
         conteudoBaixado={conteudoBaixado}
       />
-    </>
+    </SafeAreaView>
   );
 }
 
@@ -235,5 +235,10 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     letterSpacing: 0.4,
     color: '#EEEEEE'
+  },
+  safeiOS: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    paddingTop: Platform.OS === 'android' ? 25 : 0
   }
 });
