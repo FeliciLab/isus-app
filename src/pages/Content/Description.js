@@ -15,7 +15,7 @@ import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { salvarDados, pegarDados } from '../../services/armazenamento';
+import { salvarDados, pegarDados, removerDados } from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
 import BarraInferior from './barraInferior';
 
@@ -24,9 +24,9 @@ export default function DescriptionScreen(props) {
   const { route } = props;
   const { params } = route;
   const [postagem, alterarPostagem] = useState({});
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(() => (!!params.object.offline));
   const [visivel, alterarVisibilidade] = useState(false);
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
 
   useFocusEffect(
     useCallback(() => {
@@ -71,23 +71,33 @@ export default function DescriptionScreen(props) {
     }
   };
 
-  const aoBaixarConteudo = async () => {
-    await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id });
-    alterarConteudoBaixado(true);
-    console.log('categoria', params.object);
-    // Fazer o Feedbacks (snackbar)
-    mostrarFeedback(`A página foi salva offline em "${params.title}"`);
+  const aoClicarEmBaixar = () => {
+    if (!conteudoBaixado) {
+      baixarConteudo();
+    } else {
+      removerConteudo();
+    }
   };
 
-  // const aoRemoverConteudo = async () => {
-  //   try {
-  //     await removeDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
-  //     alterarConteudoBaixado(false);
-  //     mostrarFeedback('A página foi excluida da leitura offline');
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const baixarConteudo = async () => {
+    try {
+      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id });
+      alterarConteudoBaixado(true);
+      mostrarFeedback(`A página foi salva offline em "${params.title}"`);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const removerConteudo = async () => {
+    try {
+      await removerDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      alterarConteudoBaixado(false);
+      mostrarFeedback('A página foi excluida da leitura offline');
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const mostrarFeedback = (texto) => {
     alterarTextoDoFeedback(texto);
@@ -168,9 +178,10 @@ export default function DescriptionScreen(props) {
         {textoDoFeedback}
       </Snackbar>
       <BarraInferior
-        aoBaixarConteudo={aoBaixarConteudo}
+        aoClicarEmBaixar={aoClicarEmBaixar}
         aoCompartilhar={aoCompartilhar}
         dataDePostagem={postagem.post_date}
+        conteudoBaixado={conteudoBaixado}
       />
     </>
   );
