@@ -79,6 +79,16 @@ export default function DescriptionScreen(props) {
     mostrarFeedback(`A página foi salva offline em "${params.title}"`);
   };
 
+  // const aoRemoverConteudo = async () => {
+  //   try {
+  //     await removeDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+  //     alterarConteudoBaixado(false);
+  //     mostrarFeedback('A página foi excluida da leitura offline');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
   const mostrarFeedback = (texto) => {
     alterarTextoDoFeedback(texto);
     alterarVisibilidade(true);
@@ -86,6 +96,7 @@ export default function DescriptionScreen(props) {
       alterarVisibilidade(false);
     }, 3000);
   };
+
 
   useLayoutEffect(() => {
     navigation.setOptions({
