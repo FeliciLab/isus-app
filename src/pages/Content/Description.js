@@ -189,7 +189,7 @@ export default function DescriptionScreen(props) {
 
 const styles = StyleSheet.create({
   feedbackMargin: {
-    marginBottom: Platform.OS === 'ios' ? 100 : 70
+    marginBottom: Dimensions.get('window').height / 9,
   },
   searchHeaderBack: {
     marginHorizontal: 19
