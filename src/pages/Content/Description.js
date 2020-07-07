@@ -186,7 +186,7 @@ export default function DescriptionScreen(props) {
         </View>
       </ScrollView>
       <Snackbar
-        style={{ marginBottom: 100 }}
+        style={styles.feedbackMargin}
         visible={visivel}
       >
         {textoDoFeedback}
@@ -202,8 +202,8 @@ export default function DescriptionScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    // color: 'rgba(0, 0, 0, 0.6)'
+  feedbackMargin: {
+    marginBottom: Dimensions.get('window').height / 9,
   },
   searchHeaderBack: {
     marginHorizontal: 19
