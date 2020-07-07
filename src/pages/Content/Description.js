@@ -15,9 +15,12 @@ import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { salvarDados, pegarDados, removerDados } from '../../services/armazenamento';
+import {
+  salvarDados, pegarDados, removerDados, salvarImagemPorUrl, pegarImagem
+} from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
 import BarraInferior from './barraInferior';
+import ImagemDePostagem from './ImagemDePostagem';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -27,6 +30,7 @@ export default function DescriptionScreen(props) {
   const [visivel, alterarVisibilidade] = useState(false);
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
+  const [imagem, alterarImagem] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -44,7 +48,9 @@ export default function DescriptionScreen(props) {
   const pegarConteudoDoStorage = async () => {
     try {
       const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      const imagemDaPostagem = await pegarImagem(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`);
       alterarPostagem(resposta);
+      alterarImagem(imagemDaPostagem);
     } catch (err) {
       console.log(err);
     }
@@ -54,6 +60,7 @@ export default function DescriptionScreen(props) {
     try {
       const resposta = await getProjectPorId(params.object.id);
       alterarPostagem(resposta.data);
+      console.log(resposta.data);
     } catch (err) {
       console.log(err);
     }
@@ -81,7 +88,9 @@ export default function DescriptionScreen(props) {
 
   const baixarConteudo = async () => {
     try {
+      console.log(postagem);
       await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id, offline: true });
+      await salvarImagemPorUrl(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`, postagem.image);
       alterarConteudoBaixado(true);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
@@ -106,7 +115,6 @@ export default function DescriptionScreen(props) {
       alterarVisibilidade(false);
     }, 3000);
   };
-
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -139,14 +147,11 @@ export default function DescriptionScreen(props) {
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
-          <Image
-            resizeMode="contain"
-            style={{
-              height: Dimensions.get('window').width / 1.5,
-              width: Dimensions.get('window').width
-            }}
-            source={{ uri: `${postagem.image}` }}
-          />
+            <ImagemDePostagem
+              conteudoBaixado={conteudoBaixado}
+              imagemBase64={imagem}
+              urlImagem={postagem.image}
+            />
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,
