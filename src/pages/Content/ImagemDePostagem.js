@@ -7,12 +7,6 @@ export default function ImagemDePostagem({ conteudoBaixado, imagemBase64, urlIma
     ios: () => (ImagemOfflineiOS),
     android: () => (ImagemOfflineAndroid)
   };
-
-  const PlataformaImagemOnline = {
-    ios: () => (ImagemOnline),
-    android: () => (ImagemOnline)
-  };
-
   const ImagemOfflineiOS = (
     <WebView
       style={{
@@ -36,7 +30,7 @@ export default function ImagemDePostagem({ conteudoBaixado, imagemBase64, urlIma
     />
   );
 
-  const ImagemOnline = (
+  const ImagemOnline = () => (
     <Image
       resizeMode="contain"
       style={{
@@ -48,5 +42,5 @@ export default function ImagemDePostagem({ conteudoBaixado, imagemBase64, urlIma
   );
 
   return conteudoBaixado ? PlataformaImagemOffline[Platform.OS]()
-    : PlataformaImagemOnline[Platform.OS]();
+    : ImagemOnline();
 }
