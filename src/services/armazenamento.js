@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 /**
  * Salva os dados no AsyncStorage
@@ -83,13 +84,41 @@ const removerDados = async (chave) => {
   }
 };
 
+const pegarImagem = async chave => AsyncStorage.getItem(chave);
+
+const salvarImagemPorUrl = async (chave, urlImagem) => {
+  try {
+    const response = await converterImagemParaBase64(urlImagem);
+    console.log('RESPONSE', response);
+    const { imagemBase64 } = response;
+    await AsyncStorage.setItem(chave, imagemBase64);
+  } catch (err) {
+    console.log('ERRO', err);
+  }
+};
+
+const converterImagemParaBase64 = async (urlImagem) => {
+  const { data } = await axios.post('http://192.168.15.14:7000/api/imagemBase64', { urlImagem }, {
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
+  });
+  return data;
+};
+
 
 const Armazenamento = {
-  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom, removerDados
+  salvarDados,
+  pegarDados,
+  pegarTodasAsChaves,
+  pegarChavesCom,
+  pegarDadosDeChavesCom,
+  removerDados,
+  salvarImagemPorUrl,
+  pegarImagem
 };
 
 export {
-  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom, pegarDadosDeChavesCom, removerDados
+  salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom,
+  pegarDadosDeChavesCom, removerDados, salvarImagemPorUrl, pegarImagem
 };
 
 export default Armazenamento;
