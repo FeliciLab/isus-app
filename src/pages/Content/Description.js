@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useLayoutEffect
+  useState, useCallback, useLayoutEffect, useEffect
 } from 'react';
 
 import {
@@ -30,7 +30,7 @@ export default function DescriptionScreen(props) {
   const [visivel, alterarVisibilidade] = useState(false);
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
-  const [imagem, alterarImagem] = useState('');
+  const [imagemBase64, alterarImagemBase64] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -45,12 +45,25 @@ export default function DescriptionScreen(props) {
     }, [props])
   );
 
+  useEffect(() => {
+    renderizarImagem();
+  }, [imagemBase64]);
+
+  const renderizarImagem = () => (
+    <ImagemDePostagem
+      conteudoBaixado={conteudoBaixado}
+      imagemBase64={imagemBase64}
+      urlImagem={postagem.image}
+    />
+  );
+
+
   const pegarConteudoDoStorage = async () => {
     try {
       const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
       const imagemDaPostagem = await pegarImagem(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`);
       alterarPostagem(resposta);
-      alterarImagem(imagemDaPostagem);
+      alterarImagemBase64(imagemDaPostagem);
     } catch (err) {
       console.log(err);
     }
@@ -147,11 +160,7 @@ export default function DescriptionScreen(props) {
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
-            <ImagemDePostagem
-              conteudoBaixado={conteudoBaixado}
-              imagemBase64={imagem}
-              urlImagem={postagem.image}
-            />
+            { renderizarImagem() }
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,

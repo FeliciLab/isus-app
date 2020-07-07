@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import axios from 'axios';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 /**
  * Salva os dados no AsyncStorage
@@ -88,9 +88,8 @@ const pegarImagem = async chave => AsyncStorage.getItem(chave);
 
 const salvarImagemPorUrl = async (chave, urlImagem) => {
   try {
-    const response = await converterImagemParaBase64(urlImagem);
-    console.log('RESPONSE', response);
-    const { imagemBase64 } = response;
+    const imagemBase64 = await converterImagemParaBase64(urlImagem);
+    console.log('RESPONSE', imagemBase64);
     await AsyncStorage.setItem(chave, imagemBase64);
   } catch (err) {
     console.log('ERRO', err);
@@ -98,10 +97,10 @@ const salvarImagemPorUrl = async (chave, urlImagem) => {
 };
 
 const converterImagemParaBase64 = async (urlImagem) => {
-  const { data } = await axios.post('http://192.168.15.14:7000/api/imagemBase64', { urlImagem }, {
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' }
-  });
-  return data;
+  const response = await RNFetchBlob.config({ fileCache: true }).fetch('GET', urlImagem);
+  const file = await response.readFile('base64');
+  console.log(file);
+  return file;
 };
 
 
