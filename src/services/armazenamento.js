@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import RNFetchBlob from 'react-native-fetch-blob';
+import RNFetchBlob from 'rn-fetch-blob';
 
 /**
  * Salva os dados no AsyncStorage
@@ -91,8 +91,9 @@ const salvarImagemPorUrl = async (chave, urlImagem) => {
     const imagemBase64 = await converterImagemParaBase64(urlImagem);
     console.log('RESPONSE', imagemBase64);
     await AsyncStorage.setItem(chave, imagemBase64);
+    return imagemBase64;
   } catch (err) {
-    console.log('ERRO', err);
+    throw err;
   }
 };
 

@@ -46,14 +46,15 @@ export default function DescriptionScreen(props) {
   );
 
   useEffect(() => {
-    renderizarImagem();
+    renderizarImagem(conteudoBaixado, imagemBase64, postagem.image);
+    console.log('base64', imagemBase64);
   }, [imagemBase64]);
 
-  const renderizarImagem = () => (
+  const renderizarImagem = (conteudobaixado, imagembase64, imagem) => (
     <ImagemDePostagem
-      conteudoBaixado={conteudoBaixado}
-      imagemBase64={imagemBase64}
-      urlImagem={postagem.image}
+      conteudoBaixado={conteudobaixado}
+      imagemBase64={imagembase64}
+      urlImagem={imagem}
     />
   );
 
@@ -103,11 +104,13 @@ export default function DescriptionScreen(props) {
     try {
       console.log(postagem);
       await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id, offline: true });
-      await salvarImagemPorUrl(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`, postagem.image);
+      const imagembase64 = await salvarImagemPorUrl(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`, postagem.image);
       alterarConteudoBaixado(true);
+      alterarImagemBase64(imagembase64);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
-      console.log(e);
+      mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+      console.log('console baixar conteúdo', e);
     }
   };
 
@@ -160,7 +163,7 @@ export default function DescriptionScreen(props) {
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
-            { renderizarImagem() }
+            { renderizarImagem(conteudoBaixado, imagemBase64, postagem.image) }
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,
