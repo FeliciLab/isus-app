@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useLayoutEffect, useEffect
+  useState, useCallback, useLayoutEffect
 } from 'react';
 
 import {
@@ -16,7 +16,7 @@ import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  salvarDados, pegarDados, removerDados, salvarImagemPorUrl, pegarImagem
+  salvarDados, pegarDados, removerDados, converterImagemParaBase64
 } from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
 import BarraInferior from './barraInferior';
@@ -30,7 +30,6 @@ export default function DescriptionScreen(props) {
   const [visivel, alterarVisibilidade] = useState(false);
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
-  const [imagemBase64, alterarImagemBase64] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -45,26 +44,11 @@ export default function DescriptionScreen(props) {
     }, [props])
   );
 
-  useEffect(() => {
-    renderizarImagem(conteudoBaixado, imagemBase64, postagem.image);
-    console.log('base64', imagemBase64);
-  }, [imagemBase64]);
-
-  const renderizarImagem = (conteudobaixado, imagembase64, imagem) => (
-    <ImagemDePostagem
-      conteudoBaixado={conteudobaixado}
-      imagemBase64={imagembase64}
-      urlImagem={imagem}
-    />
-  );
-
 
   const pegarConteudoDoStorage = async () => {
     try {
       const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
-      const imagemDaPostagem = await pegarImagem(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`);
       alterarPostagem(resposta);
-      alterarImagemBase64(imagemDaPostagem);
     } catch (err) {
       console.log(err);
     }
@@ -103,10 +87,13 @@ export default function DescriptionScreen(props) {
   const baixarConteudo = async () => {
     try {
       console.log(postagem);
-      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, { ...postagem, categoria_id: params.object.categoria_id, offline: true });
-      const imagembase64 = await salvarImagemPorUrl(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}_imagem`, postagem.image);
+      const imagembase64 = await converterImagemParaBase64(postagem.image);
+      const postagemOffline = {
+        ...postagem, image: imagembase64, categoria_id: params.object.categoria_id, offline: true
+      };
+      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, postagemOffline);
       alterarConteudoBaixado(true);
-      alterarImagemBase64(imagembase64);
+      alterarPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
       mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
@@ -116,9 +103,10 @@ export default function DescriptionScreen(props) {
 
   const removerConteudo = async () => {
     try {
-      await removerDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
       alterarConteudoBaixado(false);
       mostrarFeedback('A página foi excluida da leitura offline');
+      await removerDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      // navigation.goBack();
     } catch (e) {
       console.log(e);
     }
@@ -163,7 +151,11 @@ export default function DescriptionScreen(props) {
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
-            { renderizarImagem(conteudoBaixado, imagemBase64, postagem.image) }
+            <ImagemDePostagem
+              conteudoBaixado={conteudoBaixado}
+              imagem={postagem.image}
+              estilo={styles.imagemDePostagem}
+            />
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,
@@ -257,5 +249,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     paddingTop: Platform.OS === 'android' ? 25 : 0
+  },
+  imagemDePostagem: {
+    height: Dimensions.get('window').width / 1.5,
+    width: Dimensions.get('window').width
   }
 });

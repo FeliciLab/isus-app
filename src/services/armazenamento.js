@@ -84,21 +84,8 @@ const removerDados = async (chave) => {
   }
 };
 
-const pegarImagem = async chave => AsyncStorage.getItem(chave);
-
-const salvarImagemPorUrl = async (chave, urlImagem) => {
-  try {
-    const imagemBase64 = await converterImagemParaBase64(urlImagem);
-    console.log('RESPONSE', imagemBase64);
-    await AsyncStorage.setItem(chave, imagemBase64);
-    return imagemBase64;
-  } catch (err) {
-    throw err;
-  }
-};
-
 const converterImagemParaBase64 = async (urlImagem) => {
-  const response = await RNFetchBlob.config({ fileCache: true }).fetch('GET', urlImagem);
+  const response = await RNFetchBlob.config({ fileCache: true }).fetch('GET', encodeURI(urlImagem));
   const file = await response.readFile('base64');
   console.log(file);
   return file;
@@ -112,13 +99,12 @@ const Armazenamento = {
   pegarChavesCom,
   pegarDadosDeChavesCom,
   removerDados,
-  salvarImagemPorUrl,
-  pegarImagem
+  converterImagemParaBase64
 };
 
 export {
   salvarDados, pegarDados, pegarTodasAsChaves, pegarChavesCom,
-  pegarDadosDeChavesCom, removerDados, salvarImagemPorUrl, pegarImagem
+  pegarDadosDeChavesCom, removerDados, converterImagemParaBase64
 };
 
 export default Armazenamento;

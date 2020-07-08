@@ -1,20 +1,19 @@
 import React from 'react';
-import { Platform, Dimensions, Image } from 'react-native';
+import { Platform, Image } from 'react-native';
 import WebView from 'react-native-webview';
 
-export default function ImagemDePostagem({ conteudoBaixado, imagemBase64, urlImagem }) {
+export default function ImagemDePostagem({
+  conteudoBaixado, imagem, estilo
+}) {
   const PlataformaImagemOffline = {
     ios: () => (ImagemOfflineiOS),
     android: () => (ImagemOfflineAndroid)
   };
   const ImagemOfflineiOS = (
     <WebView
-      style={{
-        height: Dimensions.get('window').width / 1.5,
-        width: Dimensions.get('window').width
-      }}
+      style={estilo}
       source={{
-        html: `<img src=${`data:image/png;base64,${imagemBase64}`} style="max-width: 100%; overflow: hidden; height: 100%;" />`
+        html: `<img src=${`data:image/png;base64,${imagem}`} style="max-width: 100%; overflow: hidden; height: 100%;" />`
       }}
     />
   );
@@ -22,22 +21,16 @@ export default function ImagemDePostagem({ conteudoBaixado, imagemBase64, urlIma
   const ImagemOfflineAndroid = (
     <Image
       resizeMode="contain"
-      style={{
-        height: Dimensions.get('window').width / 1.5,
-        width: Dimensions.get('window').width
-      }}
-      source={{ uri: `data:image/png;base64,${imagemBase64}` }}
+      style={estilo}
+      source={{ uri: `data:image/png;base64,${imagem}` }}
     />
   );
 
   const ImagemOnline = () => (
     <Image
       resizeMode="contain"
-      style={{
-        height: Dimensions.get('window').width / 1.5,
-        width: Dimensions.get('window').width
-      }}
-      source={{ uri: `${urlImagem}` }}
+      style={estilo}
+      source={{ uri: `${imagem}` }}
     />
   );
 
