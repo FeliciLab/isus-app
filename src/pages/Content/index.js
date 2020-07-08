@@ -1,17 +1,19 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
-  View, FlatList, Image, Dimensions, TouchableOpacity
+  View, FlatList, Dimensions, TouchableOpacity
 } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
+import ImagemDePostagem from './ImagemDePostagem';
 
 export default function InformationScreen(props) {
   const navigation = useNavigation();
   const { route } = props;
   const { params } = route;
-  const [postagens, alterarPostagens] = React.useState([]);
+  const [postagens, alterarPostagens] = useState([]);
+  const [semConexao, alterarSemConexao] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -19,7 +21,10 @@ export default function InformationScreen(props) {
         try {
           await pegarConteudoDaApi();
         } catch (err) {
-          if (err.message === 'Network Error') await pegarConteudoDoStorage();
+          if (err.message === 'Network Error') {
+            alterarSemConexao(true);
+            await pegarConteudoDoStorage();
+          }
         }
       }
       pegarConteudo();
@@ -72,10 +77,10 @@ export default function InformationScreen(props) {
           }}
           onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: params.term_id }, title: params.title_description })}
         >
-          <Image
-            style={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
-            source={{ uri: `${item.image}` }}
-            // resizeMode="contain"
+          <ImagemDePostagem
+            conteudoBaixado={semConexao}
+            imagem={item.image}
+            estilo={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
           />
           <View style={{ marginHorizontal: 15 }}>
             <Caption numberOfLines={3}>{item.post_title}</Caption>
