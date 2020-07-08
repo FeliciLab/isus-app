@@ -146,7 +146,7 @@ export default function DescriptionScreen(props) {
   return (
     <SafeAreaView style={styles.safeiOS}>
       <ScrollView>
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <View style={styles.titulo}>
           <View>
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
@@ -162,11 +162,7 @@ export default function DescriptionScreen(props) {
               width: Dimensions.get('window').width
             }}
           >
-            <View style={{
-              padding: 10,
-              alignContent: 'center'
-            }}
-            >
+            <View style={styles.viewHTML}>
               <HTML
                 html={postagem.post_content}
                 onLinkPress={(event, href) => {
@@ -203,6 +199,7 @@ const styles = StyleSheet.create({
   searchHeaderBack: {
     marginHorizontal: 19
   },
+  titulo: { flex: 1, backgroundColor: '#fff' },
   textTitleDetail: {
     marginTop: 24,
     marginLeft: 16,
@@ -253,5 +250,9 @@ const styles = StyleSheet.create({
   imagemDePostagem: {
     height: Dimensions.get('window').width / 1.5,
     width: Dimensions.get('window').width
+  },
+  viewHTML: {
+    padding: 10,
+    alignContent: 'center'
   }
 });

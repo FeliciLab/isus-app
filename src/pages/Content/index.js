@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {
-  View, FlatList, Dimensions, TouchableOpacity
+  View, FlatList, Dimensions, TouchableOpacity, Text, StyleSheet
 } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -60,27 +60,29 @@ export default function InformationScreen(props) {
     return posts;
   };
 
+  const semPostagem = () => (
+    <View style={estilos.centralizarTexto}>
+      <Text style={estilos.textoSemPostagem}>Não há postagens salvas no seu dispositivo.</Text>
+    </View>
+  );
+
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
       data={postagens}
       numColumns={2}
       keyExtractor={item => item.id}
-      style={{ flex: 1, alignSelf: 'center' }}
+      style={estilos.flatList}
+      ListEmptyComponent={semPostagem}
       renderItem={({ item }) => (
         <TouchableOpacity
-          style={{
-            height: 200,
-            width: Dimensions.get('window').width / 2.2,
-            alignItems: 'center',
-            margin: 5
-          }}
+          style={estilos.postagem}
           onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: params.term_id }, title: params.title_description })}
         >
           <ImagemDePostagem
             conteudoBaixado={semConexao}
             imagem={item.image}
-            estilo={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
+            estilo={estilos.imagemPostagem}
           />
           <View style={{ marginHorizontal: 15 }}>
             <Caption numberOfLines={3}>{item.post_title}</Caption>
@@ -90,3 +92,24 @@ export default function InformationScreen(props) {
     />
   );
 }
+
+const estilos = StyleSheet.create({
+  centralizarTexto: {
+    justifyContent: 'center', width: '100%'
+  },
+  textoSemPostagem: {
+    color: 'rgba(0,0,0,0.6)', marginTop: 20
+  },
+  flatList: {
+    flex: 1, alignSelf: 'center'
+  },
+  postagem: {
+    height: 200,
+    width: Dimensions.get('window').width / 2.2,
+    alignItems: 'center',
+    margin: 5
+  },
+  imagemPostagem: {
+    height: 110, width: Dimensions.get('window').width / 2.2
+  }
+});
