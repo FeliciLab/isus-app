@@ -41,6 +41,7 @@ export default function InformationScreen(props) {
     const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
     const postagensAtualizadas = marcarPostagensBaixadas(resposta.data.data, postagensBaixadas);
     alterarPostagens(postagensAtualizadas);
+    alterarSemConexao(false);
   };
 
   const pegarPostagensBaixadas = async (posts) => {
