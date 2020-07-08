@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -43,6 +43,7 @@
     "react-native-screens": "^2.4.0",
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.14.0",
+    "react-native-testing-library": "^2.1.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^9.4.0",
     "rn-fetch-blob": "^0.12.0",
@@ -61,8 +62,11 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "7.14.2",
+    "gitmoji-cli": "^3.2.6",
     "husky": "^3.0.9",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^25.2.4",
+    "jest-transform-stub": "^2.0.0",
     "metro-config": "^0.59.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "^1.18.2",
@@ -73,7 +77,14 @@
     "reactotron-react-native": "^5.0.0"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   },
   "transform": {
     "^.+\\.jsx?$": "babel-jest"
