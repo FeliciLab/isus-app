@@ -1,46 +1,89 @@
-import * as React from 'react';
+import React, { useCallback, useState } from 'react';
 import {
-  View, FlatList, Image, Dimensions, TouchableOpacity
+  View, FlatList, Dimensions, TouchableOpacity, Text, StyleSheet
 } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { getProjetosPorCategoria } from '../../apis/apiHome';
+import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
+import ImagemDePostagem from './ImagemDePostagem';
 
 export default function InformationScreen(props) {
   const navigation = useNavigation();
   const { route } = props;
   const { params } = route;
-  const [data, setData] = React.useState([]);
+  const [postagens, alterarPostagens] = useState([]);
+  const [semConexao, alterarSemConexao] = useState(false);
 
   useFocusEffect(
-    React.useCallback(() => {
-      getProjetosPorCategoria(params.term_id).then((response) => {
-        setData(response.data.data);
-      });
+    useCallback(() => {
+      async function pegarConteudo() {
+        try {
+          await pegarConteudoDaApi();
+        } catch (err) {
+          if (err.message === 'Network Error') {
+            alterarSemConexao(true);
+            await pegarConteudoDoStorage();
+          }
+        }
+      }
+      pegarConteudo();
     }, [props])
+  );
+
+  const pegarConteudoDoStorage = async () => {
+    const resposta = await pegarDadosDeChavesCom(`@categoria_${params.term_id}`);
+    alterarPostagens(resposta);
+  };
+
+  const pegarConteudoDaApi = async () => {
+    const resposta = await getProjetosPorCategoria(params.term_id);
+    const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
+    const postagensAtualizadas = marcarPostagensBaixadas(resposta.data.data, postagensBaixadas);
+    alterarPostagens(postagensAtualizadas);
+    alterarSemConexao(false);
+  };
+
+  const pegarPostagensBaixadas = async (posts) => {
+    const postagensBuscadas = posts.map(postagem => pegarDados(`@categoria_${params.term_id}_postagem_${postagem.id}`));
+    const postagensEncontradas = await Promise.all(postagensBuscadas);
+    return postagensEncontradas.filter(postagem => (!!postagem));
+  };
+
+  const marcarPostagensBaixadas = (posts, postsBaixados) => {
+    const idsOffline = postsBaixados.map(post => post.id);
+
+    posts.forEach((post, index) => {
+      const idx = idsOffline.indexOf(post.id);
+      if (idx !== -1) posts.splice(index, 1, { ...post, offline: true });
+    });
+
+    return posts;
+  };
+
+  const semPostagem = () => (
+    <View style={estilos.centralizarTexto}>
+      <Text style={estilos.textoSemPostagem}>Não há postagens salvas no seu dispositivo.</Text>
+    </View>
   );
 
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
-      data={data}
+      data={postagens}
       numColumns={2}
       keyExtractor={item => item.id}
-      style={{ flex: 1, alignSelf: 'center' }}
+      style={estilos.flatList}
+      ListEmptyComponent={semPostagem}
       renderItem={({ item }) => (
         <TouchableOpacity
-          style={{
-            height: 200,
-            width: Dimensions.get('window').width / 2.2,
-            alignItems: 'center',
-            margin: 5
-          }}
-          onPress={() => navigation.navigate('Descrição', { object: item, title: params.title_description })}
+          style={estilos.postagem}
+          onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: params.term_id }, title: params.title_description })}
         >
-          <Image
-            style={{ height: 110, width: Dimensions.get('window').width / 2.2 }}
-            source={{ uri: `${item.image}` }}
-            // resizeMode="contain"
+          <ImagemDePostagem
+            conteudoBaixado={semConexao}
+            imagem={item.image}
+            estilo={estilos.imagemPostagem}
           />
           <View style={{ marginHorizontal: 15 }}>
             <Caption numberOfLines={3}>{item.post_title}</Caption>
@@ -50,3 +93,24 @@ export default function InformationScreen(props) {
     />
   );
 }
+
+const estilos = StyleSheet.create({
+  centralizarTexto: {
+    justifyContent: 'center', width: '100%'
+  },
+  textoSemPostagem: {
+    color: 'rgba(0,0,0,0.6)', marginTop: 20
+  },
+  flatList: {
+    flex: 1, alignSelf: 'center'
+  },
+  postagem: {
+    height: 200,
+    width: Dimensions.get('window').width / 2.2,
+    alignItems: 'center',
+    margin: 5
+  },
+  imagemPostagem: {
+    height: 110, width: Dimensions.get('window').width / 2.2
+  }
+});
