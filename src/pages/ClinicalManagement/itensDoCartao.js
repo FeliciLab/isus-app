@@ -2,10 +2,10 @@ import Estagio1SVG from '../../assets/icons/estagiosManejo/estagio01.svg';
 import Estagio2SVG from '../../assets/icons/estagiosManejo/estagio02.svg';
 import Estagio3SVG from '../../assets/icons/estagiosManejo/estagio03.svg';
 import Estagio4SVG from '../../assets/icons/estagiosManejo/estagio04.png';
-import Estagio1 from './estagio1';
-import Estagio2 from './estagio2';
-import Estagio3 from './estagio3';
-import Estagio4 from './estagio4';
+import Estagio1 from './estagios/estagio1';
+import Estagio2 from './estagios/estagio2';
+import Estagio3 from './estagios/estagio3';
+import Estagio4 from './estagios/estagio4';
 
 const pegarItensDoCartao = estados => [
   {
