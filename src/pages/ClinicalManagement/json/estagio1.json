@@ -90,10 +90,6 @@
             ]
         }
     },
-    "botaoTeleUTI": {
-        "titulo":"TELE-UTI",
-        "telefone": "tel: 08002751475"
-    },
     "botaoPlantaoCoronavirus": {
         "titulo":"PLANTÃO CORONAVÍRUS",
         "url": "https://coronavirus.ceara.gov.br/",
