@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import {
-  Text, View, StyleSheet, Linking
+  Text, View, StyleSheet
 } from 'react-native';
 import {
   Paragraph
@@ -16,12 +16,11 @@ const Estagio1 = ({ navigation }) => {
   const {
     containerDoAviso, negrito, containerDeTextoDoAviso,
     itemDeTopico, tituloDeTopico,
-    containerDaObservacao, containerDoBotao,
-    largura30, largura60, CorDoTexto
+    containerDaObservacao, containerDoBotao, largura60, CorDoTexto
   } = styles;
 
   const {
-    titulo, descricao, secoes, botaoTeleUTI, botaoPlantaoCoronavirus
+    titulo, descricao, secoes, botaoPlantaoCoronavirus
   } = orientacaoInicial;
 
   // sintomas
@@ -72,12 +71,6 @@ const Estagio1 = ({ navigation }) => {
   { mostrarTituloEConteudo(secoes.sinaisDeGravidade) }
 
   <View style={containerDoBotao}>
-    <View style={largura30}>
-     <BotaoManejoClinico
-       onPress={() => Linking.openURL(botaoTeleUTI.telefone)}
-       label={botaoTeleUTI.titulo}
-     />
-    </View>
     <View style={largura60}>
       <BotaoManejoClinico onPress={() => navigation.navigate('webview', { title: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
     </View>
