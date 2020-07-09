@@ -7,8 +7,8 @@ import {
   Paragraph
 } from 'react-native-paper';
 
-import orientacaoInicial from './json/estagio1.json';
-import BotaoManejoClinico from './botaoManejoClinico';
+import orientacaoInicial from '../json/estagio1.json';
+import BotaoManejoClinico from '../botaoManejoClinico';
 
 const corDoTextoPadrao = 'rgba(0,0,0,0.6)';
 
