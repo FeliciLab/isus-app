@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import {
   View, ScrollView, TouchableOpacity, Image, FlatList
 } from 'react-native';
@@ -8,7 +8,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import antIcon from 'react-native-vector-icons/AntDesign';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
@@ -19,22 +19,12 @@ import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
 import TagNotificacao from '../ClinicalManagement/tagNotificacao';
-import { gerenciarVersaoDoManejo } from '../../services/manejo';
 import ProviderDeVersaoDoManejo, { ContextoDeVersaoDoManejo } from './contextoVersaoManejo';
 
 const notasTecnicasLink = 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-
-  useFocusEffect(
-    useCallback(() => {
-      console.log('CALLBACK NO HOME');
-      const pegarVersaoManejo = async () => gerenciarVersaoDoManejo();
-      pegarVersaoManejo();
-    }, [])
-  );
-
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');

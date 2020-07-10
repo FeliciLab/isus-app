@@ -45,21 +45,9 @@ const gerenciarVersaoDoManejo = async () => {
   }
 };
 
-const marcarVersaoDoManejoComoLida = async () => {
-  try {
-    const versaoManejo = await pegarVersaoDoManejo();
-    versaoManejo.lido = true;
-    await atualizarEstadoDaVersaoDoManejo(versaoManejo);
-    return versaoManejo;
-  } catch (err) {
-    console.log(err);
-  }
-  return null;
-};
-
 const atualizarEstadoDaVersaoDoManejo = async (versaoManejo) => {
   await salvarDados('manejo', versaoManejo);
 };
 
 
-export { pegarVersaoDoManejo, gerenciarVersaoDoManejo, marcarVersaoDoManejoComoLida };
+export { pegarVersaoDoManejo, gerenciarVersaoDoManejo, atualizarEstadoDaVersaoDoManejo };

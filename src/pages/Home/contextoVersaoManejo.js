@@ -1,7 +1,7 @@
 import React, {
   createContext, useState, useEffect
 } from 'react';
-import { pegarVersaoDoManejo, marcarVersaoDoManejoComoLida } from '../../services/manejo';
+import { pegarVersaoDoManejo, gerenciarVersaoDoManejo, atualizarEstadoDaVersaoDoManejo } from '../../services/manejo';
 
 const ContextoDeVersaoDoManejo = createContext({});
 
@@ -11,7 +11,7 @@ export default function ProviderDeVersaoDoManejo({ children }) {
 
   useEffect(() => {
     async function pegarVersaoManejo() {
-      console.log('antes de atribuir no contexto', versaoDoManejo);
+      await gerenciarVersaoDoManejo();
       const versaoManejo = await pegarVersaoDoManejo();
       alterarVersaoDoManejo(versaoManejo);
     }
@@ -21,9 +21,9 @@ export default function ProviderDeVersaoDoManejo({ children }) {
   useEffect(() => {
     async function atualizarEstadoDaVersaoNoStorage() {
       if (atualizarNoStorage) {
-        await marcarVersaoDoManejoComoLida();
+        await atualizarEstadoDaVersaoDoManejo(versaoDoManejo);
+        alterarAtualizarNoStorage(false);
       }
-      console.log('depois de atribuir no contexto', versaoDoManejo);
     }
     atualizarEstadoDaVersaoNoStorage();
   }, [versaoDoManejo]);
