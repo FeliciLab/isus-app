@@ -6,15 +6,13 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import antIcon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
-import Servico2 from '../../assets/icons/servicos/servico_2.svg';
-import Servico3 from '../../assets/icons/servicos/servico_3.svg';
+
 import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
-import Forca4 from '../../assets/icons/ceara_icon.svg';
 
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
 import Banner from './banner';
 import HomeCard from './homeCard';
+import servicos from './servicos';
 
 const notasTecnicasLink = 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/';
 
@@ -72,46 +70,6 @@ export default function HomeScreen() {
     });
   });
 
-  const services = [
-    {
-      id: 'services-1',
-      title: 'IntegraSUS',
-      logo: Servico1,
-
-      onPress: () => navigation.navigate('webview', {
-        title: 'IntegraSUS',
-        url: 'https://integrasus.saude.ce.gov.br'
-      })
-    },
-    {
-      id: 'services-2',
-      title: 'Central de Ventiladores',
-      logo: Servico2,
-      onPress: () => navigation.navigate('webview', {
-        title: 'Central de Ventiladores',
-        url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
-      })
-    },
-    {
-      id: 'services-3',
-      title: 'TeleMedicina',
-      logo: Servico3,
-      onPress: () => navigation.navigate('webview', {
-        title: 'TeleMedicina',
-        url: 'https://coronavirus.ceara.gov.br/isus/telemedicina'
-      })
-    },
-    {
-      id: 'services-4',
-      title: 'Ações do governo',
-      logo: Forca4,
-      onPress: () => navigation.navigate('webview', {
-        title: 'Ações do governo',
-        url: 'https://coronavirus.ceara.gov.br/isus/governo/'
-      })
-    }
-  ];
-
   const anticoronaActions = [
     {
       id: 'action-1',
@@ -150,7 +108,7 @@ export default function HomeScreen() {
       onPress: () => navigation.navigate('webview', { title: 'Notas Técnicas', url: notasTecnicasLink })
     }
   ];
-  console.tron.log(services);
+  console.tron.log(servicos);
   return (
     <ProviderDeVersaoDoManejo>
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
@@ -159,7 +117,7 @@ export default function HomeScreen() {
       <Title style={{ alignSelf: 'center', color: '#FF9800' }}>Serviços</Title>
 
       <FlatList
-        data={services}
+        data={servicos}
         numColumns={2}
         keyExtractor={(item, index) => `${index}`}
         style={{
@@ -170,13 +128,16 @@ export default function HomeScreen() {
         renderItem={({ item }) => (
           <HomeCard
             key={item.id}
-            title={item.title}
+            title={item.titulo}
             Logo={item.logo}
             margin={10}
             isImage={item.isImage || false}
             FontIcon={item.FontIcon || Icon}
             color="#FF9800"
-            onPress={item.onPress}
+            onPress={() => navigation.navigate(item.navegacao.componente, {
+              title: item.navegacao.titulo,
+              url: item.navegacao.url
+            })}
           />
         )}
       />
