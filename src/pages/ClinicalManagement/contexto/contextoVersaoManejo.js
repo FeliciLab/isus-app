@@ -1,7 +1,7 @@
 import React, {
   createContext, useState, useEffect
 } from 'react';
-import { pegarVersaoDoManejo, gerenciarVersaoDoManejo, atualizarEstadoDaVersaoDoManejo } from '../../services/manejo';
+import { pegarVersaoDoManejo, gerenciarVersaoDoManejo, atualizarEstadoDaVersaoDoManejo } from '../../../services/manejo';
 
 const ContextoDeVersaoDoManejo = createContext({});
 

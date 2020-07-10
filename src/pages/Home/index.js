@@ -19,7 +19,7 @@ import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
 import TagNotificacao from '../ClinicalManagement/tagNotificacao';
-import ProviderDeVersaoDoManejo, { ContextoDeVersaoDoManejo } from './contextoVersaoManejo';
+import ProviderDeVersaoDoManejo, { ContextoDeVersaoDoManejo } from '../ClinicalManagement/contexto/contextoVersaoManejo';
 
 const notasTecnicasLink = 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/';
 
