@@ -8,7 +8,7 @@ export default function TagNotificacao({ versaoManejo }) {
     </View>
   );
 
-  const renderizarNotificacao = () => (versaoManejo && !versaoManejo.lido ? notificacao : <></>);
+  const renderizarNotificacao = () => (versaoManejo && !versaoManejo.lida ? notificacao : <></>);
 
   return renderizarNotificacao();
 }

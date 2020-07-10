@@ -10,12 +10,12 @@ export default function ProviderDeVersaoDoManejo({ children }) {
   const [atualizarNoStorage, alterarAtualizarNoStorage] = useState(false);
 
   useEffect(() => {
-    async function pegarVersaoManejo() {
+    async function pegarVersaoManejoDoStorage() {
       await gerenciarVersaoDoManejo();
       const versaoManejo = await pegarVersaoDoManejo();
       alterarVersaoDoManejo(versaoManejo);
     }
-    pegarVersaoManejo();
+    pegarVersaoManejoDoStorage();
   }, []);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function ProviderDeVersaoDoManejo({ children }) {
   }, [versaoDoManejo]);
 
   const marcarVersaoComoLida = () => {
-    alterarVersaoDoManejo({ ...versaoDoManejo, lido: true });
+    alterarVersaoDoManejo({ ...versaoDoManejo, lida: true });
     alterarAtualizarNoStorage(true);
   };
 
