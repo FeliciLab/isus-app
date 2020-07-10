@@ -1,4 +1,4 @@
-import manejoJson from './manejo.json';
+import manejoJson from '../pages/ClinicalManagement/json/versao_manejo.json';
 import { salvarDados, pegarDados } from './armazenamento';
 
 /**
@@ -19,10 +19,13 @@ const pegarVersaoDoManejo = async () => {
  * @param {{}} manejoStorage
  * @return void
  */
-const adicionarVersaoDoManejo = async (manejoStorage) => {
+const atualizarVersaoDoManejo = async (manejoStorage) => {
   try {
     if (!manejoStorage || manejoStorage.versao < manejoJson.versao) {
+      console.log('ANTES', 'JSON', manejoJson, 'STORAGE', manejoStorage);
       await salvarDados('manejo', manejoJson);
+      const manejoStorag = await pegarDados('manejo');
+      console.log('DEPOSI', 'JSON', manejoJson, 'STORAGE', manejoStorag);
     }
   } catch (err) {
     console.log(err);
@@ -36,12 +39,27 @@ const adicionarVersaoDoManejo = async (manejoStorage) => {
 const gerenciarVersaoDoManejo = async () => {
   try {
     const manejoStorage = await pegarVersaoDoManejo();
-    console.log(manejoStorage, manejoJson);
-    await adicionarVersaoDoManejo(manejoStorage);
+    await atualizarVersaoDoManejo(manejoStorage);
   } catch (err) {
     console.log(err);
   }
 };
 
+const marcarVersaoDoManejoComoLida = async () => {
+  try {
+    const versaoManejo = await pegarVersaoDoManejo();
+    versaoManejo.lido = true;
+    await atualizarEstadoDaVersaoDoManejo(versaoManejo);
+    return versaoManejo;
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
+};
 
-export default gerenciarVersaoDoManejo;
+const atualizarEstadoDaVersaoDoManejo = async (versaoManejo) => {
+  await salvarDados('manejo', versaoManejo);
+};
+
+
+export { pegarVersaoDoManejo, gerenciarVersaoDoManejo, marcarVersaoDoManejoComoLida };

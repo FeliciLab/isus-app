@@ -1,0 +1,12 @@
+{
+    "versao": 3.5,
+    "lido": false,
+    "visualizacoes": {
+      "estagio1": false,
+      "estagio4": false
+    },
+    "modificacoes": [
+      "estagio1",
+      "estagio4"
+    ]
+}

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useCallback, useContext } from 'react';
 import {
   View, ScrollView, TouchableOpacity, Image, FlatList
 } from 'react-native';
@@ -8,7 +8,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import antIcon from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
@@ -18,11 +18,23 @@ import Forca4 from '../../assets/icons/ceara_icon.svg';
 import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 import normalize from '../../utils/normalize';
+import TagNotificacao from '../ClinicalManagement/tagNotificacao';
+import { gerenciarVersaoDoManejo } from '../../services/manejo';
+import ProviderDeVersaoDoManejo, { ContextoDeVersaoDoManejo } from './contextoVersaoManejo';
 
 const notasTecnicasLink = 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => {
+      console.log('CALLBACK NO HOME');
+      const pegarVersaoManejo = async () => gerenciarVersaoDoManejo();
+      pegarVersaoManejo();
+    }, [])
+  );
+
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
@@ -76,9 +88,15 @@ export default function HomeScreen() {
   });
 
   function Banner() {
+    const { versaoDoManejo, marcarVersaoComoLida } = useContext(ContextoDeVersaoDoManejo);
     return (
       <Card
-        onPress={() => navigation.navigate('clinical management')}
+        onPress={() => {
+          if (!versaoDoManejo.lido) {
+            marcarVersaoComoLida();
+          }
+          navigation.navigate('clinical management');
+        }}
         style={{
           marginVertical: 20,
           marginHorizontal: 16,
@@ -110,6 +128,7 @@ export default function HomeScreen() {
             <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
               Manejo Clínico de Paciente com Covid-19
             </Paragraph>
+            <TagNotificacao versaoManejo={versaoDoManejo} />
           </View>
         </View>
       </Card>
@@ -248,6 +267,7 @@ export default function HomeScreen() {
   ];
   console.tron.log(services);
   return (
+    <ProviderDeVersaoDoManejo>
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
       <Banner />
 
@@ -301,5 +321,6 @@ export default function HomeScreen() {
         )}
       />
     </ScrollView>
+    </ProviderDeVersaoDoManejo>
   );
 }
