@@ -1,18 +1,16 @@
 import React, { useContext } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { ContextoDeVersaoDoManejo } from '../ClinicalManagement/contexto/contextoVersaoManejo';
 import TagNotificacao from '../ClinicalManagement/tagNotificacao';
-import normalize from '../../utils/normalize';
-
 
 import IconPaciente from '../../assets/icons/icon_paciente.png';
 
 export default function Banner() {
   const navigation = useNavigation();
-
   const { versaoDoManejo, marcarVersaoComoLida } = useContext(ContextoDeVersaoDoManejo);
+
   return (
     <Card
       onPress={() => {
@@ -21,35 +19,18 @@ export default function Banner() {
         }
         navigation.navigate('clinical management');
       }}
-      style={{
-        marginVertical: 20,
-        marginHorizontal: 16,
-        borderRadius: 10,
-        backgroundColor: '#4054B2',
-        minHeight: 130,
-        alignCotent: 'stretch'
-        // alignItems: 'center'
-      }}
+      style={estilos.cartao}
     >
       <View
-        style={{
-          marginHorizontal: 12,
-          flexDirection: 'row',
-          alignItems: 'center',
-          flex: 1
-        }}
+        style={estilos.conteudoCartao}
       >
         <View
-          style={{
-            height: 80,
-            width: 80,
-            borderRadius: 80
-          }}
+          style={estilos.containerImage}
         >
-          <Image source={IconPaciente} style={{ height: 80, width: 80 }} resizeMode="contain" />
+          <Image source={IconPaciente} style={estilos.imagem} resizeMode="contain" />
         </View>
-        <View style={{ flex: 1, paddingHorizontal: 12 }}>
-          <Paragraph style={{ fontSize: normalize(16), color: '#FFEB3B' }}>
+        <View style={estilos.conteudoTitulo}>
+          <Paragraph style={estilos.titulo}>
             Manejo Clínico de Paciente com Covid-19
           </Paragraph>
           <TagNotificacao versaoManejo={versaoDoManejo} />
@@ -58,3 +39,31 @@ export default function Banner() {
     </Card>
   );
 }
+
+
+const estilos = StyleSheet.create({
+  cartao: {
+    marginVertical: 20,
+    marginHorizontal: 16,
+    borderRadius: 10,
+    backgroundColor: '#4054B2',
+    minHeight: 130,
+    alignCotent: 'stretch'
+  },
+  conteudoCartao: {
+    marginHorizontal: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1
+  },
+  containerImage: {
+    height: 80,
+    width: 80,
+    borderRadius: 80
+  },
+  imagem: { height: 80, width: 80 },
+  conteudoTitulo: {
+    flex: 1, paddingHorizontal: 12
+  },
+  titulo: { fontSize: 18, color: '#FFEB3B' }
+});
