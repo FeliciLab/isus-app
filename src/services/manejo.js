@@ -21,11 +21,8 @@ const pegarVersaoDoManejo = async () => {
  */
 const atualizarVersaoDoManejo = async (manejoStorage) => {
   try {
-    if (!manejoStorage || manejoStorage.versao < manejoJson.versao) {
-      console.log('ANTES', 'JSON', manejoJson, 'STORAGE', manejoStorage);
+    if (!manejoStorage || manejoStorage.versao !== manejoJson.versao) {
       await salvarDados('manejo', manejoJson);
-      const manejoStorag = await pegarDados('manejo');
-      console.log('DEPOSI', 'JSON', manejoJson, 'STORAGE', manejoStorag);
     }
   } catch (err) {
     console.log(err);
