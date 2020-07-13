@@ -1,6 +1,6 @@
 {
     "versao": 2.4,
-    "lido": false,
+    "lida": true,
     "visualizacoes": {
       "estagio1": false,
       "estagio4": false

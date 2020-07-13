@@ -48,7 +48,7 @@ const estilos = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#4054B2',
     minHeight: 130,
-    alignCotent: 'stretch'
+    alignContent: 'stretch'
   },
   conteudoCartao: {
     marginHorizontal: 12,
