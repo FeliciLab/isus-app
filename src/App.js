@@ -32,10 +32,11 @@ function App() {
   }, []);
 
   function onOpened(openResult) {
-    if (Platform.OS !== 'ios' && openResult.notification.payload.launchURL) {
+    if (openResult.notification.payload.launchURL) {
+      const launchURL = openResult.notification.payload.launchURL.replace('isusapp', 'https');
       return navigate('webview', {
         title: openResult.notification.payload.title,
-        url: openResult.notification.payload.launchURL
+        url: launchURL
       });
     }
     return navigate('App');
