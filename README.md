@@ -1,30 +1,36 @@
 # App iSUS
-### v3.3.1
+### v3.3.2
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
 
-- [O que é?](#o-que-é)
-- [Tech Stack](#tech-stack)
-- [Start do Projeto](#start-do-projeto)
-  - [Usando Android](#usando-android)
-  - [Usando o iOS](#usando-o-ios)
-  - [Deploy da Aplicação (Android)](#deploy-da-Aplicação-android)
-- [Erros comuns iOS](#erros-comuns-ios)
-- [UX Design](#ux-Design)
-  - [Design de Interfaces](#design-de-interfaces)
-  - [Design Job Pipeline](#design-job-pipeline)
-  - [Design Backlog](#design-backlog)
+- [App iSUS](#app-isus)
+    - [v3.3.0](#v330)
+  - [O que é?](#o-que-é)
+  - [Tech Stack](#tech-stack)
+  - [Start do Projeto.](#start-do-projeto)
+    - [Usando Android](#usando-android)
+    - [Usando o iOS](#usando-o-ios)
+    - [Deploy da Aplicação (Android)](#deploy-da-aplicação-android)
+  - [Erros comuns iOS](#erros-comuns-ios)
+      - [xcrun: error: SDK "iphoneos" cannot be located](#xcrun-error-sdk-iphoneos-cannot-be-located)
+      - [Error: EMFILE: too many open files, watch at FSEvent.FSWatcher._handle.onchange (internal/fs/watchers.js:129:28)](#error-emfile-too-many-open-files-watch-at-fseventfswatcher_handleonchange-internalfswatchersjs12928)
+- [UX Design](#ux-design)
+    - [Design de Interfaces:](#design-de-interfaces)
+    - [Design Job Pipeline:](#design-job-pipeline)
+    - [Design Backlog:](#design-backlog)
 - [Padrões de Desenvolvimento](#padrões-de-desenvolvimento)
   - [Linguagem ubíqua](#linguagem-ubíqua)
   - [Git Flow](#git-flow)
     - [Instalação](#instalação)
   - [Branches](#branches)
   - [Commits](#commits)
-    - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
-    - [O que esse commit faz?](#o-que-esse-commit-faz)
+      - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
+      - [O que esse commit faz?](#o-que-esse-commit-faz)
   - [Estilização dos componentes](#estilização-dos-componentes)
+  - [Como Atualizar a Versão do Manejo Clínico](#como-atualizar-a-versão-do-manejo-clínico)
 - [Quem Faz?](#quem-faz)
+
 
 
 **Veja também:**
@@ -171,7 +177,31 @@ um exemplo desse nosso padrão de commit é:
 ## Estilização dos componentes
 Estamos trabalhando com stylesheet, agrupado por componentes, mas temos o plano de utilizar o [styled-components](https://styled-components.com/).
 
+## Como Atualizar a Versão do Manejo Clínico
 
+Na pasta `src/pages/ClinicalManagement/json` existe um arquivo chamado `versao_manejo.json` que mantém as informações da versão atual:
+
+``` javascript
+  {
+    "versao": 2.4,
+    "lida": true,
+    "visualizacoes": {
+      "estagio1": false,
+      "estagio4": false
+    },
+    "modificacoes": [
+      "estagio1",
+      "estagio4"
+    ]
+  }
+```
+
+Ele possui os seguintes atributos:
+
+- `versao`: número da versão atual do Manejo
+- `lida`: informa se o conteúdo da versão já foi lido (esse valor muda entre `true` e `false` ao clicar no banner de Manejo da Home)
+- `visualizacoes`: informa se o conteúdo da versão de um determinado estágio do Manejo já foi lido ou não (esse valor muda entre `true` e `false` ao clicar no botão de "Saiba mais")
+- `modificacoes`: informa em que estágios do Manejo houveram modificações
 
 # Quem Faz?
 
