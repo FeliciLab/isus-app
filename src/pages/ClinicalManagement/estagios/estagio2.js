@@ -6,8 +6,8 @@ import {
 import {
   Paragraph
 } from 'react-native-paper';
-import emergecia from './json/estagio2.json';
-import checkPlatform from '../../utils/PDF';
+import emergecia from '../json/estagio2.json';
+import checkPlatform from '../../../utils/PDF';
 
 const Estagio2 = ({ navigation }) => {
   const {
