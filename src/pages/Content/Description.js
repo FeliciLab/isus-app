@@ -1,40 +1,72 @@
-import * as React from 'react';
+import React, {
+  useState, useCallback, useLayoutEffect
+} from 'react';
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet,
-  ScrollView, Text, Share, TouchableOpacity
+  View, Image, Dimensions, StyleSheet, Platform,
+  ScrollView, Share, TouchableOpacity, SafeAreaView
 }
   from 'react-native';
 import {
-  Title
+  Title, Snackbar
 } from 'react-native-paper';
 import HTML from 'react-native-render-html';
-import Moment from 'moment';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconShared from 'react-native-vector-icons/SimpleLineIcons';
+import {
+  salvarDados, pegarDados, removerDados, converterImagemParaBase64
+} from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
+import BarraInferior from './barraInferior';
+import ImagemDePostagem from './ImagemDePostagem';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
   const { route } = props;
   const { params } = route;
-  const [item, setItem] = React.useState([]);
-  // const item = params.object;
+  const [postagem, alterarPostagem] = useState({});
+  const [visivel, alterarVisibilidade] = useState(false);
+  const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
 
   useFocusEffect(
-    React.useCallback(() => {
-      getProjectPorId(params.object.id).then((response) => {
-        setItem(response.data);
-      });
+    useCallback(() => {
+      async function pegarConteudo() {
+        if (conteudoBaixado) {
+          await pegarConteudoDoStorage();
+        } else {
+          await pegarConteudoDaApi();
+        }
+      }
+      pegarConteudo();
     }, [props])
   );
-  console.log(item);
-  const onShare = async () => {
-    const messagTitle = item.post_title;
-    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
+
+
+  const pegarConteudoDoStorage = async () => {
+    try {
+      const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      alterarPostagem(resposta);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const pegarConteudoDaApi = async () => {
+    try {
+      const resposta = await getProjectPorId(params.object.id);
+      alterarPostagem(resposta.data);
+      console.log(resposta.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const aoCompartilhar = async () => {
+    const messagTitle = postagem.post_title;
+    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(postagem.slug);
     try {
       await Share.share({
         message: messagTitle + messagLink
@@ -44,7 +76,51 @@ export default function DescriptionScreen(props) {
     }
   };
 
-  React.useLayoutEffect(() => {
+  const aoClicarEmBaixar = () => {
+    if (!conteudoBaixado) {
+      baixarConteudo();
+    } else {
+      removerConteudo();
+    }
+  };
+
+  const baixarConteudo = async () => {
+    try {
+      console.log(postagem);
+      const imagembase64 = await converterImagemParaBase64(postagem.image);
+      const postagemOffline = {
+        ...postagem, image: imagembase64, categoria_id: params.object.categoria_id, offline: true
+      };
+      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, postagemOffline);
+      alterarConteudoBaixado(true);
+      alterarPostagem(postagemOffline);
+      mostrarFeedback(`A página foi salva offline em "${params.title}"`);
+    } catch (e) {
+      mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+      console.log('console baixar conteúdo', e);
+    }
+  };
+
+  const removerConteudo = async () => {
+    try {
+      alterarConteudoBaixado(false);
+      mostrarFeedback('A página foi excluida da leitura offline');
+      await removerDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      // navigation.goBack();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const mostrarFeedback = (texto) => {
+    alterarTextoDoFeedback(texto);
+    alterarVisibilidade(true);
+    setTimeout(() => {
+      alterarVisibilidade(false);
+    }, 3000);
+  };
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
       headerTitle: route.params.title,
@@ -67,81 +143,63 @@ export default function DescriptionScreen(props) {
     });
   });
 
-  function Capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  function formateDate(date) {
-    /* Antes de começar a renderizar as informações, mostrará a data do dia */
-    // eslint-disable-next-line no-shadow
-    let postData;
-    if (date === '') {
-      postData = new Date();
-    } else {
-      postData = date;
-    }
-    Moment.locale('pt-br');
-    return `Postado em ${Moment(postData).format('D')} de ${Capitalize(Moment(postData).format('MMMM'))} de ${Moment(postData).format('YYYY')}`;
-  }
-
   return (
-    <ScrollView>
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View>
-          <Title style={styles.textTitleDetail}>{item.post_title}</Title>
-        </View>
-        <View style={styles.sub}>
+    <SafeAreaView style={styles.safeiOS}>
+      <ScrollView>
+        <View style={styles.titulo}>
           <View>
-            <Text style={styles.textData}>{formateDate(item.post_date)}</Text>
+            <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
-          <View style={styles.subShare}>
-            <TouchableOpacity onPress={onShare}>
-              <IconShared name="share" size={20} color="rgba(0, 0, 0, 0.54)" />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Image
-          resizeMode="contain"
-          style={{
-            height: Dimensions.get('window').width / 1.5,
-            width: Dimensions.get('window').width
-          }}
-          source={{ uri: `${item.image}` }}
-        />
-        <View
-          style={{
-            // height: Dimensions.get('window').width / 1.5,
-            width: Dimensions.get('window').width
-          }}
-        >
-          <View style={{
-            padding: 10,
-            alignContent: 'center'
-          }}
-          >
-            <HTML
-              html={item.post_content}
-              onLinkPress={(event, href) => {
-                navigation.navigate('webview', {
-                  title: 'Acesso ao conteúdo',
-                  url: href
-                });
-              }}
+          <View style={styles.sub} />
+            <ImagemDePostagem
+              conteudoBaixado={conteudoBaixado}
+              imagem={postagem.image}
+              estilo={styles.imagemDePostagem}
             />
+          <View
+            style={{
+              // height: Dimensions.get('window').width / 1.5,
+              width: Dimensions.get('window').width
+            }}
+          >
+            <View style={styles.viewHTML}>
+              <HTML
+                html={postagem.post_content}
+                onLinkPress={(event, href) => {
+                  navigation.navigate('webview', {
+                    title: 'Acesso ao conteúdo',
+                    url: href
+                  });
+                }}
+              />
+            </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <Snackbar
+        style={styles.feedbackMargin}
+        visible={visivel}
+      >
+        {textoDoFeedback}
+      </Snackbar>
+      <BarraInferior
+        aoClicarEmBaixar={aoClicarEmBaixar}
+        aoCompartilhar={aoCompartilhar}
+        dataDePostagem={postagem.post_date}
+        conteudoBaixado={conteudoBaixado}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  text: {
-    // color: 'rgba(0, 0, 0, 0.6)'
+  feedbackMargin: {
+    marginBottom: Dimensions.get('window').height / 9,
   },
   searchHeaderBack: {
     marginHorizontal: 19
   },
+  titulo: { flex: 1, backgroundColor: '#fff' },
   textTitleDetail: {
     marginTop: 24,
     marginLeft: 16,
@@ -183,5 +241,18 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     letterSpacing: 0.4,
     color: '#EEEEEE'
+  },
+  safeiOS: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+    paddingTop: Platform.OS === 'android' ? 25 : 0
+  },
+  imagemDePostagem: {
+    height: Dimensions.get('window').width / 1.5,
+    width: Dimensions.get('window').width
+  },
+  viewHTML: {
+    padding: 10,
+    alignContent: 'center'
   }
 });

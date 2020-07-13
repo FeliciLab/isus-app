@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 
 import { Paragraph } from 'react-native-paper';
-import checkPlatform from '../../utils/PDF';
-import iternacao from './json/estagio3.json';
+import checkPlatform from '../../../utils/PDF';
+import iternacao from '../json/estagio3.json';
 
 const Estagio3 = ({ navigation }) => {
   const secoes = [
