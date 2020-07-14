@@ -10,6 +10,8 @@ import CasosSuspeitos from './casosSuspeitos';
 import ParamentacaoEPI from './paramentacaoEPI';
 import pegarItensDoCartao from './itensDoCartao';
 import header from './header';
+import ProviderDeVersaoDoManejo from './contexto/contextoVersaoManejo';
+
 
 export default function ClinicalManagement({ navigation }) {
   const [cartaoEstagio1Aberto, alternarAberturaCartaoEstagio1] = useState(false);
@@ -32,6 +34,7 @@ export default function ClinicalManagement({ navigation }) {
   useLayoutEffect(() => header(navigation));
 
   return (
+    <ProviderDeVersaoDoManejo>
     <ScrollView style={estilos.background}>
       <View style={estilos.conteudo}>
         <Text style={estilos.titulo}>Manejo clínico dos pacientes com Covid-19</Text>
@@ -39,13 +42,14 @@ export default function ClinicalManagement({ navigation }) {
         <ParamentacaoEPI />
         <View style={estilos.margemVertical}>
           {
-            itensDoCartao.map(item => CartaoDeEstagio(item, navigation))
+            itensDoCartao.map(item => <CartaoDeEstagio estagio={item} navigation={navigation} />)
           }
         </View>
         <ExamesLaboratoriais />
         { CasosSuspeitos(navigation) }
       </View>
     </ScrollView>
+    </ProviderDeVersaoDoManejo>
   );
 }
 
