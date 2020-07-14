@@ -8,13 +8,15 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import formatarDataPorExtenso from '../utils/dateUtils';
 
 
-function BarraInferior({ telaDeOrigem }) {
+function BarraInferior({
+  telaDeOrigem, aoClicarEmBaixar, aoCompartilhar, dataDePostagem, conteudoBaixado
+}) {
   const [iconeDownload, alterarIconeDownload] = useState();
 
   const telas = {
     descricao: {
       nome: 'descricao',
-      dataDePostagem: () => (
+      informacaoLateral: () => (
         <>
           <Text style={estilos.texto}>
             postado em
@@ -27,7 +29,7 @@ function BarraInferior({ telaDeOrigem }) {
     },
     manejo: {
       nome: 'manejo',
-      dataDePostagem: () => (
+      informacaoLateral: () => (
         <>
           <Text style={estilos.texto}>
             versão 2.1.2
@@ -43,22 +45,15 @@ function BarraInferior({ telaDeOrigem }) {
   const { nome } = telas[telaDeOrigem];
   SimpleLineIcons.loadFont();
 
-  const alterarContextoDoIconeDeDownload = () => {
+  useEffect(() => {
     if (nome === telas.descricao.nome) {
-      return useEffect(() => {
-        // eslint-disable-next-line no-undef
-        if (conteudoBaixado) {
-          alterarIconeDownload('cloud-check');
-        } else {
-          alterarIconeDownload('cloud-download');
-        }
-      // eslint-disable-next-line no-undef
-      }, [conteudoBaixado]);
+      if (conteudoBaixado) {
+        return alterarIconeDownload('cloud-check');
+      }
+      return alterarIconeDownload('cloud-download');
     }
-    return alterarIconeDownload('donwload');
-  };
-
-  alterarContextoDoIconeDeDownload();
+    return alterarIconeDownload('download');
+  }, [conteudoBaixado]);
 
 
   return (
@@ -66,10 +61,10 @@ function BarraInferior({ telaDeOrigem }) {
       <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
               <View style={{ marginVertical: 11 }}>
-                  { telas[telaDeOrigem].dataDePostagem() }
+                  { telas[telaDeOrigem].informacaoLateral() }
               </View>
               <View style={{ flexDirection: 'row' }}>
-                  <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
+                  { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
                   <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
               </View>
           </View>

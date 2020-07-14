@@ -19,7 +19,7 @@ import {
   salvarDados, pegarDados, removerDados, converterImagemParaBase64
 } from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
-import BarraInferior from './barraInferior';
+import BarraInferior from '../../components/barraInferior';
 import ImagemDePostagem from './ImagemDePostagem';
 
 export default function DescriptionScreen(props) {
@@ -183,6 +183,7 @@ export default function DescriptionScreen(props) {
         {textoDoFeedback}
       </Snackbar>
       <BarraInferior
+        telaDeOrigem="manejo"
         aoClicarEmBaixar={aoClicarEmBaixar}
         aoCompartilhar={aoCompartilhar}
         dataDePostagem={postagem.post_date}
