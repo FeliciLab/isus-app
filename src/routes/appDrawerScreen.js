@@ -13,8 +13,10 @@ import {
   Platform,
   SafeAreaView
 } from 'react-native';
+import { Button } from 'react-native-paper';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import autenticarComIdSaude from '../services/autenticacao';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
 import Heart from '../assets/icons/isus_hor.svg';
@@ -39,7 +41,12 @@ function CustomDrawerContent(props) {
             borderBottomColor: '#C4C4C4',
           }}
         >
-          <Heart size={40} style={{ margin: 10 }} />
+          <View style={{ flex: 1 }}>
+            <Heart size={40} style={{ margin: 10 }} />
+          </View>
+          <View style={{ alignContent: 'center', marginTop: 25, marginRight: 10 }}>
+            <Button color="black" uppercase={false} onPress={() => autenticarComIdSaude()}> Login </Button>
+          </View>
         </View>
       </SafeAreaView>
       <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
@@ -81,8 +88,9 @@ function CustomDrawerContent(props) {
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={styles.viewVersao}>
         <Text style={styles.textoVersao}>
-          {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
-          Versão { versaoSistema }
+          Versão
+          {' '}
+          { versaoSistema }
         </Text>
       </View>
     </>
