@@ -3,7 +3,7 @@ import { Card, Button } from 'react-native-paper';
 import {
   View, Text, Image, StyleSheet
 } from 'react-native';
-import TagNotificacaoEstagio from './tagNotificacaoEstagio';
+import TagAtualizacaoEstagio from './tagAtualizacaoEstagio';
 import { ContextoDeVersaoDoManejo } from './contexto/contextoVersaoManejo';
 
 
@@ -58,7 +58,7 @@ const CartaoDeEstagio = ({ estagio, navigation }) => {
         >
         {estagio.estaAberto ? 'fechar' : 'Saiba mais'}
         </Button>
-        <TagNotificacaoEstagio estagio={estagio} versaoManejo={versaoDoManejo} />
+        <TagAtualizacaoEstagio estagio={estagio} versaoManejo={versaoDoManejo} />
     </Card.Actions>
       </Card>
   );
