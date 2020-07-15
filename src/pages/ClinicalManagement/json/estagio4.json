@@ -2,6 +2,15 @@
     "secoes": [
         {
             "id": 1,
+            "texto1": "‎• Avaliar parâmetros de insuficiência respiratória e possibilidade de Cânula Nasal de Alto Fluxo (CNAF) ou Ventilação Não-invasiva (VNI), ",
+            "link": {
+                "titulo": "Protocolo",
+                "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-sobre-o-uso-da-ventilacao-nao-invasiva-e-canula-nasal-de-alto-fluxo-no-tratamento-da-insuficiencia-respiratoria-aguda-por-covid-19/",
+                "texto": "conforme protocolo. 🔴"
+            }
+        },
+        {
+            "id": 2,
             "texto1": "• Utilizar ventilação mecânica (VM) protetora ",
             "link": {
                 "titulo": "Protocolo",
@@ -9,17 +18,28 @@
                 "texto": "conforme protocolo"
             },
             "texto2": " com individualização de parâmetros, sedação +/- bloqueio neuromuscular.",
-            "item": {
-                "texto": "- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e posição prona) ",
-                "link": {
-                    "titulo": "Protocolo",
-                    "url": "https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/",
-                    "texto": "conforme protocolo."
+            "paragrafos": [
+                {
+                    "texto": "- Sugestões de combinações de fármacos para sedação, intubação e sedação contínua na Covid-19, ",
+                    "link": {
+                        "titulo": "Protocolo",
+                        "url": "https://coronavirus.ceara.gov.br/project/protocolo-traz-recomendacoes-para-combinacoes-de-farmacos-para-intubacao-e-sedacao-continua-na-covid-19/",
+                        "texto": "conforme protocolo. 🔴"
+                    }
+                },
+                {
+                    "texto": "- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e ",
+                    "destaque": "posição prona) ",
+                    "link": {
+                        "titulo": "Protocolo",
+                        "url": "https://coronavirus.ceara.gov.br/project/protocolo-de-manobra-da-ventilacao-prona-covid-19/",
+                        "texto": "conforme protocolo."
+                    }
                 }
-            }
+            ]
         },
         {
-            "id": 2,
+            "id": 3,
             "destaque": "‎• Administrar corticoterapia",
             "texto1": ", em caso de resposta inflamatória associada à difunção orgânica mantida ou progressiva ",
             "link": {
@@ -30,7 +50,7 @@
 
         },
         {
-            "id": 3,
+            "id": 4,
             "destaque": "‎• Administrar anticoagulação com HBPM ",
             "texto1": "se fenômenos trombóticos ou marcadores de coagulação intravascular em progressão ",
             "link": {
@@ -41,7 +61,7 @@
 
         },
         {
-            "id": 4,
+            "id": 5,
             "texto": "• Assegurar visitas horizontais, suporte de telemedicina e boas práticas em terapia intensiva."
         }
     ]
