@@ -4,29 +4,14 @@ import { Appbar } from 'react-native-paper';
 import {
   StyleSheet, View, Text, Platform
 } from 'react-native';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import formatarDataPorExtenso from '../utils/dateUtils';
-
 
 function BarraInferior({
-  telaDeOrigem, aoClicarEmBaixar, aoCompartilhar, dataDePostagem, conteudoBaixado
+  telaDeOrigem, aoClicarEmBaixar, aoCompartilhar, conteudoBaixado, informacaoLateral
 }) {
   const [iconeDownload, alterarIconeDownload] = useState();
 
   const telas = {
-    descricao: {
-      nome: 'descricao',
-      informacaoLateral: () => (
-        <>
-          <Text style={estilos.texto}>
-            postado em
-          </Text>
-          <Text style={estilos.texto}>
-            { formatarDataPorExtenso(dataDePostagem) }
-          </Text>
-        </>
-      )
-    },
+    descricao: 'descricao',
     manejo: {
       nome: 'manejo',
       informacaoLateral: () => (
@@ -42,11 +27,8 @@ function BarraInferior({
     },
   };
 
-  const { nome } = telas[telaDeOrigem];
-  SimpleLineIcons.loadFont();
-
   useEffect(() => {
-    if (nome === telas.descricao.nome) {
+    if (telaDeOrigem === telas.descricao) {
       if (conteudoBaixado) {
         return alterarIconeDownload('cloud-check');
       }
@@ -61,7 +43,7 @@ function BarraInferior({
       <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
           <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
               <View style={{ marginVertical: 11 }}>
-                  { telas[telaDeOrigem].informacaoLateral() }
+                  { informacaoLateral() }
               </View>
               <View style={{ flexDirection: 'row' }}>
                   { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
