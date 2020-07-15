@@ -2,29 +2,17 @@
 import React, { useState, useEffect } from 'react';
 import { Appbar } from 'react-native-paper';
 import {
-  StyleSheet, View, Text, Platform
+  StyleSheet, View, Platform
 } from 'react-native';
 
 function BarraInferior({
-  telaDeOrigem, aoClicarEmBaixar, aoCompartilhar, conteudoBaixado, informacaoLateral
+  telaDeOrigem, aoClicarEmBaixar, aoCompartilhar, conteudoBaixado, informacaoLateral, barraVisivel
 }) {
   const [iconeDownload, alterarIconeDownload] = useState();
 
   const telas = {
     descricao: 'descricao',
-    manejo: {
-      nome: 'manejo',
-      informacaoLateral: () => (
-        <>
-          <Text style={estilos.texto}>
-            versão 2.1.2
-          </Text>
-          <Text style={estilos.texto}>
-            05/06/20
-          </Text>
-        </>
-      )
-    },
+    manejo: 'manejo'
   };
 
   useEffect(() => {
@@ -40,17 +28,21 @@ function BarraInferior({
 
   return (
     <>
-      <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
-          <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-              <View style={{ marginVertical: 11 }}>
-                  { informacaoLateral() }
-              </View>
-              <View style={{ flexDirection: 'row' }}>
-                  { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
-                  <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
-              </View>
-          </View>
-      </Appbar>
+      { barraVisivel
+        && (
+<Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
+            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                <View style={{ marginVertical: 11 }}>
+                    { informacaoLateral() }
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
+                    <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
+                </View>
+            </View>
+</Appbar>
+        )
+     }
     </>
   );
 }

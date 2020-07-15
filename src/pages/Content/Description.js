@@ -201,7 +201,6 @@ export default function DescriptionScreen(props) {
         informacaoLateral={informacaoLateral}
         aoClicarEmBaixar={aoClicarEmBaixar}
         aoCompartilhar={aoCompartilhar}
-        dataDePostagem={postagem.post_date}
         conteudoBaixado={conteudoBaixado}
       />
     </SafeAreaView>
