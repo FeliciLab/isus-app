@@ -1,5 +1,7 @@
 import Login from 'react-native-login-keycloak';
-import { salvarDados, removerDados, pegarDados } from './armazenamento';
+import {
+  salvarDados, removerDados, pegarDados, pegarTodasAsChaves
+} from './armazenamento';
 
 const configuracao = {
   url: 'https://dev.id.org.br/auth/',
@@ -11,7 +13,7 @@ const configuracao = {
 
 async function autenticarComIdSaude() {
   await Login.startLoginProcess(configuracao);
-  salvarUsuarioLogadoNoStorage();
+  await salvarUsuarioLogadoNoStorage();
 }
 
 async function fazerLogoutDoIdSaude() {
@@ -64,6 +66,10 @@ async function removerUsuarioLogado() {
 async function pegarDadosDeUsuarioNoStorage() {
   try {
     const dadosDoUsuario = await pegarDados('@usuario-logado');
+    const chaves = await pegarTodasAsChaves();
+    console.log('storage: ', dadosDoUsuario);
+    console.log('chaves: ', chaves);
+
     return dadosDoUsuario;
   } catch (err) {
     throw err;
