@@ -17,6 +17,7 @@ const Estagio4 = ({ navigation }) => {
           {secao1.texto1}
           <Text onPress={() => navigation.navigate('webview', { title: secao1.link.titulo, url: secao1.link.url })} style={estilo.link}>{secao1.link.texto}</Text>
           {secao1.texto}
+          {secao1.iconeAtualizacao}
         </Paragraph>
       </View>
     ),
@@ -28,13 +29,25 @@ const Estagio4 = ({ navigation }) => {
           {secao2.texto2}
         </Paragraph>
         {
-          secao2.paragrafos.map(paragrafo => (
-            <Paragraph key={paragrafo.texto} style={estilo.corDoTexto}>
-              {paragrafo.texto}
-              <Text style={estilo.destaque}>{paragrafo.destaque ? paragrafo.destaque : ''}</Text>
-              <Text onPress={() => navigation.navigate('webview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
-            </Paragraph>
-          ))
+          secao2.paragrafos.map((paragrafo, index) => {
+            if (index === 0) {
+              return (
+                <Paragraph key={paragrafo.texto} style={estilo.corDoTexto}>
+                  {paragrafo.texto}
+                  <Text style={estilo.destaque}>{paragrafo.destaque ? paragrafo.destaque : ''}</Text>
+                  <Text onPress={() => navigation.navigate('webview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
+                  {paragrafo.iconeAtualizacao}
+                </Paragraph>
+              );
+            }
+            return (
+              <Paragraph key={paragrafo.texto} style={estilo.corDoTexto}>
+                {paragrafo.texto}
+                <Text style={estilo.destaque}>{paragrafo.destaque ? paragrafo.destaque : ''}</Text>
+                <Text onPress={() => navigation.navigate('webview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
+              </Paragraph>
+            );
+          })
         }
       </View>
     ),
