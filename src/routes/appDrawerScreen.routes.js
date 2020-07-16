@@ -4,13 +4,12 @@ import {
 } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
-  Dimensions,
-  StyleSheet,
-  Platform
+  Dimensions
 } from 'react-native';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab.routes';
 import FeedbackScreen from '../pages/FeedbackScreen';
+import ConteudoDoDrawer from './conteudoDoDrawer';
 
 
 const Drawer = createDrawerNavigator();
@@ -24,7 +23,7 @@ export default function appDrawerScreen() {
         width: Dimensions.get('screen').width / 1.5
       }}
       drawerContent={props => (
-        <CustomDrawerContent {...props} routeName={props.state.routeNames[props.state.index]} />
+        <ConteudoDoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
       )}
     >
       <Drawer.Screen name="HOME" component={AppTab} />
@@ -55,18 +54,3 @@ function FeedbackStackScreen() {
     </FeedbackStack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  viewVersao: {
-    margin: 16,
-  },
-  textoVersao: {
-    color: 'rgba(0, 0, 0, 0.6)',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 16,
-    lineHeight: 16,
-    letterSpacing: 0.4,
-    margin: Platform.OS === 'android' ? 10 : 20
-  }
-});
