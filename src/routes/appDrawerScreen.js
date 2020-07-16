@@ -66,6 +66,17 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('FEEDBACK')}
         />
         <DrawerItem
+          icon={() => <Icon name="alert-octagon" size={20} color="#111" />}
+          label="Alerta de EPI"
+          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'ALERTA_EPI'}
+          onPress={() => navigate('ALERTA_EPI')}
+        />
+        <DrawerItem
           icon={() => <Icon name="information-outline" size={20} color="#111" />}
           label="Sobre o iSUS"
           labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
