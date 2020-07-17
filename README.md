@@ -1,11 +1,11 @@
 # App iSUS
-### v3.3.3
+### v3.4.0
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
 
 - [App iSUS](#app-isus)
-    - [v3.3.0](#v330)
+    - [v3.3.2](#v332)
   - [O que é?](#o-que-é)
   - [Tech Stack](#tech-stack)
   - [Start do Projeto.](#start-do-projeto)
@@ -28,7 +28,8 @@ Esse é o repositório do aplicativo iSUS.
       - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
       - [O que esse commit faz?](#o-que-esse-commit-faz)
   - [Estilização dos componentes](#estilização-dos-componentes)
-  - [Como Atualizar a Versão do Manejo Clínico](#como-atualizar-a-versão-do-manejo-clínico)
+  - [Atualização de versão do Manejo Clínico](#atualização-de-versão-do-manejo-clínico)
+    - [Como atualizar](#como-atualizar)
 - [Quem Faz?](#quem-faz)
 
 
@@ -177,18 +178,14 @@ um exemplo desse nosso padrão de commit é:
 ## Estilização dos componentes
 Estamos trabalhando com stylesheet, agrupado por componentes, mas temos o plano de utilizar o [styled-components](https://styled-components.com/).
 
-## Como Atualizar a Versão do Manejo Clínico
+## Atualização de versão do Manejo Clínico
 
 Na pasta `src/pages/ClinicalManagement/json` existe um arquivo chamado `versao_manejo.json` que mantém as informações da versão atual:
 
 ``` javascript
   {
     "versao": 2.4,
-    "lida": true,
-    "visualizacoes": {
-      "estagio1": false,
-      "estagio4": false
-    },
+    "lida": false,
     "modificacoes": [
       "estagio1",
       "estagio4"
@@ -199,9 +196,24 @@ Na pasta `src/pages/ClinicalManagement/json` existe um arquivo chamado `versao_m
 Ele possui os seguintes atributos:
 
 - `versao`: número da versão atual do Manejo
-- `lida`: informa se o conteúdo da versão já foi lido (esse valor muda entre `true` e `false` ao clicar no banner de Manejo da Home)
-- `visualizacoes`: informa se o conteúdo da versão de um determinado estágio do Manejo já foi lido ou não (esse valor muda entre `true` e `false` ao clicar no botão de "Saiba mais")
-- `modificacoes`: informa em que estágios do Manejo houveram modificações
+- `lida`: informa se o conteúdo da versão já foi lido (esse valor muda de `true` para `false` ao clicar no banner de Manejo da Home)
+- `modificacoes`: informa em que estágios do Manejo houveram modificações nessa versão
+
+### Como atualizar
+
+Atualmente a atualização é feita de forma manual. No diretório `src/pages/ClinicalManagement/json` você terá acesso aos conteúdos de texto de todos os estágios.
+
+Antes de iniciar a atualização, procure pela propriedade `"iconeAtualizacao": " 🔴"` em todos os JSONs dos estágios e apague somente o ícone (`🔴`) pois ele é referente à atualização da versão passada.
+
+Altere o conteúdo conforme a exigência seguindo, de preferência, a estrutura de JSON já estabelecida.
+
+Se for necessário, também pode mudar a estrutura do JSON para conseguir adicionar a alteração. Mas lembre-se de atualizar também o renderizador de conteúdo do estágio alterado (no diretório `src/pages/ClinicalManagement/estagios`) para que seja renderizado de acordo.
+
+Após ter feito as atualizações, adicione a propriedade `"iconeAtualizacao": " 🔴"` no JSON do estágio de forma que o ícone apareça ao final do parágrafo atualizado (você vai precisar fazer isso aparecer no renderizador também).
+
+Tendo tudo isso feito, basta somente atualizar o número da `versao` nesse JSON, colocar a propriedade `lida` como `false` (caso já não esteja) e inserir em `modificacoes` quais estágios tiveram mudanças seguindo o formato `"estagio<numero_do_estagio>"`.
+
+Realize o commit com todas as alterações no código referentes a essa atualização.
 
 # Quem Faz?
 

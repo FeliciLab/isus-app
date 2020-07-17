@@ -1,10 +1,6 @@
 {
     "versao": 2.4,
     "lida": true,
-    "visualizacoes": {
-      "estagio1": false,
-      "estagio4": false
-    },
     "modificacoes": [
       "estagio1",
       "estagio4"
