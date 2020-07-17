@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function TagNotificacao({ versaoManejo }) {
+export default function TagAtualizacao({ versaoManejo }) {
   const notificacao = (
     <View style={estilos.containerDaTag}>
       <Text style={estilos.textoDaTag}> NOVIDADE </Text>

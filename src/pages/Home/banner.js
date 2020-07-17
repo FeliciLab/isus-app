@@ -3,7 +3,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { ContextoDeVersaoDoManejo } from '../ClinicalManagement/contexto/contextoVersaoManejo';
-import TagNotificacao from '../ClinicalManagement/tagNotificacao';
+import TagAtualizacao from '../ClinicalManagement/tagAtualizacao';
 
 import IconPaciente from '../../assets/icons/icon_paciente.png';
 
@@ -33,7 +33,7 @@ export default function Banner() {
           <Paragraph style={estilos.titulo}>
             Manejo Clínico de Paciente com Covid-19
           </Paragraph>
-          <TagNotificacao versaoManejo={versaoDoManejo} />
+          <TagAtualizacao versaoManejo={versaoDoManejo} />
         </View>
       </View>
     </Card>
