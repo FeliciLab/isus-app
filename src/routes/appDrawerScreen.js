@@ -20,6 +20,7 @@ import AppTab from './appBottomTab';
 import Heart from '../assets/icons/isus_hor.svg';
 import FeedbackScreen from '../pages/FeedbackScreen';
 import packageJson from '../../package.json';
+import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 
 function CustomDrawerContent(props) {
   const {
@@ -116,6 +117,7 @@ export default function appDrawerScreen() {
     >
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
+      <Drawer.Screen name="ALERTA_EPI" component={FaleConoscoStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
     </Drawer.Navigator>
   );
@@ -140,6 +142,19 @@ function FeedbackStackScreen() {
         options={{ headerShown: true }}
       />
     </FeedbackStack.Navigator>
+  );
+}
+
+const FaleConoscoStack = createStackNavigator();
+function FaleConoscoStackScreen() {
+  return (
+    <FaleConoscoStack.Navigator>
+      <FaleConoscoStack.Screen
+        name="ALERTA_EPI"
+        component={FaleConoscoScreen}
+        options={{ headerShown: true }}
+      />
+    </FaleConoscoStack.Navigator>
   );
 }
 
