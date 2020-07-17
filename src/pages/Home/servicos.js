@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
-import Servico3 from '../../assets/icons/servicos/servico_3.svg';
+import IconeFeedback from '../../assets/icons/feedback_icon.svg';
 import Forca4 from '../../assets/icons/ceara_icon.svg';
 import HomeCard from './homeCard';
 
@@ -32,12 +32,10 @@ function Servicos({ navigation }) {
     },
     {
       id: 'services-3',
-      titulo: 'TeleMedicina',
-      logo: Servico3,
+      titulo: 'Feedback',
+      logo: IconeFeedback,
       navegacao: {
-        componente: 'webview',
-        titulo: 'TeleMedicina',
-        url: 'https://coronavirus.ceara.gov.br/isus/telemedicina'
+        componente: 'FEEDBACK'
       }
     },
     {
