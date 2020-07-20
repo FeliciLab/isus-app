@@ -2,6 +2,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import { StatusBar, Platform } from 'react-native';
 import React, { useEffect } from 'react';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import OneSignal from 'react-native-onesignal';
 import codePush from 'react-native-code-push';
 import Routes from './routes';
@@ -10,6 +11,8 @@ import OneSignalActions from './utils/oneSignalActions';
 
 function App() {
   useEffect(() => {
+    SimpleLineIcons.loadFont();
+
     OneSignal.setLogLevel(6, 0);
 
     OneSignal.init('917766a7-c01e-4655-89a1-86f648be2fc8', {
