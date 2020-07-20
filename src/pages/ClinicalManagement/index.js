@@ -36,12 +36,12 @@ export default function ClinicalManagement({ navigation }) {
   useLayoutEffect(() => header(navigation));
   const informacaoLateral = () => (
     <>
-      <Text style={estilos.texto}>
+      <Text style={estilos.informacaoLateral}>
         VERSÃO
 {' '}
 {versaoManejo.versao}
       </Text>
-      <Text style={estilos.texto}>
+      <Text style={estilos.informacaoLateral}>
         {versaoManejo.data}
       </Text>
     </>
@@ -56,7 +56,7 @@ export default function ClinicalManagement({ navigation }) {
   };
 
   const aoClicarEmBaixar = () => {
-    const UrlOrigemManejo = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/06/Manejo-Cl%C3%ADnico-dos-pacientes-com-Covid-19.pdf';
+    const UrlOrigemManejo = 'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/07/Manejo-Cl%C3%ADnico-dos-pacientes-com-Covid-19.pdf';
     const CaminhoDestino = 'Manejo Clinico.pdf';
     return checkPlatform(UrlOrigemManejo, CaminhoDestino);
   };
@@ -91,6 +91,14 @@ export default function ClinicalManagement({ navigation }) {
 }
 
 const estilos = StyleSheet.create({
+  informacaoLateral: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    textTransform: 'uppercase',
+    letterSpacing: 1.5,
+    fontSize: 10,
+    lineHeight: 16,
+    fontWeight: 'bold',
+  },
   safeiOS: {
     flex: 1,
     backgroundColor: '#ffffff',

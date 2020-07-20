@@ -198,6 +198,7 @@ export default function DescriptionScreen(props) {
       </Snackbar>
       <BarraInferior
         telaDeOrigem="descricao"
+        barraVisivel
         informacaoLateral={informacaoLateral}
         aoClicarEmBaixar={aoClicarEmBaixar}
         aoCompartilhar={aoCompartilhar}
