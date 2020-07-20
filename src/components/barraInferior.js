@@ -44,10 +44,6 @@ function BarraInferior({
     }).start();
   };
 
-  if (valorVisibilidade === 0) {
-    alterarMostraBarraIos(false);
-  }
-
   if (barraVisivel) {
     mostrarBarra();
   } else {
@@ -58,7 +54,7 @@ function BarraInferior({
     <>
       {
       <Animated.View style={{ opacity: valorVisibilidade, height: valorVisibilidade }}>
-<Appbar style={{ ...estilos.inferior }}>
+          <Appbar style={{ ...estilos.inferior }}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                 <View style={{ marginVertical: 11 }}>
                     { informacaoLateral() }
@@ -68,9 +64,8 @@ function BarraInferior({
                     <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
                 </View>
             </View>
-</Appbar>
+          </Appbar>
       </Animated.View>
-
      }
     </>
   );
