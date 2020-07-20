@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Appbar } from 'react-native-paper';
 import {
-  StyleSheet, View, Platform
+  StyleSheet, View, Animated
 } from 'react-native';
 
 function BarraInferior({
@@ -26,11 +26,39 @@ function BarraInferior({
   }, [conteudoBaixado]);
 
 
+  const valorVisibilidade = useRef(new Animated.Value(0)).current;
+
+  const mostrarBarra = () => {
+    Animated.timing(valorVisibilidade, {
+      toValue: 60,
+      useNativeDriver: false,
+      duration: 300
+    }).start();
+  };
+
+  const EsconderBarra = () => {
+    Animated.timing(valorVisibilidade, {
+      toValue: 0,
+      useNativeDriver: false,
+      duration: 500
+    }).start();
+  };
+
+  if (valorVisibilidade === 0) {
+    alterarMostraBarraIos(false);
+  }
+
+  if (barraVisivel) {
+    mostrarBarra();
+  } else {
+    EsconderBarra();
+  }
+
   return (
     <>
-      { barraVisivel
-        && (
-<Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
+      {
+      <Animated.View style={{ opacity: valorVisibilidade, height: valorVisibilidade }}>
+<Appbar style={{ ...estilos.inferior }}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
                 <View style={{ marginVertical: 11 }}>
                     { informacaoLateral() }
@@ -41,7 +69,8 @@ function BarraInferior({
                 </View>
             </View>
 </Appbar>
-        )
+      </Animated.View>
+
      }
     </>
   );
@@ -50,7 +79,6 @@ function BarraInferior({
 const estilos = StyleSheet.create({
   inferior: {
     backgroundColor: '#FFFFFF',
-    // shadowColor: '#000',
     borderTopColor: '#ccc',
     borderTopWidth: 1,
     shadowOffset: {

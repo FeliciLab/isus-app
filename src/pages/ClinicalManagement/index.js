@@ -6,7 +6,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CartaoDeEstagio from './cartaodeEstagio';
 import ExamesLaboratoriais from './examesLaboratoriais';
-import BotaoBaixarPDF from './botaoBaixarPDF';
 import checkPlatform from '../../utils/PDF';
 import CasosSuspeitos from './casosSuspeitos';
 import ParamentacaoEPI from './paramentacaoEPI';
@@ -71,7 +70,6 @@ export default function ClinicalManagement({ navigation }) {
     >
       <View style={estilos.conteudo}>
         <Text style={estilos.titulo}>Manejo clínico dos pacientes com Covid-19</Text>
-        { BotaoBaixarPDF() }
         <ParamentacaoEPI />
         <View style={estilos.margemVertical}>
           {
