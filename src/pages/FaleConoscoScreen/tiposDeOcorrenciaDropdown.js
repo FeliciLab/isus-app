@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Dropdown } from 'react-native-material-dropdown-v2';
+import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA } from './tiposDeOcorrencia';
 
-export default function TipoDeOcorrenciaDropdown() {
+export default function TiposDeOcorrenciaDropdown({ valorInicial, valorAtual }) {
+  const [tela, alterarTela] = useState(valorInicial);
+
+  useEffect(() => {
+    valorAtual(tela);
+  }, tela);
+
   const tiposDeOcorrencia = [
-    { value: 'Alerta de falta de EPI' },
-    { value: 'Relatar sugestão (iSUS)' },
-    { value: 'Relatar problema (iSUS)' }
+    { value: ALERTA_FALTA_EPI },
+    { value: RELATAR_SUGESTAO },
+    { value: RELATAR_PROBLEMA }
   ];
 
   return (
@@ -16,9 +23,11 @@ export default function TipoDeOcorrenciaDropdown() {
     <Dropdown
       label="Tipo de ocorrência"
       data={tiposDeOcorrencia}
+      value={valorInicial}
       dropdownPosition={0}
       dropdownOffset={{ top: 80, left: 0 }}
       containerStyle={{ marginBottom: 2 }}
+      onChangeText={valorProximo => alterarTela(valorProximo)}
     />
 
     <Icon

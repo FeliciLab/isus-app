@@ -18,9 +18,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
 import Heart from '../assets/icons/isus_hor.svg';
-import FeedbackScreen from '../pages/FeedbackScreen';
 import packageJson from '../../package.json';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
+import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
+
 
 function CustomDrawerContent(props) {
   const {
@@ -117,7 +118,7 @@ export default function appDrawerScreen() {
     >
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
-      <Drawer.Screen name="ALERTA_EPI" component={FaleConoscoStackScreen} />
+      <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
     </Drawer.Navigator>
   );
@@ -138,23 +139,25 @@ function FeedbackStackScreen() {
     <FeedbackStack.Navigator>
       <FeedbackStack.Screen
         name="FEEDBACK"
-        component={FeedbackScreen}
+        component={FaleConoscoScreen}
         options={{ headerShown: true }}
+        initialParams={{ tela: RELATAR_SUGESTAO }}
       />
     </FeedbackStack.Navigator>
   );
 }
 
-const FaleConoscoStack = createStackNavigator();
-function FaleConoscoStackScreen() {
+const AlertaEpiStack = createStackNavigator();
+function AlertaEpiStackScreen() {
   return (
-    <FaleConoscoStack.Navigator>
-      <FaleConoscoStack.Screen
+    <AlertaEpiStack.Navigator>
+      <AlertaEpiStack.Screen
         name="ALERTA_EPI"
         component={FaleConoscoScreen}
         options={{ headerShown: true }}
+        initialParams={{ tela: ALERTA_FALTA_EPI }}
       />
-    </FaleConoscoStack.Navigator>
+    </AlertaEpiStack.Navigator>
   );
 }
 

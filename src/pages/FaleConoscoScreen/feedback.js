@@ -3,10 +3,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  ScrollView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -148,11 +146,7 @@ export default function FeedbackScreen() {
     });
   });
   return (
-    <ScrollView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
+    <>
         <View style={{ flex: 1, padding: 15 }}>
           <Text
             style={{
@@ -235,6 +229,7 @@ export default function FeedbackScreen() {
             onChangeText={text => setEmail(text)}
           />
         </View>
+        <View>
         <Button
           disabled={!!(!feedbackValido() || !emailValido())}
           style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
@@ -271,8 +266,8 @@ export default function FeedbackScreen() {
         >
           {mensagemDeErro}
         </Snackbar>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        </View>
+    </>
   );
 }
 
