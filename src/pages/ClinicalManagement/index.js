@@ -13,6 +13,7 @@ import pegarItensDoCartao from './itensDoCartao';
 import BarraInferior from '../../components/barraInferior';
 import header from './header';
 import versaoManejo from './json/versao_manejo.json';
+import ProviderDeVersaoDoManejo from './contexto/contextoVersaoManejo';
 
 export default function ClinicalManagement({ navigation }) {
   const [cartaoEstagio1Aberto, alternarAberturaCartaoEstagio1] = useState(false);
@@ -62,31 +63,33 @@ export default function ClinicalManagement({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={estilos.safeiOS}>
-    <ScrollView
-      onScrollBeginDrag={escondeBarra}
-      onScrollEndDrag={mostraBarra}
-      style={estilos.background}
-    >
-      <View style={estilos.conteudo}>
-        <Text style={estilos.titulo}>Manejo clínico dos pacientes com Covid-19</Text>
-        <ParamentacaoEPI />
-        <View style={estilos.margemVertical}>
-          {
-            itensDoCartao.map(item => <CartaoDeEstagio estagio={item} navigation={navigation} />)
-          }
+    <ProviderDeVersaoDoManejo>
+      <SafeAreaView style={estilos.safeiOS}>
+      <ScrollView
+        onScrollBeginDrag={escondeBarra}
+        onMomentumScrollEnd={mostraBarra}
+        style={estilos.background}
+      >
+        <View style={estilos.conteudo}>
+          <Text style={estilos.titulo}>Manejo clínico dos pacientes com Covid-19</Text>
+          <ParamentacaoEPI />
+          <View style={estilos.margemVertical}>
+            {
+              itensDoCartao.map(item => <CartaoDeEstagio estagio={item} navigation={navigation} />)
+            }
+          </View>
+          <ExamesLaboratoriais />
+          { CasosSuspeitos(navigation) }
         </View>
-        <ExamesLaboratoriais />
-        { CasosSuspeitos(navigation) }
-      </View>
-    </ScrollView>
-    <BarraInferior
-      barraVisivel={barraVisivel}
-      telaDeOrigem="manejo"
-      informacaoLateral={informacaoLateral}
-      aoClicarEmBaixar={aoClicarEmBaixar}
-    />
-    </SafeAreaView>
+      </ScrollView>
+      <BarraInferior
+        barraVisivel={barraVisivel}
+        telaDeOrigem="manejo"
+        informacaoLateral={informacaoLateral}
+        aoClicarEmBaixar={aoClicarEmBaixar}
+      />
+      </SafeAreaView>
+    </ProviderDeVersaoDoManejo>
   );
 }
 
