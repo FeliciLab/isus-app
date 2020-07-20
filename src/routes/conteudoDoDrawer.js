@@ -64,13 +64,17 @@ function conteudoDoDrawer(props) {
     mudarLogado(false);
   };
 
-  useEffect(async () => {
-    const dadosDosUsuarios = await pegarUsuario();
-    if (dadosDosUsuarios) {
-      alterarUsuario(dadosDosUsuarios);
-      return mudarLogado(true);
-    }
-    return mudarLogado(false);
+  useEffect(() => {
+    const alterarLogado = async () => {
+      const dadosDosUsuarios = await pegarUsuario();
+      if (dadosDosUsuarios) {
+        alterarUsuario(dadosDosUsuarios);
+        mudarLogado(true);
+      } else {
+        mudarLogado(false);
+      }
+    };
+    alterarLogado();
   }, []);
 
   return (
