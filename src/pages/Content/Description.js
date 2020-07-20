@@ -4,7 +4,7 @@ import React, {
 
 import {
   // eslint-disable-next-line no-unused-vars
-  View, Image, Dimensions, StyleSheet, Platform,
+  View, Image, Text, Dimensions, StyleSheet, Platform,
   ScrollView, Share, TouchableOpacity, SafeAreaView
 }
   from 'react-native';
@@ -19,8 +19,10 @@ import {
   salvarDados, pegarDados, removerDados, converterImagemParaBase64
 } from '../../services/armazenamento';
 import { getProjectPorId } from '../../apis/apiHome';
-import BarraInferior from './barraInferior';
+import BarraInferior from '../../components/barraInferior';
 import ImagemDePostagem from './ImagemDePostagem';
+import formatarDataPorExtenso from '../../utils/dateUtils';
+
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -30,6 +32,7 @@ export default function DescriptionScreen(props) {
   const [visivel, alterarVisibilidade] = useState(false);
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
+  const dataDePostagem = postagem.post_date;
 
   useFocusEffect(
     useCallback(() => {
@@ -83,6 +86,17 @@ export default function DescriptionScreen(props) {
       removerConteudo();
     }
   };
+
+  const informacaoLateral = () => (
+    <>
+      <Text style={styles.informacaoLateral}>
+        postado em
+      </Text>
+      <Text style={styles.informacaoLateral}>
+        { formatarDataPorExtenso(dataDePostagem) }
+      </Text>
+    </>
+  );
 
   const baixarConteudo = async () => {
     try {
@@ -183,9 +197,11 @@ export default function DescriptionScreen(props) {
         {textoDoFeedback}
       </Snackbar>
       <BarraInferior
+        telaDeOrigem="descricao"
+        barraVisivel
+        informacaoLateral={informacaoLateral}
         aoClicarEmBaixar={aoClicarEmBaixar}
         aoCompartilhar={aoCompartilhar}
-        dataDePostagem={postagem.post_date}
         conteudoBaixado={conteudoBaixado}
       />
     </SafeAreaView>
@@ -198,6 +214,14 @@ const styles = StyleSheet.create({
   },
   searchHeaderBack: {
     marginHorizontal: 19
+  },
+  informacaoLateral: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    textTransform: 'uppercase',
+    letterSpacing: 1.5,
+    fontSize: 10,
+    lineHeight: 16,
+    fontWeight: 'bold',
   },
   titulo: { flex: 1, backgroundColor: '#fff' },
   textTitleDetail: {
