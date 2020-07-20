@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, Button } from 'react-native-paper';
 import {
   View, Text, Image, StyleSheet
 } from 'react-native';
+import TagAtualizacaoEstagio from './tagAtualizacaoEstagio';
+import { ContextoDeVersaoDoManejo } from './contexto/contextoVersaoManejo';
 
-const CartaoDeEstagio = (estagio, navigation) => (
-    <Card
-      key={estagio.id}
-      elevation={4}
-      style={{
-        ...estilo.cartao,
-        MaxHeight: estagio.estaAberto ? (estagio.alturaDoCartao) : (172)
-      }}
-    >
+
+const CartaoDeEstagio = ({ estagio, navigation }) => {
+  const { versaoDoManejo } = useContext(ContextoDeVersaoDoManejo);
+
+  return (
+      <Card
+        key={estagio.id}
+        elevation={4}
+        style={{
+          ...estilo.cartao,
+          MaxHeight: estagio.estaAberto ? (estagio.alturaDoCartao) : (172)
+        }}
+      >
     <Card.Content style={estilo.conteudoDoCard}>
         <View style={estilo.containerDoCartao}>
             <View style={estilo.subcontainerDoCartao}>
@@ -52,9 +58,11 @@ const CartaoDeEstagio = (estagio, navigation) => (
         >
         {estagio.estaAberto ? 'fechar' : 'Saiba mais'}
         </Button>
+        <TagAtualizacaoEstagio estagio={estagio} versaoManejo={versaoDoManejo} />
     </Card.Actions>
-    </Card>
-);
+      </Card>
+  );
+};
 
 const estilo = StyleSheet.create({
   cartao: {

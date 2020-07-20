@@ -7,7 +7,8 @@
                 "titulo": "Protocolo",
                 "url": "https://coronavirus.ceara.gov.br/project/nota-tecnica-sobre-o-uso-da-ventilacao-nao-invasiva-e-canula-nasal-de-alto-fluxo-no-tratamento-da-insuficiencia-respiratoria-aguda-por-covid-19/",
                 "texto": "conforme protocolo."
-            }
+            },
+            "iconeAtualizacao": " 🔴"
         },
         {
             "id": 2,
@@ -25,7 +26,8 @@
                         "titulo": "Protocolo",
                         "url": "https://coronavirus.ceara.gov.br/project/protocolo-traz-recomendacoes-para-combinacoes-de-farmacos-para-intubacao-e-sedacao-continua-na-covid-19/",
                         "texto": "conforme protocolo."
-                    }
+                    },
+                    "iconeAtualizacao": " 🔴"
                 },
                 {
                     "texto": "- Considerar manobras de resgate de hipoxemia refratária (titulação da PEEP e ",
