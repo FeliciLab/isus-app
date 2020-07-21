@@ -57,8 +57,8 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('HOME')}
         />
         <DrawerItem
-          icon={() => <Icon name="face" size={20} color="#111" />}
-          label="FeedBack"
+          icon={() => <Icon name="message-alert" size={20} color="#111" />}
+          label="Fale conosco"
           labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
