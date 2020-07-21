@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import {
   View,
@@ -11,14 +11,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
-import { postFeedback } from '../../apis/apiHome';
-import Regex from '../../utils/regex';
+import { postAlertaFaltaDeEpi } from '../../apis/apiHome';
 
 export default function AlertaFaltaDeEpiScreen() {
-  const feedbackInput = React.createRef();
+  const descricaoInput = React.createRef();
+  const unidadeDeSaudeInput = React.createRef();
   const emailInput = React.createRef();
-  const [feedback, setFeedback] = React.useState('');
-  const [imagem, setImagem] = React.useState({});
+  const [descricao, alterarDescricao] = useState('');
+  const [unidadeDeSaude, alterarUnidadeDeSaude] = useState('');
   const [email, setEmail] = React.useState('');
   const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
   const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
@@ -28,7 +28,7 @@ export default function AlertaFaltaDeEpiScreen() {
 
   const onSubmit = async () => {
     try {
-      const { data } = await postFeedback(feedback, email, imagem);
+      const { data } = await postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email);
       if (data.errors) {
         setMensagemDeErro(extrairMensagemDeErro(data));
         setErroAoEnviar(true);
@@ -47,19 +47,19 @@ export default function AlertaFaltaDeEpiScreen() {
   };
 
   const limparCampos = () => {
-    setFeedback('');
+    alterarDescricao('');
+    alterarUnidadeDeSaude('');
     setEmail('');
-    setImagem({});
   };
 
   const extrairMensagemDeErro = (response) => {
-    if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
-    if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
+    if (response.errors.descricao) return response.errors.descricao[0];
+    if (response.errors.unidadeDeSaude) return response.errors.unidadeDeSaude[0];
     return '';
   };
 
-  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
-  const feedbackValido = () => feedback.replace(/\s/g, '').length;
+  const descricaoValida = () => descricao.replace(/\s/g, '').length;
+  const unidadeDeSaudeValida = () => unidadeDeSaude.replace(/\s/g, '').length;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -116,20 +116,20 @@ export default function AlertaFaltaDeEpiScreen() {
           <TextInput
             numberOfLines={5}
             mode="outlined"
-            ref={feedbackInput}
+            ref={descricaoInput}
             multiline
-            value={feedback}
-            label="Situação atual da sua unidade *"
-            onChangeText={text => setFeedback(text)}
+            value={descricao}
+            label="Descreva a situação atual da sua unidade *"
+            onChangeText={text => alterarDescricao(text)}
             style={{ marginBottom: 20 }}
           />
 
           <TextInput
             mode="outlined"
-            ref={emailInput}
+            ref={unidadeDeSaudeInput}
             label="Unidade de Saúde *"
-            value={email}
-            onChangeText={text => setEmail(text)}
+            value={unidadeDeSaude}
+            onChangeText={text => alterarUnidadeDeSaude(text)}
             style={{ marginBottom: 20 }}
           />
 
@@ -156,14 +156,15 @@ export default function AlertaFaltaDeEpiScreen() {
         </View>
         <View>
         <Button
-          disabled={!!(!feedbackValido() || !emailValido())}
-          style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
+          disabled={!!(!descricaoValida() || !unidadeDeSaudeValida())}
+          style={descricaoValida() && unidadeDeSaudeValida()
+            ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}
           onPress={() => {
             setCarregando(true);
-            onSubmit(feedback, email, imagem);
+            onSubmit();
           }}
         >
           Enviar
