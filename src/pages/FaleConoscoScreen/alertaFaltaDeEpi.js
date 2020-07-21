@@ -14,7 +14,7 @@ import {
 import { postFeedback } from '../../apis/apiHome';
 import Regex from '../../utils/regex';
 
-export default function AlertaDeEpiScreen() {
+export default function AlertaFaltaDeEpiScreen() {
   const feedbackInput = React.createRef();
   const emailInput = React.createRef();
   const [feedback, setFeedback] = React.useState('');
