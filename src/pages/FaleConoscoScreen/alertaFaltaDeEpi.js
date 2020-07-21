@@ -179,7 +179,7 @@ export default function AlertaFaltaDeEpiScreen() {
             onPress: () => setSucessoAoEnviar(false)
           }}
         >
-          Enviado
+          Seu feedback foi enviado, obrigado!
         </Snackbar>
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}
