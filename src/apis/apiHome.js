@@ -41,3 +41,9 @@ export function postFeedback(categoria, texto, email, imagem) {
     imagem
   });
 }
+
+export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
+  return request.post('alerta-falta-epi', {
+    descricao, unidadeDeSaude, email
+  });
+}
