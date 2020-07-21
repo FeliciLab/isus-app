@@ -9,7 +9,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  RadioButton, TextInput, Button, Snackbar
+  TextInput, Button, Snackbar
 } from 'react-native-paper';
 import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
@@ -17,10 +17,9 @@ import Tag from './Tag';
 import Regex from '../../utils/regex';
 import { vazio } from '../../utils/objectUtils';
 
-export default function FeedbackScreen() {
+export default function FeedbackScreen({ tipoDeFeedback }) {
   const feedbackInput = React.createRef();
   const emailInput = React.createRef();
-  const [checked, setState] = React.useState(true);
   const [feedback, setFeedback] = React.useState('');
   const [imagem, setImagem] = React.useState({});
   const [nomeImagem, setNomeImagem] = React.useState('');
@@ -42,7 +41,7 @@ export default function FeedbackScreen() {
 
   const onSubmit = async () => {
     try {
-      const { data } = await postFeedback(checked, feedback, email, imagem);
+      const { data } = await postFeedback(tipoDeFeedback, feedback, email, imagem);
       if (data.errors) {
         setMensagemDeErro(extrairMensagemDeErro(data));
         setErroAoEnviar(true);
@@ -153,34 +152,13 @@ export default function FeedbackScreen() {
               letterSpacing: 0.25,
               fontSize: 14,
               lineHeight: 20,
-              color: '#828282'
+              color: '#828282',
+              marginBottom: 18
             }}
           >
             Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
             problemas e melhorar o app rapidamendamente.
           </Text>
-
-          <View style={{ flexDirection: 'row', marginVertical: 10 }}>
-            <TouchableOpacity
-              style={{ flexDirection: 'row', marginRight: 20 }}
-              onPress={() => setState(!checked)}
-            >
-              <RadioButton
-                value="first"
-                status={checked ? 'checked' : 'unchecked'}
-                onPress={() => setState(!checked)}
-              />
-              <Text style={{ alignSelf: 'center' }}>Sugestões</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => setState(!checked)}>
-              <RadioButton
-                value="first"
-                status={checked ? 'unchecked' : 'checked'}
-                onPress={() => setState(!checked)}
-              />
-              <Text style={{ alignSelf: 'center' }}>Problemas</Text>
-            </TouchableOpacity>
-          </View>
 
           <TextInput
             numberOfLines={5}
@@ -238,7 +216,7 @@ export default function FeedbackScreen() {
           loading={carregando}
           onPress={() => {
             setCarregando(true);
-            onSubmit(checked, feedback, email, imagem);
+            onSubmit();
           }}
         >
           Enviar
@@ -253,7 +231,7 @@ export default function FeedbackScreen() {
             onPress: () => setSucessoAoEnviar(false)
           }}
         >
-          Enviado
+          Seu feedback foi enviado, obrigado!
         </Snackbar>
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}
