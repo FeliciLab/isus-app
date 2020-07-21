@@ -10,15 +10,20 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { ALERTA_FALTA_EPI } from './tiposDeOcorrencia';
-import TipoDeOcorrenciaDropdown from './tiposDeOcorrenciaDropdown';
+import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA } from './tiposDeOcorrencia';
+import DropdownSimples from './dropdown';
 import FeedbackScreen from './feedback';
-import AlertaDeEpi from './alertaDeEpi';
+import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 
 export default function FaleConoscoScreen({ route }) {
+  const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(route.params.ocorrencia);
   const navigation = useNavigation();
 
-  const mudarDeTela = tela => tela;
+  const tiposDeOcorrencia = [
+    { value: ALERTA_FALTA_EPI },
+    { value: RELATAR_SUGESTAO },
+    { value: RELATAR_PROBLEMA }
+  ];
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -63,8 +68,13 @@ export default function FaleConoscoScreen({ route }) {
         style={{ flex: 1 }}
       >
         <View style={{ flex: 1, padding: 15 }}>
-          <TipoDeOcorrenciaDropdown valorInicial={route.params.tela} valorAtual={mudarDeTela} />
-          { mudarDeTela() === ALERTA_FALTA_EPI ? <AlertaDeEpi /> : <FeedbackScreen /> }
+          <DropdownSimples
+            label="Tipo de ocorrência"
+            dados={tiposDeOcorrencia}
+            valorInicial={route.params.ocorrencia}
+            aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
+          />
+          { ocorrenciaAtual === ALERTA_FALTA_EPI ? <AlertaFaltaDeEpiScreen /> : <FeedbackScreen /> }
         </View>
       </KeyboardAvoidingView>
     </ScrollView>

@@ -141,7 +141,7 @@ function FeedbackStackScreen() {
         name="FEEDBACK"
         component={FaleConoscoScreen}
         options={{ headerShown: true }}
-        initialParams={{ tela: RELATAR_SUGESTAO }}
+        initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
     </FeedbackStack.Navigator>
   );
@@ -155,7 +155,7 @@ function AlertaEpiStackScreen() {
         name="ALERTA_EPI"
         component={FaleConoscoScreen}
         options={{ headerShown: true }}
-        initialParams={{ tela: ALERTA_FALTA_EPI }}
+        initialParams={{ ocorrencia: ALERTA_FALTA_EPI }}
       />
     </AlertaEpiStack.Navigator>
   );
