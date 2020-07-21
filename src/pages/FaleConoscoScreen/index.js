@@ -74,7 +74,8 @@ export default function FaleConoscoScreen({ route }) {
             valorInicial={route.params.ocorrencia}
             aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
           />
-          { ocorrenciaAtual === ALERTA_FALTA_EPI ? <AlertaFaltaDeEpiScreen /> : <FeedbackScreen /> }
+          { ocorrenciaAtual === ALERTA_FALTA_EPI
+            ? <AlertaFaltaDeEpiScreen /> : <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} /> }
         </View>
       </KeyboardAvoidingView>
     </ScrollView>
