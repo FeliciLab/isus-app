@@ -13,7 +13,6 @@ import {
   Platform,
   SafeAreaView
 } from 'react-native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
@@ -46,9 +45,9 @@ function CustomDrawerContent(props) {
       </SafeAreaView>
       <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
         <DrawerItem
-          icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
+          icon={() => <Icon name="home" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Home"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
@@ -57,9 +56,9 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('HOME')}
         />
         <DrawerItem
-          icon={() => <Icon name="message-alert" size={20} color="#111" />}
+          icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Fale conosco"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
@@ -68,9 +67,9 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('FEEDBACK')}
         />
         <DrawerItem
-          icon={() => <Icon name="alert-octagon" size={20} color="#111" />}
+          icon={() => <Icon name="alert-octagon" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Alerta de EPI"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
@@ -79,9 +78,9 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('ALERTA_EPI')}
         />
         <DrawerItem
-          icon={() => <Icon name="information-outline" size={20} color="#111" />}
+          icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Sobre o iSUS"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
