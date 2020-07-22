@@ -32,7 +32,7 @@ function Servicos({ navigation }) {
     },
     {
       id: 'services-3',
-      titulo: 'Feedback',
+      titulo: 'Fale Conosco',
       logo: IconeFeedback,
       navegacao: {
         componente: 'FEEDBACK'
