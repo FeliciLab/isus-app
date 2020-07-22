@@ -34,7 +34,7 @@ export function postFeedback(tipoDeFeedback, texto, email, imagem) {
 }
 
 export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
-  return request.post('alerta-falta-epi', {
+  return request.post('alertaDeEpi', {
     descricao, unidadeDeSaude, email
   });
 }
