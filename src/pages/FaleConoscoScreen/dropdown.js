@@ -6,10 +6,13 @@ import { Dropdown } from 'react-native-material-dropdown-v2';
 export default function DropdownSimples({
   valorInicial, aoMudarValor, dados, label
 }) {
+  const dropdownRef = React.createRef();
+
   return (
     <View style={{ position: 'relative' }}>
 
     <Dropdown
+      ref={dropdownRef}
       label={label}
       data={dados}
       value={valorInicial}
@@ -26,6 +29,7 @@ export default function DropdownSimples({
         position: 'absolute', right: 8, top: 30, fontSize: 25
       }}
       name="arrow-drop-down"
+      onPress={() => dropdownRef.current.focus()}
     />
     </View>
   );
