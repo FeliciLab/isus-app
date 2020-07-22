@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useCallback } from 'react';
 
 
 import {
@@ -8,7 +8,7 @@ import {
   Platform,
   ScrollView
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA } from './tiposDeOcorrencia';
 import DropdownSimples from './dropdown';
@@ -18,6 +18,10 @@ import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 export default function FaleConoscoScreen({ route }) {
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(route.params.ocorrencia);
   const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), [])
+  );
 
   const tiposDeOcorrencia = [
     { value: ALERTA_FALTA_EPI },
@@ -71,7 +75,7 @@ export default function FaleConoscoScreen({ route }) {
           <DropdownSimples
             label="Tipo de ocorrência"
             dados={tiposDeOcorrencia}
-            valorInicial={route.params.ocorrencia}
+            valorInicial={ocorrenciaAtual}
             aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
           />
           { ocorrenciaAtual === ALERTA_FALTA_EPI
