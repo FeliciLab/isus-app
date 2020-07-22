@@ -56,7 +56,7 @@ function CustomDrawerContent(props) {
         />
         <DrawerItem
           icon={() => <Icon name="face" size={20} color="#111" />}
-          label="FeedBack"
+          label="Fale Conosco"
           labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
