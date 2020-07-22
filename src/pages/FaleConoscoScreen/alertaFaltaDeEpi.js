@@ -119,7 +119,7 @@ export default function AlertaFaltaDeEpiScreen() {
             ref={descricaoInput}
             multiline
             value={descricao}
-            label="Descreva a situação atual da sua unidade *"
+            label="Descreva a situação atual *"
             onChangeText={text => alterarDescricao(text)}
             style={{ marginBottom: 20 }}
           />
@@ -151,7 +151,7 @@ export default function AlertaFaltaDeEpiScreen() {
               marginBottom: 18
             }}
           >
-            Campo não obrigatório
+            Campo Email não obrigatório
           </Text>
         </View>
         <View>
