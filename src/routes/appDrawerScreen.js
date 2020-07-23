@@ -52,7 +52,7 @@ function CustomDrawerContent(props) {
           inactiveBackgroundColor="transparent"
           activeBackgroundColor="transparent"
           focused={routeName === 'HOME'}
-          onPress={() => navigate('HOME')}
+          onPress={() => navigate('HOME', { screen: 'Home' })}
         />
         <DrawerItem
           icon={() => <Icon name="face" size={20} color="#111" />}
