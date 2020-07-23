@@ -9,6 +9,7 @@ import {
 
 import orientacaoInicial from '../json/estagio1.json';
 import BotaoManejoClinico from '../botaoManejoClinico';
+import ReferenciaMedica from './referenciaMedica';
 
 const corDoTextoPadrao = 'rgba(0,0,0,0.6)';
 
@@ -75,6 +76,7 @@ const Estagio1 = ({ navigation }) => {
       <BotaoManejoClinico onPress={() => navigation.navigate('webview', { title: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
     </View>
   </View>
+  <ReferenciaMedica />
     </>
   );
 };

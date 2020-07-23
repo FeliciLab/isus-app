@@ -8,6 +8,8 @@ import {
 } from 'react-native-paper';
 import emergecia from '../json/estagio2.json';
 import checkPlatform from '../../../utils/PDF';
+import ReferenciaMedica from './referenciaMedica';
+
 
 const Estagio2 = ({ navigation }) => {
   const {
@@ -76,6 +78,7 @@ const Estagio2 = ({ navigation }) => {
         </View>
       ))
     }
+    <ReferenciaMedica />
     </>
   );
 };

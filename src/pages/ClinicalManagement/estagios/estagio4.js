@@ -8,6 +8,8 @@ import {
 } from 'react-native-paper';
 import estagio4 from '../json/estagio4.json';
 import Pulmao from '../../../assets/icons/estagiosManejo/pulmao.png';
+import ReferenciaMedica from './referenciaMedica';
+
 
 const Estagio4 = ({ navigation }) => {
   const secoes = [
@@ -91,6 +93,7 @@ const Estagio4 = ({ navigation }) => {
       <View style={estilo.margin12}>
         { secoes.map((gerarSecao, index) => gerarSecao(estagio4.secoes[index])) }
       </View>
+      <ReferenciaMedica />
     </>
   );
 };

@@ -7,6 +7,8 @@ import {
 import { Paragraph } from 'react-native-paper';
 import checkPlatform from '../../../utils/PDF';
 import iternacao from '../json/estagio3.json';
+import ReferenciaMedica from './referenciaMedica';
+
 
 const Estagio3 = ({ navigation }) => {
   const secoes = [
@@ -68,6 +70,7 @@ const Estagio3 = ({ navigation }) => {
     <View style={estilo.margin20}>
       { secoes.map((gerarSecao, index) => gerarSecao(iternacao.secoes[index]))}
     </View>
+    <ReferenciaMedica />
     </>
   );
 };
