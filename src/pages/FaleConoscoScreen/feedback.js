@@ -61,7 +61,6 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
 
   const limparCampos = () => {
     setFeedback('');
-    setEmail('');
     setImagem({});
     setNomeImagem('');
   };
