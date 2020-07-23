@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Paragraph } from 'react-native-paper';
 import BotaoManejoClinico from './botaoManejoClinico';
 
 
@@ -29,6 +30,18 @@ export default function CasosSuspeitos(navigation) {
             {' '}
               Diretrizes para diagnóstico e tratamento da COVID-19
           </Text>
+          <View style={estilos.espacamentoRodape}>
+              <Paragraph style={estilos.textoDaReferencia}>
+                Todas as informações disponíveis
+                neste aplicativo foram cuidadosamentes selecionadas e verificadas pela
+                {' '}
+                <Text style={estilos.textoLink} onPress={() => navigation.navigate('manejoWebview', { title: 'Secretaria de Saúde', url: 'https://www.saude.ce.gov.br/' })}> Secretaria Estadual de Saúde</Text>
+                {' '}
+                e
+                {' '}
+                <Text style={estilos.textoLink} onPress={() => navigation.navigate('manejoWebview', { title: 'Escola de saúde', url: 'https://www.esp.ce.gov.br/' })}>Escola de Saúde Pública do Ceará.</Text>
+              </Paragraph>
+          </View>
         </View>
   );
 }
@@ -45,5 +58,15 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     textDecorationLine: 'underline',
     marginVertical: 30
+  },
+  espacamentoRodape: {
+    paddingBottom: 50
+  },
+  textoDaReferencia: {
+    color: 'rgba(0, 0, 0, 0.6)'
+  },
+  textoLink: {
+    color: '#4CAF50',
+    textDecorationLine: 'underline'
   }
 });
