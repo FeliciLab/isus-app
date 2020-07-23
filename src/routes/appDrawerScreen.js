@@ -19,6 +19,7 @@ import AppTab from './appBottomTab';
 import Heart from '../assets/icons/isus_hor.svg';
 import packageJson from '../../package.json';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
+import SusNoCearaScreen from '../pages/SusNoCeara';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 
 
@@ -78,6 +79,17 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('ALERTA_EPI')}
         />
         <DrawerItem
+          icon={() => <Icon name="help-circle" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="SUS no Ceará"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'SUS_NO_CEARA'}
+          onPress={() => navigate('SUS_NO_CEARA')}
+        />
+        <DrawerItem
           icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Sobre o iSUS"
           labelStyle={{ fontSize: 15 }}
@@ -118,6 +130,7 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
+      <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
     </Drawer.Navigator>
   );
@@ -157,6 +170,18 @@ function AlertaEpiStackScreen() {
         initialParams={{ ocorrencia: ALERTA_FALTA_EPI }}
       />
     </AlertaEpiStack.Navigator>
+  );
+}
+const SusNoCearaStack = createStackNavigator();
+function SusNoCearaStackScreen() {
+  return (
+    <SusNoCearaStack.Navigator>
+      <SusNoCearaStack.Screen
+        name="SUS_NO_CEARA"
+        component={SusNoCearaScreen}
+        options={{ headerShown: true }}
+      />
+    </SusNoCearaStack.Navigator>
   );
 }
 
