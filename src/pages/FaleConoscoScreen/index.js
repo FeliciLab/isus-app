@@ -66,7 +66,7 @@ export default function FaleConoscoScreen({ route }) {
     });
   });
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}

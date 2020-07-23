@@ -4,7 +4,7 @@ import {
   StyleSheet, View, Text, Platform
 } from 'react-native';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import formatarDataDePostagem from '../../utils/dateUtils';
+import formatarDataPorExtenso from '../../utils/dateUtils';
 
 
 function BarraInferior({
@@ -21,7 +21,6 @@ function BarraInferior({
     }
   }, [conteudoBaixado]);
 
-  console.log();
   return (
     <>
         <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
@@ -31,7 +30,7 @@ function BarraInferior({
                         postado em
                     </Text>
                     <Text style={estilos.texto}>
-                        {formatarDataDePostagem(dataDePostagem)}
+                        {formatarDataPorExtenso(dataDePostagem)}
                     </Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
