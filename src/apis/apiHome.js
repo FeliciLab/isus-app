@@ -17,27 +17,24 @@ export function getProjectPorId(item) {
   return request.get(`/projeto/${item}`);
 }
 
-export function postFeedback(categoria, texto, email, imagem) {
-  const nomeCategoria = () => {
-    if (categoria) {
-      const nome = 'Sugestoes';
-      return nome;
-    }
-    const nome = 'Problemas';
-    return nome;
-  };
-
+export function postFeedback(tipoDeFeedback, texto, email, imagem) {
   if (vazio(imagem)) {
     return request.post('feedback', {
-      categoria: nomeCategoria(),
+      tipoDeFeedback,
       email,
       texto
     });
   }
   return request.post('feedback', {
-    categoria: nomeCategoria(),
+    tipoDeFeedback,
     email,
     texto,
     imagem
+  });
+}
+
+export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
+  return request.post('alertaDeEpi', {
+    descricao, unidadeDeSaude, email
   });
 }

@@ -13,13 +13,14 @@ import {
   Platform,
   SafeAreaView
 } from 'react-native';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
 import Heart from '../assets/icons/isus_hor.svg';
-import FeedbackScreen from '../pages/FeedbackScreen';
 import packageJson from '../../package.json';
+import FaleConoscoScreen from '../pages/FaleConoscoScreen';
+import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
+
 
 function CustomDrawerContent(props) {
   const {
@@ -44,9 +45,9 @@ function CustomDrawerContent(props) {
       </SafeAreaView>
       <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
         <DrawerItem
-          icon={() => <FontAwesomeIcon name="home" size={20} color="#111" />}
+          icon={() => <Icon name="home" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Home"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
@@ -55,9 +56,9 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('HOME', { screen: 'Home' })}
         />
         <DrawerItem
-          icon={() => <Icon name="face" size={20} color="#111" />}
-          label="Fale Conosco"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Fale conosco"
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
@@ -66,9 +67,20 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('FEEDBACK')}
         />
         <DrawerItem
-          icon={() => <Icon name="information-outline" size={20} color="#111" />}
+          icon={() => <Icon name="alert-octagon" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Alerta de EPI"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'ALERTA_EPI'}
+          onPress={() => navigate('ALERTA_EPI')}
+        />
+        <DrawerItem
+          icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Sobre o iSUS"
-          labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
+          labelStyle={{ fontSize: 15 }}
           inactiveTintColor="#111"
           activeTintColor="#111"
           inactiveBackgroundColor="transparent"
@@ -105,6 +117,7 @@ export default function appDrawerScreen() {
     >
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
+      <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
     </Drawer.Navigator>
   );
@@ -125,10 +138,25 @@ function FeedbackStackScreen() {
     <FeedbackStack.Navigator>
       <FeedbackStack.Screen
         name="FEEDBACK"
-        component={FeedbackScreen}
+        component={FaleConoscoScreen}
         options={{ headerShown: true }}
+        initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
     </FeedbackStack.Navigator>
+  );
+}
+
+const AlertaEpiStack = createStackNavigator();
+function AlertaEpiStackScreen() {
+  return (
+    <AlertaEpiStack.Navigator>
+      <AlertaEpiStack.Screen
+        name="ALERTA_EPI"
+        component={FaleConoscoScreen}
+        options={{ headerShown: true }}
+        initialParams={{ ocorrencia: ALERTA_FALTA_EPI }}
+      />
+    </AlertaEpiStack.Navigator>
   );
 }
 
