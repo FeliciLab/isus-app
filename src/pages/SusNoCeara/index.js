@@ -6,7 +6,7 @@ import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextoSobreSUS, TextoSobreSESA, TextoSobreESP } from './textos';
 
-export default function SusNoCeareScreen() {
+export default function SusNoCearaScreen() {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
