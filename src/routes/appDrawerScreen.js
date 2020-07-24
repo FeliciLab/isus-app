@@ -11,8 +11,7 @@ import {
   Text,
   StyleSheet,
   Platform,
-  SafeAreaView,
-  Share
+  SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
@@ -45,68 +44,53 @@ function CustomDrawerContent(props) {
         </View>
       </SafeAreaView>
       <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
-        <View>
-          <DrawerItem
-            icon={() => <Icon name="home" size={20} color="rgba(0, 0, 0, 0.54)" />}
-            label="Home"
-            labelStyle={{ fontSize: 15 }}
-            inactiveTintColor="#111"
-            activeTintColor="#111"
-            inactiveBackgroundColor="transparent"
-            activeBackgroundColor="transparent"
-            focused={routeName === 'HOME'}
-            onPress={() => navigate('HOME', { screen: 'Home' })}
-          />
-          <DrawerItem
-            icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
-            label="Fale conosco"
-            labelStyle={{ fontSize: 15 }}
-            inactiveTintColor="#111"
-            activeTintColor="#111"
-            inactiveBackgroundColor="transparent"
-            activeBackgroundColor="transparent"
-            focused={routeName === 'FEEDBACK'}
-            onPress={() => navigate('FEEDBACK')}
-          />
-          <DrawerItem
-            icon={() => <Icon name="alert-octagon" size={20} color="rgba(0, 0, 0, 0.54)" />}
-            label="Alerta de EPI"
-            labelStyle={{ fontSize: 15 }}
-            inactiveTintColor="#111"
-            activeTintColor="#111"
-            inactiveBackgroundColor="transparent"
-            activeBackgroundColor="transparent"
-            focused={routeName === 'ALERTA_EPI'}
-            onPress={() => navigate('ALERTA_EPI')}
-          />
-          <DrawerItem
-            icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
-            label="Sobre o iSUS"
-            labelStyle={{ fontSize: 15 }}
-            inactiveTintColor="#111"
-            activeTintColor="#111"
-            inactiveBackgroundColor="transparent"
-            activeBackgroundColor="transparent"
-            focused={routeName === 'SOBRE'}
-            onPress={() => navigate('SOBRE')}
-          />
-        </View>
+        <DrawerItem
+          icon={() => <Icon name="home" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Home"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'HOME'}
+          onPress={() => navigate('HOME', { screen: 'Home' })}
+        />
+        <DrawerItem
+          icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Fale conosco"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'FEEDBACK'}
+          onPress={() => navigate('FEEDBACK')}
+        />
+        <DrawerItem
+          icon={() => <Icon name="alert-octagon" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Alerta de EPI"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'ALERTA_EPI'}
+          onPress={() => navigate('ALERTA_EPI')}
+        />
+        <DrawerItem
+          icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Sobre o iSUS"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'SOBRE'}
+          onPress={() => navigate('SOBRE')}
+        />
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
-      <View style={styles.itemCompartilhar}>
-            <DrawerItem
-              icon={() => <Icon name="share-variant" size={20} color="rgba(0, 0, 0, 0.54)" />}
-              label="Convidar colegas"
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
-              focused={routeName === 'SOBRE'}
-              onPress={() => aoCompartilhar()}
-            />
-      </View>
       <View style={styles.viewVersao}>
         <Text style={styles.textoVersao}>
           {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
@@ -176,21 +160,9 @@ function AlertaEpiStackScreen() {
   );
 }
 
-const aoCompartilhar = async () => {
-  const messagLink = 'https://coronavirus.ceara.gov.br/isus/';
-  try {
-    await Share.share({
-      message: messagLink
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 const styles = StyleSheet.create({
   viewVersao: {
-    marginTop: 0,
-    marginBottom: 16,
+    margin: 16,
   },
   textoVersao: {
     color: 'rgba(0, 0, 0, 0.6)',
@@ -203,9 +175,5 @@ const styles = StyleSheet.create({
   },
   droidSafeArea: {
     paddingTop: Platform.OS === 'android' ? 25 : 0
-  },
-  itemCompartilhar: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
   },
 });
