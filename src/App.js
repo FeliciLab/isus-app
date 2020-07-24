@@ -34,13 +34,24 @@ function App() {
     };
   }, []);
 
+  const redirecionaManejo = () => navigate('clinical management');
+
+  const redirecionaWebView = (openResult) => {
+    const urlWebview = openResult.notification.payload.launchURL.replace('isusapp', 'https');
+    return navigate('webview', {
+      title: openResult.notification.payload.title,
+      url: urlWebview
+    });
+  };
+
   function onOpened(openResult) {
+    const urlManejo = 'isusapp://manejoclinico';
     if (openResult.notification.payload.launchURL) {
-      const launchURL = openResult.notification.payload.launchURL.replace('isusapp', 'https');
-      return navigate('webview', {
-        title: openResult.notification.payload.title,
-        url: launchURL
-      });
+      const launchUrl = openResult.notification.payload.launchURL;
+      if (launchUrl === urlManejo) {
+        return redirecionaManejo();
+      }
+      return redirecionaWebView(openResult);
     }
     return navigate('App');
   }
