@@ -4,16 +4,16 @@ import React, { useCallback } from 'react';
 import {
   View,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView
+  Platform
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA } from './tiposDeOcorrencia';
 import DropdownSimples from './dropdown';
 import FeedbackScreen from './feedback';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
+
 
 export default function FaleConoscoScreen({ route }) {
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(route.params.ocorrencia);
@@ -66,11 +66,13 @@ export default function FaleConoscoScreen({ route }) {
     });
   });
   return (
-    <ScrollView style={{ backgroundColor: '#FFFFFF' }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
+    <KeyboardAwareScrollView
+      style={{ backgroundColor: '#FFFFFF' }}
+      extraScrollHeight={10}
+      keyboardOpeningTime={100}
+      enableOnAndroid
+      enableAutomaticScroll={Platform.OS === 'ios'}
+    >
         <View style={{ flex: 1, padding: 15 }}>
           <DropdownSimples
             label="Tipo de ocorrência"
@@ -81,7 +83,6 @@ export default function FaleConoscoScreen({ route }) {
           { ocorrenciaAtual === ALERTA_FALTA_EPI
             ? <AlertaFaltaDeEpiScreen /> : <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} /> }
         </View>
-      </KeyboardAvoidingView>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
