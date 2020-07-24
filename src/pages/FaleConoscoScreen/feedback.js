@@ -204,7 +204,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             ref={emailInput}
             label="Email"
             value={email}
-            onChangeText={text => setEmail(text)}
+            onChangeText={text => setEmail(text.trim())}
           />
         </View>
         <View>
