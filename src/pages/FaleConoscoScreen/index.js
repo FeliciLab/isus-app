@@ -39,7 +39,7 @@ export default function FaleConoscoScreen({ route }) {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'iSUS',
+      headerTitle: ocorrenciaAtual.header,
       headerRight: () => (
         <TouchableOpacity
           style={{
