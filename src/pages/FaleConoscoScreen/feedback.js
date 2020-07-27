@@ -38,10 +38,11 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       setImagem(parsearResponse(responseDaBiblioteca));
     }
   }, [responseDaBiblioteca]);
-
+  console.log(tipoDeFeedback);
   const onSubmit = async () => {
+    console.log(tipoDeFeedback.textoDoDropdown, feedback, email, imagem);
     try {
-      const { data } = await postFeedback(tipoDeFeedback, feedback, email, imagem);
+      const { data } = await postFeedback(tipoDeFeedback.textoDoDropdown, feedback, email, imagem);
       if (data.errors) {
         setMensagemDeErro(extrairMensagemDeErro(data));
         setErroAoEnviar(true);
@@ -144,6 +145,8 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       )
     });
   });
+
+
   return (
     <>
         <View style={{ flex: 1, padding: 15 }}>
@@ -231,7 +234,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             onPress: () => setSucessoAoEnviar(false)
           }}
         >
-          Seu feedback foi enviado, obrigado!
+          {`${tipoDeFeedback.feedback} foi enviado, obrigado!`}
         </Snackbar>
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}

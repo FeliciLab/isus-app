@@ -17,12 +17,11 @@ import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 
 export default function FaleConoscoScreen({ route }) {
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(
-    route.params.ocorrencia.textoDoDropdown
+    route.params.ocorrencia
   );
   const navigation = useNavigation();
-  console.log('ocorrencia', route.params.ocorrencia.textoDoDropdown);
   useFocusEffect(
-    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia.textoDoDropdown), [])
+    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), [])
   );
 
   const tiposDeOcorrencia = [
@@ -31,7 +30,6 @@ export default function FaleConoscoScreen({ route }) {
     { value: RELATAR_PROBLEMA.textoDoDropdown }
   ];
 
-  console.log('tipos de ocorrencia', tiposDeOcorrencia);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -83,7 +81,7 @@ export default function FaleConoscoScreen({ route }) {
             valorInicial={ocorrenciaAtual}
             aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
           />
-          { ocorrenciaAtual === ALERTA_FALTA_EPI
+          { ocorrenciaAtual.textoDoDropdown === ALERTA_FALTA_EPI.textoDoDropdown
             ? <AlertaFaltaDeEpiScreen /> : <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} /> }
         </View>
     </KeyboardAwareScrollView>
