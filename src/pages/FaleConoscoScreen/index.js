@@ -16,19 +16,22 @@ import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 
 
 export default function FaleConoscoScreen({ route }) {
-  const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(route.params.ocorrencia);
+  const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(
+    route.params.ocorrencia.textoDoDropdown
+  );
   const navigation = useNavigation();
-
+  console.log('ocorrencia', route.params.ocorrencia.textoDoDropdown);
   useFocusEffect(
-    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), [])
+    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia.textoDoDropdown), [])
   );
 
   const tiposDeOcorrencia = [
-    { value: ALERTA_FALTA_EPI },
-    { value: RELATAR_SUGESTAO },
-    { value: RELATAR_PROBLEMA }
+    { value: ALERTA_FALTA_EPI.textoDoDropdown },
+    { value: RELATAR_SUGESTAO.textoDoDropdown },
+    { value: RELATAR_PROBLEMA.textoDoDropdown }
   ];
 
+  console.log('tipos de ocorrencia', tiposDeOcorrencia);
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
