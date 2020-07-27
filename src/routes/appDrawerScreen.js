@@ -11,7 +11,8 @@ import {
   Text,
   StyleSheet,
   Platform,
-  SafeAreaView
+  SafeAreaView,
+  Share
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
@@ -103,6 +104,18 @@ function CustomDrawerContent(props) {
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
+      <View style={styles.itemCompartilhar}>
+            <DrawerItem
+              icon={() => <Icon name="share-variant" size={20} color="rgba(0, 0, 0, 0.54)" />}
+              label="Convidar colegas"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="#111"
+              activeTintColor="#111"
+              inactiveBackgroundColor="transparent"
+              activeBackgroundColor="transparent"
+              onPress={() => aoCompartilhar()}
+            />
+      </View>
       <View style={styles.viewVersao}>
         <Text style={styles.textoVersao}>
           {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
@@ -185,9 +198,21 @@ function SusNoCearaStackScreen() {
   );
 }
 
+const aoCompartilhar = async () => {
+  const messagLink = 'Em tempos de crise, a informação correta deve ser sua principal aliada. Aqui você encontra todo o conteúdo Oficial sobre o CoronaVírus, preparado pelo Governo do Estado do Ceará. - https://coronavirus.ceara.gov.br/isus/';
+  try {
+    await Share.share({
+      message: messagLink
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 const styles = StyleSheet.create({
   viewVersao: {
-    margin: 16,
+    marginTop: 0,
+    marginBottom: 16,
   },
   textoVersao: {
     color: 'rgba(0, 0, 0, 0.6)',
@@ -200,5 +225,9 @@ const styles = StyleSheet.create({
   },
   droidSafeArea: {
     paddingTop: Platform.OS === 'android' ? 25 : 0
+  },
+  itemCompartilhar: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
 });
