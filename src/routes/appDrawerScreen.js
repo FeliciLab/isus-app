@@ -176,7 +176,7 @@ function AlertaEpiStackScreen() {
 }
 
 const aoCompartilhar = async () => {
-  const messagLink = 'https://coronavirus.ceara.gov.br/isus/';
+  const messagLink = 'Em tempos de crise, a informação correta deve ser sua principal aliada. Aqui você encontra todo o conteúdo Oficial sobre o CoronaVírus, preparado pelo Governo do Estado do Ceará. - https://coronavirus.ceara.gov.br/isus/';
   try {
     await Share.share({
       message: messagLink
