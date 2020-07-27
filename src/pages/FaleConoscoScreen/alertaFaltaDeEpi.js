@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import {
   View,
@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
@@ -25,6 +25,10 @@ export default function AlertaFaltaDeEpiScreen() {
   const [mensagemDeErro, setMensagemDeErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
   const navigation = useNavigation();
+
+  useFocusEffect(
+    useCallback(() => () => limparCampos(), [])
+  );
 
   const onSubmit = async () => {
     try {
