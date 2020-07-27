@@ -118,7 +118,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'iSUS',
+      headerTitle: tipoDeFeedback.header,
       headerRight: () => (
         <TouchableOpacity
           style={{
