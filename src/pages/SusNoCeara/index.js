@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { List } from 'react-native-paper';
@@ -62,19 +62,19 @@ export default function SusNoCearaScreen() {
        autárquica, vinculada a Secretaria da Saúde do Ceará
       </Text>
 
-      <List.Accordion titleStyle={{ color: 'black' }} title="Sobre o SUS">
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Sobre o SUS</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSUS />}
         />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title="O que é a SESA">
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O que é a SESA</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSESA />}
         />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title="O que é a ESP">
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O que é a ESP</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreESP />}
@@ -83,3 +83,9 @@ export default function SusNoCearaScreen() {
     </ScrollView>
   );
 }
+
+const estilos = StyleSheet.create({
+  titulo: {
+    fontSize: 18
+  }
+});

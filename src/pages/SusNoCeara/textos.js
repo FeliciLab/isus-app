@@ -19,7 +19,7 @@ const informacoes = {
 
 export const TextoSobreSUS = () => (
   <>
-<Text>
+<Text style={estilos.textoConteudo}>
     O Sistema Único de Saúde (SUS) é um dos maiores e mais complexos sistemas de saúde pública do
     mundo,
     abrangendo desde o simples atendimento para avaliação da pressão arterial, por meio da Atenção
@@ -42,7 +42,7 @@ export const TextoSobreSUS = () => (
 
 export const TextoSobreSESA = () => (
   <>
-<Text>
+<Text style={estilos.textoConteudo}>
 A Secretaria da Saúde do Estado do Ceará (Sesa) é um órgão da administração direta do Governo
 estadual. Ela é a responsável pelo gerenciamento do Sistema Único de Saúde (SUS) no Ceará.
 {'\n\n'}
@@ -62,7 +62,7 @@ proporcionando  resolutividade, satisfação e acessibilidade a todas as pessoas
 
 export const TextoSobreESP = () => (
   <>
-<Text>
+<Text style={estilos.textoConteudo}>
 A Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues (ESP/CE) é uma autarquia
 vinculada à Secretaria da Saúde do Ceará (SESA). Criada em 22 de julho de 1993, a instituição
 tem como objetivo promover a formação e educação permanente, pesquisa e extensão na área da saúde,
@@ -88,8 +88,13 @@ const navegar = (titulo) => {
 };
 
 const estilos = StyleSheet.create({
+  textoConteudo: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontSize: 14
+  },
   textoLink: {
     color: '#4CAF50',
+    fontSize: 14,
     textDecorationLine: 'underline'
   }
 });
