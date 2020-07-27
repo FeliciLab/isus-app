@@ -18,7 +18,7 @@ export default function SusNoCearaScreen() {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'iSUS no Ceará',
+      headerTitle: 'SUS no Ceará',
       headerRight: () => (
         <TouchableOpacity
           style={{
