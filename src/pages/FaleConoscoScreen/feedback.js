@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
@@ -31,7 +31,14 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
   const [responseDaBiblioteca, setResponseDaBiblioteca] = React.useState({});
   const navigation = useNavigation();
 
-  React.useEffect(() => {
+  useFocusEffect(
+    useCallback(() => () => {
+      limparCampos();
+      limparCampoEmail();
+    }, [])
+  );
+
+  useEffect(() => {
     if (vazio(responseDaBiblioteca)) {
       setImagem({});
     } else {
@@ -59,9 +66,10 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     }
   };
 
+  const limparCampoEmail = () => setEmail('');
+
   const limparCampos = () => {
     setFeedback('');
-    setEmail('');
     setImagem({});
     setNomeImagem('');
   };
