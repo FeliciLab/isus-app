@@ -70,7 +70,7 @@ export default function AlertaFaltaDeEpiScreen() {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'iSUS',
+      headerTitle: 'Alerta de falta de EPI',
       headerRight: () => (
         <TouchableOpacity
           style={{

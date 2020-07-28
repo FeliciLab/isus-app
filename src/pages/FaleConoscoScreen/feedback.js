@@ -234,7 +234,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             onPress: () => setSucessoAoEnviar(false)
           }}
         >
-          {`${tipoDeFeedback.feedback} foi enviado, obrigado!`}
+          {`${tipoDeFeedback.feedback}, obrigado!`}
         </Snackbar>
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}

@@ -1,15 +1,15 @@
 const ALERTA_FALTA_EPI = {
-  feedback: 'Seu alerta',
+  feedback: 'Seu alerta foi enviado',
   header: 'Alerta de falta de EPI',
   textoDoDropdown: 'Alerta de falta de EPI'
 };
 const RELATAR_SUGESTAO = {
-  feedback: 'Sua sugestão',
+  feedback: 'Sua sugestão foi enviada',
   header: 'Relatar sugestão',
   textoDoDropdown: 'Relatar sugestão (iSUS)'
 };
 const RELATAR_PROBLEMA = {
-  feedback: 'Seu problema',
+  feedback: 'Seu problema foi enviado',
   header: 'Relatar problema',
   textoDoDropdown: 'Relatar problema (iSUS)'
 };
