@@ -5,7 +5,7 @@ import { navigate } from '../../routes/rootNavigation';
 const informacoes = {
   SUS: {
     tituloCompleto: 'Sobre o SUS',
-    url: 'http://www.saude.gov.br/'
+    url: 'https://www.saude.gov.br/'
   },
   SESA: {
     tituloCompleto: 'Sobre a SESA',
@@ -35,8 +35,6 @@ export const TextoSobreSUS = () => (
     média e alta complexidades, os serviços urgência e emergência, a atenção hospitalar, as ações e
     serviços das vigilâncias epidemiológica, sanitária e ambiental e assistência farmacêutica.
 </Text>
-    {'\n\n'}
-    <Text style={estilos.textoLink} onPress={() => navegar('SUS')}>Saiba mais acessando o site</Text>
   </>
 );
 
