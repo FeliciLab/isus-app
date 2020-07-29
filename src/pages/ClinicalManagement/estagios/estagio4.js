@@ -15,7 +15,7 @@ const Estagio4 = ({ navigation }) => {
       <View key="1">
         <Paragraph style={estilo.corDoTexto}>
           {secao1.texto1}
-          <Text onPress={() => navigation.navigate('webview', { title: secao1.link.titulo, url: secao1.link.url })} style={estilo.link}>{secao1.link.texto}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: secao1.link.titulo, url: secao1.link.url })} style={estilo.link}>{secao1.link.texto}</Text>
           {secao1.texto}
           {secao1.iconeAtualizacao}
         </Paragraph>
@@ -25,7 +25,7 @@ const Estagio4 = ({ navigation }) => {
       <View key="2">
         <Paragraph style={{ ...estilo.corDoTexto, ...estilo.margin12 }}>
           {secao2.texto1}
-          <Text onPress={() => navigation.navigate('webview', { title: secao2.link.titulo, url: secao2.link.url })} style={estilo.link}>{secao2.link.texto}</Text>
+          <Text onPress={() => navigation.navigate('manejoWebview', { title: secao2.link.titulo, url: secao2.link.url })} style={estilo.link}>{secao2.link.texto}</Text>
           {secao2.texto2}
         </Paragraph>
         {
@@ -35,7 +35,7 @@ const Estagio4 = ({ navigation }) => {
                 <Paragraph key={paragrafo.texto} style={estilo.corDoTexto}>
                   {paragrafo.texto}
                   <Text style={estilo.destaque}>{paragrafo.destaque ? paragrafo.destaque : ''}</Text>
-                  <Text onPress={() => navigation.navigate('webview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
+                  <Text onPress={() => navigation.navigate('manejoWebview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
                   {paragrafo.iconeAtualizacao}
                 </Paragraph>
               );
@@ -44,7 +44,7 @@ const Estagio4 = ({ navigation }) => {
               <Paragraph key={paragrafo.texto} style={estilo.corDoTexto}>
                 {paragrafo.texto}
                 <Text style={estilo.destaque}>{paragrafo.destaque ? paragrafo.destaque : ''}</Text>
-                <Text onPress={() => navigation.navigate('webview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
+                <Text onPress={() => navigation.navigate('manejoWebview', { title: paragrafo.link.titulo, url: paragrafo.link.url })} style={estilo.link}>{paragrafo.link.texto}</Text>
               </Paragraph>
             );
           })
@@ -57,7 +57,7 @@ const Estagio4 = ({ navigation }) => {
           <Text style={estilo.destaque}>{secao3.destaque}</Text>
           {secao3.texto1}
           <Text
-            onPress={() => navigation.navigate('webview', { title: secao3.link.titulo, url: secao3.link.url })}
+            onPress={() => navigation.navigate('manejoWebview', { title: secao3.link.titulo, url: secao3.link.url })}
             style={estilo.link}
           >
             {secao3.link.texto}
@@ -74,7 +74,7 @@ const Estagio4 = ({ navigation }) => {
           {secao4.destaque}
         </Text>
         {secao4.texto1}
-        <Text onPress={() => navigation.navigate('webview', { title: secao4.link.titulo, url: secao4.link.url })} style={estilo.link}>
+        <Text onPress={() => navigation.navigate('manejoWebview', { title: secao4.link.titulo, url: secao4.link.url })} style={estilo.link}>
         {secao4.link.texto}
         </Text>
       </Paragraph>
