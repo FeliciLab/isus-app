@@ -1,14 +1,23 @@
 import * as React from 'react';
 import Carousel from 'react-native-snap-carousel';
+import Banner from './banner';
 
-export default function Carrossel({
-  _carousel, data, _renderItem, sliderWidth, itemWidth
-}) {
+export default function Carrossel({ sliderWidth, itemWidth }) {
+  const carouselItems = [
+    {
+      title: 'Item 1',
+    }];
+
+  function cardItem() {
+    return (
+      <Banner />
+    );
+  }
+
   return (
     <Carousel
-      ref={_carousel}
-      data={data}
-      renderItem={_renderItem}
+      data={carouselItems}
+      renderItem={cardItem}
       sliderWidth={sliderWidth}
       itemWidth={itemWidth}
     />

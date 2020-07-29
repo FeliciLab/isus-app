@@ -1,12 +1,12 @@
 import React, { useLayoutEffect } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ForcaTarefaAntiCorona from './forcatarefaanticorona';
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
-import Banner from './banner';
 import Servicos from './servicos';
+import Carrossel from './carrossel';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -62,10 +62,12 @@ export default function HomeScreen() {
     });
   });
 
+  const { width } = Dimensions.get('screen');
+
   return (
     <ProviderDeVersaoDoManejo>
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <Banner />
+      <Carrossel sliderWidth={width} itemWidth={400} />
       <Servicos navigation={navigation} />
       <ForcaTarefaAntiCorona navigation={navigation} />
     </ScrollView>
