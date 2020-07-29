@@ -72,7 +72,7 @@ const Estagio1 = ({ navigation }) => {
 
   <View style={containerDoBotao}>
     <View style={largura60}>
-      <BotaoManejoClinico onPress={() => navigation.navigate('webview', { title: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
+      <BotaoManejoClinico onPress={() => navigation.navigate('manejoWebview', { title: botaoPlantaoCoronavirus.tituloWebview, url: botaoPlantaoCoronavirus.url })} label={botaoPlantaoCoronavirus.titulo} />
     </View>
   </View>
     </>

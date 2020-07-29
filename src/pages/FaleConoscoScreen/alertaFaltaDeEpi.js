@@ -74,7 +74,7 @@ export default function AlertaFaltaDeEpiScreen() {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'iSUS',
+      headerTitle: 'Alerta de falta de EPI',
       headerRight: () => (
         <TouchableOpacity
           style={{
@@ -183,7 +183,7 @@ export default function AlertaFaltaDeEpiScreen() {
             onPress: () => setSucessoAoEnviar(false)
           }}
         >
-          Seu feedback foi enviado, obrigado!
+          Seu alerta foi enviado, obrigado!
         </Snackbar>
         <Snackbar
           style={{ backgroundColor: '#1e1e1e' }}
