@@ -3,6 +3,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import BannerManejo from './bannerManejo';
 import Banner from './banner';
 import ImagemBanner from '../../assets/images/banner-teste.jpg';
+import ImagemBanner1 from '../../assets/images/banner-interno.jpg';
 
 export default function Carrossel({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
@@ -13,8 +14,15 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
     },
     {
       banner: <Banner
-        titulo="Banner teste"
+        titulo="Banner Google"
         imagem={ImagemBanner}
+        enderecoUrl="https://google.com.br"
+      />
+    },
+    {
+      banner: <Banner
+        titulo="Banner Interno"
+        imagem={ImagemBanner1}
         enderecoUrl="https://google.com.br"
       />
     }

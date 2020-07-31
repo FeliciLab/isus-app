@@ -11,14 +11,13 @@ const imageWidth = width * 0.8;
 export default function Banner({ titulo, imagem, enderecoUrl }) {
   const navigation = useNavigation();
 
-
   return (
       <Card
         onPress={() => navigation.navigate('webview', { title: titulo, url: enderecoUrl })}
         style={estilos.cartao}
       >
         <View style={estilos.containerImage}>
-          <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="contain" source={imagem} />
+          <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="cover" source={imagem} />
         </View>
       </Card>
   );
@@ -28,7 +27,7 @@ const estilos = StyleSheet.create({
   imagem: {
     borderRadius: 10,
     height: 130,
-    width: '100%',
+    width: '100%'
   },
   containerImagem: {
     width: '100%',
@@ -38,7 +37,6 @@ const estilos = StyleSheet.create({
     height: 130,
     borderRadius: 10,
     marginVertical: 20,
-    marginHorizontal: 16,
-    // backgroundColor: 'red'
+    marginHorizontal: 16
   }
 });
