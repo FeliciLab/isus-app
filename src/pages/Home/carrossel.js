@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import BannerManejo from './bannerManejo';
 import Banner from './banner';
+import ImagemBanner from '../../assets/images/banner-teste.jpg';
 
 export default function Carrossel({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
 
   const carouselItems = [
     {
-      title: 'Item 1',
+      banner: <BannerManejo />
     },
     {
-      title: 'Item 1',
+      banner: <Banner
+        titulo="Banner teste"
+        imagem={ImagemBanner}
+        enderecoUrl="https://google.com.br"
+      />
     }
   ];
 
-  function cardItem() {
-    return (
-      <Banner />
-    );
+  function cardItem({ item }) {
+    console.log(item.banner);
+    return item.banner;
   }
 
   function paginacao() {
@@ -52,6 +57,9 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
         sliderWidth={sliderWidth}
         itemWidth={itemWidth}
         onSnapToItem={indice => alterarIndiceAtivo(indice)}
+        autoplay
+        autoplayInterval={5000}
+        hasParallaxImages
       />
       { paginacao() }
     </>

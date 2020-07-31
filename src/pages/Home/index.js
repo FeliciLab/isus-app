@@ -67,7 +67,7 @@ export default function HomeScreen() {
   return (
     <ProviderDeVersaoDoManejo>
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <Carrossel sliderWidth={width} itemWidth={400} />
+      <Carrossel sliderWidth={width} itemWidth={width} />
       <Servicos navigation={navigation} />
       <ForcaTarefaAntiCorona navigation={navigation} />
     </ScrollView>
