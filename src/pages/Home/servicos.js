@@ -3,8 +3,8 @@ import { Title } from 'react-native-paper';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
-import Servico2 from '../../assets/icons/servicos/servico_2.svg';
 import IconeFeedback from '../../assets/icons/feedback_icon.svg';
+import IconeSus from '../../assets/icons/SUS_icon.svg';
 import Forca4 from '../../assets/icons/ceara_icon.svg';
 import HomeCard from './homeCard';
 
@@ -22,12 +22,10 @@ function Servicos({ navigation }) {
     },
     {
       id: 'services-2',
-      titulo: 'Central de Ventiladores',
-      logo: Servico2,
+      titulo: 'SUS no Ceará',
+      logo: IconeSus,
       navegacao: {
-        componente: 'webview',
-        titulo: 'Central de Ventiladores',
-        url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
+        componente: 'SUS_NO_CEARA'
       }
     },
     {

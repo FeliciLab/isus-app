@@ -5,6 +5,7 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import antIcon from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeCard from './homeCard';
+import IconeCentralDeVentiladores from '../../assets/icons/central_ventiladores.svg';
 import NotasTecnicasIcon from '../../assets/icons/icon_notastecnicas.svg';
 
 function ForcaTarefaAntiCorona({ navigation }) {
@@ -44,7 +45,14 @@ function ForcaTarefaAntiCorona({ navigation }) {
       title: 'Notas Técnicas',
       logo: NotasTecnicasIcon,
       onPress: () => navigation.navigate('webview', { title: 'Notas Técnicas', url: 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/' })
-    }
+    },
+    {
+      id: 'services-2',
+      title: 'Central de Ventiladores',
+      logo: IconeCentralDeVentiladores,
+      onPress: () => navigation.navigate('webview', { title: 'Central de Ventiladores', url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/' })
+
+    },
   ];
 
   return (
