@@ -31,7 +31,7 @@ Esse é o repositório do aplicativo iSUS.
   - [Atualização de versão do Manejo Clínico](#atualização-de-versão-do-manejo-clínico)
     - [Como atualizar](#como-atualizar)
 - [Quem Faz?](#quem-faz)
-- [Como adicionar banner no carrossel da Home] (#como-adicionar-banner-no-carrossel-da-home)
+- [Como adicionar banner no carrossel da Home](#como-adicionar-banner-no-carrossel-da-home)
 
 **Veja também:**
 - nossa [Tech Stack](https://github.com/EscolaDeSaudePublica/isus-app#tech-stack)
