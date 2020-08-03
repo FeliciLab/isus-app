@@ -57,9 +57,9 @@ export default function SusNoCearaScreen() {
           marginBottom: 18
         }}
       >
-      A Escola de Saúde Pública do Ceará – ESP/CE, é uma
+      A Escola de Saúde Pública do Ceará – ESP/CE é uma
        entidade da Administração Indireta Estadual, de natureza
-       autárquica, vinculada a Secretaria da Saúde do Ceará
+       autárquica, vinculada a Secretaria da Saúde do Ceará.
       </Text>
 
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Sobre o SUS</Text>}>
