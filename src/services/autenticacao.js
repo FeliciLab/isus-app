@@ -1,14 +1,15 @@
 import Login from 'react-native-login-keycloak';
+import Config from 'react-native-config';
 import {
   salvarDados, removerDados, pegarDados, pegarTodasAsChaves
 } from './armazenamento';
 
 const configuracao = {
-  url: 'https://dev.id.org.br/auth/',
-  realm: 'saude',
-  clientId: 'isus',
-  redirectUri: 'isusapp://isusapp/secured/profile',
-  appsiteUri: 'isusapp://',
+  url: Config.KEYCLOAK_URL,
+  realm: Config.KEYCLOAK_REALM,
+  clientId: Config.KEYCLOAK_CLIENT_ID,
+  redirectUri: Config.KEYCLOAK_REDIRECT_URI,
+  appsiteUri: Config.KEYCLOAK_APPSITE_URI,
 };
 
 async function autenticarComIdSaude() {
