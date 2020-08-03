@@ -78,4 +78,7 @@ function App() {
     </>
   );
 }
-export default codePush(App);
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME
+})(App);
