@@ -1,32 +1,9 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import BannerManejo from './bannerManejo';
-import Banner from './banner';
-import ImagemBanner from '../../assets/images/banner-teste.jpg';
-import ImagemBanner1 from '../../assets/images/banner-interno.jpg';
+import banners from './bannersDoCarrossel';
 
 export default function Carrossel({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
-
-  const carouselItems = [
-    {
-      banner: <BannerManejo />
-    },
-    {
-      banner: <Banner
-        titulo="Banner Google"
-        imagem={ImagemBanner}
-        enderecoUrl="https://google.com.br"
-      />
-    },
-    {
-      banner: <Banner
-        titulo="Banner Interno"
-        imagem={ImagemBanner1}
-        enderecoUrl="https://google.com.br"
-      />
-    }
-  ];
 
   function cardItem({ item }) {
     console.log(item.banner);
@@ -36,7 +13,7 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
   function paginacao() {
     return (
       <Pagination
-        dotsLength={carouselItems.length}
+        dotsLength={banners.length}
         dotColor="#FF9800"
         inactiveDotColor="#191919"
         activeDotIndex={indiceAtivo}
@@ -60,7 +37,7 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
   return (
     <>
       <Carousel
-        data={carouselItems}
+        data={banners}
         renderItem={cardItem}
         sliderWidth={sliderWidth}
         itemWidth={itemWidth}
