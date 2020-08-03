@@ -31,8 +31,7 @@ Esse é o repositório do aplicativo iSUS.
   - [Atualização de versão do Manejo Clínico](#atualização-de-versão-do-manejo-clínico)
     - [Como atualizar](#como-atualizar)
 - [Quem Faz?](#quem-faz)
-
-
+- [Como adicionar banner no carrossel da Home] (#como-adicionar-banner-no-carrossel-da-home)
 
 **Veja também:**
 - nossa [Tech Stack](https://github.com/EscolaDeSaudePublica/isus-app#tech-stack)
@@ -220,3 +219,11 @@ Realize o commit com todas as alterações no código referentes a essa atualiza
 O projeto é uma iniciativa da Escola de Saúde Pública do Ceará (ESP), com apoio da Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap), por meio do projeto "SMART Health", desenvolvido em parceria com o Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD) da Universidade Estadual do Ceará (UECE).
 
 O criação do aplicativo é uma das ações da Força Tarefa Digital de Combate ao Coronavírus, que estão sendo realizadas de forma aberta para promover a inovação e viabilizar a colaboração em rede.
+
+# Como adicionar banner no carrossel da Home
+
+Para adicionar um banner no carrossel de banners da Home, basta acessar o arquivo `src/pages/Home/bannersDoCarrosel.js` e adicionar um objeto com uma chave `banner` com um componente de Banner com as seguintes propriedades: `titulo`, `imagem` e `enderecoUrl`.
+
+Para adicionar uma imagem no Banner, insira-a na pasta `src/assets/images`, importe-a no `src/pages/Home/bannersDoCarrosel.js` e adicione-a à propriedade `imagem` do componente Banner.
+
+Sugere-se um tamanho de imagem de 390px de largura e 130px de altura (fixa).
