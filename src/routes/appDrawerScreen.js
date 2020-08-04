@@ -107,7 +107,7 @@ function CustomDrawerContent(props) {
       <View style={styles.itemCompartilhar}>
             <DrawerItem
               icon={() => <Icon name="share-variant" size={20} color="rgba(0, 0, 0, 0.54)" />}
-              label="Convidar colegas"
+              label="Compartilhe o iSUS"
               labelStyle={{ fontSize: 15 }}
               inactiveTintColor="#111"
               activeTintColor="#111"
@@ -199,7 +199,7 @@ function SusNoCearaStackScreen() {
 }
 
 const aoCompartilhar = async () => {
-  const messagLink = 'Em tempos de crise, a informação correta deve ser sua principal aliada. Aqui você encontra todo o conteúdo Oficial sobre o CoronaVírus, preparado pelo Governo do Estado do Ceará. - https://coronavirus.ceara.gov.br/isus/';
+  const messagLink = 'Conhece o app iSUS? Um produto digital do governo do Ceará de apoio a profissionais de saúde, com informações, serviços e oportunidades na palma da mão! Saiba mais: https://coronavirus.ceara.gov.br/isus/';
   try {
     await Share.share({
       message: messagLink
