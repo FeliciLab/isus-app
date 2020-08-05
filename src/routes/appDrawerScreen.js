@@ -23,6 +23,7 @@ import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import PerfilScreen from '../pages/Perfil';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
+import EmConstrucaoScreen from '../pages/Perfil/emConstrucao';
 
 
 function CustomDrawerContent(props) {
@@ -154,6 +155,7 @@ export default function appDrawerScreen() {
     >
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
+      <Drawer.Screen name="EMCONSTRUCAO" component={EmConstrucaoStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
@@ -182,6 +184,19 @@ function FeedbackStackScreen() {
         initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
     </FeedbackStack.Navigator>
+  );
+}
+
+const EmConstrucaoStack = createStackNavigator();
+function EmConstrucaoStackScreen() {
+  return (
+    <EmConstrucaoStack.Navigator>
+      <EmConstrucaoStack.Screen
+        name="EMCONSTRUCAO"
+        component={EmConstrucaoScreen}
+        options={{ headerShown: true }}
+      />
+    </EmConstrucaoStack.Navigator>
   );
 }
 
