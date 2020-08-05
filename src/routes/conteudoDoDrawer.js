@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { Button } from 'react-native-paper';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
 import {
   View,
   Text,
@@ -16,14 +16,14 @@ import {
 } from '@react-navigation/drawer';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
-import { autenticarComIdSaude, fazerLogoutDoIdSaude, pegarDadosDeUsuarioNoStorage } from '../services/autenticacao';
+import { pegarDadosDeUsuarioNoStorage } from '../services/autenticacao';
 
 function conteudoDoDrawer(props) {
   const {
     navigation: { navigate },
     routeName
   } = props;
-  const [estaLogado, mudarLogado] = useState(false);
+  // const [estaLogado, mudarLogado] = useState(false);
   const [usuario, alterarUsuario] = useState(null);
 
   const versaoSistema = packageJson.version;
@@ -31,27 +31,32 @@ function conteudoDoDrawer(props) {
   const ItensDoDrawer = [
     {
       nome: 'Home',
-      icone: <FontAwesomeIcon name="home" size={20} color="#111" />,
+      icone: <Icon name="home" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: 'HOME'
     },
     {
+      nome: 'Meu perfil',
+      icone: <Icon name="account" size={22} color="rgba(0, 0, 0, 0.54)" />,
+      rota: 'MEU_PERFIL'
+    },
+    {
       nome: 'Fale conosco',
-      icone: <Icon name="face" size={20} color="#111" />,
+      icone: <MaterialIcon name="feedback" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: 'FEEDBACK'
     },
     {
       nome: 'Alerta de EPI',
-      icone: <Icon name="alert-octagon" size={20} color="#111" />,
+      icone: <Icon name="alert-octagon" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: 'ALERTA_EPI'
     },
     {
       nome: 'SUS no Ceará',
-      icone: <Icon name="help-circle" size={20} color="#111" />,
+      icone: <Icon name="help-circle" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: 'SUS_NO_CEARA'
     },
     {
       nome: 'Sobre o iSUS',
-      icone: <Icon name="information-outline" size={20} color="#111" />,
+      icone: <Icon name="information" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: 'SOBRE'
     }
   ];
@@ -62,27 +67,27 @@ function conteudoDoDrawer(props) {
     return dadosDoUsuario;
   };
 
-  const logarUsuario = async () => {
-    await autenticarComIdSaude();
-    pegarUsuario();
-    mudarLogado(true);
-    console.log('alterado');
-  };
+  // const logarUsuario = async () => {
+  //   await autenticarComIdSaude();
+  //   pegarUsuario();
+  //   mudarLogado(true);
+  //   console.log('alterado');
+  // };
 
-  const deslogarUsuario = async () => {
-    await fazerLogoutDoIdSaude();
-    alterarUsuario(null);
-    mudarLogado(false);
-  };
+  // const deslogarUsuario = async () => {
+  //   await fazerLogoutDoIdSaude();
+  //   alterarUsuario(null);
+  //   mudarLogado(false);
+  // };
 
   useEffect(() => {
     const alterarLogado = async () => {
       const dadosDosUsuarios = await pegarUsuario();
       if (dadosDosUsuarios) {
         alterarUsuario(dadosDosUsuarios);
-        mudarLogado(true);
+        // mudarLogado(true);
       } else {
-        mudarLogado(false);
+        // mudarLogado(false);
       }
     };
     alterarLogado();
@@ -99,16 +104,7 @@ function conteudoDoDrawer(props) {
         <View
           style={estilos.conteudoCabecalho}
         >
-          <View style={{ flex: 1 }}>
-            <Heart size={40} style={{ margin: 10 }} />
-          </View>
-          <View style={{ alignContent: 'center', marginTop: 25, marginRight: 10 }}>
-            <Button color="black" uppercase={false} onPress={() => (estaLogado ? deslogarUsuario() : logarUsuario())}>
-              {' '}
-              { estaLogado ? 'Sair' : 'Login' }
-              {' '}
-            </Button>
-          </View>
+          <Heart size={40} style={{ margin: 10 }} />
         </View>
       </SafeAreaView>
       <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
@@ -117,9 +113,9 @@ function conteudoDoDrawer(props) {
             <DrawerItem
               icon={() => item.icone}
               label={item.nome}
-              labelStyle={{ fontWeight: 'bold', fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="rgba(0, 0, 0, 0.87)"
+              activeTintColor="rgba(0, 0, 0, 0.87)"
               inactiveBackgroundColor="transparent"
               activeBackgroundColor="transparent"
               focused={routeName === item.rota}
@@ -132,7 +128,7 @@ function conteudoDoDrawer(props) {
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={estilos.itemCompartilhar}>
             <DrawerItem
-              icon={() => <Icon name="share-variant" size={20} color="rgba(0, 0, 0, 0.54)" />}
+              icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
               label="Compartilhe o iSUS"
               labelStyle={{ fontSize: 15 }}
               inactiveTintColor="#111"

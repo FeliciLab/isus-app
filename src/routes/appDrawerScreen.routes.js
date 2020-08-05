@@ -7,6 +7,7 @@ import {
   Dimensions
 } from 'react-native';
 import AboutScreen from '../pages/About';
+import Login from '../pages/Login';
 import AppTab from './appBottomTab.routes';
 import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
@@ -28,6 +29,7 @@ export default function appDrawerScreen() {
       )}
     >
      <Drawer.Screen name="HOME" component={AppTab} />
+      <Drawer.Screen name="MEU_PERFIL" component={LoginStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
@@ -42,6 +44,15 @@ function AboutStackScreen() {
     <AboutStack.Navigator>
       <AboutStack.Screen name="SOBRE" component={AboutScreen} options={{ headerShown: true }} />
     </AboutStack.Navigator>
+  );
+}
+
+const LoginStack = createStackNavigator();
+function LoginStackScreen() {
+  return (
+    <LoginStack.Navigator>
+      <LoginStack.Screen name="ID SAÚDE" component={Login} options={{ headerShown: true }} />
+    </LoginStack.Navigator>
   );
 }
 

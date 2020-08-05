@@ -1,5 +1,7 @@
 import React, { useLayoutEffect } from 'react';
-import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  ScrollView, TouchableOpacity, Dimensions, StatusBar
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -66,6 +68,7 @@ export default function HomeScreen() {
 
   return (
     <ProviderDeVersaoDoManejo>
+    <StatusBar backgroundColor="#4CAF50" />
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
       <Carrossel sliderWidth={width} itemWidth={width} />
       <Servicos navigation={navigation} />
