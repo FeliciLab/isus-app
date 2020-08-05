@@ -21,6 +21,7 @@ import Heart from '../assets/icons/isus_hor.svg';
 import packageJson from '../../package.json';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
+import PerfilScreen from '../pages/Perfil';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 
 
@@ -66,7 +67,7 @@ function CustomDrawerContent(props) {
            inactiveBackgroundColor="transparent"
            activeBackgroundColor="transparent"
            focused={routeName === 'PERFIL'}
-           onPress={() => navigate('PERFIL', { screen: 'Perfil' })}
+           onPress={() => navigate('PERFIL')}
          />
         <DrawerItem
           icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
@@ -184,16 +185,16 @@ function FeedbackStackScreen() {
   );
 }
 
-const PerfilStack = createDrawerNavigator();
+const PerfilStack = createStackNavigator();
 function PerfilStackScreen() {
   return (
-    <PerfilStackScreen.Navigator>
+    <PerfilStack.Navigator>
       <PerfilStack.Screen
         name="PERFIL"
-        component={PerfilStackScreen}
+        component={PerfilScreen}
         options={{ headerShown: true }}
       />
-    </PerfilStackScreen.Navigator>
+    </PerfilStack.Navigator>
   );
 }
 
