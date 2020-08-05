@@ -57,6 +57,17 @@ function CustomDrawerContent(props) {
           focused={routeName === 'HOME'}
           onPress={() => navigate('HOME', { screen: 'Home' })}
         />
+         <DrawerItem
+           icon={() => <Icon name="account" size={20} color="rgba(0, 0, 0, 0.54)" />}
+           label="Meu perfil"
+           labelStyle={{ fontSize: 15 }}
+           inactiveTintColor="#111"
+           activeTintColor="#111"
+           inactiveBackgroundColor="transparent"
+           activeBackgroundColor="transparent"
+           focused={routeName === 'PERFIL'}
+           onPress={() => navigate('PERFIL', { screen: 'Perfil' })}
+         />
         <DrawerItem
           icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="Fale conosco"
@@ -141,6 +152,7 @@ export default function appDrawerScreen() {
       )}
     >
       <Drawer.Screen name="HOME" component={AppTab} />
+      <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
@@ -169,6 +181,19 @@ function FeedbackStackScreen() {
         initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
     </FeedbackStack.Navigator>
+  );
+}
+
+const PerfilStack = createDrawerNavigator();
+function PerfilStackScreen() {
+  return (
+    <PerfilStackScreen.Navigator>
+      <PerfilStack.Screen
+        name="PERFIL"
+        component={PerfilStackScreen}
+        options={{ headerShown: true }}
+      />
+    </PerfilStackScreen.Navigator>
   );
 }
 
