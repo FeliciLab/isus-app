@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './menuPerfil';
 import MenuPerfilItem from './menuPerfilItem';
-import getPerfilUsuario from '../../apis/apiKeycloak';
+import getPerfilUsuario from '../../apis/apiKeyCloak';
 
 export default function PerfilScreen() {
   const [perfilUsuario, alterarPerfilUsuario] = useState({});
