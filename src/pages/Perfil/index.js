@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './menuPerfil';
 import MenuPerfilItem from './menuPerfilItem';
+import dadosUsuario from './dadosUsuario.json';
 
 export default function PerfilScreen() {
   const navigation = useNavigation();
@@ -45,9 +46,10 @@ export default function PerfilScreen() {
       )
     });
   });
+
   return (
     <View style={estilos.margem}>
-      <CabecalhoPerfil nome="José Silva" />
+      <CabecalhoPerfil nome={dadosUsuario.given_name} />
       <MenuPerfil titulo="Minha conta">
         <MenuPerfilItem titulo="Meus dados" />
         <MenuPerfilItem titulo="ID Saúde" />
