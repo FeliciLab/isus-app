@@ -1,14 +1,19 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './menuPerfil';
 import MenuPerfilItem from './menuPerfilItem';
-import dadosUsuario from './dadosUsuario.json';
+import getPerfilUsuario from '../../apis/apiKeyCloak';
 
 export default function PerfilScreen() {
+  const [perfilUsuario, alterarPerfilUsuario] = useState({});
   const navigation = useNavigation();
+
+  useEffect(() => {
+    alterarPerfilUsuario(getPerfilUsuario());
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,7 +54,7 @@ export default function PerfilScreen() {
 
   return (
     <View style={estilos.margem}>
-      <CabecalhoPerfil nome={dadosUsuario.given_name} />
+      <CabecalhoPerfil nome={perfilUsuario.given_name} />
       <MenuPerfil titulo="Minha conta">
         <MenuPerfilItem titulo="Meus dados" tela="MEUS_DADOS" />
         <MenuPerfilItem titulo="ID Saúde" />
