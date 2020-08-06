@@ -22,9 +22,10 @@ import packageJson from '../../package.json';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import PerfilScreen from '../pages/Perfil';
+import MeusDadosScreen from '../pages/Perfil/MeusDados';
+import PoliticaDePrivacidadeScreen from '../pages/Perfil/PoliticaDePrivacidade';
+import TermosDeUsoScreen from '../pages/Perfil/TermosDeUso';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
-import EmConstrucaoScreen from '../pages/Perfil/emConstrucao';
-
 
 function CustomDrawerContent(props) {
   const {
@@ -68,7 +69,7 @@ function CustomDrawerContent(props) {
            inactiveBackgroundColor="transparent"
            activeBackgroundColor="transparent"
            focused={routeName === 'PERFIL'}
-           onPress={() => navigate('PERFIL')}
+           onPress={() => navigate('PERFIL', { screen: 'PERFIL' })}
          />
         <DrawerItem
           icon={() => <Icon name="message-alert" size={20} color="rgba(0, 0, 0, 0.54)" />}
@@ -155,7 +156,6 @@ export default function appDrawerScreen() {
     >
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
-      <Drawer.Screen name="EMCONSTRUCAO" component={EmConstrucaoStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
@@ -187,19 +187,6 @@ function FeedbackStackScreen() {
   );
 }
 
-const EmConstrucaoStack = createStackNavigator();
-function EmConstrucaoStackScreen() {
-  return (
-    <EmConstrucaoStack.Navigator>
-      <EmConstrucaoStack.Screen
-        name="EMCONSTRUCAO"
-        component={EmConstrucaoScreen}
-        options={{ headerShown: true }}
-      />
-    </EmConstrucaoStack.Navigator>
-  );
-}
-
 const PerfilStack = createStackNavigator();
 function PerfilStackScreen() {
   return (
@@ -207,6 +194,21 @@ function PerfilStackScreen() {
       <PerfilStack.Screen
         name="PERFIL"
         component={PerfilScreen}
+        options={{ headerShown: true }}
+      />
+      <PerfilStack.Screen
+        name="MEUS_DADOS"
+        component={MeusDadosScreen}
+        options={{ headerShown: true }}
+      />
+      <PerfilStack.Screen
+        name="TERMOS_DE_USO"
+        component={TermosDeUsoScreen}
+        options={{ headerShown: true }}
+      />
+      <PerfilStack.Screen
+        name="POLITICA_DE_PRIVACIDADE"
+        component={PoliticaDePrivacidadeScreen}
         options={{ headerShown: true }}
       />
     </PerfilStack.Navigator>

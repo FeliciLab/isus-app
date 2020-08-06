@@ -51,12 +51,12 @@ export default function PerfilScreen() {
     <View style={estilos.margem}>
       <CabecalhoPerfil nome={dadosUsuario.given_name} />
       <MenuPerfil titulo="Minha conta">
-        <MenuPerfilItem titulo="Meus dados" />
+        <MenuPerfilItem titulo="Meus dados" tela="MEUS_DADOS" />
         <MenuPerfilItem titulo="ID Saúde" />
       </MenuPerfil>
       <MenuPerfil titulo="Privacidade">
-        <MenuPerfilItem titulo="Termos de uso" />
-        <MenuPerfilItem titulo="Política de privacidade" />
+        <MenuPerfilItem titulo="Termos de uso" tela="TERMOS_DE_USO" />
+        <MenuPerfilItem titulo="Política de privacidade" tela="POLITICA_DE_PRIVACIDADE" />
       </MenuPerfil>
       <MenuPerfil titulo="Preferências">
         <MenuPerfilItem titulo="Sair" />
