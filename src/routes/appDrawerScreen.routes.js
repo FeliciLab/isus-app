@@ -51,7 +51,7 @@ const LoginStack = createStackNavigator();
 function LoginStackScreen() {
   return (
     <LoginStack.Navigator>
-      <LoginStack.Screen name="ID SAÚDE" component={Login} options={{ headerShown: true }} />
+      <LoginStack.Screen name="ID SAÚDE" component={Login} initialParams={{ possuiIDSaude: false }} options={{ headerShown: true }} />
     </LoginStack.Navigator>
   );
 }
