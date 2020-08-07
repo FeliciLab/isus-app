@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import Regex from '../../utils/regex';
+import Alerta from '../../components/alerta';
 
 
 function FormularioLogin() {
@@ -11,7 +12,7 @@ function FormularioLogin() {
   const [temErro, alterarErro] = useState(false);
   const [email, alterarEmail] = useState('');
   const [senha, alterarSenha] = useState('');
-
+  const [visivel, alterarVisibilidade] = useState(false);
   const theme = {
     ...DefaultTheme,
     colors: {
@@ -27,7 +28,16 @@ function FormularioLogin() {
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const senhaValido = () => senha.replace(/\s/g, '').length;
 
+  const mostrarAlerta = () => {
+    alterarVisibilidade(true);
+    setTimeout(() => {
+      alterarVisibilidade(false);
+      navigation.navigate('HOME');
+    }, 2000);
+  };
+
   return (
+    <>
     <View style={{ marginHorizontal: 16 }}>
     <TextInput
       label="E-mail"
@@ -60,12 +70,17 @@ function FormularioLogin() {
         disabled={!!(!emailValido() || !senhaValido())}
         style={{ ...estilos.botao, backgroundColor: '#ffffff' }}
         mode="contained"
+        onPress={() => {
+          mostrarAlerta();
+        }}
       >
         Fazer Login
       </Button>
       <Button style={estilos.botao} onPress={() => navigation.navigate('webview', { title: 'Esqueci minha senha', url: 'https://www.google.com.br/', idSaude: true })} mode="text" color="#ffffff"> Esqueci minha senha </Button>
      </View>
     </View>
+    <Alerta textoDoAlerta="Usuário logado com sucesso" visivel={visivel} />
+    </>
   );
 }
 
