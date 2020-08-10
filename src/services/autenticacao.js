@@ -1,20 +1,23 @@
 import Login from 'react-native-login-keycloak';
-import Config from 'react-native-config';
+// import Config from 'react-native-config';
 import {
   salvarDados, removerDados, pegarDados, pegarTodasAsChaves
 } from './armazenamento';
+import respostaLogin from '../pages/Login/json/respostaLogin.json';
 
-const configuracao = {
-  url: Config.KEYCLOAK_URL,
-  realm: Config.KEYCLOAK_REALM,
-  clientId: Config.KEYCLOAK_CLIENT_ID,
-  redirectUri: Config.KEYCLOAK_REDIRECT_URI,
-  appsiteUri: Config.KEYCLOAK_APPSITE_URI,
-};
+// const configuracao = {
+//   url: Config.KEYCLOAK_URL,
+//   realm: Config.KEYCLOAK_REALM,
+//   clientId: Config.KEYCLOAK_CLIENT_ID,
+//   redirectUri: Config.KEYCLOAK_REDIRECT_URI,
+//   appsiteUri: Config.KEYCLOAK_APPSITE_URI,
+// };
 
-async function autenticarComIdSaude() {
-  await Login.startLoginProcess(configuracao);
-  await salvarUsuarioLogadoNoStorage();
+async function autenticarComIdSaude(email, senha) {
+  if (email === 'teste@teste.com' && senha === '12345678') {
+    return respostaLogin;
+  }
+  throw new Error('Usuário incorreto');
 }
 
 async function fazerLogoutDoIdSaude() {
@@ -38,22 +41,18 @@ async function pegarTokensSalvosNoDispositivo() {
   }
 }
 
-async function pegarDadosDeUsuarioNoIdSaude() {
-  const dadosDoUsuario = await Login.retrieveUserInfo();
-  return dadosDoUsuario;
+// async function pegarDadosDeUsuarioNoIdSaude() {
+//   const dadosDoUsuario = await Login.retrieveUserInfo();
+//   return dadosDoUsuario;
+// }
+
+async function pegarTokenDoUsuarioNoStorage() {
+  const token = await pegarDados('token_usuario');
+  return token;
 }
 
-async function salvarUsuarioLogadoNoStorage() {
-  try {
-    const dadosDoUsuario = await pegarDadosDeUsuarioNoIdSaude();
-    await salvarDados('@usuario-logado', {
-      inscricao: dadosDoUsuario.sub,
-      nome: `${dadosDoUsuario.given_name} ${dadosDoUsuario.family_name}`,
-      email: dadosDoUsuario.email
-    });
-  } catch (err) {
-    console.log(err);
-  }
+async function salvarTokenDoUsuarioNoStorage(token) {
+  await salvarDados('token_usuario', token);
 }
 
 async function removerUsuarioLogado() {
@@ -79,6 +78,8 @@ async function pegarDadosDeUsuarioNoStorage() {
 
 export {
   autenticarComIdSaude,
+  salvarTokenDoUsuarioNoStorage,
+  pegarTokenDoUsuarioNoStorage,
   pegarDadosDeUsuarioNoStorage,
   pegarTokensSalvosNoDispositivo,
   fazerLogoutDoIdSaude

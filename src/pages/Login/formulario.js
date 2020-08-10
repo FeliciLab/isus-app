@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import Regex from '../../utils/regex';
 import Alerta from '../../components/alerta';
-
+import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 
 function FormularioLogin() {
   const navigation = useNavigation();
   const [temErro, alterarErro] = useState(false);
   const [email, alterarEmail] = useState('');
   const [senha, alterarSenha] = useState('');
+  const [textoDoAlerta, alterarTextoDoAlerta] = useState('');
   const [visivel, alterarVisibilidade] = useState(false);
   const theme = {
     ...DefaultTheme,
@@ -28,12 +28,30 @@ function FormularioLogin() {
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const senhaValido = () => senha.replace(/\s/g, '').length;
 
-  const mostrarAlerta = () => {
+  const mostrarAlerta = async (texto) => {
+    alterarTextoDoAlerta(texto);
     alterarVisibilidade(true);
-    setTimeout(() => {
-      alterarVisibilidade(false);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        alterarVisibilidade(false);
+        resolve();
+      }, 2000);
+    });
+  };
+
+  const fazerLogin = async () => {
+    try {
+      const response = await autenticarComIdSaude(email, senha);
+      console.log('response', response);
+      await salvarTokenDoUsuarioNoStorage(response.token);
+      await mostrarAlerta('Usuário logado com sucesso');
+      const token = await pegarTokenDoUsuarioNoStorage();
+      console.log('token', token);
       navigation.navigate('HOME');
-    }, 2000);
+    } catch (err) {
+      console.log(err.message);
+      mostrarAlerta(err.message);
+    }
   };
 
   return (
@@ -71,7 +89,7 @@ function FormularioLogin() {
         style={{ ...estilos.botao, backgroundColor: '#ffffff' }}
         mode="contained"
         onPress={() => {
-          mostrarAlerta();
+          fazerLogin();
         }}
       >
         Fazer Login
@@ -79,7 +97,7 @@ function FormularioLogin() {
       <Button style={estilos.botao} onPress={() => navigation.navigate('webview', { title: 'Esqueci minha senha', url: 'https://www.google.com.br/', idSaude: true })} mode="text" color="#ffffff"> Esqueci minha senha </Button>
      </View>
     </View>
-    <Alerta textoDoAlerta="Usuário logado com sucesso" visivel={visivel} />
+    <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
     </>
   );
 }
