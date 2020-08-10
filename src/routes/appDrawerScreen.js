@@ -21,6 +21,7 @@ import Heart from '../assets/icons/isus_hor.svg';
 import packageJson from '../../package.json';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
+import TelaDeCadastro from '../pages/Cadastro';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 
 
@@ -101,6 +102,17 @@ function CustomDrawerContent(props) {
           focused={routeName === 'SOBRE'}
           onPress={() => navigate('SOBRE')}
         />
+        <DrawerItem
+          icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
+          label="Realizar meu cadastro"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          focused={routeName === 'CADASTRO'}
+          onPress={() => navigate('CADASTRO')}
+        />
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
@@ -145,6 +157,7 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
+      <Drawer.Screen name="CADASTRO" component={TelaDeCadastroStack} />
     </Drawer.Navigator>
   );
 }
@@ -155,6 +168,15 @@ function AboutStackScreen() {
     <AboutStack.Navigator>
       <AboutStack.Screen name="SOBRE" component={AboutScreen} options={{ headerShown: true }} />
     </AboutStack.Navigator>
+  );
+}
+
+const CadastroStack = createStackNavigator();
+function TelaDeCadastroStack() {
+  return (
+    <CadastroStack.Navigator>
+      <CadastroStack.Screen name="CADASTRO" component={TelaDeCadastro} options={{ headerShown: true }} />
+    </CadastroStack.Navigator>
   );
 }
 
