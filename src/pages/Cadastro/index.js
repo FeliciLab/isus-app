@@ -5,9 +5,16 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, DefaultTheme } from 'react-native-paper';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function TelaDeCadastro() {
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      primary: '#304FFE'
+    }
+  };
   const navigator = useNavigation();
   const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de algumas informações';
   const [nomeCompleto, alterarNomeCompleto] = useState('');
@@ -40,21 +47,24 @@ export default function TelaDeCadastro() {
     });
   });
   return (
+    <>
+    <BarraDeStatus barStyle="light-content" backgroundColor="#304FFE" />
     <KeyboardAwareScrollView
-      style={{ left: 16 }}
-
+      style={{ backgroundColor: '#FFF' }}
       extraScrollHeight={100}
       keyboardOpeningTime={100}
       enableOnAndroid
       enableAutomaticScroll={Platform.OS === 'ios'}
     >
-        <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
-        <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-        <View style={{ top: 200, width: 379 }}>
+        <View style={{ marginHorizontal: 16 }}>
+          <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
+          <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
             <TextInput
               label="Nome Completo"
+              underlineColor="#BDBDBD"
               style={estilos.campoDeTexto}
               mode="outlined"
+              theme={theme}
               value={nomeCompleto}
               onChangeText={texto => alterarNomeCompleto(texto)}
             />
@@ -62,6 +72,7 @@ export default function TelaDeCadastro() {
               label="E-mail"
               style={estilos.campoDeTexto}
               mode="outlined"
+              theme={theme}
               value={email}
               onChangeText={texto => alterarEmail(texto)}
             />
@@ -69,6 +80,7 @@ export default function TelaDeCadastro() {
               label="Telefone"
               style={estilos.campoDeTexto}
               mode="outlined"
+              theme={theme}
               value={telefone}
               onChangeText={texto => alterarTelefone(texto)}
             />
@@ -76,6 +88,7 @@ export default function TelaDeCadastro() {
               label="Município"
               style={estilos.campoDeTexto}
               mode="outlined"
+              theme={theme}
               value={municipio}
               onChangeText={texto => alterarMunicipio(texto)}
             />
@@ -83,6 +96,7 @@ export default function TelaDeCadastro() {
               label="CPF"
               style={estilos.campoDeTexto}
               mode="outlined"
+              theme={theme}
               value={cpf}
               onChangeText={texto => alterarCPF(texto)}
             />
@@ -95,37 +109,34 @@ export default function TelaDeCadastro() {
             Enviar
         </Button>
     </KeyboardAwareScrollView>
+    </>
   );
 }
 
 const estilos = StyleSheet.create({
   apresentacao: {
-    position: 'absolute',
-    width: 379,
-    top: 30,
     fontSize: 24,
+    marginTop: 40,
     lineHeight: 28,
     color: 'rgba(0, 0, 0, 0.87)'
   },
   informacoesPessoais: {
-    position: 'absolute',
-    width: 202,
-    top: 158,
     fontWeight: '500',
+    marginTop: 24,
     fontSize: 20,
     lineHeight: 23,
-    textAlign: 'center',
     letterSpacing: 0.15,
+    paddingBottom: 16
   },
   campoDeTexto: {
-    paddingBottom: 15
+    paddingBottom: 28,
+    backgroundColor: '#FFF'
   },
   botao: {
     borderRadius: 50,
     width: 150,
     height: 45,
-    left: 200,
-    top: 200,
+    alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
     backgroundColor: '#BDBDBD'
