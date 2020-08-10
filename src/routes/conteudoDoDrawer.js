@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -16,15 +16,12 @@ import {
 } from '@react-navigation/drawer';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
-import { pegarDadosDeUsuarioNoStorage } from '../services/autenticacao';
 
 function conteudoDoDrawer(props) {
   const {
     navigation: { navigate },
     routeName
   } = props;
-  // const [estaLogado, mudarLogado] = useState(false);
-  const [usuario, alterarUsuario] = useState(null);
 
   const versaoSistema = packageJson.version;
 
@@ -61,46 +58,10 @@ function conteudoDoDrawer(props) {
     }
   ];
 
-  const pegarUsuario = async () => {
-    const dadosDoUsuario = await pegarDadosDeUsuarioNoStorage();
-    alterarUsuario(dadosDoUsuario);
-    return dadosDoUsuario;
-  };
-
-  // const logarUsuario = async () => {
-  //   await autenticarComIdSaude();
-  //   pegarUsuario();
-  //   mudarLogado(true);
-  //   console.log('alterado');
-  // };
-
-  // const deslogarUsuario = async () => {
-  //   await fazerLogoutDoIdSaude();
-  //   alterarUsuario(null);
-  //   mudarLogado(false);
-  // };
-
-  useEffect(() => {
-    const alterarLogado = async () => {
-      const dadosDosUsuarios = await pegarUsuario();
-      if (dadosDosUsuarios) {
-        alterarUsuario(dadosDosUsuarios);
-        // mudarLogado(true);
-      } else {
-        // mudarLogado(false);
-      }
-    };
-    alterarLogado();
-  }, []);
 
   return (
     <>
       <SafeAreaView style={estilos.droidSafeArea}>
-        <View style={{ flexDirection: 'row', marginHorizontal: 10 }}>
-         {
-           usuario && <Text style={{ color: '#666' }}>{`Bem-vindo, ${usuario.nome}.`}</Text>
-         }
-        </View>
         <View
           style={estilos.conteudoCabecalho}
         >
