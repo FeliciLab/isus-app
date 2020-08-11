@@ -48,33 +48,20 @@ export default function SusNoCearaScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: '#ffffff', flex: 1, padding: 15 }}>
-      <Text
-        style={{
-          letterSpacing: 0.25,
-          fontSize: 14,
-          lineHeight: 20,
-          color: '#828282',
-          marginBottom: 18
-        }}
-      >
-      A Escola de Saúde Pública do Ceará – ESP/CE é uma
-       entidade da Administração Indireta Estadual, de natureza
-       autárquica, vinculada a Secretaria da Saúde do Ceará.
-      </Text>
 
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Sobre o SUS</Text>}>
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSUS />}
         />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O que é a SESA</Text>}>
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSESA />}
         />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O que é a ESP</Text>}>
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>A ESP é SESA</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreESP />}
