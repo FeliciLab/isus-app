@@ -1,28 +1,18 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
   Text, TouchableOpacity, StyleSheet, View, Platform
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, Button, DefaultTheme } from 'react-native-paper';
 import BarraDeStatus from '../../components/barraDeStatus';
+import { FormProvider } from '../../context/FormContext';
+import FormularioInfoPessoal from './formularioInfoPessoal';
+
 
 export default function TelaDeCadastro() {
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      primary: '#304FFE'
-    }
-  };
   const navigator = useNavigation();
   const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de algumas informações';
-  const [nomeCompleto, alterarNomeCompleto] = useState('');
-  const [email, alterarEmail] = useState('');
-  const [telefone, alterarTelefone] = useState('');
-  const [municipio, alterarMunicipio] = useState('');
-  const [cpf, alterarCPF] = useState('');
-
 
   useLayoutEffect(() => {
     navigator.setOptions({
@@ -59,55 +49,10 @@ export default function TelaDeCadastro() {
         <View style={{ marginHorizontal: 16 }}>
           <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
           <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-            <TextInput
-              label="Nome Completo"
-              underlineColor="#BDBDBD"
-              style={estilos.campoDeTexto}
-              mode="outlined"
-              theme={theme}
-              value={nomeCompleto}
-              onChangeText={texto => alterarNomeCompleto(texto)}
-            />
-            <TextInput
-              label="E-mail"
-              style={estilos.campoDeTexto}
-              mode="outlined"
-              theme={theme}
-              value={email}
-              onChangeText={texto => alterarEmail(texto)}
-            />
-            <TextInput
-              label="Telefone"
-              style={estilos.campoDeTexto}
-              mode="outlined"
-              theme={theme}
-              value={telefone}
-              onChangeText={texto => alterarTelefone(texto)}
-            />
-            <TextInput
-              label="Município"
-              style={estilos.campoDeTexto}
-              mode="outlined"
-              theme={theme}
-              value={municipio}
-              onChangeText={texto => alterarMunicipio(texto)}
-            />
-            <TextInput
-              label="CPF"
-              style={estilos.campoDeTexto}
-              mode="outlined"
-              theme={theme}
-              value={cpf}
-              onChangeText={texto => alterarCPF(texto)}
-            />
+          <FormProvider>
+            <FormularioInfoPessoal />
+          </FormProvider>
         </View>
-        <Button
-          style={estilos.botao}
-          labelStyle={{ color: '#fff' }}
-          mode="contained"
-        >
-            Enviar
-        </Button>
     </KeyboardAwareScrollView>
     </>
   );
