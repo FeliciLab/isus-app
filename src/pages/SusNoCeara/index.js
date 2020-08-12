@@ -1,10 +1,14 @@
 import React, { useLayoutEffect } from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Text, TouchableOpacity, StyleSheet, Linking
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-import { TextoSobreSUS, TextoSobreSESA, TextoSobreESP } from './textos';
+import {
+  TextoSobreSUS, TextoSobreSESA, TextoSobreESP
+} from './textos';
 
 export default function SusNoCearaScreen() {
   const navigation = useNavigation();
@@ -60,11 +64,74 @@ export default function SusNoCearaScreen() {
           titleNumberOfLines={80}
           title={<TextoSobreSESA />}
         />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="instagram" color="#808080" />}
+          title="Instagram"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.instagram.com/espceara/')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="facebook" color="#808080" />}
+          title="Facebook"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.facebook.com/espceara/')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="linkedin" color="#808080" />}
+          title="Linkedin"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.linkedin.com/in/espceara/')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="youtube" color="#808080" />}
+          title="Youtube"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="web" color="#808080" />}
+          title="Site"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
+        />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>A ESP é SESA</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreESP />}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="instagram" color="#808080" />}
+          title="Instagram"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.instagram.com/saudeceara/')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="facebook" color="#808080" />}
+          title="Facebook"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.facebook.com/SaudeCeara/')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="whatsapp" color="#808080" />}
+          title="WhatsApp"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('http://api.whatsapp.com/send?phone=5585984394810')}
+        />
+        <List.Item
+          style={estilos.borda}
+          left={() => <List.Icon icon="web" color="#808080" />}
+          title="Site"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('https://www.saude.ce.gov.br/')}
         />
       </List.Accordion>
     </ScrollView>
@@ -74,5 +141,11 @@ export default function SusNoCearaScreen() {
 const estilos = StyleSheet.create({
   titulo: {
     fontSize: 18
+  },
+  borda: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#D3D3D3',
+    marginTop: -10,
+    marginBottom: 5
   }
 });
