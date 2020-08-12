@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, Button, DefaultTheme } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
+import Regex from '../../utils/regex';
 
 
 export default function FormularioInfoPessoal() {
@@ -15,15 +16,29 @@ export default function FormularioInfoPessoal() {
       primary: '#304FFE'
     }
   };
+  const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const navigator = useNavigation();
-  const { register, handleSubmit, setValue } = useContext(FormContext);
+  const {
+    register, handleSubmit, setValue, trigger
+  } = useContext(FormContext);
   useEffect(() => {
     register('nomeCompleto', { required: true });
-    register('email', { required: true });
-    register('telefone', { required: true });
+    register('email', { required: true, validate: email => emailValido(email) });
+    register('telefone', { required: true, maxLenght: 11 });
     register('municipio', { required: true });
-    register('cpf', { required: true });
+    register('cpf', { required: true, maxLenght: 11 });
   }, [register]);
+
+  const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
+  const validaCampos = () => {
+    alteraBotaoAtivo(trigger());
+    console.log(botaoAtivo);
+  };
+
+  const alteraValor = (campo, valor) => {
+    validaCampos();
+    setValue(campo, valor);
+  };
 
   useLayoutEffect(() => {
     navigator.setOptions({
@@ -56,7 +71,7 @@ export default function FormularioInfoPessoal() {
                 label="Nome Completo"
                 name="nomeCompleto"
                 underlineColor="#BDBDBD"
-                onChangeText={text => setValue('nomeCompleto', text)}
+                onChangeText={text => alteraValor('nomeCompleto', text)}
                 style={estilos.campoDeTexto}
                 mode="outlined"
                 theme={theme}
@@ -64,16 +79,19 @@ export default function FormularioInfoPessoal() {
               <TextInput
                 label="E-mail"
                 name="email"
+                keyboardType="email-address"
                 style={estilos.campoDeTexto}
-                onChangeText={text => setValue('email', text)}
+                onChangeText={text => alteraValor('email', text)}
                 mode="outlined"
                 theme={theme}
               />
               <TextInput
                 label="Telefone"
                 name="telefone"
+                keyboardType="number-pad"
+                maxLength={11}
                 style={estilos.campoDeTexto}
-                onChangeText={text => setValue('telefone', text)}
+                onChangeText={text => alteraValor('telefone', text)}
                 mode="outlined"
                 theme={theme}
               />
@@ -81,26 +99,28 @@ export default function FormularioInfoPessoal() {
                 label="Município"
                 name="municipio"
                 style={estilos.campoDeTexto}
-                onChangeText={text => setValue('municipio', text)}
+                onChangeText={text => alteraValor('municipio', text)}
                 mode="outlined"
                 theme={theme}
               />
               <TextInput
                 label="CPF"
                 name="cpf"
+                keyboardType="number-pad"
+                maxLength={11}
                 style={estilos.campoDeTexto}
-                onChangeText={text => setValue('cpf', text)}
+                onChangeText={text => alteraValor('cpf', text)}
                 mode="outlined"
                 theme={theme}
               />
         </View>
         <Button
-          style={estilos.botao}
+          style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           onPress={handleSubmit(submit)}
           labelStyle={{ color: '#fff' }}
           mode="contained"
         >
-            Enviar
+            Próximo
         </Button>
     </>
   );
@@ -133,6 +153,15 @@ const estilos = StyleSheet.create({
     margin: 20,
     justifyContent: 'center',
     backgroundColor: '#BDBDBD'
+  },
+  botaoHabilitado: {
+    borderRadius: 50,
+    width: 150,
+    height: 45,
+    alignSelf: 'flex-end',
+    margin: 20,
+    justifyContent: 'center',
+    backgroundColor: '#304FFE'
   },
 
 });

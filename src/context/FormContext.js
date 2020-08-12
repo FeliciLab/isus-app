@@ -7,6 +7,7 @@ export const FormProvider = ({ initValues, children }) => {
   const {
     register,
     errors,
+    trigger,
     triggerValidation,
     handleSubmit,
     setValue,
@@ -25,6 +26,7 @@ export const FormProvider = ({ initValues, children }) => {
       value={{
         register,
         errors,
+        trigger,
         triggerValidation,
         handleSubmit,
         setValue,
