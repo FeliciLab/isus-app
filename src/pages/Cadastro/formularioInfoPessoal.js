@@ -6,6 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, Button, DefaultTheme } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
+// eslint-disable-next-line import/no-cycle
+import WizardContext from '../../context/WizardContext';
+import FormularioInfoProfissional from './formularioInfoProfissional';
 import Regex from '../../utils/regex';
 
 
@@ -18,8 +21,10 @@ export default function FormularioInfoPessoal() {
   };
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const navigator = useNavigation();
+  const { alterarTelaAtual } = useContext(WizardContext);
+
   const {
-    register, handleSubmit, setValue, errors
+    register, setValue, trigger
   } = useContext(FormContext);
   useEffect(() => {
     register('nomeCompleto', { required: true });
@@ -33,6 +38,7 @@ export default function FormularioInfoPessoal() {
 
   const alteraValor = (campo, valor) => {
     setValue(campo, valor, { shouldvalidate: true });
+    trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
     console.log('errors', Object.entries(errors).length);
   };
@@ -59,7 +65,7 @@ export default function FormularioInfoPessoal() {
       )
     });
   });
-  const submit = (data) => { console.log('DATA', data); };
+  // const submit = (data) => { console.log('DATA', data); };
 
   return (
     <>
@@ -113,9 +119,9 @@ export default function FormularioInfoPessoal() {
         </View>
         <Button
           style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
-          onPress={handleSubmit(submit)}
           labelStyle={{ color: '#fff' }}
           mode="contained"
+          onPress={() => alterarTelaAtual(<FormularioInfoProfissional />)}
         >
             Próximo
         </Button>

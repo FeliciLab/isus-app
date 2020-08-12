@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useContext } from 'react';
 import {
   Text, TouchableOpacity, StyleSheet, View, Platform
 } from 'react-native';
@@ -6,12 +6,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
+import WizardContext, { WizardProvider } from '../../context/WizardContext';
 import { FormProvider } from '../../context/FormContext';
-import FormularioInfoPessoal from './formularioInfoPessoal';
+// import FormularioInfoPessoal from './formularioInfoPessoal';
+// import FormularioInfoProfissional from './formularioInfoProfissional';
 
-
-export default function TelaDeCadastro() {
+function TelaDeCadastro() {
   const navigator = useNavigation();
+  const { TelaAtual } = useContext(WizardContext);
   const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de algumas informações';
 
   useLayoutEffect(() => {
@@ -36,6 +38,7 @@ export default function TelaDeCadastro() {
       )
     });
   });
+
   return (
     <>
     <BarraDeStatus barStyle="light-content" backgroundColor="#304FFE" />
@@ -49,12 +52,20 @@ export default function TelaDeCadastro() {
         <View style={{ marginHorizontal: 16 }}>
           <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
           <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-          <FormProvider>
-            <FormularioInfoPessoal />
-          </FormProvider>
+            { TelaAtual }
         </View>
     </KeyboardAwareScrollView>
     </>
+  );
+}
+
+export default function ConteudoTelaDeCadastro() {
+  return (
+    <FormProvider>
+      <WizardProvider>
+        <TelaDeCadastro />
+      </WizardProvider>
+    </FormProvider>
   );
 }
 
