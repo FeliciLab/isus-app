@@ -6,7 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, Button, DefaultTheme } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
-
+// eslint-disable-next-line import/no-cycle
+import WizardContext from '../../context/WizardContext';
+import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
   const theme = {
@@ -16,7 +18,9 @@ export default function FormularioInfoPessoal() {
     }
   };
   const navigator = useNavigation();
-  const { register, handleSubmit, setValue } = useContext(FormContext);
+  const { register, setValue } = useContext(FormContext);
+  const { alterarTelaAtual } = useContext(WizardContext);
+
   useEffect(() => {
     register('nomeCompleto', { required: true });
     register('email', { required: true });
@@ -47,7 +51,7 @@ export default function FormularioInfoPessoal() {
       )
     });
   });
-  const submit = (data) => { console.log('DATA', data); };
+  // const submit = (data) => { console.log('DATA', data); };
 
   return (
     <>
@@ -96,11 +100,11 @@ export default function FormularioInfoPessoal() {
         </View>
         <Button
           style={estilos.botao}
-          onPress={handleSubmit(submit)}
           labelStyle={{ color: '#fff' }}
           mode="contained"
+          onPress={() => alterarTelaAtual(<FormularioInfoProfissional />)}
         >
-            Enviar
+          Próximo
         </Button>
     </>
   );

@@ -72,6 +72,7 @@ function conteudoDoDrawer(props) {
         {
           ItensDoDrawer.map(item => (
             <DrawerItem
+              key={item.nome}
               icon={() => item.icone}
               label={item.nome}
               labelStyle={{ fontSize: 15 }}
