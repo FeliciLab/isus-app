@@ -1,10 +1,10 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet
+  Text, TouchableOpacity, StyleSheet, Linking
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { List } from 'react-native-paper';
+import { List, Divider } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
   TextoSobreSUS, TextoSobreSESA, TextoSobreESP
@@ -43,11 +43,7 @@ const informacoes = {
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
     url: 'https://www.saude.ce.gov.br/'
-  },
-  WhatsAppSaude: {
-    tituloCompleto: 'WhatsApp da Saúde do Ceará',
-    url: 'http://api.whatsapp.com/send?phone=5585984394810'
-  },
+  }
 };
 
 export default function SusNoCearaScreen() {
@@ -91,7 +87,10 @@ export default function SusNoCearaScreen() {
   });
 
   return (
-    <ScrollView style={{ backgroundColor: '#ffffff', flex: 1, padding: 15 }}>
+    <ScrollView style={{
+      backgroundColor: '#ffffff', flex: 1, padding: 15, marginBottom: 20
+    }}
+    >
 
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item
@@ -105,40 +104,40 @@ export default function SusNoCearaScreen() {
           title={<TextoSobreSESA />}
         />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('InstagramESP')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('FacebookESP')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="linkedin" color="#808080" />}
           title="Linkedin"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('LinkedinESP')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="youtube" color="#808080" />}
           title="Youtube"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('YoutubeESP')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('SiteESP')}
         />
+        <Divider style={estilos.borda} />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>A ESP é SESA</Text>}>
         <List.Item
@@ -146,33 +145,33 @@ export default function SusNoCearaScreen() {
           title={<TextoSobreESP />}
         />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('InstagramSaude')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('FacebookSaude')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="whatsapp" color="#808080" />}
           title="WhatsApp"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('WhatsAppSaude')}
+          onPress={() => Linking.openURL('http://api.whatsapp.com/send?phone=5585984394810')}
         />
+        <Divider style={estilos.borda} />
         <List.Item
-          style={estilos.borda}
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
           onPress={() => navegar('SiteSaude')}
         />
+        <Divider style={estilos.borda} />
       </List.Accordion>
     </ScrollView>
   );
@@ -185,7 +184,6 @@ const estilos = StyleSheet.create({
   borda: {
     borderBottomWidth: 1,
     borderBottomColor: '#D3D3D3',
-    marginTop: -10,
     marginBottom: 5
   }
 });

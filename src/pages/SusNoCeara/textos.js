@@ -27,7 +27,7 @@ const informacoes = {
     tituloCompleto: 'Ministério da Saúde',
     url: 'https://saude.gov.br/'
   },
-  Ceara: {
+  SaudeCeara: {
     tituloCompleto: 'Secretaria da Saúde',
     url: 'https://www.saude.ce.gov.br/'
   },
@@ -93,7 +93,7 @@ export const TextoSobreSUS = () => (
 {' '}
 e
 {' '}
-<Text style={estilos.textoLink} onPress={() => navegar('Ceara')}>no Ceará</Text>
+<Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>no Ceará</Text>
 , e sobre as instâncias de
 {' '}
     <Text style={estilos.textoLink} onPress={() => navegar('ConselhoEstadual')}>participação das pessoas</Text>
@@ -146,10 +146,10 @@ export const TextoSobreESP = () => (
 <Text style={estilos.textoConteudo}>
 A ESP é uma autarquia vinculada à
 {' '}
-<Text style={estilos.textoLink} onPress={() => navegar('Ceara')}>Secretaria da Saúde do Estado do Ceará (Sesa)</Text>
+<Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>Secretaria da Saúde do Estado do Ceará (Sesa)</Text>
 , órgão da administração direta do
 {' '}
-<Text style={estilos.textoLink} onPress={() => navegar('Ceara')}>Governo estadual</Text>
+<Text style={estilos.textoLink} onPress={() => navegar('Governo')}>Governo estadual</Text>
 . A SESA é a responsável pelo gerenciamento
 do Sistema Único de Saúde (SUS) no Ceará.
 {'\n\n'}
