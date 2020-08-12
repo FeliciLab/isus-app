@@ -24,7 +24,7 @@ export default function FormularioInfoPessoal() {
   const { alterarTelaAtual } = useContext(WizardContext);
 
   const {
-    register, setValue, trigger
+    register, setValue, trigger, errors
   } = useContext(FormContext);
   useEffect(() => {
     register('nomeCompleto', { required: true });
@@ -36,9 +36,9 @@ export default function FormularioInfoPessoal() {
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
 
-  const alteraValor = (campo, valor) => {
-    setValue(campo, valor, { shouldvalidate: true });
-    trigger();
+  const alteraValor = async (campo, valor) => {
+    setValue(campo, valor);
+    await trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
     console.log('errors', Object.entries(errors).length);
   };
@@ -65,7 +65,6 @@ export default function FormularioInfoPessoal() {
       )
     });
   });
-  // const submit = (data) => { console.log('DATA', data); };
 
   return (
     <>
@@ -118,6 +117,7 @@ export default function FormularioInfoPessoal() {
               />
         </View>
         <Button
+          disabled={!botaoAtivo}
           style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           labelStyle={{ color: '#fff' }}
           mode="contained"
