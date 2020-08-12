@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet, Linking
+  Text, TouchableOpacity, StyleSheet
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,46 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {
   TextoSobreSUS, TextoSobreSESA, TextoSobreESP
 } from './textos';
+import { navigate } from '../../routes/rootNavigation';
+
+const informacoes = {
+  InstagramESP: {
+    tituloCompleto: 'Instagram do ESP/CE',
+    url: 'https://www.instagram.com/espceara/'
+  },
+  FacebookESP: {
+    tituloCompleto: 'Facebook do ESP/CE',
+    url: 'https://www.facebook.com/espceara/'
+  },
+  LinkedinESP: {
+    tituloCompleto: 'Linkedin do ESP/CE',
+    url: 'https://www.linkedin.com/in/espceara/'
+  },
+  YoutubeESP: {
+    tituloCompleto: 'Youtube do ESP/CE',
+    url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA'
+  },
+  SiteESP: {
+    tituloCompleto: 'Site do ESP/CE',
+    url: 'https://www.esp.ce.gov.br/'
+  },
+  InstagramSaude: {
+    tituloCompleto: 'Instagram da Saúde do Ceará',
+    url: 'https://www.instagram.com/saudeceara/'
+  },
+  FacebookSaude: {
+    tituloCompleto: 'Facebook da Saúde do Ceará',
+    url: 'https://www.facebook.com/SaudeCeara/'
+  },
+  SiteSaude: {
+    tituloCompleto: 'Site da Saúde do Ceará',
+    url: 'https://www.saude.ce.gov.br/'
+  },
+  WhatsAppSaude: {
+    tituloCompleto: 'WhatsApp da Saúde do Ceará',
+    url: 'http://api.whatsapp.com/send?phone=5585984394810'
+  },
+};
 
 export default function SusNoCearaScreen() {
   const navigation = useNavigation();
@@ -69,35 +109,35 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.instagram.com/espceara/')}
+          onPress={() => navegar('InstagramESP')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.facebook.com/espceara/')}
+          onPress={() => navegar('FacebookESP')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="linkedin" color="#808080" />}
           title="Linkedin"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.linkedin.com/in/espceara/')}
+          onPress={() => navegar('LinkedinESP')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="youtube" color="#808080" />}
           title="Youtube"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA')}
+          onPress={() => navegar('YoutubeESP')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
+          onPress={() => navegar('SiteESP')}
         />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>A ESP é SESA</Text>}>
@@ -110,28 +150,28 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.instagram.com/saudeceara/')}
+          onPress={() => navegar('InstagramSaude')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.facebook.com/SaudeCeara/')}
+          onPress={() => navegar('FacebookSaude')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="whatsapp" color="#808080" />}
           title="WhatsApp"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('http://api.whatsapp.com/send?phone=5585984394810')}
+          onPress={() => navegar('WhatsAppSaude')}
         />
         <List.Item
           style={estilos.borda}
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.saude.ce.gov.br/')}
+          onPress={() => navegar('SiteSaude')}
         />
       </List.Accordion>
     </ScrollView>
@@ -149,3 +189,7 @@ const estilos = StyleSheet.create({
     marginBottom: 5
   }
 });
+
+const navegar = (titulo) => {
+  navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
+};
