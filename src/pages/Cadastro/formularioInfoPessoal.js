@@ -19,7 +19,7 @@ export default function FormularioInfoPessoal() {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const navigator = useNavigation();
   const {
-    register, handleSubmit, setValue, trigger
+    register, handleSubmit, setValue, errors
   } = useContext(FormContext);
   useEffect(() => {
     register('nomeCompleto', { required: true });
@@ -30,14 +30,11 @@ export default function FormularioInfoPessoal() {
   }, [register]);
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-  const validaCampos = () => {
-    alteraBotaoAtivo(trigger());
-    console.log(botaoAtivo);
-  };
 
   const alteraValor = (campo, valor) => {
-    validaCampos();
-    setValue(campo, valor);
+    setValue(campo, valor, { shouldvalidate: true });
+    alteraBotaoAtivo(Object.entries(errors).length === 0);
+    console.log('errors', Object.entries(errors).length);
   };
 
   useLayoutEffect(() => {
