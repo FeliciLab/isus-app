@@ -70,7 +70,7 @@ export default function PerfilScreen() {
 
   return (
     <View style={estilos.margem}>
-      <CabecalhoPerfil nome="José" />
+      <CabecalhoPerfil nome="" />
       <MenuPerfil titulo="Privacidade">
         <MenuPerfilItem titulo="Termos de uso" tela="TERMOS_DE_USO" />
         <MenuPerfilItem titulo="Política de privacidade" tela="POLITICA_DE_PRIVACIDADE" />
