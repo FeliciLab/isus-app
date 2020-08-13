@@ -6,7 +6,7 @@ import { Divider } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-export default function MenuPerfilItem({ titulo, tela }) {
+export default function MenuPerfilItem({ titulo, tela, onPress }) {
   const navigation = useNavigation();
 
   const ItemInterior = () => (
@@ -24,7 +24,7 @@ export default function MenuPerfilItem({ titulo, tela }) {
   );
 
   return (
-    <TouchableOpacity onPress={() => (tela ? navigation.navigate(tela) : '')}>
+    <TouchableOpacity onPress={() => (tela ? navigation.navigate(tela) : onPress())}>
       <View style={estilos.itemContainer}>
         <Icon style={estilos.iconeEsquerda} name="heart" size={25} color="rgba(0, 0, 0, 0.54)" />
         <Item>

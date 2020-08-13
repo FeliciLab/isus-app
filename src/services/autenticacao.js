@@ -1,9 +1,9 @@
 // import Config from 'react-native-config';
 import {
-  salvarDados, pegarDados
+  salvarDados, pegarDados, removerDados
 } from './armazenamento';
 // import respostaLogin from '../pages/Login/json/respostaLogin.json';
-import autenticar from '../apis/apiKeycloak';
+import { autenticar } from '../apis/apiKeycloak';
 
 // const configuracao = {
 //   url: Config.KEYCLOAK_URL,
@@ -32,8 +32,13 @@ async function salvarTokenDoUsuarioNoStorage(token) {
   await salvarDados('token_usuario', token);
 }
 
+async function excluirTokenDoUsuarioNoStorage() {
+  await removerDados('token_usuario');
+}
+
 export {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
+  excluirTokenDoUsuarioNoStorage
 };

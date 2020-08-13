@@ -1,19 +1,35 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react';
+import React, { useLayoutEffect, useCallback, useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './menuPerfil';
 import MenuPerfilItem from './menuPerfilItem';
-import getPerfilUsuario from '../../apis/apiKeycloak';
+import { logout } from '../../apis/apiKeycloak';
+import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+
 
 export default function PerfilScreen() {
-  const [perfilUsuario, alterarPerfilUsuario] = useState({});
+  const [tokenUsuario, alterarTokenUsuario] = useState({});
   const navigation = useNavigation();
 
-  useEffect(() => {
-    alterarPerfilUsuario(getPerfilUsuario());
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      async function pegarTokenUsuario() {
+        const token = await pegarTokenDoUsuarioNoStorage();
+        alterarTokenUsuario(token);
+      }
+      pegarTokenUsuario();
+    }, [])
+  );
+
+  const realizarLogout = async () => {
+    await logout(tokenUsuario);
+    await excluirTokenDoUsuarioNoStorage();
+    const token = await pegarTokenDoUsuarioNoStorage();
+    console.log('TOKEN APÓS LOGOUT', token);
+    navigation.navigate('HOME');
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -54,17 +70,13 @@ export default function PerfilScreen() {
 
   return (
     <View style={estilos.margem}>
-      <CabecalhoPerfil nome={perfilUsuario.given_name} />
-      <MenuPerfil titulo="Minha conta">
-        <MenuPerfilItem titulo="Meus dados" tela="MEUS_DADOS" />
-        <MenuPerfilItem titulo="ID Saúde" />
-      </MenuPerfil>
+      <CabecalhoPerfil nome="José" />
       <MenuPerfil titulo="Privacidade">
         <MenuPerfilItem titulo="Termos de uso" tela="TERMOS_DE_USO" />
         <MenuPerfilItem titulo="Política de privacidade" tela="POLITICA_DE_PRIVACIDADE" />
       </MenuPerfil>
       <MenuPerfil titulo="Preferências">
-        <MenuPerfilItem titulo="Sair" />
+        <MenuPerfilItem titulo="Sair" onPress={() => realizarLogout()} />
       </MenuPerfil>
     </View>
   );
