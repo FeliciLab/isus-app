@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useContext, useEffect } from 'react';
 import {
-  TouchableOpacity, StyleSheet, View
+  TouchableOpacity, StyleSheet, View, Text
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -68,6 +68,7 @@ export default function FormularioInfoPessoal() {
 
   return (
     <>
+        <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
         <View style={{ marginHorizontal: 16 }}>
               <TextInput
                 label="Nome Completo"
