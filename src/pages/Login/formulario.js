@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import Regex from '../../utils/regex';
 import Alerta from '../../components/alerta';
-import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 
 function FormularioLogin() {
   const navigation = useNavigation();
@@ -43,12 +43,12 @@ function FormularioLogin() {
     try {
       const response = await autenticarComIdSaude(email, senha);
       if (response.sucesso) {
-        await salvarTokenDoUsuarioNoStorage(response.mensagem.access_token);
-        navigation.navigate('HOME');
+        await salvarTokenDoUsuarioNoStorage(response.mensagem);
+        await pegarTokenDoUsuarioNoStorage();
+        navigation.navigate('PERFIL');
         return;
       }
       const mensagemErro = response.erros ? response.erros : response.mensagem;
-      console.log(mensagemErro);
       await mostrarAlerta(mensagemErro);
     } catch (err) {
       console.log(err.message);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -16,14 +16,18 @@ import {
 } from '@react-navigation/drawer';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
+import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
 
 function conteudoDoDrawer(props) {
+  const [tokenUsuario, alterarTokenUsuario] = useState({});
   const {
     navigation: { navigate },
     routeName
   } = props;
 
   const versaoSistema = packageJson.version;
+
+  pegarTokenDoUsuarioNoStorage().then(token => alterarTokenUsuario(token));
 
   const ItensDoDrawer = [
     {
@@ -34,7 +38,7 @@ function conteudoDoDrawer(props) {
     {
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color="rgba(0, 0, 0, 0.54)" />,
-      rota: 'MEU_PERFIL'
+      rota: tokenUsuario ? 'PERFIL' : 'LOGIN'
     },
     {
       nome: 'Fale conosco',
