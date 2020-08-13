@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import Regex from '../../utils/regex';
 import Alerta from '../../components/alerta';
-import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 
 function FormularioLogin() {
   const navigation = useNavigation();
@@ -42,12 +42,14 @@ function FormularioLogin() {
   const fazerLogin = async () => {
     try {
       const response = await autenticarComIdSaude(email, senha);
-      console.log('response', response);
-      await salvarTokenDoUsuarioNoStorage(response.token);
-      await mostrarAlerta('Usuário logado com sucesso');
-      const token = await pegarTokenDoUsuarioNoStorage();
-      console.log('token', token);
-      navigation.navigate('HOME');
+      if (response.sucesso) {
+        await salvarTokenDoUsuarioNoStorage(response.mensagem.access_token);
+        navigation.navigate('HOME');
+        return;
+      }
+      const mensagemErro = response.erros ? response.erros : response.mensagem;
+      console.log(mensagemErro);
+      await mostrarAlerta(mensagemErro);
     } catch (err) {
       console.log(err.message);
       mostrarAlerta(err.message);
@@ -89,6 +91,7 @@ function FormularioLogin() {
         style={{ ...estilos.botao, backgroundColor: '#ffffff' }}
         mode="contained"
         onPress={() => {
+          console.log('clicado');
           fazerLogin();
         }}
       >

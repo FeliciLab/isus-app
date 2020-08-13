@@ -2,7 +2,8 @@
 import {
   salvarDados, pegarDados
 } from './armazenamento';
-import respostaLogin from '../pages/Login/json/respostaLogin.json';
+// import respostaLogin from '../pages/Login/json/respostaLogin.json';
+import autenticar from '../apis/apiKeycloak';
 
 // const configuracao = {
 //   url: Config.KEYCLOAK_URL,
@@ -13,10 +14,12 @@ import respostaLogin from '../pages/Login/json/respostaLogin.json';
 // };
 
 async function autenticarComIdSaude(email, senha) {
-  if (email === 'teste@teste.com' && senha === '12345678') {
-    return respostaLogin;
+  try {
+    const response = await autenticar(email, senha);
+    return response.data;
+  } catch (err) {
+    throw err;
   }
-  throw new Error('Usuário incorreto');
 }
 
 
