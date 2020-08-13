@@ -8,8 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 import WizardContext, { WizardProvider } from '../../context/WizardContext';
 import { FormProvider } from '../../context/FormContext';
-// import FormularioInfoPessoal from './formularioInfoPessoal';
-// import FormularioInfoProfissional from './formularioInfoProfissional';
+
 
 function TelaDeCadastro() {
   const navigator = useNavigation();
