@@ -8,8 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 import WizardContext, { WizardProvider } from '../../context/WizardContext';
 import { FormProvider } from '../../context/FormContext';
-// import FormularioInfoPessoal from './formularioInfoPessoal';
-// import FormularioInfoProfissional from './formularioInfoProfissional';
+
 
 function TelaDeCadastro() {
   const navigator = useNavigation();
@@ -51,7 +50,6 @@ function TelaDeCadastro() {
     >
         <View style={{ marginHorizontal: 16 }}>
           <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
-          <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
             { TelaAtual }
         </View>
     </KeyboardAwareScrollView>
@@ -75,14 +73,6 @@ const estilos = StyleSheet.create({
     marginTop: 40,
     lineHeight: 28,
     color: 'rgba(0, 0, 0, 0.87)'
-  },
-  informacoesPessoais: {
-    fontWeight: '500',
-    marginTop: 24,
-    fontSize: 20,
-    lineHeight: 23,
-    letterSpacing: 0.15,
-    paddingBottom: 16
   },
   campoDeTexto: {
     paddingBottom: 28,
