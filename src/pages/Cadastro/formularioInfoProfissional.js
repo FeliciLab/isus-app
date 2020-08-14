@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View, Text, StyleSheet
 } from 'react-native';
@@ -24,6 +24,8 @@ const categoriaProfissional = [
 
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
+  const [checkBoxes, setCheckboxes] = useState({});
+
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -32,6 +34,20 @@ function FormularioInfoProfissional() {
       primary: 'rgba(0, 0, 0, 0.6);',
       accent: '#f1c40f',
     },
+  };
+
+  const getCheckboxDefaultValue = (setor) => {
+    if (checkBoxes[`checkbox-${setor.nome}`]) {
+      return checkBoxes[`checkbox-${setor.nome}`];
+    }
+    return false;
+  };
+
+  const changeCheckboxes = (onChange, value, setor) => {
+    onChange(!value);
+    const check = { ...checkBoxes };
+    check[`checkbox-${setor.nome}`] = !value;
+    setCheckboxes(check);
   };
 
   return (
@@ -43,12 +59,12 @@ function FormularioInfoProfissional() {
         control={control}
         defaultValue={categoriaProfissional[0].value}
         render={({ onChange, value }) => (
-        <DropDown
-          label="Categoria profissional"
-          dados={categoriaProfissional}
-          valorInicial={value}
-          aoMudarValor={categoria => onChange(categoria)}
-        />
+          <DropDown
+            label="Categoria profissional"
+            dados={categoriaProfissional}
+            valorInicial={value}
+            aoMudarValor={categoria => onChange(categoria)}
+          />
         )}
       />
 
@@ -59,7 +75,7 @@ function FormularioInfoProfissional() {
           <Controller
             name={`checkbox-${setor.nome}`}
             control={control}
-            defaultValue={false}
+            defaultValue={() => getCheckboxDefaultValue(setor)}
             render={({ onChange, value }) => (
               <Checkbox.Item
                 status={value ? 'checked' : 'unchecked'}
@@ -67,7 +83,10 @@ function FormularioInfoProfissional() {
                 theme={theme}
                 color="#304FFE"
                 label={setor.valor}
-                onPress={() => onChange(!value)}
+                onPress={() => {
+                  changeCheckboxes(onChange, value, setor);
+                }
+                }
               />
             )}
           />
