@@ -14,6 +14,7 @@ function TelaDeCadastro() {
   const navigator = useNavigation();
   const { TelaAtual } = useContext(WizardContext);
   const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de algumas informações';
+  const textoDeTelaSenha = 'Para finalizar seu cadastro, precisamos apenas de mais uma informação:';
 
   useLayoutEffect(() => {
     navigator.setOptions({
@@ -49,8 +50,13 @@ function TelaDeCadastro() {
       enableAutomaticScroll={Platform.OS === 'ios'}
     >
         <View style={{ marginHorizontal: 16 }}>
-          <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
-            { TelaAtual }
+          {
+            TelaAtual.indice === 2
+              ? <Text style={estilos.apresentacao}>{textoDeTelaSenha}</Text>
+              : <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
+          }
+
+            { TelaAtual.tela }
         </View>
     </KeyboardAwareScrollView>
     </>

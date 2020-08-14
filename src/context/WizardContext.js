@@ -6,7 +6,7 @@ import FormularioInfoPessoal from '../pages/Cadastro/formularioInfoPessoal';
 const WizardContext = createContext();
 
 export function WizardProvider({ children }) {
-  const [TelaAtual, alterarTelaAtual] = useState(<FormularioInfoPessoal />);
+  const [TelaAtual, alterarTelaAtual] = useState({ indice: 0, tela: <FormularioInfoPessoal /> });
   // const [TelaAtual, alterarTelaAtual] = useState(<FormularioInfoProfissional />);
   return (
     <WizardContext.Provider
