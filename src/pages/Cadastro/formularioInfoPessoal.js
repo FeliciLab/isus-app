@@ -24,23 +24,24 @@ export default function FormularioInfoPessoal() {
   const { alterarTelaAtual } = useContext(WizardContext);
 
   const {
-    register, setValue, trigger, errors
+    register, setValue, trigger, errors, getValues
   } = useContext(FormContext);
   useEffect(() => {
-    register('nomeCompleto', { required: true });
+    register('nomeCompleto', { required: true, validate: nome => nomeValido(nome) });
     register('email', { required: true, validate: email => emailValido(email) });
-    register('telefone', { required: true, maxLenght: 11 });
+    register('telefone', { required: true, maxLength: 11, minLength: 11 });
     register('municipio', { required: true });
-    register('cpf', { required: true, maxLenght: 11 });
+    register('cpf', { required: true, maxLength: 11, minLength: 11 });
   }, [register]);
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
+  const nomeValido = nome => Regex.NOME.test(nome.toLowerCase());
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
-    console.log('errors', Object.entries(errors).length);
+    console.log('errors', errors);
   };
 
   useLayoutEffect(() => {
@@ -72,6 +73,7 @@ export default function FormularioInfoPessoal() {
               <TextInput
                 label="Nome Completo"
                 name="nomeCompleto"
+                value={getValues('nomeCompleto')}
                 underlineColor="#BDBDBD"
                 onChangeText={text => alteraValor('nomeCompleto', text)}
                 style={estilos.campoDeTexto}
