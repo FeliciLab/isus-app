@@ -1,10 +1,50 @@
 import React, { useLayoutEffect } from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Text, TouchableOpacity, StyleSheet, Linking
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { List } from 'react-native-paper';
+import { List, Divider } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-import { TextoSobreSUS, TextoSobreSESA, TextoSobreESP } from './textos';
+import {
+  TextoSobreSUS, TextoSobreSESA, TextoSobreESP
+} from './textos';
+import { navigate } from '../../routes/rootNavigation';
+
+const informacoes = {
+  InstagramESP: {
+    tituloCompleto: 'Instagram do ESP/CE',
+    url: 'https://www.instagram.com/espceara/'
+  },
+  FacebookESP: {
+    tituloCompleto: 'Facebook do ESP/CE',
+    url: 'https://www.facebook.com/espceara/'
+  },
+  LinkedinESP: {
+    tituloCompleto: 'Linkedin do ESP/CE',
+    url: 'https://www.linkedin.com/in/espceara/'
+  },
+  YoutubeESP: {
+    tituloCompleto: 'Youtube do ESP/CE',
+    url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA'
+  },
+  SiteESP: {
+    tituloCompleto: 'Site do ESP/CE',
+    url: 'https://www.esp.ce.gov.br/'
+  },
+  InstagramSaude: {
+    tituloCompleto: 'Instagram da Saúde do Ceará',
+    url: 'https://www.instagram.com/saudeceara/'
+  },
+  FacebookSaude: {
+    tituloCompleto: 'Facebook da Saúde do Ceará',
+    url: 'https://www.facebook.com/SaudeCeara/'
+  },
+  SiteSaude: {
+    tituloCompleto: 'Site da Saúde do Ceará',
+    url: 'https://www.saude.ce.gov.br/'
+  }
+};
 
 export default function SusNoCearaScreen() {
   const navigation = useNavigation();
@@ -47,38 +87,91 @@ export default function SusNoCearaScreen() {
   });
 
   return (
-    <ScrollView style={{ backgroundColor: '#ffffff', flex: 1, padding: 15 }}>
-      <Text
-        style={{
-          letterSpacing: 0.25,
-          fontSize: 14,
-          lineHeight: 20,
-          color: '#828282',
-          marginBottom: 18
-        }}
-      >
-      A Escola de Saúde Pública do Ceará – ESP/CE, é uma
-       entidade da Administração Indireta Estadual, de natureza
-       autárquica, vinculada a Secretaria da Saúde do Ceará
-      </Text>
+    <ScrollView style={{
+      backgroundColor: '#ffffff', flex: 1, padding: 15, marginBottom: 20
+    }}
+    >
 
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Sobre o SUS</Text>}>
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSUS />}
         />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O que é a SESA</Text>}>
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSESA />}
         />
+        <List.Item
+          left={() => <List.Icon icon="instagram" color="#808080" />}
+          title="Instagram"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('InstagramESP')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="facebook" color="#808080" />}
+          title="Facebook"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('FacebookESP')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="linkedin" color="#808080" />}
+          title="Linkedin"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('LinkedinESP')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="youtube" color="#808080" />}
+          title="Youtube"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('YoutubeESP')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="web" color="#808080" />}
+          title="Site"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('SiteESP')}
+        />
+        <Divider style={estilos.borda} />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O que é a ESP</Text>}>
+      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>A ESP é SESA</Text>}>
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreESP />}
         />
+        <List.Item
+          left={() => <List.Icon icon="instagram" color="#808080" />}
+          title="Instagram"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('InstagramSaude')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="facebook" color="#808080" />}
+          title="Facebook"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('FacebookSaude')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="whatsapp" color="#808080" />}
+          title="WhatsApp"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => Linking.openURL('http://api.whatsapp.com/send?phone=5585984394810')}
+        />
+        <Divider style={estilos.borda} />
+        <List.Item
+          left={() => <List.Icon icon="web" color="#808080" />}
+          title="Site"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('SiteSaude')}
+        />
+        <Divider style={estilos.borda} />
       </List.Accordion>
     </ScrollView>
   );
@@ -87,5 +180,14 @@ export default function SusNoCearaScreen() {
 const estilos = StyleSheet.create({
   titulo: {
     fontSize: 18
+  },
+  borda: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#D3D3D3',
+    marginBottom: 5
   }
 });
+
+const navegar = (titulo) => {
+  navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
+};
