@@ -4,7 +4,10 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, Button, DefaultTheme } from 'react-native-paper';
+import {
+  TextInput, DefaultTheme, FAB
+} from 'react-native-paper';
+import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
 // eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
@@ -29,21 +32,19 @@ export default function FormularioInfoPessoal() {
   useEffect(() => {
     register('nomeCompleto', { required: true, validate: nome => nomeValido(nome) });
     register('email', { required: true, validate: email => emailValido(email) });
-    register('telefone', { required: true, maxLength: 11, minLength: 11 });
+    register('telefone', { required: true, minLength: 14 });
     register('municipio', { required: true });
-    register('cpf', { required: true, maxLength: 11, minLength: 11 });
+    register('cpf', { required: true, minLength: 15 });
   }, [register]);
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nome => Regex.NOME.test(nome.toLowerCase());
-
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
     console.log('errors', errors);
   };
-
   useLayoutEffect(() => {
     navigator.setOptions({
       headerStyle: {
@@ -93,8 +94,8 @@ export default function FormularioInfoPessoal() {
               <TextInput
                 label="Telefone"
                 name="telefone"
+                value={aplicaMascaraNumerica(getValues('telefone'), '(##)#####-####')}
                 keyboardType="number-pad"
-                maxLength={11}
                 style={estilos.campoDeTexto}
                 onChangeText={text => alteraValor('telefone', text)}
                 mode="outlined"
@@ -111,23 +112,24 @@ export default function FormularioInfoPessoal() {
               <TextInput
                 label="CPF"
                 name="cpf"
+                value={aplicaMascaraNumerica(getValues('cpf'), '###.###.###-##')}
                 keyboardType="number-pad"
-                maxLength={11}
                 style={estilos.campoDeTexto}
                 onChangeText={text => alteraValor('cpf', text)}
                 mode="outlined"
                 theme={theme}
               />
         </View>
-        <Button
+        <FAB
           disabled={!botaoAtivo}
+          label="Próximo"
           style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           onPress={() => alterarTelaAtual(<FormularioInfoProfissional />)}
         >
             Próximo
-        </Button>
+        </FAB>
     </>
   );
 }
