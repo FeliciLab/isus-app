@@ -9,7 +9,8 @@ import { Controller } from 'react-hook-form';
 import DropDown from '../../components/dropdown';
 import setores from './json/setores.json';
 import FormContext from '../../context/FormContext';
-import { salvarDados, pegarDados } from '../../services/armazenamento';
+import { salvarDadosDeCadastro } from '../../services/autenticacao';
+
 
 const categoriaProfissional = [
   { value: 'Medicina' },
@@ -24,7 +25,7 @@ const categoriaProfissional = [
 
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
-  const [checkBoxes, setCheckboxes] = useState({});
+  const [valoresDosCheckBoxes, alterarValoresDosCheckBoxes] = useState({});
 
   const theme = {
     ...DefaultTheme,
@@ -36,18 +37,18 @@ function FormularioInfoProfissional() {
     },
   };
 
-  const getCheckboxDefaultValue = (setor) => {
-    if (checkBoxes[`checkbox-${setor.nome}`]) {
-      return checkBoxes[`checkbox-${setor.nome}`];
+  const pegarValorPadrãoDoCheckbox = (setor) => {
+    if (valoresDosCheckBoxes[`checkbox-${setor.nome}`]) {
+      return valoresDosCheckBoxes[`checkbox-${setor.nome}`];
     }
     return false;
   };
 
-  const changeCheckboxes = (onChange, value, setor) => {
+  const mudarValor = (onChange, value, setor) => {
     onChange(!value);
-    const check = { ...checkBoxes };
+    const check = { ...valoresDosCheckBoxes };
     check[`checkbox-${setor.nome}`] = !value;
-    setCheckboxes(check);
+    alterarValoresDosCheckBoxes(check);
   };
 
   return (
@@ -75,7 +76,7 @@ function FormularioInfoProfissional() {
           <Controller
             name={`checkbox-${setor.nome}`}
             control={control}
-            defaultValue={() => getCheckboxDefaultValue(setor)}
+            defaultValue={() => pegarValorPadrãoDoCheckbox(setor)}
             render={({ onChange, value }) => (
               <Checkbox.Item
                 status={value ? 'checked' : 'unchecked'}
@@ -84,7 +85,7 @@ function FormularioInfoProfissional() {
                 color="#304FFE"
                 label={setor.valor}
                 onPress={() => {
-                  changeCheckboxes(onChange, value, setor);
+                  mudarValor(onChange, value, setor);
                 }
                 }
               />
@@ -99,9 +100,7 @@ function FormularioInfoProfissional() {
       labelStyle={{ color: '#fff' }}
       onPress={async () => {
         const values = getValues();
-        await salvarDados('@cadastro-profissional', values);
-        const response = await pegarDados('@cadastro-profissional');
-        console.log('dados do storage', response);
+        salvarDadosDeCadastro(values);
       }}
       mode="contained"
     >

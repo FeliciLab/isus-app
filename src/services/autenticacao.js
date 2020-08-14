@@ -19,6 +19,15 @@ async function autenticarComIdSaude(email, senha) {
   throw new Error('Usuário incorreto');
 }
 
+async function salvarDadosDeCadastro(dados) {
+  await salvarDados('cadastro-usuario', dados);
+}
+
+async function pegarDadosDeCadastro() {
+  const resultado = await pegarDados('cadastro-usuario');
+  return resultado;
+}
+
 
 async function pegarTokenDoUsuarioNoStorage() {
   const token = await pegarDados('token_usuario');
@@ -33,4 +42,6 @@ export {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
+  salvarDadosDeCadastro,
+  pegarDadosDeCadastro
 };
