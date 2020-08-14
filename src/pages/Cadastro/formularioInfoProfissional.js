@@ -10,6 +10,9 @@ import DropDown from '../../components/dropdown';
 import setores from './json/setores.json';
 import FormContext from '../../context/FormContext';
 import { salvarDados, pegarDados } from '../../services/armazenamento';
+// eslint-disable-next-line import/no-cycle
+import WizardContext from '../../context/WizardContext';
+import FormularioSenha from './formularioSenha';
 
 const categoriaProfissional = [
   { value: 'Medicina' },
@@ -24,6 +27,8 @@ const categoriaProfissional = [
 
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
+  const { alterarTelaAtual } = useContext(WizardContext);
+
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -83,6 +88,7 @@ function FormularioInfoProfissional() {
         await salvarDados('@cadastro-profissional', values);
         const response = await pegarDados('@cadastro-profissional');
         console.log('dados do storage', response);
+        alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
       mode="contained"
     >

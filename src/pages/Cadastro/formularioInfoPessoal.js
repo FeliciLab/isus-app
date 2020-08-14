@@ -8,6 +8,7 @@ import { TextInput, Button, DefaultTheme } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
 // eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
+// eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
 import Regex from '../../utils/regex';
 
@@ -124,7 +125,7 @@ export default function FormularioInfoPessoal() {
           style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           labelStyle={{ color: '#fff' }}
           mode="contained"
-          onPress={() => alterarTelaAtual(<FormularioInfoProfissional />)}
+          onPress={() => alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })}
         >
             Próximo
         </Button>
