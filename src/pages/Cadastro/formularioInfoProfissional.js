@@ -10,7 +10,9 @@ import DropDown from '../../components/dropdown';
 import setores from './json/setores.json';
 import FormContext from '../../context/FormContext';
 import { salvarDadosDeCadastro } from '../../services/autenticacao';
-
+// eslint-disable-next-line import/no-cycle
+import WizardContext from '../../context/WizardContext';
+import FormularioSenha from './formularioSenha';
 
 const categoriaProfissional = [
   { value: 'Medicina' },
@@ -26,6 +28,7 @@ const categoriaProfissional = [
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
   const [valoresDosCheckBoxes, alterarValoresDosCheckBoxes] = useState({});
+  const { alterarTelaAtual } = useContext(WizardContext);
 
   const theme = {
     ...DefaultTheme,
@@ -101,6 +104,7 @@ function FormularioInfoProfissional() {
       onPress={async () => {
         const values = getValues();
         salvarDadosDeCadastro(values);
+        alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
       mode="contained"
     >
