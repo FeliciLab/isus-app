@@ -12,33 +12,9 @@ import {
 import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
-  InstagramESP: {
-    tituloCompleto: 'Instagram do ESP/CE',
-    url: 'https://www.instagram.com/espceara/'
-  },
-  FacebookESP: {
-    tituloCompleto: 'Facebook do ESP/CE',
-    url: 'https://www.facebook.com/espceara/'
-  },
-  LinkedinESP: {
-    tituloCompleto: 'Linkedin do ESP/CE',
-    url: 'https://www.linkedin.com/in/espceara/'
-  },
-  YoutubeESP: {
-    tituloCompleto: 'Youtube do ESP/CE',
-    url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA'
-  },
   SiteESP: {
     tituloCompleto: 'Site do ESP/CE',
     url: 'https://www.esp.ce.gov.br/'
-  },
-  InstagramSaude: {
-    tituloCompleto: 'Instagram da Saúde do Ceará',
-    url: 'https://www.instagram.com/saudeceara/'
-  },
-  FacebookSaude: {
-    tituloCompleto: 'Facebook da Saúde do Ceará',
-    url: 'https://www.facebook.com/SaudeCeara/'
   },
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
@@ -107,28 +83,28 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('InstagramESP')}
+          onPress={() => Linking.openURL('https://www.instagram.com/espceara/')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('FacebookESP')}
+          onPress={() => Linking.openURL('https://www.facebook.com/espceara/')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="linkedin" color="#808080" />}
           title="Linkedin"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('LinkedinESP')}
+          onPress={() => Linking.openURL('https://www.linkedin.com/in/espceara/')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="youtube" color="#808080" />}
           title="Youtube"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('YoutubeESP')}
+          onPress={() => Linking.openURL('https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA')}
         />
         <Divider style={estilos.borda} />
         <List.Item
@@ -148,14 +124,14 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('InstagramSaude')}
+          onPress={() => Linking.openURL('https://www.instagram.com/saudeceara/')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('FacebookSaude')}
+          onPress={() => Linking.openURL('https://www.facebook.com/SaudeCeara/')}
         />
         <Divider style={estilos.borda} />
         <List.Item
