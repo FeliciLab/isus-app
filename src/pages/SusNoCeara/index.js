@@ -13,7 +13,7 @@ import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
   SiteESP: {
-    tituloCompleto: 'Site do ESP/CE',
+    tituloCompleto: 'Site da ESP/CE',
     url: 'https://www.esp.ce.gov.br/'
   },
   SiteSaude: {
