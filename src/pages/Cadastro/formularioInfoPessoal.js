@@ -1,8 +1,10 @@
-import React, { useLayoutEffect, useContext, useEffect } from 'react';
+import React, {
+  useLayoutEffect, useContext, useCallback, useEffect
+} from 'react';
 import {
   TouchableOpacity, StyleSheet, View, Text
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, DefaultTheme, FAB
@@ -15,7 +17,8 @@ import WizardContext from '../../context/WizardContext';
 // eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
 import Regex from '../../utils/regex';
-import getMunicipiosCeara from '../../apis/apiCadastro';
+import { getMunicipiosCeara } from '../../apis/apiCadastro';
+import { salvarDados, pegarDados } from '../../services/armazenamento';
 
 
 export default function FormularioInfoPessoal() {
@@ -28,7 +31,7 @@ export default function FormularioInfoPessoal() {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [listaCidades, esconderListaCidades] = React.useState(false);
   const [dataFiltrada, alteraDataFiltrada] = React.useState([]);
-  const [data, alteraData] = React.useState([]);
+  const [data, alteraData] = React.useState(() => []);
   const [query, alteraQuery] = React.useState('');
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
@@ -40,29 +43,41 @@ export default function FormularioInfoPessoal() {
     register('nomeCompleto', { required: true, validate: nome => nomeValido(nome) });
     register('email', { required: true, validate: email => emailValido(email) });
     register('telefone', { required: true, minLength: 14 });
-    register('cidade', { required: true });
+    register('cidade', { required: true, validate: cidade => cidadeValida(cidade) });
     register('cpf', { required: true, minLength: 14 });
   }, [register]);
 
+  useFocusEffect(
+    useCallback(() => {
+      async function pegarMunicipios() {
+        const response = await getMunicipiosCeara();
+        alteraData(response.data.map(item => item.nome));
+      }
+      pegarMunicipios();
+    }, [])
+  );
+
   useEffect(() => {
-    async function pegarMunicipios() {
-      const response = await getMunicipiosCeara();
-      alteraData(response.data.map(item => item.nome));
+    async function guardarMunicipios() {
+      await salvarDados('municipios', data);
     }
-    pegarMunicipios();
-  }, []);
+    guardarMunicipios();
+  }, [data]);
 
   useEffect(() => {
     alteraDataFiltrada(data.filter(item => query && item.startsWith(query)));
   }, [query]);
 
+  const cidadeValida = async (cidade) => {
+    const cidades = await pegarDados('municipios');
+    return cidades.includes(cidade);
+  };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nome => Regex.NOME.test(nome.toLowerCase());
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
-    console.log('errors', errors);
   };
   useLayoutEffect(() => {
     navigator.setOptions({
@@ -125,6 +140,7 @@ export default function FormularioInfoPessoal() {
                   label="Cidade"
                   name="cidade"
                   data={dataFiltrada}
+                  defaultValue={query}
                   style={estilos.campoDeTexto}
                   hideResults={listaCidades}
                   onChangeText={(text) => {
@@ -136,7 +152,7 @@ export default function FormularioInfoPessoal() {
                     <TouchableOpacity onPress={() => {
                       alteraQuery(item);
                       esconderListaCidades(true);
-                      console.log(item);
+                      alteraValor('cidade', item);
                     }}
                     >
                         <Text>{item}</Text>
