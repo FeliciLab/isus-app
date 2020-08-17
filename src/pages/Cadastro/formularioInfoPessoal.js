@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, DefaultTheme, FAB
 } from 'react-native-paper';
+import Autocomplete from 'react-native-autocomplete-input';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
 // eslint-disable-next-line import/no-cycle
@@ -14,6 +15,7 @@ import WizardContext from '../../context/WizardContext';
 // eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
 import Regex from '../../utils/regex';
+import getMunicipiosCeara from '../../apis/apiCadastro';
 
 
 export default function FormularioInfoPessoal() {
@@ -24,6 +26,10 @@ export default function FormularioInfoPessoal() {
     }
   };
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
+  const [listaCidades, esconderListaCidades] = React.useState(false);
+  const [dataFiltrada, alteraDataFiltrada] = React.useState([]);
+  const [data, alteraData] = React.useState([]);
+  const [query, alteraQuery] = React.useState('');
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
 
@@ -34,9 +40,21 @@ export default function FormularioInfoPessoal() {
     register('nomeCompleto', { required: true, validate: nome => nomeValido(nome) });
     register('email', { required: true, validate: email => emailValido(email) });
     register('telefone', { required: true, minLength: 14 });
-    register('municipio', { required: true });
-    register('cpf', { required: true, minLength: 15 });
+    register('cidade', { required: true });
+    register('cpf', { required: true, minLength: 14 });
   }, [register]);
+
+  useEffect(() => {
+    async function pegarMunicipios() {
+      const response = await getMunicipiosCeara();
+      alteraData(response.data.map(item => item.nome));
+    }
+    pegarMunicipios();
+  }, []);
+
+  useEffect(() => {
+    alteraDataFiltrada(data.filter(item => query && item.startsWith(query)));
+  }, [query]);
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nome => Regex.NOME.test(nome.toLowerCase());
@@ -101,15 +119,30 @@ export default function FormularioInfoPessoal() {
                 onChangeText={text => alteraValor('telefone', text)}
                 mode="outlined"
                 theme={theme}
+                maxLength={14}
               />
-              <TextInput
-                label="Município"
-                name="municipio"
-                style={estilos.campoDeTexto}
-                onChangeText={text => alteraValor('municipio', text)}
-                mode="outlined"
-                theme={theme}
-              />
+                <Autocomplete
+                  label="Cidade"
+                  name="cidade"
+                  data={dataFiltrada}
+                  style={estilos.campoDeTexto}
+                  hideResults={listaCidades}
+                  onChangeText={(text) => {
+                    alteraQuery(text);
+                    esconderListaCidades(false);
+                    alteraValor('cidade', text);
+                  }}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => {
+                      alteraQuery(item);
+                      esconderListaCidades(true);
+                      console.log(item);
+                    }}
+                    >
+                        <Text>{item}</Text>
+                    </TouchableOpacity>
+                  )}
+                />
               <TextInput
                 label="CPF"
                 name="cpf"
@@ -119,6 +152,7 @@ export default function FormularioInfoPessoal() {
                 onChangeText={text => alteraValor('cpf', text)}
                 mode="outlined"
                 theme={theme}
+                maxLength={14}
               />
         </View>
         <FAB
