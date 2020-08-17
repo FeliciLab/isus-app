@@ -22,7 +22,6 @@ async function autenticarComIdSaude(email, senha) {
   }
 }
 
-
 async function pegarTokenDoUsuarioNoStorage() {
   const token = await pegarDados('token_usuario');
   return token;
