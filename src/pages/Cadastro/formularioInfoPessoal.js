@@ -7,7 +7,7 @@ import {
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  TextInput, DefaultTheme, FAB
+  TextInput, DefaultTheme, Button
 } from 'react-native-paper';
 import Autocomplete from 'react-native-autocomplete-input';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
@@ -136,29 +136,6 @@ export default function FormularioInfoPessoal() {
                 theme={theme}
                 maxLength={14}
               />
-                <Autocomplete
-                  label="Cidade"
-                  name="cidade"
-                  data={dataFiltrada}
-                  defaultValue={query}
-                  style={estilos.campoDeTexto}
-                  hideResults={listaCidades}
-                  onChangeText={(text) => {
-                    alteraQuery(text);
-                    esconderListaCidades(false);
-                    alteraValor('cidade', text);
-                  }}
-                  renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => {
-                      alteraQuery(item);
-                      esconderListaCidades(true);
-                      alteraValor('cidade', item);
-                    }}
-                    >
-                        <Text>{item}</Text>
-                    </TouchableOpacity>
-                  )}
-                />
               <TextInput
                 label="CPF"
                 name="cpf"
@@ -170,17 +147,42 @@ export default function FormularioInfoPessoal() {
                 theme={theme}
                 maxLength={14}
               />
+              <Autocomplete
+                label="Cidade"
+                name="cidade"
+                placeholder="Cidade"
+                inputContainerStyle={estilos.campoDeTextoAutocomplete}
+                listStyle={estilos.listaAutocomplete}
+                listContainerStyle={{ height: dataFiltrada.length * 20 }}
+                data={dataFiltrada}
+                defaultValue={query}
+                hideResults={listaCidades}
+                onChangeText={(text) => {
+                  alteraQuery(text);
+                  esconderListaCidades(false);
+                  alteraValor('cidade', text);
+                }}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={() => {
+                    alteraQuery(item);
+                    esconderListaCidades(true);
+                    alteraValor('cidade', item);
+                  }}
+                  >
+                  <Text>{item}</Text>
+                  </TouchableOpacity>
+                )}
+              />
         </View>
-        <FAB
+        <Button
           disabled={!botaoAtivo}
           label="Próximo"
-          style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           onPress={() => alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })}
         >
             Próximo
-        </FAB>
+        </Button>
     </>
   );
 }
@@ -222,5 +224,14 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#304FFE'
   },
-
+  campoDeTextoAutocomplete: {
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    borderColor: 'gray',
+    height: 56,
+  },
+  listaAutocomplete: {
+    padding: 10,
+    borderColor: 'gray'
+  }
 });
