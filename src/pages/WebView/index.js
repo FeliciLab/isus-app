@@ -5,14 +5,13 @@ import {
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function WebViewPage({
   navigation, route, mostrarEsqueletoDeCarregamento, esqueletoDeCarregamento
 }) {
   const navigator = useNavigation();
-  console.log(route.params.title.length);
   const widthView = Dimensions.get('window').width;
-  console.log(widthView);
   let res = '';
   // verificando o tamanho da tela do dispositivo para limitar os caracteres.
   if (widthView <= 320) {
@@ -23,10 +22,11 @@ export default function WebViewPage({
     (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 35).trim()}...` : res = route.params.title;
   }
 
+  const alterarBackground = () => (route.params.idSaude ? '#304FFE' : '#4CAF50');
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50'
+        backgroundColor: alterarBackground()
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
@@ -47,17 +47,19 @@ export default function WebViewPage({
   });
 
   return (
-    mostrarEsqueletoDeCarregamento
-      ? (
-<WebView
-  source={{ uri: route.params.url }}
-  startInLoadingState={mostrarEsqueletoDeCarregamento}
-  renderLoading={() => esqueletoDeCarregamento}
-/>
-      )
-      : (
-<WebView
-  source={{ uri: route.params.url }}
-/>
-      ));
+    <>
+    <BarraDeStatus backgroundColor={alterarBackground()} />
+    { mostrarEsqueletoDeCarregamento ? (
+        <WebView
+          source={{ uri: route.params.url }}
+          startInLoadingState={mostrarEsqueletoDeCarregamento}
+          renderLoading={() => esqueletoDeCarregamento}
+        />
+    ) : (
+        <WebView
+          source={{ uri: route.params.url }}
+        />
+    )}
+    </>
+  );
 }
