@@ -34,7 +34,7 @@ export default function FormularioInfoPessoal() {
     register('nomeCompleto', { required: true, validate: nome => nomeValido(nome) });
     register('email', { required: true, validate: email => emailValido(email) });
     register('telefone', { required: true, minLength: 14 });
-    register('municipio', { required: true });
+    register('cidade', { required: true });
     register('cpf', { required: true, minLength: 15 });
   }, [register]);
 
@@ -101,12 +101,13 @@ export default function FormularioInfoPessoal() {
                 onChangeText={text => alteraValor('telefone', text)}
                 mode="outlined"
                 theme={theme}
+                maxLength={14}
               />
               <TextInput
-                label="Município"
-                name="municipio"
+                label="Cidade"
+                name="cidade"
                 style={estilos.campoDeTexto}
-                onChangeText={text => alteraValor('municipio', text)}
+                onChangeText={text => alteraValor('cidade', text)}
                 mode="outlined"
                 theme={theme}
               />
@@ -119,6 +120,7 @@ export default function FormularioInfoPessoal() {
                 onChangeText={text => alteraValor('cpf', text)}
                 mode="outlined"
                 theme={theme}
+                maxLength={14}
               />
         </View>
         <FAB
