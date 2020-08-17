@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 // import AppTab from './appBottomTab';
 import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
-import AppDrawerScreen from './appDrawerScreen';
+import AppDrawerScreen from './appDrawerScreen.routes';
 import Buscar from '../pages/Buscar';
 import ClinicalManagement from '../pages/ClinicalManagement';
 import BuscarDescription from '../pages/Buscar/Description';
