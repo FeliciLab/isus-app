@@ -12,22 +12,15 @@ import {
 import Autocomplete from 'react-native-autocomplete-input';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
+import Regex from '../../utils/regex';
+import { getMunicipiosCeara } from '../../apis/apiCadastro';
+import { salvarDados, pegarDados } from '../../services/armazenamento';
 // eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
 // eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
-import Regex from '../../utils/regex';
-import { getMunicipiosCeara } from '../../apis/apiCadastro';
-import { salvarDados, pegarDados } from '../../services/armazenamento';
-
 
 export default function FormularioInfoPessoal() {
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      primary: '#304FFE'
-    }
-  };
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [listaCidades, esconderListaCidades] = React.useState(false);
   const [dataFiltrada, alteraDataFiltrada] = React.useState([]);
@@ -35,6 +28,13 @@ export default function FormularioInfoPessoal() {
   const [query, alteraQuery] = React.useState('');
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
+
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      primary: '#304FFE'
+    }
+  };
 
   const {
     register, setValue, trigger, errors, getValues
@@ -47,27 +47,6 @@ export default function FormularioInfoPessoal() {
     register('cpf', { required: true, minLength: 14 });
   }, [register]);
 
-  useFocusEffect(
-    useCallback(() => {
-      async function pegarMunicipios() {
-        const response = await getMunicipiosCeara();
-        alteraData(response.data.map(item => item.nome));
-      }
-      pegarMunicipios();
-    }, [])
-  );
-
-  useEffect(() => {
-    async function guardarMunicipios() {
-      await salvarDados('municipios', data);
-    }
-    guardarMunicipios();
-  }, [data]);
-
-  useEffect(() => {
-    alteraDataFiltrada(data.filter(item => query && item.startsWith(query)));
-  }, [query]);
-
   const cidadeValida = async (cidade) => {
     const cidades = await pegarDados('municipios');
     return cidades.includes(cidade);
@@ -79,6 +58,28 @@ export default function FormularioInfoPessoal() {
     await trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      async function pegarCidades() {
+        const response = await getMunicipiosCeara();
+        alteraData(response.data.map(item => item.nome));
+      }
+      pegarCidades();
+    }, [])
+  );
+
+  useEffect(() => {
+    async function guardarCidades() {
+      await salvarDados('municipios', data);
+    }
+    guardarCidades();
+  }, [data]);
+
+  useEffect(() => {
+    alteraDataFiltrada(data.filter(item => query && item.startsWith(query)));
+  }, [query]);
+
   useLayoutEffect(() => {
     navigator.setOptions({
       headerStyle: {
@@ -174,9 +175,11 @@ export default function FormularioInfoPessoal() {
                 )}
               />
         </View>
+
         <Button
           disabled={!botaoAtivo}
           label="Próximo"
+          style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           onPress={() => alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })}
