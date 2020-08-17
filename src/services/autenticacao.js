@@ -2,21 +2,21 @@
 import {
   salvarDados, pegarDados
 } from './armazenamento';
+
+import request from './request';
 import respostaLogin from '../pages/Login/json/respostaLogin.json';
 
-// const configuracao = {
-//   url: Config.KEYCLOAK_URL,
-//   realm: Config.KEYCLOAK_REALM,
-//   clientId: Config.KEYCLOAK_CLIENT_ID,
-//   redirectUri: Config.KEYCLOAK_REDIRECT_URI,
-//   appsiteUri: Config.KEYCLOAK_APPSITE_URI,
-// };
 
 async function autenticarComIdSaude(email, senha) {
   if (email === 'teste@teste.com' && senha === '12345678') {
     return respostaLogin;
   }
   throw new Error('Usuário incorreto');
+}
+
+async function pegarListaDeServicos() {
+  const resultado = await request.get('/unidades-servico');
+  return resultado.data;
 }
 
 async function salvarDadosDeCadastro(dados) {
@@ -27,7 +27,6 @@ async function pegarDadosDeCadastro() {
   const resultado = await pegarDados('cadastro-usuario');
   return resultado;
 }
-
 
 async function pegarTokenDoUsuarioNoStorage() {
   const token = await pegarDados('token_usuario');
@@ -42,6 +41,7 @@ export {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
+  pegarListaDeServicos,
   salvarDadosDeCadastro,
   pegarDadosDeCadastro
 };

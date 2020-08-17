@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet
 } from 'react-native';
@@ -7,9 +7,8 @@ import {
 } from 'react-native-paper';
 import { Controller } from 'react-hook-form';
 import DropDown from '../../components/dropdown';
-import setores from './json/setores.json';
 import FormContext from '../../context/FormContext';
-import { salvarDadosDeCadastro } from '../../services/autenticacao';
+import { salvarDadosDeCadastro, pegarListaDeServicos } from '../../services/autenticacao';
 // eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
 import FormularioSenha from './formularioSenha';
@@ -27,6 +26,7 @@ const categoriaProfissional = [
 
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
+  const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [valoresDosCheckBoxes, alterarValoresDosCheckBoxes] = useState({});
   const { alterarTelaAtual } = useContext(WizardContext);
 
@@ -39,6 +39,14 @@ function FormularioInfoProfissional() {
       accent: '#f1c40f',
     },
   };
+
+  const aoIniciar = async () => {
+    const lista = await pegarListaDeServicos();
+    console.log('list', lista);
+    alterarListaDeServicos(lista);
+  };
+
+  useEffect(aoIniciar, []);
 
   const pegarValorPadrãoDoCheckbox = (setor) => {
     if (valoresDosCheckBoxes[`checkbox-${setor.nome}`]) {
@@ -61,34 +69,34 @@ function FormularioInfoProfissional() {
       <Controller
         name="categoria"
         control={control}
-        defaultValue={categoriaProfissional[0].value}
-        render={({ onChange, value }) => (
+        defaultValue=""
+        render={({ onChange }) => (
           <DropDown
             label="Categoria profissional"
             dados={categoriaProfissional}
-            valorInicial={value}
             aoMudarValor={categoria => onChange(categoria)}
           />
         )}
       />
 
+
       <Text style={estilos.tituloDestaque}>Quais serviços em que atua?</Text>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
       <View>
-        {setores.map(setor => (
+        {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
           <Controller
-            name={`checkbox-${setor.nome}`}
+            name={`checkbox-${servico.id}`}
             control={control}
-            defaultValue={() => pegarValorPadrãoDoCheckbox(setor)}
+            defaultValue={() => pegarValorPadrãoDoCheckbox(servico)}
             render={({ onChange, value }) => (
               <Checkbox.Item
                 status={value ? 'checked' : 'unchecked'}
                 labelStyle={{ maxWidth: '70%' }}
                 theme={theme}
                 color="#304FFE"
-                label={setor.valor}
+                label={servico.nome}
                 onPress={() => {
-                  mudarValor(onChange, value, setor);
+                  mudarValor(onChange, value, servico);
                 }
                 }
               />
@@ -103,6 +111,7 @@ function FormularioInfoProfissional() {
       labelStyle={{ color: '#fff' }}
       onPress={async () => {
         const values = getValues();
+        console.log('values', values);
         salvarDadosDeCadastro(values);
         alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
