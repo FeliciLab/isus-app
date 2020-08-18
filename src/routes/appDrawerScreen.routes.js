@@ -9,6 +9,7 @@ import {
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
 import PerfilScreen from '../pages/Perfil/index';
+import TermoDeUsoScreen from '../pages/Perfil/TermosDeUso/index';
 import AppTab from './appBottomTab.routes';
 import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
@@ -32,6 +33,7 @@ export default function appDrawerScreen() {
      <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
+      <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
@@ -64,6 +66,15 @@ function PerfilStackScreen() {
     <PerfilStack.Navigator>
       <PerfilStack.Screen name="PERFIL" component={PerfilScreen} options={{ headerShown: true }} />
     </PerfilStack.Navigator>
+  );
+}
+
+const TermosDeUsoStack = createStackNavigator();
+function TermosDeUsoStackScreen() {
+  return (
+    <TermosDeUsoStack.Navigator>
+      <TermosDeUsoStack.Screen name="TERMOS_DE_USO" component={TermoDeUsoScreen} options={{ headerShown: true }} />
+    </TermosDeUsoStack.Navigator>
   );
 }
 

@@ -8,7 +8,6 @@ import MenuPerfilItem from './menuPerfilItem';
 import { logout } from '../../apis/apiKeycloak';
 import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 
-
 export default function PerfilScreen() {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
   const navigation = useNavigation();
@@ -72,7 +71,7 @@ export default function PerfilScreen() {
     <View style={estilos.margem}>
       <CabecalhoPerfil nome="" />
       <MenuPerfil titulo="Privacidade">
-        <MenuPerfilItem titulo="Termos de uso" onPress={() => 'teste'} />
+        <MenuPerfilItem titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
         <MenuPerfilItem titulo="Política de privacidade" onPress={() => 'teste'} />
       </MenuPerfil>
       <MenuPerfil titulo="Preferências">
