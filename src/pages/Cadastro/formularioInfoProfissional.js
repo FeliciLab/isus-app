@@ -10,8 +10,8 @@ import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import { salvarDadosDeCadastro, pegarListaDeServicos } from '../../services/autenticacao';
 // eslint-disable-next-line import/no-cycle
-import WizardContext from '../../context/WizardContext';
-import FormularioSenha from './formularioSenha';
+// import WizardContext from '../../context/WizardContext';
+// import FormularioSenha from './formularioSenha';
 
 const categoriaProfissional = [
   { value: 'Medicina' },
@@ -27,8 +27,8 @@ const categoriaProfissional = [
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
-  const [valoresDosCheckBoxes, alterarValoresDosCheckBoxes] = useState({});
-  const { alterarTelaAtual } = useContext(WizardContext);
+  const [unidadesServico, alterarUnidadesServico] = useState({});
+  // const { alterarTelaAtual } = useContext(WizardContext);
 
   const theme = {
     ...DefaultTheme,
@@ -42,24 +42,27 @@ function FormularioInfoProfissional() {
 
   const aoIniciar = async () => {
     const lista = await pegarListaDeServicos();
-    console.log('list', lista);
     alterarListaDeServicos(lista);
   };
 
   useEffect(aoIniciar, []);
 
   const pegarValorPadrãoDoCheckbox = (setor) => {
-    if (valoresDosCheckBoxes[`checkbox-${setor.nome}`]) {
-      return valoresDosCheckBoxes[`checkbox-${setor.nome}`];
+    if (unidadesServico[`${setor.nome}`]) {
+      return unidadesServico[`${setor.nome}`];
     }
-    return false;
+    return { id: setor.id, foiMarcado: false };
   };
 
   const mudarValor = (onChange, value, setor) => {
-    onChange(!value);
-    const check = { ...valoresDosCheckBoxes };
-    check[`checkbox-${setor.nome}`] = !value;
-    alterarValoresDosCheckBoxes(check);
+    onChange({ ...value, foiMarcado: !value.foiMarcado });
+    const check = { ...unidadesServico };
+    check[`${setor.nome}`] = { id: setor.id, foiMarcado: !value.foiMarcado };
+    alterarUnidadesServico(check);
+  };
+
+  const mostrarUnidadesDeServico = () => {
+    console.log('Unidades de serviço', unidadesServico);
   };
 
   return (
@@ -85,12 +88,12 @@ function FormularioInfoProfissional() {
       <View>
         {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
           <Controller
-            name={`checkbox-${servico.id}`}
+            name={`${servico.nome}`}
             control={control}
             defaultValue={() => pegarValorPadrãoDoCheckbox(servico)}
             render={({ onChange, value }) => (
               <Checkbox.Item
-                status={value ? 'checked' : 'unchecked'}
+                status={value.foiMarcado ? 'checked' : 'unchecked'}
                 labelStyle={{ maxWidth: '70%' }}
                 theme={theme}
                 color="#304FFE"
@@ -111,9 +114,10 @@ function FormularioInfoProfissional() {
       labelStyle={{ color: '#fff' }}
       onPress={async () => {
         const values = getValues();
-        console.log('values', values);
+        console.log('React hook form', values);
+        mostrarUnidadesDeServico();
         salvarDadosDeCadastro(values);
-        alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
+        // alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
       mode="contained"
     >
