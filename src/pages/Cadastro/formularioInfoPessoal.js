@@ -46,7 +46,7 @@ export default function FormularioInfoPessoal() {
     register('nomeCompleto', {
       required: true,
       validate: nomeCompleto => nomeValido(nomeCompleto)
-        || 'Não deve possuir números ou caracteres especiais.'
+        || 'O nome deve conter apenas letras.'
     });
     register('email', {
       required: true,
@@ -201,6 +201,8 @@ export default function FormularioInfoPessoal() {
 {' '}
           </Text>
         )}
+          <View style={{ marginTop: 32 }}>
+        <Text style={{ marginBottom: 4 }}>Município de Residência</Text>
         <Autocomplete
           label="Cidade"
           name="cidade"
@@ -224,7 +226,7 @@ export default function FormularioInfoPessoal() {
                 alteraValor('cidade', item);
               }}
             >
-              <Text style={estilos.cidadesAutocomplete}>{item}</Text>
+              <Text style={{ padding: 4 }}>{item}</Text>
             </TouchableOpacity>
           )}
         />
@@ -235,6 +237,7 @@ export default function FormularioInfoPessoal() {
 {' '}
           </Text>
         )}
+          </View>
       </View>
 
       <Button
@@ -293,14 +296,9 @@ const estilos = StyleSheet.create({
     borderRadius: 5,
     borderColor: 'gray',
     height: 56,
-    marginTop: 32
   },
   listaAutocomplete: {
     padding: 10,
     borderColor: 'gray',
   },
-  cidadesAutocomplete: {
-    padding: 4,
-  },
-  mensagemDeErro: {}
 });
