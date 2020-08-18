@@ -9,7 +9,7 @@ const informacoes = {
   },
   Direito: {
     tituloCompleto: 'Constituição Federal',
-    url: 'http://conselho.saude.gov.br/web_sus20anos/20anossus/legislacao/constituicaofederal.pdf'
+    url: 'https://conselho.saude.gov.br/web_sus20anos/20anossus/legislacao/constituicaofederal.pdf'
   },
   SistemaUnicoDeSaude: {
     tituloCompleto: 'Sistema Único de Saúde',
@@ -60,7 +60,7 @@ export const TextoSobreSUS = () => (
     mundo. Criado pela Constituição Federal Brasileira em 1988, e
     promulgado pela
     {' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('Lei8080')}>Lei 8080</Text>
+    <Text>Lei 8080</Text>
     , busca assegurar o acesso universal como
     {' '}
     <Text style={estilos.textoLink} onPress={() => navegar('Direito')}>um dever do Estado e um direito de todos os brasileiros</Text>
@@ -96,7 +96,7 @@ e
 <Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>no Ceará</Text>
 , e sobre as instâncias de
 {' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('ConselhoEstadual')}>participação das pessoas</Text>
+    <Text>participação das pessoas</Text>
 {' '}
 na construção e no fortalecimento dessa conquista.
 </Text>
@@ -111,7 +111,7 @@ O iSUS foi criado na
     <Text style={estilos.textoLink} onPress={() => navegar('ESPCE')}>Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues</Text>
 (ESP/CE), contando com a parceria da
 {' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('UECE')}>Universidade Estadual do Ceará</Text>
+    <Text>Universidade Estadual do Ceará</Text>
 {' '}
 e da
 {' '}
