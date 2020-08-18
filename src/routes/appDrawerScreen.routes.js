@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
+import PerfilScreen from '../pages/Perfil/index';
 import AppTab from './appBottomTab.routes';
 import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
@@ -29,7 +30,8 @@ export default function appDrawerScreen() {
       )}
     >
      <Drawer.Screen name="HOME" component={AppTab} />
-      <Drawer.Screen name="MEU_PERFIL" component={LoginStackScreen} />
+      <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
+      <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
@@ -53,6 +55,15 @@ function LoginStackScreen() {
     <LoginStack.Navigator>
       <LoginStack.Screen name="ID SAÚDE" component={Login} initialParams={{ possuiIDSaude: false }} options={{ headerShown: true }} />
     </LoginStack.Navigator>
+  );
+}
+
+const PerfilStack = createStackNavigator();
+function PerfilStackScreen() {
+  return (
+    <PerfilStack.Navigator>
+      <PerfilStack.Screen name="PERFIL" component={PerfilScreen} options={{ headerShown: true }} />
+    </PerfilStack.Navigator>
   );
 }
 

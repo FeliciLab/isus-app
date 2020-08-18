@@ -5,6 +5,7 @@ function Alerta({ visivel, textoDoAlerta }) {
   return (
     <Snackbar
       visible={visivel}
+      wrapperStyle={{ position: 'relative', zIndex: 500 }}
     >
         {textoDoAlerta}
     </Snackbar>
