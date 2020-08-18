@@ -79,15 +79,15 @@ function Login({ route }) {
             Ao continuar,
             você concorda com nossos
             {' '}
-            <Text style={estilos.link} onPress={() => navigation.navigate('SOBRE')}>
+            <Text style={estilos.link} onPress={() => navigation.navigate('TERMOS_DE_USO')}>
               Termos de Uso
             </Text>
-            {' '}
+            {/* {' '}
             e
             {' '}
             <Text style={estilos.link} onPress={() => navigation.navigate('SOBRE')}>
               Política de Privacidade
-            </Text>
+            </Text> */}
             .
             </Text>
           </View>
