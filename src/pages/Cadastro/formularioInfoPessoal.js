@@ -1,14 +1,15 @@
 import React, {
-  useLayoutEffect, useContext, useCallback, useEffect
+  useLayoutEffect,
+  useContext,
+  useCallback,
+  useEffect
 } from 'react';
 import {
   TouchableOpacity, StyleSheet, View, Text
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  TextInput, DefaultTheme, Button
-} from 'react-native-paper';
+import { TextInput, DefaultTheme, Button } from 'react-native-paper';
 import Autocomplete from 'react-native-autocomplete-input';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
@@ -38,13 +39,37 @@ export default function FormularioInfoPessoal() {
 
   const {
     register, setValue, trigger, errors, getValues
-  } = useContext(FormContext);
+  } = useContext(
+    FormContext
+  );
   useEffect(() => {
-    register('nomeCompleto', { required: true, validate: nome => nomeValido(nome) });
-    register('email', { required: true, validate: email => emailValido(email) });
-    register('telefone', { required: true, minLength: 14 });
-    register('cidade', { required: true, validate: cidade => cidadeValida(cidade) });
-    register('cpf', { required: true, minLength: 14 });
+    register('nomeCompleto', {
+      required: true,
+      validate: nomeCompleto => nomeValido(nomeCompleto)
+        || 'Não deve possuir números ou caracteres especiais.'
+    });
+    register('email', {
+      required: true,
+      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+    });
+    register('telefone', {
+      required: true,
+      minLength: {
+        value: 13,
+        message: 'O seu telefone deve ter pelo menos 10 números.'
+      }
+    });
+    register('cpf', {
+      required: true,
+      minLength: {
+        value: 13,
+        message: 'O seu CPF deve ter pelo menos 11 números.'
+      }
+    });
+    register('cidade', {
+      required: true,
+      validate: async cidade => await cidadeValida(cidade) || 'Escolha uma cidade válida da lista.'
+    });
   }, [register]);
 
   const cidadeValida = async (cidade) => {
@@ -52,7 +77,7 @@ export default function FormularioInfoPessoal() {
     return cidades.includes(cidade);
   };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-  const nomeValido = nome => Regex.NOME.test(nome.toLowerCase());
+  const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
@@ -105,87 +130,124 @@ export default function FormularioInfoPessoal() {
 
   return (
     <>
-        <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-        <View style={{ marginHorizontal: 16 }}>
-              <TextInput
-                label="Nome Completo"
-                name="nomeCompleto"
-                value={getValues('nomeCompleto')}
-                underlineColor="#BDBDBD"
-                onChangeText={text => alteraValor('nomeCompleto', text)}
-                style={estilos.campoDeTexto}
-                mode="outlined"
-                theme={theme}
-              />
-              <TextInput
-                label="E-mail"
-                name="email"
-                keyboardType="email-address"
-                style={estilos.campoDeTexto}
-                onChangeText={text => alteraValor('email', text)}
-                mode="outlined"
-                theme={theme}
-              />
-              <TextInput
-                label="Telefone"
-                name="telefone"
-                value={aplicaMascaraNumerica(getValues('telefone'), '(##)#####-####')}
-                keyboardType="number-pad"
-                style={estilos.campoDeTexto}
-                onChangeText={text => alteraValor('telefone', text)}
-                mode="outlined"
-                theme={theme}
-                maxLength={14}
-              />
-              <TextInput
-                label="CPF"
-                name="cpf"
-                value={aplicaMascaraNumerica(getValues('cpf'), '###.###.###-##')}
-                keyboardType="number-pad"
-                style={estilos.campoDeTexto}
-                onChangeText={text => alteraValor('cpf', text)}
-                mode="outlined"
-                theme={theme}
-                maxLength={14}
-              />
-              <Autocomplete
-                label="Cidade"
-                name="cidade"
-                placeholder="Cidade"
-                inputContainerStyle={estilos.campoDeTextoAutocomplete}
-                listStyle={estilos.listaAutocomplete}
-                listContainerStyle={{ height: dataFiltrada.length * 20 }}
-                data={dataFiltrada}
-                defaultValue={query}
-                hideResults={listaCidades}
-                onChangeText={(text) => {
-                  alteraQuery(text);
-                  esconderListaCidades(false);
-                  alteraValor('cidade', text);
-                }}
-                renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => {
-                    alteraQuery(item);
-                    esconderListaCidades(true);
-                    alteraValor('cidade', item);
-                  }}
-                  >
-                  <Text>{item}</Text>
-                  </TouchableOpacity>
-                )}
-              />
-        </View>
+      <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
+      <View style={{ marginHorizontal: 16 }}>
+        <TextInput
+          label="Nome Completo"
+          name="nomeCompleto"
+          value={getValues('nomeCompleto')}
+          underlineColor="#BDBDBD"
+          onChangeText={text => alteraValor('nomeCompleto', text)}
+          style={estilos.campoDeTexto}
+          mode="outlined"
+          theme={theme}
+        />
+        {errors.nomeCompleto && (
+          <Text style={{ color: '#000000' }}>
+            {' '}
+            {errors.nomeCompleto.message}
+{' '}
+          </Text>
+        )}
+        <TextInput
+          label="E-mail"
+          name="email"
+          keyboardType="email-address"
+          style={estilos.campoDeTexto}
+          onChangeText={text => alteraValor('email', text)}
+          mode="outlined"
+          theme={theme}
+        />
+        {errors.email && (
+          <Text style={{ color: '#000000' }}>
+{' '}
+{errors.email.message}
+{' '}
+          </Text>
+        )}
+        <TextInput
+          label="Telefone"
+          name="telefone"
+          value={aplicaMascaraNumerica(getValues('telefone'), '(##)####-#####')}
+          keyboardType="number-pad"
+          style={estilos.campoDeTexto}
+          onChangeText={text => alteraValor('telefone', text)}
+          mode="outlined"
+          theme={theme}
+          maxLength={14}
+        />
+        {errors.telefone && (
+          <Text style={{ color: '#000000' }}>
+{' '}
+{errors.telefone.message}
+{' '}
+          </Text>
+        )}
+        <TextInput
+          label="CPF"
+          name="cpf"
+          value={aplicaMascaraNumerica(getValues('cpf'), '###.###.###-##')}
+          keyboardType="number-pad"
+          style={estilos.campoDeTexto}
+          onChangeText={text => alteraValor('cpf', text)}
+          mode="outlined"
+          theme={theme}
+          maxLength={14}
+        />
+        {errors.cpf && (
+          <Text style={{ color: '#000000' }}>
+{' '}
+{errors.cpf.message}
+{' '}
+          </Text>
+        )}
+        <Autocomplete
+          label="Cidade"
+          name="cidade"
+          placeholder="Município de Residência"
+          inputContainerStyle={estilos.campoDeTextoAutocomplete}
+          listStyle={estilos.listaAutocomplete}
+          listContainerStyle={{ height: dataFiltrada.length * 25 }}
+          data={dataFiltrada}
+          defaultValue={query}
+          hideResults={listaCidades}
+          onChangeText={(text) => {
+            alteraQuery(text);
+            esconderListaCidades(false);
+            alteraValor('cidade', text);
+          }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                alteraQuery(item);
+                esconderListaCidades(true);
+                alteraValor('cidade', item);
+              }}
+            >
+              <Text style={estilos.cidadesAutocomplete}>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
+        {errors.cidade && (
+          <Text style={estilos.mensagemDeErro}>
+{' '}
+{errors.cidade.message}
+{' '}
+          </Text>
+        )}
+      </View>
 
-        <Button
-          disabled={!botaoAtivo}
-          label="Próximo"
-          style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
-          labelStyle={{ color: '#fff' }}
-          mode="contained"
-          onPress={() => alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })}
-        >
-            Próximo
-        </Button>
+      <Button
+        disabled={!botaoAtivo}
+        label="Próximo"
+        style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
+        labelStyle={{ color: '#fff' }}
+        mode="contained"
+        onPress={() => alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })
+        }
+      >
+        Próximo
+      </Button>
     </>
   );
 }
@@ -202,11 +264,10 @@ const estilos = StyleSheet.create({
     marginTop: 24,
     fontSize: 20,
     lineHeight: 23,
-    letterSpacing: 0.15,
-    paddingBottom: 16
+    letterSpacing: 0.15
   },
   campoDeTexto: {
-    paddingBottom: 28,
+    paddingTop: 28,
     backgroundColor: '#FFF'
   },
   botao: {
@@ -216,7 +277,7 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#BDBDBD'
+    backgroundColor: '#BDBDBD',
   },
   botaoHabilitado: {
     borderRadius: 50,
@@ -232,9 +293,14 @@ const estilos = StyleSheet.create({
     borderRadius: 5,
     borderColor: 'gray',
     height: 56,
+    marginTop: 32
   },
   listaAutocomplete: {
     padding: 10,
-    borderColor: 'gray'
-  }
+    borderColor: 'gray',
+  },
+  cidadesAutocomplete: {
+    padding: 4,
+  },
+  mensagemDeErro: {}
 });
