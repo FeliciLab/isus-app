@@ -98,11 +98,10 @@ export default function PerfilScreen() {
         <DadosUsuario dados={dadosUsuario} />
       </MenuPerfil>
       <MenuPerfil titulo="Privacidade">
-        <MenuPerfilItem titulo="Termos de uso" onPress={() => 'teste'} />
-        <MenuPerfilItem titulo="Política de privacidade" onPress={() => 'teste'} />
+        <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => 'teste'} />
       </MenuPerfil>
       <MenuPerfil titulo="Preferências">
-        <MenuPerfilItem titulo="Sair" onPress={() => realizarLogout()} />
+        <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
       </MenuPerfil>
     </View>
   );

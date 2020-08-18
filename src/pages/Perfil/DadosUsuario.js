@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { aplicaMascaraNumerica } from '../../utils/mascaras';
 
 export default function DadosUsuario({ dados }) {
   return (
@@ -9,7 +10,7 @@ export default function DadosUsuario({ dados }) {
       <Text style={estilos.label}>MUNICIPIO</Text>
       <Text style={estilos.dado}>{dados.cidade}</Text>
       <Text style={estilos.label}>CPF</Text>
-      <Text style={estilos.dado}>{dados.cpf}</Text>
+      <Text style={estilos.dado}>{aplicaMascaraNumerica(dados.cpf, '###.###.###-##')}</Text>
     </View>
   );
 }
