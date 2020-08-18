@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
+import { cadastrarUsuario } from '../../apis/apiCadastro';
+import { removeMascaraNumerica } from '../../utils/mascaras';
 
 export default function FormularioSenha() {
   // const [temErro, alterarErro] = useState(false);
@@ -28,9 +30,30 @@ export default function FormularioSenha() {
     console.log('errors', errors);
   };
 
+  const tratarDadosCadastro = (dadosCadastro) => {
+    const {
+      nomeCompleto, cpf, municipio, telefone, repetirsenha
+    } = dadosCadastro;
+    return {
+      nome: nomeCompleto.substring(0, nomeCompleto.indexOf(' ')),
+      sobrenome: nomeCompleto.substring(nomeCompleto.indexOf(' ') + 1),
+      cpf: removeMascaraNumerica(cpf),
+      cidade: municipio,
+      cidadeId: 6,
+      telefone: removeMascaraNumerica(telefone),
+      termos: true,
+      repetirsenha,
+    };
+  };
+
+  const realizarCadastroDoUsuario = async () => {
+    const dadosCadastro = tratarDadosCadastro(getValues());
+    await cadastrarUsuario(dadosCadastro);
+  };
+
   useEffect(() => {
     register('senha', { required: true, minLength: { value: 8, message: 'A sua senha deve ter pelo menos 8 caracteres.' } });
-    register('confSenha', { required: true, validate: confSenha => confSenha === getValues('senha') || 'Não confere com a senha.' });
+    register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || 'Não confere com a senha.' });
   }, [register]);
 
   return (
@@ -60,19 +83,19 @@ export default function FormularioSenha() {
         <View>
           <TextInput
             label="Confirmação de senha"
-            name="confSenha"
+            name="repetirsenha"
             secureTextEntry
-            value={getValues('confSenha')}
+            value={getValues('repetirsenha')}
             underlineColor="#BDBDBD"
-            onChangeText={text => alteraValor('confSenha', text)}
+            onChangeText={text => alteraValor('repetirsenha', text)}
             style={estilos.campoDeTexto}
             mode="outlined"
             theme={theme}
           />
-          { errors.confSenha && (
+          { errors.repetirsenha && (
   <Text style={{ color: '#000000' }}>
   {' '}
-  {errors.confSenha.message}
+  {errors.repetirsenha.message}
   {' '}
   </Text>
           ) }
@@ -83,7 +106,7 @@ export default function FormularioSenha() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        onPress={() => console.log(errors)}
+        onPress={async () => realizarCadastroDoUsuario()}
       >
         Finalizar
       </Button>
