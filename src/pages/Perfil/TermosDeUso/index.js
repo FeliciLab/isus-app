@@ -11,7 +11,7 @@ export default function TermosDeUsoScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#304FFE',
+        backgroundColor: '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
       },
