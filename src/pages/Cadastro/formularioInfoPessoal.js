@@ -24,8 +24,9 @@ import FormularioInfoProfissional from './formularioInfoProfissional';
 export default function FormularioInfoPessoal() {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [listaCidades, esconderListaCidades] = React.useState(false);
-  const [dataFiltrada, alteraDataFiltrada] = React.useState([]);
-  const [data, alteraData] = React.useState(() => []);
+  const [nomeCidadesFiltrada, alteraNomeCidadesFiltradas] = React.useState([]);
+  const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
+  const [cidades, pegaCidades] = React.useState([]);
   const [query, alteraQuery] = React.useState('');
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
@@ -68,13 +69,23 @@ export default function FormularioInfoPessoal() {
     });
     register('cidade', {
       required: true,
-      validate: async cidade => await cidadeValida(cidade) || 'Escolha uma cidade válida da lista.'
+      validate: async cidade => await cidadeValida(cidade.nome) || 'Escolha uma cidade válida da lista.'
     });
   }, [register]);
 
+  const pegarId = (municipio) => {
+    let teste = null;
+    cidades.forEach((element) => {
+      if (element.nome === municipio) {
+        teste = element.id;
+      }
+    });
+    return teste;
+  };
+
   const cidadeValida = async (cidade) => {
-    const cidades = await pegarDados('municipios');
-    return cidades.includes(cidade);
+    const municipios = await pegarDados('municipios');
+    return municipios.includes(cidade);
   };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
@@ -88,7 +99,8 @@ export default function FormularioInfoPessoal() {
     useCallback(() => {
       async function pegarCidades() {
         const response = await getMunicipiosCeara();
-        alteraData(response.data.map(item => item.nome));
+        alteraNomeCidades(response.data.map(item => item.nome));
+        pegaCidades(response.data.map(item => item));
       }
       pegarCidades();
     }, [])
@@ -96,13 +108,14 @@ export default function FormularioInfoPessoal() {
 
   useEffect(() => {
     async function guardarCidades() {
-      await salvarDados('municipios', data);
+      await salvarDados('municipios', nomeCidades);
+      await salvarDados('objeto', cidades);
     }
     guardarCidades();
-  }, [data]);
+  }, [nomeCidades]);
 
   useEffect(() => {
-    alteraDataFiltrada(data.filter(item => query && item.startsWith(query)));
+    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.startsWith(query)));
   }, [query]);
 
   useLayoutEffect(() => {
@@ -209,21 +222,21 @@ export default function FormularioInfoPessoal() {
           placeholder="Município de Residência"
           inputContainerStyle={estilos.campoDeTextoAutocomplete}
           listStyle={estilos.listaAutocomplete}
-          listContainerStyle={{ height: dataFiltrada.length * 25 }}
-          data={dataFiltrada}
+          listContainerStyle={{ height: nomeCidadesFiltrada.length * 25 }}
+          data={nomeCidadesFiltrada}
           defaultValue={query}
           hideResults={listaCidades}
           onChangeText={(text) => {
             alteraQuery(text);
             esconderListaCidades(false);
-            alteraValor('cidade', text);
+            alteraValor('cidade', { id: pegarId(text), nome: text });
           }}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
                 alteraQuery(item);
                 esconderListaCidades(true);
-                alteraValor('cidade', item);
+                alteraValor('cidade', { id: pegarId(item), nome: item });
               }}
             >
               <Text style={{ padding: 4 }}>{item}</Text>
