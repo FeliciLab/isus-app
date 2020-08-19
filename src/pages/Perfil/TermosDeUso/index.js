@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '../../../components/barraDeStatus';
 
 export default function TermosDeUsoScreen() {
   const navigation = useNavigation();
@@ -35,6 +36,7 @@ export default function TermosDeUsoScreen() {
 
   return (
     <>
+    <BarraDeStatus barStyle="light-content" backgroundColor="#304FFE" />
     <ScrollView style={{ backgroundColor: '#fff' }}>
       <View>
         <Text style={estilos.titulo}>Termos de uso do ID Saúde</Text>

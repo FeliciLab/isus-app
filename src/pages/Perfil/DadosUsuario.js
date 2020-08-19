@@ -8,7 +8,7 @@ export default function DadosUsuario({ dados }) {
       <Text style={estilos.label}>E-MAIL</Text>
       <Text style={estilos.dado}>{dados.email}</Text>
       <Text style={estilos.label}>MUNICIPIO</Text>
-      <Text style={estilos.dado}>{dados.cidade}</Text>
+      <Text style={estilos.dado}>{dados.cidade || 'Não informado'}</Text>
       <Text style={estilos.label}>CPF</Text>
       <Text style={estilos.dado}>{aplicaMascaraNumerica(dados.cpf, '###.###.###-##')}</Text>
     </View>
