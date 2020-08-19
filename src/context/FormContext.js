@@ -13,6 +13,7 @@ export const FormProvider = ({ initValues, children }) => {
     setValue,
     getValues,
     control,
+    unregister
   } = useForm({
     defaultValues: initValues || {},
     mode: 'onBlur',
@@ -33,6 +34,7 @@ export const FormProvider = ({ initValues, children }) => {
         setValues,
         getValues,
         control,
+        unregister
       }}
     >
       {children}

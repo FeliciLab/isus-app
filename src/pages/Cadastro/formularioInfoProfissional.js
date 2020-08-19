@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import React, { useContext, useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet
@@ -8,15 +9,18 @@ import {
 import { Controller } from 'react-hook-form';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
-import { salvarDadosDeCadastro } from '../../services/autenticacao';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
+import WizardContext from '../../context/WizardContext';
+import FormularioSenha from './formularioSenha';
 
 function FormularioInfoProfissional() {
-  const { getValues, control } = useContext(FormContext);
+  const {
+    control, setValue, register, unregister
+  } = useContext(FormContext);
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [unidadesServico, alterarUnidadesServico] = useState({});
-  // const { alterarTelaAtual } = useContext(WizardContext);
+  const { alterarTelaAtual } = useContext(WizardContext);
 
   const theme = {
     ...DefaultTheme,
@@ -33,28 +37,37 @@ function FormularioInfoProfissional() {
     alterarListaDeServicos(servicos);
 
     const categorias = await pegarListaDeCategoriasProfissionais();
-    console.log(categorias);
     alterarListaDeCategorias(categorias);
   };
 
   useEffect(aoIniciar, []);
 
-  const pegarValorPadrãoDoCheckbox = (setor) => {
-    if (unidadesServico[`${setor.nome}`]) {
-      return unidadesServico[`${setor.nome}`];
+  const pegarValorPadrãoDoCheckbox = (servico) => {
+    if (unidadesServico[`${servico.nome}`]) {
+      return unidadesServico[`${servico.nome}`];
     }
-    return { id: setor.id, foiMarcado: false };
+    return { id: servico.id, nome: servico.nome, foiMarcado: false };
   };
 
-  const mudarValor = (onChange, value, setor) => {
+  const mudarValor = (onChange, value, servico) => {
     onChange({ ...value, foiMarcado: !value.foiMarcado });
     const check = { ...unidadesServico };
-    check[`${setor.nome}`] = { id: setor.id, foiMarcado: !value.foiMarcado };
+    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: !value.foiMarcado };
     alterarUnidadesServico(check);
   };
 
-  const mostrarUnidadesDeServico = () => {
-    console.log('Unidades de serviço', unidadesServico);
+  const tratarUnidadesDeServico = () => {
+    const ServicosMarcados = Object.values(unidadesServico).filter(servico => servico.foiMarcado);
+    return JSON.stringify(
+      ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
+    );
+  };
+
+  const registrarValores = () => {
+    listaDeServicos.map(servico => unregister(servico.nome));
+    register({ name: 'unidadeServico' });
+    const servicosTratados = tratarUnidadesDeServico();
+    setValue('unidadeServico', servicosTratados);
   };
 
   return (
@@ -106,12 +119,9 @@ function FormularioInfoProfissional() {
     <Button
       style={estilos.botao}
       labelStyle={{ color: '#fff' }}
-      onPress={async () => {
-        const values = getValues();
-        console.log('React hook form', values);
-        mostrarUnidadesDeServico();
-        salvarDadosDeCadastro(values);
-        // alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
+      onPress={() => {
+        registrarValores();
+        alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
       mode="contained"
     >
