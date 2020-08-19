@@ -2,7 +2,6 @@
 import {
   salvarDados, pegarDados, removerDados
 } from './armazenamento';
-import request from './request';
 import { autenticar } from '../apis/apiKeycloak';
 
 
@@ -13,11 +12,6 @@ async function autenticarComIdSaude(email, senha) {
   } catch (err) {
     throw err;
   }
-}
-
-async function pegarListaDeServicos() {
-  const resultado = await request.get('/unidades-servico');
-  return resultado.data;
 }
 
 async function salvarDadosDeCadastro(dados) {
@@ -46,7 +40,6 @@ export {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
-  pegarListaDeServicos,
   salvarDadosDeCadastro,
   pegarDadosDeCadastro,
   excluirTokenDoUsuarioNoStorage

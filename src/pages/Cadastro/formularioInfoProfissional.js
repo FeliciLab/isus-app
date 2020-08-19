@@ -8,25 +8,13 @@ import {
 import { Controller } from 'react-hook-form';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
-import { salvarDadosDeCadastro, pegarListaDeServicos } from '../../services/autenticacao';
-// eslint-disable-next-line import/no-cycle
-// import WizardContext from '../../context/WizardContext';
-// import FormularioSenha from './formularioSenha';
-
-const categoriaProfissional = [
-  { value: 'Medicina' },
-  { value: 'Fisioterapia' },
-  { value: 'Enfermagem' },
-  { value: 'Terapia Ocupacional' },
-  { value: 'Farmácia' },
-  { value: 'Coordenação Clínica' },
-  { value: 'Coordenação de Enfermagem' },
-  { value: 'Outra' }
-];
+import { salvarDadosDeCadastro } from '../../services/autenticacao';
+import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
 
 function FormularioInfoProfissional() {
   const { getValues, control } = useContext(FormContext);
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
+  const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [unidadesServico, alterarUnidadesServico] = useState({});
   // const { alterarTelaAtual } = useContext(WizardContext);
 
@@ -41,8 +29,12 @@ function FormularioInfoProfissional() {
   };
 
   const aoIniciar = async () => {
-    const lista = await pegarListaDeServicos();
-    alterarListaDeServicos(lista);
+    const servicos = await pegarListaDeServicos();
+    alterarListaDeServicos(servicos);
+
+    const categorias = await pegarListaDeCategoriasProfissionais();
+    console.log(categorias);
+    alterarListaDeCategorias(categorias);
   };
 
   useEffect(aoIniciar, []);
@@ -70,13 +62,15 @@ function FormularioInfoProfissional() {
     <View style={{ marginTop: 24 }}>
       <Text style={estilos.tituloDestaque}>Informações profissionais</Text>
       <Controller
-        name="categoria"
+        name="categoriaProfissional"
         control={control}
         defaultValue=""
         render={({ onChange }) => (
           <DropDown
             label="Categoria profissional"
-            dados={categoriaProfissional}
+            dados={listaDeCategorias}
+            definirValor={item => JSON.stringify(item)}
+            definirRotulo={item => item.nome}
             aoMudarValor={categoria => onChange(categoria)}
           />
         )}
