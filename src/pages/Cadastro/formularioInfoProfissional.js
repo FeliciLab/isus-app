@@ -15,7 +15,7 @@ import FormularioSenha from './formularioSenha';
 
 function FormularioInfoProfissional() {
   const {
-    control, setValue, register, unregister
+    control, setValue, register, unregister, getValues
   } = useContext(FormContext);
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
@@ -32,15 +32,16 @@ function FormularioInfoProfissional() {
     },
   };
 
-  const aoIniciar = async () => {
-    const servicos = await pegarListaDeServicos();
-    alterarListaDeServicos(servicos);
+  useEffect(() => {
+    const aoIniciar = async () => {
+      const servicos = await pegarListaDeServicos();
+      alterarListaDeServicos(servicos);
 
-    const categorias = await pegarListaDeCategoriasProfissionais();
-    alterarListaDeCategorias(categorias);
-  };
-
-  useEffect(aoIniciar, []);
+      const categorias = await pegarListaDeCategoriasProfissionais();
+      alterarListaDeCategorias(categorias);
+    };
+    aoIniciar();
+  }, []);
 
   const pegarValorPadrãoDoCheckbox = (servico) => {
     if (unidadesServico[`${servico.nome}`]) {
@@ -63,31 +64,31 @@ function FormularioInfoProfissional() {
     );
   };
 
-  const registrarValores = () => {
+  const registrarUnidadesDeServico = () => {
     listaDeServicos.map(servico => unregister(servico.nome));
     register({ name: 'unidadeServico' });
     const servicosTratados = tratarUnidadesDeServico();
     setValue('unidadeServico', servicosTratados);
   };
 
+  const registarCategoriaProfissional = (categoria) => {
+    register({ name: 'categoriaProfissional' });
+    setValue('categoriaProfissional', categoria);
+  };
+
   return (
     <>
     <View style={{ marginTop: 24 }}>
       <Text style={estilos.tituloDestaque}>Informações profissionais</Text>
-      <Controller
-        name="categoriaProfissional"
-        control={control}
-        defaultValue=""
-        render={({ onChange }) => (
           <DropDown
             label="Categoria profissional"
             dados={listaDeCategorias}
             definirValor={item => JSON.stringify(item)}
             definirRotulo={item => item.nome}
-            aoMudarValor={categoria => onChange(categoria)}
+            aoMudarValor={(categoria) => {
+              registarCategoriaProfissional(categoria);
+            }}
           />
-        )}
-      />
 
 
       <Text style={estilos.tituloDestaque}>Quais serviços em que atua?</Text>
@@ -120,7 +121,8 @@ function FormularioInfoProfissional() {
       style={estilos.botao}
       labelStyle={{ color: '#fff' }}
       onPress={() => {
-        registrarValores();
+        registrarUnidadesDeServico();
+        console.log(getValues());
         alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
       mode="contained"

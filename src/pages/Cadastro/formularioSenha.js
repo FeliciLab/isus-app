@@ -6,7 +6,6 @@ import { cadastrarUsuario } from '../../apis/apiCadastro';
 import { removeMascaraNumerica } from '../../utils/mascaras';
 
 export default function FormularioSenha() {
-  // const [temErro, alterarErro] = useState(false);
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
 
   const {
@@ -52,6 +51,7 @@ export default function FormularioSenha() {
   };
 
   useEffect(() => {
+    console.log('valor no inicio', getValues());
     register('senha', { required: true, minLength: { value: 8, message: 'A sua senha deve ter pelo menos 8 caracteres.' } });
     register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || 'Não confere com a senha.' });
   }, [register]);
@@ -106,7 +106,10 @@ export default function FormularioSenha() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        onPress={async () => realizarCadastroDoUsuario()}
+        onPress={() => {
+          realizarCadastroDoUsuario();
+          console.log(getValues());
+        }}
       >
         Finalizar
       </Button>
