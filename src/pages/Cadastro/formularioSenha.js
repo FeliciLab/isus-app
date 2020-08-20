@@ -4,7 +4,6 @@ import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FormContext from '../../context/FormContext';
 import { cadastrarUsuario } from '../../apis/apiCadastro';
-import { removeMascaraNumerica } from '../../utils/mascaras';
 import Alerta from '../../components/alerta';
 
 export default function FormularioSenha() {
@@ -47,8 +46,8 @@ export default function FormularioSenha() {
       ...dadosCadastro,
       cidadeId: cidade.id,
       cidade: cidade.nome,
-      cpf: removeMascaraNumerica(cpf),
-      telefone: removeMascaraNumerica(telefone),
+      cpf,
+      telefone,
       termos: true
     };
   };
