@@ -85,6 +85,9 @@ export default function FormularioInfoPessoal() {
 
   const cidadeValida = async (cidade) => {
     const municipios = await pegarDados('municipios');
+    if (municipios.includes(cidade)) {
+      esconderListaCidades(true);
+    }
     return municipios.includes(cidade);
   };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
@@ -157,8 +160,8 @@ export default function FormularioInfoPessoal() {
         />
         {errors.nomeCompleto && (
           <Text style={{ color: '#000000' }}>
-            {' '}
-            {errors.nomeCompleto.message}
+{' '}
+{errors.nomeCompleto.message}
 {' '}
           </Text>
         )}
