@@ -47,7 +47,11 @@ export default function PerfilScreen() {
   );
 
   const realizarLogout = async () => {
-    await logout(tokenUsuario);
+    try {
+      await logout(tokenUsuario);
+    } catch (err) {
+      console.log('erro', err);
+    }
     await excluirTokenDoUsuarioNoStorage();
     const token = await pegarTokenDoUsuarioNoStorage();
     console.log('TOKEN APÓS LOGOUT', token);
