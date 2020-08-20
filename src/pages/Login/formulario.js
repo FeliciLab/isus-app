@@ -18,9 +18,8 @@ function FormularioLogin() {
     colors: {
       primary: '#fff',
       accent: '#fff',
-      background: 'transparent',
       text: '#fff',
-      surface: '#fff',
+      background: '#304FFE',
       placeholder: '#fff'
     }
   };
@@ -63,6 +62,7 @@ function FormularioLogin() {
       label="E-mail"
       mode="outlined"
       placeholder="E-mail"
+      selectionColor="#00000AB"
       onChangeText={(textoEmail) => {
         alterarEmail(textoEmail);
         if (email.length > 1 && !emailValido()) {
@@ -81,6 +81,7 @@ function FormularioLogin() {
        onChangeText={textoSenha => alterarSenha(textoSenha)}
        theme={theme}
        label="Senha"
+       selectionColor="#00000AB"
        placeholder="Senha"
        mode="outlined"
        secureTextEntry
