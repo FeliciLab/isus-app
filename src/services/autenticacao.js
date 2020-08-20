@@ -40,7 +40,7 @@ export {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
+  excluirTokenDoUsuarioNoStorage,
   salvarDadosDeCadastro,
-  pegarDadosDeCadastro,
-  excluirTokenDoUsuarioNoStorage
+  pegarDadosDeCadastro
 };

@@ -14,9 +14,11 @@ import {
   DrawerContentScrollView,
   DrawerItem
 } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
 import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
+import IconTermosDeUso from '../assets/icons/termos_de_uso.svg';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
@@ -24,6 +26,7 @@ function conteudoDoDrawer(props) {
     navigation: { navigate },
     routeName
   } = props;
+  const navigationTermos = useNavigation();
 
   const versaoSistema = packageJson.version;
 
@@ -102,6 +105,18 @@ function conteudoDoDrawer(props) {
               inactiveBackgroundColor="transparent"
               activeBackgroundColor="transparent"
               onPress={() => aoCompartilhar()}
+            />
+      </View>
+      <View style={estilos.itemCompartilhar}>
+            <DrawerItem
+              icon={() => <IconTermosDeUso />}
+              label="Termos de Uso"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="#111"
+              activeTintColor="#111"
+              inactiveBackgroundColor="transparent"
+              activeBackgroundColor="transparent"
+              onPress={() => navigationTermos.navigate('TERMOS_DE_USO')}
             />
       </View>
       <View style={estilos.viewVersao}>
