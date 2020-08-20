@@ -97,18 +97,6 @@ function conteudoDoDrawer(props) {
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={estilos.itemCompartilhar}>
             <DrawerItem
-              icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
-              label="Compartilhe o iSUS"
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
-              onPress={() => aoCompartilhar()}
-            />
-      </View>
-      <View style={estilos.itemCompartilhar}>
-            <DrawerItem
               icon={() => <IconTermosDeUso />}
               label="Termos de Uso"
               labelStyle={{ fontSize: 15 }}
@@ -119,6 +107,19 @@ function conteudoDoDrawer(props) {
               onPress={() => navigationTermos.navigate('TERMOS_DE_USO')}
             />
       </View>
+      <View style={estilos.itemCompartilhar}>
+            <DrawerItem
+              icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
+              label="Compartilhe o iSUS"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="#111"
+              activeTintColor="#111"
+              inactiveBackgroundColor="transparent"
+              activeBackgroundColor="transparent"
+              onPress={() => aoCompartilhar()}
+            />
+      </View>
+
       <View style={estilos.viewVersao}>
         <Text style={estilos.textoVersao}>
           Versão
@@ -159,7 +160,6 @@ const estilos = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 25 : 0
   },
   itemCompartilhar: {
-    flexDirection: 'row',
     alignItems: 'flex-start',
   },
 });
