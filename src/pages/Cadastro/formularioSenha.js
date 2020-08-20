@@ -1,12 +1,22 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 import FormContext from '../../context/FormContext';
 import { cadastrarUsuario } from '../../apis/apiCadastro';
 import { removeMascaraNumerica } from '../../utils/mascaras';
+import Alerta from '../../components/alerta';
 
 export default function FormularioSenha() {
+  const navigator = useNavigation();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
+  const mensagemDeSucesso = 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.';
+  const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
+
+  const mostrarAlerta = () => {
+    alterarCadastroRealizado(true);
+    setTimeout(() => alterarCadastroRealizado(false), 2000);
+  };
 
   const {
     register, setValue, trigger, errors, getValues
@@ -30,24 +40,27 @@ export default function FormularioSenha() {
   };
 
   const tratarDadosCadastro = (dadosCadastro) => {
-    const {
-      nomeCompleto, cpf, municipio, telefone, repetirsenha
-    } = dadosCadastro;
+    const { cidade, cpf, telefone } = dadosCadastro;
     return {
-      nome: nomeCompleto.substring(0, nomeCompleto.indexOf(' ')),
-      sobrenome: nomeCompleto.substring(nomeCompleto.indexOf(' ') + 1),
+      ...dadosCadastro,
+      cidadeId: cidade.id,
+      cidade: cidade.nome,
       cpf: removeMascaraNumerica(cpf),
-      cidade: municipio,
-      cidadeId: 6,
       telefone: removeMascaraNumerica(telefone),
-      termos: true,
-      repetirsenha,
+      termos: true
     };
   };
 
   const realizarCadastroDoUsuario = async () => {
-    const dadosCadastro = tratarDadosCadastro(getValues());
-    await cadastrarUsuario(dadosCadastro);
+    try {
+      const dados = tratarDadosCadastro(getValues());
+      console.log('DADOS TRATADOS', dados);
+      await cadastrarUsuario(dados);
+      mostrarAlerta();
+    } catch (err) {
+      alterarCadastroRealizado(false);
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -108,11 +121,13 @@ export default function FormularioSenha() {
         mode="contained"
         onPress={() => {
           realizarCadastroDoUsuario();
+          setTimeout(() => navigator.navigate('LOGIN', { screen: 'LOGIN' }), 2000);
           console.log(getValues());
         }}
       >
         Finalizar
       </Button>
+      <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDeSucesso} />
     </>
   );
 }

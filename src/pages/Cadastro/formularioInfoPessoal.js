@@ -11,7 +11,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextInput, DefaultTheme, Button } from 'react-native-paper';
 import Autocomplete from 'react-native-autocomplete-input';
-import { aplicaMascaraNumerica } from '../../utils/mascaras';
+import { aplicaMascaraNumerica, removeMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
@@ -56,16 +56,18 @@ export default function FormularioInfoPessoal() {
     register('telefone', {
       required: true,
       minLength: {
-        value: 13,
-        message: 'O seu telefone deve ter pelo menos 10 números.'
-      }
+        value: 11,
+        message: 'O seu telefone deve ter pelo menos 11 números.'
+      },
+      maxLength: 14
     });
     register('cpf', {
       required: true,
       minLength: {
-        value: 13,
+        value: 11,
         message: 'O seu CPF deve ter pelo menos 11 números.'
-      }
+      },
+      maxLength: 14
     });
     register('cidade', {
       required: true,
@@ -95,6 +97,7 @@ export default function FormularioInfoPessoal() {
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
+    console.log('VALORES', getValues());
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
 
@@ -187,7 +190,7 @@ export default function FormularioInfoPessoal() {
           value={aplicaMascaraNumerica(getValues('telefone'), '(##)####-#####')}
           keyboardType="number-pad"
           style={estilos.campoDeTexto}
-          onChangeText={text => alteraValor('telefone', text)}
+          onChangeText={text => alteraValor('telefone', removeMascaraNumerica(text))}
           mode="outlined"
           theme={theme}
           maxLength={14}
@@ -205,7 +208,7 @@ export default function FormularioInfoPessoal() {
           value={aplicaMascaraNumerica(getValues('cpf'), '###.###.###-##')}
           keyboardType="number-pad"
           style={estilos.campoDeTexto}
-          onChangeText={text => alteraValor('cpf', text)}
+          onChangeText={text => alteraValor('cpf', removeMascaraNumerica(text))}
           mode="outlined"
           theme={theme}
           maxLength={14}
