@@ -10,12 +10,14 @@ import Alerta from '../../components/alerta';
 export default function FormularioSenha() {
   const navigator = useNavigation();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
+  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const mensagemDeSucesso = 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.';
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
 
-  const mostrarAlerta = () => {
+  const mostrarAlerta = (mensagem) => {
+    alterarMensagemDoAlerta(mensagem);
     alterarCadastroRealizado(true);
-    setTimeout(() => alterarCadastroRealizado(false), 2000);
+    setTimeout(() => alterarCadastroRealizado(false), 4000);
   };
 
   const {
@@ -52,15 +54,35 @@ export default function FormularioSenha() {
   };
 
   const realizarCadastroDoUsuario = async () => {
-    try {
-      const dados = tratarDadosCadastro(getValues());
-      console.log('DADOS TRATADOS', dados);
-      await cadastrarUsuario(dados);
-      mostrarAlerta();
-    } catch (err) {
-      alterarCadastroRealizado(false);
-      console.log(err);
+    const dados = tratarDadosCadastro(getValues());
+    console.log('DADOS TRATADOS', dados);
+    const resposta = await cadastrarUsuario(dados);
+    return resposta.data;
+  };
+
+  const aposCadastro = (resultado) => {
+    if (resultado.sucesso) {
+      mostrarAlerta(mensagemDeSucesso);
+      setTimeout(() => navigator.navigate('LOGIN', { screen: 'LOGIN' }), 4000);
+      return;
     }
+    let mensagemErro;
+    if (resultado.erros.cpf) {
+      const [mensagemErroCPF] = resultado.erros.cpf;
+      mensagemErro = mensagemErroCPF;
+    }
+    if (resultado.erros.email) {
+      const [mensagemErroEmail] = resultado.erros.email;
+      mensagemErro = mensagemErroEmail;
+    }
+    if (resultado.erros.email && resultado.erros.cpf) {
+      const [mensagemErroEmail] = resultado.erros.email;
+      const [mensagemErroCPF] = resultado.erros.cpf;
+      mostrarAlerta(mensagemErroEmail);
+      mostrarAlerta(mensagemErroCPF);
+      return;
+    }
+    mostrarAlerta(mensagemErro);
   };
 
   useEffect(() => {
@@ -119,15 +141,19 @@ export default function FormularioSenha() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        onPress={() => {
-          realizarCadastroDoUsuario();
-          setTimeout(() => navigator.navigate('LOGIN', { screen: 'LOGIN' }), 2000);
-          console.log(getValues());
+        onPress={async () => {
+          try {
+            const resultado = await realizarCadastroDoUsuario();
+            aposCadastro(resultado);
+            console.log(getValues());
+          } catch (err) {
+            console.log('ERRO AO CADASTRAR', err);
+          }
         }}
       >
         Finalizar
       </Button>
-      <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDeSucesso} />
+      <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDoAlerta} />
     </>
   );
 }
