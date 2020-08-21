@@ -1,7 +1,10 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  View, Text, TouchableOpacity, StyleSheet, ScrollView
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
+import termoDeUso from './termo-de-uso.json';
 
 export default function TermosDeUsoScreen() {
   const navigation = useNavigation();
@@ -16,18 +19,6 @@ export default function TermosDeUsoScreen() {
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'Termos de Uso',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -37,15 +28,52 @@ export default function TermosDeUsoScreen() {
             navigation.goBack();
           }}
         >
-          <Icon name="keyboard-backspace" size={28} color="#FFF" />
+           <SetaEsquerda />
         </TouchableOpacity>
       )
     });
   });
 
   return (
-    <View>
-      <Text>Termos de Uso</Text>
-    </View>
+    <>
+    <ScrollView style={{ backgroundColor: '#fff' }}>
+      <View>
+        <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
+      </View>
+      <View style={estilos.conteudoTexto}>
+        {
+          termoDeUso.paragrafos.map(paragrafo => (
+            <Text style={estilos.texto}>
+              {paragrafo}
+            </Text>
+          ))
+        }
+        {
+          termoDeUso.secoes.map(secao => (
+            <View>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+                {secao.titulo}
+              </Text>
+                {
+                  secao.paragrafos.map(paragrafo => (
+                    <Text style={estilos.texto}>
+                    {paragrafo}
+                    </Text>
+                  ))
+                }
+            </View>
+          ))
+        }
+      </View>
+    </ScrollView>
+    </>
   );
 }
+
+const estilos = StyleSheet.create({
+  titulo: { fontSize: 24, left: 16, marginTop: 30 },
+  conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
+  texto: {
+    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 10, marginTop: 5
+  }
+});
