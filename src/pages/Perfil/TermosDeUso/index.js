@@ -51,7 +51,7 @@ export default function TermosDeUsoScreen() {
         {
           termoDeUso.secoes.map(secao => (
             <View>
-              <Text style={{ fontWeight: 'bold', fontSize: 18}}>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
                 {secao.titulo}
               </Text>
                 {
