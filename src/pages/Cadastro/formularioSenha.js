@@ -99,7 +99,6 @@ export default function FormularioSenha() {
             label="Senha"
             name="senha"
             secureTextEntry
-            value={getValues('senha')}
             underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('senha', text)}
             style={estilos.campoDeTexto}
@@ -119,7 +118,6 @@ export default function FormularioSenha() {
             label="Confirmação de senha"
             name="repetirsenha"
             secureTextEntry
-            value={getValues('repetirsenha')}
             underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('repetirsenha', text)}
             style={estilos.campoDeTexto}
