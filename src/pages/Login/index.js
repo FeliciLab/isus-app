@@ -55,7 +55,7 @@ function Login({ route }) {
         </Text>
       </View>
       <View>
-        <Button style={{ ...estilos.botao, backgroundColor: '#ffffff' }} mode="contained"> Realizar meu cadastro </Button>
+        <Button style={{ ...estilos.botao, backgroundColor: '#ffffff' }} onPress={() => navigation.navigate('CADASTRO')} mode="contained"> Realizar meu cadastro </Button>
         <Button style={estilos.botao} mode="text" color="#ffffff" onPress={() => alterarPossuirIDSaude(true)}> Já possuo ID Saúde </Button>
       </View>
     </>
@@ -64,7 +64,7 @@ function Login({ route }) {
 
   return (
     <>
-    <BarraDeStatus backgroundColor="#304FFE" />
+    <BarraDeStatus barStyle="light-content" backgroundColor="#304FFE" />
       <SafeAreaView style={estilos.safeArea}>
         <ScrollView style={estilos.scroll}>
           <View style={estilos.conteudoImagem}>
@@ -79,15 +79,15 @@ function Login({ route }) {
             Ao continuar,
             você concorda com nossos
             {' '}
-            <Text style={estilos.link} onPress={() => navigation.navigate('SOBRE')}>
+            <Text style={estilos.link} onPress={() => navigation.navigate('TERMOS_DE_USO')}>
               Termos de Uso
             </Text>
-            {' '}
+            {/* {' '}
             e
             {' '}
             <Text style={estilos.link} onPress={() => navigation.navigate('SOBRE')}>
               Política de Privacidade
-            </Text>
+            </Text> */}
             .
             </Text>
           </View>

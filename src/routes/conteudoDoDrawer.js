@@ -14,9 +14,11 @@ import {
   DrawerContentScrollView,
   DrawerItem
 } from '@react-navigation/drawer';
+import { useNavigation } from '@react-navigation/native';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
 import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
+import IconTermosDeUso from '../assets/icons/termos_de_uso.svg';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
@@ -24,6 +26,7 @@ function conteudoDoDrawer(props) {
     navigation: { navigate },
     routeName
   } = props;
+  const navigationTermos = useNavigation();
 
   const versaoSistema = packageJson.version;
 
@@ -76,6 +79,7 @@ function conteudoDoDrawer(props) {
         {
           ItensDoDrawer.map(item => (
             <DrawerItem
+              key={item.nome}
               icon={() => item.icone}
               label={item.nome}
               labelStyle={{ fontSize: 15 }}
@@ -93,6 +97,18 @@ function conteudoDoDrawer(props) {
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={estilos.itemCompartilhar}>
             <DrawerItem
+              icon={() => <IconTermosDeUso />}
+              label="Termos de Uso"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="#111"
+              activeTintColor="#111"
+              inactiveBackgroundColor="transparent"
+              activeBackgroundColor="transparent"
+              onPress={() => navigationTermos.navigate('TERMOS_DE_USO')}
+            />
+      </View>
+      <View style={estilos.itemCompartilhar}>
+            <DrawerItem
               icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
               label="Compartilhe o iSUS"
               labelStyle={{ fontSize: 15 }}
@@ -103,6 +119,7 @@ function conteudoDoDrawer(props) {
               onPress={() => aoCompartilhar()}
             />
       </View>
+
       <View style={estilos.viewVersao}>
         <Text style={estilos.textoVersao}>
           Versão
@@ -143,7 +160,6 @@ const estilos = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? 25 : 0
   },
   itemCompartilhar: {
-    flexDirection: 'row',
     alignItems: 'flex-start',
   },
 });

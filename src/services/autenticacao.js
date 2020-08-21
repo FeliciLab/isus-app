@@ -2,16 +2,8 @@
 import {
   salvarDados, pegarDados, removerDados
 } from './armazenamento';
-// import respostaLogin from '../pages/Login/json/respostaLogin.json';
 import { autenticar } from '../apis/apiKeycloak';
 
-// const configuracao = {
-//   url: Config.KEYCLOAK_URL,
-//   realm: Config.KEYCLOAK_REALM,
-//   clientId: Config.KEYCLOAK_CLIENT_ID,
-//   redirectUri: Config.KEYCLOAK_REDIRECT_URI,
-//   appsiteUri: Config.KEYCLOAK_APPSITE_URI,
-// };
 
 async function autenticarComIdSaude(email, senha) {
   try {
@@ -20,6 +12,15 @@ async function autenticarComIdSaude(email, senha) {
   } catch (err) {
     throw err;
   }
+}
+
+async function salvarDadosDeCadastro(dados) {
+  await salvarDados('cadastro-usuario', dados);
+}
+
+async function pegarDadosDeCadastro() {
+  const resultado = await pegarDados('cadastro-usuario');
+  return resultado;
 }
 
 async function pegarTokenDoUsuarioNoStorage() {
@@ -39,5 +40,7 @@ export {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
-  excluirTokenDoUsuarioNoStorage
+  excluirTokenDoUsuarioNoStorage,
+  salvarDadosDeCadastro,
+  pegarDadosDeCadastro
 };

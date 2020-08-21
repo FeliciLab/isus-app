@@ -4,11 +4,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import { Divider } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 
-export default function MenuPerfilItem({ titulo, tela, onPress }) {
-  const navigation = useNavigation();
-
+export default function MenuPerfilItem({
+  titulo, icone, onPress
+}) {
   const ItemInterior = () => (
     <View style={estilos.itemInterior}>
       <Text style={estilos.titulo}>{titulo}</Text>
@@ -24,9 +23,9 @@ export default function MenuPerfilItem({ titulo, tela, onPress }) {
   );
 
   return (
-    <TouchableOpacity onPress={() => (tela ? navigation.navigate(tela) : onPress())}>
+    <TouchableOpacity onPress={() => onPress()}>
       <View style={estilos.itemContainer}>
-        <Icon style={estilos.iconeEsquerda} name="heart" size={25} color="rgba(0, 0, 0, 0.54)" />
+        <Icon style={estilos.iconeEsquerda} name={icone} size={25} color="rgba(0, 0, 0, 0.6)" />
         <Item>
           <ItemInterior />
         </Item>

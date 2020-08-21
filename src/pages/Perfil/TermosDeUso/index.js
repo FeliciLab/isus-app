@@ -1,7 +1,9 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import {
+  View, Text, TouchableOpacity, StyleSheet, ScrollView
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 
 export default function TermosDeUsoScreen() {
   const navigation = useNavigation();
@@ -16,18 +18,6 @@ export default function TermosDeUsoScreen() {
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'Termos de Uso',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -37,15 +27,38 @@ export default function TermosDeUsoScreen() {
             navigation.goBack();
           }}
         >
-          <Icon name="keyboard-backspace" size={28} color="#FFF" />
+           <SetaEsquerda />
         </TouchableOpacity>
       )
     });
   });
 
   return (
-    <View>
-      <Text>Termos de Uso</Text>
-    </View>
+    <>
+    <ScrollView style={{ backgroundColor: '#fff' }}>
+      <View>
+        <Text style={estilos.titulo}>Termos de uso do ID Saúde</Text>
+      </View>
+      <View style={estilos.conteudoTexto}>
+        <Text style={estilos.texto}>
+          Textooooo
+        </Text>
+        <Text style={estilos.texto}>
+          Textooooo 1
+        </Text>
+        <Text style={estilos.texto}>
+          Textooooo 2
+        </Text>
+      </View>
+    </ScrollView>
+    </>
   );
 }
+
+const estilos = StyleSheet.create({
+  titulo: { fontSize: 24, left: 16, top: 30 },
+  conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
+  texto: {
+    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 10, top: 50
+  }
+});
