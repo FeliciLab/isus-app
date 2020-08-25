@@ -21,12 +21,16 @@ export function getProjectPorId(item) {
 export function postFeedback(tipoDeFeedback, texto, email, imagem) {
   if (vazio(imagem)) {
     return request.post('feedback', {
+      versaoAplicativo: pegarVersao(),
+      plataforma: pegarSO(),
       tipoDeFeedback,
       email,
       texto
     });
   }
   return request.post('feedback', {
+    versaoAplicativo: pegarVersao(),
+    plataforma: pegarSO(),
     tipoDeFeedback,
     email,
     texto,
