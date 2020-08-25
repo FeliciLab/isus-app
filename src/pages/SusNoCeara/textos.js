@@ -55,8 +55,8 @@ const informacoes = {
 
 export const TextoSobreSUS = () => (
   <>
-<Text style={estilos.textoConteudo}>
-    O Sistema Único de Saúde (SUS) é um dos maiores e mais complexos sistemas de saúde pública do
+  <Text style={estilos.textoSUS}>
+  O Sistema Único de Saúde (SUS) é um dos maiores e mais complexos sistemas de saúde pública do
     mundo. Criado pela Constituição Federal Brasileira em 1988, e
     promulgado pela
     {' '}
@@ -72,7 +72,13 @@ export const TextoSobreSUS = () => (
     , ofertados desde a gestação e por toda a vida. Apesar de ser
     nomeado de Único, o SUS é descentralizado, e sua a implementação considera as
     distintas e diversas características de cada território brasileiro.
-    {'\n\n'}
+  </Text>
+  </>
+);
+
+export const TextoSobreSUSNoCeara = () => (
+  <>
+<Text style={estilos.textoConteudo}>
     O Ceará é um estado com muitas histórias de sucesso no SUS. A criação do
     Programa Saúde da Família, dos Agentes Comunitários de Saúde, e o processo de
     municipalização e regionalização da saúde são alguns exemplos de conquistas com
@@ -187,6 +193,12 @@ const estilos = StyleSheet.create({
   },
   negrito: {
     fontWeight: 'bold'
+  },
+  textoSUS: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontSize: 14,
+    marginHorizontal: 14,
+    marginBottom: 20,
   }
 
 });
