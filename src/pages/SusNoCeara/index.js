@@ -21,7 +21,7 @@ const informacoes = {
     url: 'https://www.saude.ce.gov.br/'
   },
   Plano: {
-    tituloCompleto: 'Plano de Modernização do SUS',
+    tituloCompleto: 'Plano de Modernização da Saúde',
     url: 'https://www.saude.ce.gov.br/wp-content/uploads/sites/9/2019/09/plataforma_de_modernizacao_da_saude_13_08_2019.pdf'
   }
 };
