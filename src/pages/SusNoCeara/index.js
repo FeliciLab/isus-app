@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { List, Divider } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
-  TextoSobreSUS, TextoSobreSESA, TextoSobreESP
+  TextoSobreSUS, TextoSobreSUSCeara, TextoSobreSESA, TextoSobreESP
 } from './textos';
 import { navigate } from '../../routes/rootNavigation';
 
@@ -91,11 +91,11 @@ export default function SusNoCearaScreen() {
       backgroundColor: '#ffffff', flex: 1, padding: 15, marginBottom: 20
     }}
     >
-
+      <TextoSobreSUS />
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item
           titleNumberOfLines={80}
-          title={<TextoSobreSUS />}
+          title={<TextoSobreSUSCeara />}
         />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
