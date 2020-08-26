@@ -14,6 +14,7 @@ import {
   SafeAreaView,
   Share
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AboutScreen from '../pages/About';
 import AppTab from './appBottomTab';
@@ -29,6 +30,8 @@ function CustomDrawerContent(props) {
     navigation: { navigate },
     routeName
   } = props;
+
+  const navigateTo = useNavigation();
 
   const versaoSistema = packageJson.version;
   return (
@@ -69,17 +72,6 @@ function CustomDrawerContent(props) {
           onPress={() => navigate('FEEDBACK')}
         />
         <DrawerItem
-          icon={() => <Icon name="alert-octagon" size={20} color="rgba(0, 0, 0, 0.54)" />}
-          label="Alerta de EPI"
-          labelStyle={{ fontSize: 15 }}
-          inactiveTintColor="#111"
-          activeTintColor="#111"
-          inactiveBackgroundColor="transparent"
-          activeBackgroundColor="transparent"
-          focused={routeName === 'ALERTA_EPI'}
-          onPress={() => navigate('ALERTA_EPI')}
-        />
-        <DrawerItem
           icon={() => <Icon name="help-circle" size={20} color="rgba(0, 0, 0, 0.54)" />}
           label="SUS no Ceará"
           labelStyle={{ fontSize: 15 }}
@@ -90,21 +82,21 @@ function CustomDrawerContent(props) {
           focused={routeName === 'SUS_NO_CEARA'}
           onPress={() => navigate('SUS_NO_CEARA')}
         />
-        <DrawerItem
-          icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
-          label="Sobre o iSUS"
-          labelStyle={{ fontSize: 15 }}
-          inactiveTintColor="#111"
-          activeTintColor="#111"
-          inactiveBackgroundColor="transparent"
-          activeBackgroundColor="transparent"
-          focused={routeName === 'SOBRE'}
-          onPress={() => navigate('SOBRE')}
-        />
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={styles.itemCompartilhar}>
+            <DrawerItem
+              icon={() => <Icon name="information" size={20} color="rgba(0, 0, 0, 0.54)" />}
+              label="Sobre o iSUS"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="#111"
+              activeTintColor="#111"
+              inactiveBackgroundColor="transparent"
+              activeBackgroundColor="transparent"
+              focused={routeName === 'SOBRE'}
+              onPress={() => navigateTo.navigate('SOBRE')}
+            />
             <DrawerItem
               icon={() => <Icon name="share-variant" size={20} color="rgba(0, 0, 0, 0.54)" />}
               label="Compartilhe o iSUS"
@@ -226,8 +218,7 @@ const styles = StyleSheet.create({
   droidSafeArea: {
     paddingTop: Platform.OS === 'android' ? 25 : 0
   },
-  itemCompartilhar: {
-    flexDirection: 'row',
+  itensParteInferior: {
     alignItems: 'flex-start',
   },
 });
