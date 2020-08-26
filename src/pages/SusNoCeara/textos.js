@@ -198,6 +198,6 @@ const estilos = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.6)',
     fontSize: 14,
     marginHorizontal: 14,
-    marginBottom: 20,
+    marginVertical: 14
   }
 });

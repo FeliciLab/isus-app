@@ -43,6 +43,10 @@ const informacoes = {
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
     url: 'https://www.saude.ce.gov.br/'
+  },
+  Plano: {
+    tituloCompleto: 'Plano de Modernização da Saúde',
+    url: 'https://www.saude.ce.gov.br/wp-content/uploads/sites/9/2019/09/plataforma_de_modernizacao_da_saude_13_08_2019.pdf'
   }
 };
 
@@ -96,6 +100,12 @@ export default function SusNoCearaScreen() {
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSUSCeara />}
+        />
+        <List.Item
+          left={() => <List.Icon icon="file-document" color="#808080" />}
+          title="Plano de Modernização da Saúde"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => navegar('Plano')}
         />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
