@@ -128,7 +128,16 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="youtube" color="#808080" />}
           title="Youtube"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('YoutubeESP')}
+          onPress={() => {
+            Linking.canOpenURL('vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA')
+              .then((suportado) => {
+                if (!suportado) {
+                  console.log('URL não suportada');
+                  return;
+                }
+                Linking.openURL('vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA');
+              }).catch(err => console.error('Ocorreu um erro', err));
+          }}
         />
         <Divider style={estilos.borda} />
         <List.Item
