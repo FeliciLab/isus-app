@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet, Linking
+  Text, TouchableOpacity, StyleSheet, Linking, Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -16,25 +16,29 @@ const informacoes = {
     tituloCompleto: 'Instagram do ESP/CE',
     tituloNavegar: 'InstagramESP',
     url: 'https://www.instagram.com/espceara/',
-    urlLinking: 'instagram://user?username=espceara'
+    urlLinking: 'instagram://user?username=espceara',
+    urlLinkingAndroid: 'instagram://user?username=espceara'
   },
   FacebookESP: {
     tituloCompleto: 'Facebook do ESP/CE',
     tituloNavegar: 'FacebookESP',
     url: 'https://www.facebook.com/espceara/',
-    urlLinking: 'fb://page/210165089080732'
+    urlLinking: 'fb://profile/210165089080732',
+    urlLinkingAndroid: 'fb://page/210165089080732'
   },
   LinkedinESP: {
     tituloCompleto: 'Linkedin do ESP/CE',
     tituloNavegar: 'LinkedinESP',
     url: 'https://www.linkedin.com/in/espceara/',
-    urlLinking: 'linkedin://profile/in/espceara/'
+    urlLinking: 'linkedin://in/espceara/',
+    urlLinkingAndroid: 'linkedin://profile/in/espceara/'
   },
   YoutubeESP: {
     tituloCompleto: 'Youtube do ESP/CE',
     tituloNavegar: 'YoutubeESP',
     url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA',
     urlLinking: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA',
+    urlLinkingAndroid: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA'
   },
   SiteESP: {
     tituloCompleto: 'Site do ESP/CE',
@@ -44,13 +48,15 @@ const informacoes = {
     tituloCompleto: 'Instagram da Saúde do Ceará',
     tituloNavegar: 'InstagramSaude',
     url: 'https://www.instagram.com/saudeceara/',
-    urlLinking: 'instagram://user?username=saudeceara'
+    urlLinking: 'instagram://user?username=saudeceara',
+    urlLinkingAndroid: 'instagram://user?username=saudeceara'
   },
   FacebookSaude: {
     tituloCompleto: 'Facebook da Saúde do Ceará',
     tituloNavegar: 'FacebookSaude',
     url: 'https://www.facebook.com/SaudeCeara/',
-    urlLinking: 'fb://page/273289709468123'
+    urlLinking: 'fb://profile/273289709468123',
+    urlLinkingAndroid: 'fb://page/273289709468123'
   },
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
@@ -205,13 +211,20 @@ const navegar = (titulo) => {
 };
 
 const linkingURLouApp = (titulo) => {
-  Linking.canOpenURL(`${informacoes[titulo].urlLinking}`)
+  let pegarUrlouApp = '';
+  if (Platform.OS === 'ios') {
+    pegarUrlouApp = `${informacoes[titulo].urlLinking}`;
+  } else {
+    pegarUrlouApp = `${informacoes[titulo].urlLinkingAndroid}`;
+  }
+
+  Linking.canOpenURL(pegarUrlouApp)
     .then((suportado) => {
       if (!suportado) {
         // console.log('URL não suportada');
         navegar(`${informacoes[titulo].tituloNavegar}`);
         return;
       }
-      Linking.openURL(`${informacoes[titulo].urlLinking}`);
+      Linking.openURL(pegarUrlouApp);
     }).catch(err => console.error('Ocorreu um erro', err));
 };
