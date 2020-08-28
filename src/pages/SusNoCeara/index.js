@@ -22,13 +22,13 @@ const informacoes = {
     tituloCompleto: 'Facebook do ESP/CE',
     tituloNavegar: 'FacebookESP',
     url: 'https://www.facebook.com/espceara/',
-    urlLinking: 'fb://profile/210165089080732'
+    urlLinking: 'fb://page/210165089080732'
   },
   LinkedinESP: {
     tituloCompleto: 'Linkedin do ESP/CE',
     tituloNavegar: 'LinkedinESP',
     url: 'https://www.linkedin.com/in/espceara/',
-    urlLinking: 'linkedin://in/espceara/'
+    urlLinking: 'linkedin://profile/in/espceara/'
   },
   YoutubeESP: {
     tituloCompleto: 'Youtube do ESP/CE',
@@ -50,7 +50,7 @@ const informacoes = {
     tituloCompleto: 'Facebook da Saúde do Ceará',
     tituloNavegar: 'FacebookSaude',
     url: 'https://www.facebook.com/SaudeCeara/',
-    urlLinking: 'fb://profile/273289709468123'
+    urlLinking: 'fb://page/273289709468123'
   },
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
