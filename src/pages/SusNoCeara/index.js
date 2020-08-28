@@ -42,11 +42,15 @@ const informacoes = {
   },
   InstagramSaude: {
     tituloCompleto: 'Instagram da Saúde do Ceará',
-    url: 'https://www.instagram.com/saudeceara/'
+    tituloNavegar: 'InstagramSaude',
+    url: 'https://www.instagram.com/saudeceara/',
+    urlLinking: 'instagram://user?username=saudeceara'
   },
   FacebookSaude: {
     tituloCompleto: 'Facebook da Saúde do Ceará',
-    url: 'https://www.facebook.com/SaudeCeara/'
+    tituloNavegar: 'FacebookSaude',
+    url: 'https://www.facebook.com/SaudeCeara/',
+    urlLinking: 'fb://profile/273289709468123'
   },
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
@@ -156,14 +160,14 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('InstagramSaude')}
+          onPress={() => linkingURLouApp('InstagramSaude')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('FacebookSaude')}
+          onPress={() => linkingURLouApp('FacebookSaude')}
         />
         <Divider style={estilos.borda} />
         <List.Item
