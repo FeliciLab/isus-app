@@ -14,19 +14,27 @@ import { navigate } from '../../routes/rootNavigation';
 const informacoes = {
   InstagramESP: {
     tituloCompleto: 'Instagram do ESP/CE',
-    url: 'https://www.instagram.com/espceara/'
+    tituloNavegar: 'InstagramESP',
+    url: 'https://www.instagram.com/espceara/',
+    urlLinking: 'instagram://user?username=espceara'
   },
   FacebookESP: {
     tituloCompleto: 'Facebook do ESP/CE',
-    url: 'https://www.facebook.com/espceara/'
+    tituloNavegar: 'FacebookESP',
+    url: 'https://www.facebook.com/espceara/',
+    urlLinking: 'fb://profile/210165089080732'
   },
   LinkedinESP: {
     tituloCompleto: 'Linkedin do ESP/CE',
-    url: 'https://www.linkedin.com/in/espceara/'
+    tituloNavegar: 'LinkedinESP',
+    url: 'https://www.linkedin.com/in/espceara/',
+    urlLinking: 'linkedin://in/espceara/'
   },
   YoutubeESP: {
     tituloCompleto: 'Youtube do ESP/CE',
-    url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA'
+    tituloNavegar: 'YoutubeESP',
+    url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA',
+    urlLinking: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA',
   },
   SiteESP: {
     tituloCompleto: 'Site do ESP/CE',
@@ -107,37 +115,28 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('InstagramESP')}
+          onPress={() => linkingURLouApp('InstagramESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('FacebookESP')}
+          onPress={() => linkingURLouApp('FacebookESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="linkedin" color="#808080" />}
           title="Linkedin"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('LinkedinESP')}
+          onPress={() => linkingURLouApp('LinkedinESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="youtube" color="#808080" />}
           title="Youtube"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => {
-            Linking.canOpenURL('vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA')
-              .then((suportado) => {
-                if (!suportado) {
-                  console.log('URL não suportada');
-                  return;
-                }
-                Linking.openURL('vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA');
-              }).catch(err => console.error('Ocorreu um erro', err));
-          }}
+          onPress={() => linkingURLouApp('YoutubeESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
@@ -199,4 +198,16 @@ const estilos = StyleSheet.create({
 
 const navegar = (titulo) => {
   navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
+};
+
+const linkingURLouApp = (titulo) => {
+  Linking.canOpenURL(`${informacoes[titulo].urlLinking}`)
+    .then((suportado) => {
+      if (!suportado) {
+        // console.log('URL não suportada');
+        navegar(`${informacoes[titulo].tituloNavegar}`);
+        return;
+      }
+      Linking.openURL(`${informacoes[titulo].urlLinking}`);
+    }).catch(err => console.error('Ocorreu um erro', err));
 };
