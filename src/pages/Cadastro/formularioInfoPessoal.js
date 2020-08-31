@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, DefaultTheme, Button } from 'react-native-paper';
+import {
+  TextInput, DefaultTheme, Button, Menu
+} from 'react-native-paper';
 import Autocomplete from 'react-native-autocomplete-input';
 import { aplicaMascaraNumerica, removeMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
@@ -24,10 +26,11 @@ import FormularioInfoProfissional from './formularioInfoProfissional';
 export default function FormularioInfoPessoal() {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [listaCidades, esconderListaCidades] = React.useState(false);
-  const [nomeCidadesFiltrada, alteraNomeCidadesFiltradas] = React.useState([]);
+  const [nomeCidadesFiltradas, alteraNomeCidadesFiltradas] = React.useState([]);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
   const [query, alteraQuery] = React.useState('');
+  const [menuVisivel, alterarMenuVisivel] = React.useState(false);
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
 
@@ -219,6 +222,25 @@ export default function FormularioInfoPessoal() {
 {' '}
           </Text>
         )}
+
+          <TextInput
+            label="Cidade"
+            name="cidade"
+            style={estilos.campoDeTexto}
+            mode="outlined"
+            theme={theme}
+            onChangeText={(text) => {
+              alteraQuery(text);
+              alterarMenuVisivel(true);
+            }}
+          />
+          <Menu
+            visible={menuVisivel}
+            anchor={{ x: 100, y: 600 }}
+          >
+            {nomeCidadesFiltradas.map(cidade => <Menu.Item onPress={() => console.log('click')} title={cidade} />)}
+          </Menu>
+
           <View style={{ marginTop: 32 }}>
         <Text style={{ marginBottom: 4 }}>Município de Residência</Text>
         <Autocomplete
@@ -227,8 +249,8 @@ export default function FormularioInfoPessoal() {
           placeholder="Município de Residência"
           inputContainerStyle={estilos.campoDeTextoAutocomplete}
           listStyle={estilos.listaAutocomplete}
-          listContainerStyle={{ height: nomeCidadesFiltrada.length * 25 }}
-          data={nomeCidadesFiltrada}
+          listContainerStyle={{ height: nomeCidadesFiltradas.length * 25 }}
+          data={nomeCidadesFiltradas}
           defaultValue={query}
           hideResults={listaCidades}
           onChangeText={(text) => {
