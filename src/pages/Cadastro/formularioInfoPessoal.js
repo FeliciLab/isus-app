@@ -154,7 +154,6 @@ export default function FormularioInfoPessoal() {
         <TextInput
           label="Nome Completo"
           name="nomeCompleto"
-          value={getValues('nomeCompleto')}
           underlineColor="#BDBDBD"
           onChangeText={text => alteraValor('nomeCompleto', text)}
           style={estilos.campoDeTexto}
