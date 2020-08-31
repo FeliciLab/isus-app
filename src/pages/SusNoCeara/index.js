@@ -9,33 +9,29 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {
   TextoSobreSUS, TextoSobreSESA, TextoSobreESP
 } from './textos';
-import { navigate } from '../../routes/rootNavigation';
+// import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
   InstagramESP: {
     tituloCompleto: 'Instagram do ESP/CE',
-    tituloNavegar: 'InstagramESP',
     url: 'https://www.instagram.com/espceara/',
     urlLinking: 'instagram://user?username=espceara',
     urlLinkingAndroid: 'instagram://user?username=espceara'
   },
   FacebookESP: {
     tituloCompleto: 'Facebook do ESP/CE',
-    tituloNavegar: 'FacebookESP',
     url: 'https://www.facebook.com/espceara/',
     urlLinking: 'fb://profile/210165089080732',
     urlLinkingAndroid: 'fb://page/210165089080732'
   },
   LinkedinESP: {
     tituloCompleto: 'Linkedin do ESP/CE',
-    tituloNavegar: 'LinkedinESP',
     url: 'https://www.linkedin.com/in/espceara/',
     urlLinking: 'linkedin://in/espceara/',
     urlLinkingAndroid: 'linkedin://profile/in/espceara/'
   },
   YoutubeESP: {
     tituloCompleto: 'Youtube do ESP/CE',
-    tituloNavegar: 'YoutubeESP',
     url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA',
     urlLinking: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA',
     urlLinkingAndroid: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA'
@@ -46,14 +42,12 @@ const informacoes = {
   },
   InstagramSaude: {
     tituloCompleto: 'Instagram da Saúde do Ceará',
-    tituloNavegar: 'InstagramSaude',
     url: 'https://www.instagram.com/saudeceara/',
     urlLinking: 'instagram://user?username=saudeceara',
     urlLinkingAndroid: 'instagram://user?username=saudeceara'
   },
   FacebookSaude: {
     tituloCompleto: 'Facebook da Saúde do Ceará',
-    tituloNavegar: 'FacebookSaude',
     url: 'https://www.facebook.com/SaudeCeara/',
     urlLinking: 'fb://profile/273289709468123',
     urlLinkingAndroid: 'fb://page/273289709468123'
@@ -153,7 +147,7 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('SiteESP')}
+          onPress={() => linkingURLouApp('SiteESP', 'site')}
         />
         <Divider style={estilos.borda} />
       </List.Accordion>
@@ -187,7 +181,7 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('SiteSaude')}
+          onPress={() => linkingURLouApp('SiteSaude', 'site')}
         />
         <Divider style={estilos.borda} />
       </List.Accordion>
@@ -206,25 +200,32 @@ const estilos = StyleSheet.create({
   }
 });
 
-const navegar = (titulo) => {
-  navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
-};
+// const navegar = (titulo) => {
+//   navigate('webview', {
+//     title: informacoes[titulo].tituloCompleto,
+//     url: informacoes[titulo].url
+//   });
+// };
 
-const linkingURLouApp = (titulo) => {
-  let pegarUrlouApp = '';
-  if (Platform.OS === 'ios') {
-    pegarUrlouApp = `${informacoes[titulo].urlLinking}`;
+const linkingURLouApp = (titulo, tipo) => {
+  if (tipo !== 'site') {
+    let pegarUrlouApp = '';
+    if (Platform.OS === 'ios') {
+      pegarUrlouApp = `${informacoes[titulo].urlLinking}`;
+    } else {
+      pegarUrlouApp = `${informacoes[titulo].urlLinkingAndroid}`;
+    }
+
+    Linking.canOpenURL(pegarUrlouApp)
+      .then((suportado) => {
+        if (!suportado) {
+          // console.log('URL não suportada');
+          Linking.openURL(`${informacoes[titulo].url}`);
+          return;
+        }
+        Linking.openURL(pegarUrlouApp);
+      }).catch(err => console.error('Ocorreu um erro', err));
   } else {
-    pegarUrlouApp = `${informacoes[titulo].urlLinkingAndroid}`;
+    Linking.openURL(`${informacoes[titulo].url}`);
   }
-
-  Linking.canOpenURL(pegarUrlouApp)
-    .then((suportado) => {
-      if (!suportado) {
-        // console.log('URL não suportada');
-        navegar(`${informacoes[titulo].tituloNavegar}`);
-        return;
-      }
-      Linking.openURL(pegarUrlouApp);
-    }).catch(err => console.error('Ocorreu um erro', err));
 };
