@@ -51,19 +51,9 @@ function conteudoDoDrawer(props) {
       rota: 'FEEDBACK'
     },
     {
-      nome: 'Alerta de EPI',
-      icone: <Icon name="alert-octagon" size={22} color="rgba(0, 0, 0, 0.54)" />,
-      rota: 'ALERTA_EPI'
-    },
-    {
       nome: 'SUS no Ceará',
       icone: <Icon name="help-circle" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: 'SUS_NO_CEARA'
-    },
-    {
-      nome: 'Sobre o iSUS',
-      icone: <Icon name="information" size={22} color="rgba(0, 0, 0, 0.54)" />,
-      rota: 'SOBRE'
     }
   ];
 
@@ -116,7 +106,19 @@ function conteudoDoDrawer(props) {
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
-      <View style={estilos.itemCompartilhar}>
+      <View style={estilos.itensParteInferior}>
+            <DrawerItem
+              icon={() => <Icon name="information" size={22} color="rgba(0, 0, 0, 0.54)" />}
+              label="Sobre o iSUS"
+              labelStyle={{ fontSize: 15 }}
+              inactiveTintColor="#111"
+              activeTintColor="#111"
+              inactiveBackgroundColor="transparent"
+              activeBackgroundColor="transparent"
+              onPress={() => navigationTermos.navigate('SOBRE')}
+            />
+      </View>
+      <View style={estilos.itensParteInferior}>
             <DrawerItem
               icon={() => <IconTermosDeUso />}
               label="Termos de Uso"
@@ -128,7 +130,7 @@ function conteudoDoDrawer(props) {
               onPress={() => navigationTermos.navigate('TERMOS_DE_USO')}
             />
       </View>
-      <View style={estilos.itemCompartilhar}>
+      <View style={estilos.itensParteInferior}>
             <DrawerItem
               icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
               label="Compartilhe o iSUS"
@@ -164,7 +166,7 @@ const aoCompartilhar = async () => {
 
 const estilos = StyleSheet.create({
   viewVersao: {
-    marginTop: 0,
+    marginTop: 16,
     marginBottom: 16,
   },
   textoVersao: {
@@ -179,7 +181,7 @@ const estilos = StyleSheet.create({
   droidSafeArea: {
     paddingTop: Platform.OS === 'android' ? 25 : 0
   },
-  itemCompartilhar: {
+  itensParteInferior: {
     alignItems: 'flex-start',
   },
 });
