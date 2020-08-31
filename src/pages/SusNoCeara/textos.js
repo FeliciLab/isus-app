@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Share } from 'react-native';
 import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
@@ -117,7 +117,7 @@ O iSUS foi criado na
     <Text style={estilos.textoLink} onPress={() => navegar('ESPCE')}>Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues</Text>
 (ESP/CE), contando com a parceria da
 {' '}
-    <Text>Universidade Estadual do Ceará</Text>
+    <Text style={estilos.textoLink} onPress={() => aoCompartilhar('UECE')}>Universidade Estadual do Ceará</Text>
 {' '}
 e da
 {' '}
@@ -176,9 +176,20 @@ Av. Almirante Barroso, 600. Praia de Iracema. Fortaleza-CE
   </>
 );
 
-
 const navegar = (titulo) => {
   navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
+};
+
+const aoCompartilhar = async (titulo) => {
+  const messagTitle = informacoes[titulo].tituloCompleto;
+  const messagLink = informacoes[titulo].url;
+  try {
+    await Share.share({
+      message: `${messagTitle} ${messagLink}`
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const estilos = StyleSheet.create({
@@ -198,6 +209,6 @@ const estilos = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.6)',
     fontSize: 14,
     marginHorizontal: 14,
-    marginVertical: 14
+    marginVertical: 14,
   }
 });
