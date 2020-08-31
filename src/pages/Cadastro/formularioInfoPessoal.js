@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, DefaultTheme, Button, Menu
 } from 'react-native-paper';
-import Autocomplete from 'react-native-autocomplete-input';
 import { aplicaMascaraNumerica, removeMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
@@ -25,7 +24,6 @@ import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [listaCidades, esconderListaCidades] = React.useState(false);
   const [nomeCidadesFiltradas, alteraNomeCidadesFiltradas] = React.useState([]);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
@@ -90,9 +88,6 @@ export default function FormularioInfoPessoal() {
 
   const cidadeValida = async (cidade) => {
     const municipios = await pegarDados('municipios');
-    if (municipios.includes(cidade)) {
-      esconderListaCidades(true);
-    }
     return municipios.includes(cidade);
   };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
@@ -224,7 +219,7 @@ export default function FormularioInfoPessoal() {
         )}
 
           <TextInput
-            label="Cidade"
+            label="Município de Residência"
             name="cidade"
             style={estilos.campoDeTexto}
             mode="outlined"
@@ -232,44 +227,24 @@ export default function FormularioInfoPessoal() {
             onChangeText={(text) => {
               alteraQuery(text);
               alterarMenuVisivel(true);
+              alteraValor('cidade', { id: pegarId(text), nome: text });
             }}
           />
           <Menu
             visible={menuVisivel}
             anchor={{ x: 100, y: 600 }}
           >
-            {nomeCidadesFiltradas.map(cidade => <Menu.Item onPress={() => console.log('click')} title={cidade} />)}
+            {nomeCidadesFiltradas.map(cidade => (
+<Menu.Item
+  onPress={() => {
+    alteraQuery(cidade);
+    alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
+    alterarMenuVisivel(false);
+  }}
+  title={cidade}
+/>
+            ))}
           </Menu>
-
-          <View style={{ marginTop: 32 }}>
-        <Text style={{ marginBottom: 4 }}>Município de Residência</Text>
-        <Autocomplete
-          label="Cidade"
-          name="cidade"
-          placeholder="Município de Residência"
-          inputContainerStyle={estilos.campoDeTextoAutocomplete}
-          listStyle={estilos.listaAutocomplete}
-          listContainerStyle={{ height: nomeCidadesFiltradas.length * 25 }}
-          data={nomeCidadesFiltradas}
-          defaultValue={query}
-          hideResults={listaCidades}
-          onChangeText={(text) => {
-            alteraQuery(text);
-            esconderListaCidades(false);
-            alteraValor('cidade', { id: pegarId(text), nome: text });
-          }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                alteraQuery(item);
-                esconderListaCidades(true);
-                alteraValor('cidade', { id: pegarId(item), nome: item });
-              }}
-            >
-              <Text style={{ padding: 4 }}>{item}</Text>
-            </TouchableOpacity>
-          )}
-        />
         {errors.cidade && (
           <Text style={estilos.mensagemDeErro}>
 {' '}
@@ -277,8 +252,8 @@ export default function FormularioInfoPessoal() {
 {' '}
           </Text>
         )}
-          </View>
       </View>
+      {/* </View> */}
 
       <Button
         disabled={!botaoAtivo}
@@ -330,15 +305,5 @@ const estilos = StyleSheet.create({
     margin: 20,
     justifyContent: 'center',
     backgroundColor: '#304FFE'
-  },
-  campoDeTextoAutocomplete: {
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    borderColor: 'gray',
-    height: 56,
-  },
-  listaAutocomplete: {
-    padding: 10,
-    borderColor: 'gray',
   },
 });
