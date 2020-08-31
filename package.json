@@ -12,6 +12,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@paralleldrive/react-feature-toggles": "^2.3.1",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",

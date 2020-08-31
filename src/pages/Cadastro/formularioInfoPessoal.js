@@ -121,7 +121,8 @@ export default function FormularioInfoPessoal() {
   }, [nomeCidades]);
 
   useEffect(() => {
-    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.startsWith(query)));
+    // eslint-disable-next-line max-len
+    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.toLowerCase().startsWith(query.toLowerCase())));
   }, [query]);
 
   useLayoutEffect(() => {

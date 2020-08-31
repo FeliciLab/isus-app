@@ -15,6 +15,7 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
 import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
@@ -41,7 +42,8 @@ function conteudoDoDrawer(props) {
     {
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color="rgba(0, 0, 0, 0.54)" />,
-      rota: tokenUsuario ? 'PERFIL' : 'LOGIN'
+      rota: tokenUsuario ? 'PERFIL' : 'LOGIN',
+      feature: '134'
     },
     {
       nome: 'Fale conosco',
@@ -65,19 +67,10 @@ function conteudoDoDrawer(props) {
     }
   ];
 
-
-  return (
-    <>
-      <SafeAreaView style={estilos.droidSafeArea}>
-        <View
-          style={estilos.conteudoCabecalho}
-        >
-          <Heart size={40} style={{ margin: 10 }} />
-        </View>
-      </SafeAreaView>
-      <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
-        {
-          ItensDoDrawer.map(item => (
+  const RenderizaItensDoDrawer = () => ItensDoDrawer.map(item => (item.feature ? (
+        <Feature
+          name={item.feature}
+          activeComponent={() => (
             <DrawerItem
               key={item.nome}
               icon={() => item.icone}
@@ -90,7 +83,35 @@ function conteudoDoDrawer(props) {
               focused={routeName === item.rota}
               onPress={() => navigate(item.rota)}
             />
-          ))
+          )}
+        />
+  ) : (
+      <DrawerItem
+        key={item.nome}
+        icon={() => item.icone}
+        label={item.nome}
+        labelStyle={{ fontSize: 15 }}
+        inactiveTintColor="rgba(0, 0, 0, 0.87)"
+        activeTintColor="rgba(0, 0, 0, 0.87)"
+        inactiveBackgroundColor="transparent"
+        activeBackgroundColor="transparent"
+        focused={routeName === item.rota}
+        onPress={() => navigate(item.rota)}
+      />
+  )));
+
+  return (
+    <>
+      <SafeAreaView style={estilos.droidSafeArea}>
+        <View
+          style={estilos.conteudoCabecalho}
+        >
+          <Heart size={40} style={{ margin: 10 }} />
+        </View>
+      </SafeAreaView>
+      <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
+        {
+          <RenderizaItensDoDrawer />
         }
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
@@ -119,7 +140,6 @@ function conteudoDoDrawer(props) {
               onPress={() => aoCompartilhar()}
             />
       </View>
-
       <View style={estilos.viewVersao}>
         <Text style={estilos.textoVersao}>
           Versão

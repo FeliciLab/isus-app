@@ -5,9 +5,11 @@ import React, { useEffect } from 'react';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import OneSignal from 'react-native-onesignal';
 import codePush from 'react-native-code-push';
+import { FeatureToggles } from '@paralleldrive/react-feature-toggles';
 import Routes from './routes';
 import { navigationRef, navigate } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
+import features from './features.json';
 
 function App() {
   useEffect(() => {
@@ -74,7 +76,9 @@ function App() {
   return (
     <>
       <StatusBar backgroundColor="#4CAF50" />
-      <Routes navigationRef={navigationRef} />
+      <FeatureToggles features={features}>
+        <Routes navigationRef={navigationRef} />
+      </FeatureToggles>
     </>
   );
 }
