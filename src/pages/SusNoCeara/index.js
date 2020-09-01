@@ -34,7 +34,7 @@ const informacoes = {
     tituloCompleto: 'Youtube do ESP/CE',
     url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA',
     urlLinking: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA',
-    urlLinkingAndroid: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA'
+    urlLinkingAndroid: 'youtube://channel/UC_G1Zak1oxOctqap579R9cA'
   },
   SiteESP: {
     tituloCompleto: 'Site da ESP/CE',
