@@ -4,12 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 // import AppTab from './appBottomTab';
 import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
-import AppDrawerScreen from './appDrawerScreen';
+import AppDrawerScreen from './appDrawerScreen.routes';
 import Buscar from '../pages/Buscar';
 import ClinicalManagement from '../pages/ClinicalManagement';
 import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
+import TelaDeCadastro from '../pages/Cadastro';
 
 const RootStack = createStackNavigator();
 
@@ -18,6 +19,11 @@ export default function App({ navigationRef }) {
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator>
         <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="CADASTRO"
+          component={TelaDeCadastro}
+          options={{ headerShown: true }}
+        />
         <RootStack.Screen
           name="Descrição"
           component={Description}

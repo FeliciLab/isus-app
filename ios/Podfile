@@ -63,6 +63,7 @@ target 'isusapp' do
   pod 'React-RCTSettings', :path => '../node_modules/react-native/Libraries/Settings'
   pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
   pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
+  pod 'RNInputMask', :path => '../node_modules/react-native-text-input-mask/ios/InputMask'
   pod 'React-Core/RCTWebSocket', :path => '../node_modules/react-native/'
 
   pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'

@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { List, Divider } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
-  TextoSobreSUS, TextoSobreSESA, TextoSobreESP
+  TextoSobreSUS, TextoSobreSUSCeara, TextoSobreSESA, TextoSobreESP
 } from './textos';
 // import { navigate } from '../../routes/rootNavigation';
 
@@ -37,7 +37,7 @@ const informacoes = {
     urlLinkingAndroid: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA'
   },
   SiteESP: {
-    tituloCompleto: 'Site do ESP/CE',
+    tituloCompleto: 'Site da ESP/CE',
     url: 'https://www.esp.ce.gov.br/'
   },
   InstagramSaude: {
@@ -55,6 +55,10 @@ const informacoes = {
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
     url: 'https://www.saude.ce.gov.br/'
+  },
+  Plano: {
+    tituloCompleto: 'Plano de Modernização da Saúde',
+    url: 'https://www.saude.ce.gov.br/wp-content/uploads/sites/9/2019/09/plataforma_de_modernizacao_da_saude_13_08_2019.pdf'
   }
 };
 
@@ -103,11 +107,17 @@ export default function SusNoCearaScreen() {
       backgroundColor: '#ffffff', flex: 1, padding: 15, marginBottom: 20
     }}
     >
-
+      <TextoSobreSUS />
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item
           titleNumberOfLines={80}
-          title={<TextoSobreSUS />}
+          title={<TextoSobreSUSCeara />}
+        />
+        <List.Item
+          left={() => <List.Icon icon="file-document" color="#808080" />}
+          title="Plano de Modernização da Saúde"
+          right={() => <List.Icon icon="chevron-right" />}
+          onPress={() => linkingURLouApp('Plano')}
         />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
@@ -200,12 +210,6 @@ const estilos = StyleSheet.create({
   }
 });
 
-// const navegar = (titulo) => {
-//   navigate('webview', {
-//     title: informacoes[titulo].tituloCompleto,
-//     url: informacoes[titulo].url
-//   });
-// };
 
 const linkingURLouApp = (titulo, tipo) => {
   if (tipo !== 'site') {

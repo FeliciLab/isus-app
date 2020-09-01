@@ -1012,6 +1012,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@paralleldrive/react-feature-toggles@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@paralleldrive/react-feature-toggles/-/react-feature-toggles-2.3.1.tgz#7b4f105fcb003fd22a875f7718a737ec78751add"
+  integrity sha512-GJbpD2R+h2s1SjlZgFGSlAMHSMJLJYuGk/0GMiVzubOchOun/dIZXp8HqYvNXvr4yOFU4Ocsgd8BgribBZIGrw==
+
 "@react-native-community/async-storage@^1.9.0":
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.11.0.tgz#bf81b8813080846f150c67f531987c429b442166"
@@ -6130,6 +6135,11 @@ jws@^3.2.2:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
 
+jwt-decode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+  integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
+
 keyv@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"
@@ -8148,6 +8158,11 @@ react-fade-in@^1.1.0:
   resolved "https://registry.yarnpkg.com/react-fade-in/-/react-fade-in-1.1.0.tgz#82272eba4ae5843fed333e2c7f74dc5dbdab3864"
   integrity sha512-sR36bwyimCRapcHEuEjbQkQzUuCh3BIOeQvrUc9X4HBN6nswZ3nuq1Zb0vh3lG1Xx2ZMduGMw8u4AwNGbHkI0g==
 
+react-hook-form@6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.3.1.tgz#c4152ca8cc7f1f75c2f96f3b21526b7ac02bbdf9"
+  integrity sha512-gbIXrYrENNQ/e4JoyK8LNfJXYYDaccu/7uT8izOq/0vWUKEdRFwCFvP1aLZWZnuE5tAaaFOlFdjynMh9PiC/dQ==
+
 react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -8157,6 +8172,11 @@ react-native-app-intro-slider@^4.0.2:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/react-native-app-intro-slider/-/react-native-app-intro-slider-4.0.4.tgz#fa5cda7057db62c448ac975ffd2ba0cff94cc8d8"
   integrity sha512-Zkjaol6X3BbZkHUpVDj2LjdidpS6rCgKi0fx80xgGKa0pHxBRd4swWTv2bHnnvu5k1/HXwYk0mY2TbK+2jHl5w==
+
+react-native-autocomplete-input@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-autocomplete-input/-/react-native-autocomplete-input-4.2.0.tgz#fcfc3d2f19134d4c3394a4e6a5aae13d8c4c9129"
+  integrity sha512-bLZ9FO3NwcqYY3r6hefEEC4VW45L97kXuCyAqKXW1SJkkG/pGcen6zLq3SMFgoQuG3ryrO/ohz7gme7hFwzjoQ==
 
 react-native-code-push@^6.2.1:
   version "6.3.0"
@@ -8338,6 +8358,11 @@ react-native-testing-library@^2.1.0:
   integrity sha512-iorikwlADclvzvHWEE+zB8FdJctP8BtzdWj6C6ECU17B4iSCJ228iF2xcoE47/BKAeHMNRk5WbL0zsWpUvnPgA==
   dependencies:
     pretty-format "^26.0.1"
+
+react-native-text-input-mask@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-text-input-mask/-/react-native-text-input-mask-2.0.0.tgz#9cb793e764355d9282d92ea5231d8030a7ca5692"
+  integrity sha512-kP8gURb1+6iR6CxfUx802f4ja9Jzer76hY1w0cjaCVsfbbzyykYIAANTnlxbmFFv/8pQl4NTm1CbQqkg0Cp/gA==
 
 react-native-vector-icons@^6.6.0:
   version "6.7.0"
