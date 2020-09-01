@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet, Linking
+  Text, TouchableOpacity, StyleSheet, Linking, Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,12 +9,48 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {
   TextoSobreSUS, TextoSobreSUSCeara, TextoSobreSESA, TextoSobreESP
 } from './textos';
-import { navigate } from '../../routes/rootNavigation';
+// import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
+  InstagramESP: {
+    tituloCompleto: 'Instagram do ESP/CE',
+    url: 'https://www.instagram.com/espceara/',
+    urlLinking: 'instagram://user?username=espceara',
+    urlLinkingAndroid: 'instagram://user?username=espceara'
+  },
+  FacebookESP: {
+    tituloCompleto: 'Facebook do ESP/CE',
+    url: 'https://www.facebook.com/espceara/',
+    urlLinking: 'fb://profile/210165089080732',
+    urlLinkingAndroid: 'fb://page/210165089080732'
+  },
+  LinkedinESP: {
+    tituloCompleto: 'Linkedin do ESP/CE',
+    url: 'https://www.linkedin.com/in/espceara/',
+    urlLinking: 'linkedin://in/espceara/',
+    urlLinkingAndroid: 'linkedin://profile/in/espceara/'
+  },
+  YoutubeESP: {
+    tituloCompleto: 'Youtube do ESP/CE',
+    url: 'https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA',
+    urlLinking: 'vnd.youtube://channel/UC_G1Zak1oxOctqap579R9cA',
+    urlLinkingAndroid: 'youtube://channel/UC_G1Zak1oxOctqap579R9cA'
+  },
   SiteESP: {
     tituloCompleto: 'Site da ESP/CE',
     url: 'https://www.esp.ce.gov.br/'
+  },
+  InstagramSaude: {
+    tituloCompleto: 'Instagram da Saúde do Ceará',
+    url: 'https://www.instagram.com/saudeceara/',
+    urlLinking: 'instagram://user?username=saudeceara',
+    urlLinkingAndroid: 'instagram://user?username=saudeceara'
+  },
+  FacebookSaude: {
+    tituloCompleto: 'Facebook da Saúde do Ceará',
+    url: 'https://www.facebook.com/SaudeCeara/',
+    urlLinking: 'fb://profile/273289709468123',
+    urlLinkingAndroid: 'fb://page/273289709468123'
   },
   SiteSaude: {
     tituloCompleto: 'Site da Saúde do Ceará',
@@ -81,7 +117,7 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="file-document" color="#808080" />}
           title="Plano de Modernização da Saúde"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('Plano')}
+          onPress={() => linkingURLouApp('Plano')}
         />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
@@ -93,35 +129,35 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.instagram.com/espceara/')}
+          onPress={() => linkingURLouApp('InstagramESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.facebook.com/espceara/')}
+          onPress={() => linkingURLouApp('FacebookESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="linkedin" color="#808080" />}
           title="Linkedin"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.linkedin.com/in/espceara/')}
+          onPress={() => linkingURLouApp('LinkedinESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="youtube" color="#808080" />}
           title="Youtube"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.youtube.com/channel/UC_G1Zak1oxOctqap579R9cA')}
+          onPress={() => linkingURLouApp('YoutubeESP')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('SiteESP')}
+          onPress={() => linkingURLouApp('SiteESP', 'site')}
         />
         <Divider style={estilos.borda} />
       </List.Accordion>
@@ -134,14 +170,14 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.instagram.com/saudeceara/')}
+          onPress={() => linkingURLouApp('InstagramSaude')}
         />
         <Divider style={estilos.borda} />
         <List.Item
           left={() => <List.Icon icon="facebook" color="#808080" />}
           title="Facebook"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('https://www.facebook.com/SaudeCeara/')}
+          onPress={() => linkingURLouApp('FacebookSaude')}
         />
         <Divider style={estilos.borda} />
         <List.Item
@@ -155,7 +191,7 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="web" color="#808080" />}
           title="Site"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => navegar('SiteSaude')}
+          onPress={() => linkingURLouApp('SiteSaude', 'site')}
         />
         <Divider style={estilos.borda} />
       </List.Accordion>
@@ -174,6 +210,26 @@ const estilos = StyleSheet.create({
   }
 });
 
-const navegar = (titulo) => {
-  navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
+
+const linkingURLouApp = (titulo, tipo) => {
+  if (tipo !== 'site') {
+    let pegarUrlouApp = '';
+    if (Platform.OS === 'ios') {
+      pegarUrlouApp = `${informacoes[titulo].urlLinking}`;
+    } else {
+      pegarUrlouApp = `${informacoes[titulo].urlLinkingAndroid}`;
+    }
+
+    Linking.canOpenURL(pegarUrlouApp)
+      .then((suportado) => {
+        if (!suportado) {
+          // console.log('URL não suportada');
+          Linking.openURL(`${informacoes[titulo].url}`);
+          return;
+        }
+        Linking.openURL(pegarUrlouApp);
+      }).catch(err => console.error('Ocorreu um erro', err));
+  } else {
+    Linking.openURL(`${informacoes[titulo].url}`);
+  }
 };
