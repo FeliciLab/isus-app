@@ -223,23 +223,26 @@ export default function FormularioInfoPessoal() {
           </Text>
         )}
 
-          <TextInput
-            label="Município de Residência"
-            name="cidade"
-            style={estilos.campoDeTexto}
-            mode="outlined"
-            theme={theme}
-            value={cidadeSelecionada}
-            onChangeText={(text) => {
-              alteraQuery(text);
-              alterarMenuVisivel(true);
-              alteraValor('cidade', { id: pegarId(text), nome: text });
-              alteraCidadeSelecionada(text);
-            }}
-          />
           <Menu
+            style={{ marginTop: 92 }}
             visible={menuVisivel}
-            anchor={{ x: 100, y: 600 }}
+            anchor={(
+<TextInput
+  label="Município de Residência"
+  name="cidade"
+  style={estilos.campoDeTexto}
+  mode="outlined"
+  theme={theme}
+  value={cidadeSelecionada}
+  onChangeText={(text) => {
+    alteraQuery(text);
+    alterarMenuVisivel(true);
+    alteraValor('cidade', { id: pegarId(text), nome: text });
+    alteraCidadeSelecionada(text);
+  }}
+/>
+)}
+            onDismiss={() => alterarMenuVisivel(false)}
           >
             {nomeCidadesFiltradas.map(cidade => (
             <Menu.Item
@@ -250,6 +253,7 @@ export default function FormularioInfoPessoal() {
                 alteraCidadeSelecionada(cidade);
               }}
               title={cidade}
+              style={{ width: 350 }}
             />
             ))}
           </Menu>
