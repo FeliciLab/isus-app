@@ -28,6 +28,7 @@ export default function FormularioInfoPessoal() {
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
   const [query, alteraQuery] = React.useState('');
+  const [cidadeSelecionada, alteraCidadeSelecionada] = React.useState('');
   const [menuVisivel, alterarMenuVisivel] = React.useState(false);
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
@@ -88,6 +89,9 @@ export default function FormularioInfoPessoal() {
 
   const cidadeValida = async (cidade) => {
     const municipios = await pegarDados('municipios');
+    if (municipios.includes(cidade)) {
+      alterarMenuVisivel(false);
+    }
     return municipios.includes(cidade);
   };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
@@ -119,7 +123,8 @@ export default function FormularioInfoPessoal() {
   }, [nomeCidades]);
 
   useEffect(() => {
-    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.startsWith(query)));
+    // eslint-disable-next-line
+    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.toLowerCase().startsWith(query.toLocaleLowerCase())));
   }, [query]);
 
   useLayoutEffect(() => {
@@ -160,9 +165,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.nomeCompleto && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.nomeCompleto.message}
-{' '}
+            {' '}
+            {errors.nomeCompleto.message}
+            {' '}
           </Text>
         )}
         <TextInput
@@ -176,9 +181,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.email && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.email.message}
-{' '}
+            {' '}
+            {errors.email.message}
+            {' '}
           </Text>
         )}
         <TextInput
@@ -194,9 +199,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.telefone && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.telefone.message}
-{' '}
+            {' '}
+            {errors.telefone.message}
+            {' '}
           </Text>
         )}
         <TextInput
@@ -212,9 +217,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.cpf && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.cpf.message}
-{' '}
+            {' '}
+            {errors.cpf.message}
+            {' '}
           </Text>
         )}
 
@@ -224,10 +229,12 @@ export default function FormularioInfoPessoal() {
             style={estilos.campoDeTexto}
             mode="outlined"
             theme={theme}
+            value={cidadeSelecionada}
             onChangeText={(text) => {
               alteraQuery(text);
               alterarMenuVisivel(true);
               alteraValor('cidade', { id: pegarId(text), nome: text });
+              alteraCidadeSelecionada(text);
             }}
           />
           <Menu
@@ -235,25 +242,25 @@ export default function FormularioInfoPessoal() {
             anchor={{ x: 100, y: 600 }}
           >
             {nomeCidadesFiltradas.map(cidade => (
-<Menu.Item
-  onPress={() => {
-    alteraQuery(cidade);
-    alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
-    alterarMenuVisivel(false);
-  }}
-  title={cidade}
-/>
+            <Menu.Item
+              onPress={() => {
+                alteraQuery(cidade);
+                alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
+                alterarMenuVisivel(false);
+                alteraCidadeSelecionada(cidade);
+              }}
+              title={cidade}
+            />
             ))}
           </Menu>
         {errors.cidade && (
           <Text style={estilos.mensagemDeErro}>
-{' '}
-{errors.cidade.message}
-{' '}
+            {' '}
+            {errors.cidade.message}
+            {' '}
           </Text>
         )}
       </View>
-      {/* </View> */}
 
       <Button
         disabled={!botaoAtivo}
