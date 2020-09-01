@@ -5,8 +5,9 @@ import React, {
   useEffect
 } from 'react';
 import {
-  TouchableOpacity, StyleSheet, View, Text
+  TouchableOpacity, StyleSheet, View, Text, Platform, ScrollView
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
@@ -24,6 +25,7 @@ import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
+  const [menuHeight, alterarMenuHeight] = React.useState(0);
   const [nomeCidadesFiltradas, alteraNomeCidadesFiltradas] = React.useState([]);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
@@ -153,7 +155,13 @@ export default function FormularioInfoPessoal() {
   return (
     <>
       <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-      <View style={{ marginHorizontal: 16 }}>
+      <KeyboardAwareScrollView
+        style={{ backgroundColor: '#FFF' }}
+        extraScrollHeight={menuHeight - 100}
+        keyboardOpeningTime={menuHeight}
+        enableOnAndroid
+        enableAutomaticScroll={Platform.OS === 'ios'}
+      >
         <TextInput
           label="Nome Completo"
           name="nomeCompleto"
@@ -224,7 +232,7 @@ export default function FormularioInfoPessoal() {
         )}
 
           <Menu
-            style={{ marginTop: 92 }}
+            style={{ marginTop: 92, height: 200 }}
             visible={menuVisivel}
             anchor={(
 <TextInput
@@ -239,23 +247,28 @@ export default function FormularioInfoPessoal() {
     alterarMenuVisivel(true);
     alteraValor('cidade', { id: pegarId(text), nome: text });
     alteraCidadeSelecionada(text);
+    alterarMenuHeight(100);
   }}
 />
+
 )}
             onDismiss={() => alterarMenuVisivel(false)}
           >
-            {nomeCidadesFiltradas.map(cidade => (
-            <Menu.Item
-              onPress={() => {
-                alteraQuery(cidade);
-                alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
-                alterarMenuVisivel(false);
-                alteraCidadeSelecionada(cidade);
-              }}
-              title={cidade}
-              style={{ width: 350 }}
-            />
-            ))}
+            <ScrollView>
+              {nomeCidadesFiltradas.map(cidade => (
+              <Menu.Item
+                onPress={() => {
+                  alteraQuery(cidade);
+                  alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
+                  alterarMenuVisivel(false);
+                  alteraCidadeSelecionada(cidade);
+                  alterarMenuHeight(0);
+                }}
+                title={cidade}
+                style={{ width: 350 }}
+              />
+              ))}
+            </ScrollView>
           </Menu>
         {errors.cidade && (
           <Text style={estilos.mensagemDeErro}>
@@ -264,6 +277,12 @@ export default function FormularioInfoPessoal() {
             {' '}
           </Text>
         )}
+      </KeyboardAwareScrollView>
+
+      <View style={{ marginBottom: menuHeight }}>
+        <Text>
+          {''}
+        </Text>
       </View>
 
       <Button
