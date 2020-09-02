@@ -5,33 +5,30 @@ import React, {
   useEffect
 } from 'react';
 import {
-  TouchableOpacity, StyleSheet, View, Text, Platform, ScrollView
+  TouchableOpacity, StyleSheet, View, Text
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  TextInput, DefaultTheme, Button, Menu
+  TextInput, DefaultTheme, Button
 } from 'react-native-paper';
+import { Dropdown } from 'react-native-material-dropdown-v2';
+import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import { aplicaMascaraNumerica, removeMascaraNumerica } from '../../utils/mascaras';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
-import { salvarDados, pegarDados } from '../../services/armazenamento';
+import { salvarDados } from '../../services/armazenamento';
 // eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
 // eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
+  const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [menuHeight, alterarMenuHeight] = React.useState(0);
-  const [nomeCidadesFiltradas, alteraNomeCidadesFiltradas] = React.useState([]);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
-  const [query, alteraQuery] = React.useState('');
-  const [cidadeSelecionada, alteraCidadeSelecionada] = React.useState('');
-  const [menuVisivel, alterarMenuVisivel] = React.useState(false);
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
 
@@ -74,8 +71,7 @@ export default function FormularioInfoPessoal() {
       maxLength: 14
     });
     register('cidade', {
-      required: true,
-      validate: async cidade => await cidadeValida(cidade.nome) || 'Escolha uma cidade válida da lista.'
+      required: true
     });
   }, [register]);
 
@@ -89,13 +85,6 @@ export default function FormularioInfoPessoal() {
     return teste;
   };
 
-  const cidadeValida = async (cidade) => {
-    const municipios = await pegarDados('municipios');
-    if (municipios.includes(cidade)) {
-      alterarMenuVisivel(false);
-    }
-    return municipios.includes(cidade);
-  };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
   const alteraValor = async (campo, valor) => {
@@ -124,11 +113,6 @@ export default function FormularioInfoPessoal() {
     guardarCidades();
   }, [nomeCidades]);
 
-  useEffect(() => {
-    // eslint-disable-next-line
-    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.toLowerCase().startsWith(query.toLocaleLowerCase())));
-  }, [query]);
-
   useLayoutEffect(() => {
     navigator.setOptions({
       headerStyle: {
@@ -155,13 +139,6 @@ export default function FormularioInfoPessoal() {
   return (
     <>
       <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-      <KeyboardAwareScrollView
-        style={{ backgroundColor: '#FFF' }}
-        extraScrollHeight={menuHeight - 100}
-        keyboardOpeningTime={menuHeight}
-        enableOnAndroid
-        enableAutomaticScroll={Platform.OS === 'ios'}
-      >
         <TextInput
           label="Nome Completo"
           name="nomeCompleto"
@@ -230,60 +207,25 @@ export default function FormularioInfoPessoal() {
             {' '}
           </Text>
         )}
-
-          <Menu
-            style={{ marginTop: 92, height: 200 }}
-            visible={menuVisivel}
-            anchor={(
-<TextInput
-  label="Município de Residência"
-  name="cidade"
-  style={estilos.campoDeTexto}
-  mode="outlined"
-  theme={theme}
-  value={cidadeSelecionada}
-  onChangeText={(text) => {
-    alteraQuery(text);
-    alterarMenuVisivel(true);
-    alteraValor('cidade', { id: pegarId(text), nome: text });
-    alteraCidadeSelecionada(text);
-    alterarMenuHeight(100);
-  }}
-/>
-
-)}
-            onDismiss={() => alterarMenuVisivel(false)}
-          >
-            <ScrollView>
-              {nomeCidadesFiltradas.map(cidade => (
-              <Menu.Item
-                onPress={() => {
-                  alteraQuery(cidade);
-                  alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
-                  alterarMenuVisivel(false);
-                  alteraCidadeSelecionada(cidade);
-                  alterarMenuHeight(0);
-                }}
-                title={cidade}
-                style={{ width: 350 }}
-              />
-              ))}
-            </ScrollView>
-          </Menu>
-        {errors.cidade && (
-          <Text style={estilos.mensagemDeErro}>
-            {' '}
-            {errors.cidade.message}
-            {' '}
-          </Text>
-        )}
-      </KeyboardAwareScrollView>
-
-      <View style={{ marginBottom: menuHeight }}>
-        <Text>
-          {''}
-        </Text>
-      </View>
+        <View style={{ marginTop: 14 }}>
+        <Dropdown
+          ref={dropdown}
+          label="Município de Residência"
+          data={nomeCidades}
+          labelExtractor={cidade => cidade}
+          valueExtractor={cidade => cidade}
+          onChangeText={(cidade) => {
+            alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
+          }}
+        />
+            <IconDropdown
+              style={{
+                position: 'absolute', right: 8, top: 30, fontSize: 25
+              }}
+              name="arrow-drop-down"
+              onPress={() => dropdown.current.focus()}
+            />
+        </View>
 
       <Button
         disabled={!botaoAtivo}
