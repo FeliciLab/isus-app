@@ -228,7 +228,10 @@ const linkingURLouApp = (titulo, tipo) => {
           return;
         }
         Linking.openURL(pegarUrlouApp);
-      }).catch(err => console.error('Ocorreu um erro', err));
+      }).catch((err) => {
+        console.error('Ocorreu um erro', err);
+        Linking.openURL(`${informacoes[titulo].url}`);
+      });
   } else {
     Linking.openURL(`${informacoes[titulo].url}`);
   }
