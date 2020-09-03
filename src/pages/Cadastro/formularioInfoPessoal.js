@@ -14,7 +14,7 @@ import {
 } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import IconDropdown from 'react-native-vector-icons/MaterialIcons';
-import { aplicaMascaraNumerica, removeMascaraNumerica } from '../../utils/mascaras';
+import TextInputMask from 'react-native-text-input-mask';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
@@ -174,13 +174,24 @@ export default function FormularioInfoPessoal() {
         <TextInput
           label="Telefone"
           name="telefone"
-          value={aplicaMascaraNumerica(getValues('telefone'), '(##)####-#####')}
           keyboardType="number-pad"
           style={estilos.campoDeTexto}
-          onChangeText={text => alteraValor('telefone', removeMascaraNumerica(text))}
+          onChangeText={text => text}
           mode="outlined"
           theme={theme}
-          maxLength={14}
+          maxLength={15}
+          render={props => (
+<TextInputMask
+  {...props}
+  onChangeText={(formatted, extracted) => {
+    console.log(formatted);
+    console.log(extracted);
+    props.onChangeText(formatted);
+    alteraValor('telefone', extracted);
+  }}
+  mask="([00]) [00000]-[0000]"
+/>
+          )}
         />
         {errors.telefone && (
           <Text style={{ color: '#000000' }}>
@@ -192,13 +203,24 @@ export default function FormularioInfoPessoal() {
         <TextInput
           label="CPF"
           name="cpf"
-          value={aplicaMascaraNumerica(getValues('cpf'), '###.###.###-##')}
           keyboardType="number-pad"
           style={estilos.campoDeTexto}
-          onChangeText={text => alteraValor('cpf', removeMascaraNumerica(text))}
+          onChangeText={text => text}
           mode="outlined"
           theme={theme}
           maxLength={14}
+          render={props => (
+            <TextInputMask
+              {...props}
+              onChangeText={(formatted, extracted) => {
+                console.log(formatted);
+                console.log(extracted);
+                props.onChangeText(formatted);
+                alteraValor('cpf', extracted);
+              }}
+              mask="[000].[000].[000]-[00]"
+            />
+          )}
         />
         {errors.cpf && (
           <Text style={{ color: '#000000' }}>

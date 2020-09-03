@@ -4,7 +4,6 @@ import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FormContext from '../../context/FormContext';
 import { cadastrarUsuario } from '../../apis/apiCadastro';
-import { removeMascaraNumerica } from '../../utils/mascaras';
 import Alerta from '../../components/alerta';
 
 export default function FormularioSenha() {
@@ -47,8 +46,8 @@ export default function FormularioSenha() {
       ...dadosCadastro,
       cidadeId: cidade.id,
       cidade: cidade.nome,
-      cpf: removeMascaraNumerica(cpf),
-      telefone: removeMascaraNumerica(telefone),
+      cpf,
+      telefone,
       termos: true
     };
   };
@@ -100,7 +99,6 @@ export default function FormularioSenha() {
             label="Senha"
             name="senha"
             secureTextEntry
-            value={getValues('senha')}
             underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('senha', text)}
             style={estilos.campoDeTexto}
@@ -120,7 +118,6 @@ export default function FormularioSenha() {
             label="Confirmação de senha"
             name="repetirsenha"
             secureTextEntry
-            value={getValues('repetirsenha')}
             underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('repetirsenha', text)}
             style={estilos.campoDeTexto}

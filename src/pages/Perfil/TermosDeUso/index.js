@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
+import termoDeUso from './termo-de-uso.json';
 
 export default function TermosDeUsoScreen() {
   const navigation = useNavigation();
@@ -37,18 +38,32 @@ export default function TermosDeUsoScreen() {
     <>
     <ScrollView style={{ backgroundColor: '#fff' }}>
       <View>
-        <Text style={estilos.titulo}>Termos de uso do ID Saúde</Text>
+        <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
       </View>
       <View style={estilos.conteudoTexto}>
-        <Text style={estilos.texto}>
-          Textooooo
-        </Text>
-        <Text style={estilos.texto}>
-          Textooooo 1
-        </Text>
-        <Text style={estilos.texto}>
-          Textooooo 2
-        </Text>
+        {
+          termoDeUso.paragrafos.map(paragrafo => (
+            <Text style={estilos.texto}>
+              {paragrafo}
+            </Text>
+          ))
+        }
+        {
+          termoDeUso.secoes.map(secao => (
+            <View>
+              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+                {secao.titulo}
+              </Text>
+                {
+                  secao.paragrafos.map(paragrafo => (
+                    <Text style={estilos.texto}>
+                    {paragrafo}
+                    </Text>
+                  ))
+                }
+            </View>
+          ))
+        }
       </View>
     </ScrollView>
     </>
@@ -56,9 +71,9 @@ export default function TermosDeUsoScreen() {
 }
 
 const estilos = StyleSheet.create({
-  titulo: { fontSize: 24, left: 16, top: 30 },
+  titulo: { fontSize: 24, left: 16, marginTop: 30 },
   conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
   texto: {
-    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 10, top: 50
+    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 10, marginTop: 5
   }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, Share } from 'react-native';
 import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
@@ -55,51 +55,57 @@ const informacoes = {
 
 export const TextoSobreSUS = () => (
   <>
-<Text style={estilos.textoConteudo}>
-    O Sistema Único de Saúde (SUS) é um dos maiores e mais complexos sistemas de saúde pública do
-    mundo. Criado pela Constituição Federal Brasileira em 1988, e
-    promulgado pela
-    {' '}
-    <Text>Lei 8080</Text>
-    , busca assegurar o acesso universal como
-    {' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('Direito')}>um dever do Estado e um direito de todos os brasileiros</Text>
-    .
-    {'\n\n'}
-    Sua rede é ampla, funciona de maneira integral, e
-    {' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('SistemaUnicoDeSaude')}>abrange tanto ações quanto os serviços de saúde</Text>
-    , ofertados desde a gestação e por toda a vida. Apesar de ser
-    nomeado de Único, o SUS é descentralizado, e sua a implementação considera as
-    distintas e diversas características de cada território brasileiro.
-    {'\n\n'}
-    O Ceará é um estado com muitas histórias de sucesso no SUS. A criação do
-    Programa Saúde da Família, dos Agentes Comunitários de Saúde, e o processo de
-    municipalização e regionalização da saúde são alguns exemplos de conquistas com
-    {' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('Memorias')}>forte presença do Ceará em seus DNAs</Text>
-    .
-    {'\n\n'}
-    E agora o foco em nosso estado é a inovação e qualificação,  promover transformação digital,
-    para seguir crescendo e capilarizando ações positivas pelo Brasil. O iSUS é fruto desse
-    pensamento e dessa missão.
-    {'\n\n'}
-    Saiba mais sobre
-{' '}
-<Text style={estilos.textoLink} onPress={() => navegar('SUS')}>a história do SUS</Text>
-, sua gestão
-{' '}
-<Text style={estilos.textoLink} onPress={() => navegar('Brasil')}>no Brasil</Text>
-{' '}
-e
-{' '}
-<Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>no Ceará</Text>
-, e sobre as instâncias de
-{' '}
-    <Text>participação das pessoas</Text>
-{' '}
-na construção e no fortalecimento dessa conquista.
-</Text>
+    <Text style={estilos.textoSUS}>
+      O Sistema Único de Saúde (SUS) é um dos maiores e mais complexos sistemas de saúde pública do
+      mundo. Criado pela Constituição Federal Brasileira em 1988, e
+      promulgado pela
+      {' '}
+      <Text>Lei 8080</Text>
+      , busca assegurar o acesso universal como
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('Direito')}>um dever do Estado e um direito de todos os brasileiros</Text>
+      .
+      {'\n\n'}
+      Sua rede é ampla, funciona de maneira integral, e
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('SistemaUnicoDeSaude')}>abrange tanto ações quanto os serviços de saúde</Text>
+      , ofertados desde a gestação e por toda a vida. Apesar de ser
+      nomeado de Único, o SUS é descentralizado, e sua a implementação considera as
+      distintas e diversas características de cada território brasileiro.
+    </Text>
+  </>
+);
+
+export const TextoSobreSUSCeara = () => (
+  <>
+    <Text style={estilos.textoConteudo}>
+      O Ceará é um estado com muitas histórias de sucesso no SUS. A criação do
+      Programa Saúde da Família, dos Agentes Comunitários de Saúde, e o processo de
+      municipalização e regionalização da saúde são alguns exemplos de conquistas com
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('Memorias')}>forte presença do Ceará em seus DNAs</Text>
+      .
+      {'\n\n'}
+      E agora o foco em nosso estado é a inovação e qualificação,  promover transformação digital,
+      para seguir crescendo e capilarizando ações positivas pelo Brasil. O iSUS é fruto desse
+      pensamento e dessa missão.
+      {'\n\n'}
+      Saiba mais sobre
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('SUS')}>a história do SUS</Text>
+      , sua gestão
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('Brasil')}>no Brasil</Text>
+      {' '}
+      e
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>no Ceará</Text>
+      , e sobre as instâncias de
+      {' '}
+          <Text>participação das pessoas</Text>
+      {' '}
+      na construção e no fortalecimento dessa conquista.
+    </Text>
   </>
 );
 
@@ -111,7 +117,7 @@ O iSUS foi criado na
     <Text style={estilos.textoLink} onPress={() => navegar('ESPCE')}>Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues</Text>
 (ESP/CE), contando com a parceria da
 {' '}
-    <Text>Universidade Estadual do Ceará</Text>
+    <Text style={estilos.textoLink} onPress={() => aoCompartilhar('UECE')}>Universidade Estadual do Ceará</Text>
 {' '}
 e da
 {' '}
@@ -170,9 +176,20 @@ Av. Almirante Barroso, 600. Praia de Iracema. Fortaleza-CE
   </>
 );
 
-
 const navegar = (titulo) => {
   navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
+};
+
+const aoCompartilhar = async (titulo) => {
+  const messagTitle = informacoes[titulo].tituloCompleto;
+  const messagLink = informacoes[titulo].url;
+  try {
+    await Share.share({
+      message: `${messagTitle} ${messagLink}`
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 const estilos = StyleSheet.create({
@@ -187,6 +204,11 @@ const estilos = StyleSheet.create({
   },
   negrito: {
     fontWeight: 'bold'
+  },
+  textoSUS: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontSize: 14,
+    marginHorizontal: 14,
+    marginVertical: 14,
   }
-
 });

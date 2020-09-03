@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.9.1",
+  "version": "3.10.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -12,6 +12,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@paralleldrive/react-feature-toggles": "^2.3.1",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",
@@ -50,6 +51,7 @@
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.14.0",
     "react-native-testing-library": "^2.1.0",
+    "react-native-text-input-mask": "^2.0.0",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^9.4.0",
     "rn-fetch-blob": "^0.12.0",

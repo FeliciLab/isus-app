@@ -1,5 +1,6 @@
 import request from '../services/request';
 import { vazio } from '../utils/objectUtils';
+import { pegarSO, pegarVersao } from '../utils/platform';
 
 export function getCategoriasArquitetura() {
   return request.get('/categoriasArquitetura');
@@ -20,12 +21,16 @@ export function getProjectPorId(item) {
 export function postFeedback(tipoDeFeedback, texto, email, imagem) {
   if (vazio(imagem)) {
     return request.post('feedback', {
+      versaoAplicativo: pegarVersao(),
+      plataforma: pegarSO(),
       tipoDeFeedback,
       email,
       texto
     });
   }
   return request.post('feedback', {
+    versaoAplicativo: pegarVersao(),
+    plataforma: pegarSO(),
     tipoDeFeedback,
     email,
     texto,
@@ -35,6 +40,6 @@ export function postFeedback(tipoDeFeedback, texto, email, imagem) {
 
 export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
   return request.post('alertaDeEpi', {
-    descricao, unidadeDeSaude, email
+    descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
   });
 }
