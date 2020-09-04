@@ -15,7 +15,7 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-import { Feature } from '@paralleldrive/react-feature-toggles';
+import ItemDrawer from './itemDrawer';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
 import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
@@ -67,38 +67,15 @@ function conteudoDoDrawer(props) {
     }
   ];
 
-  const RenderizaItensDoDrawer = () => ItensDoDrawer.map(item => (item.feature ? (
-        <Feature
-          name={item.feature}
-          activeComponent={() => (
-            <DrawerItem
-              key={item.nome}
-              icon={() => item.icone}
-              label={item.nome}
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="rgba(0, 0, 0, 0.87)"
-              activeTintColor="rgba(0, 0, 0, 0.87)"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
-              focused={routeName === item.rota}
-              onPress={() => navigate(item.rota)}
-            />
-          )}
-        />
-  ) : (
-      <DrawerItem
-        key={item.nome}
-        icon={() => item.icone}
-        label={item.nome}
-        labelStyle={{ fontSize: 15 }}
-        inactiveTintColor="rgba(0, 0, 0, 0.87)"
-        activeTintColor="rgba(0, 0, 0, 0.87)"
-        inactiveBackgroundColor="transparent"
-        activeBackgroundColor="transparent"
-        focused={routeName === item.rota}
-        onPress={() => navigate(item.rota)}
-      />
-  )));
+  const RenderizaItensDoDrawer = () => ItensDoDrawer.map(item => (
+    <ItemDrawer
+      nome={item.nome}
+      icone={item.icone}
+      feature={item.feature}
+      isFocado={routeName === item.rota}
+      onPress={() => navigate(item.rota)}
+    />
+  ));
 
   return (
     <>
@@ -111,7 +88,7 @@ function conteudoDoDrawer(props) {
       </SafeAreaView>
       <DrawerContentScrollView {...props} style={{ marginTop: 0 }}>
         {
-          <RenderizaItensDoDrawer />
+          RenderizaItensDoDrawer().map(Item => <>{Item}</>)
         }
       </DrawerContentScrollView>
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
