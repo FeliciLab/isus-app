@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, Share } from 'react-native';
+import { Text, StyleSheet, Linking } from 'react-native';
 import { navigate } from '../../routes/rootNavigation';
 
 const informacoes = {
@@ -60,10 +60,10 @@ export const TextoSobreSUS = () => (
       mundo. Criado pela Constituição Federal Brasileira em 1988, e
       promulgado pela
       {' '}
-      <Text>Lei 8080</Text>
+      <Text style={estilos.textoLink} onPress={() => abrirUrl('Lei8080')}>Lei 8080</Text>
       , busca assegurar o acesso universal como
       {' '}
-      <Text style={estilos.textoLink} onPress={() => navegar('Direito')}>um dever do Estado e um direito de todos os brasileiros</Text>
+      <Text style={estilos.textoLink} onPress={() => abrirUrl('Direito')}>um dever do Estado e um direito de todos os brasileiros</Text>
       .
       {'\n\n'}
       Sua rede é ampla, funciona de maneira integral, e
@@ -102,7 +102,7 @@ export const TextoSobreSUSCeara = () => (
       <Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>no Ceará</Text>
       , e sobre as instâncias de
       {' '}
-          <Text>participação das pessoas</Text>
+      <Text style={estilos.textoLink} onPress={() => abrirUrl('ConselhoEstadual')}>participação das pessoas</Text>
       {' '}
       na construção e no fortalecimento dessa conquista.
     </Text>
@@ -117,7 +117,7 @@ O iSUS foi criado na
     <Text style={estilos.textoLink} onPress={() => navegar('ESPCE')}>Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues</Text>
 (ESP/CE), contando com a parceria da
 {' '}
-    <Text style={estilos.textoLink} onPress={() => aoCompartilhar('UECE')}>Universidade Estadual do Ceará</Text>
+  <Text style={estilos.textoLink} onPress={() => abrirUrl('UECE')}>Universidade Estadual do Ceará</Text>
 {' '}
 e da
 {' '}
@@ -180,16 +180,8 @@ const navegar = (titulo) => {
   navigate('webview', { title: informacoes[titulo].tituloCompleto, url: informacoes[titulo].url });
 };
 
-const aoCompartilhar = async (titulo) => {
-  const messagTitle = informacoes[titulo].tituloCompleto;
-  const messagLink = informacoes[titulo].url;
-  try {
-    await Share.share({
-      message: `${messagTitle} ${messagLink}`
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
+const abrirUrl = (titulo) => {
+  Linking.openURL(`${informacoes[titulo].url}`);
 };
 
 const estilos = StyleSheet.create({
