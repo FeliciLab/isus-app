@@ -9,7 +9,7 @@ import { FeatureToggles } from '@paralleldrive/react-feature-toggles';
 import Routes from './routes';
 import { navigationRef, navigate } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
-import features from './features.json';
+import featuresAtivas from './featureAtivas';
 
 function App() {
   useEffect(() => {
@@ -76,7 +76,7 @@ function App() {
   return (
     <>
       <StatusBar backgroundColor="#4CAF50" />
-      <FeatureToggles features={features}>
+      <FeatureToggles features={featuresAtivas}>
         <Routes navigationRef={navigationRef} />
       </FeatureToggles>
     </>
