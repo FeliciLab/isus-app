@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
@@ -23,6 +23,14 @@ function FormularioLogin() {
       placeholder: '#fff'
     }
   };
+
+  useEffect(() => {
+    if (email.length > 1 && !emailValido()) {
+      alterarErro(true);
+      return;
+    }
+    alterarErro(false);
+  }, [email]);
 
   const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
   const senhaValido = () => senha.replace(/\s/g, '').length;
@@ -63,14 +71,8 @@ function FormularioLogin() {
       mode="outlined"
       placeholder="E-mail"
       selectionColor="#00000AB"
-      onChangeText={(textoEmail) => {
-        alterarEmail(textoEmail);
-        if (email.length > 1 && !emailValido()) {
-          alterarErro(true);
-          return;
-        }
-        alterarErro(false);
-      }}
+      value={email}
+      onChangeText={textoEmail => alterarEmail(textoEmail)}
       theme={theme}
     />
      { temErro && <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text> }
