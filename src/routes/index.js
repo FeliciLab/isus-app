@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import AppTab from './appBottomTab';
 import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen.routes';
@@ -11,7 +10,6 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
-import TelaDeLogin from '../pages/Login/index';
 
 const RootStack = createStackNavigator();
 
@@ -26,9 +24,9 @@ export default function App({ navigationRef }) {
           options={{ headerShown: true }}
         />
         <RootStack.Screen
-          name="LOGIN"
-          component={TelaDeLogin}
-          options={{ headerShown: true }}
+          name="LOGIN_WELCOME"
+          component={AppDrawerScreen}
+          options={{ headerShown: false }}
           initialParams={{ possuiIDSaude: false }}
         />
         <RootStack.Screen

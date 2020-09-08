@@ -103,7 +103,7 @@ export default function Welcome() {
           onPress={() => {
             AsyncStorage.setItem('@show-tutorial', 'false');
             console.log('navigation welcome', navigation);
-            navigation.navigate('LOGIN', { screen: 'ID SAÚDE' });
+            navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
           }
           }
           mode="contained"
