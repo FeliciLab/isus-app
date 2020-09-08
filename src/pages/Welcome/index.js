@@ -25,25 +25,25 @@ export default function Welcome() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisõess',
+      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões.',
       img: bemVindo
     },
     {
       key: 'slide-2',
       title: 'Minha saúde',
-      description: 'Orientações sobre autocuidado, autoproteção e como preservar sua saúde física e mental',
+      description: 'Orientações sobre autocuidado, autoproteção e como preservar sua saúde física e mental.',
       img: minhaSaude
     },
     {
       key: 'slide-3',
       title: 'Educação',
-      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde',
+      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde.',
       img: educacao
     },
     {
       key: 'slide-4',
       title: 'Pesquisa',
-      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento',
+      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento.',
       img: pesquisa
     },
     {
@@ -64,19 +64,19 @@ export default function Welcome() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisõess',
+      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões.',
       img: bemVindo
     },
     {
       key: 'slide-2',
       title: 'Educação',
-      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde',
+      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde.',
       img: educacao
     },
     {
       key: 'slide-3',
       title: 'Pesquisa',
-      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento',
+      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento.',
       img: pesquisa
     },
     {
@@ -94,7 +94,7 @@ export default function Welcome() {
     {
       key: 'slide-6',
       title: 'Cadastro de profissional',
-      description: 'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde',
+      description: 'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde.',
       img: cadastroProfissional,
       botao:
         <Button
