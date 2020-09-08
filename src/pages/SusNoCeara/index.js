@@ -117,7 +117,7 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="file-document" color="#808080" />}
           title="Plano de Modernização da Saúde"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => linkingURLouApp('Plano')}
+          onPress={() => linkingURLouApp('Plano', 'site')}
         />
       </List.Accordion>
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
@@ -209,7 +209,6 @@ const estilos = StyleSheet.create({
     marginBottom: 5
   }
 });
-
 
 const linkingURLouApp = (titulo, tipo) => {
   if (tipo !== 'site') {
