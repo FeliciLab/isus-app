@@ -55,7 +55,20 @@ export default function Welcome() {
       title: 'Cadastro de profissional',
       description: 'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde',
       img: cadastroProfissional,
-      botao: <Button mode="contained" labelStyle={{ color: 'white' }}> Teste </Button>
+      botao:
+        <Button
+          labelStyle={{ color: '#4CAF50', fontWeight: '600' }}
+          style={{ ...style.botao, backgroundColor: '#ffffff' }}
+          onPress={() => {
+            AsyncStorage.setItem('@show-tutorial', 'false');
+            navigation.navigate('LOGIN');
+          }
+          }
+          mode="contained"
+        >
+          {' '}
+          Realizar meu cadastro
+        </Button>
     }
   ];
 
@@ -185,4 +198,13 @@ const style = StyleSheet.create({
     letterSpacing: 0.5,
     color: '#FFFFFF',
   },
+  botao: {
+    borderRadius: 200,
+    marginHorizontal: 16,
+    marginVertical: 10,
+    paddingTop: 5,
+    paddingLeft: 22,
+    paddingRight: 22,
+    paddingBottom: 5
+  }
 });

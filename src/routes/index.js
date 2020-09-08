@@ -11,6 +11,7 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
+import TelaDeLogin from '../pages/Login/index';
 
 const RootStack = createStackNavigator();
 
@@ -23,6 +24,12 @@ export default function App({ navigationRef }) {
           name="CADASTRO"
           component={TelaDeCadastro}
           options={{ headerShown: true }}
+        />
+        <RootStack.Screen
+          name="LOGIN"
+          component={TelaDeLogin}
+          options={{ headerShown: true }}
+          initialParams={{ possuiIDSaude: false }}
         />
         <RootStack.Screen
           name="Descrição"
