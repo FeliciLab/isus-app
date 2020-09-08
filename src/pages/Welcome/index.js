@@ -18,7 +18,6 @@ import diagnostico from '../../assets/images/diagnostico.png';
 import manejoClinico from '../../assets/images/manejoClinico.png';
 import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 
-
 export default function Welcome() {
   const navigation = useNavigation();
 
@@ -103,7 +102,8 @@ export default function Welcome() {
           style={{ ...style.botao, backgroundColor: '#ffffff' }}
           onPress={() => {
             AsyncStorage.setItem('@show-tutorial', 'false');
-            navigation.navigate('LOGIN');
+            console.log('navigation welcome', navigation);
+            navigation.navigate('LOGIN', { screen: 'ID SAÚDE' });
           }
           }
           mode="contained"
@@ -167,38 +167,38 @@ export default function Welcome() {
       >
         <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
         <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ marginTop: 60, right: 40, flexDirection: 'row-reverse' }}>
-            <TouchableOpacity onPress={moveToHome}>
-              <Text style={style.skipTutorial}>
-                Pular Tutorial
-              </Text>
-            </TouchableOpacity>
-        </View>
-        <Feature
-          name="134"
-          activeComponent={(
-<AppIntroSlider
-  KeyExtractor={item => item.key}
-  renderItem={renderItem}
-  data={dataComPerfil}
-  renderDoneButton={renderNextButton}
-  renderNextButton={renderNextButton}
-  onSkip={moveToHome}
-  onDone={moveToHome}
-/>
-)}
-          inactiveComponent={(
-  <AppIntroSlider
-    KeyExtractor={item => item.key}
-    renderItem={renderItem}
-    data={dataSemPerfil}
-    renderDoneButton={renderNextButton}
-    renderNextButton={renderNextButton}
-    onSkip={moveToHome}
-    onDone={moveToHome}
-  />
-  )}
-        />
+          <View style={{ marginTop: 60, right: 40, flexDirection: 'row-reverse' }}>
+              <TouchableOpacity onPress={moveToHome}>
+                <Text style={style.skipTutorial}>
+                  Pular Tutorial
+                </Text>
+              </TouchableOpacity>
+          </View>
+          <Feature
+            name="134"
+            activeComponent={() => (
+              <AppIntroSlider
+                KeyExtractor={item => item.key}
+                renderItem={renderItem}
+                data={dataComPerfil}
+                renderDoneButton={renderNextButton}
+                renderNextButton={renderNextButton}
+                onSkip={moveToHome}
+                onDone={moveToHome}
+              />
+            )}
+            inactiveComponent={() => (
+              <AppIntroSlider
+                KeyExtractor={item => item.key}
+                renderItem={renderItem}
+                data={dataSemPerfil}
+                renderDoneButton={renderNextButton}
+                renderNextButton={renderNextButton}
+                onSkip={moveToHome}
+                onDone={moveToHome}
+              />
+            )}
+          />
         </SafeAreaView>
       </ImageBackground>
   );
