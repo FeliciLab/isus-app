@@ -7,8 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
 import bemVindo from '../../assets/images/bemVindo.png';
-import minhaSaude from '../../assets/images/minhasaude.png';
+import cadastroProfissional from '../../assets/images/cadastro-profissional.png';
 import educacao from '../../assets/images/educacao.png';
 import pesquisa from '../../assets/images/pesquisa.png';
 import diagnostico from '../../assets/images/diagnostico.png';
@@ -27,33 +28,34 @@ export default function Welcome() {
     },
     {
       key: 'slide-2',
-      title: 'Minha Saúde',
-      description: 'Orientações sobre autocuidado, autoproteção e como preservar sua saúde física e mental',
-      img: minhaSaude
-    },
-    {
-      key: 'slide-3',
       title: 'Educação',
       description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde',
       img: educacao
     },
     {
-      key: 'slide-4',
+      key: 'slide-3',
       title: 'Pesquisa',
       description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento',
       img: pesquisa
     },
     {
-      key: 'slide-5',
+      key: 'slide-4',
       title: 'Manejo Clínico',
       description: 'Conheça as diversas etapas e instrumentos de avaliação no tratamento dos pacientes com Covid-19.',
       img: manejoClinico
     },
     {
-      key: 'slide-6',
+      key: 'slide-5',
       title: 'Apoio ao Diagnóstico',
       description: 'Ferramentas e canais para apoio ao diagnóstico de pacientes.',
       img: diagnostico
+    },
+    {
+      key: 'slide-6',
+      title: 'Cadastro de profissional',
+      description: 'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde',
+      img: cadastroProfissional,
+      botao: <Button mode="contained" labelStyle={{ color: 'white' }}> Teste </Button>
     }
   ];
 
@@ -78,6 +80,7 @@ export default function Welcome() {
             <Text style={style.descriptionText}>{item.description}</Text>
           </View>
         </View>
+        {item.botao}
       </View>
       <View style={style.viewFooter} />
     </View>
