@@ -51,7 +51,7 @@ export default function TermosDeUsoScreen() {
         {
           termoDeUso.secoes.map(secao => (
             <View>
-              <Text style={{ fontWeight: 'bold', fontSize: 18 }}>
+              <Text style={{ fontWeight: 'bold', fontSize: 18, textAlign: 'center' }}>
                 {secao.titulo}
               </Text>
                 {
@@ -71,9 +71,9 @@ export default function TermosDeUsoScreen() {
 }
 
 const estilos = StyleSheet.create({
-  titulo: { fontSize: 24, left: 16, marginTop: 30 },
+  titulo: { fontSize: 23, marginTop: 30, textAlign: 'center' },
   conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
   texto: {
-    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 10, marginTop: 5
+    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 8, marginTop: 8, textAlign: 'justify'
   }
 });
