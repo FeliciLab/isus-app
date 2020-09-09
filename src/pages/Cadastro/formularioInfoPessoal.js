@@ -9,25 +9,26 @@ import {
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, DefaultTheme, Button } from 'react-native-paper';
-import Autocomplete from 'react-native-autocomplete-input';
+import {
+  TextInput, DefaultTheme, Button
+} from 'react-native-paper';
+import { Dropdown } from 'react-native-material-dropdown-v2';
+import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import TextInputMask from 'react-native-text-input-mask';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
-import { salvarDados, pegarDados } from '../../services/armazenamento';
+import { salvarDados } from '../../services/armazenamento';
 // eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
 // eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
+  const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [listaCidades, esconderListaCidades] = React.useState(false);
-  const [nomeCidadesFiltrada, alteraNomeCidadesFiltradas] = React.useState([]);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
-  const [query, alteraQuery] = React.useState('');
   const navigator = useNavigation();
   const { alterarTelaAtual } = useContext(WizardContext);
 
@@ -70,8 +71,7 @@ export default function FormularioInfoPessoal() {
       maxLength: 14
     });
     register('cidade', {
-      required: true,
-      validate: async cidade => await cidadeValida(cidade.nome) || 'Escolha uma cidade válida da lista.'
+      required: true
     });
   }, [register]);
 
@@ -85,13 +85,6 @@ export default function FormularioInfoPessoal() {
     return teste;
   };
 
-  const cidadeValida = async (cidade) => {
-    const municipios = await pegarDados('municipios');
-    if (municipios.includes(cidade)) {
-      esconderListaCidades(true);
-    }
-    return municipios.includes(cidade);
-  };
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
   const alteraValor = async (campo, valor) => {
@@ -120,11 +113,6 @@ export default function FormularioInfoPessoal() {
     guardarCidades();
   }, [nomeCidades]);
 
-  useEffect(() => {
-    // eslint-disable-next-line max-len
-    alteraNomeCidadesFiltradas(nomeCidades.filter(item => query && item.toLowerCase().startsWith(query.toLowerCase())));
-  }, [query]);
-
   useLayoutEffect(() => {
     navigator.setOptions({
       headerStyle: {
@@ -151,11 +139,9 @@ export default function FormularioInfoPessoal() {
   return (
     <>
       <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-      <View style={{ marginHorizontal: 16 }}>
         <TextInput
           label="Nome Completo"
           name="nomeCompleto"
-          value={getValues('nomeCompleto')}
           underlineColor="#BDBDBD"
           onChangeText={text => alteraValor('nomeCompleto', text)}
           style={estilos.campoDeTexto}
@@ -164,9 +150,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.nomeCompleto && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.nomeCompleto.message}
-{' '}
+            {' '}
+            {errors.nomeCompleto.message}
+            {' '}
           </Text>
         )}
         <TextInput
@@ -180,9 +166,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.email && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.email.message}
-{' '}
+            {' '}
+            {errors.email.message}
+            {' '}
           </Text>
         )}
         <TextInput
@@ -209,9 +195,9 @@ export default function FormularioInfoPessoal() {
         />
         {errors.telefone && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.telefone.message}
-{' '}
+            {' '}
+            {errors.telefone.message}
+            {' '}
           </Text>
         )}
         <TextInput
@@ -238,49 +224,30 @@ export default function FormularioInfoPessoal() {
         />
         {errors.cpf && (
           <Text style={{ color: '#000000' }}>
-{' '}
-{errors.cpf.message}
-{' '}
+            {' '}
+            {errors.cpf.message}
+            {' '}
           </Text>
         )}
-          <View style={{ marginTop: 32 }}>
-        <Text style={{ marginBottom: 4 }}>Município de Residência</Text>
-        <Autocomplete
-          label="Cidade"
-          name="cidade"
-          placeholder="Município de Residência"
-          inputContainerStyle={estilos.campoDeTextoAutocomplete}
-          listStyle={estilos.listaAutocomplete}
-          listContainerStyle={{ height: nomeCidadesFiltrada.length * 25 }}
-          data={nomeCidadesFiltrada}
-          defaultValue={query}
-          hideResults={listaCidades}
-          onChangeText={(text) => {
-            alteraQuery(text);
-            esconderListaCidades(false);
-            alteraValor('cidade', { id: pegarId(text), nome: text });
+        <View style={{ marginTop: 14 }}>
+        <Dropdown
+          ref={dropdown}
+          label="Município de Residência"
+          data={nomeCidades}
+          labelExtractor={cidade => cidade}
+          valueExtractor={cidade => cidade}
+          onChangeText={(cidade) => {
+            alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
           }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => {
-                alteraQuery(item);
-                esconderListaCidades(true);
-                alteraValor('cidade', { id: pegarId(item), nome: item });
-              }}
-            >
-              <Text style={{ padding: 4 }}>{item}</Text>
-            </TouchableOpacity>
-          )}
         />
-        {errors.cidade && (
-          <Text style={estilos.mensagemDeErro}>
-{' '}
-{errors.cidade.message}
-{' '}
-          </Text>
-        )}
-          </View>
-      </View>
+            <IconDropdown
+              style={{
+                position: 'absolute', right: 8, top: 30, fontSize: 25
+              }}
+              name="arrow-drop-down"
+              onPress={() => dropdown.current.focus()}
+            />
+        </View>
 
       <Button
         disabled={!botaoAtivo}
@@ -332,15 +299,5 @@ const estilos = StyleSheet.create({
     margin: 20,
     justifyContent: 'center',
     backgroundColor: '#304FFE'
-  },
-  campoDeTextoAutocomplete: {
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    borderColor: 'gray',
-    height: 56,
-  },
-  listaAutocomplete: {
-    padding: 10,
-    borderColor: 'gray',
   },
 });

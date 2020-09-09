@@ -3,7 +3,7 @@ import {
   View, Text, SafeAreaView, TouchableOpacity, StyleSheet
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useNavigation, useFocusEffect, DrawerActions } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from 'react-native-gesture-handler';
 import BarraDeStatus from '../../components/barraDeStatus';
@@ -32,7 +32,9 @@ function Login({ route }) {
             if (possuiIDSaude) {
               alterarPossuirIDSaude(false);
             } else {
-              navigation.toggleDrawer();
+              console.log('navigation login', navigation);
+              // navigation.toggleDrawer();
+              navigation.dispatch(DrawerActions.toggleDrawer());
             }
           }}
         >

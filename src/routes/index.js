@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import AppTab from './appBottomTab';
 import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen.routes';
@@ -23,6 +22,12 @@ export default function App({ navigationRef }) {
           name="CADASTRO"
           component={TelaDeCadastro}
           options={{ headerShown: true }}
+        />
+        <RootStack.Screen
+          name="LOGIN_WELCOME"
+          component={AppDrawerScreen}
+          options={{ headerShown: false }}
+          initialParams={{ possuiIDSaude: false }}
         />
         <RootStack.Screen
           name="Descrição"
