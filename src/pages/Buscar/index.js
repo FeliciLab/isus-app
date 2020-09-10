@@ -85,13 +85,11 @@ infoPreview() {
 
 
   runSearch(texto) {
-    console.log({ texto });
     this.setState({ text: texto });
   }
 
   // eslint-disable-next-line class-methods-use-this
   createItem(item, navigation) {
-    console.log(item);
     return (
       <View style={styles.backgroundColor}>
         <TouchableOpacity
@@ -125,7 +123,6 @@ infoPreview() {
     // eslint-disable-next-line react/destructuring-assignment
     clearTimeout(this.state.relogio);
     this.setState({ text });
-    console.log('dentro de teste');
     this.state.relogio = setTimeout(() => { load(); }, 3000);
   }
 

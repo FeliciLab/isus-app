@@ -37,7 +37,6 @@ export default function FormularioSenha() {
     setValue(campo, valor);
     await trigger();
     alteraBotaoAtivo(Object.entries(errors).length === 0);
-    console.log('errors', errors);
   };
 
   const tratarDadosCadastro = (dadosCadastro) => {
@@ -54,7 +53,6 @@ export default function FormularioSenha() {
 
   const realizarCadastroDoUsuario = async () => {
     const dados = tratarDadosCadastro(getValues());
-    console.log('DADOS TRATADOS', dados);
     const resposta = await cadastrarUsuario(dados);
     return resposta.data;
   };
@@ -85,7 +83,6 @@ export default function FormularioSenha() {
   };
 
   useEffect(() => {
-    console.log('valor no inicio', getValues());
     register('senha', { required: true, minLength: { value: 8, message: 'A sua senha deve ter pelo menos 8 caracteres.' } });
     register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || 'Não confere com a senha.' });
   }, [register]);
@@ -142,9 +139,8 @@ export default function FormularioSenha() {
           try {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
-            console.log(getValues());
           } catch (err) {
-            console.log('ERRO AO CADASTRAR', err);
+            console.log(err);
           }
         }}
       >

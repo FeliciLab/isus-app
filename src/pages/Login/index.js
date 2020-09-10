@@ -32,8 +32,6 @@ function Login({ route }) {
             if (possuiIDSaude) {
               alterarPossuirIDSaude(false);
             } else {
-              console.log('navigation login', navigation);
-              // navigation.toggleDrawer();
               navigation.dispatch(DrawerActions.toggleDrawer());
             }
           }}

@@ -53,8 +53,6 @@ export default function PerfilScreen() {
       console.log('erro', err);
     }
     await excluirTokenDoUsuarioNoStorage();
-    const token = await pegarTokenDoUsuarioNoStorage();
-    console.log('TOKEN APÓS LOGOUT', token);
     navigation.navigate('HOME');
   };
 

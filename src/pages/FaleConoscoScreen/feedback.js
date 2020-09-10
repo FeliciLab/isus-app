@@ -45,9 +45,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       setImagem(parsearResponse(responseDaBiblioteca));
     }
   }, [responseDaBiblioteca]);
-  console.log(tipoDeFeedback);
   const onSubmit = async () => {
-    console.log(tipoDeFeedback.textoDoDropdown, feedback, email, imagem);
     try {
       const { data } = await postFeedback(tipoDeFeedback.textoDoDropdown, feedback, email, imagem);
       if (data.errors) {

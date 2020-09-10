@@ -102,7 +102,6 @@ export default function Welcome() {
           style={{ ...style.botao, backgroundColor: '#ffffff' }}
           onPress={() => {
             AsyncStorage.setItem('@show-tutorial', 'false');
-            console.log('navigation welcome', navigation);
             navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
           }
           }

@@ -61,7 +61,6 @@ export default function DescriptionScreen(props) {
     try {
       const resposta = await getProjectPorId(params.object.id);
       alterarPostagem(resposta.data);
-      console.log(resposta.data);
     } catch (err) {
       console.log(err);
     }
@@ -100,7 +99,6 @@ export default function DescriptionScreen(props) {
 
   const baixarConteudo = async () => {
     try {
-      console.log(postagem);
       const imagembase64 = await converterImagemParaBase64(postagem.image);
       const postagemOffline = {
         ...postagem, image: imagembase64, categoria_id: params.object.categoria_id, offline: true
@@ -111,7 +109,6 @@ export default function DescriptionScreen(props) {
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
       mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
-      console.log('console baixar conteúdo', e);
     }
   };
 
@@ -120,9 +117,8 @@ export default function DescriptionScreen(props) {
       alterarConteudoBaixado(false);
       mostrarFeedback('A página foi excluida da leitura offline');
       await removerDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
-      // navigation.goBack();
     } catch (e) {
-      console.log(e);
+      mostrarFeedback('Não foi possível realizar a ação, Por favor, tente mais tarde.');
     }
   };
 

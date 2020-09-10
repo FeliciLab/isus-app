@@ -39,7 +39,6 @@ const savePdf = (originUrl, destPath) => {
     })
     .fetch('GET', originUrl)
     .then((response) => {
-      console.log('Success Log: ', response);
       if (Platform.OS === 'ios') {
         RNFetchBlob.ios.openDocument(response.data);
       } else {

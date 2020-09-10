@@ -40,7 +40,7 @@ export default function FormularioInfoPessoal() {
   };
 
   const {
-    register, setValue, trigger, errors, getValues
+    register, setValue, trigger, errors
   } = useContext(
     FormContext
   );
@@ -90,7 +90,6 @@ export default function FormularioInfoPessoal() {
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
-    console.log('VALORES', getValues());
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
 
@@ -184,8 +183,6 @@ export default function FormularioInfoPessoal() {
 <TextInputMask
   {...props}
   onChangeText={(formatted, extracted) => {
-    console.log(formatted);
-    console.log(extracted);
     props.onChangeText(formatted);
     alteraValor('telefone', extracted);
   }}
@@ -213,8 +210,6 @@ export default function FormularioInfoPessoal() {
             <TextInputMask
               {...props}
               onChangeText={(formatted, extracted) => {
-                console.log(formatted);
-                console.log(extracted);
                 props.onChangeText(formatted);
                 alteraValor('cpf', extracted);
               }}
