@@ -5,11 +5,13 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import ForcaTarefaAntiCorona from './forcatarefaanticorona';
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
-import Servicos from './servicos';
+import Servicos from './Servicos/servicos';
 import Carrossel from './carrossel';
 import BarraDeStatus from '../../components/barraDeStatus';
+import NovoServicos from './Servicos/NovoServicos';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -72,7 +74,11 @@ export default function HomeScreen() {
     <BarraDeStatus backgroundColor="#4CAF50" />
     <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
       <Carrossel sliderWidth={width} itemWidth={width} />
-      <Servicos navigation={navigation} />
+      <Feature
+        name="302"
+        inactiveComponent={() => <Servicos navigation={navigation} />}
+        activeComponent={() => <NovoServicos navigation={navigation} />}
+      />
       <ForcaTarefaAntiCorona navigation={navigation} />
     </ScrollView>
     </ProviderDeVersaoDoManejo>
