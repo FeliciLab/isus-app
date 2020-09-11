@@ -1,3 +1,4 @@
 export default {
-  PERFIL: '134'
+  PERFIL: '134',
+  DISPOR_NOSSOS_SERVICOS_EM_CARROSSEL: '302'
 };
