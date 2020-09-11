@@ -1,35 +1,21 @@
 import React, { useLayoutEffect, useCallback, useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View, TouchableOpacity, StyleSheet, ScrollView
+} from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import jwtDecode from 'jwt-decode';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './menuPerfil';
 import MenuPerfilItem from './menuPerfilItem';
 import { logout } from '../../apis/apiKeycloak';
 import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
-import DadosUsuario from './DadosUsuario';
+import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
+import { perfilUsuario } from '../../apis/apiCadastro';
 
 export default function PerfilScreen() {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
   const [tokenUsuario, alterarTokenUsuario] = useState({});
   const navigation = useNavigation();
-
-  const paraDadosUsuario = (jwtToken) => {
-    const dadosDecodificados = jwtDecode(jwtToken.access_token);
-    const {
-      // eslint-disable-next-line camelcase
-      given_name, family_name, name, email, CPF, CIDADE
-    } = dadosDecodificados;
-    return {
-      nome: given_name,
-      sobrenome: family_name,
-      nomeCompleto: name,
-      email,
-      cpf: CPF,
-      cidade: CIDADE
-    };
-  };
 
   useFocusEffect(
     useCallback(() => {
@@ -37,7 +23,9 @@ export default function PerfilScreen() {
         const token = await pegarTokenDoUsuarioNoStorage();
         alterarTokenUsuario(token);
         try {
-          alterarDadosUsuario(paraDadosUsuario(token));
+          const perfil = await perfilUsuario();
+          console.log('retornar', perfil.data);
+          alterarDadosUsuario(perfil.data);
         } catch (err) {
           console.log('ERRO', err);
         }
@@ -59,53 +47,46 @@ export default function PerfilScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#FFF',
         elevation: 0,
         shadowOpacity: 0
       },
-      headerTintColor: '#FFF',
+      headerTintColor: '#000',
       headerTitleAlign: 'center',
       headerTitle: 'Perfil',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
             marginHorizontal: 19
           }}
           onPress={() => {
-            navigation.toggleDrawer();
+            navigation.goBack();
           }}
         >
-          <Icon name="menu" size={28} color="#FFF" />
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
         </TouchableOpacity>
       )
     });
   });
 
   return (
-    <View style={estilos.margem}>
-      <CabecalhoPerfil nome={dadosUsuario.nome} />
-      <MenuPerfil titulo="Meu dados">
-        <DadosUsuario dados={dadosUsuario} />
-      </MenuPerfil>
-      <MenuPerfil titulo="Privacidade">
-        <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
-      </MenuPerfil>
-      <MenuPerfil titulo="Preferências">
-        <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
-      </MenuPerfil>
-    </View>
+    <ScrollView style={{ backgroundColor: '#FFF' }}>
+      <View style={estilos.margem}>
+        <CabecalhoPerfil nome={dadosUsuario.name} />
+        <MenuPerfil titulo="Informações pessoais">
+          <DadosUsuario dados={dadosUsuario} />
+        </MenuPerfil>
+        <MenuPerfil titulo="Informações profissionais">
+          <DadosUsuarioProfissional dados={dadosUsuario} />
+        </MenuPerfil>
+        <MenuPerfil titulo="Privacidade">
+          <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
+        </MenuPerfil>
+        <MenuPerfil titulo="Preferências">
+          <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
+        </MenuPerfil>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -114,5 +95,9 @@ const estilos = StyleSheet.create({
     padding: 15,
     flex: 1,
     flexDirection: 'column'
+  },
+  espacamento: {
+    marginLeft: 20,
+    marginBottom: 10
   }
 });

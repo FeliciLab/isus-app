@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
-import { Divider } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MenuPerfilItem({
@@ -18,7 +17,6 @@ export default function MenuPerfilItem({
   const Item = ({ children }) => (
     <View style={estilos.item}>
       {children}
-      <Divider style={estilos.divisor} />
     </View>
   );
 
@@ -50,15 +48,17 @@ const estilos = StyleSheet.create({
   },
   itemInterior: {
     flexDirection: 'row',
+    marginLeft: 20,
     marginBottom: 9,
     marginTop: 2
   },
   iconeEsquerda: {
+    marginLeft: 20,
     marginRight: 10
   },
   iconeDireita: {
     marginLeft: 'auto',
-    paddingRight: 25
+    paddingRight: 65
   },
   divisor: {
     backgroundColor: 'rgba(0, 0, 0, 0.22)'
