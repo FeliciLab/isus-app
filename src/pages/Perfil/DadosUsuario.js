@@ -33,7 +33,7 @@ function DadosUsuarioProfissional({ dados }) {
       <Text style={estilos.label}>CATEGORIA PROFISSIONAL</Text>
       <Text style={estilos.dado}>
         {
-        dados.profissional ? dados.profissional.categoria_profissional.nome : 'Adicionar'
+        dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : 'Adicionar'
         }
       </Text>
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
