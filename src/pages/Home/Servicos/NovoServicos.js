@@ -4,6 +4,8 @@ import { FlatList, StyleSheet } from 'react-native';
 import Servico1 from '../../../assets/icons/servicos/novo_servico_1.svg';
 import Servico2 from '../../../assets/icons/servicos/novo_servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/novo_servico_3.svg';
+import Servico4 from '../../../assets/icons/servicos/novo_servico_4.svg';
+
 
 import CartaoDeServico from './CartaoDeServico';
 
@@ -38,7 +40,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-4',
       titulo: 'Ações do governo',
-      icone: Servico3,
+      icone: Servico4,
       navegacao: {
         componente: 'webview',
         titulo: 'Ações do governo',

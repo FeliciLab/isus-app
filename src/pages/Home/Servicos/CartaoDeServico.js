@@ -20,7 +20,7 @@ const estilos = StyleSheet.create({
     margin: 10
   },
   paragrafo: {
-    fontSize: 14,
+    fontSize: 12,
     letterSpacing: 0.25,
     lineHeight: 20,
     marginTop: 10
