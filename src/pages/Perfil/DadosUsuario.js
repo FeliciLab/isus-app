@@ -21,7 +21,7 @@ function DadosUsuario({ dados }) {
       </Text>
       <Text style={estilos.label}>MUNICIPIO</Text>
       <Text style={estilos.dado}>
-        {dados.municipio.nome || 'Não informado'}
+        {dados.municipio ? dados.municipio.nome : 'Não informado'}
       </Text>
     </View>
   );
@@ -33,13 +33,13 @@ function DadosUsuarioProfissional({ dados }) {
       <Text style={estilos.label}>CATEGORIA PROFISSIONAL</Text>
       <Text style={estilos.dado}>
         {
-        dados.profissional.categoria_profissional.nome || 'Adicionar'
+        dados.profissional ? dados.profissional.categoria_profissional.nome : 'Adicionar'
         }
       </Text>
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
         {
-          dados.profissional.unidades_servicos.length ? (
+          dados.profissional && dados.profissional.unidades_servicos.length ? (
             dados.profissional.unidades_servicos.map(dado => (
               dado.nome
             )).join(', ')
