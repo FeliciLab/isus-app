@@ -19,7 +19,6 @@ import ItemDrawer from './itemDrawer';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
 import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
-import IconTermosDeUso from '../assets/icons/termos_de_uso.svg';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
@@ -97,7 +96,7 @@ function conteudoDoDrawer(props) {
       </View>
       <View style={estilos.itensParteInferior}>
             <DrawerItem
-              icon={() => <IconTermosDeUso />}
+              icon={() => <Icon name="clipboard-text" size={22} color="rgba(0, 0, 0, 0.54)" />}
               label="Termos de Uso"
               labelStyle={{ fontSize: 15 }}
               inactiveTintColor="#111"

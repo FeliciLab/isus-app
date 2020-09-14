@@ -15,7 +15,7 @@ import FormularioSenha from './formularioSenha';
 
 function FormularioInfoProfissional() {
   const {
-    control, setValue, register, unregister, getValues
+    control, setValue, register, unregister
   } = useContext(FormContext);
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
@@ -122,7 +122,6 @@ function FormularioInfoProfissional() {
       labelStyle={{ color: '#fff' }}
       onPress={() => {
         registrarUnidadesDeServico();
-        console.log(getValues());
         alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
       }}
       mode="contained"

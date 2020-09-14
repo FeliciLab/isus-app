@@ -65,4 +65,5 @@ android-keystore.jks
 
 # Environment variables
 .env
-.env.production
+.env.prod
+.env.dev

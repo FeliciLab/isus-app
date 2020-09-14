@@ -1,19 +1,20 @@
 import React from 'react';
 import { Title } from 'react-native-paper';
-import { FlatList } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Servico1 from '../../assets/icons/servicos/integrasus_icon.svg';
-import IconeFeedback from '../../assets/icons/feedback_icon.svg';
-import IconeSus from '../../assets/icons/SUS_icon.svg';
-import Forca4 from '../../assets/icons/ceara_icon.svg';
-import HomeCard from './homeCard';
+import { FlatList, StyleSheet } from 'react-native';
+import Servico1 from '../../../assets/icons/servicos/novo_servico_1.svg';
+import Servico2 from '../../../assets/icons/servicos/novo_servico_2.svg';
+import Servico3 from '../../../assets/icons/servicos/novo_servico_3.svg';
+import Servico4 from '../../../assets/icons/servicos/novo_servico_4.svg';
+
+
+import CartaoDeServico from './CartaoDeServico';
 
 function Servicos({ navigation }) {
   const listaServicos = [
     {
       id: 'services-1',
       titulo: 'IntegraSUS',
-      logo: Servico1,
+      icone: Servico1,
       navegacao: {
         componente: 'webview',
         titulo: 'IntegraSUS',
@@ -23,7 +24,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-2',
       titulo: 'SUS no Ceará',
-      logo: IconeSus,
+      icone: Servico2,
       navegacao: {
         componente: 'SUS_NO_CEARA'
       }
@@ -31,7 +32,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-3',
       titulo: 'Fale Conosco',
-      logo: IconeFeedback,
+      icone: Servico3,
       navegacao: {
         componente: 'FEEDBACK'
       }
@@ -39,7 +40,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-4',
       titulo: 'Ações do governo',
-      logo: Forca4,
+      icone: Servico4,
       navegacao: {
         componente: 'webview',
         titulo: 'Ações do governo',
@@ -50,26 +51,22 @@ function Servicos({ navigation }) {
 
   return (
     <>
-      <Title style={{ alignSelf: 'center', color: '#FF9800' }}>Serviços</Title>
+      <Title style={estilos.titulo}>Serviços</Title>
 
       <FlatList
+        horizontal
         data={listaServicos}
-        numColumns={2}
         keyExtractor={(item, index) => `${index}`}
         style={{
           flexDirection: 'row',
           alignSelf: 'center'
         }}
-        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <HomeCard
+          <CartaoDeServico
             key={item.id}
-            title={item.titulo}
-            Logo={item.logo}
-            margin={10}
-            isImage={item.isImage || false}
-            FontIcon={item.FontIcon || Icon}
-            color="#FF9800"
+            titulo={item.titulo}
+            Icone={item.icone}
             onPress={() => navigation.navigate(item.navegacao.componente, {
               title: item.navegacao.titulo,
               url: item.navegacao.url
@@ -81,5 +78,8 @@ function Servicos({ navigation }) {
   );
 }
 
+const estilos = StyleSheet.create({
+  titulo: { marginHorizontal: 16, fontSize: 20 }
+});
 
 export default Servicos;

@@ -6,7 +6,6 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
 
   function cardItem({ item }) {
-    console.log(item.banner);
     return item.banner;
   }
 

@@ -222,7 +222,6 @@ const linkingURLouApp = (titulo, tipo) => {
     Linking.canOpenURL(pegarUrlouApp)
       .then((suportado) => {
         if (!suportado) {
-          // console.log('URL não suportada');
           Linking.openURL(`${informacoes[titulo].url}`);
           return;
         }

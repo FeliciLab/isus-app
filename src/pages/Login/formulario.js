@@ -62,7 +62,6 @@ function FormularioLogin() {
       await mostrarAlerta(mensagemErro);
     } catch (err) {
       alterarCarregando(false);
-      console.log(err.message);
       mostrarAlerta(err.message);
     }
   };
@@ -100,7 +99,6 @@ function FormularioLogin() {
         loading={carregando}
         onPress={() => {
           alterarCarregando(true);
-          console.log('clicado');
           fazerLogin();
         }}
       >
