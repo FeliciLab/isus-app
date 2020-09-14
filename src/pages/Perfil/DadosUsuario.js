@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-paper';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 
 function DadosUsuario({ dados }) {
@@ -29,11 +31,18 @@ function DadosUsuario({ dados }) {
 
 function DadosUsuarioProfissional({ dados }) {
   return (
+    // eslint-disable-next-line
+    dados.profissional && (dados.profissional.categoria_profissional && dados.profissional.unidades_servicos) ? MostrarDadosUsuarioProfissional(dados) : AdicionarDadosProfissionais()
+  );
+}
+
+function MostrarDadosUsuarioProfissional(dados) {
+  return (
     <View style={estilos.espacamento}>
       <Text style={estilos.label}>CATEGORIA PROFISSIONAL</Text>
       <Text style={estilos.dado}>
         {
-        dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : 'Adicionar'
+        dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
         }
       </Text>
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
@@ -44,10 +53,24 @@ function DadosUsuarioProfissional({ dados }) {
               dado.nome
             )).join(', ')
           ) : (
-            'Adicionar'
+            ''
           )
         }
       </Text>
+    </View>
+  );
+}
+
+function AdicionarDadosProfissionais() {
+  const navigation = useNavigation();
+  return (
+    <View style={{ marginBottom: 16 }}>
+    <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
+      Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
+    </Text>
+    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('SOBRE')}>
+      ADICIONAR INFORMAÇÕES
+    </Button>
     </View>
   );
 }
