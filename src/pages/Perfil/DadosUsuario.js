@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 
 function DadosUsuario({ dados }) {
@@ -68,9 +69,20 @@ function AdicionarDadosProfissionais() {
     <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
       Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
     </Text>
-    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('SOBRE')}>
-      ADICIONAR INFORMAÇÕES
-    </Button>
+    <Feature
+      name="288"
+      inactiveComponent={() => (
+        <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('SOBRE')}>
+         ADICIONAR INFORMAÇÕES
+        </Button>
+      )}
+      activeComponent={() => (
+        <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
+          ADICIONAR INFORMAÇÕES
+        </Button>
+      )}
+    />
+
     </View>
   );
 }

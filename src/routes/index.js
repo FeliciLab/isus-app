@@ -10,6 +10,7 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
+import EdicaoInfoProfissional from '../pages/Perfil/edicaoInfoProfissional';
 
 const RootStack = createStackNavigator();
 
@@ -51,6 +52,10 @@ export default function App({ navigationRef }) {
           component={searchStackScreen}
           options={{ headerShown: false }}
         />
+         <RootStack.Screen
+           name="EdicaoDadosProfissionais"
+           component={EdicaoInfoProfissional}
+         />
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       </RootStack.Navigator>
     </NavigationContainer>

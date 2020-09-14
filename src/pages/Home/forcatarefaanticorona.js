@@ -17,7 +17,7 @@ function ForcaTarefaAntiCorona({ navigation }) {
       FontIcon: Icon,
       onPress: () => navigation.navigate('webview', {
         title: 'Boletins',
-        url: 'https://coronavirus.ceara.gov.br/isus/boletins/'
+        url: 'https://coronavirus.ceara.gov.br/boletins/'
       })
     },
     {
