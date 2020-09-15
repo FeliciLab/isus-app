@@ -13,9 +13,9 @@ import {
 } from 'react-native-paper';
 import { Controller } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
-import DropDown from '../../components/dropdown';
-import FormContext from '../../context/FormContext';
-import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
+import DropDown from '../../../components/dropdown';
+import FormContext from '../../../context/FormContext';
+import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../../apis/apiKeycloak';
 
 function EdicaoInfoProfissional() {
   const {
