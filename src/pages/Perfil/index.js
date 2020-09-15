@@ -11,6 +11,7 @@ import { logout } from '../../apis/apiKeycloak';
 import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import { perfilUsuario } from '../../apis/apiCadastro';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function PerfilScreen() {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
@@ -70,23 +71,26 @@ export default function PerfilScreen() {
   });
 
   return (
-    <ScrollView style={{ backgroundColor: '#FFF' }}>
-      <View style={estilos.margem}>
-        <CabecalhoPerfil nome={dadosUsuario.name} />
-        <MenuPerfil titulo="Informações pessoais">
-          <DadosUsuario dados={dadosUsuario} />
-        </MenuPerfil>
-        <MenuPerfil titulo="Informações profissionais">
-          <DadosUsuarioProfissional dados={dadosUsuario} />
-        </MenuPerfil>
-        <MenuPerfil titulo="Privacidade">
-          <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
-        </MenuPerfil>
-        <MenuPerfil titulo="Preferências">
-          <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
-        </MenuPerfil>
-      </View>
-    </ScrollView>
+    <>
+      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
+      <ScrollView style={{ backgroundColor: '#FFF' }}>
+        <View style={estilos.margem}>
+          <CabecalhoPerfil nome={dadosUsuario.name} />
+          <MenuPerfil titulo="Informações pessoais">
+            <DadosUsuario dados={dadosUsuario} />
+          </MenuPerfil>
+          <MenuPerfil titulo="Informações profissionais">
+            <DadosUsuarioProfissional dados={dadosUsuario} />
+          </MenuPerfil>
+          <MenuPerfil titulo="Privacidade">
+            <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
+          </MenuPerfil>
+          <MenuPerfil titulo="Preferências">
+            <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
+          </MenuPerfil>
+        </View>
+      </ScrollView>
+    </>
   );
 }
 

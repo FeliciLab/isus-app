@@ -75,7 +75,7 @@ function App() {
 
   return (
     <>
-      <StatusBar backgroundColor="#4CAF50" />
+      <StatusBar backgroundColor="#4CAF50" barStyle="light-content" />
       <FeatureToggles features={featuresAtivas}>
         <Routes navigationRef={navigationRef} />
       </FeatureToggles>
