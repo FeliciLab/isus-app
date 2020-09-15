@@ -5,7 +5,7 @@ Esse é o repositório do aplicativo iSUS.
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
 
 - [App iSUS](#app-isus)
-    - [v3.3.2](#v332)
+    - [v3.10.3](#v3103)
   - [O que é?](#o-que-é)
   - [Tech Stack](#tech-stack)
   - [Start do Projeto.](#start-do-projeto)
@@ -63,9 +63,16 @@ O projeto foi homologado para as seguintes versões:
  yarn install
 ```
 
-* Crie o arquivo `.env` como cópia do `.env.example` e insira o valor das variáveis de ambiente caso precise utilizar alguma delas.
+* Crie o arquivo `.env` como cópia do `.env.example` e insira o valor das variáveis de ambiente necessárias (peça-as a alguém do time).
+
 ```bash
  cp .env.example .env
+```
+
+* Crie o arquivo `.env.dev` como cópia do `.env.dev.example` e insira o valor das variáveis de ambiente necessárias (peça-as a alguém do time).
+
+```bash
+ cp .env.dev.example .env.dev
 ```
 
 ### Usando Android
