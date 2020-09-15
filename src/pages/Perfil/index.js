@@ -12,6 +12,7 @@ import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '..
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
+import { salvarDados } from '../../services/armazenamento';
 
 export default function PerfilScreen() {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
@@ -27,6 +28,7 @@ export default function PerfilScreen() {
           const perfil = await perfilUsuario();
           console.log('retornar', perfil.data);
           alterarDadosUsuario(perfil.data);
+          salvarDados('perfil', perfil.data);
         } catch (err) {
           console.log('ERRO', err);
         }

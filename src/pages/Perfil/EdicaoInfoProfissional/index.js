@@ -3,10 +3,9 @@ import React, {
   useContext, useState, useEffect, useLayoutEffect
 } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, SafeAreaView
+  View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { useNavigation } from '@react-navigation/native';
 import {
   DefaultTheme, List, Checkbox, Button
@@ -18,11 +17,14 @@ import FormContext from '../../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../../apis/apiKeycloak';
 // import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
+import { pegarDados } from '../../../services/armazenamento';
+import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
 
 function EdicaoInfoProfissional() {
   const {
-    control, setValue, register, unregister
+    control, getValues, setValue, register, unregister
   } = useContext(FormContext);
+  const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [unidadesServico, alterarUnidadesServico] = useState({});
@@ -33,7 +35,7 @@ function EdicaoInfoProfissional() {
     roundness: 2,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'rgba(0, 0, 0, 0.6);',
+      primary: 'rgba(0, 0, 0, 0.6)',
       accent: '#FF9800',
     },
   };
@@ -70,6 +72,9 @@ function EdicaoInfoProfissional() {
 
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
+
+      const perfil = await pegarDados('perfil');
+      alterarPerfilDoUsuario(perfil);
     };
     aoIniciar();
   }, []);
@@ -81,25 +86,29 @@ function EdicaoInfoProfissional() {
     return { id: servico.id, nome: servico.nome, foiMarcado: false };
   };
 
+  const tratarUnidadesDeServico = (unidadesDeServico) => {
+    const ServicosMarcados = Object.values(unidadesDeServico).filter(servico => servico.foiMarcado);
+    return ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }));
+  };
+
+  const registrarUnidadesDeServico = (unidadesDeServico) => {
+    listaDeServicos.map(servico => unregister(servico.nome));
+    unregister('unidadeServico');
+    const servicosTratados = tratarUnidadesDeServico(unidadesDeServico);
+    console.log('servicosTratados !!!', servicosTratados);
+    if (servicosTratados.length !== 0) {
+      console.log('entrei aqui !!!', servicosTratados.length);
+      register({ name: 'unidadeServico' });
+      setValue('unidadeServico', JSON.stringify(servicosTratados));
+    }
+  };
+
   const mudarValor = (onChange, value, servico) => {
     onChange({ ...value, foiMarcado: !value.foiMarcado });
     const check = { ...unidadesServico };
     check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: !value.foiMarcado };
     alterarUnidadesServico(check);
-  };
-
-  const tratarUnidadesDeServico = () => {
-    const ServicosMarcados = Object.values(unidadesServico).filter(servico => servico.foiMarcado);
-    return JSON.stringify(
-      ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
-    );
-  };
-
-  const registrarUnidadesDeServico = () => {
-    listaDeServicos.map(servico => unregister(servico.nome));
-    register({ name: 'unidadeServico' });
-    const servicosTratados = tratarUnidadesDeServico();
-    setValue('unidadeServico', servicosTratados);
+    registrarUnidadesDeServico(check);
   };
 
   const registrarCategoriaProfissional = (categoria) => {
@@ -107,8 +116,53 @@ function EdicaoInfoProfissional() {
     setValue('categoriaProfissional', categoria);
   };
 
-  const salvarInformaçõesProfissionais = () => {
+  const tratarCamposDeUsuario = (campos) => {
+    const {
+      email, name, telefone, cpf, municipio, categoriaProfissional, unidadeServico
+    } = campos;
+    return {
+      email,
+      nomeCompleto: name,
+      telefone,
+      cpf,
+      cidadeId: municipio.id,
+      cidade: municipio.nome,
+      termos: true,
+      categoriaProfissional,
+      unidadeServico
+    };
+  };
 
+  const salvarInformaçõesProfissionais = async () => {
+    const { categoriaProfissional, unidadeServico } = getValues();
+    const usuarioTratado = tratarCamposDeUsuario(
+      { ...perfildoUsuario, categoriaProfissional, unidadeServico }
+    );
+    alterarPerfilDoUsuario(
+      {
+        ...perfildoUsuario,
+        categoria_profissional: categoriaProfissional,
+        unidade_servico: unidadeServico
+      }
+    );
+    try {
+      console.log('perfil atualizado', usuarioTratado);
+      const resposta = await alteraDadosDoUsuario(usuarioTratado);
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL' });
+      console.log(resposta.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const verificarCampos = () => {
+    const { categoriaProfissional, unidadeServico } = getValues();
+    console.log('verificar campos', categoriaProfissional, unidadeServico);
+    console.log('verdadeiro ou falso?', categoriaProfissional && unidadeServico
+    && JSON.parse(categoriaProfissional).length !== 0 && JSON.parse(unidadeServico).length !== 0);
+
+    return categoriaProfissional && unidadeServico
+    && JSON.parse(categoriaProfissional).length !== 0 && JSON.parse(unidadeServico).length !== 0;
   };
 
   return (
@@ -162,17 +216,20 @@ function EdicaoInfoProfissional() {
       </View>
       </ScrollView>
       <Button
-        style={estilos.botao}
+        style={[
+          { ...estilos.botao },
+          verificarCampos() ? { ...estilos.botaoHabilitado } : { ...estilos.botaoDesabilitado }
+        ]}
+        disabled={!verificarCampos}
         labelStyle={{ color: '#fff' }}
         onPress={() => {
-          registrarUnidadesDeServico();
           salvarInformaçõesProfissionais();
         }}
         mode="contained"
       >
         Salvar
       </Button>
-      {/* <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDoAlerta} /> */}
+      <ActivityIndicator size="large" color="rgba(0, 0, 0, 0.6)" />
     </SafeAreaView>
   );
 }
@@ -215,9 +272,14 @@ const estilos = StyleSheet.create({
     position: 'absolute',
     right: 0,
     bottom: 0,
-    justifyContent: 'center',
+    justifyContent: 'center'
+  },
+  botaoHabilitado: {
     backgroundColor: '#FF9800'
   },
+  botaoDesabilitado: {
+    backgroundColor: '#BDBDBD'
+  }
 });
 
 export default EdicaoInfoProfissional;
