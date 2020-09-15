@@ -166,7 +166,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             }}
           >
             Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
-            problemas e melhorar o app rapidamendamente.
+            problemas e melhorar o app rapidamente.
           </Text>
 
           <TextInput

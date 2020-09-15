@@ -33,7 +33,8 @@ function DadosUsuario({ dados }) {
 function DadosUsuarioProfissional({ dados }) {
   return (
     // eslint-disable-next-line
-    dados.profissional && (dados.profissional.categoria_profissional && dados.profissional.unidades_servicos) ? MostrarDadosUsuarioProfissional(dados) : AdicionarDadosProfissionais()
+    dados.profissional && (dados.profissional.categoria_profissional && dados.profissional.unidades_servicos) ? MostrarDadosUsuarioProfissional(dados) :
+    <Feature name="288" activeComponent={() => <AdicionarDadosProfissionais />} />
   );
 }
 
