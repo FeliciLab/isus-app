@@ -5,8 +5,8 @@ import {
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CabecalhoPerfil from './cabecalhoPerfil';
-import MenuPerfil from './menuPerfil';
-import MenuPerfilItem from './menuPerfilItem';
+import MenuPerfil from './Menus/menuPerfil';
+import MenuPerfilItem from './Menus/menuPerfilItem';
 import { logout } from '../../apis/apiKeycloak';
 import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';

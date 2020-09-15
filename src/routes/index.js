@@ -10,7 +10,7 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
-import EdicaoInfoProfissional from '../pages/Perfil/edicaoInfoProfissional';
+import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 
 const RootStack = createStackNavigator();
 
