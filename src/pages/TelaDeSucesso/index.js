@@ -11,7 +11,7 @@ function TelaDeSucesso({ route }) {
   useEffect(() => {
     setTimeout(() => {
       navigation.navigate(telaDeRedirecionamento);
-    }, 2000);
+    }, 4000);
   }, []);
   return (
     <View style={estilos.background}>
@@ -38,7 +38,8 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     color: '#ffffff',
-    marginTop: 32
+    marginTop: 32,
+    marginHorizontal: 10
   }
 });
 
