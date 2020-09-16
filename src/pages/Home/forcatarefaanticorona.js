@@ -57,7 +57,7 @@ function ForcaTarefaAntiCorona({ navigation }) {
 
   return (
     <>
-            <Title style={{ alignSelf: 'center' }}>Força-tarefa Anticorona</Title>
+            <Title style={{ marginHorizontal: 16, color: 'rgba(0, 0, 0, 0.6)' }}>Força-tarefa Anticorona</Title>
 
             <FlatList
               data={ListaForcaTarefaAntiCorona}

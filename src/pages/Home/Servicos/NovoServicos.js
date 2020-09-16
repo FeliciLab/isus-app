@@ -79,7 +79,9 @@ function Servicos({ navigation }) {
 }
 
 const estilos = StyleSheet.create({
-  titulo: { marginHorizontal: 16, fontSize: 20 }
+  titulo: {
+    marginHorizontal: 16, fontSize: 20, fontWeight: '500', color: 'rgba(0, 0, 0, 0.6)'
+  }
 });
 
 export default Servicos;

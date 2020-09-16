@@ -1,6 +1,7 @@
 import request from '../services/request';
 import { vazio } from '../utils/objectUtils';
 import { pegarSO, pegarVersao } from '../utils/platform';
+import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
 
 export function getCategoriasArquitetura() {
   return request.get('/categoriasArquitetura');
@@ -16,6 +17,11 @@ export function getBusca(item, page) {
 
 export function getProjectPorId(item) {
   return request.get(`/projeto/${item}`);
+}
+
+export async function pegarProjetosPorProfissional() {
+  const token = await pegarTokenDoUsuarioNoStorage();
+  return request.get('projetos-por-profissional', { headers: { Authorization: `bearer ${token.access_token}` } });
 }
 
 export function postFeedback(tipoDeFeedback, texto, email, imagem) {

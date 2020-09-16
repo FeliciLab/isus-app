@@ -17,6 +17,7 @@ import NovoServicos from './Servicos/NovoServicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
+import MeusConteudos from './MeusConteudos';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -105,6 +106,10 @@ export default function HomeScreen() {
           name="302"
           inactiveComponent={() => <Servicos navigation={navigation} />}
           activeComponent={() => <NovoServicos navigation={navigation} />}
+        />
+        <Feature
+          name="306"
+          activeComponent={() => <MeusConteudos />}
         />
         <ForcaTarefaAntiCorona navigation={navigation} />
       </ScrollView>
