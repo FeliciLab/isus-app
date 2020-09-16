@@ -23,7 +23,7 @@ Esse é o repositório do aplicativo iSUS.
   - [Linguagem ubíqua](#linguagem-ubíqua)
   - [Git Flow](#git-flow)
     - [Instalação](#instalação)
-  - [Branches](#branches)
+  - [Feature toggles](#feature-toggles)
   - [Commits](#commits)
       - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
       - [O que esse commit faz?](#o-que-esse-commit-faz)
@@ -146,10 +146,13 @@ Windows:
   $ wget -q -O - --no-check-certificate https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh install stable | bash
   ```
 
-## Branches
-Utilizamos _kebab-case_ para a formatação do nome das branches, esse nome é composto pelo número da estória seguido pelo seu titulo, se o número da estória fosse 42, seria como no exemplo abaixo.
+## Feature toggles
+Nós usamos feature toggles para o desenvolvimento de features. As festures toggles estão 
+listadas no arquivo `src/utils/feature.js`. Elas seguem o padrão:
 
-    feature/#42-titulo-da-estoria
+    NOME_DA_FEATURE: 'numero_do_card'
+
+As features ativas estão listadas em `src/featuresAtivas.js`. Para mais informações, acesse a [documentação](https://github.com/paralleldrive/react-feature-toggles) da biblioteca que usamos.
 
 ## Commits
 #### GitMoji :stuck_out_tongue_winking_eye:
