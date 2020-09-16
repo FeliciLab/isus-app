@@ -11,6 +11,8 @@ import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
+import { FormProvider } from '../context/FormContext';
+import TelaDeSucesso from '../pages/TelaDeSucesso';
 
 const RootStack = createStackNavigator();
 
@@ -52,9 +54,19 @@ export default function App({ navigationRef }) {
           component={searchStackScreen}
           options={{ headerShown: false }}
         />
+        <RootStack.Screen
+          name="TelaDeSucesso"
+          component={TelaDeSucesso}
+          initialParams={{ textoApresentacao: 'Sucesso!', telaDeRedirecionamento: 'HOME' }}
+          options={{ headerShown: false }}
+        />
          <RootStack.Screen
            name="EdicaoDadosProfissionais"
-           component={EdicaoInfoProfissional}
+           component={() => (
+              <FormProvider>
+                <EdicaoInfoProfissional />
+              </FormProvider>
+           )}
          />
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       </RootStack.Navigator>
