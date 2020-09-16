@@ -23,6 +23,9 @@ function EdicaoInfoProfissional() {
   const {
     control, getValues, setValue, register, unregister
   } = useContext(FormContext);
+
+  const [temCategoria, alterarTemCategoria] = useState(false);
+  const [temSetores, alterarTemSetores] = useState(false);
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [carregando, alterarCarregando] = useState(false);
@@ -168,14 +171,15 @@ function EdicaoInfoProfissional() {
     }
   };
 
-  const verificarCampos = () => {
-    const { categoriaProfissional, unidadeServico } = getValues();
-    console.log('verificar campos', categoriaProfissional, unidadeServico);
-    console.log('verdadeiro ou falso?', categoriaProfissional && unidadeServico
-    && JSON.parse(categoriaProfissional).length !== 0 && JSON.parse(unidadeServico).length !== 0);
+  const verificarSetores = () => {
+    const { unidadeServico } = getValues();
 
-    return categoriaProfissional && unidadeServico
-    && JSON.parse(categoriaProfissional).length !== 0 && JSON.parse(unidadeServico).length !== 0;
+    return unidadeServico && JSON.parse(unidadeServico).length !== 0;
+  };
+
+  const verificarCategoria = () => {
+    const { categoriaProfissional } = getValues();
+    return categoriaProfissional && JSON.parse(categoriaProfissional).length !== 0;
   };
 
   return (
@@ -196,7 +200,7 @@ function EdicaoInfoProfissional() {
             definirRotulo={item => item.nome}
             aoMudarValor={(categoria) => {
               registrarCategoriaProfissional(categoria);
-              verificarCampos();
+              alterarTemCategoria(verificarCategoria());
             }}
           />
         </View>
@@ -218,6 +222,7 @@ function EdicaoInfoProfissional() {
                       label={servico.nome}
                       onPress={() => {
                         mudarValor(onChange, value, servico);
+                        alterarTemSetores(verificarSetores());
                       }
                       }
                     />
@@ -233,9 +238,11 @@ function EdicaoInfoProfissional() {
       <Button
         style={[
           { ...estilos.botao },
-          verificarCampos() ? { ...estilos.botaoHabilitado } : { ...estilos.botaoDesabilitado }
+          temCategoria && temSetores
+            ? { ...estilos.botaoHabilitado }
+            : { ...estilos.botaoDesabilitado }
         ]}
-        disabled={!verificarCampos()}
+        disabled={!(temCategoria && temSetores)}
         labelStyle={{ color: '#fff' }}
         loading={carregando}
         onPress={() => {
