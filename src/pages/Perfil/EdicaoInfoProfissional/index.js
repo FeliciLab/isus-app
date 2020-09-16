@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, {
   useContext, useState, useEffect, useLayoutEffect
 } from 'react';
@@ -15,7 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import DropDown from '../../../components/dropdown';
 import FormContext from '../../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../../apis/apiKeycloak';
-// import Alerta from '../../../components/alerta';
+import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import { pegarDados } from '../../../services/armazenamento';
 import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
@@ -24,6 +23,9 @@ function EdicaoInfoProfissional() {
   const {
     control, getValues, setValue, register, unregister
   } = useContext(FormContext);
+  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
+  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
+  const [carregando, alterarCarregando] = useState(false);
   const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
@@ -86,6 +88,12 @@ function EdicaoInfoProfissional() {
     return { id: servico.id, nome: servico.nome, foiMarcado: false };
   };
 
+  const mostrarAlerta = (mensagem) => {
+    alterarExibicaoDoAlerta(true);
+    alterarMensagemDoAlerta(mensagem);
+    setTimeout(() => alterarExibicaoDoAlerta(false), 4000);
+  };
+
   const tratarUnidadesDeServico = (unidadesDeServico) => {
     const ServicosMarcados = Object.values(unidadesDeServico).filter(servico => servico.foiMarcado);
     return ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }));
@@ -134,6 +142,7 @@ function EdicaoInfoProfissional() {
   };
 
   const salvarInformaçõesProfissionais = async () => {
+    alterarCarregando(true);
     const { categoriaProfissional, unidadeServico } = getValues();
     const usuarioTratado = tratarCamposDeUsuario(
       { ...perfildoUsuario, categoriaProfissional, unidadeServico }
@@ -150,8 +159,11 @@ function EdicaoInfoProfissional() {
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
       navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL' });
       console.log(resposta.data);
+      alterarCarregando(false);
     } catch (err) {
       console.log(err);
+      mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
+      alterarCarregando(false);
     }
   };
 
@@ -214,6 +226,7 @@ function EdicaoInfoProfissional() {
           </List.Accordion>
         </View>
       </View>
+      <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
       </ScrollView>
       <Button
         style={[
@@ -229,7 +242,9 @@ function EdicaoInfoProfissional() {
       >
         Salvar
       </Button>
-      <ActivityIndicator size="large" color="rgba(0, 0, 0, 0.6)" />
+      <View style={carregando ? estilos.exibir : estilos.oculto}>
+        <ActivityIndicator size="large" color="rgba(0, 0, 0, 0.6)" />
+      </View>
     </SafeAreaView>
   );
 }
@@ -279,6 +294,12 @@ const estilos = StyleSheet.create({
   },
   botaoDesabilitado: {
     backgroundColor: '#BDBDBD'
+  },
+  exibir: {
+    display: 'flex'
+  },
+  oculto: {
+    display: 'none'
   }
 });
 
