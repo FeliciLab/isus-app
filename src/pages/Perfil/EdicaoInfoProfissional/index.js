@@ -2,7 +2,7 @@ import React, {
   useContext, useState, useEffect, useLayoutEffect
 } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, SafeAreaView, ActivityIndicator
+  View, Text, StyleSheet, TouchableOpacity, SafeAreaView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -120,6 +120,7 @@ function EdicaoInfoProfissional() {
   };
 
   const registrarCategoriaProfissional = (categoria) => {
+    unregister('categoriaProfissional');
     register({ name: 'categoriaProfissional' });
     setValue('categoriaProfissional', categoria);
   };
@@ -195,6 +196,7 @@ function EdicaoInfoProfissional() {
             definirRotulo={item => item.nome}
             aoMudarValor={(categoria) => {
               registrarCategoriaProfissional(categoria);
+              verificarCampos();
             }}
           />
         </View>
@@ -233,8 +235,9 @@ function EdicaoInfoProfissional() {
           { ...estilos.botao },
           verificarCampos() ? { ...estilos.botaoHabilitado } : { ...estilos.botaoDesabilitado }
         ]}
-        disabled={!verificarCampos}
+        disabled={!verificarCampos()}
         labelStyle={{ color: '#fff' }}
+        loading={carregando}
         onPress={() => {
           salvarInformaçõesProfissionais();
         }}
@@ -242,9 +245,6 @@ function EdicaoInfoProfissional() {
       >
         Salvar
       </Button>
-      <View style={carregando ? estilos.exibir : estilos.oculto}>
-        <ActivityIndicator size="large" color="rgba(0, 0, 0, 0.6)" />
-      </View>
     </SafeAreaView>
   );
 }
