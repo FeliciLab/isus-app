@@ -54,7 +54,8 @@ function FormularioLogin() {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
         await pegarTokenDoUsuarioNoStorage();
         alterarCarregando(false);
-        navigation.navigate('PERFIL');
+        // navigation.navigate('PERFIL');
+        navigation.navigate('HOME');
         return;
       }
       const mensagemErro = response.erros ? response.erros : response.mensagem;
