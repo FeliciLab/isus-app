@@ -1,13 +1,16 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  TouchableOpacity, View, StyleSheet, Text
+  TouchableOpacity, View, StyleSheet, Text,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
+import CartaoDeConteudo from './CartaoDeConteudo';
 
-function MeusConteudos() {
+function MeusConteudos({ route }) {
   const navigation = useNavigation();
+  const { conteudos } = route.params;
+  console.log('conteudos', route);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -41,6 +44,11 @@ function MeusConteudos() {
            <Text style={estilos.titulo}>
                Meus Conteúdos
            </Text>
+           <View>
+               {
+                   conteudos.map(item => <CartaoDeConteudo conteudo={item} />)
+               }
+           </View>
        </View>
     </>
   );
@@ -52,7 +60,7 @@ const estilos = StyleSheet.create({
     fontSize: 24,
     marginLeft: 16,
     marginTop: 24
-  }
+  },
 });
 
 export default MeusConteudos;
