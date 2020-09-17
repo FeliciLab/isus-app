@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, Image, StyleSheet, Dimensions, TouchableOpacity
+  View, Text, Image, StyleSheet, TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
 
@@ -11,18 +11,19 @@ function CartaoDeConteudo(props) {
   return (
     <TouchableOpacity onPress={() => 2}>
       <View>
-        <Image resizeMode="contain" style={estilos.imagem} source={{ uri: item.image }} />
+        <Image resizeMode="cover" style={estilos.imagem} source={{ uri: item.image }} />
         <Text style={estilos.data}>{moment(item.post_date).format('DD/MM/YYYY')}</Text>
-        <Text style={estilos.texto}>{item.post_title}</Text>
+        <Text numberOfLines={3} style={estilos.texto}>{item.post_title}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 const estilos = StyleSheet.create({
   imagem: {
-    height: 110,
-    width: Dimensions.get('window').width / 2.2,
-    borderRadius: 8
+    height: 100,
+    width: 140,
+    borderRadius: 8,
+    marginHorizontal: 16,
   },
   data: {
     fontWeight: '500',
@@ -31,6 +32,7 @@ const estilos = StyleSheet.create({
     letterSpacing: 1.5,
     textTransform: 'uppercase',
     color: '#4CAF50',
+    marginHorizontal: 16,
 
   },
   texto: {
@@ -38,7 +40,8 @@ const estilos = StyleSheet.create({
     lineHeight: 20,
     letterSpacing: 0.25,
     color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: Dimensions.get('window').width / 2.2
+    maxWidth: 140,
+    marginHorizontal: 16,
   }
 });
 export default CartaoDeConteudo;

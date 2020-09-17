@@ -59,9 +59,16 @@ function MeusConteudos() {
     <>
       <View style={estilos.conteudoTitulo}>
         <Text style={estilos.titulo}>Meus Conteúdos</Text>
-        <TouchableOpacity style={estilos.conteudoVerMais} onPress={() => navigation.navigate('MeusConteudos')}>
-          <Text style={estilos.verMais}>Ver mais</Text>
-        </TouchableOpacity>
+        {conteudos.length > 0 && (
+          <TouchableOpacity
+            style={estilos.conteudoVerMais}
+            onPress={() => navigation.navigate('MeusConteudos', { conteudos })}
+          >
+              <Text style={estilos.verMais}>
+                Ver mais
+              </Text>
+          </TouchableOpacity>
+        )}
       </View>
       <ListaDeConteudo />
     </>
