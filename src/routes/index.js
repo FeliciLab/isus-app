@@ -13,6 +13,7 @@ import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
+import MeusConteudos from '../pages/MeusConteudos';
 
 const RootStack = createStackNavigator();
 
@@ -58,6 +59,12 @@ export default function App({ navigationRef }) {
           name="TelaDeSucesso"
           component={TelaDeSucesso}
           initialParams={{ textoApresentacao: 'Sucesso!', telaDeRedirecionamento: 'HOME' }}
+          options={{ headerShown: false }}
+        />
+        <RootStack.Screen
+          name="MeusConteudos"
+          component={MeusConteudos}
+          initialParams={{ conteudos: [] }}
           options={{ headerShown: false }}
         />
          <RootStack.Screen
