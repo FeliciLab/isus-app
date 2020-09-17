@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  FlatList, Text, StyleSheet
+  TouchableOpacity, View, FlatList, Text, StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Card, Paragraph } from 'react-native-paper';
@@ -56,19 +56,42 @@ function MeusConteudos() {
 
   return (
     <>
-      <Text style={estilos.titulo}>Meus Conteúdos</Text>
+      <View style={estilos.conteudoTitulo}>
+        <Text style={estilos.titulo}>Meus Conteúdos</Text>
+        <TouchableOpacity style={estilos.conteudoVerMais} onPress={() => 5}>
+          <Text style={estilos.verMais}>Ver mais</Text>
+        </TouchableOpacity>
+      </View>
       <ListaDeConteudo />
     </>
   );
 }
 
 const estilos = StyleSheet.create({
-  titulo: {
-    marginHorizontal: 16,
+  conteudoTitulo: {
+    margin: 16,
     marginTop: 24,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  conteudoVerMais: {
+    alignSelf: 'center',
+  },
+  verMais: {
+    fontWeight: '500',
+    fontSize: 14,
+    lineHeight: 16,
+    textAlign: 'center',
+    letterSpacing: 0.75,
+    textTransform: 'uppercase',
+    color: '#FF9800',
+
+  },
+  titulo: {
     fontSize: 20,
     fontWeight: '500',
-    color: 'rgba(0, 0, 0, 0.6)'
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   cardSemConteudo: {
     margin: 16,
