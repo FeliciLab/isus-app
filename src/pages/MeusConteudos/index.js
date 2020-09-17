@@ -1,6 +1,9 @@
 import React, { useLayoutEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
+import {
+  TouchableOpacity, View, StyleSheet, Text
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 function MeusConteudos() {
@@ -9,33 +12,47 @@ function MeusConteudos() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#red',
+        backgroundColor: '#FFF',
         elevation: 0,
         shadowOpacity: 0
       },
-      headerTintColor: '#000000',
+      headerTintColor: '#000',
       headerTitleAlign: 'center',
       headerTitle: 'Meus Conteúdos',
       headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
-            </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
+        </TouchableOpacity>
       )
     });
   });
 
   return (
     <>
-        <BarraDeStatus barStyle="dark-content" />
+    <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
+       <View style={{ backgroundColor: '#ffffff', height: '100%' }}>
+           <Text style={estilos.titulo}>
+               Meus Conteúdos
+           </Text>
+       </View>
     </>
   );
 }
+
+const estilos = StyleSheet.create({
+  titulo: {
+    color: '#000',
+    fontSize: 24,
+    marginLeft: 16,
+    marginTop: 24
+  }
+});
 
 export default MeusConteudos;

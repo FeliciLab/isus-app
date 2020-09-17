@@ -65,7 +65,6 @@ export default function App({ navigationRef }) {
           name="MeusConteudos"
           component={MeusConteudos}
           initialParams={{ conteudos: [] }}
-          options={{ headerShown: false }}
         />
          <RootStack.Screen
            name="EdicaoDadosProfissionais"

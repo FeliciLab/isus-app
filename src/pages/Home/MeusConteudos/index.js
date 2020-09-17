@@ -7,6 +7,7 @@ import { Card, Paragraph } from 'react-native-paper';
 import { pegarProjetosPorProfissional } from '../../../apis/apiHome';
 import CartaoDeConteudo from './CartaoDeConteudo';
 
+
 function MeusConteudos() {
   const navigation = useNavigation();
   const [conteudos, alterarConteudos] = useState([]);
