@@ -99,7 +99,7 @@ export default function HomeScreen() {
     <>
       { tokenUsuario ? <ExibirUsuario dados={dadosUsuario} /> : <></> }
       <ProviderDeVersaoDoManejo>
-      <BarraDeStatus backgroundColor="#4CAF50" />
+      <BarraDeStatus backgroundColor={tokenUsuario ? '#FFF' : '#4CAF50'} barStyle={tokenUsuario ? 'dark-content' : 'light-content'} />
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Carrossel sliderWidth={width} itemWidth={width} />
         <Feature
@@ -107,10 +107,14 @@ export default function HomeScreen() {
           inactiveComponent={() => <Servicos navigation={navigation} />}
           activeComponent={() => <NovoServicos navigation={navigation} />}
         />
-        <Feature
-          name="306"
-          activeComponent={() => <MeusConteudos />}
-        />
+        {
+          tokenUsuario && (
+            <Feature
+              name="306"
+              activeComponent={() => <MeusConteudos />}
+            />
+          )
+        }
         <ForcaTarefaAntiCorona navigation={navigation} />
       </ScrollView>
       </ProviderDeVersaoDoManejo>

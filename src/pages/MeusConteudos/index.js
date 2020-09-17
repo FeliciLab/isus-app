@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  TouchableOpacity, View, StyleSheet, Text,
+  TouchableOpacity, View, StyleSheet, Text, ScrollView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -40,7 +40,7 @@ function MeusConteudos({ route }) {
   return (
     <>
     <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-       <View style={{ backgroundColor: '#ffffff', height: '100%' }}>
+       <ScrollView style={{ backgroundColor: '#ffffff', height: '100%' }}>
            <Text style={estilos.titulo}>
                Meus Conteúdos
            </Text>
@@ -49,7 +49,7 @@ function MeusConteudos({ route }) {
                    conteudos.map(item => <CartaoDeConteudo conteudo={item} />)
                }
            </View>
-       </View>
+       </ScrollView>
     </>
   );
 }
@@ -59,7 +59,8 @@ const estilos = StyleSheet.create({
     color: '#000',
     fontSize: 24,
     marginLeft: 16,
-    marginTop: 24
+    marginTop: 24,
+    marginBottom: 16
   },
 });
 

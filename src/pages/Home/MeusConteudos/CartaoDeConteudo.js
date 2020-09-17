@@ -3,13 +3,14 @@ import {
   View, Text, Image, StyleSheet, TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
 
 function CartaoDeConteudo(props) {
   const { conteudo } = props;
   const { item } = conteudo;
-  console.log('image', item.image);
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => 2}>
+    <TouchableOpacity onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: 700 }, title: item.post_title })}>
       <View>
         <Image resizeMode="cover" style={estilos.imagem} source={{ uri: item.image }} />
         <Text style={estilos.data}>{moment(item.post_date).format('DD/MM/YYYY')}</Text>
