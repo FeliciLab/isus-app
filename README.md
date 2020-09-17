@@ -1,11 +1,11 @@
 # App iSUS
-### v3.10.3
+### v3.10.5
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
 
 - [App iSUS](#app-isus)
-    - [v3.10.3](#v3103)
+    - [v3.10.5](#v3105)
   - [O que é?](#o-que-é)
   - [Tech Stack](#tech-stack)
   - [Start do Projeto.](#start-do-projeto)
@@ -147,7 +147,7 @@ Windows:
   ```
 
 ## Feature toggles
-Nós usamos feature toggles para o desenvolvimento de features. As festures toggles estão 
+Nós usamos feature toggles para o desenvolvimento de features. As festures toggles estão
 listadas no arquivo `src/utils/feature.js`. Elas seguem o padrão:
 
     NOME_DA_FEATURE: 'numero_do_card'
