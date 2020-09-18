@@ -25,8 +25,8 @@ export default function CartaoDeConteudo(props) {
 
 const estilos = StyleSheet.create({
   imagem: {
-    height: 134,
-    width: 120,
+    height: 100,
+    width: 140,
   },
   cartao: {
     flexDirection: 'row',
@@ -41,7 +41,6 @@ const estilos = StyleSheet.create({
     letterSpacing: 0.25,
     color: 'rgba(0, 0, 0, 0.87)',
     lineHeight: 20,
-    maxWidth: 207
   },
   data: {
     fontWeight: '500',
@@ -51,7 +50,9 @@ const estilos = StyleSheet.create({
     marginTop: 10
   },
   textos: {
+    flex: 1,
     marginHorizontal: 16,
+    maxWidth: 207,
     alignSelf: 'center',
   }
 });
