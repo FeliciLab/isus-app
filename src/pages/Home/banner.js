@@ -17,7 +17,7 @@ export default function Banner({ titulo, imagem, enderecoUrl }) {
         style={estilos.cartao}
       >
         <View style={estilos.containerImage}>
-          <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="cover" source={imagem} />
+          <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="cover" source={{ uri: imagem }} />
         </View>
       </Card>
   );
