@@ -3,22 +3,25 @@ import {
   TouchableOpacity, View, FlatList, Text, StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Card, Paragraph } from 'react-native-paper';
+import { Card, Paragraph, ActivityIndicator } from 'react-native-paper';
 import { pegarProjetosPorProfissional } from '../../../apis/apiHome';
 import CartaoDeConteudo from './CartaoDeConteudo';
-
 
 function MeusConteudos() {
   const navigation = useNavigation();
   const [conteudos, alterarConteudos] = useState([]);
+  const [carregados, alterarCarregamento] = useState(false);
 
   const aoIniciar = async () => {
     try {
+      alterarCarregamento(true);
       const resposta = await pegarProjetosPorProfissional();
       console.log('resposta', resposta.data);
       alterarConteudos(resposta.data.projetosDoProfissional);
+      alterarCarregamento(false);
     } catch (err) {
       console.log(err);
+      alterarCarregamento(false);
     }
   };
 
@@ -71,7 +74,7 @@ function MeusConteudos() {
         )}
       </View>
       <View style={estilos.listaDeConteudo}>
-        <ListaDeConteudo />
+        {!carregados ? <ListaDeConteudo /> : <ActivityIndicator />}
       </View>
     </>
   );
