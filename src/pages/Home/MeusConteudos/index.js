@@ -70,7 +70,9 @@ function MeusConteudos() {
           </TouchableOpacity>
         )}
       </View>
-      <ListaDeConteudo />
+      <View style={estilos.listaDeConteudo}>
+        <ListaDeConteudo />
+      </View>
     </>
   );
 }
@@ -87,7 +89,7 @@ const estilos = StyleSheet.create({
     alignSelf: 'center',
   },
   verMais: {
-    fontWeight: '500',
+    fontWeight: 'bold',
     fontSize: 14,
     lineHeight: 16,
     textAlign: 'center',
@@ -98,7 +100,7 @@ const estilos = StyleSheet.create({
   },
   titulo: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: 'bold',
     color: 'rgba(0, 0, 0, 0.6)',
   },
   cardSemConteudo: {
@@ -109,6 +111,9 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     fontSize: 14,
     color: 'rgba(0, 0, 0, 0.6)'
+  },
+  listaDeConteudo: {
+    marginBottom: 24
   },
   link: {
     fontWeight: 'bold',
