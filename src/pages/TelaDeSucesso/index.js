@@ -3,10 +3,11 @@ import {
   Text, View, SafeAreaView, StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BarraDeStatus from '../../components/barraDeStatus';
 import Check from '../../assets/icons/check.svg';
 
 function TelaDeSucesso({ route }) {
-  const { textoApresentacao, telaDeRedirecionamento } = route.params;
+  const { textoApresentacao, telaDeRedirecionamento, telaDeBackground } = route.params;
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
@@ -14,21 +15,24 @@ function TelaDeSucesso({ route }) {
     }, 4000);
   }, []);
   return (
-    <View style={estilos.background}>
-      <SafeAreaView style={estilos.safeArea}>
-        <Check />
-        <Text style={estilos.textoApresentacao}>
-          { textoApresentacao }
-        </Text>
-      </SafeAreaView>
-    </View>
+    <>
+      <BarraDeStatus backgroundColor={telaDeBackground} barStyle="light-content" />
+      <View style={{ backgroundColor: telaDeBackground }}>
+        <SafeAreaView style={estilos.safeArea}>
+          <Check />
+          <Text style={estilos.textoApresentacao}>
+            { textoApresentacao }
+          </Text>
+        </SafeAreaView>
+      </View>
+    </>
   );
 }
 
 const estilos = StyleSheet.create({
-  background: {
-    backgroundColor: '#4CAF50',
-  },
+  // background: {
+  //   backgroundColor: '#4CAF50',
+  // },
   safeArea: {
     height: '100%',
     alignItems: 'center',

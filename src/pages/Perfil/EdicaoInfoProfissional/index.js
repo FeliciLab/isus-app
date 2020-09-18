@@ -161,7 +161,7 @@ function EdicaoInfoProfissional() {
     try {
       console.log('perfil atualizado', usuarioTratado);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL' });
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
     } catch (err) {

@@ -10,7 +10,6 @@ export default function FormularioSenha() {
   const navigator = useNavigation();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
-  const mensagemDeSucesso = 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.';
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
 
   const mostrarAlerta = (mensagem) => {
@@ -59,8 +58,7 @@ export default function FormularioSenha() {
 
   const aposCadastro = (resultado) => {
     if (resultado.sucesso) {
-      mostrarAlerta(mensagemDeSucesso);
-      setTimeout(() => navigator.navigate('LOGIN', { screen: 'LOGIN' }), 4000);
+      navigator.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
       return;
     }
     let mensagemErro;
@@ -103,12 +101,12 @@ export default function FormularioSenha() {
             theme={theme}
           />
           { errors.senha && (
-<Text style={{ color: '#000000' }}>
-{' '}
-{ errors.senha.message }
-{' '}
-</Text>
-          ) }
+            <Text style={{ color: '#000000' }}>
+            {' '}
+            { errors.senha.message }
+            {' '}
+            </Text>
+          )}
         </View>
         <View>
           <TextInput
