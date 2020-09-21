@@ -1,13 +1,16 @@
 import React from 'react';
 import BannerManejo from './bannerManejo';
 import Banner from './banner';
+import SUS30anos from '../../assets/images/SUS-30-anos.png';
+import PPSUS from '../../assets/images/PPSUS.png';
+import CartilhaSaudeMental from '../../assets/images/cartilha-saude-mental.png';
 
 export default [
   {
     banner:
       <Banner
         titulo="SUS 30 anos"
-        imagem="https://coronavirus.ceara.gov.br/wp-content/uploads/2020/09/SUS-30-anos.png"
+        imagem={SUS30anos}
         enderecoUrl="https://www.esp.ce.gov.br/tag/semana-do-sus/"
       />
   },
@@ -15,7 +18,7 @@ export default [
     banner:
       <Banner
         titulo="PPSUS"
-        imagem="https://coronavirus.ceara.gov.br/wp-content/uploads/2020/09/PPSUS.png"
+        imagem={PPSUS}
         enderecoUrl="https://www.esp.ce.gov.br/tag/ppsus/"
       />
   },
@@ -23,7 +26,7 @@ export default [
     banner:
       <Banner
         titulo="Cartilha de Saúde Mental"
-        imagem="https://coronavirus.ceara.gov.br/wp-content/uploads/2020/09/Banner-Cartilha-Saúde-Mental.png"
+        imagem={CartilhaSaudeMental}
         enderecoUrl="https://coronavirus.ceara.gov.br/cartilhas-sobre-saude-mental/"
       />
   },
