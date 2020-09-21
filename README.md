@@ -21,8 +21,6 @@ Esse é o repositório do aplicativo iSUS.
     - [Design Backlog:](#design-backlog)
 - [Padrões de Desenvolvimento](#padrões-de-desenvolvimento)
   - [Linguagem ubíqua](#linguagem-ubíqua)
-  - [Git Flow](#git-flow)
-    - [Instalação](#instalação)
   - [Feature toggles](#feature-toggles)
   - [Commits](#commits)
       - [GitMoji :stuck_out_tongue_winking_eye:](#gitmoji-stuck_out_tongue_winking_eye)
@@ -119,32 +117,6 @@ Controle do Backlog do Time de Design: https://airtable.com/shr5uuRvxUWgMYpQG
 ## Linguagem ubíqua
 Pela conveniente e constante proximidade com o negócio decidimos utilizar o português em todo código novo da iSUS, em nossos commits e no nome de nossas branches, no código, isso se da em métodos, classes e nomes de arquivos.
 
-## Git Flow
-
-Adotamos o git flow como conjuntos de extensões para o git.
-O Git Flow permite operações de alto nível para repositórios, usando o modelo de branches de Vincent Driessen.
-
-Você pode aprender o fluxo de uso comum do git flow [aqui](https://danielkummer.github.io/git-flow-cheatsheet/index.pt_BR.html)
-
-### Instalação
-
-Linux:
-  ```bash
-  $ apt-get install git-flow
-  ```
-Mac OS:
-* Homebrew
-   ```bash
-    $ brew install git-flow-avh
-   ```
-* Macports
-  ```bash
-    $ port install git-flow-avh
-   ```
-Windows:
-  ```bash
-  $ wget -q -O - --no-check-certificate https://raw.github.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh install stable | bash
-  ```
 
 ## Feature toggles
 Nós usamos feature toggles para o desenvolvimento de features. As festures toggles estão
@@ -156,7 +128,6 @@ As features ativas estão listadas em `src/featuresAtivas.js`. Para mais informa
 
 ## Commits
 #### GitMoji :stuck_out_tongue_winking_eye:
-
 
 Usamos o GitMoji nos commits para categorizar mais intuitivamente em que tipo de atividade o commit atuou.
 
