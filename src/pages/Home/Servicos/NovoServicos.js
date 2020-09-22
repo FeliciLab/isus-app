@@ -5,9 +5,7 @@ import Servico1 from '../../../assets/icons/servicos/novo_servico_1.svg';
 import Servico2 from '../../../assets/icons/servicos/novo_servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/novo_servico_3.svg';
 import Servico4 from '../../../assets/icons/servicos/novo_servico_4.svg';
-
-
-import CartaoDeServico from './CartaoDeServico';
+import CartaoHome from '../cartaoHome';
 
 function Servicos({ navigation }) {
   const listaServicos = [
@@ -63,7 +61,7 @@ function Servicos({ navigation }) {
         }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <CartaoDeServico
+          <CartaoHome
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}

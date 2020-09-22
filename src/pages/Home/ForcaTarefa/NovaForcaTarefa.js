@@ -1,13 +1,13 @@
 import React from 'react';
 import { Title } from 'react-native-paper';
 import { FlatList, StyleSheet } from 'react-native';
-import CartaoDeForcaTarefa from './CartaoDeForcaTarefa';
 import Boletins from '../../../assets/icons/forcaTarefa/boletins.svg';
 import NotificacaoDeCasos from '../../../assets/icons/forcaTarefa/notificacaoDeCasos.svg';
 import FarmacoVigilancia from '../../../assets/icons/forcaTarefa/farmacoVigilancia.svg';
 import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVentiladores.svg';
 import AlertaDeEPI from '../../../assets/icons/forcaTarefa/alertaDeEPI.svg';
+import CartaoHome from '../cartaoHome';
 
 function NovaForcaTarefa({ navigation }) {
   const listaForcaTarefaAntiCorona = [
@@ -85,7 +85,7 @@ function NovaForcaTarefa({ navigation }) {
               }}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => (
-                <CartaoDeForcaTarefa
+                <CartaoHome
                   key={item.id}
                   titulo={item.titulo}
                   Icone={item.icone}
