@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen.routes';
@@ -10,6 +11,7 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
+import NovaTelaDeCadastro from '../pages/NovoCadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
@@ -24,7 +26,13 @@ export default function App({ navigationRef }) {
         <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
         <RootStack.Screen
           name="CADASTRO"
-          component={TelaDeCadastro}
+          component={() => (
+<Feature
+  name="316"
+  inactiveComponent={() => (<TelaDeCadastro />)}
+  activeComponent={() => (<NovaTelaDeCadastro />)}
+/>
+          )}
           options={{ headerShown: true }}
         />
         <RootStack.Screen
