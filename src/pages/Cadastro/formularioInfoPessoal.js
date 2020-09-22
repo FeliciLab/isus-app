@@ -138,93 +138,93 @@ export default function FormularioInfoPessoal() {
   return (
     <>
       <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-        <TextInput
-          label="Nome Completo"
-          name="nomeCompleto"
-          underlineColor="#BDBDBD"
-          onChangeText={text => alteraValor('nomeCompleto', text)}
-          style={estilos.campoDeTexto}
-          mode="outlined"
-          theme={theme}
-        />
-        {errors.nomeCompleto && (
-          <Text style={{ color: '#000000' }}>
-            {' '}
-            {errors.nomeCompleto.message}
-            {' '}
-          </Text>
+      <TextInput
+        label="Nome Completo"
+        name="nomeCompleto"
+        underlineColor="#BDBDBD"
+        onChangeText={text => alteraValor('nomeCompleto', text)}
+        style={estilos.campoDeTexto}
+        mode="outlined"
+        theme={theme}
+      />
+      {errors.nomeCompleto && (
+        <Text style={{ color: '#000000' }}>
+          {' '}
+          {errors.nomeCompleto.message}
+          {' '}
+        </Text>
+      )}
+      <TextInput
+        label="E-mail"
+        name="email"
+        keyboardType="email-address"
+        style={estilos.campoDeTexto}
+        onChangeText={text => alteraValor('email', text)}
+        mode="outlined"
+        theme={theme}
+      />
+      {errors.email && (
+        <Text style={{ color: '#000000' }}>
+          {' '}
+          {errors.email.message}
+          {' '}
+        </Text>
+      )}
+      <TextInput
+        label="Telefone"
+        name="telefone"
+        keyboardType="number-pad"
+        style={estilos.campoDeTexto}
+        onChangeText={text => text}
+        mode="outlined"
+        theme={theme}
+        maxLength={15}
+        render={props => (
+          <TextInputMask
+            {...props}
+            onChangeText={(formatted, extracted) => {
+              props.onChangeText(formatted);
+              alteraValor('telefone', extracted);
+            }}
+            mask="([00]) [00000]-[0000]"
+          />
         )}
-        <TextInput
-          label="E-mail"
-          name="email"
-          keyboardType="email-address"
-          style={estilos.campoDeTexto}
-          onChangeText={text => alteraValor('email', text)}
-          mode="outlined"
-          theme={theme}
-        />
-        {errors.email && (
-          <Text style={{ color: '#000000' }}>
-            {' '}
-            {errors.email.message}
-            {' '}
-          </Text>
+      />
+      {errors.telefone && (
+        <Text style={{ color: '#000000' }}>
+          {' '}
+          {errors.telefone.message}
+          {' '}
+        </Text>
+      )}
+      <TextInput
+        label="CPF"
+        name="cpf"
+        keyboardType="number-pad"
+        style={estilos.campoDeTexto}
+        onChangeText={text => text}
+        mode="outlined"
+        theme={theme}
+        maxLength={14}
+        render={props => (
+          <TextInputMask
+            {...props}
+            onChangeText={(formatted, extracted) => {
+              props.onChangeText(formatted);
+              alteraValor('cpf', extracted);
+            }}
+            mask="[000].[000].[000]-[00]"
+          />
         )}
-        <TextInput
-          label="Telefone"
-          name="telefone"
-          keyboardType="number-pad"
-          style={estilos.campoDeTexto}
-          onChangeText={text => text}
-          mode="outlined"
-          theme={theme}
-          maxLength={15}
-          render={props => (
-<TextInputMask
-  {...props}
-  onChangeText={(formatted, extracted) => {
-    props.onChangeText(formatted);
-    alteraValor('telefone', extracted);
-  }}
-  mask="([00]) [00000]-[0000]"
-/>
-          )}
-        />
-        {errors.telefone && (
-          <Text style={{ color: '#000000' }}>
-            {' '}
-            {errors.telefone.message}
-            {' '}
-          </Text>
-        )}
-        <TextInput
-          label="CPF"
-          name="cpf"
-          keyboardType="number-pad"
-          style={estilos.campoDeTexto}
-          onChangeText={text => text}
-          mode="outlined"
-          theme={theme}
-          maxLength={14}
-          render={props => (
-            <TextInputMask
-              {...props}
-              onChangeText={(formatted, extracted) => {
-                props.onChangeText(formatted);
-                alteraValor('cpf', extracted);
-              }}
-              mask="[000].[000].[000]-[00]"
-            />
-          )}
-        />
-        {errors.cpf && (
-          <Text style={{ color: '#000000' }}>
-            {' '}
-            {errors.cpf.message}
-            {' '}
-          </Text>
-        )}
-        <View style={{ marginTop: 14 }}>
+      />
+      {errors.cpf && (
+        <Text style={{ color: '#000000' }}>
+          {' '}
+          {errors.cpf.message}
+          {' '}
+        </Text>
+      )}
+      <View style={{ marginTop: 14 }}>
         <Dropdown
           ref={dropdown}
           label="Município de Residência"
@@ -235,23 +235,23 @@ export default function FormularioInfoPessoal() {
             alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
           }}
         />
-            <IconDropdown
-              style={{
-                position: 'absolute', right: 8, top: 30, fontSize: 25
-              }}
-              name="arrow-drop-down"
-              onPress={() => dropdown.current.focus()}
-            />
-        </View>
-
+        <IconDropdown
+          style={{
+            position: 'absolute', right: 8, top: 30, fontSize: 25
+          }}
+          name="arrow-drop-down"
+          onPress={() => dropdown.current.focus()}
+        />
+      </View>
       <Button
         disabled={!botaoAtivo}
         label="Próximo"
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        onPress={() => alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })
-        }
+        onPress={() => alterarTelaAtual(
+          { indice: 1, tela: <FormularioInfoProfissional /> }
+        )}
       >
         Próximo
       </Button>
