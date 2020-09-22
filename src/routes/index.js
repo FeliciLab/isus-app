@@ -11,11 +11,11 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
-import NovaTelaDeCadastro from '../pages/NovoCadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
+import CadastroRoutes from './cadastro.routes';
 
 const RootStack = createStackNavigator();
 
@@ -27,11 +27,11 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="CADASTRO"
           component={() => (
-<Feature
-  name="316"
-  inactiveComponent={() => (<TelaDeCadastro />)}
-  activeComponent={() => (<NovaTelaDeCadastro />)}
-/>
+            <Feature
+              name="316"
+              inactiveComponent={() => (<TelaDeCadastro />)}
+              activeComponent={() => (<CadastroRoutes />)}
+            />
           )}
           options={{ headerShown: true }}
         />

@@ -19,10 +19,6 @@ import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
-// eslint-disable-next-line import/no-cycle
-import WizardContext from '../../context/WizardContext';
-// eslint-disable-next-line import/no-cycle
-import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
   const dropdown = React.createRef();
@@ -30,7 +26,6 @@ export default function FormularioInfoPessoal() {
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
   const navigator = useNavigation();
-  const { alterarTelaAtual } = useContext(WizardContext);
 
   const theme = {
     ...DefaultTheme,
@@ -249,9 +244,6 @@ export default function FormularioInfoPessoal() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        onPress={() => alterarTelaAtual(
-          { indice: 1, tela: <FormularioInfoProfissional /> }
-        )}
       >
         Próximo
       </Button>

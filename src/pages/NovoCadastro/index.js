@@ -1,20 +1,19 @@
-import React, { useLayoutEffect, useContext } from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet, View, Platform
+  TouchableOpacity, Platform
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
-import WizardContext, { WizardProvider } from '../../context/WizardContext';
-import { FormProvider } from '../../context/FormContext';
 
 
 function TelaDeCadastro() {
   const navigator = useNavigation();
-  const { TelaAtual } = useContext(WizardContext);
-  const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de algumas informações';
-  const textoDeTelaSenha = 'Para finalizar seu cadastro, precisamos apenas de mais uma informação:';
+  // const textoDeApresentacao = 'Vamos realizar seu cadast
+  // ro, precisamos apenas de algumas informações';
+  // const textoDeTelaSenha = 'Para finalizar seu cadastro,
+  // precisamos apenas de mais uma informação:';
 
   useLayoutEffect(() => {
     navigator.setOptions({
@@ -49,7 +48,7 @@ function TelaDeCadastro() {
       enableOnAndroid
       enableAutomaticScroll={Platform.OS === 'ios'}
     >
-        <View style={{ marginHorizontal: 16 }}>
+        {/* <View style={{ marginHorizontal: 16 }}>
           {
             TelaAtual.indice === 2
               ? <Text style={estilos.apresentacao}>{textoDeTelaSenha}</Text>
@@ -57,7 +56,7 @@ function TelaDeCadastro() {
           }
 
             { TelaAtual.tela }
-        </View>
+        </View> */}
     </KeyboardAwareScrollView>
     </>
   );
@@ -65,33 +64,29 @@ function TelaDeCadastro() {
 
 export default function ConteudoTelaDeCadastro() {
   return (
-    <FormProvider>
-      <WizardProvider>
         <TelaDeCadastro />
-      </WizardProvider>
-    </FormProvider>
   );
 }
 
-const estilos = StyleSheet.create({
-  apresentacao: {
-    fontSize: 24,
-    marginTop: 40,
-    lineHeight: 28,
-    color: 'rgba(0, 0, 0, 0.87)'
-  },
-  campoDeTexto: {
-    paddingBottom: 28,
-    backgroundColor: '#FFF'
-  },
-  botao: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 20,
-    justifyContent: 'center',
-    backgroundColor: '#BDBDBD'
-  },
+// const estilos = StyleSheet.create({
+//   apresentacao: {
+//     fontSize: 24,
+//     marginTop: 40,
+//     lineHeight: 28,
+//     color: 'rgba(0, 0, 0, 0.87)'
+//   },
+//   campoDeTexto: {
+//     paddingBottom: 28,
+//     backgroundColor: '#FFF'
+//   },
+//   botao: {
+//     borderRadius: 50,
+//     width: 150,
+//     height: 45,
+//     alignSelf: 'flex-end',
+//     margin: 20,
+//     justifyContent: 'center',
+//     backgroundColor: '#BDBDBD'
+//   },
 
-});
+// });
