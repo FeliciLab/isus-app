@@ -23,7 +23,8 @@ const estilos = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 0.25,
     lineHeight: 20,
-    marginTop: 10
+    marginTop: 10,
+    maxWidth: 112,
   }
 });
 

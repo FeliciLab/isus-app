@@ -23,7 +23,7 @@ function NovaForcaTarefa({ navigation }) {
     },
     {
       id: 'acao-2',
-      titulo: 'Notificações de casos',
+      titulo: 'Notificação de casos',
       icone: NotificacaoDeCasos,
       navegacao: {
         componente: 'webview',
