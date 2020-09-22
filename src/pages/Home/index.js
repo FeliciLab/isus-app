@@ -18,6 +18,7 @@ import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
+import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -115,7 +116,11 @@ export default function HomeScreen() {
             />
           )
         }
-        <ForcaTarefaAntiCorona navigation={navigation} />
+        <Feature
+          name="315"
+          inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
+          activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
+        />
       </ScrollView>
       </ProviderDeVersaoDoManejo>
     </>
