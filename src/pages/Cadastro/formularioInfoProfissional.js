@@ -6,7 +6,6 @@ import {
 import {
   DefaultTheme, List, Checkbox, Button
 } from 'react-native-paper';
-import { Controller } from 'react-hook-form';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
@@ -15,8 +14,9 @@ import FormularioSenha from './formularioSenha';
 
 function FormularioInfoProfissional() {
   const {
-    control, setValue, register, unregister
+    setValue, register, unregister
   } = useContext(FormContext);
+
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [unidadesServico, alterarUnidadesServico] = useState({});
@@ -36,6 +36,7 @@ function FormularioInfoProfissional() {
     const aoIniciar = async () => {
       const servicos = await pegarListaDeServicos();
       alterarListaDeServicos(servicos);
+      servicos.map(pegarValorPadrãoDoCheckbox);
 
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
@@ -50,10 +51,9 @@ function FormularioInfoProfissional() {
     return { id: servico.id, nome: servico.nome, foiMarcado: false };
   };
 
-  const mudarValor = (onChange, value, servico) => {
-    onChange({ ...value, foiMarcado: !value.foiMarcado });
+  const mudarValor = (servico) => {
     const check = { ...unidadesServico };
-    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: !value.foiMarcado };
+    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: check[`${servico.nome}`] ? !check[`${servico.nome}`].foiMarcado : true };
     alterarUnidadesServico(check);
   };
 
@@ -66,6 +66,7 @@ function FormularioInfoProfissional() {
 
   const registrarUnidadesDeServico = () => {
     listaDeServicos.map(servico => unregister(servico.nome));
+    unregister('unidadeServico');
     register({ name: 'unidadeServico' });
     const servicosTratados = tratarUnidadesDeServico();
     setValue('unidadeServico', servicosTratados);
@@ -78,56 +79,49 @@ function FormularioInfoProfissional() {
 
   return (
     <>
-    <View style={{ marginTop: 24 }}>
-      <Text style={estilos.tituloDestaque}>Informações profissionais</Text>
-          <DropDown
-            label="Categoria profissional"
-            dados={listaDeCategorias}
-            definirValor={item => JSON.stringify(item)}
-            definirRotulo={item => item.nome}
-            aoMudarValor={(categoria) => {
-              registarCategoriaProfissional(categoria);
-            }}
-          />
+      <View style={{ marginTop: 24 }}>
+        <Text style={estilos.tituloDestaque}>Informações profissionais</Text>
+        <DropDown
+          label="Categoria profissional"
+          dados={listaDeCategorias}
+          definirValor={item => JSON.stringify(item)}
+          definirRotulo={item => item.nome}
+          aoMudarValor={(categoria) => {
+            registarCategoriaProfissional(categoria);
+          }}
+        />
 
 
-      <Text style={estilos.tituloDestaque}>Quais serviços em que atua?</Text>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
-      <View>
-        {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
-          <Controller
-            name={`${servico.nome}`}
-            control={control}
-            defaultValue={() => pegarValorPadrãoDoCheckbox(servico)}
-            render={({ onChange, value }) => (
+        <Text style={estilos.tituloDestaque}>Quais serviços em que atua?</Text>
+        <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+          <View>
+            {unidadesServico && listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
               <Checkbox.Item
-                status={value.foiMarcado ? 'checked' : 'unchecked'}
+                status={unidadesServico[servico.nome] && unidadesServico[servico.nome].foiMarcado ? 'checked' : 'unchecked'}
                 labelStyle={{ maxWidth: '70%' }}
                 theme={theme}
                 color="#304FFE"
                 label={servico.nome}
                 onPress={() => {
-                  mudarValor(onChange, value, servico);
+                  mudarValor(servico);
                 }
                 }
               />
-            )}
-          />
-        ))}
+            ))}
+          </View>
+        </List.Accordion>
       </View>
-      </List.Accordion>
-    </View>
-    <Button
-      style={estilos.botao}
-      labelStyle={{ color: '#fff' }}
-      onPress={() => {
-        registrarUnidadesDeServico();
-        alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
-      }}
-      mode="contained"
-    >
-      Próximo
-    </Button>
+      <Button
+        style={estilos.botao}
+        labelStyle={{ color: '#fff' }}
+        onPress={() => {
+          registrarUnidadesDeServico();
+          alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
+        }}
+        mode="contained"
+      >
+        Próximo
+      </Button>
     </>
   );
 }

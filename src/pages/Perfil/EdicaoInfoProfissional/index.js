@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 import {
   DefaultTheme, List, Checkbox, Button
 } from 'react-native-paper';
-import { Controller } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
 import DropDown from '../../../components/dropdown';
 import FormContext from '../../../context/FormContext';
@@ -21,7 +20,7 @@ import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
 
 function EdicaoInfoProfissional() {
   const {
-    control, getValues, setValue, register, unregister
+    getValues, setValue, register, unregister
   } = useContext(FormContext);
 
   const [temCategoria, alterarTemCategoria] = useState(false);
@@ -84,13 +83,6 @@ function EdicaoInfoProfissional() {
     aoIniciar();
   }, []);
 
-  const pegarValorPadrãoDoCheckbox = (servico) => {
-    if (unidadesServico[`${servico.nome}`]) {
-      return unidadesServico[`${servico.nome}`];
-    }
-    return { id: servico.id, nome: servico.nome, foiMarcado: false };
-  };
-
   const mostrarAlerta = (mensagem) => {
     alterarExibicaoDoAlerta(true);
     alterarMensagemDoAlerta(mensagem);
@@ -106,18 +98,15 @@ function EdicaoInfoProfissional() {
     listaDeServicos.map(servico => unregister(servico.nome));
     unregister('unidadeServico');
     const servicosTratados = tratarUnidadesDeServico(unidadesDeServico);
-    console.log('servicosTratados !!!', servicosTratados);
     if (servicosTratados.length !== 0) {
-      console.log('entrei aqui !!!', servicosTratados.length);
       register({ name: 'unidadeServico' });
       setValue('unidadeServico', JSON.stringify(servicosTratados));
     }
   };
 
-  const mudarValor = (onChange, value, servico) => {
-    onChange({ ...value, foiMarcado: !value.foiMarcado });
+  const mudarValor = (servico) => {
     const check = { ...unidadesServico };
-    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: !value.foiMarcado };
+    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: check[`${servico.nome}`] ? !check[`${servico.nome}`].foiMarcado : true };
     alterarUnidadesServico(check);
     registrarUnidadesDeServico(check);
   };
@@ -173,7 +162,6 @@ function EdicaoInfoProfissional() {
 
   const verificarSetores = () => {
     const { unidadeServico } = getValues();
-
     return unidadeServico && JSON.parse(unidadeServico).length !== 0;
   };
 
@@ -186,54 +174,47 @@ function EdicaoInfoProfissional() {
     <SafeAreaView style={estilos.safeArea}>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <ScrollView style={estilos.scroll}>
-      <View style={estilos.conteudoFormulario}>
-        <Text style={estilos.tituloPrincipal}>
-          Vamos agora adicionar suas informações profissionais, para isso,
-          selecione as opções abaixo:
-        </Text>
         <View style={estilos.conteudoFormulario}>
-          <Text style={estilos.tituloDestaque}>Categoria Profissional:</Text>
-          <DropDown
-            label="Categoria profissional"
-            dados={listaDeCategorias}
-            definirValor={item => JSON.stringify(item)}
-            definirRotulo={item => item.nome}
-            aoMudarValor={(categoria) => {
-              registrarCategoriaProfissional(categoria);
-              alterarTemCategoria(verificarCategoria());
-            }}
-          />
+          <Text style={estilos.tituloPrincipal}>
+            Vamos agora adicionar suas informações profissionais, para isso,
+            selecione as opções abaixo:
+          </Text>
+          <View style={estilos.conteudoFormulario}>
+            <Text style={estilos.tituloDestaque}>Categoria Profissional:</Text>
+            <DropDown
+              label="Categoria profissional"
+              dados={listaDeCategorias}
+              definirValor={item => JSON.stringify(item)}
+              definirRotulo={item => item.nome}
+              aoMudarValor={(categoria) => {
+                registrarCategoriaProfissional(categoria);
+                alterarTemCategoria(verificarCategoria());
+              }}
+            />
+          </View>
+          <View style={estilos.conteudoFormulario}>
+            <Text style={estilos.tituloDestaque}>Em que setor Você está atuando?</Text>
+            <List.Accordion style={estilos.acordeon} titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Setor de Atuação</Text>}>
+              <View>
+                {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
+                  <Checkbox.Item
+                    status={unidadesServico[`${servico.nome}`] && unidadesServico[`${servico.nome}`].foiMarcado ? 'checked' : 'unchecked'}
+                    labelStyle={{ maxWidth: '70%' }}
+                    theme={theme}
+                    color="#FF9800"
+                    label={servico.nome}
+                    onPress={() => {
+                      mudarValor(servico);
+                      alterarTemSetores(verificarSetores());
+                    }
+                    }
+                  />
+                ))}
+              </View>
+            </List.Accordion>
+          </View>
         </View>
-        <View style={estilos.conteudoFormulario}>
-          <Text style={estilos.tituloDestaque}>Em que setor Você está atuando?</Text>
-          <List.Accordion style={estilos.acordeon} titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Setor de Atuação</Text>}>
-            <View>
-              {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
-                <Controller
-                  name={`${servico.nome}`}
-                  control={control}
-                  defaultValue={() => pegarValorPadrãoDoCheckbox(servico)}
-                  render={({ onChange, value }) => (
-                    <Checkbox.Item
-                      status={value.foiMarcado ? 'checked' : 'unchecked'}
-                      labelStyle={{ maxWidth: '70%' }}
-                      theme={theme}
-                      color="#FF9800"
-                      label={servico.nome}
-                      onPress={() => {
-                        mudarValor(onChange, value, servico);
-                        alterarTemSetores(verificarSetores());
-                      }
-                      }
-                    />
-                  )}
-                />
-              ))}
-            </View>
-          </List.Accordion>
-        </View>
-      </View>
-      <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
+        <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
       </ScrollView>
       <Button
         style={[

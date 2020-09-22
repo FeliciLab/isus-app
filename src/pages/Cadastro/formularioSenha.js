@@ -8,6 +8,7 @@ import Alerta from '../../components/alerta';
 
 export default function FormularioSenha() {
   const navigator = useNavigation();
+  const [carregando, alterarCarregando] = React.useState(false);
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
@@ -100,11 +101,11 @@ export default function FormularioSenha() {
             mode="outlined"
             theme={theme}
           />
-          { errors.senha && (
+          {errors.senha && (
             <Text style={{ color: '#000000' }}>
-            {' '}
-            { errors.senha.message }
-            {' '}
+              {' '}
+              { errors.senha.message}
+              {' '}
             </Text>
           )}
         </View>
@@ -119,13 +120,13 @@ export default function FormularioSenha() {
             mode="outlined"
             theme={theme}
           />
-          { errors.repetirsenha && (
-  <Text style={{ color: '#000000' }}>
-  {' '}
-  {errors.repetirsenha.message}
-  {' '}
-  </Text>
-          ) }
+          {errors.repetirsenha && (
+            <Text style={{ color: '#000000' }}>
+              {' '}
+              {errors.repetirsenha.message}
+              {' '}
+            </Text>
+          )}
         </View>
       </View>
       <Button
@@ -133,12 +134,16 @@ export default function FormularioSenha() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
+        loading={carregando}
         onPress={async () => {
+          alterarCarregando(true);
           try {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
+            alterarCarregando(false);
           } catch (err) {
             console.log(err);
+            alterarCarregando(false);
           }
         }}
       >

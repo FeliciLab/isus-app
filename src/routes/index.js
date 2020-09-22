@@ -66,14 +66,14 @@ export default function App({ navigationRef }) {
           component={MeusConteudos}
           initialParams={{ conteudos: [] }}
         />
-         <RootStack.Screen
-           name="EdicaoDadosProfissionais"
-           component={() => (
-              <FormProvider>
-                <EdicaoInfoProfissional />
-              </FormProvider>
-           )}
-         />
+        <RootStack.Screen
+          name="EdicaoDadosProfissionais"
+          component={() => (
+            <FormProvider>
+              <EdicaoInfoProfissional />
+            </FormProvider>
+          )}
+        />
         <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
       </RootStack.Navigator>
     </NavigationContainer>
