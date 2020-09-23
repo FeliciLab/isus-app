@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-operators */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -47,6 +48,27 @@ function MostrarDadosUsuarioProfissional(dados) {
         dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
         }
       </Text>
+      {
+        dados.profissional
+          && dados.profissional.categoria_profissional.id === 1
+          || dados.profissional.categoria_profissional.id === 3 ? (
+            <>
+              <Text style={estilos.label}>ESPECIALIDADE</Text>
+              <Text style={estilos.dado}>
+                {
+                  dados.profissional && dados.profissional.especialidades.length ? (
+                    dados.profissional.especialidades.map(dado => (
+                      dado.nome
+                    )).join(', ')
+                  ) : (
+                    '---'
+                  )
+                }
+              </Text>
+            </>
+          ) : (
+            <></>
+          )}
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
         {
