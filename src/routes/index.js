@@ -16,6 +16,7 @@ import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
+import features from '../featureAtivas';
 
 const RootStack = createStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App({ navigationRef }) {
         <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
         <RootStack.Screen
           name="CADASTRO"
+          options={{ headerShown: !features.includes('316') }}
           component={() => (
             <Feature
               name="316"
@@ -33,7 +35,6 @@ export default function App({ navigationRef }) {
               activeComponent={() => (<CadastroRoutes />)}
             />
           )}
-          options={{ headerShown: true }}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"

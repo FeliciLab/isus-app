@@ -1,14 +1,12 @@
 import React, {
-  useLayoutEffect,
   useContext,
   useCallback,
   useEffect
 } from 'react';
 import {
-  TouchableOpacity, StyleSheet, View, Text
+  StyleSheet, View, Text
 } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   TextInput, DefaultTheme, Button
 } from 'react-native-paper';
@@ -19,13 +17,14 @@ import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
+import { Titulo, Scroll, TituloDoFormulario } from './styles';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function FormularioInfoPessoal() {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
-  const navigator = useNavigation();
 
   const theme = {
     ...DefaultTheme,
@@ -107,166 +106,134 @@ export default function FormularioInfoPessoal() {
     guardarCidades();
   }, [nomeCidades]);
 
-  useLayoutEffect(() => {
-    navigator.setOptions({
-      headerStyle: {
-        backgroundColor: '#304FFE'
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: 'Cadastro',
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigator.goBack();
-          }}
-        >
-          <Icon name="arrow-left" size={28} color="#FFF" />
-        </TouchableOpacity>
-      )
-    });
-  });
-
   return (
     <>
-      <Text style={estilos.informacoesPessoais}>Informações Pessoais</Text>
-      <TextInput
-        label="Nome Completo"
-        name="nomeCompleto"
-        underlineColor="#BDBDBD"
-        onChangeText={text => alteraValor('nomeCompleto', text)}
-        style={estilos.campoDeTexto}
-        mode="outlined"
-        theme={theme}
-      />
-      {errors.nomeCompleto && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.nomeCompleto.message}
-          {' '}
-        </Text>
-      )}
-      <TextInput
-        label="E-mail"
-        name="email"
-        keyboardType="email-address"
-        style={estilos.campoDeTexto}
-        onChangeText={text => alteraValor('email', text)}
-        mode="outlined"
-        theme={theme}
-      />
-      {errors.email && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.email.message}
-          {' '}
-        </Text>
-      )}
-      <TextInput
-        label="Telefone"
-        name="telefone"
-        keyboardType="number-pad"
-        style={estilos.campoDeTexto}
-        onChangeText={text => text}
-        mode="outlined"
-        theme={theme}
-        maxLength={15}
-        render={props => (
-          <TextInputMask
-            {...props}
-            onChangeText={(formatted, extracted) => {
-              props.onChangeText(formatted);
-              alteraValor('telefone', extracted);
-            }}
-            mask="([00]) [00000]-[0000]"
-          />
-        )}
-      />
-      {errors.telefone && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.telefone.message}
-          {' '}
-        </Text>
-      )}
-      <TextInput
-        label="CPF"
-        name="cpf"
-        keyboardType="number-pad"
-        style={estilos.campoDeTexto}
-        onChangeText={text => text}
-        mode="outlined"
-        theme={theme}
-        maxLength={14}
-        render={props => (
-          <TextInputMask
-            {...props}
-            onChangeText={(formatted, extracted) => {
-              props.onChangeText(formatted);
-              alteraValor('cpf', extracted);
-            }}
-            mask="[000].[000].[000]-[00]"
-          />
-        )}
-      />
-      {errors.cpf && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.cpf.message}
-          {' '}
-        </Text>
-      )}
-      <View style={{ marginTop: 14 }}>
-        <Dropdown
-          ref={dropdown}
-          label="Município de Residência"
-          data={nomeCidades}
-          labelExtractor={cidade => cidade}
-          valueExtractor={cidade => cidade}
-          onChangeText={(cidade) => {
-            alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
-          }}
+      <Scroll>
+        <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+        <Titulo>Vamos realizar seu cadastro, precisamos apenas de algumas informações:</Titulo>
+        <TituloDoFormulario>Informações Pessoais: </TituloDoFormulario>
+        <TextInput
+          label="Nome Completo"
+          name="nomeCompleto"
+          underlineColor="#BDBDBD"
+          onChangeText={text => alteraValor('nomeCompleto', text)}
+          style={estilos.campoDeTexto}
+          mode="outlined"
+          theme={theme}
         />
-        <IconDropdown
-          style={{
-            position: 'absolute', right: 8, top: 30, fontSize: 25
-          }}
-          name="arrow-drop-down"
-          onPress={() => dropdown.current.focus()}
+        {errors.nomeCompleto && (
+          <Text style={{ color: '#000000' }}>
+            {' '}
+            {errors.nomeCompleto.message}
+            {' '}
+          </Text>
+        )}
+        <TextInput
+          label="E-mail"
+          name="email"
+          keyboardType="email-address"
+          style={estilos.campoDeTexto}
+          onChangeText={text => alteraValor('email', text)}
+          mode="outlined"
+          theme={theme}
         />
-      </View>
-      <Button
-        disabled={!botaoAtivo}
-        label="Próximo"
-        style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
-        labelStyle={{ color: '#fff' }}
-        mode="contained"
-      >
-        Próximo
-      </Button>
+        {errors.email && (
+          <Text style={{ color: '#000000' }}>
+            {' '}
+            {errors.email.message}
+            {' '}
+          </Text>
+        )}
+        <TextInput
+          label="Telefone"
+          name="telefone"
+          keyboardType="number-pad"
+          style={estilos.campoDeTexto}
+          onChangeText={text => text}
+          mode="outlined"
+          theme={theme}
+          maxLength={15}
+          render={props => (
+            <TextInputMask
+              {...props}
+              onChangeText={(formatted, extracted) => {
+                props.onChangeText(formatted);
+                alteraValor('telefone', extracted);
+              }}
+              mask="([00]) [00000]-[0000]"
+            />
+          )}
+        />
+        {errors.telefone && (
+          <Text style={{ color: '#000000' }}>
+            {' '}
+            {errors.telefone.message}
+            {' '}
+          </Text>
+        )}
+        <TextInput
+          label="CPF"
+          name="cpf"
+          keyboardType="number-pad"
+          style={estilos.campoDeTexto}
+          onChangeText={text => text}
+          mode="outlined"
+          theme={theme}
+          maxLength={14}
+          render={props => (
+            <TextInputMask
+              {...props}
+              onChangeText={(formatted, extracted) => {
+                props.onChangeText(formatted);
+                alteraValor('cpf', extracted);
+              }}
+              mask="[000].[000].[000]-[00]"
+            />
+          )}
+        />
+        {errors.cpf && (
+          <Text style={{ color: '#000000' }}>
+            {' '}
+            {errors.cpf.message}
+            {' '}
+          </Text>
+        )}
+        <View style={{ marginTop: 14 }}>
+          <Dropdown
+            ref={dropdown}
+            label="Município de Residência"
+            data={nomeCidades}
+            labelExtractor={cidade => cidade}
+            valueExtractor={cidade => cidade}
+            onChangeText={(cidade) => {
+              alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
+            }}
+          />
+          <IconDropdown
+            style={{
+              position: 'absolute', right: 8, top: 30, fontSize: 25
+            }}
+            name="arrow-drop-down"
+            onPress={() => dropdown.current.focus()}
+          />
+        </View>
+        <Button
+          disabled={!botaoAtivo}
+          label="Próximo"
+          style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
+          labelStyle={{ color: '#fff' }}
+          mode="contained"
+        >
+          Próximo
+        </Button>
+      </Scroll>
     </>
   );
 }
 
 const estilos = StyleSheet.create({
-  apresentacao: {
-    fontSize: 24,
-    marginTop: 40,
-    lineHeight: 28,
-    color: 'rgba(0, 0, 0, 0.87)'
-  },
-  informacoesPessoais: {
-    fontWeight: '500',
-    marginTop: 24,
-    fontSize: 20,
-    lineHeight: 23,
-    letterSpacing: 0.15
-  },
   campoDeTexto: {
-    paddingTop: 28,
+    paddingBottom: 16,
     backgroundColor: '#FFF'
   },
   botao: {

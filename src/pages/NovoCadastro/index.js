@@ -1,53 +1,29 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import {
-  TouchableOpacity, Platform
+  Platform
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 
 function TelaDeCadastro() {
-  const navigator = useNavigation();
+  // const navigator = useNavigation();
   // const textoDeApresentacao = 'Vamos realizar seu cadast
   // ro, precisamos apenas de algumas informações';
   // const textoDeTelaSenha = 'Para finalizar seu cadastro,
   // precisamos apenas de mais uma informação:';
 
-  useLayoutEffect(() => {
-    navigator.setOptions({
-      headerStyle: {
-        backgroundColor: '#304FFE'
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: 'Cadastro',
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigator.goBack();
-          }}
-        >
-          <Icon name="arrow-left" size={28} color="#FFF" />
-        </TouchableOpacity>
-      )
-    });
-  });
 
   return (
     <>
-    <BarraDeStatus barStyle="light-content" backgroundColor="#304FFE" />
-    <KeyboardAwareScrollView
-      style={{ backgroundColor: '#FFF' }}
-      extraScrollHeight={100}
-      keyboardOpeningTime={100}
-      enableOnAndroid
-      enableAutomaticScroll={Platform.OS === 'ios'}
-    >
+      <BarraDeStatus barStyle="light-content" backgroundColor="#FFF" />
+      <KeyboardAwareScrollView
+        style={{ backgroundColor: '#FFF' }}
+        extraScrollHeight={100}
+        keyboardOpeningTime={100}
+        enableOnAndroid
+        enableAutomaticScroll={Platform.OS === 'ios'}
+      >
         {/* <View style={{ marginHorizontal: 16 }}>
           {
             TelaAtual.indice === 2
@@ -57,14 +33,14 @@ function TelaDeCadastro() {
 
             { TelaAtual.tela }
         </View> */}
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
     </>
   );
 }
 
 export default function ConteudoTelaDeCadastro() {
   return (
-        <TelaDeCadastro />
+    <TelaDeCadastro />
   );
 }
 
