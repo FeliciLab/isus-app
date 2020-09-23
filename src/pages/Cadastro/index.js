@@ -13,15 +13,15 @@ import { FormProvider } from '../../context/FormContext';
 function TelaDeCadastro() {
   const navigator = useNavigation();
   const { TelaAtual } = useContext(WizardContext);
-  const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de algumas informações';
+  const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de suas informações profissionais:';
   const textoDeTelaSenha = 'Para finalizar seu cadastro, precisamos apenas de mais uma informação:';
 
   useLayoutEffect(() => {
     navigator.setOptions({
       headerStyle: {
-        backgroundColor: '#304FFE'
+        backgroundColor: TelaAtual.indice === 2 ? '#304FFE' : '#FFF'
       },
-      headerTintColor: '#FFF',
+      headerTintColor: TelaAtual.indice === 2 ? '#FFF' : '#000',
       headerTitleAlign: 'center',
       headerTitle: 'Cadastro',
       headerLeft: () => (
@@ -33,7 +33,7 @@ function TelaDeCadastro() {
             navigator.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <Icon name="arrow-left" size={28} color={TelaAtual.indice === 2 ? '#FFF' : '#304FFE'} />
         </TouchableOpacity>
       )
     });

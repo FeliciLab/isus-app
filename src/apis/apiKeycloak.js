@@ -14,6 +14,14 @@ export async function pegarListaDeCategoriasProfissionais() {
   return resultado.data;
 }
 
+export async function pegarListaDeEspecialidades(id) {
+  if (id !== 0) {
+    const resultado = await request.get(`/categorias-profissionais/${id}/especialidades`);
+    return resultado.data;
+  }
+  return [];
+}
+
 
 export function logout(token) {
   return request.post('logout', { refresh_token: token.refresh_token }, { headers: { Authorization: `Bearer ${token.access_token}` } });
