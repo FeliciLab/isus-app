@@ -55,10 +55,10 @@ export default function EducationTabScreen(props) {
             marginHorizontal: 19
           }}
           onPress={() => {
-            navigation.toggleDrawer();
+            navigation.goBack();
           }}
         >
-          <Icon name="menu" size={28} color="#FFF" />
+          <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableOpacity>
       )
     });
