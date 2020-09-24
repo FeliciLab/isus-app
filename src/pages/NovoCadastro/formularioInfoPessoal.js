@@ -3,21 +3,22 @@ import React, {
   useCallback,
   useEffect
 } from 'react';
-import {
-  StyleSheet, View, Text
-} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import {
-  TextInput, DefaultTheme, Button
+  DefaultTheme
 } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown-v2';
-import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import TextInputMask from 'react-native-text-input-mask';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
-import { Titulo, Scroll, TituloDoFormulario } from './styles';
+import {
+  Titulo, Scroll,
+  TituloDoFormulario, CampoDeTexto,
+  TextoDeErro, Botao,
+  ConteudoDropdown, IconeDropdown
+} from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function FormularioInfoPessoal() {
@@ -112,43 +113,40 @@ export default function FormularioInfoPessoal() {
         <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
         <Titulo>Vamos realizar seu cadastro, precisamos apenas de algumas informações:</Titulo>
         <TituloDoFormulario>Informações Pessoais: </TituloDoFormulario>
-        <TextInput
+        <CampoDeTexto
           label="Nome Completo"
           name="nomeCompleto"
           underlineColor="#BDBDBD"
           onChangeText={text => alteraValor('nomeCompleto', text)}
-          style={estilos.campoDeTexto}
           mode="outlined"
           theme={theme}
         />
         {errors.nomeCompleto && (
-          <Text style={{ color: '#000000' }}>
+          <TextoDeErro>
             {' '}
             {errors.nomeCompleto.message}
             {' '}
-          </Text>
+          </TextoDeErro>
         )}
-        <TextInput
+        <CampoDeTexto
           label="E-mail"
           name="email"
           keyboardType="email-address"
-          style={estilos.campoDeTexto}
           onChangeText={text => alteraValor('email', text)}
           mode="outlined"
           theme={theme}
         />
         {errors.email && (
-          <Text style={{ color: '#000000' }}>
+          <TextoDeErro>
             {' '}
             {errors.email.message}
             {' '}
-          </Text>
+          </TextoDeErro>
         )}
-        <TextInput
+        <CampoDeTexto
           label="Telefone"
           name="telefone"
           keyboardType="number-pad"
-          style={estilos.campoDeTexto}
           onChangeText={text => text}
           mode="outlined"
           theme={theme}
@@ -165,17 +163,16 @@ export default function FormularioInfoPessoal() {
           )}
         />
         {errors.telefone && (
-          <Text style={{ color: '#000000' }}>
+          <TextoDeErro>
             {' '}
             {errors.telefone.message}
             {' '}
-          </Text>
+          </TextoDeErro>
         )}
-        <TextInput
+        <CampoDeTexto
           label="CPF"
           name="cpf"
           keyboardType="number-pad"
-          style={estilos.campoDeTexto}
           onChangeText={text => text}
           mode="outlined"
           theme={theme}
@@ -192,13 +189,13 @@ export default function FormularioInfoPessoal() {
           )}
         />
         {errors.cpf && (
-          <Text style={{ color: '#000000' }}>
+          <TextoDeErro>
             {' '}
             {errors.cpf.message}
             {' '}
-          </Text>
+          </TextoDeErro>
         )}
-        <View style={{ marginTop: 14 }}>
+        <ConteudoDropdown>
           <Dropdown
             ref={dropdown}
             label="Município de Residência"
@@ -209,49 +206,20 @@ export default function FormularioInfoPessoal() {
               alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
             }}
           />
-          <IconDropdown
-            style={{
-              position: 'absolute', right: 8, top: 30, fontSize: 25
-            }}
+          <IconeDropdown
             name="arrow-drop-down"
             onPress={() => dropdown.current.focus()}
           />
-        </View>
-        <Button
+        </ConteudoDropdown>
+        <Botao
           disabled={!botaoAtivo}
           label="Próximo"
-          style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
           labelStyle={{ color: '#fff' }}
           mode="contained"
         >
           Próximo
-        </Button>
+        </Botao>
       </Scroll>
     </>
   );
 }
-
-const estilos = StyleSheet.create({
-  campoDeTexto: {
-    paddingBottom: 16,
-    backgroundColor: '#FFF'
-  },
-  botao: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 20,
-    justifyContent: 'center',
-    backgroundColor: '#BDBDBD',
-  },
-  botaoHabilitado: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 20,
-    justifyContent: 'center',
-    backgroundColor: '#304FFE'
-  },
-});
