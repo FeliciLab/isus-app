@@ -1,9 +1,7 @@
 import React, {
   useContext,
-  useCallback,
   useEffect
 } from 'react';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   DefaultTheme
 } from 'react-native-paper';
@@ -22,13 +20,12 @@ import {
 import BarraDeStatus from '../../components/barraDeStatus';
 
 
-export default function FormularioInfoPessoal() {
+export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
 
-  const navigation = useNavigation();
 
   const theme = {
     ...DefaultTheme,
@@ -91,16 +88,14 @@ export default function FormularioInfoPessoal() {
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      async function pegarCidades() {
-        const response = await getMunicipiosCeara();
-        alteraNomeCidades(response.data.map(item => item.nome));
-        pegaCidades(response.data.map(item => item));
-      }
-      pegarCidades();
-    }, [])
-  );
+  useEffect(() => {
+    async function pegarCidades() {
+      const response = await getMunicipiosCeara();
+      alteraNomeCidades(response.data.map(item => item.nome));
+      pegaCidades(response.data.map(item => item));
+    }
+    pegarCidades();
+  }, []);
 
   useEffect(() => {
     async function guardarCidades() {
@@ -219,7 +214,7 @@ export default function FormularioInfoPessoal() {
           label="Próximo"
           labelStyle={{ color: '#fff' }}
           mode="contained"
-          onPress={() => navigation.push('FormularioInfoProfissional')}
+          onPress={() => navigation.navigate('FormularioInfoProfissional')}
         >
           Próximo
         </Botao>

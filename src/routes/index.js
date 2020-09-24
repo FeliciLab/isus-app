@@ -32,7 +32,7 @@ export default function App({ navigationRef }) {
             <Feature
               name="316"
               inactiveComponent={() => (<TelaDeCadastro />)}
-              activeComponent={() => (<CadastroRoutes />)}
+              activeComponent={CadastroRoutes}
             />
           )}
         />

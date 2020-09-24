@@ -89,7 +89,6 @@ function FormularioInfoProfissional() {
           }}
         />
 
-
         <Text style={estilos.tituloDestaque}>Quais serviços em que atua?</Text>
         <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
           <View>
