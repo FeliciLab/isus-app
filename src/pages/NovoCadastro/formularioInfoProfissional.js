@@ -9,8 +9,6 @@ import {
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
-import WizardContext from '../../context/WizardContext';
-import FormularioSenha from './formularioSenha';
 
 function FormularioInfoProfissional() {
   const {
@@ -20,7 +18,7 @@ function FormularioInfoProfissional() {
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [unidadesServico, alterarUnidadesServico] = useState({});
-  const { alterarTelaAtual } = useContext(WizardContext);
+
 
   const theme = {
     ...DefaultTheme,
@@ -116,7 +114,6 @@ function FormularioInfoProfissional() {
         labelStyle={{ color: '#fff' }}
         onPress={() => {
           registrarUnidadesDeServico();
-          alterarTelaAtual({ indice: 2, tela: <FormularioSenha /> });
         }}
         mode="contained"
       >

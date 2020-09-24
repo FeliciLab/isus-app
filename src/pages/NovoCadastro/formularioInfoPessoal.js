@@ -3,7 +3,7 @@ import React, {
   useCallback,
   useEffect
 } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   DefaultTheme
 } from 'react-native-paper';
@@ -21,11 +21,14 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 
+
 export default function FormularioInfoPessoal() {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
+
+  const navigation = useNavigation();
 
   const theme = {
     ...DefaultTheme,
@@ -216,6 +219,7 @@ export default function FormularioInfoPessoal() {
           label="Próximo"
           labelStyle={{ color: '#fff' }}
           mode="contained"
+          onPress={() => navigation.push('FormularioInfoProfissional')}
         >
           Próximo
         </Botao>
