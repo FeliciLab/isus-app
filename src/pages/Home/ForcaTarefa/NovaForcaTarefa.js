@@ -6,7 +6,6 @@ import NotificacaoDeCasos from '../../../assets/icons/forcaTarefa/notificacaoDeC
 import FarmacoVigilancia from '../../../assets/icons/forcaTarefa/farmacoVigilancia.svg';
 import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVentiladores.svg';
-import AlertaDeEPI from '../../../assets/icons/forcaTarefa/alertaDeEPI.svg';
 import CartaoHome from '../cartaoHome';
 
 function NovaForcaTarefa({ navigation }) {
@@ -60,42 +59,34 @@ function NovaForcaTarefa({ navigation }) {
         titulo: 'Central de Ventiladores',
         url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
       }
-    },
-    {
-      id: 'acao-6',
-      titulo: 'Alerta de EPI',
-      icone: AlertaDeEPI,
-      navegacao: {
-        componente: 'ALERTA_EPI',
-      }
-    },
+    }
   ];
 
   return (
     <>
-            <Title style={estilos.titulo}>Força-tarefa Anticorona</Title>
+      <Title style={estilos.titulo}>Força-tarefa Anticorona</Title>
 
-            <FlatList
-              horizontal
-              data={listaForcaTarefaAntiCorona}
-              keyExtractor={(item, index) => `${index}`}
-              style={{
-                flexDirection: 'row',
-                alignSelf: 'center'
-              }}
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <CartaoHome
-                  key={item.id}
-                  titulo={item.titulo}
-                  Icone={item.icone}
-                  onPress={() => navigation.navigate(item.navegacao.componente, {
-                    title: item.navegacao.titulo,
-                    url: item.navegacao.url
-                  })}
-                />
-              )}
-            />
+      <FlatList
+        horizontal
+        data={listaForcaTarefaAntiCorona}
+        keyExtractor={(item, index) => `${index}`}
+        style={{
+          flexDirection: 'row',
+          alignSelf: 'center'
+        }}
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <CartaoHome
+            key={item.id}
+            titulo={item.titulo}
+            Icone={item.icone}
+            onPress={() => navigation.navigate(item.navegacao.componente, {
+              title: item.navegacao.titulo,
+              url: item.navegacao.url
+            })}
+          />
+        )}
+      />
     </>
   );
 }
