@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet, Linking, Platform
+  Text, TouchableOpacity, StyleSheet, Linking, Platform, Image, View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +10,7 @@ import {
   TextoSobreSUS, TextoSobreSUSCeara, TextoSobreSESA, TextoSobreESP
 } from './textos';
 // import { navigate } from '../../routes/rootNavigation';
-import IconeSus30Anos from '../../assets/icons/sus_30_anos.svg';
+import IconeSus30Anos from '../../assets/images/sus_30_anos.png';
 
 const informacoes = {
   InstagramESP: {
@@ -108,10 +108,20 @@ export default function SusNoCearaScreen() {
       backgroundColor: '#ffffff', flex: 1, padding: 15, marginBottom: 20
     }}
     >
-      <IconeSus30Anos style={{
+      <View style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+        <Image
+          source={IconeSus30Anos}
+          style={{
+            marginTop: 15,
+            marginBottom: 15
+          }}
+          resizeMode="contain"
+        />
+      </View>
+      {/* <IconeSus30Anos style={{
         marginTop: 15, marginRight: 35, marginLeft: 15, marginBottom: 15
       }}
-      />
+      /> */}
       <TextoSobreSUS />
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item
