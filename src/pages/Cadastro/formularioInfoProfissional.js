@@ -6,6 +6,7 @@ import {
 import {
   DefaultTheme, List, Checkbox, Button
 } from 'react-native-paper';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
@@ -137,6 +138,31 @@ function FormularioInfoProfissional() {
     setValue('especialidades', especialidadesTratados);
   };
 
+  const CampoEspecialidades = () => (
+    tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
+      <>
+        <Text style={estilos.tituloDestaque}>Qual é sua especialidade?</Text>
+        <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+          <View>
+            {unidadesEspecialidades && listaDeEspecialidades.length !== 0
+              && listaDeEspecialidades.map(especialidade => (
+                <Checkbox.Item
+                  status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
+                  labelStyle={{ maxWidth: '70%' }}
+                  theme={theme}
+                  color="#304FFE"
+                  label={especialidade.nome}
+                  onPress={() => {
+                    mudarValorEspecilidades(especialidade);
+                  }
+                  }
+                />
+              ))}
+          </View>
+        </List.Accordion>
+      </>
+    ) : (<></>));
+
   return (
     <>
       <View style={{ marginTop: 24 }}>
@@ -151,33 +177,10 @@ function FormularioInfoProfissional() {
             verificarCategoria();
           }}
         />
-
-        {tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
-          <>
-           <Text style={estilos.tituloDestaque}>Qual é sua especialidade?</Text>
-           <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
-             <View>
-               {unidadesEspecialidades && listaDeEspecialidades.length !== 0
-               && listaDeEspecialidades.map(especialidade => (
-                 <Checkbox.Item
-                   status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
-                   labelStyle={{ maxWidth: '70%' }}
-                   theme={theme}
-                   color="#304FFE"
-                   label={especialidade.nome}
-                   onPress={() => {
-                     mudarValorEspecilidades(especialidade);
-                   }
-                   }
-                 />
-               ))}
-             </View>
-           </List.Accordion>
-          </>
-        ) : (
-          <></>
-        )}
-
+        <Feature
+          name="309"
+          activeComponent={() => <CampoEspecialidades />}
+        />
         <Text style={estilos.tituloDestaque}>Em que setor você está atuando?</Text>
         <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
           <View>

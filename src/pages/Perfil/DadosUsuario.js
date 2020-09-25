@@ -31,6 +31,32 @@ function DadosUsuario({ dados }) {
   );
 }
 
+function Especialidades({ dados }) {
+  return dados.profissional
+    && dados.profissional.categoria_profissional.id === 1
+    || dados.profissional.categoria_profissional.id === 3 ? (
+      <>
+        <Text style={estilos.label}>ESPECIALIDADE</Text>
+        <Text style={estilos.dado}>
+          {
+            dados.profissional
+              && dados.profissional.especialidades
+              && dados.profissional.especialidades.length ? (
+                dados.profissional.especialidades.map(dado => (
+                  dado.nome
+                )).join(', ')
+              ) : (
+                '---'
+              )
+          }
+        </Text>
+      </>
+    ) : (
+      <></>
+    );
+}
+
+
 function DadosUsuarioProfissional({ dados }) {
   return (
     // eslint-disable-next-line
@@ -48,29 +74,10 @@ function MostrarDadosUsuarioProfissional(dados) {
           dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
         }
       </Text>
-      {
-        dados.profissional
-          && dados.profissional.categoria_profissional.id === 1
-          || dados.profissional.categoria_profissional.id === 3 ? (
-            <>
-              <Text style={estilos.label}>ESPECIALIDADE</Text>
-              <Text style={estilos.dado}>
-                {
-                  dados.profissional
-                    && dados.profissional.especialidades
-                    && dados.profissional.especialidades.length ? (
-                      dados.profissional.especialidades.map(dado => (
-                        dado.nome
-                      )).join(', ')
-                    ) : (
-                      '---'
-                    )
-                }
-              </Text>
-            </>
-          ) : (
-            <></>
-          )}
+      <Feature
+        name="313"
+        activeComponent={() => <Especialidades dados={dados} />}
+      />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
         {
