@@ -1,12 +1,15 @@
 import React, {
   useContext,
-  useEffect
+  useEffect,
+  useLayoutEffect
 } from 'react';
 import {
   DefaultTheme
 } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
@@ -79,6 +82,23 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
     return teste;
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#304FFE" />
+        </TouchableOpacity>
+      )
+    });
+  });
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
   const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());

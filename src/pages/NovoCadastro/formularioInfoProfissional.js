@@ -1,16 +1,25 @@
 /* eslint-disable import/no-cycle */
-import React, { useContext, useState, useEffect } from 'react';
+import React, {
+  useContext, useState, useEffect, useLayoutEffect
+} from 'react';
 import {
-  View, Text, StyleSheet
+  View, Text, StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 import {
-  DefaultTheme, List, Checkbox, Button
+  DefaultTheme, Checkbox
 } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao
+} from './styles';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
+import BarraDeStatus from '../../components/barraDeStatus';
 
-function FormularioInfoProfissional() {
+
+function FormularioInfoProfissional({ navigation }) {
   const {
     setValue, register, unregister
   } = useContext(FormContext);
@@ -41,6 +50,23 @@ function FormularioInfoProfissional() {
     };
     aoIniciar();
   }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#304FFE" />
+        </TouchableOpacity>
+      )
+    });
+  });
 
   const pegarValorPadrãoDoCheckbox = (servico) => {
     if (unidadesServico[`${servico.nome}`]) {
@@ -76,9 +102,10 @@ function FormularioInfoProfissional() {
   };
 
   return (
-    <>
-      <View style={{ marginTop: 24 }}>
-        <Text style={estilos.tituloDestaque}>Informações profissionais</Text>
+    <Scroll>
+      <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+      <ConteudoDropdown>
+        <TituloDoFormulario>Informações profissionais</TituloDoFormulario>
         <DropDown
           label="Categoria profissional"
           dados={listaDeCategorias}
@@ -89,8 +116,11 @@ function FormularioInfoProfissional() {
           }}
         />
 
-        <Text style={estilos.tituloDestaque}>Quais serviços em que atua?</Text>
-        <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+        <TituloDoFormulario>Quais serviços em que atua?</TituloDoFormulario>
+        <Acordeon
+          titleStyle={{ color: 'black' }}
+          title={<Text style={estilos.titulo}>Selecione as opções</Text>}
+        >
           <View>
             {unidadesServico && listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
               <Checkbox.Item
@@ -106,10 +136,10 @@ function FormularioInfoProfissional() {
               />
             ))}
           </View>
-        </List.Accordion>
-      </View>
-      <Button
-        style={estilos.botao}
+        </Acordeon>
+      </ConteudoDropdown>
+      <Botao
+        disabled={false}
         labelStyle={{ color: '#fff' }}
         onPress={() => {
           registrarUnidadesDeServico();
@@ -117,8 +147,8 @@ function FormularioInfoProfissional() {
         mode="contained"
       >
         Próximo
-      </Button>
-    </>
+      </Botao>
+    </Scroll>
   );
 }
 

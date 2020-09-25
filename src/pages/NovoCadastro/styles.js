@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-import { Title, TextInput, Button } from 'react-native-paper';
+import {
+  Title, TextInput, Button, List
+} from 'react-native-paper';
 import { ScrollView } from 'react-native';
 import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 
@@ -55,6 +57,12 @@ const IconeDropdown = styled(IconDropdown)`
   font-size: 25px;
 `;
 
+const Acordeon = styled(List.Accordion)`
+  border-color: rgba(25, 25, 25, 0.32);
+  border-width: 2;
+  margin-top: 16;
+`;
+
 export {
   Titulo,
   Scroll,
@@ -63,5 +71,6 @@ export {
   TextoDeErro,
   Botao,
   ConteudoDropdown,
-  IconeDropdown
+  IconeDropdown,
+  Acordeon
 };
