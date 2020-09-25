@@ -15,7 +15,8 @@ export default function RotasCadastro() {
 
   const options = {
     headerStyle: {
-      elevation: 0
+      elevation: 0,
+      shadowOpacity: 0
     },
     headerTintColor: 'rgba(0, 0, 0, 0.87)',
     headerTitleAlign: 'center',

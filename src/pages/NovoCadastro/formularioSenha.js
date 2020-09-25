@@ -1,17 +1,36 @@
-import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { DefaultTheme, TextInput, Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
+import { DefaultTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FormContext from '../../context/FormContext';
 import { cadastrarUsuario } from '../../apis/apiCadastro';
 import Alerta from '../../components/alerta';
+import {
+  Titulo, Scroll, TituloDoFormulario, CampoDeTexto, TextoDeErro, Botao
+} from './styles';
 
-export default function FormularioSenha() {
-  const navigator = useNavigation();
+export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#304FFE" />
+        </TouchableOpacity>
+      )
+    });
+  });
 
   const mostrarAlerta = (mensagem) => {
     alterarMensagemDoAlerta(mensagem);
@@ -25,12 +44,9 @@ export default function FormularioSenha() {
 
   const theme = {
     ...DefaultTheme,
-    roundness: 2,
     colors: {
-      ...DefaultTheme.colors,
-      primary: 'rgba(0, 0, 0, 0.6);',
-      accent: '#f1c40f',
-    },
+      primary: '#304FFE'
+    }
   };
 
   const alteraValor = async (campo, valor) => {
@@ -59,7 +75,7 @@ export default function FormularioSenha() {
 
   const aposCadastro = (resultado) => {
     if (resultado.sucesso) {
-      navigator.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
       return;
     }
     let mensagemErro;
@@ -87,51 +103,43 @@ export default function FormularioSenha() {
   }, [register]);
 
   return (
-    <>
-      <View style={{ marginTop: 24 }}>
-        <Text style={estilos.tituloDestaque}>Defina uma senha</Text>
-        <View style={estilos.containerCampoDeTexto}>
-          <TextInput
+    <Scroll>
+        <Titulo>Para finalizar seu cadastro, precisamos apenas de mais uma</Titulo>
+        <TituloDoFormulario>Defina uma senha</TituloDoFormulario>
+          <CampoDeTexto
             label="Senha"
             name="senha"
             secureTextEntry
-            underlineColor="#BDBDBD"
+            // underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('senha', text)}
-            style={estilos.campoDeTexto}
             mode="outlined"
             theme={theme}
           />
           {errors.senha && (
-            <Text style={{ color: '#000000' }}>
+            <TextoDeErro>
               {' '}
               { errors.senha.message}
               {' '}
-            </Text>
+            </TextoDeErro>
           )}
-        </View>
-        <View>
-          <TextInput
+          <CampoDeTexto
             label="Confirmação de senha"
             name="repetirsenha"
             secureTextEntry
             underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('repetirsenha', text)}
-            style={estilos.campoDeTexto}
             mode="outlined"
             theme={theme}
           />
           {errors.repetirsenha && (
-            <Text style={{ color: '#000000' }}>
+            <TextoDeErro>
               {' '}
               {errors.repetirsenha.message}
               {' '}
-            </Text>
+            </TextoDeErro>
           )}
-        </View>
-      </View>
-      <Button
+      <Botao
         disabled={!botaoAtivo}
-        style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
         loading={carregando}
@@ -148,39 +156,8 @@ export default function FormularioSenha() {
         }}
       >
         Finalizar
-      </Button>
+      </Botao>
       <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDoAlerta} />
-    </>
+    </Scroll>
   );
 }
-
-const estilos = StyleSheet.create({
-  tituloDestaque: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
-  containerCampoDeTexto: {
-    paddingBottom: 15
-  },
-  campoDeTexto: {
-    backgroundColor: '#FFF'
-  },
-  botao: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 20,
-    justifyContent: 'center',
-    backgroundColor: '#BDBDBD'
-  },
-  botaoHabilitado: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 20,
-    justifyContent: 'center',
-    backgroundColor: '#304FFE'
-  }
-});

@@ -3,15 +3,14 @@ import React, {
   useContext, useState, useEffect, useLayoutEffect
 } from 'react';
 import {
-  View, Text, StyleSheet,
-  TouchableOpacity
+  View, TouchableOpacity
 } from 'react-native';
 import {
   DefaultTheme, Checkbox
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao
+  Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao, Titulo, PlaceholderAcordeon
 } from './styles';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
@@ -105,6 +104,9 @@ function FormularioInfoProfissional({ navigation }) {
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <ConteudoDropdown>
+        <Titulo>
+          Vamos realizar seu cadastro, precisamos aprenas de suas informações profissionais:
+        </Titulo>
         <TituloDoFormulario>Informações profissionais</TituloDoFormulario>
         <DropDown
           label="Categoria profissional"
@@ -119,7 +121,7 @@ function FormularioInfoProfissional({ navigation }) {
         <TituloDoFormulario>Quais serviços em que atua?</TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
-          title={<Text style={estilos.titulo}>Selecione as opções</Text>}
+          title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
         >
           <View>
             {unidadesServico && listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
@@ -143,6 +145,7 @@ function FormularioInfoProfissional({ navigation }) {
         labelStyle={{ color: '#fff' }}
         onPress={() => {
           registrarUnidadesDeServico();
+          navigation.navigate('FormularioSenha');
         }}
         mode="contained"
       >
@@ -151,25 +154,5 @@ function FormularioInfoProfissional({ navigation }) {
     </Scroll>
   );
 }
-
-const estilos = StyleSheet.create({
-  titulo: {
-    fontSize: 18,
-    color: 'rgba(0, 0, 0, 0.87)',
-  },
-  tituloDestaque: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
-  botao: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    alignSelf: 'flex-end',
-    margin: 20,
-    justifyContent: 'center',
-    backgroundColor: '#304FFE'
-  },
-});
 
 export default FormularioInfoProfissional;
