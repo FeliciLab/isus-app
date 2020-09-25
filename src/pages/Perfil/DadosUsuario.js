@@ -35,7 +35,7 @@ function DadosUsuarioProfissional({ dados }) {
   return (
     // eslint-disable-next-line
     dados.profissional && (dados.profissional.categoria_profissional && dados.profissional.unidades_servicos) ? MostrarDadosUsuarioProfissional(dados) :
-    <Feature name="288" activeComponent={() => <AdicionarDadosProfissionais />} />
+      <Feature name="288" activeComponent={() => <AdicionarDadosProfissionais />} />
   );
 }
 
@@ -45,7 +45,7 @@ function MostrarDadosUsuarioProfissional(dados) {
       <Text style={estilos.label}>CATEGORIA PROFISSIONAL</Text>
       <Text style={estilos.dado}>
         {
-        dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
+          dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
         }
       </Text>
       {
@@ -56,13 +56,15 @@ function MostrarDadosUsuarioProfissional(dados) {
               <Text style={estilos.label}>ESPECIALIDADE</Text>
               <Text style={estilos.dado}>
                 {
-                  dados.profissional && dados.profissional.especialidades.length ? (
-                    dados.profissional.especialidades.map(dado => (
-                      dado.nome
-                    )).join(', ')
-                  ) : (
-                    '---'
-                  )
+                  dados.profissional
+                    && dados.profissional.especialidades
+                    && dados.profissional.especialidades.length ? (
+                      dados.profissional.especialidades.map(dado => (
+                        dado.nome
+                      )).join(', ')
+                    ) : (
+                      '---'
+                    )
                 }
               </Text>
             </>
@@ -76,9 +78,7 @@ function MostrarDadosUsuarioProfissional(dados) {
             dados.profissional.unidades_servicos.map(dado => (
               dado.nome
             )).join(', ')
-          ) : (
-            ''
-          )
+          ) : ''
         }
       </Text>
     </View>
@@ -89,22 +89,22 @@ function AdicionarDadosProfissionais() {
   const navigation = useNavigation();
   return (
     <View style={{ marginBottom: 16 }}>
-    <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
-      Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
-    </Text>
-    <Feature
-      name="288"
-      inactiveComponent={() => (
-        <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('SOBRE')}>
-         ADICIONAR INFORMAÇÕES
-        </Button>
-      )}
-      activeComponent={() => (
-        <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
-          ADICIONAR INFORMAÇÕES
-        </Button>
-      )}
-    />
+      <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
+        Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
+      </Text>
+      <Feature
+        name="288"
+        inactiveComponent={() => (
+          <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('SOBRE')}>
+            ADICIONAR INFORMAÇÕES
+          </Button>
+        )}
+        activeComponent={() => (
+          <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
+            ADICIONAR INFORMAÇÕES
+          </Button>
+        )}
+      />
 
     </View>
   );
