@@ -110,7 +110,6 @@ export default function FormularioSenha({ navigation }) {
             label="Senha"
             name="senha"
             secureTextEntry
-            // underlineColor="#BDBDBD"
             onChangeText={text => alteraValor('senha', text)}
             mode="outlined"
             theme={theme}

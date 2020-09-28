@@ -9,23 +9,27 @@ import {
   DefaultTheme, Checkbox
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import {
   Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao, Titulo, PlaceholderAcordeon
 } from './styles';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
-import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
+import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 
 function FormularioInfoProfissional({ navigation }) {
   const {
-    setValue, register, unregister
+    setValue, register, unregister, getValues
   } = useContext(FormContext);
 
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [unidadesServico, alterarUnidadesServico] = useState({});
+  const [tratarCategoriaProfissional, alterarTratarCategoriaProfissional] = React.useState(0);
+  const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
+  const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
 
 
   const theme = {
@@ -46,6 +50,11 @@ function FormularioInfoProfissional({ navigation }) {
 
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
+
+      const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
+      console.log('especialidades', especialidades);
+      alterarListaDeEspecialidades(especialidades);
+      especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
     };
     aoIniciar();
   }, []);
@@ -66,6 +75,25 @@ function FormularioInfoProfissional({ navigation }) {
       )
     });
   });
+
+  const verificarCategoria = () => {
+    const { categoriaProfissional } = getValues();
+    JSON.parse(categoriaProfissional, (key, value) => {
+      if (key === 'id') {
+        alterarTratarCategoriaProfissional(value);
+
+        if (value === 1 || value === 3) {
+          const aoEspecialidades = async () => {
+            const especialidades = await pegarListaDeEspecialidades(value);
+            console.log('especialidades', especialidades);
+            alterarListaDeEspecialidades(especialidades);
+            especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
+          };
+          aoEspecialidades();
+        }
+      }
+    });
+  };
 
   const pegarValorPadrãoDoCheckbox = (servico) => {
     if (unidadesServico[`${servico.nome}`]) {
@@ -100,6 +128,67 @@ function FormularioInfoProfissional({ navigation }) {
     setValue('categoriaProfissional', categoria);
   };
 
+  const pegarValorPadrãoDoCheckboxEspecilidades = (especialidade) => {
+    if (unidadesEspecialidades[`${especialidade.nome}`]) {
+      return unidadesServico[`${especialidade.nome}`];
+    }
+    return { id: especialidade.id, nome: especialidade.nome, foiMarcado: false };
+  };
+
+  const mudarValorEspecilidades = (especialidade) => {
+    const check = { ...unidadesEspecialidades };
+    check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
+    alterarUnidadesEspecialidades(check);
+  };
+
+
+  const tratarUnidadesDeEspecialidades = () => {
+    const EspecialidadesMarcados = Object.values(unidadesEspecialidades).filter(
+      especialidade => especialidade.foiMarcado
+    );
+    return JSON.stringify(
+      EspecialidadesMarcados.map(especialidade => ({
+        id: especialidade.id
+      }))
+    );
+  };
+
+  const registrarUnidadesDeEspecialidades = () => {
+    listaDeEspecialidades.map(especialidade => unregister(especialidade.nome));
+    unregister('especialidades');
+    register({ name: 'especialidades' });
+    const especialidadesTratados = tratarUnidadesDeEspecialidades();
+    setValue('especialidades', especialidadesTratados);
+  };
+
+  const CampoEspecialidades = () => (
+    tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
+      <>
+        <TituloDoFormulario>Qual é sua especialidade?</TituloDoFormulario>
+        <Acordeon
+          titleStyle={{ color: 'black' }}
+          title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
+        >
+          <View>
+            {unidadesEspecialidades && listaDeEspecialidades.length !== 0
+              && listaDeEspecialidades.map(especialidade => (
+                <Checkbox.Item
+                  status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
+                  labelStyle={{ maxWidth: '70%' }}
+                  theme={theme}
+                  color="#304FFE"
+                  label={especialidade.nome}
+                  onPress={() => {
+                    mudarValorEspecilidades(especialidade);
+                  }
+                  }
+                />
+              ))}
+          </View>
+        </Acordeon>
+      </>
+    ) : (<></>));
+
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
@@ -115,9 +204,13 @@ function FormularioInfoProfissional({ navigation }) {
           definirRotulo={item => item.nome}
           aoMudarValor={(categoria) => {
             registarCategoriaProfissional(categoria);
+            verificarCategoria();
           }}
         />
-
+        <Feature
+          name="309"
+          activeComponent={() => <CampoEspecialidades />}
+        />
         <TituloDoFormulario>Quais serviços em que atua?</TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
@@ -145,6 +238,7 @@ function FormularioInfoProfissional({ navigation }) {
         labelStyle={{ color: '#fff' }}
         onPress={() => {
           registrarUnidadesDeServico();
+          registrarUnidadesDeEspecialidades();
           navigation.navigate('FormularioSenha');
         }}
         mode="contained"

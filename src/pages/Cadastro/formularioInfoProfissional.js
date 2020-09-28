@@ -57,7 +57,6 @@ function FormularioInfoProfissional() {
     const { categoriaProfissional } = getValues();
     JSON.parse(categoriaProfissional, (key, value) => {
       if (key === 'id') {
-        // console.log(key, value);
         alterarTratarCategoriaProfissional(value);
 
         if (value === 1 || value === 3) {
