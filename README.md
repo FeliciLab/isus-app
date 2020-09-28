@@ -124,7 +124,7 @@ listadas no arquivo `src/utils/feature.js`. Elas seguem o padrão:
 
     NOME_DA_FEATURE: 'numero_do_card'
 
-As features ativas estão listadas em `src/featuresAtivas.js`. Para mais informações, acesse a [documentação](https://github.com/paralleldrive/react-feature-toggles) da biblioteca que usamos.
+As features ativas estão listadas em `src/featuresAtivas.js`. Para mais informações, acesse a [documentação](docs/feature-toggle.md) sobre Feature Toggles do iSUS.
 
 ## Commits
 #### GitMoji :stuck_out_tongue_winking_eye:
