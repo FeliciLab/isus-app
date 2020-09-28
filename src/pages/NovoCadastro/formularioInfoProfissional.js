@@ -9,7 +9,6 @@ import {
   DefaultTheme, Checkbox
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Feature } from '@paralleldrive/react-feature-toggles';
 import {
   Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao, Titulo, PlaceholderAcordeon
 } from './styles';
@@ -161,33 +160,6 @@ function FormularioInfoProfissional({ navigation }) {
     setValue('especialidades', especialidadesTratados);
   };
 
-  const CampoEspecialidades = () => (
-    tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
-      <>
-        <TituloDoFormulario>Qual é sua especialidade?</TituloDoFormulario>
-        <Acordeon
-          titleStyle={{ color: 'black' }}
-          title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
-        >
-          <View>
-            {unidadesEspecialidades && listaDeEspecialidades.length !== 0
-              && listaDeEspecialidades.map(especialidade => (
-                <Checkbox.Item
-                  status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
-                  labelStyle={{ maxWidth: '70%' }}
-                  theme={theme}
-                  color="#304FFE"
-                  label={especialidade.nome}
-                  onPress={() => {
-                    mudarValorEspecilidades(especialidade);
-                  }
-                  }
-                />
-              ))}
-          </View>
-        </Acordeon>
-      </>
-    ) : (<></>));
 
   return (
     <Scroll>
@@ -207,10 +179,34 @@ function FormularioInfoProfissional({ navigation }) {
             verificarCategoria();
           }}
         />
-        <Feature
-          name="309"
-          activeComponent={() => <CampoEspecialidades />}
-        />
+        {
+          tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
+            <>
+              <TituloDoFormulario>Qual é sua especialidade?</TituloDoFormulario>
+              <Acordeon
+                titleStyle={{ color: 'black' }}
+                title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
+              >
+                <View>
+                  {unidadesEspecialidades && listaDeEspecialidades.length !== 0
+                    && listaDeEspecialidades.map(especialidade => (
+                      <Checkbox.Item
+                        status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
+                        labelStyle={{ maxWidth: '70%' }}
+                        theme={theme}
+                        color="#304FFE"
+                        label={especialidade.nome}
+                        onPress={() => {
+                          mudarValorEspecilidades(especialidade);
+                        }
+                        }
+                      />
+                    ))}
+                </View>
+              </Acordeon>
+            </>
+          ) : (<></>)
+        }
         <TituloDoFormulario>Quais serviços em que atua?</TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
