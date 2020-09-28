@@ -8,6 +8,7 @@ import Alerta from '../../components/alerta';
 import {
   Titulo, Scroll, TituloDoFormulario, CampoDeTexto, TextoDeErro, Botao
 } from './styles';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -104,39 +105,40 @@ export default function FormularioSenha({ navigation }) {
 
   return (
     <Scroll>
-        <Titulo>Para finalizar seu cadastro, precisamos apenas de mais uma</Titulo>
-        <TituloDoFormulario>Defina uma senha</TituloDoFormulario>
-          <CampoDeTexto
-            label="Senha"
-            name="senha"
-            secureTextEntry
-            onChangeText={text => alteraValor('senha', text)}
-            mode="outlined"
-            theme={theme}
-          />
-          {errors.senha && (
-            <TextoDeErro>
-              {' '}
-              { errors.senha.message}
-              {' '}
-            </TextoDeErro>
-          )}
-          <CampoDeTexto
-            label="Confirmação de senha"
-            name="repetirsenha"
-            secureTextEntry
-            underlineColor="#BDBDBD"
-            onChangeText={text => alteraValor('repetirsenha', text)}
-            mode="outlined"
-            theme={theme}
-          />
-          {errors.repetirsenha && (
-            <TextoDeErro>
-              {' '}
-              {errors.repetirsenha.message}
-              {' '}
-            </TextoDeErro>
-          )}
+      <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+      <Titulo>Para finalizar seu cadastro, precisamos apenas de mais uma</Titulo>
+      <TituloDoFormulario>Defina uma senha</TituloDoFormulario>
+      <CampoDeTexto
+        label="Senha"
+        name="senha"
+        secureTextEntry
+        onChangeText={text => alteraValor('senha', text)}
+        mode="outlined"
+        theme={theme}
+      />
+      {errors.senha && (
+        <TextoDeErro>
+          {' '}
+          { errors.senha.message}
+          {' '}
+        </TextoDeErro>
+      )}
+      <CampoDeTexto
+        label="Confirmação de senha"
+        name="repetirsenha"
+        secureTextEntry
+        underlineColor="#BDBDBD"
+        onChangeText={text => alteraValor('repetirsenha', text)}
+        mode="outlined"
+        theme={theme}
+      />
+      {errors.repetirsenha && (
+        <TextoDeErro>
+          {' '}
+          {errors.repetirsenha.message}
+          {' '}
+        </TextoDeErro>
+      )}
       <Botao
         disabled={!botaoAtivo}
         labelStyle={{ color: '#fff' }}

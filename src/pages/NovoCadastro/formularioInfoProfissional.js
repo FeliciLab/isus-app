@@ -25,6 +25,7 @@ function FormularioInfoProfissional({ navigation }) {
 
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
+  const [categoriaSelecionada, alterarCategoriaSelecionada] = useState('');
   const [unidadesServico, alterarUnidadesServico] = useState({});
   const [tratarCategoriaProfissional, alterarTratarCategoriaProfissional] = React.useState(0);
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
@@ -41,19 +42,55 @@ function FormularioInfoProfissional({ navigation }) {
     },
   };
 
+  const pegarValoresUnidadesServicos = () => {
+    const valores = getValues();
+    if (valores.unidadeServico) {
+      const unidadesServicos = JSON.parse(valores.unidadeServico);
+      unidadesServicos.map(unidadeServico => mudarValor(unidadeServico));
+    }
+  };
+
+  const pegarValoresEspecialidades = async (lista) => {
+    const valores = getValues();
+    console.log('valores', valores);
+    const especialidades = JSON.parse(valores.especialidades);
+
+    if (valores.especialidades) {
+      especialidades.forEach((especialidade) => {
+        console.log('especialidade', especialidade);
+        console.log('Lista de Especialidade', lista);
+
+        const especialidadeFiltrada = lista.filter(
+          esp => especialidade.id === esp.id
+        );
+        console.log('especialidade valores', especialidadeFiltrada);
+        if (especialidadeFiltrada && especialidadeFiltrada.length > 0) {
+          console.log('entrei aqui');
+          mudarValorEspecilidades(especialidadeFiltrada[0]);
+        }
+      });
+    }
+  };
+
+  const pegarValoresCategoriaProfissional = () => {
+    const valores = getValues();
+    alterarCategoriaSelecionada(valores.categoriaProfissional);
+    verificarCategoria();
+  };
+
   useEffect(() => {
     const aoIniciar = async () => {
       const servicos = await pegarListaDeServicos();
       alterarListaDeServicos(servicos);
-      servicos.map(pegarValorPadrãoDoCheckbox);
+      pegarValoresUnidadesServicos();
 
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
+      pegarValoresCategoriaProfissional();
 
       const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
-      console.log('especialidades', especialidades);
+      // console.log('especialidades', especialidades);
       alterarListaDeEspecialidades(especialidades);
-      especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
     };
     aoIniciar();
   }, []);
@@ -77,28 +114,23 @@ function FormularioInfoProfissional({ navigation }) {
 
   const verificarCategoria = () => {
     const { categoriaProfissional } = getValues();
-    JSON.parse(categoriaProfissional, (key, value) => {
-      if (key === 'id') {
-        alterarTratarCategoriaProfissional(value);
+    if (categoriaProfissional) {
+      JSON.parse(categoriaProfissional, (key, value) => {
+        if (key === 'id') {
+          alterarTratarCategoriaProfissional(value);
 
-        if (value === 1 || value === 3) {
-          const aoEspecialidades = async () => {
-            const especialidades = await pegarListaDeEspecialidades(value);
-            console.log('especialidades', especialidades);
-            alterarListaDeEspecialidades(especialidades);
-            especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
-          };
-          aoEspecialidades();
+          if (value === 1 || value === 3) {
+            const aoEspecialidades = async () => {
+              const especialidades = await pegarListaDeEspecialidades(value);
+              // console.log('especialidades', especialidades);
+              alterarListaDeEspecialidades(especialidades);
+              pegarValoresEspecialidades(especialidades);
+            };
+            aoEspecialidades();
+          }
         }
-      }
-    });
-  };
-
-  const pegarValorPadrãoDoCheckbox = (servico) => {
-    if (unidadesServico[`${servico.nome}`]) {
-      return unidadesServico[`${servico.nome}`];
+      });
     }
-    return { id: servico.id, nome: servico.nome, foiMarcado: false };
   };
 
   const mudarValor = (servico) => {
@@ -109,6 +141,7 @@ function FormularioInfoProfissional({ navigation }) {
 
   const tratarUnidadesDeServico = () => {
     const ServicosMarcados = Object.values(unidadesServico).filter(servico => servico.foiMarcado);
+    console.log('servicos', ServicosMarcados);
     return JSON.stringify(
       ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
     );
@@ -127,19 +160,11 @@ function FormularioInfoProfissional({ navigation }) {
     setValue('categoriaProfissional', categoria);
   };
 
-  const pegarValorPadrãoDoCheckboxEspecilidades = (especialidade) => {
-    if (unidadesEspecialidades[`${especialidade.nome}`]) {
-      return unidadesServico[`${especialidade.nome}`];
-    }
-    return { id: especialidade.id, nome: especialidade.nome, foiMarcado: false };
-  };
-
   const mudarValorEspecilidades = (especialidade) => {
     const check = { ...unidadesEspecialidades };
     check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
     alterarUnidadesEspecialidades(check);
   };
-
 
   const tratarUnidadesDeEspecialidades = () => {
     const EspecialidadesMarcados = Object.values(unidadesEspecialidades).filter(
@@ -156,7 +181,9 @@ function FormularioInfoProfissional({ navigation }) {
     listaDeEspecialidades.map(especialidade => unregister(especialidade.nome));
     unregister('especialidades');
     register({ name: 'especialidades' });
+
     const especialidadesTratados = tratarUnidadesDeEspecialidades();
+    console.log('especialidades', especialidadesTratados);
     setValue('especialidades', especialidadesTratados);
   };
 
@@ -172,6 +199,7 @@ function FormularioInfoProfissional({ navigation }) {
         <DropDown
           label="Categoria profissional"
           dados={listaDeCategorias}
+          valor={categoriaSelecionada}
           definirValor={item => JSON.stringify(item)}
           definirRotulo={item => item.nome}
           aoMudarValor={(categoria) => {
