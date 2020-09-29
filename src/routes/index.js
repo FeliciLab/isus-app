@@ -20,21 +20,37 @@ import features from '../featureAtivas';
 
 const RootStack = createStackNavigator();
 
+function EdicaoProfissional() {
+  return (
+    <FormProvider>
+      <EdicaoInfoProfissional />
+    </FormProvider>
+  );
+}
+
+function Cadastro() {
+  return (
+    <Feature
+      name="316"
+      inactiveComponent={() => <TelaDeCadastro />}
+      activeComponent={CadastroRoutes}
+    />
+  );
+}
+
 export default function App({ navigationRef }) {
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator>
-        <RootStack.Screen name="App" component={AppDrawerScreen} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="App"
+          component={AppDrawerScreen}
+          options={{ headerShown: false }}
+        />
         <RootStack.Screen
           name="CADASTRO"
           options={{ headerShown: !features.includes('316') }}
-          component={() => (
-            <Feature
-              name="316"
-              inactiveComponent={() => (<TelaDeCadastro />)}
-              activeComponent={CadastroRoutes}
-            />
-          )}
+          component={Cadastro}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"
@@ -51,14 +67,8 @@ export default function App({ navigationRef }) {
           name="clinical management"
           component={ClinicalManagement}
         />
-        <RootStack.Screen
-          name="webview"
-          component={WebViewPage}
-        />
-        <RootStack.Screen
-          name="manejoWebview"
-          component={ManejoWebViewPage}
-        />
+        <RootStack.Screen name="webview" component={WebViewPage} />
+        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
         <RootStack.Screen
           name="Buscar"
           component={searchStackScreen}
@@ -67,7 +77,10 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="TelaDeSucesso"
           component={TelaDeSucesso}
-          initialParams={{ textoApresentacao: 'Sucesso!', telaDeRedirecionamento: 'HOME' }}
+          initialParams={{
+            textoApresentacao: 'Sucesso!',
+            telaDeRedirecionamento: 'HOME'
+          }}
           options={{ headerShown: false }}
         />
         <RootStack.Screen
@@ -77,13 +90,13 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name="EdicaoDadosProfissionais"
-          component={() => (
-            <FormProvider>
-              <EdicaoInfoProfissional />
-            </FormProvider>
-          )}
+          component={EdicaoProfissional}
         />
-        <RootStack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="Welcome"
+          component={Welcome}
+          options={{ headerShown: false }}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
@@ -93,7 +106,11 @@ const searchStack = createStackNavigator();
 function searchStackScreen() {
   return (
     <searchStack.Navigator>
-      <searchStack.Screen name="Buscar" component={Buscar} options={{ headerShown: true }} />
+      <searchStack.Screen
+        name="Buscar"
+        component={Buscar}
+        options={{ headerShown: true }}
+      />
       <searchStack.Screen
         name="Buscar Description"
         component={BuscarDescription}
