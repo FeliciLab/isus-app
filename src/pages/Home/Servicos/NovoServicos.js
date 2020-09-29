@@ -5,6 +5,8 @@ import Servico1 from '../../../assets/icons/servicos/novo_servico_1.svg';
 import Servico2 from '../../../assets/icons/servicos/novo_servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/novo_servico_3.svg';
 import Servico4 from '../../../assets/icons/servicos/novo_servico_4.svg';
+import Servico5 from '../../../assets/icons/servicos/novo_servico_5.svg';
+import Servico6 from '../../../assets/icons/servicos/novo_servico_6.svg';
 import CartaoHome from '../cartaoHome';
 
 function Servicos({ navigation }) {
@@ -43,6 +45,26 @@ function Servicos({ navigation }) {
         componente: 'webview',
         titulo: 'Ações do governo',
         url: 'https://coronavirus.ceara.gov.br/isus/governo/'
+      }
+    },
+    {
+      id: 'services-5',
+      titulo: 'ESP',
+      icone: Servico5,
+      navegacao: {
+        componente: 'webview',
+        titulo: 'ESP',
+        url: 'https://www.esp.ce.gov.br/'
+      }
+    },
+    {
+      id: 'services-6',
+      titulo: 'ESP Virtual',
+      icone: Servico6,
+      navegacao: {
+        componente: 'webview',
+        titulo: 'ESP Virtual',
+        url: 'http://espvirtual.esp.ce.gov.br/'
       }
     }
   ];
