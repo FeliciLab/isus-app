@@ -12,7 +12,7 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import DropDown from '../../../components/dropdown';
 import FormContext from '../../../context/FormContext';
-import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais } from '../../../apis/apiKeycloak';
+import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../../apis/apiKeycloak';
 import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import { pegarDados } from '../../../services/armazenamento';
@@ -25,13 +25,17 @@ function EdicaoInfoProfissional() {
 
   const [temCategoria, alterarTemCategoria] = useState(false);
   const [temSetores, alterarTemSetores] = useState(false);
+  const [temEspecialidades, alterarTemEspecialidades] = useState(false);
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [carregando, alterarCarregando] = useState(false);
   const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
+  const [tratarCategoriaProfissional, alterarTratarCategoriaProfissional] = React.useState(0);
   const [unidadesServico, alterarUnidadesServico] = useState({});
+  const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
+  const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
   const navigation = useNavigation();
 
   const theme = {
@@ -77,11 +81,37 @@ function EdicaoInfoProfissional() {
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
 
+      const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
+      alterarListaDeEspecialidades(especialidades);
+      especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
+
       const perfil = await pegarDados('perfil');
       alterarPerfilDoUsuario(perfil);
     };
     aoIniciar();
   }, []);
+
+  const verificarCategoriaEspecialidades = () => {
+    const { categoriaProfissional } = getValues();
+    JSON.parse(categoriaProfissional, (key, value) => {
+      if (key === 'id') {
+        alterarTratarCategoriaProfissional(value);
+
+        if (value === 1 || value === 3) {
+          const aoEspecialidades = async () => {
+            const especialidades = await pegarListaDeEspecialidades(value);
+            // console.log('especialidades', especialidades);
+            alterarListaDeEspecialidades(especialidades);
+            especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
+            alterarTemEspecialidades(false);
+          };
+          aoEspecialidades();
+        } else {
+          alterarTemEspecialidades(true);
+        }
+      }
+    });
+  };
 
   const mostrarAlerta = (mensagem) => {
     alterarExibicaoDoAlerta(true);
@@ -117,9 +147,40 @@ function EdicaoInfoProfissional() {
     setValue('categoriaProfissional', categoria);
   };
 
+  const pegarValorPadrãoDoCheckboxEspecilidades = (especialidade) => {
+    if (unidadesEspecialidades[`${especialidade.nome}`]) {
+      return unidadesServico[`${especialidade.nome}`];
+    }
+    return { id: especialidade.id, nome: especialidade.nome, foiMarcado: false };
+  };
+
+  const mudarValorEspecilidades = (especialidade) => {
+    const check = { ...unidadesEspecialidades };
+    check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
+    alterarUnidadesEspecialidades(check);
+    registrarUnidadesDeEspecialidades(check);
+  };
+
+  const tratarUnidadesDeEspecialidades = (unidadesDeEspecialidades) => {
+    const EspecialidadesMarcados = Object.values(unidadesDeEspecialidades).filter(
+      especialidade => especialidade.foiMarcado
+    );
+    return EspecialidadesMarcados.map(especialidade => ({ id: especialidade.id }));
+  };
+
+  const registrarUnidadesDeEspecialidades = (unidadesDeEspecialidades) => {
+    listaDeEspecialidades.map(especialidade => unregister(especialidade.nome));
+    unregister('especialidades');
+    const especialidadesTratados = tratarUnidadesDeEspecialidades(unidadesDeEspecialidades);
+    if (especialidadesTratados.length !== 0) {
+      register({ name: 'especialidades' });
+      setValue('especialidades', JSON.stringify(especialidadesTratados));
+    }
+  };
+
   const tratarCamposDeUsuario = (campos) => {
     const {
-      email, name, telefone, cpf, municipio, categoriaProfissional, unidadeServico
+      email, name, telefone, cpf, municipio, categoriaProfissional, especialidades, unidadeServico
     } = campos;
     return {
       email,
@@ -130,20 +191,25 @@ function EdicaoInfoProfissional() {
       cidade: municipio.nome,
       termos: true,
       categoriaProfissional,
+      especialidades,
       unidadeServico
     };
   };
 
   const salvarInformaçõesProfissionais = async () => {
     alterarCarregando(true);
-    const { categoriaProfissional, unidadeServico } = getValues();
+    const { categoriaProfissional, especialidades, unidadeServico } = getValues();
     const usuarioTratado = tratarCamposDeUsuario(
-      { ...perfildoUsuario, categoriaProfissional, unidadeServico }
+      {
+        ...perfildoUsuario, categoriaProfissional, especialidades, unidadeServico
+      }
     );
     alterarPerfilDoUsuario(
       {
         ...perfildoUsuario,
         categoria_profissional: categoriaProfissional,
+        // eslint-disable-next-line object-shorthand
+        especialidades: especialidades,
         unidade_servico: unidadeServico
       }
     );
@@ -170,14 +236,19 @@ function EdicaoInfoProfissional() {
     return categoriaProfissional && JSON.parse(categoriaProfissional).length !== 0;
   };
 
+  const verificarEspecialidades = () => {
+    const { especialidades } = getValues();
+    return especialidades && JSON.parse(especialidades).length !== 0;
+  };
+
   return (
     <SafeAreaView style={estilos.safeArea}>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <ScrollView style={estilos.scroll}>
         <View style={estilos.conteudoFormulario}>
           <Text style={estilos.tituloPrincipal}>
-            Vamos agora adicionar suas informações profissionais, para isso,
-            selecione as opções abaixo:
+            Vamos agora adicionar suas informações profissionais,
+            para isso, selecione as opções abaixo:
           </Text>
           <View style={estilos.conteudoFormulario}>
             <Text style={estilos.tituloDestaque}>Categoria Profissional:</Text>
@@ -189,11 +260,38 @@ function EdicaoInfoProfissional() {
               aoMudarValor={(categoria) => {
                 registrarCategoriaProfissional(categoria);
                 alterarTemCategoria(verificarCategoria());
+                verificarCategoriaEspecialidades();
               }}
             />
           </View>
+          {
+            tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
+              <>
+                <Text style={estilos.tituloDestaque}>Qual é sua especialidade?</Text>
+                <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+                  <View>
+                    {unidadesEspecialidades && listaDeEspecialidades.length !== 0
+                      && listaDeEspecialidades.map(especialidade => (
+                        <Checkbox.Item
+                          status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
+                          labelStyle={{ maxWidth: '70%' }}
+                          theme={theme}
+                          color="#304FFE"
+                          label={especialidade.nome}
+                          onPress={() => {
+                            mudarValorEspecilidades(especialidade);
+                            alterarTemEspecialidades(verificarEspecialidades());
+                          }
+                          }
+                        />
+                      ))}
+                  </View>
+                </List.Accordion>
+              </>
+            ) : (<></>)
+          }
           <View style={estilos.conteudoFormulario}>
-            <Text style={estilos.tituloDestaque}>Em que setor Você está atuando?</Text>
+            <Text style={estilos.tituloDestaque}>Em que setor você está atuando?</Text>
             <List.Accordion style={estilos.acordeon} titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Setor de Atuação</Text>}>
               <View>
                 {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
@@ -219,7 +317,7 @@ function EdicaoInfoProfissional() {
       <Button
         style={[
           { ...estilos.botao },
-          temCategoria && temSetores
+          temCategoria && temEspecialidades && temSetores
             ? { ...estilos.botaoHabilitado }
             : { ...estilos.botaoDesabilitado }
         ]}
