@@ -46,31 +46,29 @@ function FormularioInfoProfissional({ navigation }) {
     const valores = getValues();
     if (valores.unidadeServico) {
       const unidadesServicos = JSON.parse(valores.unidadeServico);
-      unidadesServicos.map(unidadeServico => mudarValor(unidadeServico));
+      mudarValoresUnidadesServicos(unidadesServicos);
     }
   };
 
-  const pegarValoresEspecialidades = async (lista) => {
-    const valores = getValues();
-    console.log('valores', valores);
-    const especialidades = JSON.parse(valores.especialidades);
+  const pegarValoresEspecialidades = async (especialidadesLista) => {
+    const { especialidades } = getValues();
+    const especialidadesSalva = JSON.parse(especialidades);
 
-    if (valores.especialidades) {
-      especialidades.forEach((especialidade) => {
-        console.log('especialidade', especialidade);
-        console.log('Lista de Especialidade', lista);
-
-        const especialidadeFiltrada = lista.filter(
-          esp => especialidade.id === esp.id
-        );
-        console.log('especialidade valores', especialidadeFiltrada);
-        if (especialidadeFiltrada && especialidadeFiltrada.length > 0) {
-          console.log('entrei aqui');
-          mudarValorEspecilidades(especialidadeFiltrada[0]);
-        }
-      });
+    if (especialidadesSalva) {
+      const especialidadesFiltrada = filtrarEspecialidades(especialidadesSalva,
+        especialidadesLista);
+      if (especialidadesFiltrada && especialidadesFiltrada.length > 0) {
+        mudarValoresEspecialidades(especialidadesFiltrada);
+      }
     }
   };
+
+  const filtrarEspecialidades = (
+    especialidadesSalva, especialidadesLista
+  ) => especialidadesSalva.map((especialidade) => {
+    const especialidadeFiltrada = especialidadesLista.filter(esp => especialidade.id === esp.id);
+    return especialidadeFiltrada[0];
+  });
 
   const pegarValoresCategoriaProfissional = () => {
     const valores = getValues();
@@ -133,6 +131,28 @@ function FormularioInfoProfissional({ navigation }) {
     }
   };
 
+  const mudarValoresUnidadesServicos = (servicos) => {
+    const unidadesServicoCheckBoxes = { ...unidadesServico };
+    servicos.forEach((servico) => {
+      unidadesServicoCheckBoxes[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`] ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado : true };
+    });
+    alterarUnidadesServico(unidadesServicoCheckBoxes);
+  };
+
+  const mudarValorEspecilidades = (especialidade) => {
+    const check = { ...unidadesEspecialidades };
+    check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
+    alterarUnidadesEspecialidades(check);
+  };
+
+  const mudarValoresEspecialidades = (especialidades) => {
+    const especialidadesCheckBoxes = { ...unidadesServico };
+    especialidades.forEach((servico) => {
+      especialidadesCheckBoxes[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: especialidadesCheckBoxes[`${servico.nome}`] ? !especialidadesCheckBoxes[`${servico.nome}`].foiMarcado : true };
+    });
+    alterarUnidadesEspecialidades(especialidadesCheckBoxes);
+  };
+
   const mudarValor = (servico) => {
     const check = { ...unidadesServico };
     check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: check[`${servico.nome}`] ? !check[`${servico.nome}`].foiMarcado : true };
@@ -158,12 +178,6 @@ function FormularioInfoProfissional({ navigation }) {
   const registarCategoriaProfissional = (categoria) => {
     register({ name: 'categoriaProfissional' });
     setValue('categoriaProfissional', categoria);
-  };
-
-  const mudarValorEspecilidades = (especialidade) => {
-    const check = { ...unidadesEspecialidades };
-    check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
-    alterarUnidadesEspecialidades(check);
   };
 
   const tratarUnidadesDeEspecialidades = () => {
