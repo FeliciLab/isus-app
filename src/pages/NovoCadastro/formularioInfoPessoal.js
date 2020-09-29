@@ -6,12 +6,13 @@ import React, {
 import {
   DefaultTheme
 } from 'react-native-paper';
+
 import { TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { emailValido, cpfValido, nomeValido } from '../../utils/validadores';
 import FormContext from '../../context/FormContext';
-import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
 import {
@@ -21,7 +22,7 @@ import {
   ConteudoDropdown, IconeDropdown
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
-
+import featuresAtivas from '../../featureAtivas';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
@@ -60,14 +61,26 @@ export default function FormularioInfoPessoal({ navigation }) {
       },
       maxLength: 14
     });
-    register('cpf', {
-      required: true,
-      minLength: {
-        value: 11,
-        message: 'O seu CPF deve ter pelo menos 11 números.'
-      },
-      maxLength: 14
-    });
+    if (featuresAtivas.includes('312')) {
+      register('cpf', {
+        required: true,
+        minLength: {
+          value: 11,
+          message: 'O seu CPF deve ter pelo menos 11 números.'
+        },
+        validate: cpf => cpfValido(cpf) || 'CPF Inválido',
+        maxLength: 14
+      });
+    } else {
+      register('cpf', {
+        required: true,
+        minLength: {
+          value: 11,
+          message: 'O seu CPF deve ter pelo menos 11 números.'
+        },
+        maxLength: 14
+      });
+    }
     register('cidade', {
       required: true
     });
@@ -100,8 +113,7 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
   });
 
-  const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-  const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
+
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
