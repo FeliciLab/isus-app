@@ -20,3 +20,9 @@ Para gerenciar nossas Feature Toggles, usamos o (react-feature-togles)[https://g
 
 O nome de uma feature é geralmente recebe um número, esse número é correspondente a uma issue do projeto. As Feature pode ser gerenciada através do arquivo `src/featureAtivas.js`. Essse arquivo contém uma lista com todas as features que estão ativas no momento. Para adicionar uma nova feature, basta adicionar uma nova Feature em `src/utils/features.js`.
 
+`activeComponent` é a chamado do componente quando a feature estiver ativada. Ao ser removida a Feature em `src/featureAtivas.js`, ele deixará de aparecer ou exibirar o componente `inactiveComponent` caso esteja sendo declarado.
+
+`inactiveComponent` é a chamada do componente quando a feature estiver inativa. É utilizado quando há uma troca de estilização ou refatoração de código.
+
+Enquanto essa feature ainda não está finalizada, ela deve permanecer desativada, podendo ser reativada novamente quando estiver tudo funcionando corretamente.
+
