@@ -29,11 +29,11 @@ const TituloDoFormulario = styled(Title)`
 
 const CampoDeTexto = styled(TextInput)`
   padding-bottom: 16px;
-  background-color: #FFF;
+  background-color: #fff;
 `;
 
 const TextoDeErro = styled.Text`
-  color: #000000;
+  color: #ff0c3e;
 `;
 
 const Botao = styled(Button)`
