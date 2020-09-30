@@ -33,7 +33,8 @@ const CampoDeTexto = styled(TextInput)`
 `;
 
 const TextoDeErro = styled.Text`
-  color: #ff0c3e;
+  color: #000000;
+  marginTop: 0;
 `;
 
 const Botao = styled(Button)`

@@ -1,0 +1,22 @@
+{
+    "formularioPessoal" : {
+        "introducao" : "Vamos realizar seu cadastro, precisamos apenas de algumas informações:",
+        "titulo" : "Informações Pessoais:",
+        "mensagemEmail" : "O email deve ser no formato exemplo@exemplo.com",
+        "mensagemTelefone" : "O telefone deve ter pelo menos 11 números",
+        "mensagemCPF" : "O seu cpf deve ter pelo menos 11 números",
+        "mensagemCPFValidacao" : "CPF inválido"
+    },
+    "formularioProfissional" : {
+        "introducao" : "Vamos realizar seu cadastro, precisamos aprenas de suas informações profissionais:",
+        "titulo" : "Informações profissionais",
+        "servicos" : "Quais serviços em que atua?",
+        "especialidade" : "Qual é sua especialidade?"
+    },
+    "formularioSenha" : {
+        "introducao" : "Para finalizar seu cadastro, precisamos apenas de mais uma informação:",
+        "titulo" : "Defina uma senha:",
+        "erroTamanho" : "A sua senha deve ter pelo menos 8 caracteres.",
+        "erroIguais" : "As senhas não são iguais."
+    }
+}

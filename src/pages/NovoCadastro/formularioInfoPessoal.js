@@ -3,10 +3,7 @@ import React, {
   useEffect,
   useLayoutEffect
 } from 'react';
-import {
-  DefaultTheme
-} from 'react-native-paper';
-
+import { DefaultTheme } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
@@ -23,13 +20,13 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import featuresAtivas from '../../featureAtivas';
+import textos from './cadastro.json';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
-
 
   const theme = {
     ...DefaultTheme,
@@ -51,13 +48,13 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
     register('email', {
       required: true,
-      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+      validate: email => emailValido(email) || textos.formularioPessoal.mensagemEmail
     });
     register('telefone', {
       required: true,
       minLength: {
         value: 11,
-        message: 'O seu telefone deve ter pelo menos 11 números.'
+        message: textos.formularioPessoal.mensagemTelefone
       },
       maxLength: 14
     });
@@ -66,9 +63,9 @@ export default function FormularioInfoPessoal({ navigation }) {
         required: true,
         minLength: {
           value: 11,
-          message: 'O seu CPF deve ter pelo menos 11 números.'
+          message: textos.formularioPessoal.mensagemCPF
         },
-        validate: cpf => cpfValido(cpf) || 'CPF Inválido',
+        validate: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
         maxLength: 14
       });
     } else {
@@ -76,7 +73,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         required: true,
         minLength: {
           value: 11,
-          message: 'O seu CPF deve ter pelo menos 11 números.'
+          message: textos.formularioPessoal.mensagemCPF
         },
         maxLength: 14
       });
@@ -113,7 +110,6 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
   });
 
-
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
@@ -141,8 +137,8 @@ export default function FormularioInfoPessoal({ navigation }) {
     <>
       <Scroll>
         <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-        <Titulo>Vamos realizar seu cadastro, precisamos apenas de algumas informações:</Titulo>
-        <TituloDoFormulario>Informações Pessoais: </TituloDoFormulario>
+        <Titulo>{ textos.formularioPessoal.introducao }</Titulo>
+        <TituloDoFormulario>{ textos.formularioPessoal.titulo }</TituloDoFormulario>
         <CampoDeTexto
           label="Nome Completo"
           name="nomeCompleto"
@@ -153,9 +149,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         />
         {errors.nomeCompleto && (
           <TextoDeErro>
-            {' '}
             {errors.nomeCompleto.message}
-            {' '}
           </TextoDeErro>
         )}
         <CampoDeTexto
@@ -168,9 +162,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         />
         {errors.email && (
           <TextoDeErro>
-            {' '}
             {errors.email.message}
-            {' '}
           </TextoDeErro>
         )}
         <CampoDeTexto
@@ -194,9 +186,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         />
         {errors.telefone && (
           <TextoDeErro>
-            {' '}
             {errors.telefone.message}
-            {' '}
           </TextoDeErro>
         )}
         <CampoDeTexto
@@ -220,9 +210,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         />
         {errors.cpf && (
           <TextoDeErro>
-            {' '}
             {errors.cpf.message}
-            {' '}
           </TextoDeErro>
         )}
         <ConteudoDropdown>
