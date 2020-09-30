@@ -105,7 +105,7 @@ function FormularioLogin() {
       >
         Fazer Login
       </Button>
-      <Button style={estilos.botao} onPress={() => navigation.navigate('webview', { title: 'Esqueci minha senha', url: 'https://dev.id.org.br/auth/realms/saude/login-actions/reset-credentials?client_id=account&tab_id=dj9hXjNndv8', idSaude: true })} mode="text" color="#ffffff"> Esqueci minha senha </Button>
+      <Button style={estilos.botao} onPress={() => navigation.navigate('webview', { title: 'Esqueci minha senha', url: 'https://dev.id.org.br/auth/realms/saude/login-actions/reset-credentials?client_id=account', idSaude: true })} mode="text" color="#ffffff"> Esqueci minha senha </Button>
      </View>
     </View>
     <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
