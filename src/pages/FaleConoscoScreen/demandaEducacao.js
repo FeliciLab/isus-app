@@ -74,7 +74,7 @@ export default function DemandaEducacaoScreen() {
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: 'Demanda por Educação Permanente',
+      headerTitle: 'Educação Permanente',
       headerRight: () => (
         <TouchableOpacity
           style={{
@@ -110,7 +110,7 @@ export default function DemandaEducacaoScreen() {
             ref={descricaoInput}
             multiline
             value={descricao}
-            label="Descreva sua demanda para Educação Permanente *"
+            label="Demandar por Educação Permanente *"
             onChangeText={text => alterarDescricao(text)}
             style={{ marginBottom: 20 }}
           />
