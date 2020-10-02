@@ -1,5 +1,5 @@
 import request from '../src/services/request';
-import { postAlertaFaltaDeEpi, postFeedback } from '../src/apis/apiHome';
+import { postAlertaFaltaDeEpi, postDemandaEducacao, postFeedback } from '../src/apis/apiHome';
 import { pegarSO, pegarVersao } from '../src/utils/platform';
 
 jest.mock('../src/services/request');
@@ -34,6 +34,34 @@ describe('apiHome', () => {
 
     postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email);
     expect(request.post).toHaveBeenCalledWith('alertaDeEpi', {
+      descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'android'
+    });
+  });
+
+  it('faz requisição de demanda por educação permanente com versao do manejo e plataforma iOS', () => {
+    const descricao = 'Teste';
+    const unidadeDeSaude = 'abc';
+    const email = 'teste@teste.com';
+
+    pegarSO.mockImplementation(() => 'ios');
+    pegarVersao.mockImplementation(() => '3.10.0');
+
+    postDemandaEducacao(descricao, unidadeDeSaude, email);
+    expect(request.post).toHaveBeenCalledWith('demanda-educacao', {
+      descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'ios'
+    });
+  });
+
+  it('faz requisição de ademanda por educação permanente com versao do manejo e plataforma Android', () => {
+    const descricao = 'Teste';
+    const unidadeDeSaude = 'abc';
+    const email = 'teste@teste.com';
+
+    pegarSO.mockImplementation(() => 'android');
+    pegarVersao.mockImplementation(() => '3.10.0');
+
+    postDemandaEducacao(descricao, unidadeDeSaude, email);
+    expect(request.post).toHaveBeenCalledWith('demanda-educacao', {
       descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'android'
     });
   });

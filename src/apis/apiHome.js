@@ -49,3 +49,9 @@ export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
     descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
   });
 }
+
+export function postDemandaEducacao(descricao, unidadeDeSaude, email) {
+  return request.post('demanda-educacao', {
+    descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
+  });
+}
