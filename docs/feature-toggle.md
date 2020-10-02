@@ -26,5 +26,7 @@ A feature geralmente recebe um número, esse número é correspondente a uma iss
 
 Enquanto essa feature ainda não está finalizada, ela deve permanecer desativada no repositório remoto, podendo ser ativada novamente quando estiver tudo funcionando corretamente, o que significa que a feature está pronta para o ambiente de teste.
 
+Removemos as feature toggles no final de cada sprint. Para isso, identificamos as features que não estão mais em homologação (já foram aprovadas e estão em produção), localizamos onte a feature está sendo emplementada e a tira da `<Feature/>`, utilizando apenas o `activeComponent`, e limpando repositório de código que não está mais sendo usado ou não é adequado. É feito um commit para cada feature toggle removida, utilizando a mesma convenção do projeto que está documentada no nosso [README](https://github.com/EscolaDeSaudePublica/isus-app#commits). Pode ser visto um exemplo desse processo [nesse commit](https://github.com/EscolaDeSaudePublica/isus-app/commit/0181a247882557fc5706dcf937e143d0bf6cf3a6).
+
 
 
