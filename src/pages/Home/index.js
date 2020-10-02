@@ -10,10 +10,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import ForcaTarefaAntiCorona from './forcatarefaanticorona';
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
-import Servicos from './Servicos/servicos';
 import Carrossel from './carrossel';
 import BarraDeStatus from '../../components/barraDeStatus';
-import NovoServicos from './Servicos/NovoServicos';
+import Servicos from './Servicos/Servicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
@@ -103,11 +102,7 @@ export default function HomeScreen() {
       <BarraDeStatus backgroundColor={tokenUsuario ? '#FFF' : '#4CAF50'} barStyle={tokenUsuario ? 'dark-content' : 'light-content'} />
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Carrossel sliderWidth={width} itemWidth={width} />
-        <Feature
-          name="302"
-          inactiveComponent={() => <Servicos navigation={navigation} />}
-          activeComponent={() => <NovoServicos navigation={navigation} />}
-        />
+        <Servicos navigation={navigation} />
         {
           tokenUsuario && (
             <Feature
