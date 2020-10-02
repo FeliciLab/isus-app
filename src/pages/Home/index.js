@@ -105,10 +105,7 @@ export default function HomeScreen() {
         <Servicos navigation={navigation} />
         {
           tokenUsuario && (
-            <Feature
-              name="306"
-              activeComponent={() => <MeusConteudos />}
-            />
+              <MeusConteudos />
           )
         }
         <Feature
