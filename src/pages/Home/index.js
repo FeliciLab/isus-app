@@ -12,7 +12,7 @@ import ForcaTarefaAntiCorona from './forcatarefaanticorona';
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
 import Carrossel from './carrossel';
 import BarraDeStatus from '../../components/barraDeStatus';
-import Servicos from './Servicos/Servicos';
+import Servicos from './Servicos/servicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
@@ -97,23 +97,23 @@ export default function HomeScreen() {
 
   return (
     <>
-      { tokenUsuario ? <ExibirUsuario dados={dadosUsuario} /> : <></> }
+      { tokenUsuario ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
       <ProviderDeVersaoDoManejo>
-      <BarraDeStatus backgroundColor={tokenUsuario ? '#FFF' : '#4CAF50'} barStyle={tokenUsuario ? 'dark-content' : 'light-content'} />
-      <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-        <Carrossel sliderWidth={width} itemWidth={width} />
-        <Servicos navigation={navigation} />
-        {
-          tokenUsuario && (
+        <BarraDeStatus backgroundColor={tokenUsuario ? '#FFF' : '#4CAF50'} barStyle={tokenUsuario ? 'dark-content' : 'light-content'} />
+        <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+          <Carrossel sliderWidth={width} itemWidth={width} />
+          <Servicos navigation={navigation} />
+          {
+            tokenUsuario && (
               <MeusConteudos />
-          )
-        }
-        <Feature
-          name="315"
-          inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
-          activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
-        />
-      </ScrollView>
+            )
+          }
+          <Feature
+            name="315"
+            inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
+            activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
+          />
+        </ScrollView>
       </ProviderDeVersaoDoManejo>
     </>
   );
