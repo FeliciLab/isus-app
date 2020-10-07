@@ -6,7 +6,7 @@ import Servico2 from '../../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/servico_3.svg';
 import Servico4 from '../../../assets/icons/servicos/servico_4.svg';
 import Servico5 from '../../../assets/icons/servicos/servico_5.svg';
-import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
+// import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
 import CartaoHome from '../cartaoHome';
 
 function Servicos({ navigation }) {
@@ -57,16 +57,16 @@ function Servicos({ navigation }) {
         url: 'https://www.esp.ce.gov.br/'
       }
     },
-    {
-      id: 'services-6',
-      titulo: 'ESP Virtual',
-      icone: Servico6,
-      navegacao: {
-        componente: 'webview',
-        titulo: 'ESP Virtual',
-        url: 'http://espvirtual.esp.ce.gov.br/'
-      }
-    }
+    // {
+    //   id: 'services-6',
+    //   titulo: 'ESP Virtual',
+    //   icone: Servico6,
+    //   navegacao: {
+    //     componente: 'webview',
+    //     titulo: 'ESP Virtual',
+    //     url: 'http://espvirtual.esp.ce.gov.br/'
+    //   }
+    // }
   ];
 
   return (
