@@ -27,11 +27,12 @@ export default function FormularioInfoPessoal({ navigation }) {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
+  const [corPrimaria, alteraCorPrimaria] = React.useState('#304FFE');
 
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#304FFE'
+      primary: corPrimaria
     }
   };
 
@@ -143,7 +144,10 @@ export default function FormularioInfoPessoal({ navigation }) {
           label="Nome Completo"
           name="nomeCompleto"
           underlineColor="#BDBDBD"
-          onChangeText={text => alteraValor('nomeCompleto', text)}
+          onChangeText={(text) => {
+            alteraValor('nomeCompleto', text);
+            alteraCorPrimaria(nomeValido(text) ? '#304FFE' : 'red');
+          }}
           mode="outlined"
           theme={theme}
         />
@@ -156,7 +160,10 @@ export default function FormularioInfoPessoal({ navigation }) {
           label="E-mail"
           name="email"
           keyboardType="email-address"
-          onChangeText={text => alteraValor('email', text)}
+          onChangeText={(text) => {
+            alteraValor('email', text);
+            alteraCorPrimaria(emailValido(text) ? '#304FFE' : 'red');
+          }}
           mode="outlined"
           theme={theme}
         />
@@ -179,6 +186,7 @@ export default function FormularioInfoPessoal({ navigation }) {
               onChangeText={(formatted, extracted) => {
                 props.onChangeText(formatted);
                 alteraValor('telefone', extracted);
+                alteraCorPrimaria(extracted.length === 11 ? '#304FFE' : 'red');
               }}
               mask="([00]) [00000]-[0000]"
             />
@@ -203,6 +211,7 @@ export default function FormularioInfoPessoal({ navigation }) {
               onChangeText={(formatted, extracted) => {
                 props.onChangeText(formatted);
                 alteraValor('cpf', extracted);
+                alteraCorPrimaria(cpfValido(extracted) ? '#304FFE' : 'red');
               }}
               mask="[000].[000].[000]-[00]"
             />
