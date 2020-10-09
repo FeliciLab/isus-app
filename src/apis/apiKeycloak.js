@@ -22,6 +22,13 @@ export async function pegarListaDeEspecialidades(id) {
   return [];
 }
 
+export async function pegarTokenDeAcesso(refreshToken) {
+  const resultado = await request.post('/refresh-token', {
+    refresh_token: refreshToken
+  });
+  return resultado.data;
+}
+
 
 export function logout(token) {
   return request.post('logout', { refresh_token: token.refresh_token }, { headers: { Authorization: `Bearer ${token.access_token}` } });
