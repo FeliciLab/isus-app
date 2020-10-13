@@ -29,7 +29,6 @@ function App() {
     OneSignal.addEventListener('opened', onOpened);
     OneSignal.addEventListener('inAppMessageClicked', onInAppClicked);
 
-
     return function cleanup() {
       OneSignal.removeEventListener('opened', onOpened);
       OneSignal.removeEventListener('inAppMessageClicked', onInAppClicked);
@@ -37,7 +36,6 @@ function App() {
   }, []);
 
   const redirecionaManejo = () => navigate('clinical management');
-
   const redirecionaWebView = (openResult) => {
     const urlWebview = openResult.notification.payload.launchURL.replace('isusapp', 'https');
     return navigate('webview', {

@@ -21,7 +21,6 @@ import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
     const resp = JSON.parse(item);
