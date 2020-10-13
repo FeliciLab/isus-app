@@ -41,7 +41,7 @@ async function atualizarTokenDeAcessoDoUsuario() {
   try {
     const token = await pegarTokenDoUsuarioNoStorage();
     const resultado = await pegarTokenDeAcesso(token.refresh_token);
-    if (!resultado.success) {
+    if (!resultado.sucesso) {
       await excluirTokenDoUsuarioNoStorage();
       const navigation = useNavigation();
       navigation.navigate('LOGIN');
