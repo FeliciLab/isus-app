@@ -18,6 +18,7 @@ import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
 import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
+import { isNotEmpty } from '../../utils/isEmpty';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -51,6 +52,8 @@ export default function HomeScreen() {
           } catch (err) {
             console.log('ERRO', err);
           }
+        } else {
+          alterarTokenUsuario({});
         }
       }
       pegarTokenUsuario();
@@ -60,11 +63,11 @@ export default function HomeScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: tokenUsuario ? '#FFF' : '#4CAF50',
+        backgroundColor: isNotEmpty(tokenUsuario) ? '#FFF' : '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
       },
-      headerTintColor: tokenUsuario ? '#000' : '#FFF',
+      headerTintColor: isNotEmpty(tokenUsuario) ? '#000' : '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'iSUS',
       headerRight: () => (
@@ -76,7 +79,7 @@ export default function HomeScreen() {
             navigation.navigate('Buscar');
           }}
         >
-          <Icon name="magnify" size={28} color={tokenUsuario ? '#4CAF50' : '#FFF'} />
+          <Icon name="magnify" size={28} color={isNotEmpty(tokenUsuario) ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -88,7 +91,7 @@ export default function HomeScreen() {
             navigation.toggleDrawer();
           }}
         >
-          <Icon name="menu" size={28} color={tokenUsuario ? '#4CAF50' : '#FFF'} />
+          <Icon name="menu" size={28} color={isNotEmpty(tokenUsuario) ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
       )
     });
@@ -98,14 +101,14 @@ export default function HomeScreen() {
 
   return (
     <>
-      { tokenUsuario ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
+      { isNotEmpty(tokenUsuario) ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
       <ProviderDeVersaoDoManejo>
-        <BarraDeStatus backgroundColor={tokenUsuario ? '#FFF' : '#4CAF50'} barStyle={tokenUsuario ? 'dark-content' : 'light-content'} />
+        <BarraDeStatus backgroundColor={isNotEmpty(tokenUsuario) ? '#FFF' : '#4CAF50'} barStyle={isNotEmpty(tokenUsuario) ? 'dark-content' : 'light-content'} />
         <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
           <Carrossel sliderWidth={width} itemWidth={width} />
           <Servicos navigation={navigation} />
           {
-            tokenUsuario && (
+            isNotEmpty(tokenUsuario) && (
               <MeusConteudos />
             )
           }
