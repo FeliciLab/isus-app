@@ -30,7 +30,7 @@ function MeusConteudos() {
   }, []);
 
   const ListaDeConteudo = () => {
-    if (conteudos.length > 0) {
+    if (conteudos && conteudos.length > 0) {
       return (
         <FlatList
           horizontal

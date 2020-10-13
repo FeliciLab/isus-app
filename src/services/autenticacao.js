@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 // import Config from 'react-native-config';
 import {
   salvarDados, pegarDados, removerDados
@@ -32,44 +33,26 @@ async function salvarTokenDoUsuarioNoStorage(token) {
   await salvarDados('token_usuario', token);
 }
 
-async function pegarRefreshTokenDoUsuarioNoStorage() {
-  const token = await pegarDados('refresh_token_usuario');
-  return token;
-}
-
-async function salvarRefreshTokenDoUsuarioNoStorage(token) {
-  await salvarDados('refresh_token_usuario', token);
-}
-
 async function excluirTokenDoUsuarioNoStorage() {
   await removerDados('token_usuario');
 }
 
 async function atualizarTokenDeAcessoDoUsuario() {
   try {
-    const refreshToken = await pegarRefreshTokenDoUsuarioNoStorage();
-    const resultado = await pegarTokenDeAcesso(refreshToken);
+    const token = await pegarTokenDoUsuarioNoStorage();
+    const resultado = await pegarTokenDeAcesso(token.refresh_token);
     const { mensagem } = resultado;
-    await salvarTokenDoUsuarioNoStorage(mensagem.access_token);
-    await salvarRefreshTokenDoUsuarioNoStorage(mensagem.refresh_token);
+    await salvarTokenDoUsuarioNoStorage(mensagem);
   } catch (err) {
     console.log(err);
   }
 }
 
-async function receberResposta(res) {
-  if (res.response.status === 401) {
-    await atualizarTokenDeAcessoDoUsuario();
-  }
-}
 
 export {
   autenticarComIdSaude,
-  receberResposta,
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
-  pegarRefreshTokenDoUsuarioNoStorage,
-  salvarRefreshTokenDoUsuarioNoStorage,
   excluirTokenDoUsuarioNoStorage,
   salvarDadosDeCadastro,
   pegarDadosDeCadastro,
