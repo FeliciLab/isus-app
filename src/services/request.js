@@ -28,7 +28,6 @@ request.interceptors.response.use(response => response, async (error) => {
       await atualizarTokenDeAcessoDoUsuario();
       const token = await pegarTokenDoUsuarioNoStorage();
       error.config.headers.Authorization = `Bearer ${token.access_token}`;
-      error.config.baseURL = undefined;
       return axios.request(error.config);
     } catch (err) {
       console.log(err);

@@ -43,14 +43,17 @@ export default function HomeScreen() {
     useCallback(() => {
       async function pegarTokenUsuario() {
         const token = await pegarTokenDoUsuarioNoStorage();
-        alterarTokenUsuario(token);
-        try {
-          const perfil = await perfilUsuario();
-          console.log('retornar', perfil.data);
-          alterarDadosUsuario(perfil.data);
-        } catch (err) {
-          console.log('ERRO', err);
+        if (token) {
+          alterarTokenUsuario(token);
+          try {
+            const perfil = await perfilUsuario();
+            console.log('retornar', perfil.data);
+            alterarDadosUsuario(perfil.data);
+          } catch (err) {
+            console.log('ERRO', err);
+          }
         }
+
       }
       pegarTokenUsuario();
     }, [])
