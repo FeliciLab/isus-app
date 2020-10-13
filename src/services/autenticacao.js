@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
 // import Config from 'react-native-config';
+import { useNavigation } from '@react-navigation/native';
 import {
   salvarDados, pegarDados, removerDados
 } from './armazenamento';
 import { autenticar, pegarTokenDeAcesso } from '../apis/apiKeycloak';
-
 
 async function autenticarComIdSaude(email, senha) {
   try {
@@ -41,6 +41,11 @@ async function atualizarTokenDeAcessoDoUsuario() {
   try {
     const token = await pegarTokenDoUsuarioNoStorage();
     const resultado = await pegarTokenDeAcesso(token.refresh_token);
+    if (!resultado.success) {
+      await excluirTokenDoUsuarioNoStorage();
+      const navigation = useNavigation();
+      navigation.navigate('LOGIN');
+    }
     const { mensagem } = resultado;
     await salvarTokenDoUsuarioNoStorage(mensagem);
   } catch (err) {
