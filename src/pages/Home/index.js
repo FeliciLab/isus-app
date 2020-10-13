@@ -53,7 +53,6 @@ export default function HomeScreen() {
             console.log('ERRO', err);
           }
         }
-
       }
       pegarTokenUsuario();
     }, [])
