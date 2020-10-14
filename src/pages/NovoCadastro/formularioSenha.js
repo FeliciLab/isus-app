@@ -79,10 +79,8 @@ export default function FormularioSenha({ navigation }) {
   };
 
   const aposCadastro = async (resultado) => {
-
     if (resultado.sucesso) {
       if (featuresAtivas.includes(features.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO)) {
-
         const dados = tratarDadosCadastro(getValues());
 
         const response = await autenticarComIdSaude(dados.email, dados.senha);
