@@ -10,6 +10,9 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './cadastro.json';
+import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import featuresAtivas from '../../featureAtivas';
+import features from '../../utils/features';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -75,9 +78,23 @@ export default function FormularioSenha({ navigation }) {
     return resposta.data;
   };
 
-  const aposCadastro = (resultado) => {
+  const aposCadastro = async (resultado) => {
+
     if (resultado.sucesso) {
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      if (featuresAtivas.includes(features.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO)) {
+
+        const dados = tratarDadosCadastro(getValues());
+
+        const response = await autenticarComIdSaude(dados.email, dados.senha);
+        if (response.sucesso) {
+          await salvarTokenDoUsuarioNoStorage(response.mensagem);
+          await pegarTokenDoUsuarioNoStorage();
+        }
+
+        navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
+      } else {
+        navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      }
       return;
     }
     let mensagemErro;

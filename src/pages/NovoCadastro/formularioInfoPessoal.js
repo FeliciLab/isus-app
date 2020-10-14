@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, {
   useContext,
   useEffect,
@@ -27,17 +28,23 @@ export default function FormularioInfoPessoal({ navigation }) {
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
-  const [corPrimaria, alteraCorPrimaria] = React.useState('#304FFE');
 
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: corPrimaria
+      primary: '#304FFE'
+    }
+  };
+
+  const themeError = {
+    ...DefaultTheme,
+    colors: {
+      primary: 'red'
     }
   };
 
   const {
-    register, setValue, trigger, errors
+    register, setValue, trigger, errors, getValues
   } = useContext(
     FormContext
   );
@@ -144,12 +151,14 @@ export default function FormularioInfoPessoal({ navigation }) {
           label="Nome Completo"
           name="nomeCompleto"
           underlineColor="#BDBDBD"
+          defaultValue=""
           onChangeText={(text) => {
             alteraValor('nomeCompleto', text);
-            alteraCorPrimaria(nomeValido(text) ? '#304FFE' : 'red');
           }}
           mode="outlined"
-          theme={theme}
+          theme={getValues().nomeCompleto === undefined || getValues().nomeCompleto === ''
+            ? theme : (nomeValido(getValues().nomeCompleto)
+              ? theme : themeError)}
         />
         {errors.nomeCompleto && (
           <TextoDeErro>
@@ -162,10 +171,11 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="email-address"
           onChangeText={(text) => {
             alteraValor('email', text);
-            alteraCorPrimaria(emailValido(text) ? '#304FFE' : 'red');
           }}
           mode="outlined"
-          theme={theme}
+          theme={getValues().email === undefined || getValues().email === ''
+            ? theme : (emailValido(getValues().email)
+              ? theme : themeError)}
         />
         {errors.email && (
           <TextoDeErro>
@@ -178,7 +188,9 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={theme}
+          theme={getValues().telefone === undefined || getValues().telefone === ''
+            ? theme : (getValues().telefone.length === 11
+              ? theme : themeError)}
           maxLength={15}
           render={props => (
             <TextInputMask
@@ -186,7 +198,6 @@ export default function FormularioInfoPessoal({ navigation }) {
               onChangeText={(formatted, extracted) => {
                 props.onChangeText(formatted);
                 alteraValor('telefone', extracted);
-                alteraCorPrimaria(extracted.length === 11 ? '#304FFE' : 'red');
               }}
               mask="([00]) [00000]-[0000]"
             />
@@ -203,7 +214,9 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={theme}
+          theme={getValues().cpf === undefined || getValues().cpf === ''
+            ? theme : (cpfValido(getValues().cpf)
+              ? theme : themeError)}
           maxLength={14}
           render={props => (
             <TextInputMask
@@ -211,7 +224,6 @@ export default function FormularioInfoPessoal({ navigation }) {
               onChangeText={(formatted, extracted) => {
                 props.onChangeText(formatted);
                 alteraValor('cpf', extracted);
-                alteraCorPrimaria(cpfValido(extracted) ? '#304FFE' : 'red');
               }}
               mask="[000].[000].[000]-[00]"
             />
