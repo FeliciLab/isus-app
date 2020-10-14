@@ -1,5 +1,5 @@
 import React, {
-  useLayoutEffect, useCallback, useState
+  useLayoutEffect, useCallback, useContext
 } from 'react';
 import {
   ScrollView, TouchableOpacity, Dimensions
@@ -18,10 +18,19 @@ import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
 import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
-import { isNotEmpty } from '../../utils/isEmpty';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+
+  const {
+    dadosUsuario,
+    estaLogado,
+    alterarDadosUsuario,
+    alterarTokenUsuario,
+    alterarEstaLogado
+  } = useContext(AutenticacaoContext);
+
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
     const resp = JSON.parse(item);
@@ -36,9 +45,6 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
-  const [dadosUsuario, alterarDadosUsuario] = useState({});
-  const [tokenUsuario, alterarTokenUsuario] = useState({});
-
   useFocusEffect(
     useCallback(() => {
       async function pegarTokenUsuario() {
@@ -49,11 +55,14 @@ export default function HomeScreen() {
             const perfil = await perfilUsuario();
             console.log('retornar', perfil.data);
             alterarDadosUsuario(perfil.data);
+            alterarEstaLogado(true);
           } catch (err) {
+            alterarEstaLogado(false);
             console.log('ERRO', err);
           }
         } else {
           alterarTokenUsuario({});
+          alterarEstaLogado(false);
         }
       }
       pegarTokenUsuario();
@@ -63,11 +72,11 @@ export default function HomeScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: isNotEmpty(tokenUsuario) ? '#FFF' : '#4CAF50',
+        backgroundColor: estaLogado ? '#FFF' : '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
       },
-      headerTintColor: isNotEmpty(tokenUsuario) ? '#000' : '#FFF',
+      headerTintColor: estaLogado ? '#000' : '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'iSUS',
       headerRight: () => (
@@ -79,7 +88,7 @@ export default function HomeScreen() {
             navigation.navigate('Buscar');
           }}
         >
-          <Icon name="magnify" size={28} color={isNotEmpty(tokenUsuario) ? '#4CAF50' : '#FFF'} />
+          <Icon name="magnify" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -91,7 +100,7 @@ export default function HomeScreen() {
             navigation.toggleDrawer();
           }}
         >
-          <Icon name="menu" size={28} color={isNotEmpty(tokenUsuario) ? '#4CAF50' : '#FFF'} />
+          <Icon name="menu" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
       )
     });
@@ -101,14 +110,14 @@ export default function HomeScreen() {
 
   return (
     <>
-      { isNotEmpty(tokenUsuario) ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
+      { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
       <ProviderDeVersaoDoManejo>
-        <BarraDeStatus backgroundColor={isNotEmpty(tokenUsuario) ? '#FFF' : '#4CAF50'} barStyle={isNotEmpty(tokenUsuario) ? 'dark-content' : 'light-content'} />
+        <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
         <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
           <Carrossel sliderWidth={width} itemWidth={width} />
           <Servicos navigation={navigation} />
           {
-            isNotEmpty(tokenUsuario) && (
+            estaLogado && (
               <MeusConteudos />
             )
           }
