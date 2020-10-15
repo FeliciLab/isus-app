@@ -1,4 +1,5 @@
 /* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import React, {
   useContext,
   useEffect,
@@ -9,7 +10,9 @@ import { TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { emailValido, cpfValido, nomeValido } from '../../utils/validadores';
+import {
+  emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado
+} from '../../utils/validadores';
 import FormContext from '../../context/FormContext';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
@@ -56,7 +59,10 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
     register('email', {
       required: true,
-      validate: email => emailValido(email) || textos.formularioPessoal.mensagemEmail
+      validate: {
+        emailValido: email => emailValido(email) || textos.formularioPessoal.mensagemEmail,
+        emailCadastrado: async email => await emailNaoCadastrado(email) || textos.formularioPessoal.mensagemEmailExistente
+      }
     });
     register('telefone', {
       required: true,
@@ -73,7 +79,10 @@ export default function FormularioInfoPessoal({ navigation }) {
           value: 11,
           message: textos.formularioPessoal.mensagemCPF
         },
-        validate: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
+        validate: {
+          cpfValido: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
+          cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf) || textos.formularioPessoal.mensagemCPFExistente
+        },
         maxLength: 14
       });
     } else {
@@ -157,8 +166,8 @@ export default function FormularioInfoPessoal({ navigation }) {
           }}
           mode="outlined"
           theme={getValues().nomeCompleto === undefined || getValues().nomeCompleto === ''
-            ? theme : (nomeValido(getValues().nomeCompleto)
-              ? theme : themeError)}
+            ? theme : errors.nomeCompleto
+              ? themeError : theme}
         />
         {errors.nomeCompleto && (
           <TextoDeErro>
@@ -174,8 +183,8 @@ export default function FormularioInfoPessoal({ navigation }) {
           }}
           mode="outlined"
           theme={getValues().email === undefined || getValues().email === ''
-            ? theme : (emailValido(getValues().email)
-              ? theme : themeError)}
+            ? theme : errors.email
+              ? themeError : theme}
         />
         {errors.email && (
           <TextoDeErro>
@@ -189,8 +198,8 @@ export default function FormularioInfoPessoal({ navigation }) {
           onChangeText={text => text}
           mode="outlined"
           theme={getValues().telefone === undefined || getValues().telefone === ''
-            ? theme : (getValues().telefone.length === 11
-              ? theme : themeError)}
+            ? theme : errors.telefone
+              ? themeError : theme}
           maxLength={15}
           render={props => (
             <TextInputMask
@@ -215,8 +224,8 @@ export default function FormularioInfoPessoal({ navigation }) {
           onChangeText={text => text}
           mode="outlined"
           theme={getValues().cpf === undefined || getValues().cpf === ''
-            ? theme : (cpfValido(getValues().cpf)
-              ? theme : themeError)}
+            ? theme : errors.cpf
+              ? themeError : theme}
           maxLength={14}
           render={props => (
             <TextInputMask

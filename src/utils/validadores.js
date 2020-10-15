@@ -5,6 +5,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable radix */
 import Regex from './regex';
+import { verificarEmailCadastrado, verificarCPFCadastrado } from '../apis/apiCadastro';
 
 export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
 export const nomeValido = nomeCompleto =>
@@ -42,3 +43,15 @@ export const cpfValido = cpf => {
   if (rev != parseInt(cpf.charAt(10))) return false;
   return true;
 };
+
+export async function emailNaoCadastrado(email) {
+  const resposta = await verificarEmailCadastrado(email);
+  const emailExiste = resposta.data.email_existe;
+  return !emailExiste;
+}
+
+export async function cpfNaoCadastrado(cpf) {
+  const resposta = await verificarCPFCadastrado(cpf);
+  const cpfExiste = resposta.data.cpf_existe;
+  return !cpfExiste;
+}

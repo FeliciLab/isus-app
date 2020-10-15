@@ -17,3 +17,13 @@ export async function alteraDadosDoUsuario(dadosDoUsuario) {
   const response = await request.put('/user', dadosDoUsuario);
   return response;
 }
+
+export async function verificarEmailCadastrado(email) {
+  const response = await request.get(`/user/email-cadastrado/${email}`);
+  return response;
+}
+
+export async function verificarCPFCadastrado(cpf) {
+  const response = await request.get(`/user/cpf-cadastrado/${cpf}`);
+  return response;
+}
