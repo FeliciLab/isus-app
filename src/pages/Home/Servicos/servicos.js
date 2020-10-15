@@ -1,12 +1,12 @@
 import React from 'react';
 import { Title } from 'react-native-paper';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, Linking } from 'react-native';
 import Servico1 from '../../../assets/icons/servicos/servico_1.svg';
 import Servico2 from '../../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/servico_3.svg';
 import Servico4 from '../../../assets/icons/servicos/servico_4.svg';
 import Servico5 from '../../../assets/icons/servicos/servico_5.svg';
-// import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
+import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
 import CartaoHome from '../cartaoHome';
 
 function Servicos({ navigation }) {
@@ -57,16 +57,16 @@ function Servicos({ navigation }) {
         url: 'https://www.esp.ce.gov.br/'
       }
     },
-    // {
-    //   id: 'services-6',
-    //   titulo: 'ESP Virtual',
-    //   icone: Servico6,
-    //   navegacao: {
-    //     componente: 'webview',
-    //     titulo: 'ESP Virtual',
-    //     url: 'http://espvirtual.esp.ce.gov.br/'
-    //   }
-    // }
+    {
+      id: 'services-6',
+      titulo: 'ESP Virtual',
+      icone: Servico6,
+      navegacao: {
+        componente: 'browser',
+        titulo: 'ESP Virtual',
+        url: 'http://espvirtual.esp.ce.gov.br/'
+      }
+    }
   ];
 
   return (
@@ -87,10 +87,13 @@ function Servicos({ navigation }) {
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => navigation.navigate(item.navegacao.componente, {
-              title: item.navegacao.titulo,
-              url: item.navegacao.url
-            })}
+            onPress={() => (item.navegacao.componente !== 'browser'
+              ? navigation.navigate(item.navegacao.componente, {
+                title: item.navegacao.titulo,
+                url: item.navegacao.url
+              })
+              : Linking.openURL(item.navegacao.url))
+            }
           />
         )}
       />
@@ -100,7 +103,10 @@ function Servicos({ navigation }) {
 
 const estilos = StyleSheet.create({
   titulo: {
-    marginHorizontal: 16, fontSize: 20, fontWeight: '500', color: 'rgba(0, 0, 0, 0.6)'
+    marginHorizontal: 16,
+    fontSize: 20,
+    fontWeight: '500',
+    color: 'rgba(0, 0, 0, 0.6)'
   }
 });
 
