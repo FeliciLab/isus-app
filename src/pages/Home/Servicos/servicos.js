@@ -87,14 +87,13 @@ function Servicos({ navigation }) {
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => {
-              item.navegacao.componente !== 'browser'
-                ? navigation.navigate(item.navegacao.componente, {
-                    title: item.navegacao.titulo,
-                    url: item.navegacao.url
-                  })
-                : Linking.openURL(item.navegacao.url);
-            }}
+            onPress={() => (item.navegacao.componente !== 'browser'
+              ? navigation.navigate(item.navegacao.componente, {
+                title: item.navegacao.titulo,
+                url: item.navegacao.url
+              })
+              : Linking.openURL(item.navegacao.url))
+            }
           />
         )}
       />
