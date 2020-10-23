@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -16,7 +17,8 @@ import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
-import features from '../featureAtivas';
+import featuresAtivas from '../featureAtivas';
+import features from '../utils/features';
 
 const RootStack = createStackNavigator();
 
@@ -49,7 +51,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name="CADASTRO"
-          options={{ headerShown: !features.includes('316') }}
+          options={{ headerShown: !featuresAtivas.includes(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
           component={Cadastro}
         />
         <RootStack.Screen

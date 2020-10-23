@@ -19,6 +19,7 @@ import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
 import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import features from '../../utils/features';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -122,7 +123,7 @@ export default function HomeScreen() {
             )
           }
           <Feature
-            name="315"
+            name={features.DISPOR_FORCA_TAREFA_EM_CARROSSEL}
             inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
             activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
           />

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
+import features from '../../utils/features';
 
 function DadosUsuario({ dados }) {
   return (
@@ -75,7 +76,7 @@ function MostrarDadosUsuarioProfissional(dados) {
         }
       </Text>
       <Feature
-        name="313"
+        name={features.MOSTRAR_ESPECIALIDADES_NO_PERFIL}
         activeComponent={() => <Especialidades dados={dados} />}
       />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>

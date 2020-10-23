@@ -25,6 +25,7 @@ import {
 import BarraDeStatus from '../../components/barraDeStatus';
 import featuresAtivas from '../../featureAtivas';
 import textos from './cadastro.json';
+import features from '../../utils/features';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
@@ -72,7 +73,7 @@ export default function FormularioInfoPessoal({ navigation }) {
       },
       maxLength: 14
     });
-    if (featuresAtivas.includes('312')) {
+    if (featuresAtivas.includes(features.IMPLEMENTAR_VALIDAÇÃO_CPF)) {
       register('cpf', {
         required: true,
         minLength: {
