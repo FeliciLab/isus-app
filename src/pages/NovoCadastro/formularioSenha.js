@@ -56,7 +56,7 @@ export default function FormularioSenha({ navigation }) {
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
-    await trigger();
+    await trigger(['senha', 'repetirsenha']);
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
 
