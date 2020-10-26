@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useCallback, useState } from 'react';
 import {
-  View, TouchableOpacity, StyleSheet, ScrollView
+  View, TouchableOpacity, StyleSheet, ScrollView,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
