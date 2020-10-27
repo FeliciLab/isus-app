@@ -8,18 +8,20 @@ import { useNavigation } from '@react-navigation/native';
 const { width } = Dimensions.get('screen');
 const imageWidth = width * 0.8;
 
-export default function Banner({ titulo, imagem, enderecoUrl }) {
+export default function Banner({
+  titulo, imagem, enderecoUrl = '', pagina = ''
+}) {
   const navigation = useNavigation();
-
+  const temEnderecoUrl = enderecoUrl.length > 0;
   return (
-      <Card
-        onPress={() => navigation.navigate('webview', { title: titulo, url: enderecoUrl })}
-        style={estilos.cartao}
-      >
-        <View style={estilos.containerImage}>
-          <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="cover" source={imagem} />
-        </View>
-      </Card>
+    <Card
+      onPress={() => (temEnderecoUrl ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate(pagina))}
+      style={estilos.cartao}
+    >
+      <View style={estilos.containerImage}>
+        <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="cover" source={imagem} />
+      </View>
+    </Card>
   );
 }
 

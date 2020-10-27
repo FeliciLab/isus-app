@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import banners from './bannersDoCarrossel';
+import bannersDoCarrossel from './bannersDoCarrossel';
 
 export default function Carrossel({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
-
+  const banners = bannersDoCarrossel();
   function cardItem({ item }) {
     return item.banner;
   }
@@ -45,7 +45,7 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
         autoplayInterval={5000}
         hasParallaxImages
       />
-      { paginacao() }
+      { paginacao()}
     </>
   );
 }
