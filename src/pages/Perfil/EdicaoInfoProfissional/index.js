@@ -2,14 +2,13 @@ import React, {
   useContext, useState, useEffect, useLayoutEffect
 } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, SafeAreaView
+  View, TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import {
-  DefaultTheme, List, Checkbox, Button
+  DefaultTheme, Checkbox
 } from 'react-native-paper';
-import { ScrollView } from 'react-native-gesture-handler';
 import DropDown from '../../../components/dropdown';
 import FormContext from '../../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../../apis/apiKeycloak';
@@ -17,6 +16,10 @@ import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import { pegarDados } from '../../../services/armazenamento';
 import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
+import {
+  SafeArea, Scroll, ConteudoFormulario, TituloPrincipal, Acordeon, Destaque,
+  Titulo, BotaoSalvar
+} from './styles';
 
 function EdicaoInfoProfissional() {
   const {
@@ -241,17 +244,26 @@ function EdicaoInfoProfissional() {
     return especialidades && JSON.parse(especialidades).length !== 0;
   };
 
+  const Selecao = props => (
+    <Checkbox.Item
+      labelStyle={{ maxWidth: '70%' }}
+      theme={theme}
+      color="#FF9800"
+      {...props}
+    />
+  );
+
   return (
-    <SafeAreaView style={estilos.safeArea}>
+    <SafeArea>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-      <ScrollView style={estilos.scroll}>
-        <View style={estilos.conteudoFormulario}>
-          <Text style={estilos.tituloPrincipal}>
+      <Scroll>
+        <ConteudoFormulario>
+          <TituloPrincipal>
             Vamos agora adicionar suas informações profissionais,
             para isso, selecione as opções abaixo:
-          </Text>
-          <View style={estilos.conteudoFormulario}>
-            <Text style={estilos.tituloDestaque}>Categoria Profissional:</Text>
+          </TituloPrincipal>
+          <ConteudoFormulario>
+            <Destaque>Categoria Profissional:</Destaque>
             <DropDown
               label="Categoria profissional"
               dados={listaDeCategorias}
@@ -263,20 +275,17 @@ function EdicaoInfoProfissional() {
                 verificarCategoriaEspecialidades();
               }}
             />
-          </View>
+          </ConteudoFormulario>
           {
             tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
               <>
-                <Text style={estilos.tituloDestaque}>Qual é sua especialidade?</Text>
-                <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+                <Destaque>Qual é sua especialidade?</Destaque>
+                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Selecione as opções</Titulo>}>
                   <View>
                     {unidadesEspecialidades && listaDeEspecialidades.length !== 0
                       && listaDeEspecialidades.map(especialidade => (
-                        <Checkbox.Item
+                        <Selecao
                           status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
-                          labelStyle={{ maxWidth: '70%' }}
-                          theme={theme}
-                          color="#304FFE"
                           label={especialidade.nome}
                           onPress={() => {
                             mudarValorEspecilidades(especialidade);
@@ -286,20 +295,17 @@ function EdicaoInfoProfissional() {
                         />
                       ))}
                   </View>
-                </List.Accordion>
+                </Acordeon>
               </>
             ) : (<></>)
           }
-          <View style={estilos.conteudoFormulario}>
-            <Text style={estilos.tituloDestaque}>Em que setor você está atuando?</Text>
-            <List.Accordion style={estilos.acordeon} titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Setor de Atuação</Text>}>
+          <ConteudoFormulario>
+            <Destaque>Em que setor você está atuando?</Destaque>
+            <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Setor de Atuação</Titulo>}>
               <View>
                 {listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
-                  <Checkbox.Item
+                  <Selecao
                     status={unidadesServico[`${servico.nome}`] && unidadesServico[`${servico.nome}`].foiMarcado ? 'checked' : 'unchecked'}
-                    labelStyle={{ maxWidth: '70%' }}
-                    theme={theme}
-                    color="#FF9800"
                     label={servico.nome}
                     onPress={() => {
                       mudarValor(servico);
@@ -309,19 +315,13 @@ function EdicaoInfoProfissional() {
                   />
                 ))}
               </View>
-            </List.Accordion>
-          </View>
-        </View>
+            </Acordeon>
+          </ConteudoFormulario>
+        </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
-      </ScrollView>
-      <Button
-        style={[
-          { ...estilos.botao },
-          temCategoria && temEspecialidades && temSetores
-            ? { ...estilos.botaoHabilitado }
-            : { ...estilos.botaoDesabilitado }
-        ]}
-        disabled={!(temCategoria && temSetores)}
+      </Scroll>
+      <BotaoSalvar
+        disabled={!(temCategoria && temEspecialidades && temSetores)}
         labelStyle={{ color: '#fff' }}
         loading={carregando}
         onPress={() => {
@@ -330,63 +330,9 @@ function EdicaoInfoProfissional() {
         mode="contained"
       >
         Salvar
-      </Button>
-    </SafeAreaView>
+      </BotaoSalvar>
+    </SafeArea>
   );
 }
-
-const estilos = StyleSheet.create({
-  safeArea: {
-    height: '100%',
-    backgroundColor: '#ffffff'
-  },
-  scroll: {
-    paddingHorizontal: 16
-  },
-  conteudoFormulario: {
-    marginTop: 24
-  },
-  tituloPrincipal: {
-    fontSize: 24,
-    lineHeight: 28,
-    color: 'rgba(0, 0, 0, 0.87)',
-    marginBottom: 24
-  },
-  acordeon: {
-    borderColor: 'rgba(25, 25, 25, 0.32)',
-    borderWidth: 2,
-    marginTop: 16
-  },
-  titulo: {
-    fontSize: 18,
-    color: 'rgba(25, 25, 25, 0.32)',
-  },
-  tituloDestaque: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
-  botao: {
-    borderRadius: 50,
-    width: 150,
-    height: 45,
-    margin: 30,
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
-    justifyContent: 'center'
-  },
-  botaoHabilitado: {
-    backgroundColor: '#FF9800'
-  },
-  botaoDesabilitado: {
-    backgroundColor: '#BDBDBD'
-  },
-  exibir: {
-    display: 'flex'
-  },
-  oculto: {
-    display: 'none'
-  }
-});
 
 export default EdicaoInfoProfissional;
