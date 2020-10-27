@@ -89,23 +89,33 @@ function MostrarDadosUsuarioProfissional(dados) {
           ) : ''
         }
       </Text>
+      <Feature
+        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
+        activeComponent={() => <Botao>EDITAR INFORMAÇÕES</Botao>}
+      />
     </View>
   );
 }
 
 function AdicionarDadosProfissionais() {
-  const navigation = useNavigation();
   return (
     <View style={{ marginBottom: 16 }}>
       <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
         Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
       </Text>
-          <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
-            ADICIONAR INFORMAÇÕES
-          </Button>
+          <Botao>ADICIONAR INFORMAÇÕES</Botao>
     </View>
   );
 }
+
+const Botao = ({ children }) => {
+  const navigation = useNavigation();
+  return (
+    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
+          {children}
+    </Button>
+  );
+};
 
 const estilos = StyleSheet.create({
   label: {
