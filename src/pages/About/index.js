@@ -7,15 +7,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Uece from '../../assets/images/euce2.png';
-import Funcap from '../../assets/images/funcap1.png';
-import Felicilab from '../../assets/images/FeliciLab_quad.png';
-import Esp from '../../assets/images/espNew.png';
-import Gesad from '../../assets/images/gesad2.png';
-import Governo from '../../assets/images/governo.png';
-import LogoIsus from '../../assets/images/LogoIsus.png';
-import NomeIsus from '../../assets/images/isusNome.png';
-import Thoughtworks from '../../assets/images/Thoughtworks_logo.png';
-import Sesa from '../../assets/images/sesa.png';
+import Funcapsvg from '../../assets/images/funcap.svg';
+import Felicilabsvg from '../../assets/images/felicilab.svg';
+import Espsvg from '../../assets/images/esp.svg';
+import Gesadsvg from '../../assets/images/gesad.svg';
+import Governosvg from '../../assets/images/governo_ceara.svg';
+import Isus from '../../assets/images/isus.svg';
+import Thoughtworkssvg from '../../assets/images/thoughtworks.svg';
+import Sesasvg from '../../assets/images/secretaria_saude.svg';
 
 export default function AboutScreen() {
   const navigation = useNavigation();
@@ -71,8 +70,9 @@ export default function AboutScreen() {
         <View
           style={styles.viewLogos}
         >
-        <Image source={LogoIsus} style={{ marginRight: 10 }} />
-        <Image source={NomeIsus} />
+          <View style={{ width: 130 }}>
+            <Isus />
+          </View>
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <View style={{ maxWidth: 200 }}>
@@ -153,7 +153,7 @@ export default function AboutScreen() {
         </View>
         <View style={styles.viewFooterTop}>
           <Text onPress={() => Linking.openURL('http://www.uece.br/gesad/')}>
-            <Image source={Gesad} />
+            <Gesadsvg />
           </Text>
           <Text
             onPress={() => Linking.openURL('http://www.uece.br/')}
@@ -166,15 +166,13 @@ export default function AboutScreen() {
         </View>
         <View style={styles.viewFooterBottom}>
           <Text onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}>
-            <Image source={Funcap} />
+            <Funcapsvg />
           </Text>
           <Text
             onPress={() => Linking.openURL('https://www.thoughtworks.com/locations/brasil')}
             style={{ marginTop: 20, marginRight: -20 }}
           >
-            <Image
-              source={Thoughtworks}
-            />
+            <Thoughtworkssvg />
           </Text>
         </View>
         <View style={styles.viewFeliciEsp}>
@@ -182,21 +180,21 @@ export default function AboutScreen() {
             onPress={() => Linking.openURL('https://escoladesaudepublica.github.io/#FeliciLab')}
             style={{ height: 130, alignItems: 'center' }}
           >
-              <Image source={Felicilab} />
+              <Felicilabsvg />
           </Text>
           <Text
             onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
             style={{ height: 120 }}
           >
-            <Image source={Esp} />
+            <Espsvg />
           </Text>
         </View>
         <View style={styles.viewEstado}>
           <Text
             onPress={() => Linking.openURL('https://www.saude.ce.gov.br/')}
-            style={{ height: 100, }}
+            style={{ height: 60, }}
           >
-            <Image source={Sesa} />
+            <Sesasvg />
           </Text>
         </View>
         <View style={styles.viewHr}>
@@ -205,12 +203,14 @@ export default function AboutScreen() {
           <View style={styles.hrLateral} />
         </View>
         <View style={styles.viewEstado2}>
+        <View style={{ marginTop: 26 }}>
           <Text
             onPress={() => Linking.openURL('https://www.ceara.gov.br/')}
             style={{ height: 150, }}
           >
-            <Image source={Governo} />
+            <Governosvg />
           </Text>
+        </View>
         </View>
       </View>
       {/* Fim View container */}

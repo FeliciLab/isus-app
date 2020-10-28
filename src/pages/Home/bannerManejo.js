@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import {
-  View, Image, StyleSheet
+  View, StyleSheet
 } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { ContextoDeVersaoDoManejo } from '../ClinicalManagement/contexto/contextoVersaoManejo';
 import TagAtualizacao from '../ClinicalManagement/tagAtualizacao';
 
-import IconPaciente from '../../assets/icons/icon_paciente.png';
+import IconPaciente from '../../assets/icons/icon_paciente.svg';
 
 export default function BannerManejo() {
   const navigation = useNavigation();
@@ -29,7 +29,7 @@ export default function BannerManejo() {
         <View
           style={estilos.containerImage}
         >
-          <Image source={IconPaciente} style={estilos.imagem} resizeMode="contain" />
+          <IconPaciente />
         </View>
         <View style={estilos.conteudoTitulo}>
           <Paragraph style={estilos.titulo}>
