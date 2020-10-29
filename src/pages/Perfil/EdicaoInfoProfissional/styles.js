@@ -19,6 +19,7 @@ const TituloPrincipal = styled.Text`
     line-height: 28px;
     color: rgba(0, 0, 0, 0.87);
     margin-bottom: 24px;
+    max-width: 359px;
 `;
 
 const Acordeon = styled(List.Accordion)`

@@ -21,7 +21,7 @@ import {
   Titulo, BotaoSalvar
 } from './styles';
 
-function EdicaoInfoProfissional() {
+function EdicaoInfoProfissional({ route }) {
   const {
     getValues, setValue, register, unregister
   } = useContext(FormContext);
@@ -51,6 +51,8 @@ function EdicaoInfoProfissional() {
     },
   };
 
+  const EstaEditavel = route.params.modo === 'edicao';
+  console.log('Está Editavel', EstaEditavel);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -219,7 +221,7 @@ function EdicaoInfoProfissional() {
     try {
       console.log('perfil atualizado', usuarioTratado);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: EstaEditavel ? 'Parabéns! Você atualizou suas informações profissionais.' : 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
     } catch (err) {
@@ -244,12 +246,12 @@ function EdicaoInfoProfissional() {
     return especialidades && JSON.parse(especialidades).length !== 0;
   };
 
-  const Selecao = props => (
+  const Selecao = selecaoProps => (
     <Checkbox.Item
       labelStyle={{ maxWidth: '70%' }}
       theme={theme}
       color="#FF9800"
-      {...props}
+      {...selecaoProps}
     />
   );
 
@@ -259,8 +261,9 @@ function EdicaoInfoProfissional() {
       <Scroll>
         <ConteudoFormulario>
           <TituloPrincipal>
-            Vamos agora adicionar suas informações profissionais,
-            para isso, selecione as opções abaixo:
+            {
+              EstaEditavel ? 'Selecione as informações profissionais que você deseja alterar:'
+                : 'Vamos agora adicionar suas informações profissionais,para isso, selecione as opções abaixo:'}
           </TituloPrincipal>
           <ConteudoFormulario>
             <Destaque>Categoria Profissional:</Destaque>

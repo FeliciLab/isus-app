@@ -7,6 +7,11 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import features from '../../utils/features';
 
+const modoBotao = {
+  edicao: 'edicao',
+  adicao: 'adicao'
+};
+
 function DadosUsuario({ dados }) {
   return (
     <View style={estilos.espacamento}>
@@ -57,7 +62,6 @@ function Especialidades({ dados }) {
     );
 }
 
-
 function DadosUsuarioProfissional({ dados }) {
   return (
     // eslint-disable-next-line
@@ -91,7 +95,7 @@ function MostrarDadosUsuarioProfissional(dados) {
       </Text>
       <Feature
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
-        activeComponent={() => <Botao>EDITAR INFORMAÇÕES</Botao>}
+        activeComponent={() => <Botao modo={modoBotao.edicao}>EDITAR INFORMAÇÕES</Botao>}
       />
     </View>
   );
@@ -103,16 +107,16 @@ function AdicionarDadosProfissionais() {
       <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
         Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
       </Text>
-          <Botao>ADICIONAR INFORMAÇÕES</Botao>
+      <Botao modo={modoBotao.adicao}>ADICIONAR INFORMAÇÕES</Botao>
     </View>
   );
 }
 
-const Botao = ({ children }) => {
+const Botao = ({ children, modo }) => {
   const navigation = useNavigation();
   return (
-    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
-          {children}
+    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais', { modo })}>
+      {children}
     </Button>
   );
 };

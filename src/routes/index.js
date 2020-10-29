@@ -22,10 +22,10 @@ import features from '../utils/features';
 
 const RootStack = createStackNavigator();
 
-function EdicaoProfissional() {
+function EdicaoProfissional(props) {
   return (
     <FormProvider>
-      <EdicaoInfoProfissional />
+      <EdicaoInfoProfissional {...props} />
     </FormProvider>
   );
 }
@@ -93,6 +93,7 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="EdicaoDadosProfissionais"
           component={EdicaoProfissional}
+          initialParams={{ modo: 'adicao' }}
         />
         <RootStack.Screen
           name="Welcome"
