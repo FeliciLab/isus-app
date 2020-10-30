@@ -9,7 +9,7 @@ import {
   Titulo, Scroll, TituloDoFormulario, CampoDeTexto, TextoDeErro, Botao
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
-import textos from './cadastro.json';
+import textos from './textos.json';
 import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import featuresAtivas from '../../featureAtivas';
 import features from '../../utils/features';
@@ -122,8 +122,8 @@ export default function FormularioSenha({ navigation }) {
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-      <Titulo>{ textos.formularioSenha.introducao }</Titulo>
-      <TituloDoFormulario>{ textos.formularioSenha.titulo }</TituloDoFormulario>
+      <Titulo>{textos.formularioSenha.introducao}</Titulo>
+      <TituloDoFormulario>{textos.formularioSenha.titulo}</TituloDoFormulario>
       <CampoDeTexto
         label="Senha"
         name="senha"

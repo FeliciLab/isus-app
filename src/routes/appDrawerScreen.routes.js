@@ -15,6 +15,7 @@ import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
+import rotas from '../constants/rotas';
 
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
@@ -30,7 +31,7 @@ export default function appDrawerScreen() {
         <ConteudoDoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
       )}
     >
-     <Drawer.Screen name="HOME" component={AppTab} />
+      <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
@@ -65,7 +66,11 @@ const PerfilStack = createStackNavigator();
 function PerfilStackScreen() {
   return (
     <PerfilStack.Navigator>
-      <PerfilStack.Screen name="PERFIL" component={PerfilScreen} options={{ headerShown: true }} />
+      <PerfilStack.Screen
+        name={rotas.Perfil}
+        component={PerfilScreen}
+        options={{ headerShown: true }}
+      />
     </PerfilStack.Navigator>
   );
 }

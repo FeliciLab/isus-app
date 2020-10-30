@@ -17,9 +17,10 @@ import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
+import rotas from '../../constants/rotas';
 
 
-function FormularioInfoProfissional({ navigation }) {
+function FormularioInfoProfissional({ navigation, route }) {
   const {
     setValue, register, unregister, getValues
   } = useContext(FormContext);
@@ -32,6 +33,8 @@ function FormularioInfoProfissional({ navigation }) {
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
 
+  console.log('rotas:', route.params);
+  const veioDoPerfil = route.params.tela_anterior === rotas.Perfil;
 
   const theme = {
     ...DefaultTheme,
@@ -95,6 +98,7 @@ function FormularioInfoProfissional({ navigation }) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerTitle: veioDoPerfil ? 'Informações profissionais' : 'Cadastro',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -104,7 +108,7 @@ function FormularioInfoProfissional({ navigation }) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#304FFE" />
+          <Icon name="arrow-left" size={28} color={veioDoPerfil ? '#4CAF50' : '#304FFE'} />
         </TouchableOpacity>
       )
     });
@@ -129,6 +133,8 @@ function FormularioInfoProfissional({ navigation }) {
       });
     }
   };
+
+  const definirCorDosElementos = () => (veioDoPerfil ? '#FF9800' : '#304FFE');
 
   const mudarValoresUnidadesServicos = (servicos) => {
     const unidadesServicoCheckBoxes = { ...unidadesServico };
@@ -237,7 +243,7 @@ function FormularioInfoProfissional({ navigation }) {
                         status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
                         labelStyle={{ maxWidth: '70%' }}
                         theme={theme}
-                        color="#304FFE"
+                        color={definirCorDosElementos()}
                         label={especialidade.nome}
                         onPress={() => {
                           mudarValorEspecilidades(especialidade);
@@ -261,7 +267,7 @@ function FormularioInfoProfissional({ navigation }) {
                 status={unidadesServico[servico.nome] && unidadesServico[servico.nome].foiMarcado ? 'checked' : 'unchecked'}
                 labelStyle={{ maxWidth: '70%' }}
                 theme={theme}
-                color="#304FFE"
+                color={definirCorDosElementos()}
                 label={servico.nome}
                 onPress={() => {
                   mudarValor(servico);
@@ -273,6 +279,7 @@ function FormularioInfoProfissional({ navigation }) {
         </Acordeon>
       </ConteudoDropdown>
       <Botao
+        color={definirCorDosElementos()}
         disabled={false}
         labelStyle={{ color: '#fff' }}
         onPress={() => {

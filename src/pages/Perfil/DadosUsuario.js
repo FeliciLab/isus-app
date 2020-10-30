@@ -6,6 +6,7 @@ import { Button } from 'react-native-paper';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import features from '../../utils/features';
+import rotas from '../../constants/rotas';
 
 const modoBotao = {
   edicao: 'edicao',
@@ -107,15 +108,20 @@ function AdicionarDadosProfissionais() {
       <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
         Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
       </Text>
-      <Botao modo={modoBotao.adicao}>ADICIONAR INFORMAÇÕES</Botao>
+      <Botao
+        uri={rotas.Cadastro}
+        params={{ screen: rotas.FormularioProfissional, params: { tela_anterior: rotas.Perfil } }}
+      >
+        ADICIONAR INFORMAÇÕES
+      </Botao>
     </View>
   );
 }
 
-const Botao = ({ children, modo }) => {
+const Botao = ({ children, uri, params = '' }) => {
   const navigation = useNavigation();
   return (
-    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais', { modo })}>
+    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate(uri, params)}>
       {children}
     </Button>
   );

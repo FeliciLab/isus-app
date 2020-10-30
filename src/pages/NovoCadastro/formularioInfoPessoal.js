@@ -24,7 +24,7 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import featuresAtivas from '../../featureAtivas';
-import textos from './cadastro.json';
+import textos from './textos.json';
 import features from '../../utils/features';
 
 export default function FormularioInfoPessoal({ navigation }) {
@@ -155,8 +155,8 @@ export default function FormularioInfoPessoal({ navigation }) {
     <>
       <Scroll>
         <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-        <Titulo>{ textos.formularioPessoal.introducao }</Titulo>
-        <TituloDoFormulario>{ textos.formularioPessoal.titulo }</TituloDoFormulario>
+        <Titulo>{textos.formularioPessoal.introducao}</Titulo>
+        <TituloDoFormulario>{textos.formularioPessoal.titulo}</TituloDoFormulario>
         <CampoDeTexto
           label="Nome Completo"
           name="nomeCompleto"
