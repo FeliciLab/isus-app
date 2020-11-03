@@ -8,11 +8,6 @@ import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import features from '../../utils/features';
 import rotas from '../../constants/rotas';
 
-const modoBotao = {
-  edicao: 'edicao',
-  adicao: 'adicao'
-};
-
 function DadosUsuario({ dados }) {
   return (
     <View style={estilos.espacamento}>
@@ -96,7 +91,14 @@ function MostrarDadosUsuarioProfissional(dados) {
       </Text>
       <Feature
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
-        activeComponent={() => <Botao modo={modoBotao.edicao}>EDITAR INFORMAÇÕES</Botao>}
+        activeComponent={() => (
+          <Botao
+            uri={rotas.EdicaoProfissional}
+            params={{ tela_anterior: rotas.Perfil }}
+          >
+            EDITAR INFORMAÇÕES
+          </Botao>
+        )}
       />
     </View>
   );

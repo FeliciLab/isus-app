@@ -13,6 +13,8 @@ import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
+import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
+
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
@@ -25,7 +27,12 @@ const RootStack = createStackNavigator();
 function EdicaoProfissional(props) {
   return (
     <FormProvider>
-      <EdicaoInfoProfissional {...props} />
+      <Feature
+        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
+        activeComponent={() => <NovoEdicaoInfoProfissional {...props} />}
+        inactiveComponent={() => <EdicaoInfoProfissional {...props} />}
+      />
+
     </FormProvider>
   );
 }
@@ -93,7 +100,6 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="EdicaoDadosProfissionais"
           component={EdicaoProfissional}
-          initialParams={{ modo: 'adicao' }}
         />
         <RootStack.Screen
           name="Welcome"
