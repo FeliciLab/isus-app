@@ -52,7 +52,7 @@ function EdicaoInfoProfissional({ route }) {
   };
 
   const EstaEditavel = route.params.modo === 'edicao';
-  console.log('Está Editavel', EstaEditavel);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -270,6 +270,7 @@ function EdicaoInfoProfissional({ route }) {
             <DropDown
               label="Categoria profissional"
               dados={listaDeCategorias}
+              valor={EstaEditavel ? JSON.stringify(perfildoUsuario.profissional.categoria_profissional) : ''}
               definirValor={item => JSON.stringify(item)}
               definirRotulo={item => item.nome}
               aoMudarValor={(categoria) => {

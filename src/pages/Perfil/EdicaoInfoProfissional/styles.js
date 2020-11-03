@@ -47,7 +47,7 @@ const BotaoSalvar = styled(Button)`
     right: 0;
     bottom: 0;
     justify-content: center;
-    background-color: ${props => (props.disabled ? '#BDBDBD' : '#FF9800')}
+    background-color: #BDBDBD;
 `;
 
 export {

@@ -108,12 +108,33 @@ function AdicionarDadosProfissionais() {
       <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
         Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
       </Text>
-      <Botao
-        uri={rotas.Cadastro}
-        params={{ screen: rotas.FormularioProfissional, params: { tela_anterior: rotas.Perfil } }}
-      >
-        ADICIONAR INFORMAÇÕES
-      </Botao>
+      <Feature
+        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
+        activeComponent={() => (
+          <Botao
+            uri={rotas.Cadastro}
+            params={
+              {
+                screen: rotas.FormularioProfissional,
+                params: { tela_anterior: rotas.Perfil }
+              }}
+          >
+            ADICIONAR INFORMAÇÕES
+          </Botao>
+        )}
+        inactiveComponent={() => (
+          <Botao
+            uri={rotas.EdicaoProfissional}
+            params={
+              {
+                screen: rotas.FormularioProfissional,
+                params: { tela_anterior: rotas.Perfil }
+              }}
+          >
+            ADICIONAR INFORMAÇÕES
+          </Botao>
+        )}
+      />
     </View>
   );
 }

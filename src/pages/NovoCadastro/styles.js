@@ -33,7 +33,7 @@ const CampoDeTexto = styled(TextInput)`
 
 const TextoDeErro = styled.Text`
   color: red;
-  marginTop: 0;
+  margin-top: 0;
 `;
 
 const Botao = styled(Button)`
@@ -43,7 +43,7 @@ const Botao = styled(Button)`
   align-self: flex-end;
   margin: 20px;
   justify-content: center;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : props.color)};
+  background-color: ${props => (props.disabled ? '#BDBDBD' : '#304FFE')};
 `;
 
 const ConteudoDropdown = styled.View`
