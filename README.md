@@ -1,5 +1,5 @@
 # App iSUS
-### v3.10.5
+### v3.11.0
 Esse é o repositório do aplicativo iSUS.
 
 <img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
@@ -92,7 +92,7 @@ yarn android
   Para deploy da app para as lojas, solicitar acesso a keystore e as key-informations.
 
 
-## Erros comuns iOS
+## Erros comuns no iOS
 
 #### xcrun: error: SDK "iphoneos" cannot be located
 https://www.ryadel.com/en/xcode-sdk-iphoneos-cannot-be-located-mac-osx-error-fix/
@@ -100,6 +100,9 @@ https://www.ryadel.com/en/xcode-sdk-iphoneos-cannot-be-located-mac-osx-error-fix
 #### Error: EMFILE: too many open files, watch at FSEvent.FSWatcher._handle.onchange (internal/fs/watchers.js:129:28)
 https://stackoverflow.com/questions/58675179/error-emfile-too-many-open-files-react-native-cli
 
+#### Imagens .png não carregando ou aparecendo uma área branca no xCode 12 / iOS 14
+Para resolver esse problema, basta rodar o seguinte comando.
+`npx react-native-fix-image`. Depois é só buildar o projeto novamente e as imagens aparecerão normalmente.
 
 # UX Design
 ### Design de Interfaces:

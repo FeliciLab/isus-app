@@ -22,6 +22,21 @@ function HomeStackScreen() {
   );
 }
 
+const MinhaSaudeStack = createStackNavigator();
+function MinhaSaudeStackScreen() {
+  title = 'Minha Saúde';
+  return (
+    <MinhaSaudeStack.Navigator>
+      <MinhaSaudeStack.Screen
+        name={title}
+        initialParams={[<ContentScreen />, title]}
+        component={TopTab}
+        options={{ headerShown: true }}
+      />
+    </MinhaSaudeStack.Navigator>
+  );
+}
+
 const EducationStack = createStackNavigator();
 function EducationStackScreen() {
   title = 'Educação Permanente';
@@ -69,14 +84,14 @@ export default function AppTabScreen() {
         }}
       />
 
-      {/* <AppTab.Screen
+      { <AppTab.Screen
         name="Health"
-        component={SettingsStackScreen} // Teste
+        component={MinhaSaudeStackScreen} // Teste
         options={{
           tabBarLabel: 'Minha Saúde',
           tabBarIcon: ({ color }) => <Icon name="heart" color={color} size={20} />
         }}
-      /> */}
+      /> }
 
       <AppTab.Screen
         name="Education"

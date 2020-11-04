@@ -42,7 +42,6 @@ function conteudoDoDrawer(props) {
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color="rgba(0, 0, 0, 0.54)" />,
       rota: tokenUsuario ? 'PERFIL' : 'LOGIN',
-      feature: '134'
     },
     {
       nome: 'Fale conosco',
@@ -60,7 +59,6 @@ function conteudoDoDrawer(props) {
     <ItemDrawer
       nome={item.nome}
       icone={item.icone}
-      feature={item.feature}
       isFocado={routeName === item.rota}
       onPress={() => navigate(item.rota)}
     />

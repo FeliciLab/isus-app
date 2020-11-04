@@ -1,5 +1,5 @@
 import React, {
-  useLayoutEffect, useCallback, useState
+  useLayoutEffect, useCallback, useContext
 } from 'react';
 import {
   ScrollView, TouchableOpacity, Dimensions
@@ -10,18 +10,27 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import ForcaTarefaAntiCorona from './forcatarefaanticorona';
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
-import Servicos from './Servicos/servicos';
 import Carrossel from './carrossel';
 import BarraDeStatus from '../../components/barraDeStatus';
-import NovoServicos from './Servicos/NovoServicos';
+import Servicos from './Servicos/servicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
 import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import features from '../../utils/features';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+
+  const {
+    dadosUsuario,
+    estaLogado,
+    alterarDadosUsuario,
+    alterarTokenUsuario,
+    alterarEstaLogado
+  } = useContext(AutenticacaoContext);
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
@@ -37,20 +46,24 @@ export default function HomeScreen() {
 
   redirectToWelcome();
 
-  const [dadosUsuario, alterarDadosUsuario] = useState({});
-  const [tokenUsuario, alterarTokenUsuario] = useState({});
-
   useFocusEffect(
     useCallback(() => {
       async function pegarTokenUsuario() {
         const token = await pegarTokenDoUsuarioNoStorage();
-        alterarTokenUsuario(token);
-        try {
-          const perfil = await perfilUsuario();
-          console.log('retornar', perfil.data);
-          alterarDadosUsuario(perfil.data);
-        } catch (err) {
-          console.log('ERRO', err);
+        if (token) {
+          alterarTokenUsuario(token);
+          try {
+            const perfil = await perfilUsuario();
+            console.log('retornar', perfil.data);
+            alterarDadosUsuario(perfil.data);
+            alterarEstaLogado(true);
+          } catch (err) {
+            alterarEstaLogado(false);
+            console.log('ERRO', err);
+          }
+        } else {
+          alterarTokenUsuario({});
+          alterarEstaLogado(false);
         }
       }
       pegarTokenUsuario();
@@ -60,11 +73,11 @@ export default function HomeScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: tokenUsuario ? '#FFF' : '#4CAF50',
+        backgroundColor: estaLogado ? '#FFF' : '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
       },
-      headerTintColor: tokenUsuario ? '#000' : '#FFF',
+      headerTintColor: estaLogado ? '#000' : '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'iSUS',
       headerRight: () => (
@@ -76,7 +89,7 @@ export default function HomeScreen() {
             navigation.navigate('Buscar');
           }}
         >
-          <Icon name="magnify" size={28} color={tokenUsuario ? '#4CAF50' : '#FFF'} />
+          <Icon name="magnify" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -88,7 +101,7 @@ export default function HomeScreen() {
             navigation.toggleDrawer();
           }}
         >
-          <Icon name="menu" size={28} color={tokenUsuario ? '#4CAF50' : '#FFF'} />
+          <Icon name="menu" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
       )
     });
@@ -98,30 +111,23 @@ export default function HomeScreen() {
 
   return (
     <>
-      { tokenUsuario ? <ExibirUsuario dados={dadosUsuario} /> : <></> }
+      { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
       <ProviderDeVersaoDoManejo>
-      <BarraDeStatus backgroundColor={tokenUsuario ? '#FFF' : '#4CAF50'} barStyle={tokenUsuario ? 'dark-content' : 'light-content'} />
-      <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-        <Carrossel sliderWidth={width} itemWidth={width} />
-        <Feature
-          name="302"
-          inactiveComponent={() => <Servicos navigation={navigation} />}
-          activeComponent={() => <NovoServicos navigation={navigation} />}
-        />
-        {
-          tokenUsuario && (
-            <Feature
-              name="306"
-              activeComponent={() => <MeusConteudos />}
-            />
-          )
-        }
-        <Feature
-          name="315"
-          inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
-          activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
-        />
-      </ScrollView>
+        <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
+        <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+          <Carrossel sliderWidth={width} itemWidth={width} />
+          <Servicos navigation={navigation} />
+          {
+            estaLogado && (
+              <MeusConteudos />
+            )
+          }
+          <Feature
+            name={features.DISPOR_FORCA_TAREFA_EM_CARROSSEL}
+            inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
+            activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
+          />
+        </ScrollView>
       </ProviderDeVersaoDoManejo>
     </>
   );

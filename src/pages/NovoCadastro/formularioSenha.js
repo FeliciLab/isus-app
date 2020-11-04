@@ -9,6 +9,10 @@ import {
   Titulo, Scroll, TituloDoFormulario, CampoDeTexto, TextoDeErro, Botao
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
+import textos from './textos.json';
+import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import featuresAtivas from '../../featureAtivas';
+import features from '../../utils/features';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -52,7 +56,7 @@ export default function FormularioSenha({ navigation }) {
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
-    await trigger();
+    await trigger(['senha', 'repetirsenha']);
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
 
@@ -74,9 +78,21 @@ export default function FormularioSenha({ navigation }) {
     return resposta.data;
   };
 
-  const aposCadastro = (resultado) => {
+  const aposCadastro = async (resultado) => {
     if (resultado.sucesso) {
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      if (featuresAtivas.includes(features.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO)) {
+        const dados = tratarDadosCadastro(getValues());
+
+        const response = await autenticarComIdSaude(dados.email, dados.senha);
+        if (response.sucesso) {
+          await salvarTokenDoUsuarioNoStorage(response.mensagem);
+          await pegarTokenDoUsuarioNoStorage();
+        }
+
+        navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
+      } else {
+        navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      }
       return;
     }
     let mensagemErro;
@@ -99,15 +115,15 @@ export default function FormularioSenha({ navigation }) {
   };
 
   useEffect(() => {
-    register('senha', { required: true, minLength: { value: 8, message: 'A sua senha deve ter pelo menos 8 caracteres.' } });
-    register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || 'Não confere com a senha.' });
+    register('senha', { required: true, minLength: { value: 8, message: textos.formularioSenha.erroTamanho } });
+    register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais });
   }, [register]);
 
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-      <Titulo>Para finalizar seu cadastro, precisamos apenas de mais uma</Titulo>
-      <TituloDoFormulario>Defina uma senha</TituloDoFormulario>
+      <Titulo>{textos.formularioSenha.introducao}</Titulo>
+      <TituloDoFormulario>{textos.formularioSenha.titulo}</TituloDoFormulario>
       <CampoDeTexto
         label="Senha"
         name="senha"
@@ -118,9 +134,7 @@ export default function FormularioSenha({ navigation }) {
       />
       {errors.senha && (
         <TextoDeErro>
-          {' '}
           { errors.senha.message}
-          {' '}
         </TextoDeErro>
       )}
       <CampoDeTexto
@@ -134,9 +148,7 @@ export default function FormularioSenha({ navigation }) {
       />
       {errors.repetirsenha && (
         <TextoDeErro>
-          {' '}
           {errors.repetirsenha.message}
-          {' '}
         </TextoDeErro>
       )}
       <Botao

@@ -20,7 +20,6 @@ const Scroll = styled(ScrollView)`
 
 const TituloDoFormulario = styled(Title)`
   margin-top: 24px;
-  margin-bottom: 16px;
   color: rgba(0, 0, 0, 0.87);
   font-size: 20px;
   letter-spacing: 0.15px;
@@ -28,12 +27,13 @@ const TituloDoFormulario = styled(Title)`
 `;
 
 const CampoDeTexto = styled(TextInput)`
-  padding-bottom: 16px;
-  background-color: #FFF;
+  padding-top: 16px;
+  background-color: #fff;
 `;
 
 const TextoDeErro = styled.Text`
-  color: #000000;
+  color: red;
+  margin-top: 0;
 `;
 
 const Botao = styled(Button)`

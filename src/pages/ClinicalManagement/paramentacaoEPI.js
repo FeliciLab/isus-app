@@ -3,7 +3,7 @@ import {
   Text, View, Image, Linking, StyleSheet
 } from 'react-native';
 import BotaoManejoClinico from './botaoManejoClinico';
-import Banner from '../../assets/images/banner.png';
+import Banner from '../../assets/images/banners/banner.png';
 
 export default function ParamentacaoEPI() {
   return (

@@ -16,6 +16,7 @@ import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import BarraDeStatus from '../../components/barraDeStatus';
+import textos from './textos.json';
 
 
 function FormularioInfoProfissional({ navigation }) {
@@ -87,7 +88,6 @@ function FormularioInfoProfissional({ navigation }) {
       pegarValoresCategoriaProfissional();
 
       const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
-      // console.log('especialidades', especialidades);
       alterarListaDeEspecialidades(especialidades);
     };
     aoIniciar();
@@ -120,7 +120,6 @@ function FormularioInfoProfissional({ navigation }) {
           if (value === 1 || value === 3) {
             const aoEspecialidades = async () => {
               const especialidades = await pegarListaDeEspecialidades(value);
-              // console.log('especialidades', especialidades);
               alterarListaDeEspecialidades(especialidades);
               pegarValoresEspecialidades(especialidades);
             };
@@ -161,7 +160,6 @@ function FormularioInfoProfissional({ navigation }) {
 
   const tratarUnidadesDeServico = () => {
     const ServicosMarcados = Object.values(unidadesServico).filter(servico => servico.foiMarcado);
-    console.log('servicos', ServicosMarcados);
     return JSON.stringify(
       ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
     );
@@ -197,7 +195,6 @@ function FormularioInfoProfissional({ navigation }) {
     register({ name: 'especialidades' });
 
     const especialidadesTratados = tratarUnidadesDeEspecialidades();
-    console.log('especialidades', especialidadesTratados);
     setValue('especialidades', especialidadesTratados);
   };
 
@@ -207,9 +204,11 @@ function FormularioInfoProfissional({ navigation }) {
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <ConteudoDropdown>
         <Titulo>
-          Vamos realizar seu cadastro, precisamos aprenas de suas informações profissionais:
+          {textos.formularioProfissional.introducao}
         </Titulo>
-        <TituloDoFormulario>Informações profissionais</TituloDoFormulario>
+        <TituloDoFormulario>
+          {textos.formularioProfissional.titulo}
+        </TituloDoFormulario>
         <DropDown
           label="Categoria profissional"
           dados={listaDeCategorias}
@@ -224,7 +223,9 @@ function FormularioInfoProfissional({ navigation }) {
         {
           tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
             <>
-              <TituloDoFormulario>Qual é sua especialidade?</TituloDoFormulario>
+              <TituloDoFormulario>
+                {textos.formularioProfissional.especialidade}
+              </TituloDoFormulario>
               <Acordeon
                 titleStyle={{ color: 'black' }}
                 title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
@@ -249,7 +250,7 @@ function FormularioInfoProfissional({ navigation }) {
             </>
           ) : (<></>)
         }
-        <TituloDoFormulario>Quais serviços em que atua?</TituloDoFormulario>
+        <TituloDoFormulario>{textos.formularioProfissional.servicos}</TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
           title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}

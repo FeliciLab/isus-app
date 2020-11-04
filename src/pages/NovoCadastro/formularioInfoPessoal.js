@@ -1,17 +1,19 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable max-len */
 import React, {
   useContext,
   useEffect,
   useLayoutEffect
 } from 'react';
-import {
-  DefaultTheme
-} from 'react-native-paper';
+import { DefaultTheme } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {
+  emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado
+} from '../../utils/validadores';
 import FormContext from '../../context/FormContext';
-import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
 import {
@@ -21,14 +23,15 @@ import {
   ConteudoDropdown, IconeDropdown
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
-
+import featuresAtivas from '../../featureAtivas';
+import textos from './textos.json';
+import features from '../../utils/features';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
-
 
   const theme = {
     ...DefaultTheme,
@@ -37,8 +40,15 @@ export default function FormularioInfoPessoal({ navigation }) {
     }
   };
 
+  const themeError = {
+    ...DefaultTheme,
+    colors: {
+      primary: 'red'
+    }
+  };
+
   const {
-    register, setValue, trigger, errors
+    register, setValue, trigger, errors, getValues
   } = useContext(
     FormContext
   );
@@ -50,24 +60,42 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
     register('email', {
       required: true,
-      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+      validate: {
+        emailValido: email => emailValido(email) || textos.formularioPessoal.mensagemEmail,
+        emailCadastrado: async email => await emailNaoCadastrado(email) || textos.formularioPessoal.mensagemEmailExistente
+      }
     });
     register('telefone', {
       required: true,
       minLength: {
         value: 11,
-        message: 'O seu telefone deve ter pelo menos 11 números.'
+        message: textos.formularioPessoal.mensagemTelefone
       },
       maxLength: 14
     });
-    register('cpf', {
-      required: true,
-      minLength: {
-        value: 11,
-        message: 'O seu CPF deve ter pelo menos 11 números.'
-      },
-      maxLength: 14
-    });
+    if (featuresAtivas.includes(features.IMPLEMENTAR_VALIDAÇÃO_CPF)) {
+      register('cpf', {
+        required: true,
+        minLength: {
+          value: 11,
+          message: textos.formularioPessoal.mensagemCPF
+        },
+        validate: {
+          cpfValido: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
+          cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf) || textos.formularioPessoal.mensagemCPFExistente
+        },
+        maxLength: 14
+      });
+    } else {
+      register('cpf', {
+        required: true,
+        minLength: {
+          value: 11,
+          message: textos.formularioPessoal.mensagemCPF
+        },
+        maxLength: 14
+      });
+    }
     register('cidade', {
       required: true
     });
@@ -100,8 +128,6 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
   });
 
-  const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-  const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
@@ -129,36 +155,41 @@ export default function FormularioInfoPessoal({ navigation }) {
     <>
       <Scroll>
         <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-        <Titulo>Vamos realizar seu cadastro, precisamos apenas de algumas informações:</Titulo>
-        <TituloDoFormulario>Informações Pessoais: </TituloDoFormulario>
+        <Titulo>{textos.formularioPessoal.introducao}</Titulo>
+        <TituloDoFormulario>{textos.formularioPessoal.titulo}</TituloDoFormulario>
         <CampoDeTexto
           label="Nome Completo"
           name="nomeCompleto"
           underlineColor="#BDBDBD"
-          onChangeText={text => alteraValor('nomeCompleto', text)}
+          defaultValue=""
+          onChangeText={(text) => {
+            alteraValor('nomeCompleto', text);
+          }}
           mode="outlined"
-          theme={theme}
+          theme={getValues().nomeCompleto === undefined || getValues().nomeCompleto === ''
+            ? theme : errors.nomeCompleto
+              ? themeError : theme}
         />
         {errors.nomeCompleto && (
           <TextoDeErro>
-            {' '}
             {errors.nomeCompleto.message}
-            {' '}
           </TextoDeErro>
         )}
         <CampoDeTexto
           label="E-mail"
           name="email"
           keyboardType="email-address"
-          onChangeText={text => alteraValor('email', text)}
+          onChangeText={(text) => {
+            alteraValor('email', text);
+          }}
           mode="outlined"
-          theme={theme}
+          theme={getValues().email === undefined || getValues().email === ''
+            ? theme : errors.email
+              ? themeError : theme}
         />
         {errors.email && (
           <TextoDeErro>
-            {' '}
             {errors.email.message}
-            {' '}
           </TextoDeErro>
         )}
         <CampoDeTexto
@@ -167,7 +198,9 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={theme}
+          theme={getValues().telefone === undefined || getValues().telefone === ''
+            ? theme : errors.telefone
+              ? themeError : theme}
           maxLength={15}
           render={props => (
             <TextInputMask
@@ -182,9 +215,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         />
         {errors.telefone && (
           <TextoDeErro>
-            {' '}
             {errors.telefone.message}
-            {' '}
           </TextoDeErro>
         )}
         <CampoDeTexto
@@ -193,7 +224,9 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={theme}
+          theme={getValues().cpf === undefined || getValues().cpf === ''
+            ? theme : errors.cpf
+              ? themeError : theme}
           maxLength={14}
           render={props => (
             <TextInputMask
@@ -208,9 +241,7 @@ export default function FormularioInfoPessoal({ navigation }) {
         />
         {errors.cpf && (
           <TextoDeErro>
-            {' '}
             {errors.cpf.message}
-            {' '}
           </TextoDeErro>
         )}
         <ConteudoDropdown>

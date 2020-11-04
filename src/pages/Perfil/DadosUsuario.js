@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
+import features from '../../utils/features';
+import rotas from '../../constants/rotas';
 
 function DadosUsuario({ dados }) {
   return (
@@ -56,12 +58,11 @@ function Especialidades({ dados }) {
     );
 }
 
-
 function DadosUsuarioProfissional({ dados }) {
   return (
     // eslint-disable-next-line
     dados.profissional && (dados.profissional.categoria_profissional && dados.profissional.unidades_servicos) ? MostrarDadosUsuarioProfissional(dados) :
-      <Feature name="288" activeComponent={() => <AdicionarDadosProfissionais />} />
+      <AdicionarDadosProfissionais />
   );
 }
 
@@ -75,7 +76,7 @@ function MostrarDadosUsuarioProfissional(dados) {
         }
       </Text>
       <Feature
-        name="313"
+        name={features.MOSTRAR_ESPECIALIDADES_NO_PERFIL}
         activeComponent={() => <Especialidades dados={dados} />}
       />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
@@ -88,34 +89,66 @@ function MostrarDadosUsuarioProfissional(dados) {
           ) : ''
         }
       </Text>
+      <Feature
+        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
+        activeComponent={() => (
+          <Botao
+            uri={rotas.EdicaoProfissional}
+            params={{ tela_anterior: rotas.Perfil }}
+          >
+            EDITAR INFORMAÇÕES
+          </Botao>
+        )}
+      />
     </View>
   );
 }
 
 function AdicionarDadosProfissionais() {
-  const navigation = useNavigation();
   return (
     <View style={{ marginBottom: 16 }}>
       <Text style={{ color: 'rgba(0,0,0,0.6)', marginBottom: 10, marginLeft: 16 }}>
         Parece que você ainda não cadastrou suas informações profissionais, vamos fazer isso agora?
       </Text>
       <Feature
-        name="288"
-        inactiveComponent={() => (
-          <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('SOBRE')}>
-            ADICIONAR INFORMAÇÕES
-          </Button>
-        )}
+        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
         activeComponent={() => (
-          <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate('EdicaoDadosProfissionais')}>
+          <Botao
+            uri={rotas.Cadastro}
+            params={
+              {
+                screen: rotas.FormularioProfissional,
+                params: { tela_anterior: rotas.Perfil }
+              }}
+          >
             ADICIONAR INFORMAÇÕES
-          </Button>
+          </Botao>
+        )}
+        inactiveComponent={() => (
+          <Botao
+            uri={rotas.EdicaoProfissional}
+            params={
+              {
+                screen: rotas.FormularioProfissional,
+                params: { tela_anterior: rotas.Perfil }
+              }}
+          >
+            ADICIONAR INFORMAÇÕES
+          </Botao>
         )}
       />
-
     </View>
   );
 }
+
+const Botao = ({ children, uri, params = '' }) => {
+  const navigation = useNavigation();
+  return (
+    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate(uri, params)}>
+      {children}
+    </Button>
+  );
+};
 
 const estilos = StyleSheet.create({
   label: {

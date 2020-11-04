@@ -1,6 +1,5 @@
+/* eslint-disable max-len */
 import React, { useCallback } from 'react';
-
-
 import {
   View,
   TouchableOpacity,
@@ -9,11 +8,13 @@ import {
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA } from './tiposDeOcorrencia';
+import {
+  ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA, DEMANDA_EDUCACAO
+} from './tiposDeOcorrencia';
 import DropdownSimples from './dropdown';
 import FeedbackScreen from './feedback';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
-
+import DemandaEducacao from './demandaEducacao';
 
 export default function FaleConoscoScreen({ route }) {
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(
@@ -27,8 +28,20 @@ export default function FaleConoscoScreen({ route }) {
   const tiposDeOcorrencia = [
     { value: ALERTA_FALTA_EPI.textoDoDropdown },
     { value: RELATAR_SUGESTAO.textoDoDropdown },
-    { value: RELATAR_PROBLEMA.textoDoDropdown }
+    { value: RELATAR_PROBLEMA.textoDoDropdown },
+    { value: DEMANDA_EDUCACAO.textoDoDropdown }
   ];
+
+  function TipoDoDropdown({ tipo }) {
+    switch (tipo) {
+      case ALERTA_FALTA_EPI.textoDoDropdown:
+        return <AlertaFaltaDeEpiScreen />;
+      case DEMANDA_EDUCACAO.textoDoDropdown:
+        return <DemandaEducacao />;
+      default:
+        return <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} />;
+    }
+  }
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -66,6 +79,7 @@ export default function FaleConoscoScreen({ route }) {
       )
     });
   });
+
   return (
     <KeyboardAwareScrollView
       style={{ backgroundColor: '#FFFFFF' }}
@@ -81,8 +95,7 @@ export default function FaleConoscoScreen({ route }) {
             valorInicial={ocorrenciaAtual}
             aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
           />
-          { ocorrenciaAtual.textoDoDropdown === ALERTA_FALTA_EPI.textoDoDropdown
-            ? <AlertaFaltaDeEpiScreen /> : <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} /> }
+          <TipoDoDropdown tipo={ocorrenciaAtual.textoDoDropdown} />
         </View>
     </KeyboardAwareScrollView>
   );

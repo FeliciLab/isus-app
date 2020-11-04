@@ -1,37 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BannerManejo from './bannerManejo';
 import Banner from './banner';
-import SUS30anos from '../../assets/images/SUS-30-anos.png';
-import PPSUS from '../../assets/images/PPSUS.png';
+import CovidHeroes from '../../assets/images/Covid-Heroes-iSUS.png';
+import IDSaude from '../../assets/images/ID-Saude.png';
 import CartilhaSaudeMental from '../../assets/images/cartilha-saude-mental.png';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
-export default [
-  {
-    banner:
-      <Banner
-        titulo="SUS 30 anos"
-        imagem={SUS30anos}
-        enderecoUrl="https://www.esp.ce.gov.br/tag/semana-do-sus/"
-      />
-  },
-  {
-    banner:
-      <Banner
-        titulo="PPSUS"
-        imagem={PPSUS}
-        enderecoUrl="https://www.esp.ce.gov.br/tag/ppsus/"
-      />
-  },
-  {
-    banner:
-      <Banner
-        titulo="Cartilha de Saúde Mental"
-        imagem={CartilhaSaudeMental}
-        enderecoUrl="https://coronavirus.ceara.gov.br/cartilhas-sobre-saude-mental/"
-      />
-  },
-  {
-    banner: <BannerManejo />
-  },
 
-];
+const bannersDoCarrossel = () => {
+  const { estaLogado } = useContext(AutenticacaoContext);
+  return [
+    {
+      banner:
+        <Banner
+          titulo="Covid-19 Heroes"
+          imagem={CovidHeroes}
+          enderecoUrl="https://heroescovid19study.org/survey/"
+        />
+    },
+    {
+      banner:
+        <Banner
+          titulo="ID Saúde"
+          imagem={IDSaude}
+          pagina={estaLogado ? 'PERFIL' : 'LOGIN'}
+        />
+    },
+    {
+      banner:
+        <Banner
+          titulo="Cartilha de Saúde Mental"
+          imagem={CartilhaSaudeMental}
+          enderecoUrl="https://coronavirus.ceara.gov.br/cartilhas-sobre-saude-mental/"
+        />
+    },
+    {
+      banner: <BannerManejo />
+    },
+
+  ];
+};
+
+export default bannersDoCarrossel;
