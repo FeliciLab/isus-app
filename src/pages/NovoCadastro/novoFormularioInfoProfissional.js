@@ -17,7 +17,7 @@ import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
-import rotas from '../../constants/rotas';
+import rotas from '../../constantes/rotas';
 
 
 function FormularioInfoProfissional({ navigation, route }) {
@@ -34,7 +34,7 @@ function FormularioInfoProfissional({ navigation, route }) {
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
 
   console.log('rotas:', route.params);
-  const veioDoPerfil = route.params.tela_anterior === rotas.Perfil;
+  const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
 
   const theme = {
     ...DefaultTheme,

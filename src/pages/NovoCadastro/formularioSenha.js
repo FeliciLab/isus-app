@@ -12,7 +12,7 @@ import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
 import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import featuresAtivas from '../../featureAtivas';
-import features from '../../utils/features';
+import features from '../../constantes/features';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);

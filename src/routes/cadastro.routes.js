@@ -7,7 +7,7 @@ import FormularioInfoPessoal from '../pages/NovoCadastro/formularioInfoPessoal';
 import FormularioInfoProfissional from '../pages/NovoCadastro/formularioInfoProfissional';
 import FormularioSenha from '../pages/NovoCadastro/formularioSenha';
 import { FormProvider } from '../context/FormContext';
-import rotas from '../constants/rotas';
+import rotas from '../constantes/rotas';
 
 const CadastroStack = createStackNavigator();
 
@@ -40,18 +40,18 @@ export default function RotasCadastro() {
     <FormProvider>
       <CadastroStack.Navigator>
         <CadastroStack.Screen
-          name={rotas.FormularioPessoal}
+          name={rotas.FORMULARIO_PESSOAL}
           component={FormularioInfoPessoal}
           options={options}
         />
         <CadastroStack.Screen
-          name={rotas.FormularioProfissional}
+          name={rotas.FORMULARIO_PROFISSIONAL}
           component={FormularioInfoProfissional}
-          initialParams={{ tela_anterior: rotas.FormularioPessoal }}
+          initialParams={{ tela_anterior: rotas.FORMULARIO_PESSOAL }}
           options={options}
         />
         <CadastroStack.Screen
-          name={rotas.FormularioSenha}
+          name={rotas.FORMULARIO_SENHA}
           component={FormularioSenha}
           options={options}
         />

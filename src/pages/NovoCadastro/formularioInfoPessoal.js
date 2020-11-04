@@ -25,7 +25,7 @@ import {
 import BarraDeStatus from '../../components/barraDeStatus';
 import featuresAtivas from '../../featureAtivas';
 import textos from './textos.json';
-import features from '../../utils/features';
+import features from '../../constantes/features';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
