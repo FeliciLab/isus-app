@@ -20,7 +20,7 @@ import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
 import featuresAtivas from '../featureAtivas';
-import features from '../utils/features';
+import features from '../constantes/features';
 
 const RootStack = createStackNavigator();
 

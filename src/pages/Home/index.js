@@ -19,7 +19,7 @@ import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
 import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import features from '../../utils/features';
+import features from '../../constantes/features';
 
 export default function HomeScreen() {
   const navigation = useNavigation();

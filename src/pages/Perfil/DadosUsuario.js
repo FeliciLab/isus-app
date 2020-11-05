@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
-import features from '../../utils/features';
-import rotas from '../../constants/rotas';
+import features from '../../constantes/features';
+import rotas from '../../constantes/rotas';
 
 function DadosUsuario({ dados }) {
   return (
@@ -93,8 +93,8 @@ function MostrarDadosUsuarioProfissional(dados) {
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
         activeComponent={() => (
           <Botao
-            uri={rotas.EdicaoProfissional}
-            params={{ tela_anterior: rotas.Perfil }}
+            uri={rotas.EDICAO_PROFISSIONAL}
+            params={{ tela_anterior: rotas.PERFIL }}
           >
             EDITAR INFORMAÇÕES
           </Botao>
@@ -114,11 +114,11 @@ function AdicionarDadosProfissionais() {
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
         activeComponent={() => (
           <Botao
-            uri={rotas.Cadastro}
+            uri={rotas.CADASTRO}
             params={
               {
-                screen: rotas.FormularioProfissional,
-                params: { tela_anterior: rotas.Perfil }
+                screen: rotas.FORMULARIO_PROFISSIONAL,
+                params: { tela_anterior: rotas.PERFIL }
               }}
           >
             ADICIONAR INFORMAÇÕES
@@ -126,11 +126,11 @@ function AdicionarDadosProfissionais() {
         )}
         inactiveComponent={() => (
           <Botao
-            uri={rotas.EdicaoProfissional}
+            uri={rotas.EDICAO_PROFISSIONAL}
             params={
               {
-                screen: rotas.FormularioProfissional,
-                params: { tela_anterior: rotas.Perfil }
+                screen: rotas.FORMULARIO_PROFISSIONAL,
+                params: { tela_anterior: rotas.PERFIL }
               }}
           >
             ADICIONAR INFORMAÇÕES

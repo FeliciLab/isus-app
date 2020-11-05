@@ -15,7 +15,7 @@ import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
-import rotas from '../constants/rotas';
+import rotas from '../constantes/rotas';
 
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
@@ -67,7 +67,7 @@ function PerfilStackScreen() {
   return (
     <PerfilStack.Navigator>
       <PerfilStack.Screen
-        name={rotas.Perfil}
+        name={rotas.PERFIL}
         component={PerfilScreen}
         options={{ headerShown: true }}
       />

@@ -13,12 +13,14 @@ import {
   Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao, Titulo, PlaceholderAcordeon
 } from './styles';
 import DropDown from '../../components/dropdown';
+import Alerta from '../../components/alerta';
 import FormContext from '../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
-import rotas from '../../constants/rotas';
-
+import rotas from '../../constantes/rotas';
+import { pegarDados } from '../../services/armazenamento';
+import { alteraDadosDoUsuario } from '../../apis/apiCadastro';
 
 function FormularioInfoProfissional({ navigation, route }) {
   const {
@@ -32,10 +34,12 @@ function FormularioInfoProfissional({ navigation, route }) {
   const [tratarCategoriaProfissional, alterarTratarCategoriaProfissional] = React.useState(0);
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
+  const [carregando, alterarCarregando] = useState(false);
+  const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
+  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
+  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
 
-  console.log('rotas:', route.params);
-  const veioDoPerfil = route.params.tela_anterior === rotas.Perfil;
-
+  const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -92,6 +96,11 @@ function FormularioInfoProfissional({ navigation, route }) {
 
       const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
       alterarListaDeEspecialidades(especialidades);
+
+      if (veioDoPerfil) {
+        const perfil = await pegarDados('perfil');
+        alterarPerfilDoUsuario(perfil);
+      }
     };
     aoIniciar();
   }, []);
@@ -204,13 +213,77 @@ function FormularioInfoProfissional({ navigation, route }) {
     setValue('especialidades', especialidadesTratados);
   };
 
+  const tratarCamposDeUsuario = (campos) => {
+    const {
+      email, name, telefone, cpf, municipio, categoriaProfissional, especialidades, unidadeServico
+    } = campos;
+    return {
+      email,
+      nomeCompleto: name,
+      telefone,
+      cpf,
+      cidadeId: municipio.id,
+      cidade: municipio.nome,
+      termos: true,
+      categoriaProfissional,
+      especialidades,
+      unidadeServico
+    };
+  };
+
+  // Cadastro
+  const salvarInformaçõesProfissionais = () => {
+    registrarUnidadesDeServico();
+    registrarUnidadesDeEspecialidades();
+    navigation.navigate('FormularioSenha');
+  };
+
+  const mostrarAlerta = (mensagem) => {
+    alterarExibicaoDoAlerta(true);
+    alterarMensagemDoAlerta(mensagem);
+    setTimeout(() => alterarExibicaoDoAlerta(false), 4000);
+  };
+
+  // Adicionar Informações profissionais
+  const adicionarInformaçõesProfissionais = async () => {
+    alterarCarregando(true);
+    const { categoriaProfissional, especialidades, unidadeServico } = getValues();
+    const usuarioTratado = tratarCamposDeUsuario(
+      {
+        ...perfildoUsuario, categoriaProfissional, especialidades, unidadeServico
+      }
+    );
+    alterarPerfilDoUsuario(
+      {
+        ...perfildoUsuario,
+        categoria_profissional: categoriaProfissional,
+        // eslint-disable-next-line object-shorthand
+        especialidades: especialidades,
+        unidade_servico: unidadeServico
+      }
+    );
+    try {
+      console.log('perfil atualizado', usuarioTratado);
+      const resposta = await alteraDadosDoUsuario(usuarioTratado);
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
+      console.log(resposta.data);
+      alterarCarregando(false);
+    } catch (err) {
+      console.log(err);
+      mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
+      alterarCarregando(false);
+    }
+  };
+
 
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <ConteudoDropdown>
         <Titulo>
-          {textos.formularioProfissional.introducao}
+          {veioDoPerfil
+            ? textos.formularioProfissional.introducaoAdicaoPerfil
+            : textos.formularioProfissional.introducao}
         </Titulo>
         <TituloDoFormulario>
           {textos.formularioProfissional.titulo}
@@ -279,18 +352,18 @@ function FormularioInfoProfissional({ navigation, route }) {
         </Acordeon>
       </ConteudoDropdown>
       <Botao
-        color={definirCorDosElementos()}
+        cor={definirCorDosElementos()}
         disabled={false}
+        loading={carregando}
         labelStyle={{ color: '#fff' }}
-        onPress={() => {
-          registrarUnidadesDeServico();
-          registrarUnidadesDeEspecialidades();
-          navigation.navigate('FormularioSenha');
-        }}
+        onPress={() => (veioDoPerfil
+          ? adicionarInformaçõesProfissionais()
+          : salvarInformaçõesProfissionais())}
         mode="contained"
       >
-        Próximo
+        {veioDoPerfil ? 'salvar' : 'Próximo'}
       </Botao>
+      <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
     </Scroll>
   );
 }
