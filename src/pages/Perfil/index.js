@@ -1,21 +1,23 @@
-import React, { useLayoutEffect, useCallback, useState, useContext } from 'react';
+import React, {
+  useLayoutEffect, useCallback, useState, useContext
+} from 'react';
 import {
   View, TouchableOpacity, StyleSheet, ScrollView,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
-import { logout, excluir } from '../../apis/apiKeycloak';
+import { logout } from '../../apis/apiKeycloak';
 import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 // import CaixaDialogo from '../../components/caixaDialogo'
 import { salvarDados } from '../../services/armazenamento';
-import { Feature } from '@paralleldrive/react-feature-toggles';
-import feature from '../../utils/features'
+import feature from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 
 export default function PerfilScreen() {
@@ -59,12 +61,12 @@ export default function PerfilScreen() {
       cor: '#FF9800',
       textoConclusao: 'ok',
       textoCancelamento: 'cancelar',
-      aoConcluir: () => { console.log('concluido') },
-      aoCancelar: () => { console.log('cancelado') }
+      aoConcluir: () => { console.log('concluido'); },
+      aoCancelar: () => { console.log('cancelado'); }
     };
-    mostrarCaixaDialogo(atributosCaixaDialogo)
+    mostrarCaixaDialogo(atributosCaixaDialogo);
 
-    console.log("Abrindo caixa...")
+    console.log('Abrindo caixa...');
     /*
     try {
       await excluir(tokenUsuario);
@@ -120,7 +122,7 @@ export default function PerfilScreen() {
             <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
             <Feature
               name={feature.EXCLUSAO_USUARIO}
-              activeComponent={() => (<MenuPerfilItem icone="trash-can-outline" titulo="Excluir Conta" onPress={() => { abrirCaixaDialogo() }} />)}
+              activeComponent={() => (<MenuPerfilItem icone="trash-can-outline" titulo="Excluir Conta" onPress={() => { abrirCaixaDialogo(); }} />)}
             />
           </MenuPerfil>
         </View>

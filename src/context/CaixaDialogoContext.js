@@ -1,8 +1,8 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
 
 const CaixaDialogoContext = createContext();
 
-function CaixaDialogoProvider({children}) {
+function CaixaDialogoProvider({ children }) {
   const [visivel, alterarVisibilidade] = useState(false);
   const [titulo, alterarTitulo] = useState('');
   const [texto, alterarTexto] = useState('');
@@ -23,25 +23,25 @@ function CaixaDialogoProvider({children}) {
     alterarAoCancelar(obj.aoCancelar);
     alterarAoConcluir(obj.aoConcluir);
     alterarVisibilidade(true);
-  }
+  };
 
   return (
     <CaixaDialogoContext.Provider
-    value={{
-      mostrarCaixaDialogo,
-      visivel,
-      titulo,
-      texto,
-      cor,
-      textoConclusao,
-      textoCancelamento,
-      aoCancelar,
-      aoConcluir
-    }}
+      value={{
+        mostrarCaixaDialogo,
+        visivel,
+        titulo,
+        texto,
+        cor,
+        textoConclusao,
+        textoCancelamento,
+        aoCancelar,
+        aoConcluir
+      }}
     >
       {children}
     </CaixaDialogoContext.Provider>
-  )
+  );
 }
 
-export {CaixaDialogoProvider, CaixaDialogoContext}
+export { CaixaDialogoProvider, CaixaDialogoContext };
