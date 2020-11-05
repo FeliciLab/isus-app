@@ -232,9 +232,7 @@ function FormularioInfoProfissional({ navigation, route }) {
   };
 
   // Cadastro
-  const salvarInformaçõesProfissionais = () => {
-    registrarUnidadesDeServico();
-    registrarUnidadesDeEspecialidades();
+  const alterarTelaDoCadastro = () => {
     navigation.navigate('FormularioSenha');
   };
 
@@ -248,6 +246,7 @@ function FormularioInfoProfissional({ navigation, route }) {
   const adicionarInformaçõesProfissionais = async () => {
     alterarCarregando(true);
     const { categoriaProfissional, especialidades, unidadeServico } = getValues();
+    console.log('getValues:', getValues());
     const usuarioTratado = tratarCamposDeUsuario(
       {
         ...perfildoUsuario, categoriaProfissional, especialidades, unidadeServico
@@ -356,9 +355,14 @@ function FormularioInfoProfissional({ navigation, route }) {
         disabled={false}
         loading={carregando}
         labelStyle={{ color: '#fff' }}
-        onPress={() => (veioDoPerfil
-          ? adicionarInformaçõesProfissionais()
-          : salvarInformaçõesProfissionais())}
+        onPress={() => {
+          registrarUnidadesDeServico();
+          registrarUnidadesDeEspecialidades();
+          if (veioDoPerfil) {
+            return adicionarInformaçõesProfissionais();
+          }
+          return alterarTelaDoCadastro();
+        }}
         mode="contained"
       >
         {veioDoPerfil ? 'salvar' : 'Próximo'}

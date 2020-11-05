@@ -59,8 +59,8 @@ export default function PerfilScreen() {
       titulo: 'caixa de dialogo',
       texto: 'minha ciaxa de dialogo',
       cor: '#FF9800',
-      textoConclusao: 'ok',
-      textoCancelamento: 'cancelar',
+      textoConclusao: 'sim',
+      textoCancelamento: 'não',
       aoConcluir: () => { console.log('concluido'); fecharCaixaDialogo(); navigation.navigate('HOME'); },
       aoCancelar: () => { console.log('cancelado'); fecharCaixaDialogo(); }
     };
