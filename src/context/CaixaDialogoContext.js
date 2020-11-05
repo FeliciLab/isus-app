@@ -20,8 +20,8 @@ function CaixaDialogoProvider({ children }) {
     alterarTexto(obj.texto);
     alterarTextoConclusao(obj.textoConclusao);
     alterarTextoCancelamento(obj.textoCancelamento);
-    alterarAoCancelar(obj.aoCancelar);
-    alterarAoConcluir(obj.aoConcluir);
+    alterarAoCancelar(() => obj.aoCancelar);
+    alterarAoConcluir(() => obj.aoConcluir);
     alterarVisibilidade(true);
   };
 
