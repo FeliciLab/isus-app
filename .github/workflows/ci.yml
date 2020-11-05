@@ -1,0 +1,20 @@
+name: Teste App
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  testes:
+    name: Teste do App iSUS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Instala Dependências
+        id: instalaDependencias
+        run: yarn install
+      - name: Executa Testes
+        id: executaTestes
+        run: yarn test
