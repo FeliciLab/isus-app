@@ -1,9 +1,12 @@
-import React, { useLayoutEffect, useCallback, useState } from 'react';
+import React, {
+  useLayoutEffect, useCallback, useState, useContext
+} from 'react';
 import {
   View, TouchableOpacity, StyleSheet, ScrollView,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Feature } from '@paralleldrive/react-feature-toggles';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
@@ -12,11 +15,15 @@ import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '..
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
+// import CaixaDialogo from '../../components/caixaDialogo'
 import { salvarDados } from '../../services/armazenamento';
+import features from '../../constantes/features';
+import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 
 export default function PerfilScreen() {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
   const [tokenUsuario, alterarTokenUsuario] = useState({});
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
   const navigation = useNavigation();
 
   useFocusEffect(
@@ -45,6 +52,30 @@ export default function PerfilScreen() {
     }
     await excluirTokenDoUsuarioNoStorage();
     navigation.navigate('HOME');
+  };
+
+  const abrirCaixaDialogo = async () => {
+    const atributosCaixaDialogo = {
+      titulo: 'caixa de dialogo',
+      texto: 'minha ciaxa de dialogo',
+      cor: '#FF9800',
+      textoConclusao: 'ok',
+      textoCancelamento: 'cancelar',
+      aoConcluir: () => { console.log('concluido'); fecharCaixaDialogo(); navigation.navigate('HOME'); },
+      aoCancelar: () => { console.log('cancelado'); fecharCaixaDialogo(); }
+    };
+    mostrarCaixaDialogo(atributosCaixaDialogo);
+
+    console.log('Abrindo caixa...');
+    /*
+    try {
+      await excluir(tokenUsuario);
+    } catch (err) {
+      console.log('erro', err);
+    }
+    await excluirTokenDoUsuarioNoStorage();
+    navigation.navigate('HOME');
+    */
   };
 
   useLayoutEffect(() => {
@@ -89,6 +120,10 @@ export default function PerfilScreen() {
           </MenuPerfil>
           <MenuPerfil titulo="Preferências">
             <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
+            <Feature
+              name={features.EXCLUSAO_USUARIO}
+              activeComponent={() => (<MenuPerfilItem icone="trash-can-outline" titulo="Excluir Conta" onPress={() => { abrirCaixaDialogo(); }} />)}
+            />
           </MenuPerfil>
         </View>
       </ScrollView>

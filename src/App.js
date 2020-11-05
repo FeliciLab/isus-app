@@ -11,6 +11,8 @@ import { navigationRef, navigate } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
 import featuresAtivas from './featureAtivas';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
+import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
+import CaixaDialogo from './components/caixaDialogo';
 
 function App() {
   useEffect(() => {
@@ -77,7 +79,10 @@ function App() {
       <StatusBar backgroundColor="#4CAF50" barStyle="light-content" />
       <FeatureToggles features={featuresAtivas}>
         <AutenticacaoProvider>
-          <Routes navigationRef={navigationRef} />
+          <CaixaDialogoProvider>
+            <Routes navigationRef={navigationRef} />
+            <CaixaDialogo />
+          </CaixaDialogoProvider>
         </AutenticacaoProvider>
       </FeatureToggles>
     </>
