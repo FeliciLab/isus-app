@@ -19,18 +19,18 @@ const CaixaDialogo = () => {
       primary: cor
     }
   };
-
+  console.log(aoCancelar);
   return (
     <View>
       <Portal>
-        <Dialog visible={visivel} onDismiss={aoCancelar}>
+        <Dialog visible={visivel} onDismiss={() => aoCancelar()}>
           <Dialog.Title>{titulo}</Dialog.Title>
           <Dialog.Content>
             <Paragraph>{texto}</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button theme={theme} onPress={aoCancelar}>{textoCancelamento}</Button>
-            <Button theme={theme} onPress={aoConcluir}>{textoConclusao}</Button>
+            <Button theme={theme} onPress={() => aoCancelar()}>{textoCancelamento}</Button>
+            <Button theme={theme} onPress={() => aoConcluir()}>{textoConclusao}</Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
