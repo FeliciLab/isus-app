@@ -106,11 +106,11 @@ function EdicaoInfoProfissional() {
             // console.log('especialidades', especialidades);
             alterarListaDeEspecialidades(especialidades);
             especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
-            // alterarTemEspecialidades(false);
+            alterarTemEspecialidades(false);
           };
           aoEspecialidades();
         } else {
-          // alterarTemEspecialidades(true);
+          alterarTemEspecialidades(true);
         }
       }
     });
@@ -271,7 +271,7 @@ function EdicaoInfoProfissional() {
               definirRotulo={item => item.nome}
               aoMudarValor={(categoria) => {
                 registrarCategoriaProfissional(categoria);
-                // alterarTemCategoria(verificarCategoria());
+                alterarTemCategoria(verificarCategoria());
                 verificarCategoriaEspecialidades();
               }}
             />
@@ -289,7 +289,7 @@ function EdicaoInfoProfissional() {
                           label={especialidade.nome}
                           onPress={() => {
                             mudarValorEspecilidades(especialidade);
-                            // alterarTemEspecialidades(verificarEspecialidades());
+                            alterarTemEspecialidades(verificarEspecialidades());
                           }
                           }
                         />
@@ -309,7 +309,7 @@ function EdicaoInfoProfissional() {
                     label={servico.nome}
                     onPress={() => {
                       mudarValor(servico);
-                      // alterarTemSetores(verificarSetores());
+                      alterarTemSetores(verificarSetores());
                     }
                     }
                   />
@@ -321,6 +321,7 @@ function EdicaoInfoProfissional() {
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
       </Scroll>
       <BotaoSalvar
+        disabled={temCategoria && temEspecialidades && temSetores}
         labelStyle={{ color: '#fff' }}
         loading={carregando}
         onPress={() => {
