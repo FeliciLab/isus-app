@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import {
   DefaultTheme, Checkbox
 } from 'react-native-paper';
+import { vazio } from '../../../utils/objectUtils';
 import DropDown from '../../../components/dropdown';
 import FormContext from '../../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../../apis/apiKeycloak';
@@ -92,9 +93,18 @@ function EdicaoInfoProfissional({ route }) {
 
       const perfil = await pegarDados('perfil');
       alterarPerfilDoUsuario(perfil);
+      alterarCamposPreenchidos(perfil.profissional);
     };
     aoIniciar();
   }, []);
+
+  const alterarCamposPreenchidos = (dadosProfissionais) => {
+    alterarTratarCategoriaProfissional(dadosProfissionais.categoria_profissional.id);
+
+    dadosProfissionais.especialidades.forEach((especialidade) => {
+      mudarValorEspecialidades(especialidade);
+    });
+  };
 
   const verificarCategoriaEspecialidades = () => {
     const { categoriaProfissional } = getValues();
@@ -159,7 +169,7 @@ function EdicaoInfoProfissional({ route }) {
     return { id: especialidade.id, nome: especialidade.nome, foiMarcado: false };
   };
 
-  const mudarValorEspecilidades = (especialidade) => {
+  const mudarValorEspecialidades = (especialidade) => {
     const check = { ...unidadesEspecialidades };
     check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
     alterarUnidadesEspecialidades(check);
@@ -270,7 +280,10 @@ function EdicaoInfoProfissional({ route }) {
             <DropDown
               label="Categoria profissional"
               dados={listaDeCategorias}
-              valor={EstaEditavel ? JSON.stringify(perfildoUsuario.profissional.categoria_profissional) : ''}
+              valor={
+                !vazio(perfildoUsuario)
+                && JSON.stringify(perfildoUsuario.profissional.categoria_profissional)
+              }
               definirValor={item => JSON.stringify(item)}
               definirRotulo={item => item.nome}
               aoMudarValor={(categoria) => {
@@ -292,7 +305,7 @@ function EdicaoInfoProfissional({ route }) {
                           status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
                           label={especialidade.nome}
                           onPress={() => {
-                            mudarValorEspecilidades(especialidade);
+                            mudarValorEspecialidades(especialidade);
                             alterarTemEspecialidades(verificarEspecialidades());
                           }
                           }
