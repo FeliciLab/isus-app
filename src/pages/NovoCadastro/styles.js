@@ -43,7 +43,7 @@ const Botao = styled(Button)`
   align-self: flex-end;
   margin: 20px;
   justify-content: center;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : props.cor)};
+  background-color: ${props => (props.disabled ? '#BDBDBD' : '#304FFE')};
 `;
 
 const ConteudoDropdown = styled.View`
