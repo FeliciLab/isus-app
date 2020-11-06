@@ -100,9 +100,14 @@ function EdicaoInfoProfissional({ route }) {
 
   const alterarCamposPreenchidos = (dadosProfissionais) => {
     alterarTratarCategoriaProfissional(dadosProfissionais.categoria_profissional.id);
+    registrarCategoriaProfissional(JSON.stringify(dadosProfissionais.categoria_profissional));
+    alterarTemCategoria(verificarCategoria());
+    verificarCategoriaEspecialidades();
+    mudarValoresEspecialidades(dadosProfissionais.especialidades);
+    mudarValoresUnidadesServicos(dadosProfissionais.unidades_servicos);
 
-    dadosProfissionais.especialidades.forEach((especialidade) => {
-      mudarValorEspecialidades(especialidade);
+    dadosProfissionais.unidade_servico.forEach((unidade) => {
+      mudarValor(unidade);
     });
   };
 
@@ -154,6 +159,22 @@ function EdicaoInfoProfissional({ route }) {
     check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: check[`${servico.nome}`] ? !check[`${servico.nome}`].foiMarcado : true };
     alterarUnidadesServico(check);
     registrarUnidadesDeServico(check);
+  };
+
+  const mudarValoresUnidadesServicos = (servicos) => {
+    const unidadesServicoCheckBoxes = { ...unidadesServico };
+    servicos.forEach((servico) => {
+      unidadesServicoCheckBoxes[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`] ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado : true };
+    });
+    alterarUnidadesServico(unidadesServicoCheckBoxes);
+  };
+
+  const mudarValoresEspecialidades = (especialidades) => {
+    const especialidadesCheckBoxes = { ...unidadesEspecialidades };
+    especialidades.forEach((especialidade) => {
+      especialidadesCheckBoxes[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: especialidadesCheckBoxes[`${especialidade.nome}`] ? !especialidadesCheckBoxes[`${especialidade.nome}`].foiMarcado : true };
+    });
+    alterarUnidadesEspecialidades(especialidadesCheckBoxes);
   };
 
   const registrarCategoriaProfissional = (categoria) => {
