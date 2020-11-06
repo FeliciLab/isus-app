@@ -152,6 +152,7 @@ export default function FormularioSenha({ navigation }) {
         </TextoDeErro>
       )}
       <Botao
+        cor="#304FFE"
         disabled={!botaoAtivo}
         labelStyle={{ color: '#fff' }}
         mode="contained"

@@ -261,6 +261,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           />
         </ConteudoDropdown>
         <Botao
+          cor="#304FFE"
           disabled={!botaoAtivo}
           label="Próximo"
           labelStyle={{ color: '#fff' }}
