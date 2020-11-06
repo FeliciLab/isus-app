@@ -47,7 +47,7 @@ const BotaoSalvar = styled(Button)`
     right: 0;
     bottom: 0;
     justify-content: center;
-    background-color: #BDBDBD;
+    background-color: #FF9800;
 `;
 
 export {
