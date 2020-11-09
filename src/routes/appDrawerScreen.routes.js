@@ -14,6 +14,8 @@ import AppTab from './appBottomTab.routes';
 import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
+import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
+
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
 
@@ -39,10 +41,19 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
+      <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
     </Drawer.Navigator>
   );
 }
 
+const DeleteProfileStack = createStackNavigator();
+function DeleteProfileScreen() {
+  return (
+    <DeleteProfileStack.Navigator>
+      <DeleteProfileStack.Screen name="EXCLUIR_PERFIL" component={ExcluirPerfil} options={{ headerShown: true }} />
+    </DeleteProfileStack.Navigator>
+  );
+}
 const AboutStack = createStackNavigator();
 function AboutStackScreen() {
   return (

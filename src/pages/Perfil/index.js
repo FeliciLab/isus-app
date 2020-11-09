@@ -60,7 +60,9 @@ export default function PerfilScreen() {
       cor: '#FF9800',
       textoConclusao: 'Remover',
       textoCancelamento: 'Voltar',
-      aoConcluir: () => { console.log('concluido'); fecharCaixaDialogo(); navigation.navigate('HOME'); },
+      aoConcluir: () => {
+        fecharCaixaDialogo(); navigation.navigate('EXCLUIR_PERFIL');
+      },
       aoCancelar: () => { console.log('cancelado'); fecharCaixaDialogo(); }
     };
     mostrarCaixaDialogo(atributosCaixaDialogo);
@@ -121,7 +123,13 @@ export default function PerfilScreen() {
             <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
             <Feature
               name={features.EXCLUSAO_USUARIO}
-              activeComponent={() => (<MenuPerfilItem icone="delete-forever" titulo="Excluir Conta" onPress={() => { abrirCaixaDialogo(); }} />)}
+              activeComponent={() => (
+              <MenuPerfilItem
+                icone="delete-forever"
+                titulo="Excluir Conta"
+                onPress={() => { abrirCaixaDialogo(); }}
+              />
+              )}
             />
           </MenuPerfil>
         </View>
@@ -139,5 +147,8 @@ const estilos = StyleSheet.create({
   espacamento: {
     marginLeft: 20,
     marginBottom: 10
+  },
+  espaco_voltar: {
+    marginRight: 15
   }
 });
