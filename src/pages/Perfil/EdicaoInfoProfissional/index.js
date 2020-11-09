@@ -319,18 +319,18 @@ function EdicaoInfoProfissional() {
           </ConteudoFormulario>
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
-      </Scroll>
-      <BotaoSalvar
-        disabled={temCategoria && temEspecialidades && temSetores}
-        labelStyle={{ color: '#fff' }}
-        loading={carregando}
-        onPress={() => {
-          salvarInformaçõesProfissionais();
-        }}
-        mode="contained"
-      >
+        <BotaoSalvar
+          disabled={temCategoria && temEspecialidades && temSetores}
+          labelStyle={{ color: '#fff' }}
+          loading={carregando}
+          onPress={() => {
+            salvarInformaçõesProfissionais();
+          }}
+          mode="contained"
+        >
         Salvar
-      </BotaoSalvar>
+        </BotaoSalvar>
+      </Scroll>
     </SafeArea>
   );
 }

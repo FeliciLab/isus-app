@@ -43,9 +43,7 @@ const BotaoSalvar = styled(Button)`
     width: 150px;
     height: 45px;
     margin: 30px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    align-self: flex-end;
     justify-content: center;
     background-color: #FF9800;
 `;

@@ -249,7 +249,7 @@ function EdicaoInfoProfissional({ route }) {
     try {
       console.log('perfil atualizado', usuarioTratado);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: EstaEditavel ? 'Parabéns! Você atualizou suas informações profissionais.' : 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você atualizou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
     } catch (err) {
@@ -276,7 +276,7 @@ function EdicaoInfoProfissional({ route }) {
           <TituloPrincipal>
             {
               EstaEditavel ? 'Selecione as informações profissionais que você deseja alterar:'
-                : 'Vamos agora adicionar suas informações profissionais,para isso, selecione as opções abaixo:'}
+                : 'Vamos agora adicionar suas informações profissionais, para isso, selecione as opções abaixo:'}
           </TituloPrincipal>
           <ConteudoFormulario>
             <Destaque>Categoria Profissional:</Destaque>
@@ -336,17 +336,17 @@ function EdicaoInfoProfissional({ route }) {
           </ConteudoFormulario>
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
-      </Scroll>
-      <BotaoSalvar
-        labelStyle={{ color: '#fff' }}
-        loading={carregando}
-        onPress={() => {
-          salvarInformaçõesProfissionais();
-        }}
-        mode="contained"
-      >
+        <BotaoSalvar
+          labelStyle={{ color: '#fff' }}
+          loading={carregando}
+          onPress={() => {
+            salvarInformaçõesProfissionais();
+          }}
+          mode="contained"
+        >
         Salvar
-      </BotaoSalvar>
+        </BotaoSalvar>
+      </Scroll>
     </SafeArea>
   );
 }
