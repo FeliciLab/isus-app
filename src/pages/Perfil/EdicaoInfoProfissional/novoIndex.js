@@ -220,17 +220,14 @@ function EdicaoInfoProfissional({ route }) {
       cidade: municipio.nome,
       termos: true,
       categoriaProfissional,
-      especialidades,
-      unidadeServico
+      especialidades: especialidades || '[]',
+      unidadeServico: unidadeServico || '[]'
     };
   };
 
   const salvarInformaçõesProfissionais = async () => {
     alterarCarregando(true);
     const { categoriaProfissional, especialidades, unidadeServico } = getValues();
-    console.log('especialidades:', especialidades);
-    console.log('unidadeServico:', unidadeServico);
-
 
     const usuarioTratado = tratarCamposDeUsuario(
       {

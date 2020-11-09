@@ -48,7 +48,7 @@ function Especialidades({ dados }) {
                   dado.nome
                 )).join(', ')
               ) : (
-                '---'
+                ''
               )
           }
         </Text>
