@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button, Text, TextInput, View
 } from 'react-native';
+// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render, waitFor } from '@testing-library/react-native';
 
 function Example() {
