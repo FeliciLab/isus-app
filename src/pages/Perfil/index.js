@@ -15,7 +15,6 @@ import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '..
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
-// import CaixaDialogo from '../../components/caixaDialogo'
 import { salvarDados } from '../../services/armazenamento';
 import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
@@ -56,11 +55,11 @@ export default function PerfilScreen() {
 
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {
-      titulo: 'caixa de dialogo',
-      texto: 'minha ciaxa de dialogo',
+      titulo: '',
+      texto: 'Tem certeza que deseja remover sua conta? Se removê-la, você perderá todos os conteúdos e preferências salvos.',
       cor: '#FF9800',
-      textoConclusao: 'sim',
-      textoCancelamento: 'não',
+      textoConclusao: 'Remover',
+      textoCancelamento: 'Voltar',
       aoConcluir: () => { console.log('concluido'); fecharCaixaDialogo(); navigation.navigate('HOME'); },
       aoCancelar: () => { console.log('cancelado'); fecharCaixaDialogo(); }
     };
@@ -122,7 +121,7 @@ export default function PerfilScreen() {
             <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
             <Feature
               name={features.EXCLUSAO_USUARIO}
-              activeComponent={() => (<MenuPerfilItem icone="trash-can-outline" titulo="Excluir Conta" onPress={() => { abrirCaixaDialogo(); }} />)}
+              activeComponent={() => (<MenuPerfilItem icone="delete-forever" titulo="Excluir Conta" onPress={() => { abrirCaixaDialogo(); }} />)}
             />
           </MenuPerfil>
         </View>
