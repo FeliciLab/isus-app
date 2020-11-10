@@ -95,6 +95,7 @@ function MostrarDadosUsuarioProfissional(dados) {
           <Botao
             uri={rotas.EDICAO_PROFISSIONAL}
             params={{ tela_anterior: rotas.PERFIL }}
+            testID="botao-dados-editar"
           >
             EDITAR INFORMAÇÕES
           </Botao>
@@ -120,6 +121,7 @@ function AdicionarDadosProfissionais() {
                 screen: rotas.FORMULARIO_PROFISSIONAL,
                 params: { tela_anterior: rotas.PERFIL }
               }}
+            testID="botao-dados-adicionar"
           >
             ADICIONAR INFORMAÇÕES
           </Botao>
@@ -141,10 +143,12 @@ function AdicionarDadosProfissionais() {
   );
 }
 
-const Botao = ({ children, uri, params = '' }) => {
+const Botao = ({
+  children, uri, params = '', testID
+}) => {
   const navigation = useNavigation();
   return (
-    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate(uri, params)}>
+    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate(uri, params)} testID={testID}>
       {children}
     </Button>
   );
