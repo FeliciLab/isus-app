@@ -13,4 +13,8 @@ module.exports = {
     + '|react-native-reanimated'
     + ')/)',
   ],
+  moduleDirectories: [
+    'node_modules',
+    'src/utils'
+  ]
 };

@@ -3,7 +3,7 @@ import {
   Button, Text, TextInput, View
 } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
-import { fireEvent, render, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from 'util-teste';
 
 function Example() {
   const [name, setUser] = React.useState('');
