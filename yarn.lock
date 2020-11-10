@@ -8448,6 +8448,13 @@ react-native-paper@^3.10.1:
     color "^3.1.2"
     react-native-safe-area-view "^0.14.9"
 
+react-native-password-eye@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-password-eye/-/react-native-password-eye-1.0.2.tgz#45c89f7f799e1a7349a5eb53bbca67b5d909b258"
+  integrity sha512-AeW2qoko6LmkvqGC2EhsQgzhryPEUuLlwH4g4TiaJC6a44Eo9EoL/muaJBfWBIde6A9TRJd149u3+9YcEjgL0w==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-reanimated@^1.7.1:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.10.1.tgz#82e79ae119e97b282ce53d16bc6db9765a56b22b"
