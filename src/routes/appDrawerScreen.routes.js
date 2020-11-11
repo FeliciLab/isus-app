@@ -55,7 +55,7 @@ function DeleteAccountScreen() {
       <DeleteAccountStack.Screen name="CONTA_EXCLUIDA" component={ContaExcluida} options={{ headerShown: true }} />
     </DeleteAccountStack.Navigator>
   );
-};
+}
 
 const DeleteProfileStack = createStackNavigator();
 function DeleteProfileScreen() {
