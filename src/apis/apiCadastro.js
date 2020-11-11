@@ -33,6 +33,12 @@ export async function verificarCPFCadastrado(cpf) {
 }
 
 export async function deletarUsuario(senha) {
+  if (senha.typeof === undefined) {
+    const returno = {
+      status: 500, message: 'Senha vazia'
+    };
+    return returno;
+  }
   const response = await request.delete('/user', {
     data: { senha }
   });

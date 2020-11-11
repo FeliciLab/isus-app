@@ -1,8 +1,8 @@
 import React, {
-  useLayoutEffect, useState,
+  useLayoutEffect, useState
 } from 'react';
 import {
-  View, TouchableOpacity, StyleSheet, Text,
+  View, TouchableOpacity, StyleSheet, Text
 } from 'react-native';
 import {
   TextInput, DefaultTheme, Button
@@ -14,16 +14,32 @@ import { deletarUsuario } from '../../apis/apiCadastro';
 
 export default function ExcluirPerfil() {
   const [senhaUsuario, alterarSenhaUsuario] = useState({});
+  const [isvalidator, alterarisvalidator] = useState(true);
+  const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
 
   const excluirUsuario = async () => {
-    deletarUsuario(senhaUsuario);
+    deletarUsuario(senhaUsuario)
+      .then((value) => {
+        console.log(value);
+        if (value.status === 200) {
+          navigation.navigate('CONTA_EXCLUIDA');
+        }
+        if (value.status === 500) {
+          alterarisvalidator(false);
+          alterarCorPrimariaSenha('#F2453D');
+        }
+      }).catch((error) => {
+        console.log(error);
+        alterarisvalidator(false);
+        alterarCorPrimariaSenha('#F2453D');
+      });
   };
 
   const navigation = useNavigation();
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#FF9800',
+      primary: corPrimariaSenha,
       accent: '#fff',
       text: '#000000',
       background: '#fff',
@@ -34,6 +50,18 @@ export default function ExcluirPerfil() {
   const onChange = (text) => {
     console.log(text);
     alterarSenhaUsuario(text);
+  };
+
+  // eslint-disable-next-line consistent-return
+  const mostrarMensagemErro = (validar) => {
+    console.log({ validar });
+    if (validar === false) {
+      return (
+        <Text style={estilos.infoErro}>
+        Senha Incorreta. Tente novamente ou click em esqueci a senha para redefini-la.
+        </Text>
+      );
+    }
   };
 
   useLayoutEffect(() => {
@@ -61,11 +89,10 @@ export default function ExcluirPerfil() {
     });
   });
 
-
   return (
     <>
     <View style={estilos.alinharView}>
-    <View style={estilos.primeiraDiv}>
+      <View style={estilos.primeiraDiv}>
         <Text style={estilos.title}>
         Para ter certeza de que você deseja excluir sua contar, por favor digite sua senha.
         </Text>
@@ -80,6 +107,7 @@ export default function ExcluirPerfil() {
           mode="outlined"
           label="Senha"
         />
+        {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
         <TextBox
           onChangeText={text => onChange(text)}
           placeholder="Senha"
@@ -99,9 +127,16 @@ export default function ExcluirPerfil() {
         >
           EXCLUIR CONTA
         </Button>
-    </View>
+        <Button
+          onPress={() => {
+            navigation.navigate('CONTA_EXCLUIDA');
+          }}
+        >
+          CONTA EXLUIDA
+        </Button>
+      </View>
 
-    <View style={estilos.segundaDiv} />
+      <View style={estilos.segundaDiv} />
     </View>
     </>
   );
@@ -133,6 +168,12 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     lineHeight: 23
+  },
+  infoErro: {
+    marginLeft: 32,
+    color: '#FF0C3E',
+    width: 363,
+    height: 32
   },
   inputSenha: {
     marginLeft: 16,

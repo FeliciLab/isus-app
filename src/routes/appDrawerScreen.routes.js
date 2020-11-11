@@ -15,6 +15,7 @@ import ConteudoDoDrawer from './conteudoDoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
+import ContaExcluida from '../pages/Perfil/contaExcluida';
 
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
@@ -42,9 +43,19 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
       <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
+      <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />
     </Drawer.Navigator>
   );
 }
+
+const DeleteAccountStack = createStackNavigator();
+function DeleteAccountScreen() {
+  return (
+    <DeleteAccountStack.Navigator>
+      <DeleteAccountStack.Screen name="CONTA_EXCLUIDA" component={ContaExcluida} options={{ headerShown: true }} />
+    </DeleteAccountStack.Navigator>
+  );
+};
 
 const DeleteProfileStack = createStackNavigator();
 function DeleteProfileScreen() {
