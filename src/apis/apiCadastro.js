@@ -32,12 +32,9 @@ export async function verificarCPFCadastrado(cpf) {
   return response;
 }
 
-export async function deletarUsuario(senha, token) {
-  // console.log(senha);
-  // console.log(token);
+export async function deletarUsuario(senha) {
   const response = await request.delete('/user', {
-    senha, token
+    data: { senha }
   });
-  // console.log(response);
   return response;
 }

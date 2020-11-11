@@ -10,18 +10,13 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import TextBox from 'react-native-password-eye';
-import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { deletarUsuario } from '../../apis/apiCadastro';
 
 export default function ExcluirPerfil() {
   const [senhaUsuario, alterarSenhaUsuario] = useState({});
 
   const excluirUsuario = async () => {
-    const token = await pegarTokenDoUsuarioNoStorage();
-    // console.log(token);
-    // console.log({ senhaUsuario });
-    deletarUsuario(senhaUsuario, token);
-    // alert(senhaUsuario);
+    deletarUsuario(senhaUsuario);
   };
 
   const navigation = useNavigation();
