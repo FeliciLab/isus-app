@@ -15,6 +15,7 @@ module.exports = {
   ],
   moduleDirectories: [
     'node_modules',
-    'src/utils'
+    'src/utils',
+    __dirname
   ]
 };
