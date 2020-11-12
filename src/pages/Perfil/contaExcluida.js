@@ -7,6 +7,7 @@ import {
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import accountDelete from '../../assets/images/user_account_delete.png';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function ExcluirPerfil() {
   const navigation = useNavigation();
@@ -23,6 +24,8 @@ export default function ExcluirPerfil() {
     });
   });
   return (
+    <>
+    <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
     <View style={{ flex: 1, flexDirection: 'column' }}>
         <View style={{ height: 50, backgroundColor: '#4054B2' }} />
         <View style={{ height: 50, flex: 2, backgroundColor: '#4054B2' }}>
@@ -48,6 +51,7 @@ export default function ExcluirPerfil() {
         </View>
         <View style={{ height: 50, backgroundColor: '#4054B2' }} />
     </View>
+    </>
   );
 }
 

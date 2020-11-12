@@ -9,46 +9,55 @@ import {
 } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import TextBox from 'react-native-password-eye';
 import { deletarUsuario } from '../../apis/apiCadastro';
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function ExcluirPerfil() {
   const [senhaUsuario, alterarSenhaUsuario] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
+  const [mostrarSenha, alterarMostrarSenha] = useState(true);
+  const navigation = useNavigation();
 
   const excluirUsuario = async () => {
-    deletarUsuario(senhaUsuario)
-      .then((value) => {
-        console.log(value);
-        if (value.status === 200) {
-          navigation.navigate('CONTA_EXCLUIDA');
-        }
-        if (value.status === 500) {
+    if (Object.keys(senhaUsuario).length === 0) {
+      alterarisvalidator(false);
+      alterarCorPrimariaSenha('#F2453D');
+      setTimeout(() => {
+        alterarCorPrimariaSenha('#FF9800');
+        alterarisvalidator(true);
+      }, 4000);
+    } else {
+      deletarUsuario(senhaUsuario)
+        .then((value) => {
+          if (value.status === 200) {
+            navigation.navigate('CONTA_EXCLUIDA');
+          }
+        }).catch((error) => {
+          console.log(error);
           alterarisvalidator(false);
           alterarCorPrimariaSenha('#F2453D');
-        }
-      }).catch((error) => {
-        console.log(error);
-        alterarisvalidator(false);
-        alterarCorPrimariaSenha('#F2453D');
-      });
+          setTimeout(() => {
+            alterarisvalidator(true);
+            alterarCorPrimariaSenha('#FF9800');
+          }, 4000);
+        });
+    }
   };
 
-  const navigation = useNavigation();
   const theme = {
     ...DefaultTheme,
     colors: {
       primary: corPrimariaSenha,
-      accent: '#fff',
+      accent: '#f1c40f',
       text: '#000000',
       background: '#fff',
       placeholder: '#000000'
-    }
+    },
   };
 
   const onChange = (text) => {
-    console.log(text);
+    console.log(text.length);
     alterarSenhaUsuario(text);
   };
 
@@ -89,96 +98,91 @@ export default function ExcluirPerfil() {
     });
   });
 
+
   return (
     <>
-    <View style={estilos.alinharView}>
-      <View style={estilos.primeiraDiv}>
-        <Text style={estilos.title}>
-        Para ter certeza de que você deseja excluir sua contar, por favor digite sua senha.
-        </Text>
-        <Text style={estilos.senha}>
-            Senha:
-        </Text>
-        <TextInput
-          onChangeText={text => onChange(text)}
-          secureTextEntry
-          theme={theme}
-          style={estilos.inputSenha}
-          mode="outlined"
-          label="Senha"
-        />
-        {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
-        <TextBox
-          onChangeText={text => onChange(text)}
-          placeholder="Senha"
-          secureTextEntry
-          theme={theme}
-          inputStyle={estilos.inputSenha}
-          mode="outlined"
-        />
-        <Button
-          color="#F2453D"
-          mode="contained"
-          onPress={() => {
-            excluirUsuario();
-          }}
-          labelStyle={{ color: 'white', fontSize: 18 }}
-          style={{ width: 200, marginLeft: 20, borderRadius: 30 }}
-        >
-          EXCLUIR CONTA
-        </Button>
-        <Button
-          onPress={() => {
-            navigation.navigate('CONTA_EXCLUIDA');
-          }}
-        >
-          CONTA EXLUIDA
-        </Button>
-      </View>
-
-      <View style={estilos.segundaDiv} />
+    <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
+    <View style={estilos.margem}>
+      <Text style={estilos.tituloDestaque}>
+        Para ter certeza de que você deseja excluir sua contar,
+        por favor digite sua senha.
+      </Text>
+      <TextInput
+        label="Senha"
+        secureTextEntry={mostrarSenha}
+        autoFocus="true"
+        onChangeText={(text => onChange(text))}
+        style={estilos.campoDeTexto}
+        mode="outlined"
+        theme={theme}
+      />
+      <Button
+        onPress={() => {
+          alterarMostrarSenha(false);
+        }}
+      >
+        Mostrar Senha
+      </Button>
+      {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
+      <Button
+        style={estilos.botaoHabilitado}
+        mode="contained"
+        labelStyle={estilos.botaoExcluirConta}
+        onPress={() => {
+          excluirUsuario();
+        }}
+      >
+        EXCLUIR CONTA
+      </Button>
     </View>
     </>
   );
 }
 
+
 const estilos = StyleSheet.create({
-  alinharView: {
-    backgroundColor: '#FFF',
+  tituloDestaque: {
+    fontWeight: 'normal',
+    fontSize: 24,
+    paddingBottom: 24,
+  },
+  containerView: {
+    backgroundColor: 'red',
+    flex: 1
+  },
+  margem: {
+    padding: 15,
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'stretch',
-    justifyContent: 'space-between'
+    backgroundColor: '#FFF'
   },
-  primeiraDiv: {
-    flex: 1,
-  },
-  segundaDiv: {
-    flex: 1,
-  },
-  title: {
-    marginLeft: 16,
-    marginRight: 16,
-    fontWeight: '400',
-    fontSize: 24
-  },
-  senha: {
-    marginLeft: 16,
-    marginTop: 24,
-    fontWeight: 'bold',
-    fontSize: 20,
-    lineHeight: 23
-  },
-  infoErro: {
-    marginLeft: 32,
-    color: '#FF0C3E',
-    width: 363,
-    height: 32
-  },
-  inputSenha: {
+  campoDeTexto: {
     marginLeft: 16,
     marginRight: 16,
     marginTop: 16,
-    borderColor: 'black'
+    borderColor: '#FF9800'
+  },
+  botaoHabilitado: {
+    borderRadius: 50,
+    width: 148,
+    height: 48,
+    marginTop: 54,
+    marginRight: 16,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: '#F2453D'
+  },
+  infoErro: {
+    marginLeft: 25,
+    marginRight: 16,
+    color: '#FF0C3E',
+    width: 342,
+    height: 32
+  },
+  botaoExcluirConta: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    lineHeight: 16,
+    fontWeight: '500'
   }
 });
