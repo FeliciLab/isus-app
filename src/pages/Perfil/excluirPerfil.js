@@ -117,9 +117,9 @@ export default function ExcluirPerfil() {
         theme={theme}
       />
       <Button
-        onPress={() => {
-          alterarMostrarSenha(false);
-        }}
+        onPress={() => (
+          mostrarSenha ? alterarMostrarSenha(false) : alterarMostrarSenha(true)
+        )}
       >
         Mostrar Senha
       </Button>
