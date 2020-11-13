@@ -98,7 +98,6 @@ export default function ExcluirPerfil() {
     });
   });
 
-
   return (
     <>
     <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
@@ -139,7 +138,6 @@ export default function ExcluirPerfil() {
   );
 }
 
-
 const estilos = StyleSheet.create({
   tituloDestaque: {
     fontWeight: 'normal',
@@ -166,7 +164,6 @@ const estilos = StyleSheet.create({
     borderRadius: 50,
     width: 148,
     height: 48,
-    marginTop: 54,
     marginRight: 16,
     alignSelf: 'flex-end',
     justifyContent: 'center',

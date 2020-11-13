@@ -1,8 +1,8 @@
 import React, {
-  useLayoutEffect
+  useLayoutEffect, useEffect
 } from 'react';
 import {
-  View, StyleSheet, Text, Image,
+  View, StyleSheet, Text, Image, BackHandler, Alert
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,28 @@ import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function ExcluirPerfil() {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Ops!', 'Impossível voltar para o App', [
+        {
+          text: 'Criar Conta',
+          onPress: () => navigation.navigate('LOGIN'),
+          style: 'cancel'
+        },
+        { text: 'Iniciar App', onPress: () => navigation.navigate('Home') }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
