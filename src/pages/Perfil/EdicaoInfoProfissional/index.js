@@ -280,7 +280,7 @@ function EdicaoInfoProfissional() {
             tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
               <>
                 <Destaque>Qual é sua especialidade?</Destaque>
-                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Selecione as opções</Titulo>}>
+                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Especialidades</Titulo>}>
                   <View>
                     {unidadesEspecialidades && listaDeEspecialidades.length !== 0
                       && listaDeEspecialidades.map(especialidade => (
@@ -328,7 +328,7 @@ function EdicaoInfoProfissional() {
           }}
           mode="contained"
         >
-        Salvar
+          Salvar
         </BotaoSalvar>
       </Scroll>
     </SafeArea>

@@ -100,16 +100,39 @@ function EdicaoInfoProfissional({ route }) {
       alterarTratarCategoriaProfissional(dadosProfissionais.categoria_profissional.id);
       registrarCategoriaProfissional(JSON.stringify(dadosProfissionais.categoria_profissional));
       verificarCategoriaEspecialidades();
+      unregister('especialidades');
     }
 
-    if (dadosProfissionais.especialidades) {
+    if (dadosProfissionais.especialidades
+      && (
+        dadosProfissionais.categoria_profissional.id === 1
+        || dadosProfissionais.categoria_profissional.id === 3)) {
       mudarValoresEspecialidades(dadosProfissionais.especialidades);
+      registrarEspecialidadesPreenchidas(dadosProfissionais.especialidades);
     }
 
     if (dadosProfissionais.unidades_servicos) {
       mudarValoresUnidadesServicos(dadosProfissionais.unidades_servicos);
+      registrarUnidadesServicosPreenchidas(dadosProfissionais.unidades_servicos);
     }
   };
+
+  const registrarEspecialidadesPreenchidas = (especialidades) => {
+    unregister('especialidades');
+    if (especialidades.length !== 0) {
+      register({ name: 'especialidades' });
+      setValue('especialidades', JSON.stringify(especialidades));
+    }
+  };
+
+  const registrarUnidadesServicosPreenchidas = (unidadesServicos) => {
+    unregister('unidadeServico');
+    if (unidadesServicos.length !== 0) {
+      register({ name: 'unidadeServico' });
+      setValue('unidadeServico', JSON.stringify(unidadesServicos));
+    }
+  };
+
 
   const verificarCategoriaEspecialidades = () => {
     const { categoriaProfissional } = getValues();
@@ -211,6 +234,8 @@ function EdicaoInfoProfissional({ route }) {
     const {
       email, name, telefone, cpf, municipio, categoriaProfissional, especialidades, unidadeServico
     } = campos;
+    console.log('especialidade', especialidades);
+    console.log('unidadeServico', unidadeServico);
     return {
       email,
       nomeCompleto: name,
@@ -296,7 +321,7 @@ function EdicaoInfoProfissional({ route }) {
             tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
               <>
                 <Destaque>Qual é sua especialidade?</Destaque>
-                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Selecione as opções</Titulo>}>
+                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Especialidades</Titulo>}>
                   <View>
                     {unidadesEspecialidades && listaDeEspecialidades.length !== 0
                       && listaDeEspecialidades.map(especialidade => (
@@ -341,7 +366,7 @@ function EdicaoInfoProfissional({ route }) {
           }}
           mode="contained"
         >
-        Salvar
+          Salvar
         </BotaoSalvar>
       </Scroll>
     </SafeArea>
