@@ -4,12 +4,20 @@ import Banner from './banner';
 import CovidHeroes from '../../assets/images/Covid-Heroes-iSUS.png';
 import IDSaude from '../../assets/images/ID-Saude.png';
 import CartilhaSaudeMental from '../../assets/images/cartilha-saude-mental.png';
+import ProtocoloSindromeCoronarianaAguda from '../../assets/images/Protocolo-Sindroma-Coronariana-Aguda.png';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-
 
 const bannersDoCarrossel = () => {
   const { estaLogado } = useContext(AutenticacaoContext);
   return [
+    {
+      banner:
+        <Banner
+          titulo="Protocolo do primeiro atendimento ao paciente com síndrome coroniana aguda"
+          imagem={ProtocoloSindromeCoronarianaAguda}
+          enderecoUrl="https://coronavirus.ceara.gov.br/project/protocolo-da-sesa-orienta-atendimentos-a-pacientes-com-sindrome-coronariana-aguda/"
+        />
+    },
     {
       banner:
         <Banner

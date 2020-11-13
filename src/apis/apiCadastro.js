@@ -8,10 +8,6 @@ export function cadastrarUsuario(dadosUsuario) {
   return request.post('/user', dadosUsuario);
 }
 
-export function excluirUsuario(dadosUsuario) {
-  return request.delete('/user', dadosUsuario);
-}
-
 export async function perfilUsuario() {
   const response = await request.get('/perfil');
   return response.data;
