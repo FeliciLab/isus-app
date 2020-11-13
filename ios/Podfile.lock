@@ -339,7 +339,7 @@ PODS:
     - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNGestureHandler (1.8.0):
+  - RNGestureHandler (1.7.0):
     - React
   - RNInputMask (4.1.0)
   - RNReanimated (1.10.1):
@@ -594,7 +594,7 @@ SPEC CHECKSUMS:
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNCAsyncStorage: d059c3ee71738c39834a627476322a5a8cd5bf36
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNGestureHandler: 7a5833d0f788dbd107fbb913e09aa0c1ff333c39
+  RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNInputMask: 815461ebdf396beb62cf58916c35cf6930adb991
   RNReanimated: c2bb7438b57a3d987bb2e4e6e4bca94787e30b02
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
