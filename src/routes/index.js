@@ -21,6 +21,7 @@ import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
 import featuresAtivas from '../featureAtivas';
 import features from '../constantes/features';
+import constantes from '../constantes/rotas';
 
 const RootStack = createStackNavigator();
 
@@ -73,7 +74,7 @@ export default function App({ navigationRef }) {
           options={{ headerShown: true }}
         />
         <RootStack.Screen
-          name="clinical management"
+          name={constantes.MANEJO_CLINICO}
           component={ClinicalManagement}
         />
         <RootStack.Screen name="webview" component={WebViewPage} />
