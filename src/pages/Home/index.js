@@ -12,7 +12,7 @@ import ForcaTarefaAntiCorona from './forcatarefaanticorona';
 import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
 import Carrossel from './carrossel';
 import BarraDeStatus from '../../components/barraDeStatus';
-import Servicos from './Servicos/servicos';
+import Servicos from './Servicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
@@ -20,6 +20,7 @@ import MeusConteudos from './MeusConteudos';
 import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import features from '../../constantes/features';
+import LinhasDeCuidado from './LinhasDeCuidado';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -122,6 +123,10 @@ export default function HomeScreen() {
               <MeusConteudos />
             )
           }
+          <Feature
+            name={features.LINHAS_DE_CUIDADO}
+            activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
+          />
           <Feature
             name={features.DISPOR_FORCA_TAREFA_EM_CARROSSEL}
             inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
