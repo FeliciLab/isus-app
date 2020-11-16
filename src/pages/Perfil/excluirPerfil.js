@@ -5,7 +5,7 @@ import {
   View, TouchableOpacity, StyleSheet, Text
 } from 'react-native';
 import {
-  TextInput, DefaultTheme, Button
+  TextInput, DefaultTheme, Button, Checkbox
 } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,7 +16,8 @@ export default function ExcluirPerfil() {
   const [senhaUsuario, alterarSenhaUsuario] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
-  const [mostrarSenha, alterarMostrarSenha] = useState(true);
+  const [ocultarSenha, alterarOcultarSenha] = useState(true);
+  const [estaSelecionado, alterarSelecao] = useState('unchecked');
   const navigation = useNavigation();
 
   const excluirUsuario = async () => {
@@ -98,6 +99,7 @@ export default function ExcluirPerfil() {
     });
   });
 
+
   return (
     <>
     <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
@@ -108,20 +110,32 @@ export default function ExcluirPerfil() {
       </Text>
       <TextInput
         label="Senha"
-        secureTextEntry={mostrarSenha}
+        secureTextEntry={ocultarSenha}
         autoFocus="true"
         onChangeText={(text => onChange(text))}
         style={estilos.campoDeTexto}
         mode="outlined"
         theme={theme}
       />
-      <Button
-        onPress={() => (
-          mostrarSenha ? alterarMostrarSenha(false) : alterarMostrarSenha(true)
-        )}
-      >
-        Mostrar Senha
-      </Button>
+      <View style={estilos.containerCheckBox}>
+        <Checkbox
+          color="#FF9800"
+          labelStyle={estilos.label}
+          style={estilos.checkBox}
+          label="Mostrar Senha"
+          status={estaSelecionado}
+          onPress={() => {
+            if (estaSelecionado === 'checked' && ocultarSenha === false) {
+              alterarSelecao('unchecked');
+              alterarOcultarSenha(true);
+            } else {
+              alterarSelecao('checked');
+              alterarOcultarSenha(false);
+            }
+          }}
+        />
+        <Text>Mostrar Senha</Text>
+      </View>
       {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
       <Button
         style={estilos.botaoHabilitado}
@@ -137,6 +151,7 @@ export default function ExcluirPerfil() {
     </>
   );
 }
+
 
 const estilos = StyleSheet.create({
   tituloDestaque: {
@@ -181,5 +196,14 @@ const estilos = StyleSheet.create({
     fontSize: 13,
     lineHeight: 16,
     fontWeight: '500'
-  }
+  },
+  containerCheckBox: {
+    flexDirection: 'row',
+    marginLeft: 5,
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+  checkBox: {
+    color: '#FF9800',
+  },
 });
