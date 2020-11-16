@@ -4,5 +4,6 @@ export default {
   FORMULARIO_SENHA: 'FormularioSenha',
   EDICAO_PROFISSIONAL: 'EdicaoDadosProfissionais',
   CADASTRO: 'CADASTRO',
-  PERFIL: 'PERFIL'
+  PERFIL: 'PERFIL',
+  MANEJO_CLINICO: 'clinical management'
 };
