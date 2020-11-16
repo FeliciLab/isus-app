@@ -19,26 +19,25 @@ export default function LinhasDeCuidado({ navigation }) {
 
   return (
     <>
-
       <StyledTitulo>Linhas de Cuidado</StyledTitulo>
-        <FlatList
-          horizontal
-          data={listaLinhasDeCuidado}
-          keyExtractor={(item, index) => `${index}`}
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'flex-start'
-          }}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <CartaoHome
-              key={item.id}
-              titulo={item.titulo}
-              Icone={item.icone}
-              onPress={() => navigation.navigate(item.navegacao.componente)}
-            />
-          )}
-        />
+      <FlatList
+        horizontal
+        data={listaLinhasDeCuidado}
+        keyExtractor={(item, index) => `${index}`}
+        style={{
+          flexDirection: 'row',
+          alignSelf: 'flex-start'
+        }}
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <CartaoHome
+            key={item.id}
+            titulo={item.titulo}
+            Icone={item.icone}
+            onPress={() => navigation.navigate(item.navegacao.componente)}
+          />
+        )}
+      />
     </>
   );
 }
