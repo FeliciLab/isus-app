@@ -6,7 +6,8 @@ module.exports = {
   ],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
-    '\\.(css|less)$': 'identity-obj-proxy'
+    '\\.(css|less)$': 'identity-obj-proxy',
+    '\\.svg': '<rootDir>/__mocks__/svgMock.js'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transformIgnorePatterns: [
@@ -24,6 +25,7 @@ module.exports = {
     + '|rn-fetch-blob'
     + '|react-native-safe-area-view'
     + '|react-native-reanimated'
+    + '|react-native-snap-carousel'
     + ')/)',
   ],
   moduleDirectories: [

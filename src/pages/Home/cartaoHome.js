@@ -2,9 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 
-function CartaoHome({ Icone, titulo, onPress }) {
+function CartaoHome({
+  Icone, titulo, onPress, testID
+}) {
   return (
-    <Card elevation={4} style={estilos.espacamento} onPress={onPress}>
+    <Card elevation={4} style={estilos.espacamento} onPress={onPress} testID={testID}>
       <Icone />
       <Card.Content>
         <Paragraph style={estilos.paragrafo}>

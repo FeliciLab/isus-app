@@ -31,6 +31,7 @@ export default function LinhasDeCuidado({ navigation }) {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <CartaoHome
+            testID="teste"
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
