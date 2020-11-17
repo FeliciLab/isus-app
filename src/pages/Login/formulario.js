@@ -74,7 +74,7 @@ function FormularioLogin() {
       label="E-mail"
       mode="outlined"
       placeholder="E-mail"
-      selectionColor="#00000AB"
+      selectionColor="#0000AB"
       value={email}
       onChangeText={textoEmail => alterarEmail(textoEmail)}
       theme={theme}
@@ -87,7 +87,7 @@ function FormularioLogin() {
        onChangeText={textoSenha => alterarSenha(textoSenha)}
        theme={theme}
        label="Senha"
-       selectionColor="#00000AB"
+       selectionColor="#0000AB"
        placeholder="Senha"
        mode="outlined"
        secureTextEntry

@@ -19,12 +19,11 @@ const CaixaDialogo = () => {
       primary: cor
     }
   };
-  console.log(aoCancelar);
   return (
     <View>
       <Portal>
         <Dialog visible={visivel} onDismiss={() => aoCancelar()}>
-          <Dialog.Title>{titulo}</Dialog.Title>
+          {() => ((titulo !== '') ? (<Dialog.Title>{titulo}</Dialog.Title>) : undefined)}
           <Dialog.Content>
             <Paragraph>{texto}</Paragraph>
           </Dialog.Content>

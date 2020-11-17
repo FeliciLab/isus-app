@@ -28,9 +28,7 @@ export async function verificarCPFCadastrado(cpf) {
   return response;
 }
 
-export async function deletarUsuario(senha) {
-  const response = await request.delete('/user', {
-    data: { senha }
-  });
+export async function deletarUsuario() {
+  const response = await request.delete('/user');
   return response;
 }

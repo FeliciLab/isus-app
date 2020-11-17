@@ -5,23 +5,31 @@ import {
   View, TouchableOpacity, StyleSheet, Text
 } from 'react-native';
 import {
-  TextInput, DefaultTheme, Button, Checkbox
+  TextInput, DefaultTheme, Button
 } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deletarUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function ExcluirPerfil() {
-  const [senhaUsuario, alterarSenhaUsuario] = useState({});
+  const [palavra, alterarPalavra] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
-  const [ocultarSenha, alterarOcultarSenha] = useState(true);
-  const [estaSelecionado, alterarSelecao] = useState('unchecked');
   const navigation = useNavigation();
+  const estaFocado = useIsFocused();
+
+  console.log(`estadoFocado: ${estaFocado}`);
+
+  function converterTextoEmMinusculo(texto) {
+    const textoEmMinusculo = texto.toLowerCase();
+    return textoEmMinusculo;
+  }
 
   const excluirUsuario = async () => {
-    if (Object.keys(senhaUsuario).length === 0) {
+    const palavraConvertida = converterTextoEmMinusculo(palavra);
+    console.log(palavraConvertida);
+    if (Object.keys(palavraConvertida).length === 0 || palavraConvertida !== 'excluir') {
       alterarisvalidator(false);
       alterarCorPrimariaSenha('#F2453D');
       setTimeout(() => {
@@ -29,7 +37,7 @@ export default function ExcluirPerfil() {
         alterarisvalidator(true);
       }, 4000);
     } else {
-      deletarUsuario(senhaUsuario)
+      deletarUsuario()
         .then((value) => {
           if (value.status === 200) {
             navigation.navigate('CONTA_EXCLUIDA');
@@ -58,17 +66,16 @@ export default function ExcluirPerfil() {
   };
 
   const onChange = (text) => {
-    console.log(text.length);
-    alterarSenhaUsuario(text);
+    alterarPalavra(text);
   };
 
   // eslint-disable-next-line consistent-return
   const mostrarMensagemErro = (validar) => {
-    console.log({ validar });
+    // console.log({ validar });
     if (validar === false) {
       return (
         <Text style={estilos.infoErro}>
-        Senha Incorreta. Tente novamente ou click em esqueci a senha para redefini-la.
+        Digite a palavra correta.
         </Text>
       );
     }
@@ -105,37 +112,16 @@ export default function ExcluirPerfil() {
     <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
     <View style={estilos.margem}>
       <Text style={estilos.tituloDestaque}>
-        Para ter certeza de que você deseja excluir sua contar,
-        por favor digite sua senha.
+        Para confirmar a exclusão da sua conta no ID Saúde, digite EXCLUIR.
       </Text>
       <TextInput
-        label="Senha"
-        secureTextEntry={ocultarSenha}
-        autoFocus="true"
-        onChangeText={(text => onChange(text))}
+        label="Confirmação de exclusão"
+        autoFocus={estaFocado}
+        onChangeText={text => onChange(text)}
         style={estilos.campoDeTexto}
         mode="outlined"
         theme={theme}
       />
-      <View style={estilos.containerCheckBox}>
-        <Checkbox
-          color="#FF9800"
-          labelStyle={estilos.label}
-          style={estilos.checkBox}
-          label="Mostrar Senha"
-          status={estaSelecionado}
-          onPress={() => {
-            if (estaSelecionado === 'checked' && ocultarSenha === false) {
-              alterarSelecao('unchecked');
-              alterarOcultarSenha(true);
-            } else {
-              alterarSelecao('checked');
-              alterarOcultarSenha(false);
-            }
-          }}
-        />
-        <Text>Mostrar Senha</Text>
-      </View>
       {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
       <Button
         style={estilos.botaoHabilitado}
@@ -154,26 +140,24 @@ export default function ExcluirPerfil() {
 
 
 const estilos = StyleSheet.create({
-  tituloDestaque: {
-    fontWeight: 'normal',
-    fontSize: 24,
-    paddingBottom: 24,
-  },
-  containerView: {
-    backgroundColor: 'red',
-    flex: 1
-  },
   margem: {
-    padding: 15,
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#FFF'
   },
+  tituloDestaque: {
+    fontWeight: 'normal',
+    fontSize: 20,
+    paddingTop: 24,
+    marginLeft: 16,
+    marginRight: 16,
+  },
   campoDeTexto: {
     marginLeft: 16,
     marginRight: 16,
-    marginTop: 16,
-    borderColor: '#FF9800'
+    borderColor: '#FF9800',
+    paddingTop: 29,
+    paddingBottom: 20
   },
   botaoHabilitado: {
     borderRadius: 50,
@@ -182,14 +166,7 @@ const estilos = StyleSheet.create({
     marginRight: 16,
     alignSelf: 'flex-end',
     justifyContent: 'center',
-    backgroundColor: '#F2453D'
-  },
-  infoErro: {
-    marginLeft: 25,
-    marginRight: 16,
-    color: '#FF0C3E',
-    width: 342,
-    height: 32
+    backgroundColor: '#F2453D',
   },
   botaoExcluirConta: {
     color: '#FFFFFF',
@@ -197,13 +174,12 @@ const estilos = StyleSheet.create({
     lineHeight: 16,
     fontWeight: '500'
   },
-  containerCheckBox: {
-    flexDirection: 'row',
-    marginLeft: 5,
-    alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-  checkBox: {
-    color: '#FF9800',
+  infoErro: {
+    marginLeft: 16,
+    marginRight: 16,
+    color: '#FF0C3E',
+    width: 342,
+    height: 26,
+    // backgroundColor: 'red'
   },
 });

@@ -56,27 +56,18 @@ export default function PerfilScreen() {
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {
       titulo: '',
-      texto: 'Tem certeza que deseja remover sua conta? Se removê-la, você perderá todos os conteúdos e preferências salvos.',
+      texto: 'Tem certeza que seja excluir a sua conta? Ao removê-la, os seus dados serão apagados e você perderá o acesso ao iSUS e a todos os serviços vinculados ao ID Saúde.',
       cor: '#FF9800',
-      textoConclusao: 'Remover',
+      textoConclusao: 'Excluir',
       textoCancelamento: 'Voltar',
       aoConcluir: () => {
         fecharCaixaDialogo(); navigation.navigate('EXCLUIR_PERFIL');
       },
-      aoCancelar: () => { console.log('cancelado'); fecharCaixaDialogo(); }
+      aoCancelar: () => { fecharCaixaDialogo(); }
     };
-    mostrarCaixaDialogo(atributosCaixaDialogo);
 
+    mostrarCaixaDialogo(atributosCaixaDialogo);
     console.log('Abrindo caixa...');
-    /*
-    try {
-      await excluir(tokenUsuario);
-    } catch (err) {
-      console.log('erro', err);
-    }
-    await excluirTokenDoUsuarioNoStorage();
-    navigation.navigate('HOME');
-    */
   };
 
   useLayoutEffect(() => {
