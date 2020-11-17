@@ -12,7 +12,8 @@
     "start": "react-native start",
     "fix": "yarn lint --fix",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "post-version": "react-native-version"
   },
   "dependencies": {
     "@paralleldrive/feature-toggles": "^1.0.4",
@@ -90,6 +91,7 @@
     "react-native-fix-image": "^2.0.1",
     "react-native-rename": "^2.4.1",
     "react-native-svg-transformer": "^0.14.3",
+    "react-native-version": "^4.0.0",
     "react-test-renderer": "16.11.0",
     "reactotron-react-native": "^5.0.0"
   },

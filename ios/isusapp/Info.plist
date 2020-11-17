@@ -9,25 +9,21 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 		<string>fb</string>
-
 		<string>twitter</string>
 		<string>twitterauth</string>
-
 		<string>linkedin</string>
 		<string>linkedin-sdk2</string>
 		<string>linkedin-sdk</string>
-
 		<string>youtube</string>
 		<string>vnd.youtube</string>
-
 		<string>instagram</string>
 	</array>
 	<key> LSSupportsOpeningDocumentsInPlace </key>
-	<true/>
+	<true />
 	<key> UIFileSharingEnabled </key>
-	<true/>
+	<true />
 	<key> UISupportsDocumentBrowser </key>
-	<true/>
+	<true />
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -43,7 +39,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
+	<string>3.11.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -60,21 +56,21 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<string>2</string>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<true />
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<true />
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
+				<true />
 			</dict>
 		</dict>
 	</dict>
@@ -114,6 +110,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<false />
 </dict>
 </plist>
