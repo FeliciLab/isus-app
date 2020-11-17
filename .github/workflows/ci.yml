@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - develop
+      - master
 jobs:
   testes:
     name: Teste do App iSUS
