@@ -19,8 +19,6 @@ export default function ExcluirPerfil() {
   const navigation = useNavigation();
   const estaFocado = useIsFocused();
 
-  console.log(`estadoFocado: ${estaFocado}`);
-
   function converterTextoEmMinusculo(texto) {
     const textoEmMinusculo = texto.toLowerCase();
     return textoEmMinusculo;
@@ -28,7 +26,6 @@ export default function ExcluirPerfil() {
 
   const excluirUsuario = async () => {
     const palavraConvertida = converterTextoEmMinusculo(palavra);
-    console.log(palavraConvertida);
     if (Object.keys(palavraConvertida).length === 0 || palavraConvertida !== 'excluir') {
       alterarisvalidator(false);
       alterarCorPrimariaSenha('#F2453D');
@@ -71,11 +68,10 @@ export default function ExcluirPerfil() {
 
   // eslint-disable-next-line consistent-return
   const mostrarMensagemErro = (validar) => {
-    // console.log({ validar });
     if (validar === false) {
       return (
         <Text style={estilos.infoErro}>
-        Digite a palavra correta.
+        Por favor, digite exatamente o texto EXCLUIR para confirmar a exclusão dos seus dados.
         </Text>
       );
     }
@@ -157,13 +153,13 @@ const estilos = StyleSheet.create({
     marginRight: 16,
     borderColor: '#FF9800',
     paddingTop: 29,
-    paddingBottom: 20
   },
   botaoHabilitado: {
     borderRadius: 50,
     width: 148,
     height: 48,
     marginRight: 16,
+    marginTop: 16,
     alignSelf: 'flex-end',
     justifyContent: 'center',
     backgroundColor: '#F2453D',
@@ -179,7 +175,7 @@ const estilos = StyleSheet.create({
     marginRight: 16,
     color: '#FF0C3E',
     width: 342,
-    height: 26,
-    // backgroundColor: 'red'
+    height: 46,
+    fontSize: 14,
   },
 });
