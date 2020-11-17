@@ -12,6 +12,7 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(react-native'
     + '|react-navigation-tabs'
+    + '|react-native-snap-carousel'
     + '|react-native-splash-screen'
     + '|react-native-screens'
     + '|react-native-gesture-handler'

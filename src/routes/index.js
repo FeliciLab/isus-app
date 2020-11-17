@@ -19,9 +19,9 @@ import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
-import featuresAtivas from '../featureAtivas';
 import features from '../constantes/features';
 import constantes from '../constantes/rotas';
+import estaAtiva from '../utils/estaAtiva';
 
 const RootStack = createStackNavigator();
 
@@ -59,7 +59,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name="CADASTRO"
-          options={{ headerShown: !featuresAtivas.includes(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
+          options={{ headerShown: !estaAtiva(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
           component={Cadastro}
         />
         <RootStack.Screen

@@ -6,13 +6,13 @@ import IDSaude from '../../assets/images/ID-Saude.png';
 import CartilhaSaudeMental from '../../assets/images/cartilha-saude-mental.png';
 import ProtocoloSindromeCoronarianaAguda from '../../assets/images/Protocolo-Sindroma-Coronariana-Aguda.png';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import featuresAtivas from '../../featureAtivas';
 import features from '../../constantes/features';
+import estaAtiva from '../../utils/estaAtiva';
 
 const bannersDoCarrossel = () => {
   const { estaLogado } = useContext(AutenticacaoContext);
 
-  if (featuresAtivas.includes(features.LINHAS_DE_CUIDADO)) {
+  if (estaAtiva(features.LINHAS_DE_CUIDADO)) {
     return [
       {
         banner:

@@ -1,10 +1,10 @@
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
-import featuresAtivas from '../../../src/featureAtivas';
 import feature from '../../../src/constantes/features';
 import { DadosUsuarioProfissional } from '../../../src/pages/Perfil/DadosUsuario';
 import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
+import estaAtiva from '../../../src/utils/estaAtiva';
 
 const mockedNavigate = jest.fn();
 
@@ -15,7 +15,7 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
-if (featuresAtivas.includes(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
+if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
   test('verifica se o botao de edicao esta na tela', () => {
     const {
       getByTestId

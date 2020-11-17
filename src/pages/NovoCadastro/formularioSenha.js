@@ -11,8 +11,8 @@ import {
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
 import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
-import featuresAtivas from '../../featureAtivas';
 import features from '../../constantes/features';
+import estaAtiva from '../../utils/estaAtiva';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -80,7 +80,7 @@ export default function FormularioSenha({ navigation }) {
 
   const aposCadastro = async (resultado) => {
     if (resultado.sucesso) {
-      if (featuresAtivas.includes(features.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO)) {
+      if (estaAtiva(features.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO)) {
         const dados = tratarDadosCadastro(getValues());
 
         const response = await autenticarComIdSaude(dados.email, dados.senha);
