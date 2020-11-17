@@ -75,7 +75,7 @@ export default function ExcluirPerfil() {
     if (validar === false) {
       return (
         <Text style={estilos.infoErro}>
-        Digite a palavra correta.
+        Por favor, digite exatamente o texto EXCLUIR para confirmar a exclusão dos seus dados.
         </Text>
       );
     }
