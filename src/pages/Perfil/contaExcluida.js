@@ -2,7 +2,7 @@ import React, {
   useLayoutEffect, useEffect
 } from 'react';
 import {
-  View, StyleSheet, Text, Image, BackHandler, Alert
+  View, StyleSheet, Text, Image, BackHandler
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -14,15 +14,8 @@ export default function ExcluirPerfil() {
 
   useEffect(() => {
     const backAction = () => {
-      Alert.alert('Ops!', 'Impossível voltar para o App', [
-        {
-          text: 'Criar Conta',
-          onPress: () => navigation.navigate('LOGIN'),
-          style: 'cancel'
-        },
-        { text: 'Iniciar App', onPress: () => navigation.navigate('Home') }
-      ]);
-      return true;
+      console.log('backAction');
+      navigation.navigate('HOME');
     };
 
     const backHandler = BackHandler.addEventListener(
@@ -66,7 +59,7 @@ export default function ExcluirPerfil() {
               color="#fff"
               mode="contained"
               style={estilos.botaoOk}
-              onPress={() => navigation.navigate('LOGIN')}
+              onPress={() => navigation.navigate('HOME')}
             >
             OK
             </Button>

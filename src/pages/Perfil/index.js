@@ -56,7 +56,7 @@ export default function PerfilScreen() {
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {
       titulo: '',
-      texto: 'Tem certeza que seja excluir a sua conta? Ao removê-la, os seus dados serão apagados e você perderá o acesso ao iSUS e a todos os serviços vinculados ao ID Saúde.',
+      texto: 'Tem certeza que deseja excluir a sua conta? Ao removê-la, os seus dados serão apagados e você perderá o acesso ao iSUS e a todos os serviços vinculados ao ID Saúde.',
       cor: '#FF9800',
       textoConclusao: 'Excluir',
       textoCancelamento: 'Voltar',

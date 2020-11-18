@@ -11,32 +11,34 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deletarUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
+import { logout } from '../../apis/apiKeycloak';
+import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+
 
 export default function ExcluirPerfil() {
   const [palavra, alterarPalavra] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
+  // const [tokenUsuario, alterarTokenUsuario] = useState({});
   const navigation = useNavigation();
   const estaFocado = useIsFocused();
 
-  function converterTextoEmMinusculo(texto) {
-    const textoEmMinusculo = texto.toLowerCase();
-    return textoEmMinusculo;
-  }
+  const realizarLogout = async () => {
+    try {
+      const token = await pegarTokenDoUsuarioNoStorage();
+      await logout(token);
+    } catch (err) {
+      console.log('erro', err);
+    }
+    await excluirTokenDoUsuarioNoStorage();
+  };
 
-  const excluirUsuario = async () => {
-    const palavraConvertida = converterTextoEmMinusculo(palavra);
-    if (Object.keys(palavraConvertida).length === 0 || palavraConvertida !== 'excluir') {
-      alterarisvalidator(false);
-      alterarCorPrimariaSenha('#F2453D');
-      setTimeout(() => {
-        alterarCorPrimariaSenha('#FF9800');
-        alterarisvalidator(true);
-      }, 4000);
-    } else {
+  const excluirUsuario = () => {
+    if (Object.keys(palavra).length !== 0 && palavra === 'EXCLUIR') {
       deletarUsuario()
         .then((value) => {
           if (value.status === 200) {
+            realizarLogout();
             navigation.navigate('CONTA_EXCLUIDA');
           }
         }).catch((error) => {
@@ -48,6 +50,13 @@ export default function ExcluirPerfil() {
             alterarCorPrimariaSenha('#FF9800');
           }, 4000);
         });
+    } else {
+      alterarisvalidator(false);
+      alterarCorPrimariaSenha('#F2453D');
+      setTimeout(() => {
+        alterarCorPrimariaSenha('#FF9800');
+        alterarisvalidator(true);
+      }, 4000);
     }
   };
 
@@ -120,6 +129,7 @@ export default function ExcluirPerfil() {
       />
       {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
       <Button
+        testID="botao-excluir-perfil"
         style={estilos.botaoHabilitado}
         mode="contained"
         labelStyle={estilos.botaoExcluirConta}
