@@ -17,7 +17,7 @@ jest.mock('@react-navigation/native', () => ({
 
 
 if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
-  test('verifica se o botao de adicao esta na tela', () => {
+  test('botao de adicao deve estar na tela', () => {
     const {
       getByTestId
     } = render(<DadosUsuarioProfissional dados={dadosUsuarioSemInfoProfissional} />,);
@@ -26,7 +26,7 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
     expect(botao).not.toBeNull();
   });
 
-  test('adicao de informações profissionais', () => {
+  test('deve chamar navigate ao clicar no botao de adicionar', () => {
     const {
       getByTestId
     } = render(<DadosUsuarioProfissional dados={dadosUsuarioSemInfoProfissional} />,);
