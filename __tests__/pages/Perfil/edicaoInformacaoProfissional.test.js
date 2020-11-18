@@ -25,7 +25,7 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
     expect(botao).not.toBeNull();
   });
 
-  test('edicao de informações profissionais', () => {
+  test('deve chamar navigate ao clicar no botao de editar', () => {
     const {
       getByTestId
     } = render(<DadosUsuarioProfissional dados={dadosUsuario} />,);

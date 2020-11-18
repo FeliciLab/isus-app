@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 describe('apiHome', () => {
-  it('faz requisição de alerta de falta de epi com versao do manejo e plataforma iOS', () => {
+  it('deve fazer requisição de alerta de falta de epi com versao do manejo e plataforma iOS', () => {
     const descricao = 'Teste';
     const unidadeDeSaude = 'abc';
     const email = 'teste@teste.com';
@@ -24,7 +24,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz requisição de alerta de falta de epi com versao do manejo e plataforma Android', () => {
+  it('deve fazer requisição de alerta de falta de epi com versao do manejo e plataforma Android', () => {
     const descricao = 'Teste';
     const unidadeDeSaude = 'abc';
     const email = 'teste@teste.com';
@@ -38,7 +38,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz requisição de demanda por educação permanente com versao do manejo e plataforma iOS', () => {
+  it('deve fazer requisição de demanda por educação permanente com versao do manejo e plataforma iOS', () => {
     const descricao = 'Teste';
     const unidadeDeSaude = 'abc';
     const email = 'teste@teste.com';
@@ -52,7 +52,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz requisição de ademanda por educação permanente com versao do manejo e plataforma Android', () => {
+  it('deve fazer requisição de ademanda por educação permanente com versao do manejo e plataforma Android', () => {
     const descricao = 'Teste';
     const unidadeDeSaude = 'abc';
     const email = 'teste@teste.com';
@@ -66,7 +66,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz a requisição de Feedback, com imagem, com a versão do manejo e plataforma android', () => {
+  it('deve fazer a requisição de Feedback, com imagem, com a versão do manejo e plataforma android', () => {
     const tipoDeFeedback = 'sugestão';
     const texto = 'texto de teste';
     const email = 'teste@teste.com';
@@ -81,7 +81,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz a requisição de Feedback, com imagem, com a versão do manejo e plataforma iOS', () => {
+  it('deve fazer requisição de Feedback, com imagem, com a versão do manejo e plataforma iOS', () => {
     const tipoDeFeedback = 'sugestão';
     const texto = 'texto de teste';
     const email = 'teste@teste.com';
@@ -96,7 +96,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz a requisição de Feedback, com imagem, com a versão do manejo e plataforma iOS', () => {
+  it('deve fazer requisição de Feedback, com imagem, com a versão do manejo e plataforma iOS', () => {
     const tipoDeFeedback = 'sugestão';
     const texto = 'texto de teste';
     const email = 'teste@teste.com';
@@ -111,7 +111,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz a requisição de Feedback, sem imagem, com a versão do manejo e plataforma android', () => {
+  it('deve fazer requisição de Feedback, sem imagem, com a versão do manejo e plataforma android', () => {
     const tipoDeFeedback = 'sugestão';
     const texto = 'texto de teste';
     const email = 'teste@teste.com';
@@ -126,7 +126,7 @@ describe('apiHome', () => {
     });
   });
 
-  it('faz a requisição de Feedback, sem imagem, com a versão do manejo e plataforma ios', () => {
+  it('deve fazer requisição de Feedback, sem imagem, com a versão do manejo e plataforma ios', () => {
     const tipoDeFeedback = 'sugestão';
     const texto = 'texto de teste';
     const email = 'teste@teste.com';
