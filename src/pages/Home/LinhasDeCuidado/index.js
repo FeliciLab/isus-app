@@ -19,7 +19,7 @@ export default function LinhasDeCuidado({ navigation }) {
 
   return (
     <>
-      <StyledTitulo>Linhas de Cuidado</StyledTitulo>
+      <StyledTitulo>Linhas de Cuidado e Protocolos</StyledTitulo>
       <FlatList
         horizontal
         data={listaLinhasDeCuidado}
