@@ -9,7 +9,7 @@ export default function LinhasDeCuidado({ navigation }) {
   const listaLinhasDeCuidado = [
     {
       id: 'linha-1',
-      titulo: 'Manejo Clínico',
+      titulo: 'Manejo Covid-19',
       icone: ManejoClinico,
       navegacao: {
         componente: rotas.MANEJO_CLINICO
@@ -19,7 +19,7 @@ export default function LinhasDeCuidado({ navigation }) {
 
   return (
     <>
-      <StyledTitulo>Linhas de Cuidado e Protocolos</StyledTitulo>
+      <StyledTitulo>Linhas de Cuidados e Protocolos</StyledTitulo>
       <FlatList
         horizontal
         data={listaLinhasDeCuidado}

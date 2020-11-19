@@ -14,8 +14,8 @@ export default function ExcluirPerfil() {
 
   useEffect(() => {
     const backAction = () => {
-      console.log('backAction');
       navigation.navigate('HOME');
+      return true;
     };
 
     const backHandler = BackHandler.addEventListener(
