@@ -14,23 +14,22 @@ import BarraDeStatus from '../../components/barraDeStatus';
 import { logout } from '../../apis/apiKeycloak';
 import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 
-
 export default function ExcluirPerfil() {
   const [palavra, alterarPalavra] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
-  // const [tokenUsuario, alterarTokenUsuario] = useState({});
   const navigation = useNavigation();
   const estaFocado = useIsFocused();
 
-  const realizarLogout = async () => {
+  const realizarLogout = () => {
     try {
-      const token = await pegarTokenDoUsuarioNoStorage();
-      await logout(token);
+      const token = pegarTokenDoUsuarioNoStorage();
+      console.log(token);
+      logout(token);
     } catch (err) {
       console.log('erro', err);
     }
-    await excluirTokenDoUsuarioNoStorage();
+    excluirTokenDoUsuarioNoStorage();
   };
 
   const excluirUsuario = () => {
