@@ -8,7 +8,7 @@ import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVentiladores.svg';
 import CartaoHome from '../cartaoHome';
 
-function NovaForcaTarefa({ navigation }) {
+function ForcaTarefa({ navigation }) {
   const listaForcaTarefaAntiCorona = [
     {
       id: 'acao-1',
@@ -97,4 +97,4 @@ const estilos = StyleSheet.create({
   }
 });
 
-export default NovaForcaTarefa;
+export default ForcaTarefa;
