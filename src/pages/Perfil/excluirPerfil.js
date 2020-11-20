@@ -1,30 +1,43 @@
 import React, {
-  useLayoutEffect, useState
+  useLayoutEffect, useState, useRef, useEffect
 } from 'react';
 import {
-  View, TouchableOpacity, StyleSheet, Text
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  Alert,
+  AppState,
+  BackHandler
 } from 'react-native';
 import {
   TextInput, DefaultTheme, Button
 } from 'react-native-paper';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deletarUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import { logout } from '../../apis/apiKeycloak';
-import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  pegarTokenDoUsuarioNoStorage,
+  excluirTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
 
 export default function ExcluirPerfil() {
   const [palavra, alterarPalavra] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
   const navigation = useNavigation();
-  const estaFocado = useIsFocused();
+  const refEntradaTexto = useRef(null);
+  const appState = useRef(AppState.currentState);
+  let estaConectado = true;
+  const estaFocado = true;
 
   const realizarLogout = () => {
     try {
       const token = pegarTokenDoUsuarioNoStorage();
-      console.log(token);
+      // console.log(token);
       logout(token);
     } catch (err) {
       console.log('erro', err);
@@ -33,6 +46,24 @@ export default function ExcluirPerfil() {
   };
 
   const excluirUsuario = () => {
+    // eslint-disable-next-line no-unused-vars
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      // console.log('Connection type', state.type);
+      estaConectado = state.isConnected;
+      // console.log('Esta conectado?', estaConectado);
+    });
+    if (!estaConectado) {
+      refEntradaTexto.current.clear();
+      Alert.alert(
+        'Sem conexão com a internet',
+        'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
+        [{
+          text: 'OK',
+          onPress: () => { navigation.navigate('HOME'); }
+        }]
+      );
+    }
+
     if (Object.keys(palavra).length !== 0 && palavra === 'EXCLUIR') {
       deletarUsuario()
         .then((value) => {
@@ -42,6 +73,9 @@ export default function ExcluirPerfil() {
           }
         }).catch((error) => {
           console.log(error);
+          // if (error.isFatal) {
+          //   console.log(`Error is fatal and is a: ${error.message}`);
+          // }
           alterarisvalidator(false);
           alterarCorPrimariaSenha('#F2453D');
           setTimeout(() => {
@@ -85,6 +119,37 @@ export default function ExcluirPerfil() {
     }
   };
 
+  const handleAppStateChange = (nextAppState) => {
+    if (
+      appState.current.match(/inactive|background/)
+      && nextAppState === 'active'
+    ) {
+      console.log('Come back of backgroud!');
+    }
+    refEntradaTexto.current.clear();
+    appState.current = nextAppState;
+    // console.log('AppState', appState.current);
+  };
+
+  useEffect(() => {
+    AppState.addEventListener('change', handleAppStateChange);
+    const backAction = () => {
+      navigation.goBack();
+      refEntradaTexto.current.clear();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+      backHandler.remove();
+    };
+  }, []);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -101,6 +166,7 @@ export default function ExcluirPerfil() {
             marginHorizontal: 19
           }}
           onPress={() => {
+            refEntradaTexto.current.clear();
             navigation.goBack();
           }}
         >
@@ -109,7 +175,6 @@ export default function ExcluirPerfil() {
       )
     });
   });
-
 
   return (
     <>
@@ -125,6 +190,7 @@ export default function ExcluirPerfil() {
         style={estilos.campoDeTexto}
         mode="outlined"
         theme={theme}
+        ref={refEntradaTexto}
       />
       {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
       <Button
