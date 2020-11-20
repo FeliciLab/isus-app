@@ -75,10 +75,7 @@ function MostrarDadosUsuarioProfissional(dados) {
           dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
         }
       </Text>
-      <Feature
-        name={features.MOSTRAR_ESPECIALIDADES_NO_PERFIL}
-        activeComponent={() => <Especialidades dados={dados} />}
-      />
+      <Especialidades dados={dados} />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
         {
