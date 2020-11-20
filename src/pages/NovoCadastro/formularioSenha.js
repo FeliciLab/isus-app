@@ -11,8 +11,6 @@ import {
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
 import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
-import features from '../../constantes/features';
-import estaAtiva from '../../utils/estaAtiva';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -80,19 +78,15 @@ export default function FormularioSenha({ navigation }) {
 
   const aposCadastro = async (resultado) => {
     if (resultado.sucesso) {
-      if (estaAtiva(features.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO)) {
-        const dados = tratarDadosCadastro(getValues());
+      const dados = tratarDadosCadastro(getValues());
 
-        const response = await autenticarComIdSaude(dados.email, dados.senha);
-        if (response.sucesso) {
-          await salvarTokenDoUsuarioNoStorage(response.mensagem);
-          await pegarTokenDoUsuarioNoStorage();
-        }
-
-        navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
-      } else {
-        navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      const response = await autenticarComIdSaude(dados.email, dados.senha);
+      if (response.sucesso) {
+        await salvarTokenDoUsuarioNoStorage(response.mensagem);
+        await pegarTokenDoUsuarioNoStorage();
       }
+
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
       return;
     }
     let mensagemErro;
