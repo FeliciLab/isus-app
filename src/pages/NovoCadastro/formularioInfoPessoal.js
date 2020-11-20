@@ -24,8 +24,6 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
-import features from '../../constantes/features';
-import estaAtiva from '../../utils/estaAtiva';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
@@ -73,29 +71,18 @@ export default function FormularioInfoPessoal({ navigation }) {
       },
       maxLength: 14
     });
-    if (estaAtiva(features.IMPLEMENTAR_VALIDAÇÃO_CPF)) {
-      register('cpf', {
-        required: true,
-        minLength: {
-          value: 11,
-          message: textos.formularioPessoal.mensagemCPF
-        },
-        validate: {
-          cpfValido: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
-          cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf) || textos.formularioPessoal.mensagemCPFExistente
-        },
-        maxLength: 14
-      });
-    } else {
-      register('cpf', {
-        required: true,
-        minLength: {
-          value: 11,
-          message: textos.formularioPessoal.mensagemCPF
-        },
-        maxLength: 14
-      });
-    }
+    register('cpf', {
+      required: true,
+      minLength: {
+        value: 11,
+        message: textos.formularioPessoal.mensagemCPF
+      },
+      validate: {
+        cpfValido: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
+        cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf) || textos.formularioPessoal.mensagemCPFExistente
+      },
+      maxLength: 14
+    });
     register('cidade', {
       required: true
     });
