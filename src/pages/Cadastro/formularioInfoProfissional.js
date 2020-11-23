@@ -46,7 +46,6 @@ function FormularioInfoProfissional() {
       alterarListaDeCategorias(categorias);
 
       const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
-      console.log('especialidades', especialidades);
       alterarListaDeEspecialidades(especialidades);
       especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
     };
@@ -62,7 +61,6 @@ function FormularioInfoProfissional() {
         if (value === 1 || value === 3) {
           const aoEspecialidades = async () => {
             const especialidades = await pegarListaDeEspecialidades(value);
-            console.log('especialidades', especialidades);
             alterarListaDeEspecialidades(especialidades);
             especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
           };

@@ -10,7 +10,6 @@ import CartaoDeConteudo from './CartaoDeConteudo';
 function MeusConteudos({ route }) {
   const navigation = useNavigation();
   const { conteudos } = route.params;
-  console.log('conteudos', route);
 
   useLayoutEffect(() => {
     navigation.setOptions({

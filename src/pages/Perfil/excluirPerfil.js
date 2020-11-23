@@ -48,9 +48,7 @@ export default function ExcluirPerfil() {
   const excluirUsuario = () => {
     // eslint-disable-next-line no-unused-vars
     const unsubscribe = NetInfo.addEventListener((state) => {
-      // console.log('Connection type', state.type);
       estaConectado = state.isConnected;
-      // console.log('Esta conectado?', estaConectado);
     });
     if (!estaConectado) {
       refEntradaTexto.current.clear();
@@ -73,9 +71,6 @@ export default function ExcluirPerfil() {
           }
         }).catch((error) => {
           console.log(error);
-          // if (error.isFatal) {
-          //   console.log(`Error is fatal and is a: ${error.message}`);
-          // }
           alterarisvalidator(false);
           alterarCorPrimariaSenha('#F2453D');
           setTimeout(() => {
@@ -128,7 +123,6 @@ export default function ExcluirPerfil() {
     }
     refEntradaTexto.current.clear();
     appState.current = nextAppState;
-    // console.log('AppState', appState.current);
   };
 
   useEffect(() => {
