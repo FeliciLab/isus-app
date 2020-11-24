@@ -27,6 +27,7 @@ module.exports = {
     + '|react-native-safe-area-view'
     + '|react-native-reanimated'
     + '|react-native-snap-carousel'
+    + '|react-native-community/netinfo'
     + ')/)',
   ],
   moduleDirectories: [

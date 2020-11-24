@@ -80,6 +80,8 @@ target 'isusapp' do
 
   # CodePush plugin dependency
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'isusappTests' do
     inherit! :complete
     # Pods for testing
