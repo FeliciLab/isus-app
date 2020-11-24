@@ -234,8 +234,6 @@ function EdicaoInfoProfissional({ route }) {
     const {
       email, name, telefone, cpf, municipio, categoriaProfissional, especialidades, unidadeServico
     } = campos;
-    console.log('especialidade', especialidades);
-    console.log('unidadeServico', unidadeServico);
     return {
       email,
       nomeCompleto: name,

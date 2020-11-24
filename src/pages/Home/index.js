@@ -54,7 +54,6 @@ export default function HomeScreen() {
           alterarTokenUsuario(token);
           try {
             const perfil = await perfilUsuario();
-            console.log('retornar', perfil.data);
             alterarDadosUsuario(perfil.data);
             alterarEstaLogado(true);
           } catch (err) {

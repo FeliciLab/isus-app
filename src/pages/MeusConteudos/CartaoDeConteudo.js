@@ -9,7 +9,6 @@ import moment from 'moment';
 export default function CartaoDeConteudo(props) {
   const { conteudo } = props;
   const navigation = useNavigation();
-  console.log('conteudo', conteudo);
   return (
     <Surface>
       <TouchableOpacity style={estilos.cartao} onPress={() => navigation.navigate('Descrição', { object: { ...conteudo, categoria_id: 700 }, title: conteudo.post_title })}>

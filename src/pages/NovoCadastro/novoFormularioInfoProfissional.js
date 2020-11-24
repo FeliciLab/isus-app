@@ -246,7 +246,6 @@ function FormularioInfoProfissional({ navigation, route }) {
   const adicionarInformaçõesProfissionais = async () => {
     alterarCarregando(true);
     const { categoriaProfissional, especialidades, unidadeServico } = getValues();
-    console.log('getValues:', getValues());
     const usuarioTratado = tratarCamposDeUsuario(
       {
         ...perfildoUsuario, categoriaProfissional, especialidades, unidadeServico

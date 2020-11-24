@@ -19,7 +19,6 @@ export function getProjectPorId(item) {
 }
 
 export async function pegarProjetosPorProfissional() {
-  console.log('token');
   return request.get('projetos-por-profissional');
 }
 

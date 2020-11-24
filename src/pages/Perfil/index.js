@@ -32,7 +32,6 @@ export default function PerfilScreen() {
         alterarTokenUsuario(token);
         try {
           const perfil = await perfilUsuario();
-          console.log('retornar', perfil.data);
           alterarDadosUsuario(perfil.data);
           salvarDados('perfil', perfil.data);
         } catch (err) {
