@@ -5,5 +5,6 @@ export default {
   EDICAO_PROFISSIONAL: 'EdicaoDadosProfissionais',
   CADASTRO: 'CADASTRO',
   PERFIL: 'PERFIL',
-  MANEJO_CLINICO: 'clinical management'
+  MANEJO_CLINICO: 'clinical management',
+  DENUNCIAR: 'DENUNCIAR'
 };

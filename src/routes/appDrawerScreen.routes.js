@@ -16,6 +16,7 @@ import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
 import ContaExcluida from '../pages/Perfil/contaExcluida';
+import Denunciar from '../pages/Denunciar';
 
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
@@ -44,7 +45,17 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
       <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
       <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />
+      <Drawer.Screen name="DENUNCIAR" component={DenunciarAccountScreen} />
     </Drawer.Navigator>
+  );
+}
+
+const DenunciarAccountStack = createStackNavigator();
+function DenunciarAccountScreen() {
+  return (
+    <DenunciarAccountStack.Navigator>
+      <DenunciarAccountStack.Screen name="DENUNCIAR" component={Denunciar} options={{ headerShown: true }} />
+    </DenunciarAccountStack.Navigator>
   );
 }
 

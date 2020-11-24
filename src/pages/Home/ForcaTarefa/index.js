@@ -6,6 +6,8 @@ import NotificacaoDeCasos from '../../../assets/icons/forcaTarefa/notificacaoDeC
 import FarmacoVigilancia from '../../../assets/icons/forcaTarefa/farmacoVigilancia.svg';
 import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVentiladores.svg';
+import Denuncias from '../../../assets/icons/forcaTarefa/denuncias.svg';
+import rotas from '../../../constantes/rotas';
 import CartaoHome from '../cartaoHome';
 
 function ForcaTarefa({ navigation }) {
@@ -58,6 +60,15 @@ function ForcaTarefa({ navigation }) {
         componente: 'webview',
         titulo: 'Central de Ventiladores',
         url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
+      }
+    },
+    {
+      id: 'acao-6',
+      titulo: 'Denunciar',
+      icone: Denuncias,
+      navegacao: {
+        componente: rotas.DENUNCIAR,
+        titulo: 'Denunciar'
       }
     }
   ];
