@@ -64,7 +64,7 @@ function ForcaTarefa({ navigation }) {
     },
     {
       id: 'acao-6',
-      titulo: 'Denunciar',
+      titulo: 'Denúncias',
       icone: Denuncias,
       navegacao: {
         componente: rotas.DENUNCIAR,
