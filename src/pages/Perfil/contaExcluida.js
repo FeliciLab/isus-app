@@ -2,7 +2,7 @@ import React, {
   useLayoutEffect, useEffect
 } from 'react';
 import {
-  View, StyleSheet, Text, Image, BackHandler
+  View, StyleSheet, Text, Image, BackHandler, Dimensions, ScrollView
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -41,13 +41,13 @@ export default function ExcluirPerfil() {
   return (
     <>
     <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
-    <View style={{ flex: 1, flexDirection: 'column' }}>
-        <View style={{ height: 50, backgroundColor: '#4054B2' }} />
-        <View style={{ height: 50, flex: 2, backgroundColor: '#4054B2' }}>
-            <Image
-              style={estilos.imagemUser}
-              source={accountDelete}
-            />
+    <ScrollView>
+    <View style={estilos.container}>
+        <View style={estilos.parteCenter}>
+        <Image
+          style={estilos.imagemUser}
+          source={accountDelete}
+        />
             <Text style={estilos.textoInfo}>
             Conta excluída com sucesso.
             Esta ação não pode ser desfeita, mas você pode criar novamente uma conta quando quiser.
@@ -64,19 +64,35 @@ export default function ExcluirPerfil() {
             OK
             </Button>
         </View>
-        <View style={{ height: 50, backgroundColor: '#4054B2' }} />
     </View>
+    </ScrollView>
     </>
   );
 }
+const widthView = (Dimensions.get('window').width);
+const heightViewAux = (Dimensions.get('window').height) / 2;
+const heightView = (Dimensions.get('window').height);
 
 const estilos = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    width: widthView,
+    flexDirection: 'row',
+    flex: 1
+  },
+  parteCenter: {
+    alignSelf: 'center',
+    height: heightView,
+    backgroundColor: '#4054B2',
+    flex: 1
+  },
   imagemUser: {
     alignSelf: 'center',
     alignItems: 'flex-end',
   },
   textoInfo: {
-    width: 378,
+    width: widthView - (widthView * 0.05),
     color: '#fff',
     alignSelf: 'center',
     marginTop: 32,
@@ -88,7 +104,7 @@ const estilos = StyleSheet.create({
     width: 145,
     alignSelf: 'center',
     justifyContent: 'center',
-    borderRadius: 50,
+    borderRadius: heightViewAux,
     height: 48,
     marginTop: 37
   }
