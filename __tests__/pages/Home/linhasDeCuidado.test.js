@@ -12,7 +12,7 @@ const navigation = {
 if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
   test('deve chamar navigate ao clicar no item', () => {
     const { getByTestId } = render(<LinhasDeCuidado navigation={navigation} />);
-    const item = getByTestId('cartaoHome-linhasDeCuidado-linha-1');
+    const item = getByTestId('cartaoHome-linhasDeCuidado-manejoCovid');
     fireEvent.press(item);
 
     expect(navigation.navigate).toHaveBeenCalled();
@@ -20,7 +20,7 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
 
   test('deve renderizar o cartão Home', () => {
     const { getByTestId } = render(<LinhasDeCuidado navigation={navigation} />);
-    const item = getByTestId('cartaoHome-linhasDeCuidado-linha-1');
+    const item = getByTestId('cartaoHome-linhasDeCuidado-manejoCovid');
     expect(item).not.toBeNull();
   });
 }

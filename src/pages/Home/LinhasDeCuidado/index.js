@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.svg';
+import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
 import StyledTitulo from './styles';
 import rotas from '../../../constantes/rotas';
 import CartaoHome from '../cartaoHome';
@@ -8,12 +9,23 @@ import CartaoHome from '../cartaoHome';
 export default function LinhasDeCuidado({ navigation }) {
   const listaLinhasDeCuidado = [
     {
-      id: 'linha-1',
+      id: 'manejoCovid',
       titulo: 'Manejo Covid-19',
       ativo: true,
       icone: ManejoClinico,
       navegacao: {
         componente: rotas.MANEJO_CLINICO
+      }
+    },
+    {
+      id: 'protocolos',
+      titulo: 'Protocolos',
+      ativo: true,
+      icone: Protocolos,
+      navegacao: {
+        componente: 'webview',
+        titulo: 'Protocolos',
+        url: 'https://coronavirus.ceara.gov.br/isus/protocolos/'
       }
     }
   ];
@@ -37,7 +49,10 @@ export default function LinhasDeCuidado({ navigation }) {
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => navigation.navigate(item.navegacao.componente)}
+            onPress={() => navigation.navigate(item.navegacao.componente, {
+              title: item.navegacao.titulo,
+              url: item.navegacao.url
+            })}
           />
         )}
       />
