@@ -14,6 +14,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-1',
       titulo: 'IntegraSUS',
+      ativo: true,
       icone: Servico1,
       navegacao: {
         componente: 'webview',
@@ -24,6 +25,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-2',
       titulo: 'SUS no Ceará',
+      ativo: true,
       icone: Servico2,
       navegacao: {
         componente: 'SUS_NO_CEARA'
@@ -32,6 +34,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-3',
       titulo: 'Fale Conosco',
+      ativo: true,
       icone: Servico3,
       navegacao: {
         componente: 'FEEDBACK'
@@ -40,6 +43,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-4',
       titulo: 'Ações do governo',
+      ativo: true,
       icone: Servico4,
       navegacao: {
         componente: 'webview',
@@ -51,6 +55,7 @@ function Servicos({ navigation }) {
       id: 'services-5',
       titulo: 'ESP',
       icone: Servico5,
+      ativo: true,
       navegacao: {
         componente: 'webview',
         titulo: 'ESP',
@@ -60,6 +65,7 @@ function Servicos({ navigation }) {
     {
       id: 'services-6',
       titulo: 'ESP Virtual',
+      ativo: true,
       icone: Servico6,
       navegacao: {
         componente: 'browser',
@@ -85,6 +91,7 @@ function Servicos({ navigation }) {
         renderItem={({ item }) => (
           <CartaoHome
             key={item.id}
+            ativo={item.ativo}
             titulo={item.titulo}
             Icone={item.icone}
             onPress={() => (item.navegacao.componente !== 'browser'

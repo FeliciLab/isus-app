@@ -9,12 +9,15 @@ import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVe
 import Denuncias from '../../../assets/icons/forcaTarefa/denuncias.svg';
 import rotas from '../../../constantes/rotas';
 import CartaoHome from '../cartaoHome';
+import features from '../../../constantes/features';
+import estaAtiva from '../../../utils/estaAtiva';
 
 function ForcaTarefa({ navigation }) {
   const listaForcaTarefaAntiCorona = [
     {
       id: 'acao-1',
       titulo: 'Boletins',
+      ativo: true,
       icone: Boletins,
       navegacao: {
         componente: 'webview',
@@ -25,6 +28,7 @@ function ForcaTarefa({ navigation }) {
     {
       id: 'acao-2',
       titulo: 'Notificação de casos',
+      ativo: true,
       icone: NotificacaoDeCasos,
       navegacao: {
         componente: 'webview',
@@ -35,6 +39,7 @@ function ForcaTarefa({ navigation }) {
     {
       id: 'acao-3',
       titulo: 'Farmaco-vigilância',
+      ativo: true,
       icone: FarmacoVigilancia,
       navegacao: {
         componente: 'webview',
@@ -45,6 +50,7 @@ function ForcaTarefa({ navigation }) {
     {
       id: 'acao-4',
       titulo: 'Notas Técnicas',
+      ativo: true,
       icone: NotasTecnicas,
       navegacao: {
         componente: 'webview',
@@ -55,6 +61,7 @@ function ForcaTarefa({ navigation }) {
     {
       id: 'acao-5',
       titulo: 'Central de Ventiladores',
+      ativo: true,
       icone: CentralDeVentiladores,
       navegacao: {
         componente: 'webview',
@@ -65,6 +72,7 @@ function ForcaTarefa({ navigation }) {
     {
       id: 'acao-6',
       titulo: 'Denúncias',
+      ativo: estaAtiva(features.DENUNCIAR),
       icone: Denuncias,
       navegacao: {
         componente: rotas.DENUNCIAR,
@@ -76,7 +84,6 @@ function ForcaTarefa({ navigation }) {
   return (
     <>
       <Title style={estilos.titulo}>Força-tarefa Anticorona</Title>
-
       <FlatList
         horizontal
         data={listaForcaTarefaAntiCorona}
@@ -89,6 +96,7 @@ function ForcaTarefa({ navigation }) {
         renderItem={({ item }) => (
           <CartaoHome
             key={item.id}
+            ativo={item.ativo}
             titulo={item.titulo}
             Icone={item.icone}
             onPress={() => navigation.navigate(item.navegacao.componente, {
