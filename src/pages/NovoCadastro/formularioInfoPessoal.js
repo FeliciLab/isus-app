@@ -10,6 +10,7 @@ import { TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNetInfo } from '@react-native-community/netinfo';
 import {
   emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado
 } from '../../utils/validadores';
@@ -24,12 +25,16 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
+import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = React.useContext(CaixaDialogoContext);
+
+  const netInfo = useNetInfo();
 
   const theme = {
     ...DefaultTheme,
@@ -96,6 +101,20 @@ export default function FormularioInfoPessoal({ navigation }) {
       }
     });
     return teste;
+  };
+
+  const abrirCaixaDialogo = async () => {
+    const atributosCaixaDialogo = {
+      titulo: 'Sem conexão com a internet',
+      texto: 'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
+      cor: '#FF9800',
+      textoConclusao: 'OK',
+      aoConcluir: () => {
+        fecharCaixaDialogo();
+      }
+    };
+
+    mostrarCaixaDialogo(atributosCaixaDialogo);
   };
 
   useLayoutEffect(() => {
@@ -253,7 +272,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           label="Próximo"
           labelStyle={{ color: '#fff' }}
           mode="contained"
-          onPress={() => navigation.navigate('FormularioInfoProfissional')}
+          onPress={() => (netInfo.isConnected ? navigation.navigate('FormularioInfoProfissional') : abrirCaixaDialogo())}
         >
           Próximo
         </Botao>
