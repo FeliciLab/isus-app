@@ -108,8 +108,12 @@ export default function FormularioInfoPessoal({ navigation }) {
       titulo: 'Sem conexão com a internet',
       texto: 'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
       cor: '#FF9800',
-      textoConclusao: 'OK',
+      textoConclusao: '',
+      textoCancelamento: 'OK',
       aoConcluir: () => {
+        fecharCaixaDialogo();
+      },
+      aoCancelar: () => {
         fecharCaixaDialogo();
       }
     };
