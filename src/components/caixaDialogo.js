@@ -23,7 +23,8 @@ const CaixaDialogo = () => {
     <View>
       <Portal>
         <Dialog visible={visivel} onDismiss={() => aoCancelar()}>
-          {() => ((titulo !== '') ? (<Dialog.Title>{titulo}</Dialog.Title>) : undefined)}
+          {titulo === '' ? undefined : <Dialog.Title>{titulo}</Dialog.Title>}
+          {/* <Dialog.Title>{titulo}</Dialog.Title> */}
           <Dialog.Content>
             <Paragraph>{texto}</Paragraph>
           </Dialog.Content>
