@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "827144828772",
+    "firebase_url": "https://i-sus-b71e7.firebaseio.com",
+    "project_id": "i-sus-b71e7",
+    "storage_bucket": "i-sus-b71e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827144828772:android:770ba86605dd00aa262c71",
+        "android_client_info": {
+          "package_name": "com.esp.isus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827144828772-h1qufhn15gvg8p0l630l22ech625ccl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4-FrA35sErlJfAhBdBbN1fOYstctxQS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827144828772-h1qufhn15gvg8p0l630l22ech625ccl4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "827144828772-nqla9n5gjbc9eooc1nhc34cefbp40mlp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.esp.isus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
