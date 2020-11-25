@@ -10,6 +10,7 @@ export default function LinhasDeCuidado({ navigation }) {
     {
       id: 'linha-1',
       titulo: 'Manejo Covid-19',
+      ativo: true,
       icone: ManejoClinico,
       navegacao: {
         componente: rotas.MANEJO_CLINICO
@@ -31,6 +32,7 @@ export default function LinhasDeCuidado({ navigation }) {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <CartaoHome
+            ativo={item.ativo}
             testID={`cartaoHome-linhasDeCuidado-${item.id}`}
             key={item.id}
             titulo={item.titulo}
