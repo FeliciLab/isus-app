@@ -33,12 +33,9 @@ if (featuresAtivas.includes(feature.EXCLUSAO_USUARIO)) {
     const { findByText } = render(<ExcluirPerfil />);
     const toClick = await findByText('EXCLUIR CONTA');
     fireEvent.press(toClick);
-    // fireEvent(toClick, 'press');
   });
-
-  // test('verifica se tem algum valor no input', () => {
-  //   const { getByDisplayValue } = render(<ExcluirPerfil />);
-  //   const element = getByDisplayValue('');
-  //   expect(element).not.toBeNull();
-  // });
+} else {
+  test('teste de exemplo', () => {
+    expect(true);
+  });
 }
