@@ -19,7 +19,7 @@ export default function LinhasDeCuidado({ navigation }) {
 
   return (
     <>
-      <StyledTitulo>Linhas de Cuidados e Protocolos</StyledTitulo>
+      <StyledTitulo>Linhas de Cuidado e Protocolos</StyledTitulo>
       <FlatList
         horizontal
         data={listaLinhasDeCuidado}
@@ -31,7 +31,7 @@ export default function LinhasDeCuidado({ navigation }) {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <CartaoHome
-            testID={`cartaoHome-linhaDeCuidado-${item.id}`}
+            testID={`cartaoHome-linhasDeCuidado-${item.id}`}
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
