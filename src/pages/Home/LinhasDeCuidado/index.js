@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
 import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.svg';
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
 import StyledTitulo from './styles';
@@ -7,6 +8,8 @@ import rotas from '../../../constantes/rotas';
 import CartaoHome from '../cartaoHome';
 
 export default function LinhasDeCuidado({ navigation }) {
+  const netInfo = useNetInfo();
+
   const listaLinhasDeCuidado = [
     {
       id: 'manejoCovid',
@@ -49,10 +52,10 @@ export default function LinhasDeCuidado({ navigation }) {
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => navigation.navigate(item.navegacao.componente, {
+            onPress={() => (netInfo.isConnected ? navigation.navigate(item.navegacao.componente, {
               title: item.navegacao.titulo,
               url: item.navegacao.url
-            })}
+            }) : navigation.navigate('SemConexao'))}
           />
         )}
       />
