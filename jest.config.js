@@ -2,7 +2,8 @@ module.exports = {
   preset: 'react-native',
   collectCoverage: true,
   setupFiles: [
-    './node_modules/react-native-gesture-handler/jestSetup.js'
+    './node_modules/react-native-gesture-handler/jestSetup.js',
+    '<rootDir>/jest.setup.js'
   ],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
