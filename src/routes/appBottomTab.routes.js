@@ -8,8 +8,8 @@ import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 // import SettingsStackScreen from '../pages/Settings';
 import ContentScreen from '../pages/Content';
-
 import HomeScreen from '../pages/Home';
+import { analyticsData } from '../utils/analytics';
 
 const HomeStack = createStackNavigator();
 let title = '';
@@ -82,6 +82,11 @@ export default function AppTabScreen() {
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => <Icon name="home" color={color} size={20} />
         }}
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Home', 'Click', 'Home');
+          }
+        })}
       />
 
       { <AppTab.Screen
@@ -91,7 +96,12 @@ export default function AppTabScreen() {
           tabBarLabel: 'Minha Saúde',
           tabBarIcon: ({ color }) => <Icon name="heart" color={color} size={20} />
         }}
-      /> }
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Minha_saude', 'Click', 'Home');
+          }
+        })}
+      />}
 
       <AppTab.Screen
         name="Education"
@@ -100,6 +110,11 @@ export default function AppTabScreen() {
           tabBarLabel: 'Educação',
           tabBarIcon: ({ color }) => <Educacao color={color} size={20} />
         }}
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Educacao', 'Click', 'Home');
+          }
+        })}
       />
       <AppTab.Screen
         name="Search"
@@ -108,6 +123,11 @@ export default function AppTabScreen() {
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />
         }}
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Pesquisa', 'Click', 'Home');
+          }
+        })}
       />
     </AppTab.Navigator>
   );
