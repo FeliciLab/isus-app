@@ -15,6 +15,7 @@ import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
 import SemConexao from '../components/semConexao';
+import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
 
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
@@ -77,6 +78,11 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="SemConexao"
           component={SemConexao}
+          options={{ headerShown: true }}
+        />
+        <RootStack.Screen
+          name="MaternoInfantil"
+          component={MaternoInfantil}
           options={{ headerShown: true }}
         />
         <RootStack.Screen
