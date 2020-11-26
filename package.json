@@ -24,6 +24,7 @@
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",
     "@react-native-firebase/analytics": "^10.1.0",
     "@react-native-firebase/app": "^10.1.0",
+    "@react-native-firebase/crashlytics": "^10.1.0",
     "@react-navigation/bottom-tabs": "^5.2.7",
     "@react-navigation/drawer": "^5.5.1",
     "@react-navigation/material-bottom-tabs": "^5.1.9",
