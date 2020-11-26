@@ -3,6 +3,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Feature } from '@paralleldrive/react-feature-toggles';
+import analytics from '@react-native-firebase/analytics';
 import Description from '../pages/Content/Description';
 import Welcome from '../pages/Welcome';
 import AppDrawerScreen from './appDrawerScreen.routes';
@@ -15,7 +16,6 @@ import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
 import SemConexao from '../components/semConexao';
-
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
@@ -50,8 +50,24 @@ function Cadastro() {
 }
 
 export default function App({ navigationRef }) {
+  const routeNameRef = React.useRef();
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => { routeNameRef.current = navigationRef.current.getCurrentRoute().name; }}
+      onStateChange={() => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.current.getCurrentRoute().name;
+
+        if (previousRouteName !== currentRouteName) {
+          analytics().logScreenView({
+            screen_name: currentRouteName,
+            screen_class: currentRouteName,
+          });
+        }
+        routeNameRef.current = currentRouteName;
+      }}
+    >
       <RootStack.Navigator>
         <RootStack.Screen
           name="App"
