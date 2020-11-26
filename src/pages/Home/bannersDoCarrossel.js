@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import BannerManejo from './bannerManejo';
 import Banner from './banner';
-import CovidHeroes from '../../assets/images/Covid-Heroes-iSUS.png';
-import IDSaude from '../../assets/images/ID-Saude.png';
-import CartilhaSaudeMental from '../../assets/images/cartilha-saude-mental.png';
-import ProtocoloSindromeCoronarianaAguda from '../../assets/images/Protocolo-Sindroma-Coronariana-Aguda.png';
+import CovidHeroes from '../../assets/images/banners/covidHeroes.png';
+import IDSaude from '../../assets/images/banners/IDSaude.png';
+import CartilhaSaudeMental from '../../assets/images/banners/cartilhaSaudeMental.png';
+import ProtocoloSindromeCoronarianaAguda from '../../assets/images/banners/protocoloSindromeAguda.png';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import features from '../../constantes/features';
 import estaAtiva from '../../utils/estaAtiva';

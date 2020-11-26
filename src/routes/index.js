@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import Description from '../pages/Content/Description';
-import Welcome from '../pages/Welcome';
+import BemVindo from '../pages/BemVindo';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import Buscar from '../pages/Buscar';
 import ClinicalManagement from '../pages/ClinicalManagement';
@@ -115,8 +115,8 @@ export default function App({ navigationRef }) {
           component={EdicaoProfissional}
         />
         <RootStack.Screen
-          name="Welcome"
-          component={Welcome}
+          name="BemVindo"
+          component={BemVindo}
           options={{ headerShown: false }}
         />
       </RootStack.Navigator>

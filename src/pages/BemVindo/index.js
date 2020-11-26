@@ -8,15 +8,15 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
-import bemVindo from '../../assets/images/bemVindo.png';
-import cadastroProfissional from '../../assets/images/cadastro-profissional.png';
-import educacao from '../../assets/images/educacao.png';
-import pesquisa from '../../assets/images/pesquisa.png';
-import diagnostico from '../../assets/images/diagnostico.png';
-import manejoClinico from '../../assets/images/manejoClinico.png';
+import bemVindo from '../../assets/icons/apresentacao/bemVindo.png';
+import cadastroProfissional from '../../assets/icons/apresentacao/cadastro-profissional.png';
+import educacao from '../../assets/icons/apresentacao/educacao.png';
+import pesquisa from '../../assets/icons/apresentacao/pesquisa.png';
+import diagnostico from '../../assets/icons/apresentacao/diagnostico.png';
+import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.png';
 import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 
-export default function Welcome() {
+export default function BemVindo() {
   const navigation = useNavigation();
 
   const dataComPerfil = [

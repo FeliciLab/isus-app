@@ -6,7 +6,7 @@ import { Button, DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 // import BarraDeStatus from '../../components/barraDeStatus';
-import iconFarolDenunciar from '../../assets/icons/forcaTarefa/farol_denuncia.png';
+import iconFarolDenunciar from '../../assets/icons/forcaTarefa/farolDenuncia.png';
 
 export default function Denunciar() {
   const navigation = useNavigation();

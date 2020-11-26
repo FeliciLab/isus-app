@@ -38,7 +38,7 @@ export default function HomeScreen() {
     if (resp !== false) {
       return navigation.reset({
         index: 0,
-        routes: [{ name: 'Welcome' }]
+        routes: [{ name: 'BemVindo' }]
       });
     }
     return null;
