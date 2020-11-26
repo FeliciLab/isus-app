@@ -19,6 +19,7 @@ import ItemDrawer from './itemDrawer';
 import packageJson from '../../package.json';
 import Heart from '../assets/icons/isus_hor.svg';
 import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
+import { analyticsData } from '../utils/analytics';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
@@ -81,46 +82,49 @@ function conteudoDoDrawer(props) {
       {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
       {/* Caso adicione um item, a margemTop deve diminuir também */}
       <View style={estilos.itensParteInferior}>
-            <DrawerItem
-              icon={() => <Icon name="information" size={22} color="rgba(0, 0, 0, 0.54)" />}
-              label="Sobre o iSUS"
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
-              onPress={() => navigationTermos.navigate('SOBRE')}
-            />
+        <DrawerItem
+          icon={() => <Icon name="information" size={22} color="rgba(0, 0, 0, 0.54)" />}
+          label="Sobre o iSUS"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          onPress={() => navigationTermos.navigate('SOBRE')}
+        />
       </View>
       <View style={estilos.itensParteInferior}>
-            <DrawerItem
-              icon={() => <Icon name="clipboard-text" size={22} color="rgba(0, 0, 0, 0.54)" />}
-              label="Termos de Uso"
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
-              onPress={() => navigationTermos.navigate('TERMOS_DE_USO')}
-            />
+        <DrawerItem
+          icon={() => <Icon name="clipboard-text" size={22} color="rgba(0, 0, 0, 0.54)" />}
+          label="Termos de Uso"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          onPress={() => navigationTermos.navigate('TERMOS_DE_USO')}
+        />
       </View>
       <View style={estilos.itensParteInferior}>
-            <DrawerItem
-              icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
-              label="Compartilhe o iSUS"
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
-              onPress={() => aoCompartilhar()}
-            />
+        <DrawerItem
+          icon={() => <Icon name="share-variant" size={22} color="rgba(0, 0, 0, 0.54)" />}
+          label="Compartilhe o iSUS"
+          labelStyle={{ fontSize: 15 }}
+          inactiveTintColor="#111"
+          activeTintColor="#111"
+          inactiveBackgroundColor="transparent"
+          activeBackgroundColor="transparent"
+          onPress={() => {
+            analyticsData('Compartilhe_o_iSUS', 'Click', 'Home');
+            aoCompartilhar();
+          }}
+        />
       </View>
       <View style={estilos.viewVersao}>
         <Text style={estilos.textoVersao}>
           Versão
           {' '}
-          { versaoSistema }
+          {versaoSistema}
         </Text>
       </View>
     </>
