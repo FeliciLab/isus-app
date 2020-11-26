@@ -14,6 +14,7 @@ import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
+import SemConexao from '../components/semConexao';
 
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
@@ -71,6 +72,11 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="Descrição"
           component={Description}
+          options={{ headerShown: true }}
+        />
+        <RootStack.Screen
+          name="SemConexao"
+          component={SemConexao}
           options={{ headerShown: true }}
         />
         <RootStack.Screen

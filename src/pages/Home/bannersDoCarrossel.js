@@ -17,14 +17,6 @@ const bannersDoCarrossel = () => {
       {
         banner:
           <Banner
-            titulo="Protocolo do primeiro atendimento ao paciente com síndrome coroniana aguda"
-            imagem={ProtocoloSindromeCoronarianaAguda}
-            enderecoUrl="https://coronavirus.ceara.gov.br/project/protocolo-da-sesa-orienta-atendimentos-a-pacientes-com-sindrome-coronariana-aguda/"
-          />
-      },
-      {
-        banner:
-          <Banner
             titulo="Covid-19 Heroes"
             imagem={CovidHeroes}
             enderecoUrl="https://heroescovid19study.org/survey/"
