@@ -4,8 +4,7 @@ import {
   ScrollView, Text, Share, TouchableOpacity
 } from 'react-native';
 import { Title } from 'react-native-paper';
-import Moment from 'moment';
-import 'moment/locale/pt-br';
+import Moment from 'moment/locale/pt-br';
 
 // import { WebView } from 'react-native-webview';
 import HTML from 'react-native-render-html';
