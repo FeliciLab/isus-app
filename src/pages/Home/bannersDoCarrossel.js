@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import BannerManejo from './bannerManejo';
 import Banner from './banner';
-import CovidHeroes from '../../assets/images/Covid-Heroes-iSUS.png';
-import IDSaude from '../../assets/images/ID-Saude.png';
-import CartilhaSaudeMental from '../../assets/images/cartilha-saude-mental.png';
-import ProtocoloSindromeCoronarianaAguda from '../../assets/images/Protocolo-Sindroma-Coronariana-Aguda.png';
+import CovidHeroes from '../../assets/images/banners/covidHeroes.png';
+import IDSaude from '../../assets/images/banners/IDSaude.png';
+import CartilhaSaudeMental from '../../assets/images/banners/cartilhaSaudeMental.png';
+import ProtocoloSindromeCoronarianaAguda from '../../assets/images/banners/protocoloSindromeAguda.png';
+import GuiaAssistenciaFarmaceutica from '../../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import features from '../../constantes/features';
 import estaAtiva from '../../utils/estaAtiva';
@@ -13,6 +14,34 @@ const bannersDoCarrossel = () => {
   const { estaLogado } = useContext(AutenticacaoContext);
 
   if (estaAtiva(features.LINHAS_DE_CUIDADO)) {
+    if (estaAtiva(features.BANNER_ASSISTENCIA_FARMACEUTICA)) {
+      return [
+        {
+          banner:
+            <Banner
+              titulo="Guia de Assistência Farmacêutica"
+              imagem={GuiaAssistenciaFarmaceutica}
+              enderecoUrl="https://coronavirus.ceara.gov.br/project/secretaria-de-saude-disponibiliza-guia-da-assistencia-farmaceutica-no-estado-do-ceara/"
+            />
+        },
+        {
+          banner:
+            <Banner
+              titulo="Covid-19 Heroes"
+              imagem={CovidHeroes}
+              enderecoUrl="https://heroescovid19study.org/survey/"
+            />
+        },
+        {
+          banner:
+            <Banner
+              titulo="ID Saúde"
+              imagem={IDSaude}
+              pagina={estaLogado ? 'PERFIL' : 'LOGIN'}
+            />
+        }
+      ];
+    }
     return [
       {
         banner:

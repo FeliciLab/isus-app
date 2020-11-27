@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
 import Description from '../pages/Content/Description';
-import Welcome from '../pages/Welcome';
+import BemVindo from '../pages/BemVindo';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import Buscar from '../pages/Buscar';
 import ClinicalManagement from '../pages/ClinicalManagement';
@@ -16,6 +16,7 @@ import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
 import SemConexao from '../components/semConexao';
+import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
@@ -96,6 +97,11 @@ export default function App({ navigationRef }) {
           options={{ headerShown: true }}
         />
         <RootStack.Screen
+          name="MaternoInfantil"
+          component={MaternoInfantil}
+          options={{ headerShown: true }}
+        />
+        <RootStack.Screen
           name={constantes.MANEJO_CLINICO}
           component={ClinicalManagement}
         />
@@ -125,8 +131,8 @@ export default function App({ navigationRef }) {
           component={EdicaoProfissional}
         />
         <RootStack.Screen
-          name="Welcome"
-          component={Welcome}
+          name="BemVindo"
+          component={BemVindo}
           options={{ headerShown: false }}
         />
       </RootStack.Navigator>
