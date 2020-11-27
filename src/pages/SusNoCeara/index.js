@@ -118,10 +118,6 @@ export default function SusNoCearaScreen() {
           resizeMode="contain"
         />
       </View>
-      {/* <IconeSus30Anos style={{
-        marginTop: 15, marginRight: 35, marginLeft: 15, marginBottom: 15
-      }}
-      /> */}
       <TextoSobreSUS />
       <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
         <List.Item

@@ -15,6 +15,14 @@ test('deve chamar navigate ao clicar no item de manejo', () => {
   expect(navigation.navigate).toHaveBeenCalled();
 });
 
+test('deve chamar navigate ao clicar no item de materno infantil', () => {
+  const { getByTestId } = render(<LinhasDeCuidado navigation={navigation} />);
+  const item = getByTestId('cartaoHome-linhasDeCuidado-maternoInfantil');
+  fireEvent.press(item);
+
+  expect(navigation.navigate).toHaveBeenCalled();
+});
+
 test('deve chamar navigate ao clicar no item de protocolos', () => {
   const { getByTestId } = render(<LinhasDeCuidado navigation={navigation} />);
   const item = getByTestId('cartaoHome-linhasDeCuidado-protocolos');

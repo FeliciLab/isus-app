@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.svg';
+import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfantil.svg';
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
 import StyledTitulo from './styles';
 import rotas from '../../../constantes/rotas';
@@ -18,6 +19,15 @@ export default function LinhasDeCuidado({ navigation }) {
       icone: ManejoClinico,
       navegacao: {
         componente: rotas.MANEJO_CLINICO
+      }
+    },
+    {
+      id: 'maternoInfantil',
+      titulo: 'Materno-Infantil',
+      ativo: true,
+      icone: MaternoInfantil,
+      navegacao: {
+        componente: 'MaternoInfantil'
       }
     },
     {

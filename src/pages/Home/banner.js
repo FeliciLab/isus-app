@@ -1,9 +1,11 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import {
   Image, View, StyleSheet, Dimensions
 } from 'react-native';
 import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 const { width } = Dimensions.get('screen');
 const imageWidth = width * 0.8;
@@ -11,11 +13,12 @@ const imageWidth = width * 0.8;
 export default function Banner({
   titulo, imagem, enderecoUrl = '', pagina = ''
 }) {
+  const netInfo = useNetInfo();
   const navigation = useNavigation();
   const temEnderecoUrl = enderecoUrl.length > 0;
   return (
     <Card
-      onPress={() => (temEnderecoUrl ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate(pagina))}
+      onPress={() => (temEnderecoUrl ? (!netInfo.isConnected ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate('SemConexao')) : navigation.navigate(pagina))}
       style={estilos.cartao}
     >
       <View style={estilos.containerImage}>

@@ -6,7 +6,7 @@ import { Button, DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 // import BarraDeStatus from '../../components/barraDeStatus';
-import iconFarolDenunciar from '../../assets/icons/forcaTarefa/farol_denuncia.png';
+import iconFarolDenunciar from '../../assets/icons/forcaTarefa/farolDenuncia.png';
 
 export default function Denunciar() {
   const navigation = useNavigation();
@@ -64,7 +64,7 @@ export default function Denunciar() {
         style={estilos.farol}
         source={iconFarolDenunciar}
       />
-      <Text style={estilos.titulo}>
+      <Text style={estilos.titulo} testID="texto1">
       O coronavírus continua circulando em nosso estado.
       Você pode ajudar a combater denunciando aglomerações e/ou não uso de máscaras.
       </Text>
@@ -96,6 +96,7 @@ export default function Denunciar() {
       </Text>
       <View style={estilos.recipienteBotaoEmail}>
         <Button
+          testID="botao-mandar-email"
           mode="contained"
           theme={theme}
           dark={false}
@@ -107,6 +108,7 @@ export default function Denunciar() {
           <Text style={{ color: '#fff' }}>Mandar e-mail</Text>
         </Button>
         <Button
+          testID="botao-ligar-sus"
           mode="text"
           style={estilos.botaoLigarSus}
           onPress={() => {
@@ -118,6 +120,7 @@ export default function Denunciar() {
         <Text style={estilos.termos}>
           Ao continuar, você concorda com nossos
           <Text
+            testID="termo-de-uso"
             onPress={() => {
               navigation.navigate('TERMOS_DE_USO');
             }}

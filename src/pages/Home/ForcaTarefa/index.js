@@ -95,6 +95,7 @@ function ForcaTarefa({ navigation }) {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <CartaoHome
+            testID={`cards-${item.id}`}
             key={item.id}
             ativo={item.ativo}
             titulo={item.titulo}
