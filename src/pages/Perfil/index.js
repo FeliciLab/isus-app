@@ -69,6 +69,23 @@ export default function PerfilScreen() {
     console.log('Abrindo caixa...');
   };
 
+  const abrirCaixaDialogoSair = async () => {
+    const atributosCaixaDialogo = {
+      titulo: 'Deseja realmente sair?',
+      texto: 'Será necessário efetuar login novamente para acessar serviços e conteúdos personalizados.',
+      cor: '#FF9800',
+      textoConclusao: 'SIM',
+      textoCancelamento: 'NÃO',
+      aoConcluir: () => {
+        fecharCaixaDialogo(); realizarLogout();
+      },
+      aoCancelar: () => { fecharCaixaDialogo(); }
+    };
+
+    mostrarCaixaDialogo(atributosCaixaDialogo);
+    console.log('Abrindo caixa sair...');
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -110,7 +127,11 @@ export default function PerfilScreen() {
             <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
           </MenuPerfil>
           <MenuPerfil titulo="Preferências">
-            <MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />
+            <Feature
+              name={features.CONFIRMACAO_AO_SAIR}
+              activeComponent={() => (<MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => abrirCaixaDialogoSair()} />)}
+              inactiveComponent={() => (<MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />)}
+            />
             <Feature
               name={features.EXCLUSAO_USUARIO}
               activeComponent={() => (
