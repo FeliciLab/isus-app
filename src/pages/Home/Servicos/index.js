@@ -1,6 +1,7 @@
 import React from 'react';
 import { Title } from 'react-native-paper';
 import { FlatList, StyleSheet, Linking } from 'react-native';
+import QualiQuizIcon from '../../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../../assets/icons/servicos/servico_1.svg';
 import Servico2 from '../../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/servico_3.svg';
@@ -11,6 +12,15 @@ import CartaoHome from '../cartaoHome';
 
 function Servicos({ navigation }) {
   const listaServicos = [
+    {
+      id: 'services-qualiquiz',
+      titulo: 'QualiQuiz',
+      ativo: true,
+      icone: QualiQuizIcon,
+      navegacao: {
+        componente: 'QUALIQUIZ'
+      }
+    },
     {
       id: 'services-1',
       titulo: 'IntegraSUS',
