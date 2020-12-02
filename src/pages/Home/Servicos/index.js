@@ -8,11 +8,12 @@ import Servico4 from '../../../assets/icons/servicos/servico_4.svg';
 import Servico5 from '../../../assets/icons/servicos/servico_5.svg';
 import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
 import CartaoHome from '../cartaoHome';
+import { analyticsData } from '../../../utils/analytics';
 
 function Servicos({ navigation }) {
   const listaServicos = [
     {
-      id: 'services-1',
+      id: 'Integra_SUS',
       titulo: 'IntegraSUS',
       ativo: true,
       icone: Servico1,
@@ -23,7 +24,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      id: 'services-2',
+      id: 'SUS_no_Ceara',
       titulo: 'SUS no Ceará',
       ativo: true,
       icone: Servico2,
@@ -32,7 +33,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      id: 'services-3',
+      id: 'Fale_Conosco',
       titulo: 'Fale Conosco',
       ativo: true,
       icone: Servico3,
@@ -41,7 +42,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      id: 'services-4',
+      id: 'Acoes_do_governo',
       titulo: 'Ações do governo',
       ativo: true,
       icone: Servico4,
@@ -52,7 +53,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      id: 'services-5',
+      id: 'ESP',
       titulo: 'ESP',
       icone: Servico5,
       ativo: true,
@@ -63,7 +64,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      id: 'services-6',
+      id: 'ESP_Virtual',
       titulo: 'ESP Virtual',
       ativo: true,
       icone: Servico6,
@@ -92,14 +93,20 @@ function Servicos({ navigation }) {
           <CartaoHome
             key={item.id}
             ativo={item.ativo}
+            testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => (item.navegacao.componente !== 'browser'
-              ? navigation.navigate(item.navegacao.componente, {
-                title: item.navegacao.titulo,
-                url: item.navegacao.url
-              })
-              : Linking.openURL(item.navegacao.url))
+            onPress={() => {
+              analyticsData(item.id, 'Click', 'Home');
+              if (item.navegacao.componente !== 'browser') {
+                navigation.navigate(item.navegacao.componente, {
+                  title: item.navegacao.titulo,
+                  url: item.navegacao.url
+                });
+              } else {
+                Linking.openURL(item.navegacao.url);
+              }
+            }
             }
           />
         )}
