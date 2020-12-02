@@ -3,9 +3,11 @@ import { Text, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-paper';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import FormContext from '../../context/FormContext';
 import BtnLogin from './btnLogin';
-import { efetuarAcesso } from '../../services/autenticacao';
+import { efetuarAcesso, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import { perfilUsuario } from '../../apis/apiCadastro';
 import { emailNaoCadastrado } from '../../utils/validadores';
 import { cores } from '../../constantes/estiloBase';
 
@@ -27,6 +29,11 @@ const formLogin = ({ rotaAposLogin }) => {
   const navigator = useNavigation();
   const { register, setValue } = useContext(FormContext);
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
+  const {
+    alterarDadosUsuario,
+    alterarTokenUsuario,
+    alterarEstaLogado
+  } = useContext(AutenticacaoContext);
 
   useEffect(() => {
     register('login');
@@ -50,6 +57,22 @@ const formLogin = ({ rotaAposLogin }) => {
     });
   };
 
+  const exibirCredenciaisInvalidas = () => {
+    mostrarCaixaDialogo({
+      titulo: 'Credenciais inválidas',
+      texto: 'As credenciais de acesso estão inválidas. Verifique seus dados ou clique em esqueci minha senha para acessar nossos conteúdos personalizados.',
+      cor: cores.laranja,
+      textoConclusao: '',
+      textoCancelamento: 'VOLTAR',
+      aoConcluir: () => {
+        fecharCaixaDialogo();
+      },
+      aoCancelar: () => {
+        fecharCaixaDialogo();
+      }
+    });
+  }
+
   const efetuarLogin = (data) => {
     atribuirCarregando(true);
 
@@ -60,15 +83,34 @@ const formLogin = ({ rotaAposLogin }) => {
         }
 
         return efetuarAcesso({ email: data.login, senha: data.senha })
-          .then((result) => {
-            if (!result.error) {
-              return navigator.navigate(rotaAposLogin);
+          .then(async (result) => {
+            if (result.error) {
+              exibirCredenciaisInvalidas();
+              return false;
             }
 
-            console.log('msg', result.msg);
-            return false;
+            const token = await pegarTokenDoUsuarioNoStorage();
+            if (!token) {
+              alterarTokenUsuario({});
+              alterarEstaLogado(false);
+            }
+
+            alterarTokenUsuario(token);
+            try {
+              const perfil = await perfilUsuario();
+              alterarDadosUsuario(perfil.data);
+              alterarEstaLogado(true);
+            } catch (err) {
+              alterarEstaLogado(false);
+              console.log('ERRO', err);
+            }
+
+            return navigator.navigate(rotaAposLogin);
           })
-          .catch(err => console.log('err', err));
+          .catch((err) => {
+            exibirCredenciaisInvalidas();
+            console.log('err', err);
+          });
       })
       .finally(() => atribuirCarregando(false));
   };

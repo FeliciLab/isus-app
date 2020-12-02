@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   Dimensions
 } from 'react-native';
-import { cores } from '../components/estiloBase';
+import { cores } from '../constantes/estiloBase';
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
 import PerfilScreen from '../pages/Perfil/index';
