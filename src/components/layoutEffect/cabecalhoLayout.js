@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { cores } from '../estiloBase';
+import { cores } from '../../constantes/estiloBase';
 
 const estiloCores = {
   verde: {

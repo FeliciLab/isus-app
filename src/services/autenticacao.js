@@ -7,7 +7,6 @@ import { navigate } from '../routes/rootNavigation';
 
 export const efetuarAcesso = async ({ email, senha }) => {
   const response = await autenticarComIdSaude(email, senha);
-  console.log('response', response);
   if (!response.sucesso) {
     return { erro: true, msg: response.erros ? response.erros : response.mensagem };
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native';
-import { cores } from '../estiloBase';
+import { cores } from '../../constantes/estiloBase';
 
 const esqueceuSenhaBtn = ({ style }) => {
   const navigator = useNavigation();

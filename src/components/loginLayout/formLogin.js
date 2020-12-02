@@ -7,7 +7,7 @@ import FormContext from '../../context/FormContext';
 import BtnLogin from './btnLogin';
 import { efetuarAcesso } from '../../services/autenticacao';
 import { emailNaoCadastrado } from '../../utils/validadores';
-import { cores } from '../estiloBase';
+import { cores } from '../../constantes/estiloBase';
 
 const style = StyleSheet.create({
   titulo: {

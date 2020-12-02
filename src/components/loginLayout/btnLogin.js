@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
-import { cores } from '../estiloBase';
+import { cores } from '../../constantes/estiloBase';
 
 const BtnLogin = ({ acao, style, carregando }) => {
   const { handleSubmit } = useContext(FormContext);

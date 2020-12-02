@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { cores } from '../estiloBase';
+import { cores } from '../../constantes/estiloBase';
 
 const cadastrarNovoBtn = ({ style }) => {
   const navigator = useNavigation();
