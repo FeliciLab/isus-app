@@ -115,7 +115,7 @@ export default function Denunciar() {
               testID="botao-ligar-sus"
               mode="text"
               onPress={() => {
-                Linking.openURL('mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia');
+                Linking.openURL('tel:136');
               }}
             >
               <Text style={{ color: '#4CAF50' }}>lIGAR PARA OUVIDORIA DO SUS</Text>
