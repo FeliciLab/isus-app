@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper';
 
 const Container = styled.View`
   background-color: #fff;
-  align-items: 'center';
+  align-items: center;
 `;
 
 const ScrollView = styled.ScrollView`
@@ -29,11 +29,11 @@ const Titulo = styled.Text`
 const TextoEmailLigacao = styled.Text`
   margin-left: 20px;
   margin-right: 20px;
-  text-decoration: underline;
+  text-decoration-line: underline;
 `;
 const TextoEmail = styled.Text`
     margin-top: 32px;
-    font-weight: bold;
+    font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.25px;
@@ -71,7 +71,7 @@ const FaleLigacao = styled.Text`
 
 const RecipienteBotaoEmail = styled.View`
   width: 100%;
-  justify-content: 'center';
+  justify-content: center;
 `;
 
 const Termos = styled.Text`
@@ -84,7 +84,7 @@ const Termos = styled.Text`
 `;
 
 const TermosLink = styled.Text`
-  text-decoration: underline;
+  text-decoration-line: underline;
 `;
 
 export {
