@@ -5,7 +5,7 @@ import {
 import { Button, DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-// import BarraDeStatus from '../../components/barraDeStatus';
+import BarraDeStatus from '../../components/barraDeStatus';
 import iconFarolDenunciar from '../../assets/icons/forcaTarefa/farolDenuncia.png';
 
 export default function Denunciar() {
@@ -16,7 +16,7 @@ export default function Denunciar() {
   function emailLigacao(text, linkTo) {
     return (
       <Text style={{ marginHorizontal: 20, textDecorationLine: 'underline' }} onPress={() => Linking.openURL(linkTo)}>
-      {text}
+        {text}
       </Text>
     );
   }
@@ -57,84 +57,84 @@ export default function Denunciar() {
   });
   return (
     <>
-    {/** <BarraDeStatus barStyle="dark" backgroundColor="#c3c3c3" /> */}
-    <ScrollView>
-    <View style={estilos.container}>
-      <Image
-        style={estilos.farol}
-        source={iconFarolDenunciar}
-      />
-      <Text style={estilos.titulo} testID="texto1">
-      O coronavírus continua circulando em nosso estado.
-      Você pode ajudar a combater denunciando aglomerações e/ou não uso de máscaras.
-      </Text>
-      <Text style={estilos.textoEmail}>
-      <Text style={estilos.mandeEmail}>{ mandeEmail }</Text>
-      {' '}
+      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
+      <ScrollView>
+        <View style={estilos.container}>
+          <Image
+            style={estilos.farol}
+            source={iconFarolDenunciar}
+          />
+          <Text style={estilos.titulo} testID="texto1">
+            O coronavírus continua circulando em nosso estado.
+            Você pode ajudar a combater denunciando aglomerações e/ou não uso de máscaras.
+          </Text>
+          <Text style={estilos.textoEmail}>
+            <Text style={estilos.mandeEmail}>{mandeEmail}</Text>
+            {' '}
       Você irá enviar um e-mail para a Ouvidoria do SUS:
       {' '}
-      { emailLigacao('ouvidoriasesa@saude.ce.gov.br', 'mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia') }
+            {emailLigacao('ouvidoriasesa@saude.ce.gov.br', 'mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia')}
       . É uma forma silenciosa e segura de denunciar.
-      </Text>
-      <Text style={estilos.textoEmail}>
-      <Text style={estilos.mandeEmail}>{ faleLigacao }</Text>
+          </Text>
+          <Text style={estilos.textoEmail}>
+            <Text style={estilos.mandeEmail}>{faleLigacao}</Text>
       Diante da necessidade de conter eventos, ligue para
       a Polícia, pelo
       {' '}
-      { emailLigacao('190', 'tel:190') }
+            {emailLigacao('190', 'tel:190')}
       .
       {' '}
       Nos demais casos, ligue para a Ouvidoria do SUS,
       pelo
       {' '}
-      { emailLigacao('136', 'tel:136') }
-      {' '}
+            {emailLigacao('136', 'tel:136')}
+            {' '}
       ou
       {' '}
-      { emailLigacao('08002751520', 'tel:08002751520') }
+            {emailLigacao('08002751520', 'tel:08002751520')}
       .
-      </Text>
-      <View style={estilos.recipienteBotaoEmail}>
-        <Button
-          testID="botao-mandar-email"
-          mode="contained"
-          theme={theme}
-          dark={false}
-          style={estilos.botaoEmail}
-          onPress={() => {
-            Linking.openURL('mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia');
-          }}
-        >
-          <Text style={{ color: '#fff' }}>Mandar e-mail</Text>
-        </Button>
-        <Button
-          testID="botao-ligar-sus"
-          mode="text"
-          style={estilos.botaoLigarSus}
-          onPress={() => {
-            Linking.openURL('mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia');
-          }}
-        >
-          <Text style={{ color: '#4CAF50' }}>lIGAR PARA OUVIDORIA DO SUS</Text>
-        </Button>
-        <Text style={estilos.termos}>
-          Ao continuar, você concorda com nossos
-          <Text
-            testID="termo-de-uso"
-            onPress={() => {
-              navigation.navigate('TERMOS_DE_USO');
-            }}
-            style={estilos.termosLink}
-          >
-          {' '}
-          Termos e Uso
-          {''}
-          .
           </Text>
-        </Text>
-      </View>
-    </View>
-    </ScrollView>
+          <View style={estilos.recipienteBotaoEmail}>
+            <Button
+              testID="botao-mandar-email"
+              mode="contained"
+              theme={theme}
+              dark={false}
+              style={estilos.botaoEmail}
+              onPress={() => {
+                Linking.openURL('mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia');
+              }}
+            >
+              <Text style={{ color: '#fff' }}>Mandar e-mail</Text>
+            </Button>
+            <Button
+              testID="botao-ligar-sus"
+              mode="text"
+              style={estilos.botaoLigarSus}
+              onPress={() => {
+                Linking.openURL('mailto:ouvidoriasesa@saude.ce.gov.br?subject=Quero fazer uma denúncia');
+              }}
+            >
+              <Text style={{ color: '#4CAF50' }}>lIGAR PARA OUVIDORIA DO SUS</Text>
+            </Button>
+            <Text style={estilos.termos}>
+              Ao continuar, você concorda com nossos
+              <Text
+                testID="termo-de-uso"
+                onPress={() => {
+                  navigation.navigate('TERMOS_DE_USO');
+                }}
+                style={estilos.termosLink}
+              >
+                {' '}
+              Termos e Uso
+              {''}
+              .
+              </Text>
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
     </>
   );
 }

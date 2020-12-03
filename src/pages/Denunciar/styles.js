@@ -26,6 +26,11 @@ const Titulo = styled.Text`
     text-align: center;
 `;
 
+const TextoEmailLigacao = styled.Text`
+  margin-left: 20px;
+  margin-right: 20px;
+  text-decoration: underline;
+`;
 const TextoEmail = styled.Text`
     margin-top: 32px;
     font-weight: bold;
@@ -94,5 +99,6 @@ export {
   TermosLink,
   RecipienteBotaoEmail,
   MandeEmail,
-  FaleLigacao
+  FaleLigacao,
+  TextoEmailLigacao
 };
