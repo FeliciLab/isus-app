@@ -17,7 +17,7 @@ function Servicos({ navigation }) {
 
   const listaServicos = [
     {
-      id: 'services-qualiquiz',
+      id: 'qualiquiz',
       titulo: 'QualiQuiz',
       ativo: true,
       icone: QualiQuizIcon,
