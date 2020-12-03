@@ -95,6 +95,7 @@ function Servicos({ navigation }) {
   ];
 
   const onPress = (item) => {
+    analyticsData(item.id, 'Click', 'Home');
     if (item.navegacao.net && !netInfo.isConnected) {
       navigation.navigate('SemConexao');
       return;
