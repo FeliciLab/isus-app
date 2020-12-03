@@ -52,7 +52,7 @@ export default function DescriptionScreen(props) {
       const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
       alterarPostagem(resposta);
     } catch (err) {
-      console.log(err);
+      console.log(`Erro ao pegar conteudo do storage: ${err.message}`);
     }
   };
 
@@ -61,7 +61,7 @@ export default function DescriptionScreen(props) {
       const resposta = await getProjectPorId(params.object.id);
       alterarPostagem(resposta.data);
     } catch (err) {
-      console.log(err);
+      console.log(`Erro ao pegar conteudo da API: ${err.message}`);
     }
   };
 
@@ -73,7 +73,7 @@ export default function DescriptionScreen(props) {
         message: messagTitle + messagLink
       });
     } catch (error) {
-      console.log(error.message);
+      console.log(`Erro ao compartilhar: ${error.message}`);
     }
   };
 
@@ -97,6 +97,7 @@ export default function DescriptionScreen(props) {
   );
 
   const baixarConteudo = async () => {
+    // console.log('Baixar Conteudo');
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
       const postagemOffline = {

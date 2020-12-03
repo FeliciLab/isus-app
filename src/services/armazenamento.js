@@ -7,12 +7,9 @@ import RNFetchBlob from 'rn-fetch-blob';
  * @param {{}} valor Valor a ser armazenado.
  */
 const salvarDados = async (chave, valor) => {
-  try {
-    const valorJson = JSON.stringify(valor);
-    await AsyncStorage.setItem(chave, valorJson);
-  } catch (e) {
-    console.log(e);
-  }
+  const valorJson = JSON.stringify(valor);
+  const responseStorage = await AsyncStorage.setItem(chave, valorJson);
+  return responseStorage;
 };
 
 /**
@@ -87,7 +84,6 @@ const removerDados = async (chave) => {
 const converterImagemParaBase64 = async (urlImagem) => {
   const response = await RNFetchBlob.config({ fileCache: true }).fetch('GET', encodeURI(urlImagem));
   const file = await response.readFile('base64');
-  console.log(file);
   return file;
 };
 

@@ -31,6 +31,8 @@ module.exports = {
     + '|react-native-community/netinfo'
     + '|@react-native-firebase/analytics'
     + '|@react-native-firebase/app'
+    + '|react-native-render-html'
+    + '|react-native-webview'
     + ')/)',
   ],
   moduleDirectories: [
