@@ -29,6 +29,8 @@ module.exports = {
     + '|react-native-reanimated'
     + '|react-native-snap-carousel'
     + '|react-native-community/netinfo'
+    + '|@react-native-firebase/analytics'
+    + '|@react-native-firebase/app'
     + ')/)',
   ],
   moduleDirectories: [
