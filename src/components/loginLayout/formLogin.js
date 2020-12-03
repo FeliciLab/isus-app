@@ -10,6 +10,8 @@ import { efetuarAcesso, pegarTokenDoUsuarioNoStorage } from '../../services/aute
 import { perfilUsuario } from '../../apis/apiCadastro';
 import { emailNaoCadastrado } from '../../utils/validadores';
 import { cores } from '../../constantes/estiloBase';
+import Regex from '../../utils/regex';
+import MsgErroFormCampo from './msgErroFormCampo';
 
 const style = StyleSheet.create({
   titulo: {
@@ -23,12 +25,24 @@ const style = StyleSheet.create({
   }
 });
 
+const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
 const formLogin = ({ rotaAposLogin }) => {
-  const [carregando, atribuirCarregando] = useState(false);
   const navigator = useNavigation();
-  const { register, setValue } = useContext(FormContext);
-  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
+  const [carregando, atribuirCarregando] = useState(false);
+  const [exibirErroSenha, atribuirExibirErroSenha] = useState(false);
+  const {
+    register,
+    setValue,
+    trigger,
+    errors
+  } = useContext(FormContext);
+
+  const {
+    mostrarCaixaDialogo,
+    fecharCaixaDialogo
+  } = useContext(CaixaDialogoContext);
+
   const {
     alterarDadosUsuario,
     alterarTokenUsuario,
@@ -36,8 +50,13 @@ const formLogin = ({ rotaAposLogin }) => {
   } = useContext(AutenticacaoContext);
 
   useEffect(() => {
-    register('login');
-    register('senha');
+    register('email', {
+      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+    });
+
+    register('senha', {
+      required: 'O campo senha é obrigatório'
+    });
   }, [register]);
 
   const exibirNovoCadastro = () => {
@@ -57,37 +76,28 @@ const formLogin = ({ rotaAposLogin }) => {
     });
   };
 
-  const exibirCredenciaisInvalidas = () => {
-    mostrarCaixaDialogo({
-      titulo: 'Credenciais inválidas',
-      texto: 'As credenciais de acesso estão inválidas. Verifique seus dados ou clique em esqueci minha senha para acessar nossos conteúdos personalizados.',
-      cor: cores.laranja,
-      textoConclusao: '',
-      textoCancelamento: 'VOLTAR',
-      aoConcluir: () => {
-        fecharCaixaDialogo();
-      },
-      aoCancelar: () => {
-        fecharCaixaDialogo();
-      }
-    });
-  }
-
   const efetuarLogin = (data) => {
+    trigger();
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
     atribuirCarregando(true);
 
-    emailNaoCadastrado(data.login)
+    emailNaoCadastrado(data.email)
       .then((invalido) => {
         if (invalido) {
           return exibirNovoCadastro();
         }
 
-        return efetuarAcesso({ email: data.login, senha: data.senha })
+        return efetuarAcesso({ email: data.email, senha: data.senha })
           .then(async (result) => {
             if (result.error) {
-              exibirCredenciaisInvalidas();
+              atribuirExibirErroSenha(true);
               return false;
             }
+            atribuirExibirErroSenha(false);
 
             const token = await pegarTokenDoUsuarioNoStorage();
             if (!token) {
@@ -108,7 +118,7 @@ const formLogin = ({ rotaAposLogin }) => {
             return navigator.navigate(rotaAposLogin);
           })
           .catch((err) => {
-            exibirCredenciaisInvalidas();
+            atribuirExibirErroSenha(true);
             console.log('err', err);
           });
       })
@@ -133,8 +143,9 @@ const formLogin = ({ rotaAposLogin }) => {
         textContentType="emailAddress"
         autoCompleteType="email"
         keyboardType="email-address"
-        onChangeText={text => setValue('login', text)}
+        onChangeText={text => setValue('email', text)}
       />
+      <MsgErroFormCampo campo="email" />
       <TextInput
         style={style.campoTexto}
         label="Senha"
@@ -144,6 +155,13 @@ const formLogin = ({ rotaAposLogin }) => {
         secureTextEntry
         onChangeText={text => setValue('senha', text)}
       />
+      <MsgErroFormCampo campo="senha" />
+      {exibirErroSenha && !carregando && (
+        <Text style={{ color: cores.laranja }}>
+          Senha, incorreta. Tente novamente ou clique em
+          &ldquo;Esqueci a senha&rdquo; para redefini-la.
+        </Text>
+      )}
       <BtnLogin
         style={{ marginTop: 40 }}
         acao={efetuarLogin}
