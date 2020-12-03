@@ -3,9 +3,8 @@ import React, {
 } from 'react';
 
 import {
-  // eslint-disable-next-line no-unused-vars
-  View, Image, Text, Dimensions, StyleSheet, Platform,
-  ScrollView, Share, TouchableOpacity, SafeAreaView
+  View, Text, Dimensions, StyleSheet, Platform,
+  ScrollView, Share, TouchableOpacity, SafeAreaView, Alert
 }
   from 'react-native';
 import {
@@ -108,7 +107,20 @@ export default function DescriptionScreen(props) {
       alterarPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
-      mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+      console.log('Erro de armazenamento:', e.message);
+      if (e.message.includes('SQLITE_FULL')) {
+        Alert.alert(
+          'Não foi possível baixar o conteúdo',
+          'Já estamos trabalhando para que você possa ter mais leituras off-line. '
+        + 'Acompanhe as próximas versões do iSUS.',
+          [{
+            text: 'OK',
+            onPress: () => { }
+          }]
+        );
+      } else {
+        mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+      }
     }
   };
 

@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.12.0",
+  "version": "3.12.1",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android",
@@ -100,14 +100,7 @@
     "reactotron-react-native": "^5.0.0"
   },
   "jest": {
-    "preset": "react-native",
-    "setupFiles": [
-      "./node_modules/react-native-gesture-handler/jestSetup.js"
-    ],
-    "moduleNameMapper": {
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
-      "\\.(css|less)$": "identity-obj-proxy"
-    }
+    "preset": "react-native"
   },
   "transform": {
     "^.+\\.jsx?$": "babel-jest"

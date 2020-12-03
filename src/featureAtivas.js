@@ -6,5 +6,6 @@ export default [
   feature.LINHAS_DE_CUIDADO,
   feature.EXCLUSAO_USUARIO,
   feature.DENUNCIAR,
-  feature.BANNER_ASSISTENCIA_FARMACEUTICA
+  feature.BANNER_ASSISTENCIA_FARMACEUTICA,
+  feature.CONFIRMACAO_AO_SAIR
 ];

@@ -18,7 +18,7 @@ export default function Banner({
   const temEnderecoUrl = enderecoUrl.length > 0;
   return (
     <Card
-      onPress={() => (temEnderecoUrl ? (!netInfo.isConnected ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate('SemConexao')) : navigation.navigate(pagina))}
+      onPress={() => (temEnderecoUrl ? (netInfo.isConnected ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate('SemConexao')) : navigation.navigate(pagina))}
       style={estilos.cartao}
     >
       <View style={estilos.containerImage}>
