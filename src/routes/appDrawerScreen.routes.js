@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   Dimensions
 } from 'react-native';
+import { cores } from '../constantes/estiloBase';
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
 import PerfilScreen from '../pages/Perfil/index';
@@ -17,6 +18,8 @@ import SusNoCearaScreen from '../pages/SusNoCeara';
 import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
 import ContaExcluida from '../pages/Perfil/contaExcluida';
 import Denunciar from '../pages/Denunciar';
+import QualiQuizScreen from '../pages/QualiQuiz';
+import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
 
 import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
@@ -46,6 +49,8 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
       <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />
       <Drawer.Screen name="DENUNCIAR" component={DenunciarAccountScreen} />
+      <Drawer.Screen name="QUALIQUIZ" component={QualiQuizStackScreen} />
+      <Drawer.Screen name="QUALIQUIZ_LOGIN" component={QualiQuizLoginStackScreen} />
     </Drawer.Navigator>
   );
 }
@@ -155,5 +160,38 @@ function SusNoCearaStackScreen() {
         options={{ headerShown: true }}
       />
     </SusNoCearaStack.Navigator>
+  );
+}
+
+const QualiQuizStack = createStackNavigator();
+function QualiQuizStackScreen() {
+  return (
+    <QualiQuizStack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: cores.branco }
+      }}
+    >
+      <QualiQuizStack.Screen
+        name="QUALIQUIZ"
+        component={QualiQuizScreen}
+        options={{ headerShown: true }}
+      />
+    </QualiQuizStack.Navigator>
+  );
+}
+const QualiQuizLoginStack = createStackNavigator();
+function QualiQuizLoginStackScreen() {
+  return (
+    <QualiQuizLoginStack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: cores.branco }
+      }}
+    >
+      <QualiQuizStack.Screen
+        name="QUALIQUIZ_LOGIN"
+        component={LoginQualiQuizScreen}
+        options={{ headerShown: true }}
+      />
+    </QualiQuizLoginStack.Navigator>
   );
 }

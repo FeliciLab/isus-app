@@ -37,6 +37,11 @@ export default function WebViewPage({
             marginHorizontal: 19
           }}
           onPress={() => {
+            if (route.params.rota) {
+              navigator.navigate(route.params.rota);
+              return;
+            }
+
             navigator.goBack();
           }}
         >

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Title } from 'react-native-paper';
 import { FlatList, StyleSheet, Linking } from 'react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
+import QualiQuizIcon from '../../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../../assets/icons/servicos/servico_1.svg';
 import Servico2 from '../../../assets/icons/servicos/servico_2.svg';
 import Servico3 from '../../../assets/icons/servicos/servico_3.svg';
@@ -11,13 +13,26 @@ import CartaoHome from '../cartaoHome';
 import { analyticsData } from '../../../utils/analytics';
 
 function Servicos({ navigation }) {
+  const netInfo = useNetInfo();
+
   const listaServicos = [
+    {
+      id: 'services-qualiquiz',
+      titulo: 'QualiQuiz',
+      ativo: true,
+      icone: QualiQuizIcon,
+      navegacao: {
+        net: true,
+        componente: 'QUALIQUIZ'
+      }
+    },
     {
       id: 'Integra_SUS',
       titulo: 'IntegraSUS',
       ativo: true,
       icone: Servico1,
       navegacao: {
+        net: true,
         componente: 'webview',
         titulo: 'IntegraSUS',
         url: 'https://integrasus.saude.ce.gov.br'
@@ -47,6 +62,7 @@ function Servicos({ navigation }) {
       ativo: true,
       icone: Servico4,
       navegacao: {
+        net: true,
         componente: 'webview',
         titulo: 'Ações do governo',
         url: 'https://coronavirus.ceara.gov.br/isus/governo/'
@@ -58,6 +74,7 @@ function Servicos({ navigation }) {
       icone: Servico5,
       ativo: true,
       navegacao: {
+        net: true,
         componente: 'webview',
         titulo: 'ESP',
         url: 'https://www.esp.ce.gov.br/'
@@ -69,12 +86,30 @@ function Servicos({ navigation }) {
       ativo: true,
       icone: Servico6,
       navegacao: {
+        net: true,
         componente: 'browser',
         titulo: 'ESP Virtual',
         url: 'http://espvirtual.esp.ce.gov.br/'
       }
     }
   ];
+
+  const onPress = (item) => {
+    if (item.navegacao.net && !netInfo.isConnected) {
+      navigation.navigate('SemConexao');
+      return;
+    }
+
+    if (item.navegacao.componente === 'browser') {
+      Linking.openURL(item.navegacao.url);
+      return;
+    }
+
+    navigation.navigate(item.navegacao.componente, {
+      title: item.navegacao.titulo,
+      url: item.navegacao.url
+    });
+  };
 
   return (
     <>
@@ -96,18 +131,7 @@ function Servicos({ navigation }) {
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => {
-              analyticsData(item.id, 'Click', 'Home');
-              if (item.navegacao.componente !== 'browser') {
-                navigation.navigate(item.navegacao.componente, {
-                  title: item.navegacao.titulo,
-                  url: item.navegacao.url
-                });
-              } else {
-                Linking.openURL(item.navegacao.url);
-              }
-            }
-            }
+            onPress={() => onPress(item)}
           />
         )}
       />

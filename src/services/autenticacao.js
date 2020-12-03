@@ -5,6 +5,17 @@ import {
 import { autenticar, pegarTokenDeAcesso } from '../apis/apiKeycloak';
 import { navigate } from '../routes/rootNavigation';
 
+export const efetuarAcesso = async ({ email, senha }) => {
+  const response = await autenticarComIdSaude(email, senha);
+  if (!response.sucesso) {
+    return { erro: true, msg: response.erros ? response.erros : response.mensagem };
+  }
+
+  await salvarTokenDoUsuarioNoStorage(response.mensagem);
+  await pegarTokenDoUsuarioNoStorage();
+  return { erro: false };
+};
+
 async function autenticarComIdSaude(email, senha) {
   try {
     const response = await autenticar(email, senha);
