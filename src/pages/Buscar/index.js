@@ -9,9 +9,11 @@ import {
   TextInput,
   StyleSheet,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
-import { Caption, Divider } from 'react-native-paper';
+import {
+  Caption, Divider, Headline, Subheading
+} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
 
@@ -19,13 +21,13 @@ export default class Buscar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
       data: [],
       page: 1,
       loading: false,
       text: '',
       ultimoTermo: '',
-      relogio: 0
+      relogio: 0,
+      estaVazio: false,
     };
   }
 
@@ -39,19 +41,52 @@ export default class Buscar extends Component {
     }
     this.setState({ ultimoTermo: this.state.text });
     const response = await getBusca(this.state.text, this.state.page);
+    if (response.data.data.length === 0) {
+      // console.log(`response lengh: ${response.data.data.length}`);
+      this.setState({ estaVazio: true, loading: false });
+      return;
+    }
     this.setState({
       data: [...this.state.data, ...response.data.data],
       page: this.state.page + 1,
       loading: false,
+      estaVazio: false
     });
   }
 
   infoPesquisando = () => (
       <Caption style={styles.emptyText}>
         Pesquisando por:
-{' '}
-<Text style={styles.textNegrito}>{this.state.text}</Text>
+        {' '}
+        <Text style={styles.textNegrito}>{this.state.text}</Text>
       </Caption>
+  )
+
+  //   <Headline style={styles.content}>
+  //   Página não encontrada!
+  // </Headline>
+  infoNaoEncontrado = () => (
+    <View style={{ flex: 1 }}>
+      <Headline
+        style={{
+          top: '15%',
+          width: '100%',
+          textAlign: 'center',
+          fontWeight: 'bold'
+        }}
+      >
+        Nenhum resultado encontrado
+      </Headline>
+      <Subheading
+        style={{
+          top: '15%',
+          width: '100%',
+          textAlign: 'center',
+        }}
+      >
+        Tente novamente com outros termos.
+      </Subheading>
+    </View>
   )
 
 // eslint-disable-next-line react/sort-comp
@@ -59,7 +94,6 @@ car
 
 /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
   ENCONTRE NENHUM ARTIGO */
-// eslint-disable-next-line no-shadow
 infoPreview() {
   // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
   this.state.data = [];
@@ -74,7 +108,6 @@ infoPreview() {
 }
 
   renderFooter = () => {
-    // eslint-disable-next-line react/destructuring-assignment
     if (!this.state.loading) return null;
     return (
       <View style={styles.loading}>
@@ -82,11 +115,6 @@ infoPreview() {
       </View>
     );
   };
-
-
-  runSearch(texto) {
-    this.setState({ text: texto });
-  }
 
   // eslint-disable-next-line class-methods-use-this
   createItem(item, navigation) {
@@ -120,10 +148,9 @@ infoPreview() {
 
 
   teste(text, load) {
-    // eslint-disable-next-line react/destructuring-assignment
     clearTimeout(this.state.relogio);
     this.setState({ text });
-    this.state.relogio = setTimeout(() => { load(); }, 3000);
+    this.state.relogio = setTimeout(() => { load(); }, 2000);
   }
 
 
@@ -144,7 +171,6 @@ infoPreview() {
           placeholderTextColor="#FFFFFF"
           value={this.state.text}
           style={styles.searchHeaderText}
-          // eslint-disable-next-line no-shadow
           onChangeText={text => this.teste(text, () => { this.loadRepositories(); })}
         />
       ),
@@ -187,7 +213,9 @@ infoPreview() {
             onEndReached={this.loadRepositories}
             onEndReachedThreshold={0.2}
             ListFooterComponent={this.renderFooter}
-            ListEmptyComponent={this.infoPesquisando}
+            ListEmptyComponent={
+              (!this.state.estaVazio) ? this.infoPesquisando : this.infoNaoEncontrado
+            }
           />
         )}
       </View>
@@ -196,6 +224,19 @@ infoPreview() {
 }
 
 const styles = StyleSheet.create({
+  heandline: {
+    top: '15%',
+    width: '100%',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+
+  subheanding: {
+    top: '15%',
+    width: '100%',
+    textAlign: 'center',
+  },
+
   list: {
     paddingHorizontal: 20,
   },
