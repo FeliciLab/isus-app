@@ -1,4 +1,6 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, {
+  useEffect, useContext, useState, useRef
+} from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-paper';
@@ -29,6 +31,8 @@ const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
 const formLogin = ({ rotaAposLogin }) => {
   const navigator = useNavigation();
+  const textInputEmail = useRef(null);
+  const textInputSenha = useRef(null);
   const [carregando, atribuirCarregando] = useState(false);
   const [exibirErroSenha, atribuirExibirErroSenha] = useState(false);
   const {
@@ -37,12 +41,10 @@ const formLogin = ({ rotaAposLogin }) => {
     trigger,
     errors
   } = useContext(FormContext);
-
   const {
     mostrarCaixaDialogo,
     fecharCaixaDialogo
   } = useContext(CaixaDialogoContext);
-
   const {
     alterarDadosUsuario,
     alterarTokenUsuario,
@@ -58,6 +60,13 @@ const formLogin = ({ rotaAposLogin }) => {
       required: 'O campo senha é obrigatório'
     });
   }, [register]);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      textInputEmail.current.clear();
+      textInputSenha.current.clear();
+    }, 4000);
+  }, [carregando]);
 
   const exibirNovoCadastro = () => {
     mostrarCaixaDialogo({
@@ -137,21 +146,21 @@ const formLogin = ({ rotaAposLogin }) => {
     >
       <Text style={style.titulo}>Conecte-se com seu ID Saúde</Text>
       <TextInput
+        ref={textInputEmail}
         style={style.campoTexto}
         mode="outlined"
         label="E-mail"
         textContentType="emailAddress"
-        autoCompleteType="email"
         keyboardType="email-address"
         onChangeText={text => setValue('email', text)}
       />
       <MsgErroFormCampo campo="email" />
       <TextInput
+        ref={textInputSenha}
         style={style.campoTexto}
         label="Senha"
         mode="outlined"
         textContentType="password"
-        autoCompleteType="password"
         secureTextEntry
         onChangeText={text => setValue('senha', text)}
       />
