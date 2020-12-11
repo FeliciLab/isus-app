@@ -11,21 +11,13 @@ import Servico5 from '../../../assets/icons/servicos/servico_5.svg';
 import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
 import CartaoHome from '../cartaoHome';
 import { analyticsData } from '../../../utils/analytics';
+import estaAtiva from '../../../utils/estaAtiva';
+import features from '../../../constantes/features';
 
 function Servicos({ navigation }) {
   const netInfo = useNetInfo();
 
   const listaServicos = [
-    {
-      id: 'qualiquiz',
-      titulo: 'QualiQuiz',
-      ativo: true,
-      icone: QualiQuizIcon,
-      navegacao: {
-        net: true,
-        componente: 'QUALIQUIZ'
-      }
-    },
     {
       id: 'Integra_SUS',
       titulo: 'IntegraSUS',
@@ -93,6 +85,20 @@ function Servicos({ navigation }) {
       }
     }
   ];
+
+  if (estaAtiva(features.QUALIQUIZ)) {
+    listaServicos.unshift({
+      id: 'qualiquiz',
+      titulo: 'QualiQuiz',
+      ativo: true,
+      icone: QualiQuizIcon,
+      navegacao: {
+        net: true,
+        componente: 'QUALIQUIZ'
+      }
+    });
+  }
+
 
   const onPress = (item) => {
     analyticsData(item.id, 'Click', 'Home');

@@ -5,7 +5,6 @@ import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.s
 import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfantil.svg';
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
 import StyledTitulo from './styles';
-import rotas from '../../../constantes/rotas';
 import CartaoHome from '../cartaoHome';
 
 export default function LinhasDeCuidado({ navigation }) {
@@ -18,7 +17,9 @@ export default function LinhasDeCuidado({ navigation }) {
       ativo: true,
       icone: ManejoClinico,
       navegacao: {
-        componente: rotas.MANEJO_CLINICO
+        componente: 'webview',
+        titulo: 'Manejo Clínico',
+        url: 'https://coronavirus.ceara.gov.br/profissional/manejoclinico/'
       }
     },
     {
