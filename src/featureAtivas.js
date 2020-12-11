@@ -8,5 +8,4 @@ export default [
   feature.DENUNCIAR,
   feature.BANNER_ASSISTENCIA_FARMACEUTICA,
   feature.CONFIRMACAO_AO_SAIR,
-  feature.QUALIQUIZ
 ];

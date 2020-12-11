@@ -87,7 +87,7 @@ function Servicos({ navigation }) {
   ];
 
   if (estaAtiva(features.QUALIQUIZ)) {
-    listaServicos.push({
+    listaServicos.unshift({
       id: 'qualiquiz',
       titulo: 'QualiQuiz',
       ativo: true,
