@@ -66,7 +66,6 @@ export default function PerfilScreen() {
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
-    console.log('Abrindo caixa...');
   };
 
   const abrirCaixaDialogoSair = async () => {
@@ -83,7 +82,6 @@ export default function PerfilScreen() {
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
-    console.log('Abrindo caixa sair...');
   };
 
   useLayoutEffect(() => {

@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useContext } from 'react';
-import { View, Text } from 'react-native';
+import React, { useLayoutEffect, useContext, useEffect } from 'react';
+import { View, Text, BackHandler } from 'react-native';
 import { Config } from 'react-native-config';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import IsusSvg from '../../assets/icons/isus_hor.svg';
@@ -26,6 +26,20 @@ export default function QualiQuiz({ navigation }) {
       }
     }, 1500);
   };
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.navigate('HOME');
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  });
 
   useFocusEffect(() => {
     handleEffect();

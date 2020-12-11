@@ -61,13 +61,6 @@ const formLogin = ({ rotaAposLogin }) => {
     });
   }, [register]);
 
-  useEffect(() => {
-    setTimeout(async () => {
-      textInputEmail.current.clear();
-      textInputSenha.current.clear();
-    }, 4000);
-  }, [carregando]);
-
   const exibirNovoCadastro = () => {
     mostrarCaixaDialogo({
       titulo: 'E-mail não cadastrado',
@@ -86,6 +79,10 @@ const formLogin = ({ rotaAposLogin }) => {
   };
 
   const efetuarLogin = (data) => {
+    setTimeout(async () => {
+      textInputEmail.current.clear();
+      textInputSenha.current.clear();
+    }, 8000);
     trigger();
 
     if (Object.keys(errors).length > 0) {
