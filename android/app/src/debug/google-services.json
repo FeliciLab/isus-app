@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "308319055359",
+    "project_id": "isus-debug",
+    "storage_bucket": "isus-debug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308319055359:android:8862297a64e1a9cfb94bca",
+        "android_client_info": {
+          "package_name": "com.esp.isus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308319055359-t2aesnsfvicu3fpfeaoq9l4cjta8h8r0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNmKsz5oQRG4hUB6u72TBL_DPnn7wKf9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308319055359-t2aesnsfvicu3fpfeaoq9l4cjta8h8r0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "308319055359-thrh99b3hntu803qe2qr8ibi3bffoori.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.esp.isus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

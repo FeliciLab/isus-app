@@ -202,10 +202,11 @@ android {
 }
 
 dependencies {
+    implementation 'com.facebook.soloader:soloader:0.9.0+'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-	implementation project(':react-native-config')
+	  implementation project(':react-native-config')
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
