@@ -29,6 +29,18 @@ function DadosUsuario({ dados }) {
       <Text style={estilos.dado}>
         {dados.municipio ? dados.municipio.nome : 'Não informado'}
       </Text>
+      <Feature
+        name={features.EDICAO_INFO_PESSOAIS}
+        activeComponent={() => (
+          <Botao
+            uri={rotas.EDICAO_INFO_PESSOAIS}
+            // params={{ tela_anterior: rotas.PERFIL }}
+            testID="botao-editar-dado-pessoal"
+          >
+            EDITAR INFORMAÇÕES
+          </Botao>
+        )}
+      />
     </View>
   );
 }

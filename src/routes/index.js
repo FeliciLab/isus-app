@@ -14,6 +14,7 @@ import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
+import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal/index';
 import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
 import SemConexao from '../components/semConexao';
 import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
@@ -22,7 +23,7 @@ import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
 import features from '../constantes/features';
-import constantes from '../constantes/rotas';
+import rotas from '../constantes/rotas';
 import estaAtiva from '../utils/estaAtiva';
 
 const RootStack = createStackNavigator();
@@ -36,6 +37,14 @@ function EdicaoProfissional(props) {
         inactiveComponent={() => <EdicaoInfoProfissional {...props} />}
       />
 
+    </FormProvider>
+  );
+}
+
+function EdicaoPessoal(props) {
+  return (
+    <FormProvider>
+      <EdicaoInfoPessoal {...props} />
     </FormProvider>
   );
 }
@@ -102,7 +111,7 @@ export default function App({ navigationRef }) {
           options={{ headerShown: true }}
         />
         <RootStack.Screen
-          name={constantes.MANEJO_CLINICO}
+          name={rotas.MANEJO_CLINICO}
           component={ClinicalManagement}
         />
         <RootStack.Screen name="webview" component={WebViewPage} />
@@ -127,13 +136,17 @@ export default function App({ navigationRef }) {
           initialParams={{ conteudos: [] }}
         />
         <RootStack.Screen
-          name="EdicaoDadosProfissionais"
+          name={rotas.EDICAO_PROFISSIONAL}
           component={EdicaoProfissional}
         />
         <RootStack.Screen
           name="BemVindo"
           component={BemVindo}
           options={{ headerShown: false }}
+        />
+        <RootStack.Screen
+          name={rotas.EDICAO_INFO_PESSOAIS}
+          component={EdicaoPessoal}
         />
       </RootStack.Navigator>
     </NavigationContainer>
