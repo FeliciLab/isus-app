@@ -2,11 +2,11 @@ import React, {
   useLayoutEffect, useEffect
 } from 'react';
 import {
-  View, StyleSheet, Text, Image, BackHandler, Dimensions, ScrollView
+  View, StyleSheet, Text, BackHandler, Dimensions, ScrollView
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import accountDelete from '../../assets/images/user_account_delete.png';
+import DeletarConta from '../../assets/images/deletar_conta.svg';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function ExcluirPerfil() {
@@ -40,20 +40,18 @@ export default function ExcluirPerfil() {
   });
   return (
     <>
-    <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
-    <ScrollView>
-    <View style={estilos.container}>
-        <View style={estilos.parteCenter}>
-        <Image
-          style={estilos.imagemUser}
-          source={accountDelete}
-        />
+      <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
+      <ScrollView>
+        <View style={estilos.container}>
+          <View style={estilos.parteCenter}>
+            <DeletarConta style={estilos.imagemUser} />
             <Text style={estilos.textoInfo}>
-            Conta excluída com sucesso.
-            Esta ação não pode ser desfeita, mas você pode criar novamente uma conta quando quiser.
+              Conta excluída com sucesso.
+              Esta ação não pode ser desfeita,
+              mas você pode criar novamente uma conta quando quiser.
             </Text>
             <Text style={estilos.textoInfo}>
-            Esperamos que você retorne em breve.
+              Esperamos que você retorne em breve.
             </Text>
             <Button
               color="#fff"
@@ -61,11 +59,11 @@ export default function ExcluirPerfil() {
               style={estilos.botaoOk}
               onPress={() => navigation.navigate('HOME')}
             >
-            OK
+              OK
             </Button>
+          </View>
         </View>
-    </View>
-    </ScrollView>
+      </ScrollView>
     </>
   );
 }

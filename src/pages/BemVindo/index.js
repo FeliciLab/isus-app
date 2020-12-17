@@ -1,20 +1,26 @@
 import React from 'react';
 import {
-  ImageBackground, View, Text, Image, StatusBar, SafeAreaView, StyleSheet
+  ImageBackground, View, Image, StatusBar
 } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Button } from 'react-native-paper';
-import bemVindo from '../../assets/icons/apresentacao/bemVindo.png';
+import bemVindo from '../../assets/icons/apresentacao/bemVindo.svg';
 import cadastroProfissional from '../../assets/icons/apresentacao/cadastro-profissional.png';
-import educacao from '../../assets/icons/apresentacao/educacao.png';
-import pesquisa from '../../assets/icons/apresentacao/pesquisa.png';
-import diagnostico from '../../assets/icons/apresentacao/diagnostico.png';
-import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.png';
+import educacao from '../../assets/icons/apresentacao/educacao.svg';
+import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
+import diagnostico from '../../assets/icons/apresentacao/diagnostico.svg';
+import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.svg';
+
 import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
+import { salvarDados } from '../../services/armazenamento';
+import {
+  Conteudo, ConteudoTopo, ConteudoCentral, ConteudoDescricao, SafeArea,
+  TituloDescricao, BotaoCadastro, ConteudoImagem, TextoDescricao, PularTutorial,
+  ConteudoPularTutorial
+} from './styles';
 
 export default function BemVindo() {
   const navigation = useNavigation();
@@ -56,11 +62,10 @@ export default function BemVindo() {
       description: 'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde.',
       img: cadastroProfissional,
       botao:
-        <Button
+        <BotaoCadastro
           labelStyle={{ color: '#4CAF50', fontWeight: '600' }}
-          style={{ ...style.botao, backgroundColor: '#ffffff' }}
           onPress={() => {
-            AsyncStorage.setItem('@show-tutorial', 'false');
+            salvarDados('@show-tutorial', false);
             navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
           }
           }
@@ -68,35 +73,47 @@ export default function BemVindo() {
         >
           {' '}
           Realizar meu cadastro
-        </Button>
+        </BotaoCadastro>
     }
   ];
 
   const renderItem = ({ item }) => (
-    <View style={style.descriptionView}>
-      <View style={style.viewTop} />
-      <View style={style.viewCenter}>
-        <View style={style.descriptionView}>
-          <View style={style.viewImg}>
-            <Image
-              style={{
-                alignSelf: 'center',
-                alignItems: 'flex-end',
-              }}
-              source={item.img}
-            />
-          </View>
+    <ConteudoDescricao>
+      <ConteudoTopo />
+      <ConteudoCentral>
+        <ConteudoDescricao>
+          <ConteudoImagem>
+            {
+              item.key === 'slide-6'
+                ? (
+                  <Image
+                    source={item.img}
+                    style={{
+                      alignSelf: 'center',
+                      alignItems: 'flex-end',
+                    }}
+                  />
+                ) : (
+                  <item.img style={{
+                    alignSelf: 'center',
+                    alignItems: 'flex-end',
+                  }}
+                  />
+                )
+            }
+
+          </ConteudoImagem>
           <View>
-            <Text style={style.descriptionTitle}>{item.title}</Text>
+            <TituloDescricao>{item.title}</TituloDescricao>
           </View>
-          <View style={style.viewContent}>
-            <Text style={style.descriptionText}>{item.description}</Text>
-          </View>
-        </View>
+          <Conteudo>
+            <TextoDescricao>{item.description}</TextoDescricao>
+          </Conteudo>
+        </ConteudoDescricao>
         {item.botao}
-      </View>
-      <View style={style.viewFooter} />
-    </View>
+      </ConteudoCentral>
+      <Conteudo />
+    </ConteudoDescricao>
   );
 
   const renderNextButton = () => (
@@ -107,7 +124,7 @@ export default function BemVindo() {
 
   async function moveToHome() {
     try {
-      await AsyncStorage.setItem('@show-tutorial', 'false');
+      await salvarDados('@show-tutorial', false);
       return navigation.reset({
         index: 0,
         routes: [{ name: 'App' }]
@@ -119,92 +136,29 @@ export default function BemVindo() {
   }
 
   return (
-      <ImageBackground
-        source={tutorialbackground}
-        style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
-      >
-        <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
-        <SafeAreaView style={{ flex: 1 }}>
-          <View style={{ marginTop: 60, right: 40, flexDirection: 'row-reverse' }}>
-              <TouchableOpacity onPress={moveToHome}>
-                <Text style={style.skipTutorial}>
-                  Pular Tutorial
-                </Text>
-              </TouchableOpacity>
-          </View>
-              <AppIntroSlider
-                KeyExtractor={item => item.key}
-                renderItem={renderItem}
-                data={dataComPerfil}
-                renderDoneButton={renderNextButton}
-                renderNextButton={renderNextButton}
-                onSkip={moveToHome}
-                onDone={moveToHome}
-              />
-        </SafeAreaView>
-      </ImageBackground>
+    <ImageBackground
+      source={tutorialbackground}
+      style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
+    >
+      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+      <SafeArea>
+        <ConteudoPularTutorial>
+          <TouchableOpacity onPress={moveToHome}>
+            <PularTutorial>
+              Pular Tutorial
+            </PularTutorial>
+          </TouchableOpacity>
+        </ConteudoPularTutorial>
+        <AppIntroSlider
+          KeyExtractor={item => item.key}
+          renderItem={renderItem}
+          data={dataComPerfil}
+          renderDoneButton={renderNextButton}
+          renderNextButton={renderNextButton}
+          onSkip={moveToHome}
+          onDone={moveToHome}
+        />
+      </SafeArea>
+    </ImageBackground>
   );
 }
-
-const style = StyleSheet.create({
-  viewTop: {
-    backgroundColor: '#000',
-  },
-  viewCenter: {
-    flex: 3,
-    alignItems: 'center',
-    justifyContent: 'space-between'
-  },
-  viewFooter: {
-    flex: 1,
-  },
-  viewImg: {
-    flex: 2,
-    alignItems: 'flex-end',
-    flexDirection: 'column-reverse',
-    marginBottom: 5
-  },
-  viewContent: {
-    flex: 1,
-  },
-  skipTutorial: {
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: 16,
-    lineHeight: 16,
-    textAlign: 'center',
-    letterSpacing: 0.75,
-    textTransform: 'uppercase',
-    color: '#F2F2F2',
-  },
-  descriptionView: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  descriptionTitle: {
-    color: '#F2F2F2',
-    textAlign: 'center',
-    fontSize: 34
-  },
-  descriptionText: {
-    alignSelf: 'center',
-    maxWidth: 278,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 18,
-    lineHeight: 28,
-    textAlign: 'center',
-    letterSpacing: 0.5,
-    color: '#FFFFFF',
-  },
-  botao: {
-    borderRadius: 200,
-    marginHorizontal: 16,
-    marginVertical: 10,
-    paddingTop: 5,
-    paddingLeft: 22,
-    paddingRight: 22,
-    paddingBottom: 5
-  }
-});

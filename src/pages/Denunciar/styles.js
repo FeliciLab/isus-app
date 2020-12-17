@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { Button } from 'react-native-paper';
+import IconFarolDenunciar from '../../assets/icons/forcaTarefa/farolDenuncia.svg';
 
 const Container = styled.View`
   background-color: #fff;
@@ -10,7 +11,7 @@ const ScrollView = styled.ScrollView`
   background-color: #fff;
 `;
 
-const ImagemFarol = styled.Image`
+const ImagemFarol = styled(IconFarolDenunciar)`
   height: 191px;
   margin-top: 32px;
 `;

@@ -9,7 +9,7 @@ import Moment from 'moment/locale/pt-br';
 // import { WebView } from 'react-native-webview';
 import HTML from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
-import Shared from '../../assets/icons/share.png';
+import ShareIcon from '../../assets/icons/share.svg';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -62,7 +62,7 @@ export default function DescriptionScreen(props) {
           </View>
           <View style={styles.subShare}>
             <TouchableOpacity onPress={onShare}>
-              <Image source={Shared} />
+              <ShareIcon />
             </TouchableOpacity>
           </View>
         </View>
@@ -80,13 +80,13 @@ export default function DescriptionScreen(props) {
             width: Dimensions.get('window').width
           }}
         >
-            <View style={{
-              padding: 10,
-              alignContent: 'center'
-            }}
-            >
-              <HTML html={item.content} />
-            </View>
+          <View style={{
+            padding: 10,
+            alignContent: 'center'
+          }}
+          >
+            <HTML html={item.content} />
+          </View>
         </View>
       </View>
     </ScrollView>

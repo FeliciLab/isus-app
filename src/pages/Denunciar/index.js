@@ -6,7 +6,6 @@ import { DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import BarraDeStatus from '../../components/barraDeStatus';
-import iconFarolDenunciar from '../../assets/icons/forcaTarefa/farolDenuncia.png';
 import {
   ScrollView, Titulo, Container,
   TextoEmailLigacao, ImagemFarol, TextoEmail,
@@ -66,9 +65,7 @@ export default function Denunciar() {
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <ScrollView>
         <Container>
-          <ImagemFarol
-            source={iconFarolDenunciar}
-          />
+          <ImagemFarol />
           <Titulo testID="texto1">
             O coronavírus continua circulando em nosso estado.
             Você pode ajudar a combater denunciando aglomerações e/ou não uso de máscaras.
