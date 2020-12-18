@@ -8,7 +8,6 @@ import Description from '../pages/Content/Description';
 import BemVindo from '../pages/BemVindo';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import Buscar from '../pages/Buscar';
-import ClinicalManagement from '../pages/ClinicalManagement';
 import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
@@ -109,10 +108,6 @@ export default function App({ navigationRef }) {
           name="MaternoInfantil"
           component={MaternoInfantil}
           options={{ headerShown: true }}
-        />
-        <RootStack.Screen
-          name={rotas.MANEJO_CLINICO}
-          component={ClinicalManagement}
         />
         <RootStack.Screen name="webview" component={WebViewPage} />
         <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />

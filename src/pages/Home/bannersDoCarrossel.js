@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import BannerManejo from './bannerManejo';
 import Banner from './banner';
 import CovidHeroes from '../../assets/images/banners/covidHeroes.png';
 import IDSaude from '../../assets/images/banners/IDSaude.png';
@@ -102,10 +101,7 @@ const bannersDoCarrossel = () => {
           imagem={CartilhaSaudeMental}
           enderecoUrl="https://coronavirus.ceara.gov.br/cartilhas-sobre-saude-mental/"
         />
-    },
-    {
-      banner: <BannerManejo />
-    },
+    }
   ];
 };
 

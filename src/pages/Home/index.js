@@ -8,7 +8,6 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
 import Carrossel from './carrossel';
 import BarraDeStatus from '../../components/barraDeStatus';
 import Servicos from './Servicos';
@@ -111,23 +110,21 @@ export default function HomeScreen() {
   return (
     <>
       { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
-      <ProviderDeVersaoDoManejo>
-        <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
-        <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-          <Carrossel sliderWidth={width} itemWidth={width} />
-          <Servicos navigation={navigation} />
-          {
-            estaLogado && (
-              <MeusConteudos />
-            )
-          }
-          <Feature
-            name={features.LINHAS_DE_CUIDADO}
-            activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
-          />
-          <ForcaTarefa navigation={navigation} />
-        </ScrollView>
-      </ProviderDeVersaoDoManejo>
+      <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
+      <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+        <Carrossel sliderWidth={width} itemWidth={width} />
+        <Servicos navigation={navigation} />
+        {
+          estaLogado && (
+            <MeusConteudos />
+          )
+        }
+        <Feature
+          name={features.LINHAS_DE_CUIDADO}
+          activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
+        />
+        <ForcaTarefa navigation={navigation} />
+      </ScrollView>
     </>
   );
 }
