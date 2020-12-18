@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ImageBackground, View, Image, StatusBar
+  ImageBackground, View, StatusBar
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import bemVindo from '../../assets/icons/apresentacao/bemVindo.svg';
-import cadastroProfissional from '../../assets/icons/apresentacao/cadastro-profissional.png';
+import cadastroProfissional from '../../assets/icons/apresentacao/cadastroProfissional.svg';
 import educacao from '../../assets/icons/apresentacao/educacao.svg';
 import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
 import diagnostico from '../../assets/icons/apresentacao/diagnostico.svg';
@@ -83,25 +83,11 @@ export default function BemVindo() {
       <ConteudoCentral>
         <ConteudoDescricao>
           <ConteudoImagem>
-            {
-              item.key === 'slide-6'
-                ? (
-                  <Image
-                    source={item.img}
-                    style={{
-                      alignSelf: 'center',
-                      alignItems: 'flex-end',
-                    }}
-                  />
-                ) : (
-                  <item.img style={{
-                    alignSelf: 'center',
-                    alignItems: 'flex-end',
-                  }}
-                  />
-                )
-            }
-
+            <item.img style={{
+              alignSelf: 'center',
+              alignItems: 'flex-end',
+            }}
+            />
           </ConteudoImagem>
           <View>
             <TituloDescricao>{item.title}</TituloDescricao>
