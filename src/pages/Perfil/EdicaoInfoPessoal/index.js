@@ -1,46 +1,52 @@
 /* eslint-disable no-unused-vars */
 import React, {
-  useContext, useState, useEffect, useLayoutEffect
+  useContext, useState, useEffect, useLayoutEffect, useRef
 } from 'react';
 import {
   View, TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
+import TextInputMask from 'react-native-text-input-mask';
+import { Dropdown } from 'react-native-material-dropdown-v2';
 import {
   DefaultTheme, Checkbox
 } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+
 import FormContext from '../../../context/FormContext';
 import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
-import { pegarDados } from '../../../services/armazenamento';
-import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
+import { pegarDados, salvarDados } from '../../../services/armazenamento';
+import { alteraDadosDoUsuario, getMunicipiosCeara } from '../../../apis/apiCadastro';
 import {
   SafeArea, Scroll, ConteudoFormulario, TituloPrincipal, Acordeon,
   Titulo, BotaoSalvar, IconeDropdown, ConteudoDropdown, CampoDeTexto
 } from './styles';
-import { nomeValido } from '../../../utils/validadores';
+import { nomeValido, emailValido, emailNaoCadastrado } from '../../../utils/validadores';
 import constantes from '../../../constantes/textos';
+
 
 function EdicaoInfoPessoal() {
   const {
     getValues, setValue, register, unregister, errors
   } = useContext(FormContext);
-
-  const [temNome, alterarTemNome] = useState(false);
-  const [temEmail, alterarTemEmail] = useState(false);
-  const [temTelefone, alterarTemTelefone] = useState(false);
-  const [temMunicipio, alterarTemMunicipio] = useState(false);
-  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
-  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
+  const [botaoAtivo, alteraBotaoAtivo] = useState(false);
+  const [temNome, alterarTemNome] = useState(true);
+  const [temEmail, alterarTemEmail] = useState(true);
+  const [temTelefone, alterarTemTelefone] = useState(true);
+  const [temMunicipio, alterarTemMunicipio] = useState(true);
+  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
+  const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
   const [carregando, alterarCarregando] = useState(false);
   const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
   const [nomeUsuario, alterarNomeUsuario] = useState('');
   const [emailUsuario, alterarEmailUsuario] = useState(0);
   const [telefoneUsuario, alterarTelefoneUsuario] = useState('');
-  const [nomeCidades, alterarNomeCidades] = React.useState(() => []);
-  const [idCidades, alterarIdCidades] = React.useState(() => []);
-  const dropdown = React.createRef();
+  const [nomeCidades, alterarNomeCidades] = useState(() => []);
+  const [idCidades, alterarIdCidades] = useState(() => []);
+  const [cidades, pegaCidades] = useState([]);
+  const dropdown = useRef();
+  const campoNome = useRef();
   const navigation = useNavigation();
 
   const theme = {
@@ -89,24 +95,57 @@ function EdicaoInfoPessoal() {
   useEffect(() => {
     const aoIniciar = async () => {
       const perfil = await pegarDados('perfil');
+      if (perfil === undefined) return;
       alterarPerfilDoUsuario(perfil);
 
+      register('nomeCompleto', {
+        required: true,
+        validate: nomeCompleto => nomeValido(nomeCompleto)
+          || 'O nome deve conter apenas letras.'
+      });
+      register('email', {
+        required: true,
+        validate: {
+          emailValido: email => emailValido(email)
+                          || constantes.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL,
+          emailCadastrado: async email => await emailNaoCadastrado(email)
+                            || constantes.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL_EXISTE
+        }
+      });
+      register('telefone', {
+        required: true,
+        minLength: {
+          value: 11,
+          message: constantes.PERFIL.EDICAO_INFO_PESSOAIS.MSG_TELEFONE
+        },
+        maxLength: 14
+      });
+      // register('nomeCompleto', perfil.name);
+      // register('email', perfil.email.toLowerCase());
+      // register('telefone', perfil.telefone);
       alterarNomeUsuario(perfil.name);
-      alterarEmailUsuario(perfil.email);
+      alterarEmailUsuario(perfil.email.toLowerCase());
       alterarTelefoneUsuario(perfil.telefone);
+      pegarCidades();
     };
     aoIniciar();
+    console.log(`useEffect: ${emailUsuario}`);
+    console.log(`useEffect: ${!botaoAtivo}`);
   }, []);
 
-  const mudarNome = (nome) => {
-    unregister(nome);
-    register('nomeCompleto', {
-      required: true,
-      validate: nomeCompleto => nomeValido(nomeCompleto)
-        || 'O nome deve conter apenas letras.'
-    });
-    alterarNomeUsuario(nome);
+  const pegarCidades = async () => {
+    const response = await getMunicipiosCeara();
+    alterarNomeCidades(response.data.map(item => item.nome));
+    pegaCidades(response.data.map(item => item));
   };
+
+  useEffect(() => {
+    async function guardarCidades() {
+      await salvarDados('municipios', nomeCidades);
+      await salvarDados('objeto', cidades);
+    }
+    guardarCidades();
+  }, [nomeCidades]);
 
   // const pegarId = (municipio) => {
   //   let teste = null;
@@ -117,6 +156,16 @@ function EdicaoInfoPessoal() {
   //   });
   //   return teste;
   // };
+
+  const mudarNome = (nome) => {
+    unregister(nome);
+    register('nomeCompleto', {
+      required: true,
+      validate: nomeCompleto => nomeValido(nomeCompleto)
+        || 'O nome deve conter apenas letras.'
+    });
+    alterarNomeUsuario(nome);
+  };
 
   const mostrarAlerta = (mensagem) => {
     alterarExibicaoDoAlerta(true);
@@ -178,15 +227,6 @@ function EdicaoInfoPessoal() {
     return telefone && JSON.parse(telefone).length !== 0;
   };
 
-  const Selecao = props => (
-    <Checkbox.Item
-      labelStyle={{ maxWidth: '70%' }}
-      theme={theme}
-      color="#FF9800"
-      {...props}
-    />
-  );
-
   return (
     <SafeArea>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
@@ -200,37 +240,78 @@ function EdicaoInfoPessoal() {
             name="nomeCompleto"
             underlineColor="#BDBDBD"
             defaultValue=""
+            textContentType="name"
+            value={nomeUsuario}
             onChangeText={(text) => {
               setValue('nomeCompleto', text);
+              alterarNomeUsuario(text);
             }}
             mode="outlined"
             theme={(getValues().nomeCompleto === undefined) || (getValues().nomeCompleto === ''
               ? theme : errors.nomeCompleto) ? themeError : theme}
           />
-            <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Setor de Atuação</Titulo>}>
-              <View>
-                <ConteudoDropdown>
-                  {/* <Dropdown
-                    ref={dropdown}
-                    label="Município de Residência"
-                    data={nomeCidades}
-                    labelExtractor={cidade => cidade}
-                    valueExtractor={cidade => cidade}
-                    onChangeText={(cidade) => {
-                      setValue('cidade', { id: idCidades, nome: nomeCidades });
-                    }}
-                  />
-                  <IconeDropdown
-                    name="arrow-drop-down"
-                    onPress={() => dropdown.current.focus()}
-                  /> */}
-                </ConteudoDropdown>
-              </View>
-            </Acordeon>
+          <CampoDeTexto
+            label="E-mail"
+            name="email"
+            underlineColor="#BDBDBD"
+            defaultValue=""
+            autoCapitalize="none"
+            textContentType="emailAddress"
+            value={emailUsuario}
+            onChangeText={(text) => {
+              setValue('email', text);
+              alterarEmailUsuario(text);
+            }}
+            mode="outlined"
+            theme={(getValues().email === undefined) || (getValues().email === ''
+              ? theme : errors.email) ? themeError : theme}
+          />
+          <CampoDeTexto
+            label="Telefone"
+            name="telefone"
+            underlineColor="#BDBDBD"
+            defaultValue=""
+            textContentType="telephoneNumber"
+            keyboardType="number-pad"
+            value={telefoneUsuario}
+            onChangeText={text => text}
+            mode="outlined"
+            theme={(getValues().telefone === undefined) || (getValues().telefone === ''
+              ? theme : errors.telefone) ? themeError : theme}
+            maxLength={15}
+            render={props => (
+                <TextInputMask
+                  {...props}
+                  onChangeText={(formatted, extracted) => {
+                    props.onChangeText(formatted);
+                    setValue('telefone', extracted);
+                  }}
+                  mask="([00]) [00000]-[0000]"
+                />
+            )}
+          />
+          <View>
+            <ConteudoDropdown>
+              <Dropdown
+                ref={dropdown}
+                label="Município de Residência"
+                data={nomeCidades}
+                labelExtractor={cidade => cidade}
+                valueExtractor={cidade => cidade}
+                onChangeText={(cidade) => {
+                  setValue('cidade', { id: idCidades, nome: nomeCidades });
+                }}
+              />
+              <IconeDropdown
+                name="arrow-drop-down"
+                onPress={() => dropdown.current.focus()}
+              />
+            </ConteudoDropdown>
+          </View>
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
-          disabled={temNome && temTelefone && temEmail && temMunicipio}
+          disabled={!botaoAtivo}
           labelStyle={{ color: '#fff' }}
           loading={carregando}
           onPress={() => {
