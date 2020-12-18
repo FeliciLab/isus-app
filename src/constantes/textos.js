@@ -6,7 +6,9 @@ const PERFIL = {
     TITULO: 'Informações Pessoais:',
     MSG_EMAIL: 'O email deve ser no formato exemplo@exemplo.com',
     MSG_EMAIL_EXISTE: 'Email já cadastrado',
-    MSG_TELEFONE: 'O telefone deve ter pelo menos 11 número'
+    MSG_TELEFONE: 'O telefone deve ter pelo menos 11 número',
+    MSG_SUCESSO: 'Parabéns! Você cadastrou suas informações profissionais. '
+               + 'Você será redirecionado para sua página de Perfil.'
   }
 };
 

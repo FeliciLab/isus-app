@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { cores } from '../../constantes/estiloBase';
+import { CORES } from '../../constantes/estiloBase';
 
 const cadastrarNovoBtn = ({ style }) => {
   const navigator = useNavigation();
@@ -24,7 +24,7 @@ const cadastrarNovoBtn = ({ style }) => {
         style={{
           textAlign: 'center',
           letterSpacing: 1,
-          color: cores.laranja,
+          color: CORES.LARANJA,
           fontWeight: 'bold'
         }}
       >
