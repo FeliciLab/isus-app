@@ -420,7 +420,7 @@ PODS:
   - RNFBApp (10.2.0):
     - Firebase/CoreOnly (~> 7.2.0)
     - React-Core
-  - RNFBCrashlytics (10.1.0):
+  - RNFBCrashlytics (10.2.0):
     - Firebase/Crashlytics (~> 7.2.0)
     - React-Core
     - RNFBApp
@@ -716,7 +716,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNFBAnalytics: 1a476f7e82c7bc4c15df8bfe01be612e598f26d0
   RNFBApp: e3a0a4a783064c49764d1deb6ce61de5857c42ca
-  RNFBCrashlytics: 3fac22a9f985333e400473fecb56b49883a5776e
+  RNFBCrashlytics: 1eedba1bf45805406e0d16588e395ad07e3a97be
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNInputMask: 815461ebdf396beb62cf58916c35cf6930adb991
   RNReanimated: c2bb7438b57a3d987bb2e4e6e4bca94787e30b02
@@ -730,4 +730,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a7a8a15a531fbb3b7ba87c5035ce69765a732764
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
