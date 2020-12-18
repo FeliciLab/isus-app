@@ -1,20 +1,20 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { cores } from '../../constantes/estiloBase';
+import { CORES } from '../../constantes/estiloBase';
 
 const estiloCores = {
   verde: {
-    corFundo: cores.verde,
-    corTexto: cores.branco
+    corFundo: CORES.VERDE,
+    corTexto: CORES.BRANCO
   },
   roxo: {
-    corFundo: cores.roxo,
-    corTexto: cores.branco
+    corFundo: CORES.ROXO,
+    corTexto: CORES.BRANCO
   },
   branco: {
-    corFundo: cores.branco,
-    corTexto: cores.verde
+    corFundo: CORES.BRANCO,
+    corTexto: CORES.VERDE
   }
 };
 

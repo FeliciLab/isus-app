@@ -11,7 +11,7 @@ import BtnLogin from './btnLogin';
 import { efetuarAcesso, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import { emailNaoCadastrado } from '../../utils/validadores';
-import { cores } from '../../constantes/estiloBase';
+import { CORES } from '../../constantes/estiloBase';
 import Regex from '../../utils/regex';
 import MsgErroFormCampo from './msgErroFormCampo';
 
@@ -65,7 +65,7 @@ const formLogin = ({ rotaAposLogin }) => {
     mostrarCaixaDialogo({
       titulo: 'E-mail não cadastrado',
       texto: 'E-mail informado não está no ID Saúde. Verifique seus dados ou cadastre-se para acessar nossos conteúdos personalizados.',
-      cor: cores.laranja,
+      cor: CORES.LARANJA,
       textoConclusao: 'CRIAR CONTA',
       textoCancelamento: 'VOLTAR',
       aoConcluir: () => {
@@ -163,7 +163,7 @@ const formLogin = ({ rotaAposLogin }) => {
       />
       <MsgErroFormCampo campo="senha" />
       {exibirErroSenha && !carregando && (
-        <Text style={{ color: cores.laranja }}>
+        <Text style={{ color: CORES.LARANJA }}>
           Senha, incorreta. Tente novamente ou clique em
           &ldquo;Esqueci a senha&rdquo; para redefini-la.
         </Text>

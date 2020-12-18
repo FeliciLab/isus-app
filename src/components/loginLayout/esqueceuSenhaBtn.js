@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native';
-import { cores } from '../../constantes/estiloBase';
+import { CORES } from '../../constantes/estiloBase';
 
 const esqueceuSenhaBtn = ({ style }) => {
   const navigator = useNavigation();
@@ -21,7 +21,7 @@ const esqueceuSenhaBtn = ({ style }) => {
       <Text
         onPress={() => abrirWebView()}
         style={{
-          color: cores.laranja,
+          color: CORES.LARANJA,
           letterSpacing: 1,
           textAlign: 'center',
           fontWeight: 'bold',

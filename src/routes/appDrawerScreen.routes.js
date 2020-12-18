@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   Dimensions
 } from 'react-native';
-import { cores } from '../constantes/estiloBase';
+import { CORES } from '../constantes/estiloBase';
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
 import PerfilScreen from '../pages/Perfil/index';
@@ -168,7 +168,7 @@ function QualiQuizStackScreen() {
   return (
     <QualiQuizStack.Navigator
       screenOptions={{
-        cardStyle: { backgroundColor: cores.branco }
+        cardStyle: { backgroundColor: CORES.BRANCO }
       }}
     >
       <QualiQuizStack.Screen
@@ -184,7 +184,7 @@ function QualiQuizLoginStackScreen() {
   return (
     <QualiQuizLoginStack.Navigator
       screenOptions={{
-        cardStyle: { backgroundColor: cores.branco }
+        cardStyle: { backgroundColor: CORES.BRANCO }
       }}
     >
       <QualiQuizStack.Screen

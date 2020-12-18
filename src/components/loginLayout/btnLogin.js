@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
-import { cores } from '../../constantes/estiloBase';
+import { CORES } from '../../constantes/estiloBase';
 
 const BtnLogin = ({ acao, style, carregando }) => {
   const { handleSubmit } = useContext(FormContext);
@@ -9,7 +9,7 @@ const BtnLogin = ({ acao, style, carregando }) => {
     <Button
       dark
       loading={carregando}
-      color={cores.laranja}
+      color={CORES.LARANJA}
       mode="contained"
       onPress={handleSubmit(acao)}
       uppercase

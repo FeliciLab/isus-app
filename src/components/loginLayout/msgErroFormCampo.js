@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import FormContext from '../../context/FormContext';
-import { cores } from '../../constantes/estiloBase';
+import { CORES } from '../../constantes/estiloBase';
 
 const msgErroFormCampo = ({ campo }) => {
   const { errors } = useContext(FormContext);
@@ -11,7 +11,7 @@ const msgErroFormCampo = ({ campo }) => {
   }
 
   return (
-    <Text style={{ color: cores.laranja }}>
+    <Text style={{ color: CORES.LARANJA }}>
       {errors[campo].message}
     </Text>
   );
