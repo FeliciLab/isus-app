@@ -2,39 +2,35 @@
 import React, {
   useContext, useState, useEffect, useLayoutEffect, useRef
 } from 'react';
-import {
-  View, TouchableOpacity
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, TouchableOpacity } from 'react-native';
 import TextInputMask from 'react-native-text-input-mask';
 import { Dropdown } from 'react-native-material-dropdown-v2';
-import {
-  DefaultTheme, Checkbox
-} from 'react-native-paper';
+import { DefaultTheme } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 
 import FormContext from '../../../context/FormContext';
 import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
-import { pegarDados, salvarDados } from '../../../services/armazenamento';
-import { alteraDadosDoUsuario, getMunicipiosCeara } from '../../../apis/apiCadastro';
+import { pegarDados, salvarDados }
+  from '../../../services/armazenamento';
+import { alteraDadosDoUsuario, getMunicipiosCeara }
+  from '../../../apis/apiCadastro';
 import {
-  SafeArea, Scroll, ConteudoFormulario, TituloPrincipal, Acordeon,
-  Titulo, BotaoSalvar, IconeDropdown, ConteudoDropdown, CampoDeTexto
+  SafeArea, Scroll, ConteudoFormulario, TituloPrincipal,
+  BotaoSalvar, IconeDropdown, ConteudoDropdown, CampoDeTexto
 } from './styles';
-import { nomeValido, emailValido, emailNaoCadastrado } from '../../../utils/validadores';
-import constantes from '../../../constantes/textos';
+import { nomeValido, emailValido, emailNaoCadastrado }
+  from '../../../utils/validadores';
+import CONST_TEXT from '../../../constantes/textos';
+import ROTAS from '../../../constantes/rotas';
+import { CORES } from '../../../constantes/estiloBase';
 
 
 function EdicaoInfoPessoal() {
   const {
     getValues, setValue, register, unregister, errors
   } = useContext(FormContext);
-  const [botaoAtivo, alteraBotaoAtivo] = useState(false);
-  const [temNome, alterarTemNome] = useState(true);
-  const [temEmail, alterarTemEmail] = useState(true);
-  const [temTelefone, alterarTemTelefone] = useState(true);
-  const [temMunicipio, alterarTemMunicipio] = useState(true);
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
   const [carregando, alterarCarregando] = useState(false);
@@ -42,11 +38,12 @@ function EdicaoInfoPessoal() {
   const [nomeUsuario, alterarNomeUsuario] = useState('');
   const [emailUsuario, alterarEmailUsuario] = useState(0);
   const [telefoneUsuario, alterarTelefoneUsuario] = useState('');
-  const [nomeCidades, alterarNomeCidades] = useState(() => []);
-  const [idCidades, alterarIdCidades] = useState(() => []);
+  const [nomeCidade, alterarNomeCidade] = useState();
+  const [nomeCidades, alterarNomeCidades] = useState();
   const [cidades, pegaCidades] = useState([]);
   const dropdown = useRef();
-  const campoNome = useRef();
+  const refNomeCompleto = useRef();
+  const refEmail = useRef();
   const navigation = useNavigation();
 
   const theme = {
@@ -76,14 +73,14 @@ function EdicaoInfoPessoal() {
       headerTintColor: '#000',
       headerTitleAlign: 'center',
       headerTitle:
-        constantes.PERFIL.EDICAO_INFO_PESSOAIS.CABEÇALHO,
+        CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.CABEÇALHO,
       headerLeft: () => (
         <TouchableOpacity
           style={{
             marginHorizontal: 19
           }}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate(ROTAS.PERFIL);
           }}
         >
           <Icon name="arrow-left" size={28} color="#4CAF50" />
@@ -107,30 +104,29 @@ function EdicaoInfoPessoal() {
         required: true,
         validate: {
           emailValido: email => emailValido(email)
-                          || constantes.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL,
+                          || CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL,
           emailCadastrado: async email => await emailNaoCadastrado(email)
-                            || constantes.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL_EXISTE
+                            || CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL_EXISTE
         }
       });
       register('telefone', {
         required: true,
         minLength: {
           value: 11,
-          message: constantes.PERFIL.EDICAO_INFO_PESSOAIS.MSG_TELEFONE
+          message: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_TELEFONE
         },
         maxLength: 14
       });
-      // register('nomeCompleto', perfil.name);
-      // register('email', perfil.email.toLowerCase());
-      // register('telefone', perfil.telefone);
+
       alterarNomeUsuario(perfil.name);
       alterarEmailUsuario(perfil.email.toLowerCase());
       alterarTelefoneUsuario(perfil.telefone);
+      alterarNomeCidade(perfil.municipio.nome);
       pegarCidades();
+      refNomeCompleto.current.focus();
     };
     aoIniciar();
     console.log(`useEffect: ${emailUsuario}`);
-    console.log(`useEffect: ${!botaoAtivo}`);
   }, []);
 
   const pegarCidades = async () => {
@@ -147,15 +143,15 @@ function EdicaoInfoPessoal() {
     guardarCidades();
   }, [nomeCidades]);
 
-  // const pegarId = (municipio) => {
-  //   let teste = null;
-  //   cidades.forEach((element) => {
-  //     if (element.nome === municipio) {
-  //       teste = element.id;
-  //     }
-  //   });
-  //   return teste;
-  // };
+  const pegarId = (municipio) => {
+    let teste = null;
+    cidades.forEach((element) => {
+      if (element.nome === municipio) {
+        teste = element.id;
+      }
+    });
+    return teste;
+  };
 
   const mudarNome = (nome) => {
     unregister(nome);
@@ -193,16 +189,23 @@ function EdicaoInfoPessoal() {
 
   const salvarInformacoesPessoais = async () => {
     alterarCarregando(true);
-    const { name, telefone, email } = getValues();
+    const {
+      name, telefone, email, municipio
+    } = getValues();
     const usuarioTratado = tratarCamposDeUsuario(
       {
-        ...name, telefone, email
+        ...name, telefone, email, municipio
       }
     );
     try {
       console.log('perfil atualizado', usuarioTratado);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
+      navigation.navigate('TelaDeSucesso',
+        {
+          textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+          telaDeRedirecionamento: ROTAS.PERFIL,
+          telaDeBackground: CORES
+        });
       console.log(resposta.data);
       alterarCarregando(false);
     } catch (err) {
@@ -236,6 +239,7 @@ function EdicaoInfoPessoal() {
             Edite as informações pessoais que você deseja atualizar:
           </TituloPrincipal>
           <CampoDeTexto
+            ref={refNomeCompleto}
             label="Nome Completo"
             name="nomeCompleto"
             underlineColor="#BDBDBD"
@@ -251,6 +255,7 @@ function EdicaoInfoPessoal() {
               ? theme : errors.nomeCompleto) ? themeError : theme}
           />
           <CampoDeTexto
+            ref={refEmail}
             label="E-mail"
             name="email"
             underlineColor="#BDBDBD"
@@ -296,10 +301,12 @@ function EdicaoInfoPessoal() {
                 ref={dropdown}
                 label="Município de Residência"
                 data={nomeCidades}
+                value={nomeCidade}
                 labelExtractor={cidade => cidade}
                 valueExtractor={cidade => cidade}
                 onChangeText={(cidade) => {
-                  setValue('cidade', { id: idCidades, nome: nomeCidades });
+                  setValue('cidade', { id: pegarId(cidade), nome: cidade });
+                  alterarNomeCidade(cidade);
                 }}
               />
               <IconeDropdown
@@ -311,7 +318,10 @@ function EdicaoInfoPessoal() {
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
-          disabled={!botaoAtivo}
+          disabled={(nomeCidade.length() !== 0)
+            && (emailUsuario.length() !== 0)
+            && (telefoneUsuario.length() !== 0)
+          }
           labelStyle={{ color: '#fff' }}
           loading={carregando}
           onPress={() => {
