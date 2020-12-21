@@ -94,7 +94,7 @@ function EdicaoInfoPessoal() {
       const perfil = await pegarDados('perfil');
       if (perfil === undefined) return;
       alterarPerfilDoUsuario(perfil);
-      registrarCampos();
+      registrarCampos(perfil);
       alterarCampos(perfil);
       pegarCidades();
       refNomeCompleto.current.focus();
@@ -117,7 +117,7 @@ function EdicaoInfoPessoal() {
     guardarCidades();
   }, [nomeCidades]);
 
-  const registrarCampos = () => {
+  const registrarCampos = (perfil) => {
     register('nomeCompleto', {
       required: true,
       validate: nomeCompleto => nomeValido(nomeCompleto)
@@ -130,13 +130,8 @@ function EdicaoInfoPessoal() {
         emailValido: email => emailValido(email)
           || CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL,
         emailCadastrado: async (email) => {
-          console.log('email', email.toLowerCase());
-          console.log('perfil', perfildoUsuario.email.toLowerCase());
-
-          console.log('são iguais', email.toLowerCase() === perfildoUsuario.email.toLowerCase());
-          console.log('está cadastrado', await emailNaoCadastrado(email));
           if (await emailNaoCadastrado(email)
-            || email.toLowerCase() === perfildoUsuario.email.toLowerCase()) {
+            || email.toLowerCase() === perfil.email.toLowerCase()) {
             return true;
           }
           return CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL_EXISTE;
@@ -152,16 +147,26 @@ function EdicaoInfoPessoal() {
       },
       maxLength: 14
     });
+
+    register('cidade', {
+      required: true
+    });
+
+    register('cpf', {
+      required: true
+    });
   };
 
   const alterarCampos = (perfil) => {
     const {
-      name, email, telefone, municipio
+      name, email, telefone, municipio, cpf
     } = perfil;
     console.log('perfil', perfil);
     setValue('nomeCompleto', name, { shouldValidate: true });
     setValue('email', email, { shouldValidate: true });
     setValue('telefone', telefone, { shouldValidate: true });
+    setValue('cpf', cpf);
+    setValue('cidade', { id: pegarId(municipio.nome), nome: municipio.nome });
 
     alterarNomeUsuario(name);
     alterarEmailUsuario(email.toLowerCase());
@@ -183,6 +188,7 @@ function EdicaoInfoPessoal() {
     setValue(campo, valor);
     await trigger();
   };
+
   const mudarNome = (nome) => {
     unregister(nome);
     register('nomeCompleto', {
@@ -201,30 +207,28 @@ function EdicaoInfoPessoal() {
 
   const tratarCamposDeUsuario = (campos) => {
     const {
-      email, name, telefone, cpf, municipio, categoriaProfissional, especialidades, unidadeServico
+      nomeCompleto, telefone, email, cidade, cpf
     } = campos;
     return {
-      email,
-      nomeCompleto: name,
-      telefone,
       cpf,
-      cidadeId: municipio.id,
-      cidade: municipio.nome,
+      email,
+      nomeCompleto,
+      telefone,
+      cidadeId: cidade.id,
+      cidade: cidade.nome,
       termos: true,
-      categoriaProfissional,
-      especialidades,
-      unidadeServico
     };
   };
 
   const salvarInformacoesPessoais = async () => {
     alterarCarregando(true);
     const {
-      name, telefone, email, municipio
+      nomeCompleto, telefone, email, cidade, cpf
     } = getValues();
+    console.log('cidade para salvar', cidade);
     const usuarioTratado = tratarCamposDeUsuario(
       {
-        ...name, telefone, email, municipio
+        nomeCompleto, telefone, email, cidade, cpf
       }
     );
     try {
@@ -234,7 +238,7 @@ function EdicaoInfoPessoal() {
         {
           textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
           telaDeRedirecionamento: ROTAS.PERFIL,
-          telaDeBackground: CORES
+          telaDeBackground: CORES.VERDE
         });
       console.log(resposta.data);
       alterarCarregando(false);
@@ -245,20 +249,20 @@ function EdicaoInfoPessoal() {
     }
   };
 
-  const verificarNome = () => {
-    const { nomeCompleto } = getValues();
-    return nomeCompleto && JSON.parse(nomeCompleto).length !== 0;
-  };
+  // const verificarNome = () => {
+  //   const { nomeCompleto } = getValues();
+  //   return nomeCompleto && JSON.parse(nomeCompleto).length !== 0;
+  // };
 
-  const verificarEmail = () => {
-    const { email } = getValues();
-    return email && JSON.parse(email).length !== 0;
-  };
+  // const verificarEmail = () => {
+  //   const { email } = getValues();
+  //   return email && JSON.parse(email).length !== 0;
+  // };
 
-  const verificarTelefone = () => {
-    const { telefone } = getValues();
-    return telefone && JSON.parse(telefone).length !== 0;
-  };
+  // const verificarTelefone = () => {
+  //   const { telefone } = getValues();
+  //   return telefone && JSON.parse(telefone).length !== 0;
+  // };
 
   return (
     <SafeArea>
@@ -363,10 +367,6 @@ function EdicaoInfoPessoal() {
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
-          disabled={(nomeCidade.length !== 0)
-            && (emailUsuario.length !== 0)
-            && (telefoneUsuario.length !== 0)
-          }
           labelStyle={{ color: '#fff' }}
           loading={carregando}
           onPress={() => {
