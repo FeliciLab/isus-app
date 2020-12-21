@@ -65,6 +65,11 @@ top: 30px;
 font-size: 25px;
 `;
 
+const TextoDeErro = styled.Text`
+  color: red;
+  margin-top: 0;
+`;
+
 export {
   SafeArea,
   Scroll,
@@ -77,4 +82,5 @@ export {
   Titulo,
   Destaque,
   BotaoSalvar,
+  TextoDeErro
 };

@@ -18,7 +18,8 @@ import { alteraDadosDoUsuario, getMunicipiosCeara }
   from '../../../apis/apiCadastro';
 import {
   SafeArea, Scroll, ConteudoFormulario, TituloPrincipal,
-  BotaoSalvar, IconeDropdown, ConteudoDropdown, CampoDeTexto
+  BotaoSalvar, IconeDropdown, ConteudoDropdown, CampoDeTexto,
+  TextoDeErro
 } from './styles';
 import { nomeValido, emailValido, emailNaoCadastrado }
   from '../../../utils/validadores';
@@ -29,17 +30,17 @@ import { CORES } from '../../../constantes/estiloBase';
 
 function EdicaoInfoPessoal() {
   const {
-    getValues, setValue, register, unregister, errors
+    getValues, setValue, trigger, register, unregister, errors
   } = useContext(FormContext);
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
   const [carregando, alterarCarregando] = useState(false);
   const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
   const [nomeUsuario, alterarNomeUsuario] = useState('');
-  const [emailUsuario, alterarEmailUsuario] = useState(0);
+  const [emailUsuario, alterarEmailUsuario] = useState('');
   const [telefoneUsuario, alterarTelefoneUsuario] = useState('');
-  const [nomeCidade, alterarNomeCidade] = useState();
-  const [nomeCidades, alterarNomeCidades] = useState();
+  const [nomeCidade, alterarNomeCidade] = useState('');
+  const [nomeCidades, alterarNomeCidades] = useState([]);
   const [cidades, pegaCidades] = useState([]);
   const dropdown = useRef();
   const refNomeCompleto = useRef();
@@ -51,8 +52,7 @@ function EdicaoInfoPessoal() {
     roundness: 2,
     colors: {
       ...DefaultTheme.colors,
-      primary: 'rgba(0, 0, 0, 0.6)',
-      accent: '#FF9800',
+      primary: '#FF9800',
     },
   };
 
@@ -94,34 +94,8 @@ function EdicaoInfoPessoal() {
       const perfil = await pegarDados('perfil');
       if (perfil === undefined) return;
       alterarPerfilDoUsuario(perfil);
-
-      register('nomeCompleto', {
-        required: true,
-        validate: nomeCompleto => nomeValido(nomeCompleto)
-          || 'O nome deve conter apenas letras.'
-      });
-      register('email', {
-        required: true,
-        validate: {
-          emailValido: email => emailValido(email)
-                          || CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL,
-          emailCadastrado: async email => await emailNaoCadastrado(email)
-                            || CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL_EXISTE
-        }
-      });
-      register('telefone', {
-        required: true,
-        minLength: {
-          value: 11,
-          message: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_TELEFONE
-        },
-        maxLength: 14
-      });
-
-      alterarNomeUsuario(perfil.name);
-      alterarEmailUsuario(perfil.email.toLowerCase());
-      alterarTelefoneUsuario(perfil.telefone);
-      alterarNomeCidade(perfil.municipio.nome);
+      registrarCampos();
+      alterarCampos(perfil);
       pegarCidades();
       refNomeCompleto.current.focus();
     };
@@ -143,6 +117,58 @@ function EdicaoInfoPessoal() {
     guardarCidades();
   }, [nomeCidades]);
 
+  const registrarCampos = () => {
+    register('nomeCompleto', {
+      required: true,
+      validate: nomeCompleto => nomeValido(nomeCompleto)
+        || 'O nome deve conter apenas letras.'
+    });
+
+    register('email', {
+      required: true,
+      validate: {
+        emailValido: email => emailValido(email)
+          || CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL,
+        emailCadastrado: async (email) => {
+          console.log('email', email.toLowerCase());
+          console.log('perfil', perfildoUsuario.email.toLowerCase());
+
+          console.log('são iguais', email.toLowerCase() === perfildoUsuario.email.toLowerCase());
+          console.log('está cadastrado', await emailNaoCadastrado(email));
+          if (await emailNaoCadastrado(email)
+            || email.toLowerCase() === perfildoUsuario.email.toLowerCase()) {
+            return true;
+          }
+          return CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_EMAIL_EXISTE;
+        },
+      }
+    });
+
+    register('telefone', {
+      required: true,
+      minLength: {
+        value: 11,
+        message: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_TELEFONE
+      },
+      maxLength: 14
+    });
+  };
+
+  const alterarCampos = (perfil) => {
+    const {
+      name, email, telefone, municipio
+    } = perfil;
+    console.log('perfil', perfil);
+    setValue('nomeCompleto', name, { shouldValidate: true });
+    setValue('email', email, { shouldValidate: true });
+    setValue('telefone', telefone, { shouldValidate: true });
+
+    alterarNomeUsuario(name);
+    alterarEmailUsuario(email.toLowerCase());
+    alterarTelefoneUsuario(telefone);
+    alterarNomeCidade(municipio.nome);
+  };
+
   const pegarId = (municipio) => {
     let teste = null;
     cidades.forEach((element) => {
@@ -153,6 +179,10 @@ function EdicaoInfoPessoal() {
     return teste;
   };
 
+  const alteraValor = async (campo, valor) => {
+    setValue(campo, valor);
+    await trigger();
+  };
   const mudarNome = (nome) => {
     unregister(nome);
     register('nomeCompleto', {
@@ -247,13 +277,18 @@ function EdicaoInfoPessoal() {
             textContentType="name"
             value={nomeUsuario}
             onChangeText={(text) => {
-              setValue('nomeCompleto', text);
+              alteraValor('nomeCompleto', text);
               alterarNomeUsuario(text);
             }}
             mode="outlined"
             theme={(getValues().nomeCompleto === undefined) || (getValues().nomeCompleto === ''
               ? theme : errors.nomeCompleto) ? themeError : theme}
           />
+          {errors.nomeCompleto && (
+            <TextoDeErro>
+              {errors.nomeCompleto.message}
+            </TextoDeErro>
+          )}
           <CampoDeTexto
             ref={refEmail}
             label="E-mail"
@@ -264,13 +299,18 @@ function EdicaoInfoPessoal() {
             textContentType="emailAddress"
             value={emailUsuario}
             onChangeText={(text) => {
-              setValue('email', text);
+              alteraValor('email', text);
               alterarEmailUsuario(text);
             }}
             mode="outlined"
             theme={(getValues().email === undefined) || (getValues().email === ''
               ? theme : errors.email) ? themeError : theme}
           />
+          {errors.email && (
+            <TextoDeErro>
+              {errors.email.message}
+            </TextoDeErro>
+          )}
           <CampoDeTexto
             label="Telefone"
             name="telefone"
@@ -285,16 +325,21 @@ function EdicaoInfoPessoal() {
               ? theme : errors.telefone) ? themeError : theme}
             maxLength={15}
             render={props => (
-                <TextInputMask
-                  {...props}
-                  onChangeText={(formatted, extracted) => {
-                    props.onChangeText(formatted);
-                    setValue('telefone', extracted);
-                  }}
-                  mask="([00]) [00000]-[0000]"
-                />
+              <TextInputMask
+                {...props}
+                onChangeText={(formatted, extracted) => {
+                  props.onChangeText(formatted);
+                  setValue('telefone', extracted);
+                }}
+                mask="([00]) [00000]-[0000]"
+              />
             )}
           />
+          {errors.telefone && (
+            <TextoDeErro>
+              {errors.telefone.message}
+            </TextoDeErro>
+          )}
           <View>
             <ConteudoDropdown>
               <Dropdown
@@ -318,9 +363,9 @@ function EdicaoInfoPessoal() {
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
-          disabled={(nomeCidade.length() !== 0)
-            && (emailUsuario.length() !== 0)
-            && (telefoneUsuario.length() !== 0)
+          disabled={(nomeCidade.length !== 0)
+            && (emailUsuario.length !== 0)
+            && (telefoneUsuario.length !== 0)
           }
           labelStyle={{ color: '#fff' }}
           loading={carregando}
