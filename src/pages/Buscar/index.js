@@ -16,6 +16,7 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getBusca } from '../../apis/apiHome';
+import { analyticsData } from '../../utils/analytics';
 
 export default class Buscar extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ export default class Buscar extends Component {
       this.state.data = [];
       this.state.page = 1;
     }
+    await analyticsData('Home', 'Pesquisa', this.state.text);
     this.setState({ ultimoTermo: this.state.text });
     const response = await getBusca(this.state.text, this.state.page);
     if (response.data.data.length === 0) {

@@ -19,6 +19,7 @@ import ForcaTarefa from './ForcaTarefa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import features from '../../constantes/features';
 import LinhasDeCuidado from './LinhasDeCuidado';
+import { analyticsData } from '../../utils/analytics';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -83,7 +84,8 @@ export default function HomeScreen() {
           style={{
             marginHorizontal: 19
           }}
-          onPress={() => {
+          onPress={async () => {
+            await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate('Buscar');
           }}
         >
