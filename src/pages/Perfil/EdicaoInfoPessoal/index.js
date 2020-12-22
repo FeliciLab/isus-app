@@ -26,7 +26,7 @@ import { nomeValido, emailValido, emailNaoCadastrado }
 import CONST_TEXT from '../../../constantes/textos';
 import ROTAS from '../../../constantes/rotas';
 import { CORES } from '../../../constantes/estiloBase';
-
+import { vazio } from '../../../utils/objectUtils';
 
 function EdicaoInfoPessoal() {
   const {
@@ -93,10 +93,10 @@ function EdicaoInfoPessoal() {
     const aoIniciar = async () => {
       const perfil = await pegarDados('perfil');
       if (perfil === undefined) return;
+      await pegarCidades();
       alterarPerfilDoUsuario(perfil);
       registrarCampos(perfil);
       alterarCampos(perfil);
-      pegarCidades();
       refNomeCompleto.current.focus();
     };
     aoIniciar();
@@ -166,7 +166,7 @@ function EdicaoInfoPessoal() {
     setValue('email', email, { shouldValidate: true });
     setValue('telefone', telefone, { shouldValidate: true });
     setValue('cpf', cpf);
-    setValue('cidade', { id: pegarId(municipio.nome), nome: municipio.nome });
+    setValue('cidade', { id: municipio.id, nome: municipio.nome });
 
     alterarNomeUsuario(name);
     alterarEmailUsuario(email.toLowerCase());
@@ -209,6 +209,7 @@ function EdicaoInfoPessoal() {
     const {
       nomeCompleto, telefone, email, cidade, cpf
     } = campos;
+    console.log('cidade', cidade);
     return {
       cpf,
       email,
@@ -222,32 +223,39 @@ function EdicaoInfoPessoal() {
 
   const salvarInformacoesPessoais = async () => {
     alterarCarregando(true);
-    const {
-      nomeCompleto, telefone, email, cidade, cpf
-    } = getValues();
-    console.log('cidade para salvar', cidade);
-    const usuarioTratado = tratarCamposDeUsuario(
-      {
+    console.log('errors', errors);
+    if (vazio(errors)) {
+      const {
         nomeCompleto, telefone, email, cidade, cpf
-      }
-    );
-    try {
-      console.log('perfil atualizado', usuarioTratado);
-      const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso',
+      } = getValues();
+      console.log('cidade para salvar', cidade);
+      const usuarioTratado = tratarCamposDeUsuario(
         {
-          textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
-          telaDeRedirecionamento: ROTAS.PERFIL,
-          telaDeBackground: CORES.VERDE
-        });
-      console.log(resposta.data);
-      alterarCarregando(false);
-    } catch (err) {
-      console.log(err);
-      mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
-      alterarCarregando(false);
+          nomeCompleto, telefone, email, cidade, cpf
+        }
+      );
+      try {
+        console.log('perfil atualizado', usuarioTratado);
+        const resposta = await alteraDadosDoUsuario(usuarioTratado);
+        navigation.navigate('TelaDeSucesso',
+          {
+            textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+            telaDeRedirecionamento: ROTAS.PERFIL,
+            telaDeBackground: CORES.VERDE
+          });
+        console.log(resposta.data);
+        alterarCarregando(false);
+      } catch (err) {
+        console.log(err);
+        mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
+        alterarCarregando(false);
+      }
+      return;
     }
+    mostrarAlerta('Encontramos erros no formulário. Verifique antes de prosseguir');
+    alterarCarregando(false);
   };
+
 
   // const verificarNome = () => {
   //   const { nomeCompleto } = getValues();
@@ -365,7 +373,6 @@ function EdicaoInfoPessoal() {
             </ConteudoDropdown>
           </View>
         </ConteudoFormulario>
-        <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
           labelStyle={{ color: '#fff' }}
           loading={carregando}
@@ -376,6 +383,7 @@ function EdicaoInfoPessoal() {
         >
           Salvar
         </BotaoSalvar>
+        <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
       </Scroll>
     </SafeArea>
   );
