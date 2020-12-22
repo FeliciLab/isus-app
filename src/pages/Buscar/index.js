@@ -55,11 +55,11 @@ export default class Buscar extends Component {
   }
 
   infoPesquisando = () => (
-      <Caption style={styles.emptyText}>
-        Pesquisando por:
-        {' '}
-        <Text style={styles.textNegrito}>{this.state.text}</Text>
-      </Caption>
+    <Caption style={styles.emptyText}>
+      Pesquisando por:
+      {' '}
+      <Text style={styles.textNegrito}>{this.state.text}</Text>
+    </Caption>
   )
 
   //   <Headline style={styles.content}>
@@ -89,23 +89,23 @@ export default class Buscar extends Component {
     </View>
   )
 
-// eslint-disable-next-line react/sort-comp
-car
+  // eslint-disable-next-line react/sort-comp
+  car
 
-/* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
-  ENCONTRE NENHUM ARTIGO */
-infoPreview() {
-  // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
-  this.state.data = [];
-  return (
+  /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
+    ENCONTRE NENHUM ARTIGO */
+  infoPreview() {
+    // VERIFICANDO SE TEM TEXTO E SE TEM DADOS, CASO NÃO MOSTRA MENSAGEM INICIAL
+    this.state.data = [];
+    return (
       <Caption style={styles.emptyText}>
         Busque por conteúdos em
-          <Text style={styles.textNegrito}> Educação Permanente </Text>
+        <Text style={styles.textNegrito}> Educação Permanente </Text>
           e
-          <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
+        <Text style={styles.textNegrito}> Pesquisas Científicas. </Text>
       </Caption>
-  );
-}
+    );
+  }
 
   renderFooter = () => {
     if (!this.state.loading) return null;
@@ -131,11 +131,12 @@ infoPreview() {
                 style={styles.contentImage}
                 source={{ uri: `${item.image}` }}
               />
-            ) : (
-              <View
-                style={styles.contentImage}
-              />
-            )}
+            )
+              : (
+                <View
+                  style={styles.contentImage}
+                />
+              )}
             <Caption style={styles.contentSubtitle}>
               {item.post_title}
             </Caption>
@@ -149,7 +150,7 @@ infoPreview() {
 
   teste(text, load) {
     clearTimeout(this.state.relogio);
-    this.setState({ text });
+    this.setState({ text, estaVazio: false });
     this.state.relogio = setTimeout(() => { load(); }, 2000);
   }
 
@@ -203,21 +204,22 @@ infoPreview() {
       <View style={styles.emptyBackground}>
         {this.state.text.length === 0 ? (
           this.infoPreview()
-        ) : (
-          <FlatList
-            contentContainerStyle={{ flexGrow: 1 }}
-            data={this.state.data}
-            extraData={this.state}
-            renderItem={({ item }) => this.createItem(item, navigation)}
-            keyExtractor={item => item.id}
-            onEndReached={this.loadRepositories}
-            onEndReachedThreshold={0.2}
-            ListFooterComponent={this.renderFooter}
-            ListEmptyComponent={
-              (!this.state.estaVazio) ? this.infoPesquisando : this.infoNaoEncontrado
-            }
-          />
-        )}
+        )
+          : (
+            <FlatList
+              contentContainerStyle={{ flexGrow: 1 }}
+              data={this.state.data}
+              extraData={this.state}
+              renderItem={({ item }) => this.createItem(item, navigation)}
+              keyExtractor={item => item.id}
+              onEndReached={this.loadRepositories}
+              onEndReachedThreshold={0.2}
+              ListFooterComponent={this.renderFooter}
+              ListEmptyComponent={
+                (!this.state.estaVazio) ? this.infoPesquisando : this.infoNaoEncontrado
+              }
+            />
+          )}
       </View>
     );
   }
