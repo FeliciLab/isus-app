@@ -1,11 +1,11 @@
 import analytics from '@react-native-firebase/analytics';
 
 const analyticsData = async (
-  name, eventy, category
+  name, event, category
 ) => {
   try {
     await analytics().logEvent(name, {
-      eventy,
+      event,
       category,
     });
     console.log(`FA LogEvent - ${name}`);
