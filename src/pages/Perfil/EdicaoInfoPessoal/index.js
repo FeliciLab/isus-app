@@ -27,6 +27,7 @@ import CONST_TEXT from '../../../constantes/textos';
 import ROTAS from '../../../constantes/rotas';
 import { CORES } from '../../../constantes/estiloBase';
 import { vazio } from '../../../utils/objectUtils';
+import useConexao from '../../../hooks/conexao';
 
 function EdicaoInfoPessoal() {
   const {
@@ -46,7 +47,7 @@ function EdicaoInfoPessoal() {
   const refNomeCompleto = useRef();
   const refEmail = useRef();
   const navigation = useNavigation();
-
+  const conexao = useConexao();
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -91,6 +92,9 @@ function EdicaoInfoPessoal() {
 
   useEffect(() => {
     const aoIniciar = async () => {
+      conexao.escutar(() => {
+        navigation.navigate(ROTAS.PERFIL);
+      });
       const perfil = await pegarDados('perfil');
       if (perfil === undefined) return;
       await pegarCidades();

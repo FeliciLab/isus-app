@@ -78,9 +78,9 @@ export default function FormularioInfoPessoal({ navigation }) {
       required: true,
       validate: {
         emailValido: email => emailValido(email)
-                          || textos.formularioPessoal.mensagemEmail,
+          || textos.formularioPessoal.mensagemEmail,
         emailCadastrado: async email => await emailNaoCadastrado(email)
-                          || textos.formularioPessoal.mensagemEmailExistente
+          || textos.formularioPessoal.mensagemEmailExistente
       }
     });
     register('telefone', {
@@ -99,9 +99,9 @@ export default function FormularioInfoPessoal({ navigation }) {
       },
       validate: {
         cpfValido: cpf => cpfValido(cpf)
-                          || textos.formularioPessoal.mensagemCPFValidacao,
+          || textos.formularioPessoal.mensagemCPFValidacao,
         cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf)
-                          || textos.formularioPessoal.mensagemCPFExistente
+          || textos.formularioPessoal.mensagemCPFExistente
       },
       maxLength: 14
     });
