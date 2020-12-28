@@ -9,5 +9,6 @@ export default [
   feature.BANNER_ASSISTENCIA_FARMACEUTICA,
   feature.CONFIRMACAO_AO_SAIR,
   feature.QUALIQUIZ,
-  feature.EDICAO_INFO_PESSOAIS
+  feature.EDICAO_INFO_PESSOAIS,
+  feature.ELMO
 ];

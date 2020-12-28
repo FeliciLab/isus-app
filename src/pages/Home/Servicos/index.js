@@ -9,6 +9,7 @@ import Servico3 from '../../../assets/icons/servicos/servico_3.svg';
 import Servico4 from '../../../assets/icons/servicos/servico_4.svg';
 import Servico5 from '../../../assets/icons/servicos/servico_5.svg';
 import Servico6 from '../../../assets/icons/servicos/servico_6.svg';
+import Servico7 from '../../../assets/icons/servicos/servico_7.svg';
 import CartaoHome from '../cartaoHome';
 import { analyticsData } from '../../../utils/analytics';
 import estaAtiva from '../../../utils/estaAtiva';
@@ -95,6 +96,21 @@ function Servicos({ navigation }) {
       navegacao: {
         net: true,
         componente: 'QUALIQUIZ'
+      }
+    });
+  }
+
+  if (estaAtiva(features.ELMO)) {
+    listaServicos.unshift({
+      id: 'elmo',
+      titulo: 'Elmo',
+      ativo: true,
+      icone: Servico7,
+      navegacao: {
+        net: true,
+        componente: 'webview',
+        titulo: 'Elmo',
+        url: 'http://coronavirus.ceara.gov.br/elmo/'
       }
     });
   }

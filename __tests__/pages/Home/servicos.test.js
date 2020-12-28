@@ -58,3 +58,10 @@ test('deve chamar o analytics data ao clicar no ESP Virtual', () => {
 
   expect(analyticsData).toHaveBeenCalled();
 });
+test('deve chamar o analytics data ao clicar no serviço Elmo', () => {
+  const { getByTestId } = render(<Servicos navigation={navigation} />);
+  const item = getByTestId('cartaoHome-servicos-elmo');
+  fireEvent.press(item);
+
+  expect(analyticsData).toHaveBeenCalled();
+});
