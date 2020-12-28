@@ -110,7 +110,7 @@ function Servicos({ navigation }) {
         net: true,
         componente: 'webview',
         titulo: 'Elmo',
-        url: 'http://coronavirus.ceara.gov.br/elmo/'
+        url: 'https://coronavirus.ceara.gov.br/elmo/'
       }
     });
   }
