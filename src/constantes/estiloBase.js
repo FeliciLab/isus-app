@@ -4,6 +4,7 @@ export const CORES = {
   VERMELHO: '#F2453D',
   ROXO: '#9C27B0',
   INDIGO: '#4054B2',
+  INDIGO_DYE: '#004964',
   AZUL: '#304FFE',
   AMARELO: '#FFEB3B',
   PRETO: '#000',
@@ -11,7 +12,7 @@ export const CORES = {
   PRETO54: '#00000036',
   CINZA: '#BDBDBD',
   CINZA20: '#19191920',
-  BRANCO: '#FFF'
+  BRANCO: '#FFF',
 };
 
 export default {

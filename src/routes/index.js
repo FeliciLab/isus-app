@@ -24,6 +24,7 @@ import CadastroRoutes from './cadastro.routes';
 import features from '../constantes/features';
 import rotas from '../constantes/rotas';
 import estaAtiva from '../utils/estaAtiva';
+import Elmo from '../pages/Elmo';
 
 const RootStack = createStackNavigator();
 
@@ -44,6 +45,14 @@ function EdicaoPessoal(props) {
   return (
     <FormProvider>
       <EdicaoInfoPessoal {...props} />
+    </FormProvider>
+  );
+}
+
+function ElmoFunc(props) {
+  return (
+    <FormProvider>
+      <Elmo {...props} />
     </FormProvider>
   );
 }
@@ -142,6 +151,10 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.EDICAO_INFO_PESSOAIS}
           component={EdicaoPessoal}
+        />
+        <RootStack.Screen
+          name={rotas.ELMO}
+          component={ElmoFunc}
         />
       </RootStack.Navigator>
     </NavigationContainer>

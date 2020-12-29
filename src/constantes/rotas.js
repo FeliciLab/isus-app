@@ -7,5 +7,6 @@ export default {
   CADASTRO: 'CADASTRO',
   PERFIL: 'PERFIL',
   MANEJO_CLINICO: 'clinical management',
-  DENUNCIAR: 'DENUNCIAR'
+  DENUNCIAR: 'DENUNCIAR',
+  ELMO: 'ELMO'
 };
