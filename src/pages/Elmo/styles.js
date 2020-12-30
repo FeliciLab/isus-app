@@ -11,13 +11,19 @@ const ScrollView = styled.ScrollView`
 `;
 
 const SvgView = styled.View`
-  margin-top: 24px;
+  margin-top: 80px;
   margin-bottom: 70px;
 `;
 
 const Titulo = styled.Text`
-  font-size: 18px;
-  color: rgba(0, 0, 0, 1);  
+  /* styleName: H6; */
+  font-family: Roboto;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 23px;
+  text-align: left;
+
 `;
 
 const Texto = styled.Text`
@@ -31,7 +37,8 @@ const BackgroundImage = styled(ImageBackground)`
 `;
 
 const Botao = styled(Button)`
-  color: #FF9800;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export {

@@ -25,6 +25,8 @@ import features from '../constantes/features';
 import rotas from '../constantes/rotas';
 import estaAtiva from '../utils/estaAtiva';
 import Elmo from '../pages/Elmo';
+import SobreElmo from '../pages/Elmo/sobreElmo';
+import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 
 const RootStack = createStackNavigator();
 
@@ -155,6 +157,14 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.ELMO}
           component={ElmoFunc}
+        />
+        <RootStack.Screen
+          name={rotas.SOBRE_ELMO}
+          component={SobreElmo}
+        />
+        <RootStack.Screen
+          name={rotas.CAPACITACAO_ELMO}
+          component={CapacitacaoElmo}
         />
       </RootStack.Navigator>
     </NavigationContainer>
