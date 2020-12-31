@@ -14,11 +14,10 @@ import SvgFaleConosco from '../../assets/icons/elmo/icon_fale_conosco.svg';
 import BarraDeStatus from '../../components/barraDeStatus';
 import CartaoHome from '../Home/cartaoHome';
 import {
-  ScrollView, Texto, SvgView, BackgroundImage, Botao, Titulo
+  ScrollView, Texto, SvgView, BackgroundImage, Botao
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
 import ROTAS from '../../constantes/rotas';
-
 
 export default function Elmo() {
   const navigation = useNavigation();
@@ -80,6 +79,7 @@ export default function Elmo() {
       }
     }
   ];
+
   return (
     <>
       <BarraDeStatus backgroundColor={CORES.INDIGO_DYE} barStyle="white-content" />
@@ -126,9 +126,6 @@ export default function Elmo() {
           />
           )}
         />
-        <View style={{ marginHorizontal: 16, marginTop: 18 }}>
-          <Titulo>Novidades</Titulo>
-        </View>
       </ScrollView>
     </>
   );
