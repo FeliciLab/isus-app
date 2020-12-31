@@ -108,7 +108,9 @@ function Servicos({ navigation }) {
       icone: Servico7,
       navegacao: {
         net: true,
-        componente: 'ELMO',
+        componente: 'webview',
+        titulo: 'Elmo',
+        url: 'https://coronavirus.ceara.gov.br/elmo/'
       }
     });
   }
