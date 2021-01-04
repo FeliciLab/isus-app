@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { getProjetosPorCategoria } from '../../apis/apiHome';
+import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
 
@@ -37,7 +37,7 @@ export default function InformationScreen(props) {
   };
 
   const pegarConteudoDaApi = async () => {
-    const resposta = await getProjetosPorCategoria(params.term_id);
+    const resposta = await pegarProjetosPorCategoria(params.term_id);
     const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
     const postagensAtualizadas = marcarPostagensBaixadas(resposta.data.data, postagensBaixadas);
     alterarPostagens(postagensAtualizadas);

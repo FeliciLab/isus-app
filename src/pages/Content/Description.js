@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   salvarDados, pegarDados, removerDados, converterImagemParaBase64
 } from '../../services/armazenamento';
-import { getProjectPorId } from '../../apis/apiHome';
+import { pegarProjetosPorId } from '../../apis/apiHome';
 import BarraInferior from '../../components/barraInferior';
 import ImagemDePostagem from './ImagemDePostagem';
 import formatarDataPorExtenso from '../../utils/dateUtils';
@@ -58,7 +58,7 @@ export default function DescriptionScreen(props) {
 
   const pegarConteudoDaApi = async () => {
     try {
-      const resposta = await getProjectPorId(params.object.id);
+      const resposta = await pegarProjetosPorId(params.object.id);
       alterarPostagem(resposta.data);
     } catch (err) {
       console.log(`Erro ao pegar conteudo da API: ${err.message}`);

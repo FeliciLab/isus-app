@@ -15,7 +15,7 @@ import {
   Caption, Divider, Headline, Subheading
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { getBusca } from '../../apis/apiHome';
+import { pegarBusca } from '../../apis/apiHome';
 import { analyticsData } from '../../utils/analytics';
 
 export default class Buscar extends Component {
@@ -42,7 +42,7 @@ export default class Buscar extends Component {
     }
     await analyticsData('Home', 'Pesquisa', this.state.text);
     this.setState({ ultimoTermo: this.state.text });
-    const response = await getBusca(this.state.text, this.state.page);
+    const response = await pegarBusca(this.state.text, this.state.page);
     if (response.data.data.length === 0) {
       // console.log(`response lengh: ${response.data.data.length}`);
       this.setState({ estaVazio: true, loading: false });

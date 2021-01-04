@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
-import { getCategoriasArquitetura } from '../apis/apiHome';
+import { pegarCategoriasArquitetura } from '../apis/apiHome';
 import { salvarDados, pegarDados } from '../services/armazenamento';
 
 
@@ -67,7 +67,7 @@ export default function EducationTabScreen(props) {
   useEffect(() => {
     const pegarCategorias = async () => {
       try {
-        const resposta = await getCategoriasArquitetura();
+        const resposta = await pegarCategoriasArquitetura();
         setCategorias(resposta.data[props.route.name]);
         await salvarDados(`@categorias_${props.route.name}`, resposta.data[props.route.name]);
       } catch (err) {

@@ -2,19 +2,19 @@ import request from '../services/request';
 import { vazio } from '../utils/objectUtils';
 import { pegarSO, pegarVersao } from '../utils/platform';
 
-export function getCategoriasArquitetura() {
+export function pegarCategoriasArquitetura() {
   return request.get('/categoriasArquitetura');
 }
 
-export function getProjetosPorCategoria(id) {
+export function pegarProjetosPorCategoria(id) {
   return request.get(`/projetosPorCategoria/${id}`);
 }
 
-export function getBusca(item, page) {
+export function pegarBusca(item, page) {
   return request.get(`/buscaPorProjetos?search=${item}&page=${page}`);
 }
 
-export function getProjectPorId(item) {
+export function pegarProjetosPorId(item) {
   return request.get(`/projeto/${item}`);
 }
 
