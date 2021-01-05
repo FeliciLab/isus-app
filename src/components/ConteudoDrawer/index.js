@@ -16,10 +16,10 @@ import {
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import ItemDrawer from './itemDrawer';
-import packageJson from '../../package.json';
-import Heart from '../assets/icons/isus_hor.svg';
-import { pegarTokenDoUsuarioNoStorage } from '../services/autenticacao';
-import { analyticsData } from '../utils/analytics';
+import packageJson from '../../../package.json';
+import Heart from '../../assets/icons/isus_hor.svg';
+import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import { analyticsData } from '../../utils/analytics';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});

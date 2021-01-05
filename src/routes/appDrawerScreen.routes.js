@@ -12,7 +12,7 @@ import Login from '../pages/Login';
 import PerfilScreen from '../pages/Perfil/index';
 import TermoDeUsoScreen from '../pages/Perfil/TermosDeUso/index';
 import AppTab from './appBottomTab.routes';
-import ConteudoDoDrawer from './conteudoDoDrawer';
+import ConteudoDrawer from '../components/ConteudoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
@@ -35,7 +35,7 @@ export default function appDrawerScreen() {
         width: Dimensions.get('screen').width / 1.5
       }}
       drawerContent={props => (
-        <ConteudoDoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
       )}
     >
       <Drawer.Screen name="HOME" component={AppTab} />
