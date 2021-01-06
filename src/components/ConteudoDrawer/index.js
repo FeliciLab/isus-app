@@ -26,21 +26,25 @@ function conteudoDoDrawer(props) {
 
   const ItensDoDrawer = [
     {
+      testID: 'drawer-item-home',
       nome: 'Home',
       icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
       rota: 'HOME'
     },
     {
+      testID: 'drawer-item-perfil',
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color={CORES.PRETO54} />,
       rota: tokenUsuario ? 'PERFIL' : 'LOGIN',
     },
     {
+      testID: 'drawer-item-faleConosco',
       nome: 'Fale conosco',
       icone: <MaterialIcon name="feedback" size={22} color={CORES.PRETO54} />,
       rota: 'FEEDBACK'
     },
     {
+      testID: 'drawer-item-SusNoCeara',
       nome: 'SUS no Ceará',
       icone: <Icon name="help-circle" size={22} color={CORES.PRETO54} />,
       rota: 'SUS_NO_CEARA'
@@ -49,6 +53,7 @@ function conteudoDoDrawer(props) {
 
   const RenderizaItensDoDrawer = () => ItensDoDrawer.map(item => (
     <ItemDrawer
+      testID={item.testID}
       nome={item.nome}
       icone={item.icone}
       isFocado={routeName === item.rota}
@@ -73,10 +78,6 @@ function conteudoDoDrawer(props) {
           <ItemInferior />
         </View>
       </DroidSafeArea>
-
-      {/* View é relativa a margem de porcentagem em relação a ultima opção do drawer */}
-      {/* Caso adicione um item, a margemTop deve diminuir também */}
-
     </>
   );
 }

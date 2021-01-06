@@ -3,7 +3,7 @@ import { DrawerItem } from '@react-navigation/drawer';
 import { useFeatures } from '@paralleldrive/react-feature-toggles';
 
 export default function ItemDrawer({
-  nome, icone, feature, isFocado, onPress
+  nome, icone, feature, isFocado, onPress, testID
 }) {
   const features = useFeatures();
   const featureEstaAtiva = () => (!!(feature && features.includes(feature)));
@@ -24,6 +24,7 @@ export default function ItemDrawer({
       key={nome}
       icon={() => icone}
       label={nome}
+      testID={testID}
       style={{ display: visibilidade() }}
       labelStyle={{ fontSize: 15 }}
       inactiveTintColor="rgba(0, 0, 0, 0.87)"

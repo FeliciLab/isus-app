@@ -17,7 +17,7 @@ const TextoVersao = styled.Text`
 
 const DroidSafeArea = styled.SafeAreaView`
   padding-top: 25px;
-  margin-bottom: 150px
+  margin-bottom: 150px;
 `;
 
 const ItensInferior = styled.View`

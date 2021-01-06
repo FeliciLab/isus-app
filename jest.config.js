@@ -2,8 +2,8 @@ module.exports = {
   preset: 'react-native',
   collectCoverage: true,
   setupFiles: [
-    './node_modules/react-native-gesture-handler/jestSetup.js',
-    '<rootDir>/jest.setup.js'
+    '<rootDir>/jest.setup.js',
+    './node_modules/react-native-gesture-handler/jestSetup.js'
   ],
   moduleNameMapper: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
@@ -30,7 +30,9 @@ module.exports = {
     + '|react-native-snap-carousel'
     + '|react-native-community/netinfo'
     + '|@react-native-firebase/analytics'
+    + '|react-native-keyboard-aware-scroll-view'
     + '|@react-native-firebase/app'
+    + '|@react-native-firebase'
     + '|react-native-render-html'
     + '|react-native-webview'
     + ')/)',
