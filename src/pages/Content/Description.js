@@ -14,6 +14,7 @@ import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {
   salvarDados, pegarDados, removerDados, converterImagemParaBase64
 } from '../../services/armazenamento';
@@ -21,7 +22,7 @@ import { pegarProjetosPorId } from '../../apis/apiHome';
 import BarraInferior from '../../components/barraInferior';
 import ImagemDePostagem from './ImagemDePostagem';
 import formatarDataPorExtenso from '../../utils/dateUtils';
-
+import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -148,7 +149,7 @@ export default function DescriptionScreen(props) {
       headerTintColor: '#FFF',
       headerTitle: route.params.title,
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: params.cor || '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
       },
@@ -168,6 +169,7 @@ export default function DescriptionScreen(props) {
 
   return (
     <SafeAreaView style={styles.safeiOS}>
+    <BarraDeStatus backgroundColor={params.cor} barStyle={params.estiloBarra} />
       <ScrollView>
         <View style={styles.titulo}>
           <View>

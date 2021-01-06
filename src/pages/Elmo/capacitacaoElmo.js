@@ -1,13 +1,13 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  TouchableOpacity, View
+  TouchableOpacity, Linking
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import BarraDeStatus from '../../components/barraDeStatus';
 import {
-  ScrollView, Texto, Titulo, Botao
+  ScrollView, Texto, Titulo, Botao, Container
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
 
@@ -47,17 +47,22 @@ export default function capacitacaoElmo() {
       />
       <ScrollView style={{ flex: 1 }}>
         <Titulo> Capacitação </Titulo>
-        <View style={{ marginHorizontal: 16, marginTop: 18 }}>
+        <Container>
           <Texto>
           {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'}
           </Texto>
-        </View>
+        </Container>
         <Botao
-          style={{
-            marginTop: 22, marginHorizontal: 16, alignItems: 'center', backgroundColor: CORES.LARANJA,
-          }}
+
+        // style={{
+        // eslint-disable-next-line max-len
+        //   marginTop: 22, marginHorizontal: 16, alignItems: 'center', backgroundColor: CORES.LARANJA,
+        // }}
+          backgroundBotao={CORES.INDIGO_DYE}
+          alignItems="center"
+          marginTop={22}
           color={CORES.BRANCO}
-          onPress={() => console.log('Botao realizar inscricao pressionado')
+          onPress={() => Linking.openURL('https://forms.gle/41wzW4KkczuDH35H8')
           }
         >
           Realizar Pré-Inscrição

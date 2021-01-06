@@ -1,13 +1,22 @@
 import styled from 'styled-components/native';
-import { ImageBackground } from 'react-native';
-import { Button } from 'react-native-paper';
+import { ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
+import { Button, Card } from 'react-native-paper';
+import { CORES } from '../../constantes/estiloBase';
+import ImagemDePostagem from '../Content/ImagemDePostagem';
 
 const Container = styled.View`
   background-color: #fff;
+  margin: 0 16px;
+  margin-top: 18px;
 `;
 
 const ScrollView = styled.ScrollView`
   background-color: #fff;
+`;
+
+const CentralizarItensView = styled.View`
+  justify-content: center;
+  width: 100%;
 `;
 
 const SvgView = styled.View`
@@ -15,7 +24,22 @@ const SvgView = styled.View`
   margin-bottom: 70px;
 `;
 
-const Subtitulo = styled.Text`
+const Lista = styled.View`
+  margin-top: 24px;
+`;
+
+const CardSemConteudo = styled(Card)`
+  margin: 16px;
+  padding: 16px;
+`;
+
+
+const Hyperlink = styled.Text`
+   font-weight: bold;
+   text-decoration-line: underline;
+`;
+
+const TituloH6 = styled.Text`
   /* styleName: H6; */
   font-family: Roboto;
   font-size: 20px;
@@ -23,6 +47,8 @@ const Subtitulo = styled.Text`
   font-weight: 500;
   line-height: 23px;
   text-align: left;
+  margin-top: 28px;
+  margin-left: 8px;
 `;
 const Titulo = styled.Text`
   /* styleName: H5; */
@@ -37,8 +63,13 @@ const Titulo = styled.Text`
   margin-top: 24px;
 `;
 
+const TextoCentralizado = styled.Text`
+  text-align: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const Texto = styled.Text`
-  color: rgba(0, 0, 0, 0.6);
   /* styleName: Body 2; */
   font-family: Roboto;
   font-size: 14px;
@@ -47,6 +78,19 @@ const Texto = styled.Text`
   line-height: 20px;
   letter-spacing: 0.25px;
   text-align: left;
+  color: rgba(0, 0, 0, 0.6);
+`;
+
+const ImagemPost = styled(ImagemDePostagem)`
+  height: 110px; 
+  width: ${Dimensions.get('window').width / 2.2}px;
+`;
+
+const Conteudo = styled(TouchableOpacity)`
+  height: 200px;
+  width: ${Dimensions.get('window').width / 2.2}px;
+  align-items: center;
+  margin: 5px;
 `;
 
 const BackgroundImage = styled(ImageBackground)`
@@ -57,15 +101,31 @@ const BackgroundImage = styled(ImageBackground)`
 const Botao = styled(Button)`
   justify-content: flex-start;
   align-items: flex-start;
-`;
+  margin: 0 16px;
+  margin-top: 40px;
+  background-color: ${CORES.INDIGO_DYE};
+ `;
+
+const BotaoLink = styled(Button)`
+  justify-content: flex-start;
+  align-items: flex-start;
+ `;
 
 export {
   BackgroundImage,
   Container,
   ScrollView,
+  CentralizarItensView,
   SvgView,
   Titulo,
-  Subtitulo,
+  TituloH6,
+  TextoCentralizado,
   Texto,
-  Botao
+  Botao,
+  BotaoLink,
+  Lista,
+  CardSemConteudo,
+  Conteudo,
+  Hyperlink,
+  ImagemPost
 };

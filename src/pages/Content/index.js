@@ -15,6 +15,7 @@ export default function InformationScreen(props) {
   const [postagens, alterarPostagens] = useState([]);
   const [semConexao, alterarSemConexao] = useState(false);
 
+  console.log(`Term_ID: ${params.term_id}`);
   useFocusEffect(
     useCallback(() => {
       async function pegarConteudo() {

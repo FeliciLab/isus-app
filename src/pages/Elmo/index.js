@@ -1,8 +1,10 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
-  TouchableOpacity, View, FlatList
+  TouchableOpacity, View, FlatList, Linking
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native-paper';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import elmoPatternBG from '../../assets/backgrounds/elmo_pattern.png';
@@ -14,13 +16,43 @@ import SvgFaleConosco from '../../assets/icons/elmo/icon_fale_conosco.svg';
 import BarraDeStatus from '../../components/barraDeStatus';
 import CartaoHome from '../Home/cartaoHome';
 import {
-  ScrollView, Texto, SvgView, BackgroundImage, Botao
+  ScrollView,
+  Texto,
+  SvgView,
+  BackgroundImage,
+  Container,
+  BotaoLink,
+  Hyperlink,
+  CardSemConteudo,
+  TituloH6
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
 import ROTAS from '../../constantes/rotas';
+import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
+import { pegarProjetosPorCategoria } from '../../apis/apiHome';
+// import { analyticsData } from '../../utils/analytics';
 
-export default function Elmo() {
+function Elmo() {
   const navigation = useNavigation();
+  const netInfo = useNetInfo();
+  const [conteudos, alterarConteudos] = useState([]);
+  const [carregados, alterarCarregamento] = useState(false);
+
+  const aoIniciar = async () => {
+    try {
+      alterarCarregamento(true);
+      const resposta = await pegarProjetosPorCategoria(744);
+      alterarConteudos(resposta.data.data);
+      alterarCarregamento(false);
+    } catch (err) {
+      console.log(err);
+      alterarCarregamento(false);
+    }
+  };
+
+  useEffect(() => {
+    aoIniciar();
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,7 +81,7 @@ export default function Elmo() {
 
   const listaElmoCards = [
     {
-      id: 'elmo-1',
+      id: 'elmo-capacitacao',
       titulo: 'Capacitação',
       ativo: true,
       icone: SvgCapacitacao,
@@ -60,17 +92,17 @@ export default function Elmo() {
       }
     },
     {
-      id: 'elmo-2',
+      id: 'elmo-manual-uso',
       titulo: 'Manual de Uso',
       ativo: true,
       icone: SvgManualUso,
       navegacao: {
-        componente: ROTAS.SOBRE_ELMO,
-        background: CORES.INDIGO_DYE
+        componente: 'browser',
+        url: 'https://sus.ce.gov.br/elmo/manual_elmo_dez2020/'
       }
     },
     {
-      id: 'elmo-3',
+      id: 'elmo-fale-conosco',
       titulo: 'Fale Conosco',
       ativo: true,
       icone: SvgFaleConosco,
@@ -79,6 +111,58 @@ export default function Elmo() {
       }
     }
   ];
+
+  const ListaDeConteudo = () => {
+    if (conteudos && conteudos.length > 0) {
+      return (
+        <FlatList
+          horizontal
+          data={conteudos}
+          keyExtractor={index => `${index}`}
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center'
+          }}
+          showsHorizontalScrollIndicator={false}
+          renderItem={conteudo => (
+            <CartaoDeConteudo conteudo={conteudo} cor={CORES.INDIGO_DYE} estiloBarra="dark-white" />
+          )}
+        />
+      );
+    }
+    return (
+      <CardSemConteudo>
+        <Texto>
+          Ainda não temos novidades.
+          {' '}
+          <Hyperlink onPress={() => navigation.navigate('FEEDBACK')}>Fale Conosco</Hyperlink>
+          {' '}
+          para sugestão de informações.
+        </Texto>
+      </CardSemConteudo>
+    );
+  };
+
+  const onPress = (item) => {
+    // analyticsData(item.id, 'Click', 'Elmo');
+    if (item.navegacao.net && !netInfo.isConnected) {
+      navigation.navigate('SemConexao');
+      return;
+    }
+
+    if (item.navegacao.componente === 'browser') {
+      Linking.openURL(item.navegacao.url);
+      return;
+    }
+
+    navigation.navigate(item.navegacao.componente, {
+      title: item.navegacao.titulo,
+      url: item.navegacao.url,
+      headerStyle: {
+        backgroundColor: item.navegacao.background
+      }
+    });
+  };
 
   return (
     <>
@@ -89,21 +173,22 @@ export default function Elmo() {
             <SvgElmoLogo />
           </SvgView>
         </BackgroundImage>
-        <View style={{ marginHorizontal: 16, marginTop: 18 }}>
+        <Container>
           <Texto>
           {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'}
           </Texto>
-        </View>
-        <Botao
+        </Container>
+        <BotaoLink
           color={CORES.LARANJA}
+          marginTop={12}
           onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}
         >
           Saiba Mais
-        </Botao>
+        </BotaoLink>
         <FlatList
           horizontal
           data={listaElmoCards}
-          keyExtractor={(item, index) => `${index}`}
+          keyExtractor={index => `${index}`}
           style={{
             flexDirection: 'row',
             alignSelf: 'center'
@@ -116,17 +201,26 @@ export default function Elmo() {
             ativo={item.ativo}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => navigation.navigate(item.navegacao.componente, {
-              title: item.navegacao.titulo,
-              url: item.navegacao.url,
-              headerStyle: {
-                backgroundColor: item.navegacao.background
-              }
-            })}
+            onPress={() => onPress(item)}
           />
           )}
         />
+        <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
+          <TituloH6> Novidades </TituloH6>
+          <BotaoLink
+            color={CORES.LARANJA}
+            marginTop={20}
+            onPress={() => navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })}
+          >
+          Veja Mais
+          </BotaoLink>
+        </View>
+        <View style={{ marginTop: 20, marginBottom: 12 }}>
+          {!carregados ? <ListaDeConteudo /> : <ActivityIndicator />}
+        </View>
       </ScrollView>
     </>
   );
 }
+
+export default Elmo;
