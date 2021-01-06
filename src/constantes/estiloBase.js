@@ -9,7 +9,7 @@ export const CORES = {
   AMARELO: '#FFEB3B',
   PRETO: '#000',
   PRETO60: '#0000003C',
-  PRETO54: '#00000036',
+  PRETO54: 'rgba(0, 0, 0, 0.54)',
   CINZA: '#BDBDBD',
   CINZA20: '#19191920',
   BRANCO: '#FFF',
