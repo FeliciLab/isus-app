@@ -108,6 +108,7 @@ function Elmo() {
       icone: SvgFaleConosco,
       navegacao: {
         componente: ROTAS.FALE_CONOSCO,
+        // TODO: ocorrencia: DUVIDAS_ELMO
       }
     }
   ];
@@ -161,6 +162,7 @@ function Elmo() {
       headerStyle: {
         backgroundColor: item.navegacao.background
       }
+      // TODO: ocorrencia: item.navegacao.ocorrencia
     });
   };
 
@@ -187,7 +189,7 @@ function Elmo() {
         </BotaoLink>
         <FlatList
           horizontal
-          data={listaElmoCards}
+          data={listaElmoCards.slice(0, 4)}
           keyExtractor={index => `${index}`}
           style={{
             flexDirection: 'row',

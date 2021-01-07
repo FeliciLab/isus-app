@@ -58,7 +58,7 @@ export default function capacitacaoElmo() {
         // eslint-disable-next-line max-len
         //   marginTop: 22, marginHorizontal: 16, alignItems: 'center', backgroundColor: CORES.LARANJA,
         // }}
-          backgroundBotao={CORES.INDIGO_DYE}
+          backgroundColor={CORES.LARANJA}
           alignItems="center"
           marginTop={22}
           color={CORES.BRANCO}

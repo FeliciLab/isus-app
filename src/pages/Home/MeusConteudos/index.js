@@ -34,7 +34,7 @@ function MeusConteudos() {
       return (
         <FlatList
           horizontal
-          data={conteudos}
+          data={conteudos.slice(0, 4)}
           keyExtractor={(item, index) => `${index}`}
           style={{
             flexDirection: 'row',

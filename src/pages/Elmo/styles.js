@@ -100,10 +100,10 @@ const BackgroundImage = styled(ImageBackground)`
 
 const Botao = styled(Button)`
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: ${props => (props ? props.alignItems : CORES.INDIGO_DYE)};
   margin: 0 16px;
   margin-top: 40px;
-  background-color: ${CORES.INDIGO_DYE};
+  background-color: ${props => (props ? props.backgroundColor : CORES.INDIGO_DYE)};
  `;
 
 const BotaoLink = styled(Button)`
