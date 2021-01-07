@@ -48,23 +48,15 @@ function FormularioLogin() {
   };
 
   const fazerLogin = async () => {
-    try {
-      const response = await autenticarComIdSaude(email, senha);
-      if (response.sucesso) {
+    await autenticarComIdSaude(email, senha)
+      .then(async (response) => {
+        console.log(`Sucesso ${response.sucesso}`);
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
         await pegarTokenDoUsuarioNoStorage();
-        alterarCarregando(false);
-        // navigation.navigate('PERFIL');
         navigation.navigate('HOME');
-        return;
-      }
-      const mensagemErro = response.erros ? response.erros : response.mensagem;
-      alterarCarregando(false);
-      await mostrarAlerta(mensagemErro);
-    } catch (err) {
-      alterarCarregando(false);
-      mostrarAlerta(err.message);
-    }
+      })
+      .catch(err => mostrarAlerta(err.response.data.erros));
+    alterarCarregando(false);
   };
 
   return (
