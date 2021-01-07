@@ -118,7 +118,7 @@ function Elmo() {
       return (
         <FlatList
           horizontal
-          data={conteudos}
+          data={conteudos.slice(0, 4)}
           keyExtractor={index => `${index}`}
           style={{
             flexDirection: 'row',
@@ -189,7 +189,7 @@ function Elmo() {
         </BotaoLink>
         <FlatList
           horizontal
-          data={listaElmoCards.slice(0, 4)}
+          data={listaElmoCards}
           keyExtractor={index => `${index}`}
           style={{
             flexDirection: 'row',
