@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.14.2",
+  "version": "3.14.3",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
