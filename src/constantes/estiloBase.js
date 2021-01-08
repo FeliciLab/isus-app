@@ -8,10 +8,11 @@ export const CORES = {
   AZUL: '#304FFE',
   AMARELO: '#FFEB3B',
   PRETO: '#000',
-  PRETO60: '#0000003C',
+  PRETO30: '#1e1e1e',
+  PRETO60: '#00003C',
   PRETO54: 'rgba(0, 0, 0, 0.54)',
   CINZA: '#BDBDBD',
-  CINZA20: '#19191920',
+  CINZA_WEB: '#828282',
   BRANCO: '#FFF',
 };
 

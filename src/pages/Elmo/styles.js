@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-import { ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  ImageBackground, TouchableOpacity, Dimensions, Image
+} from 'react-native';
 import { Button, Card } from 'react-native-paper';
 import { CORES } from '../../constantes/estiloBase';
 import ImagemDePostagem from '../Content/ImagemDePostagem';
@@ -12,6 +14,12 @@ const Container = styled.View`
 
 const ScrollView = styled.ScrollView`
   background-color: #fff;
+`;
+
+const LinhaHorizontal = styled.View`
+  border-bottom-color: ${CORES.CINZA};
+  border-bottom-width: 1px;
+  margin-top: 2px;
 `;
 
 const CentralizarItensView = styled.View`
@@ -67,18 +75,23 @@ const TextoCentralizado = styled.Text`
   text-align: center;
   align-items: center;
   width: 100%;
+  color: ${props => (props.color ? props.color : 'black')};
 `;
 
 const Texto = styled.Text`
   /* styleName: Body 2; */
   font-family: Roboto;
   font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
+  font-style: ${props => (props.fontStyle ? props.fontStyle : 'normal')};
+  font-weight: ${props => (props.fontWeight ? props.fontWeight : 400)};
   line-height: 20px;
   letter-spacing: 0.25px;
   text-align: left;
   color: rgba(0, 0, 0, 0.6);
+`;
+
+const Imagem = styled(Image)`
+  margin-top: 18px;
 `;
 
 const ImagemPost = styled(ImagemDePostagem)`
@@ -115,6 +128,7 @@ export {
   BackgroundImage,
   Container,
   ScrollView,
+  LinhaHorizontal,
   CentralizarItensView,
   SvgView,
   Titulo,
@@ -127,5 +141,6 @@ export {
   CardSemConteudo,
   Conteudo,
   Hyperlink,
-  ImagemPost
+  ImagemPost,
+  Imagem
 };
