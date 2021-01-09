@@ -92,6 +92,7 @@ const Texto = styled.Text`
 
 const Imagem = styled(Image)`
   margin-top: 18px;
+  width: ${props => (props.width ? props.width : '100%')};
 `;
 
 const ImagemPost = styled(ImagemDePostagem)`

@@ -73,27 +73,60 @@ export default function sobreElmo() {
             Realização
           </TextoCentralizado>
           <LinhaHorizontal />
-          <View style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-          }}
-          >
-            <Imagem source={jpgGovCe} />
-            <Imagem source={jpgESP} />
-            <Imagem source={jpgUFC} />
-            <Imagem source={jpgUNIFOR} />
-            <Imagem source={jpgFIEC} />
-            <Imagem source={jpgSENAI} />
-            <Imagem source={jpgFUNCAP} />
-            <TextoCentralizado color={CORES.PRETO54} style={{ marginTop: 35 }}>
-              Apoio
-            </TextoCentralizado>
-            <LinhaHorizontal />
-            <Imagem source={jpgISGH} />
-            <Imagem source={jpgEsmaltec} />
-          </View>
+          <View style={{ flexDirection: 'column', flex: 6 }}>
+            <View style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+            >
+              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgGovCe} />
+              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgESP} />
+            </View>
+            <View style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+            >
+              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgUFC} />
+              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgUNIFOR} />
+            </View>
 
+            <View style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+            >
+              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgFIEC} />
+              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgSENAI} />
+            </View>
+            <View style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginBottom: 10
+            }}
+            >
+              <Imagem style={{ flex: 2 }} source={jpgFUNCAP} />
+            </View>
+          </View>
+          <TextoCentralizado color={CORES.PRETO54} style={{ marginTop: 35 }}>
+            Apoio
+          </TextoCentralizado>
+          <LinhaHorizontal />
+          <View style={{ flexDirection: 'column', flex: 2, marginBottom: 20 }}>
+            <View style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+            >
+              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgISGH} />
+              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgEsmaltec} />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </>
