@@ -28,7 +28,6 @@ import Elmo from '../pages/Elmo';
 import SobreElmo from '../pages/Elmo/sobreElmo';
 import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
-import DuvidasElmo from '../pages/FaleConoscoScreen/duvidasElmo';
 
 const RootStack = createStackNavigator();
 
@@ -171,10 +170,6 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.NOVIDADES_ELMO}
           component={NovidadesElmo}
-        />
-        <RootStack.Screen
-          name={rotas.DUVIDAS_ELMO}
-          component={DuvidasElmo}
         />
       </RootStack.Navigator>
     </NavigationContainer>

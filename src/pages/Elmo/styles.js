@@ -16,6 +16,18 @@ const ScrollView = styled.ScrollView`
   background-color: #fff;
 `;
 
+const ViewLogo = styled.View`
+  flex-direction: column;
+  margin-bottom: ${props => (props.maginBottom ? props.marginBottom : '10px')};
+  margin-top: ${props => (props.maginTop ? props.marginTop : '0px')};
+`;
+
+const ConteudoLogo = styled.View`
+  flex-direction: row;
+  margin-top: 25px;
+  justify-content: ${props => (props.centralizado ? 'center' : 'space-around')};
+`;
+
 const LinhaHorizontal = styled.View`
   border-bottom-color: ${CORES.CINZA};
   border-bottom-width: 1px;
@@ -74,6 +86,7 @@ const Titulo = styled.Text`
 const TextoCentralizado = styled.Text`
   text-align: center;
   align-items: center;
+  margin-top: ${props => (props.marginTop ? props.marginTop : '0px')};
   width: 100%;
   color: ${props => (props.color ? props.color : 'black')};
 `;
@@ -129,6 +142,8 @@ export {
   BackgroundImage,
   Container,
   ScrollView,
+  ViewLogo,
+  ConteudoLogo,
   LinhaHorizontal,
   CentralizarItensView,
   SvgView,

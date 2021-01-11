@@ -32,8 +32,9 @@ import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 // import { analyticsData } from '../../utils/analytics';
 
-function Elmo() {
+function Elmo({ route }) {
   const navigation = useNavigation();
+  console.log(route.name);
   const netInfo = useNetInfo();
   const [conteudos, alterarConteudos] = useState([]);
   const [carregados, alterarCarregamento] = useState(false);
@@ -107,8 +108,7 @@ function Elmo() {
       ativo: true,
       icone: SvgFaleConosco,
       navegacao: {
-        componente: ROTAS.FALE_CONOSCO,
-        // TODO: ocorrencia: DUVIDAS_ELMO
+        componente: ROTAS.DUVIDAS_ELMO,
       }
     }
   ];
@@ -136,7 +136,13 @@ function Elmo() {
         <Texto>
           Ainda não temos novidades.
           {' '}
-          <Hyperlink onPress={() => navigation.navigate('FEEDBACK')}>Fale Conosco</Hyperlink>
+          <Hyperlink
+            onPress={
+              () => navigation.navigate(ROTAS.FALE_CONOSCO)
+            }
+          >
+            Fale Conosco
+          </Hyperlink>
           {' '}
           para sugestão de informações.
         </Texto>
@@ -161,8 +167,7 @@ function Elmo() {
       url: item.navegacao.url,
       headerStyle: {
         backgroundColor: item.navegacao.background
-      }
-      // TODO: ocorrencia: item.navegacao.ocorrencia
+      },
     });
   };
 

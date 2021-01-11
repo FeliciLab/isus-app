@@ -21,7 +21,7 @@ import Denunciar from '../pages/Denunciar';
 import QualiQuizScreen from '../pages/QualiQuiz';
 import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
 
-import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
+import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
 
 const Drawer = createDrawerNavigator();
@@ -43,7 +43,10 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
-      <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
+      <Drawer.Screen
+        name={rotas.DUVIDAS_ELMO}
+        component={DuvidasElmoStackScreen}
+      />
       <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
       <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
@@ -136,17 +139,17 @@ function FeedbackStackScreen() {
   );
 }
 
-const AlertaEpiStack = createStackNavigator();
-function AlertaEpiStackScreen() {
+const DuvidasElmoStack = createStackNavigator();
+function DuvidasElmoStackScreen() {
   return (
-    <AlertaEpiStack.Navigator>
-      <AlertaEpiStack.Screen
-        name="ALERTA_EPI"
+    <DuvidasElmoStack.Navigator>
+      <DuvidasElmoStack.Screen
+        name={rotas.DUVIDAS_ELMO}
         component={FaleConoscoScreen}
         options={{ headerShown: true }}
-        initialParams={{ ocorrencia: ALERTA_FALTA_EPI }}
+        initialParams={{ ocorrencia: DUVIDAS_ELMO }}
       />
-    </AlertaEpiStack.Navigator>
+    </DuvidasElmoStack.Navigator>
   );
 }
 

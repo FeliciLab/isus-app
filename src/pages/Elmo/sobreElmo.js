@@ -7,7 +7,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import BarraDeStatus from '../../components/barraDeStatus';
 import {
-  ScrollView, Texto, TextoCentralizado, Titulo, Imagem, LinhaHorizontal
+  ScrollView,
+  Texto,
+  TextoCentralizado,
+  Titulo,
+  Imagem,
+  LinhaHorizontal,
+  ConteudoLogo,
+  ViewLogo
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
 import ImageElmo from '../../assets/images/fig-elmo.jpg';
@@ -69,64 +76,37 @@ export default function sobreElmo() {
           {'O Elmo envolve toda a cabeça do paciente. Ele é fixado no pescoço com uma base que veda a passagem do ar.\n'}
           {'Aplica-se um fluxo de gases medicinais com oxigênio (O2) e ar comprimido capaz de gerar uma pressão positiva (acima da pressão atmosférica). Essa pressão ajuda em situações em que o pulmão está com dificuldade de oxigenação.'}
           </Texto>
-          <TextoCentralizado color={CORES.PRETO54} style={{ marginTop: 35 }}>
+          <TextoCentralizado color={CORES.PRETO54} marginTop="35px">
             Realização
           </TextoCentralizado>
           <LinhaHorizontal />
-          <View style={{ flexDirection: 'column', flex: 6 }}>
-            <View style={{
-              flex: 2,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-            >
-              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgGovCe} />
-              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgESP} />
-            </View>
-            <View style={{
-              flex: 2,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-            >
-              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgUFC} />
-              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgUNIFOR} />
-            </View>
-
-            <View style={{
-              flex: 2,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-            >
-              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgFIEC} />
-              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgSENAI} />
-            </View>
-            <View style={{
-              flex: 2,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginBottom: 10
-            }}
-            >
-              <Imagem style={{ flex: 2 }} source={jpgFUNCAP} />
-            </View>
-          </View>
-          <TextoCentralizado color={CORES.PRETO54} style={{ marginTop: 35 }}>
+          <ViewLogo marginBottom="0" marginTop="10px">
+            <ConteudoLogo>
+              <Imagem width="148.3px" source={jpgGovCe} />
+              <Imagem width="140.4px" source={jpgESP} />
+            </ConteudoLogo>
+            <ConteudoLogo>
+              <Imagem width="167.18px" source={jpgUFC} />
+              <Imagem width="137.52px" source={jpgUNIFOR} />
+            </ConteudoLogo>
+            <ConteudoLogo>
+              <Imagem width="135.81px" source={jpgFIEC} />
+              <Imagem width="145.95px" source={jpgSENAI} />
+            </ConteudoLogo>
+            <ConteudoLogo centralizado>
+              <Imagem width="67.32px" source={jpgFUNCAP} />
+            </ConteudoLogo>
+          </ViewLogo>
+          <TextoCentralizado color={CORES.PRETO54} marginTop="45px">
             Apoio
           </TextoCentralizado>
           <LinhaHorizontal />
-          <View style={{ flexDirection: 'column', flex: 2, marginBottom: 20 }}>
-            <View style={{
-              flex: 2,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-            >
-              <Imagem style={{ flex: 1, marginHorizontal: 10 }} source={jpgISGH} />
-              <Imagem style={{ flex: 1, marginHorizontal: 30 }} source={jpgEsmaltec} />
-            </View>
-          </View>
+          <ViewLogo>
+            <ConteudoLogo>
+              <Imagem width="111px" source={jpgISGH} />
+              <Imagem width="133px" source={jpgEsmaltec} />
+            </ConteudoLogo>
+          </ViewLogo>
         </View>
       </ScrollView>
     </>
