@@ -18,14 +18,21 @@ const DEMANDA_EDUCACAO = {
   header: 'Demanda por Educação Permanente',
   textoDoDropdown: 'Demanda por Educação Permanente'
 };
+const DUVIDAS_ELMO = {
+  feedback: 'Sua dúvida foi enviada',
+  header: 'Dúvidas sobre o Elmo',
+  textoDoDropdown: 'Dúvidas sobre o Elmo'
+};
 
 const tiposDeOcorrenciaDropdown = {
   'Relatar problema (iSUS)': RELATAR_PROBLEMA,
   'Relatar sugestão (iSUS)': RELATAR_SUGESTAO,
   'Alerta de falta de EPI': ALERTA_FALTA_EPI,
-  'Demanda por Educação Permanente': DEMANDA_EDUCACAO
+  'Demanda por Educação Permanente': DEMANDA_EDUCACAO,
+  'Dúvidas sobre o Elmo': DUVIDAS_ELMO
 };
 
 export {
-  ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA, DEMANDA_EDUCACAO, tiposDeOcorrenciaDropdown
+  ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA,
+  DEMANDA_EDUCACAO, DUVIDAS_ELMO, tiposDeOcorrenciaDropdown
 };

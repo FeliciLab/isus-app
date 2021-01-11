@@ -36,6 +36,7 @@ function DadosUsuario({ dados }) {
             uri={rotas.EDICAO_INFO_PESSOAIS}
             // params={{ tela_anterior: rotas.PERFIL }}
             testID="botao-editar-dado-pessoal"
+            style={estilos.espacamento}
           >
             EDITAR INFORMAÇÕES
           </Botao>
@@ -105,6 +106,7 @@ function MostrarDadosUsuarioProfissional(dados) {
             uri={rotas.EDICAO_PROFISSIONAL}
             params={{ tela_anterior: rotas.PERFIL }}
             testID="botao-dados-editar"
+            style={estilos.botao}
           >
             EDITAR INFORMAÇÕES
           </Botao>

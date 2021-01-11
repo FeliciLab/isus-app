@@ -53,3 +53,8 @@ export function postDemandaEducacao(descricao, unidadeDeSaude, email) {
     descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
   });
 }
+export function postDuvidasElmo(relato, email) {
+  return request.post('duvidas-elmo', {
+    relato, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
+  });
+}

@@ -8,7 +8,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import elmoPatternBG from '../../assets/backgrounds/elmo_pattern.png';
-import SvgElmoLogo from '../../assets/images/logo/logo-elmo-h1.svg';
+import SvgElmoLogo from '../../assets/icons/logo/logo-elmo-h1.svg';
 import SvgCapacitacao from '../../assets/icons/elmo/icon_capacitacao.svg';
 import SvgManualUso from '../../assets/icons/elmo/icon_manual_uso.svg';
 import SvgFaleConosco from '../../assets/icons/elmo/icon_fale_conosco.svg';
@@ -98,7 +98,7 @@ function Elmo() {
       icone: SvgManualUso,
       navegacao: {
         componente: 'browser',
-        url: 'https://sus.ce.gov.br/elmo/manual_elmo_dez2020/'
+        url: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf'
       }
     },
     {
@@ -119,7 +119,7 @@ function Elmo() {
         <FlatList
           horizontal
           data={conteudos.slice(0, 4)}
-          keyExtractor={index => `${index}`}
+          keyExtractor={(items, index) => `${index}`}
           style={{
             flexDirection: 'row',
             alignSelf: 'center'
@@ -190,7 +190,7 @@ function Elmo() {
         <FlatList
           horizontal
           data={listaElmoCards}
-          keyExtractor={index => `${index}`}
+          keyExtractor={(items, index) => `${index}`}
           style={{
             flexDirection: 'row',
             alignSelf: 'center'

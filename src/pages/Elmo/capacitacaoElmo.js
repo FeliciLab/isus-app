@@ -49,7 +49,9 @@ export default function capacitacaoElmo() {
         <Titulo> Capacitação </Titulo>
         <Container>
           <Texto>
-          {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'}
+          {'Neste momento, as ações de capacitação para uso do Elmo são realizadas na modalidade presencial, com priorização das unidades de saúde que já receberam o equipamento.'}
+          {'\n\n'}
+          {'A Escola de Saúde Pública está preparando uma formação híbrida (Presencial e EAD) que será ofertada a profissionais de saúde interessados. Clique no botão abaixo e deixe os seus contatos para receber uma notificação quando o curso estiver disponível.'}
           </Texto>
         </Container>
         <Botao
