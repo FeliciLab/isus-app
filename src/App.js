@@ -22,7 +22,7 @@ function App() {
 
     OneSignal.init('917766a7-c01e-4655-89a1-86f648be2fc8', {
       kOSSettingsKeyAutoPrompt: false,
-      kOSSettingsKeyInAppLaunchURL: true,
+      kOSSettingsKeyInAppLaunchURL: false,
       kOSSettingsKeyInFocusDisplayOption: 2
     });
     OneSignal.inFocusDisplaying(2);
