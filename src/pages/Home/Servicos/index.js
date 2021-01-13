@@ -14,6 +14,7 @@ import CartaoHome from '../cartaoHome';
 import { analyticsData } from '../../../utils/analytics';
 import estaAtiva from '../../../utils/estaAtiva';
 import features from '../../../constantes/features';
+import ROTAS from '../../../constantes/rotas';
 
 function Servicos({ navigation }) {
   const netInfo = useNetInfo();
@@ -46,7 +47,7 @@ function Servicos({ navigation }) {
       ativo: true,
       icone: Servico3,
       navegacao: {
-        componente: 'FEEDBACK'
+        componente: ROTAS.FALE_CONOSCO
       }
     },
     {
@@ -108,9 +109,7 @@ function Servicos({ navigation }) {
       icone: Servico7,
       navegacao: {
         net: true,
-        componente: 'webview',
-        titulo: 'Elmo',
-        url: 'https://coronavirus.ceara.gov.br/elmo/'
+        componente: ROTAS.ELMO,
       }
     });
   }
