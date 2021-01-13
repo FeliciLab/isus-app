@@ -81,19 +81,19 @@ export default function sobreElmo() {
           </TextoCentralizado>
           <LinhaHorizontal />
           <ViewLogo marginBottom="0" marginTop="10px">
-            <ConteudoLogo>
+            <ConteudoLogo marginTop="25px">
               <Imagem width="148.3px" source={jpgGovCe} />
               <Imagem width="140.4px" source={jpgESP} />
             </ConteudoLogo>
-            <ConteudoLogo>
+            <ConteudoLogo marginTop="25px">
               <Imagem width="167.18px" source={jpgUFC} />
               <Imagem width="137.52px" source={jpgUNIFOR} />
             </ConteudoLogo>
-            <ConteudoLogo>
+            <ConteudoLogo marginTop="25px">
               <Imagem width="135.81px" source={jpgFIEC} />
               <Imagem width="145.95px" source={jpgSENAI} />
             </ConteudoLogo>
-            <ConteudoLogo centralizado>
+            <ConteudoLogo marginTop="25px" centralizado>
               <Imagem width="67.32px" source={jpgFUNCAP} />
             </ConteudoLogo>
           </ViewLogo>

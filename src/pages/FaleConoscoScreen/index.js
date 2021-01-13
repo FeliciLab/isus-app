@@ -16,6 +16,7 @@ import FeedbackScreen from './feedback';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 import DemandaEducacao from './demandaEducacao';
 import DuvidasElmo from './duvidasElmo';
+import { FormProvider } from '../../context/FormContext';
 
 export default function FaleConoscoScreen({ route }) {
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(
@@ -42,7 +43,11 @@ export default function FaleConoscoScreen({ route }) {
       case DEMANDA_EDUCACAO.textoDoDropdown:
         return <DemandaEducacao />;
       case DUVIDAS_ELMO.textoDoDropdown:
-        return <DuvidasElmo />;
+        return (
+          <FormProvider>
+            <DuvidasElmo />
+          </FormProvider>
+        );
       default:
         return <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} />;
     }

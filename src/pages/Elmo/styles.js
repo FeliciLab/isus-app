@@ -24,7 +24,7 @@ const ViewLogo = styled.View`
 
 const ConteudoLogo = styled.View`
   flex-direction: row;
-  margin-top: 25px;
+  margin-top: ${props => (props.marginTop ? props.marginTop : '0px')};
   justify-content: ${props => (props.centralizado ? 'center' : 'space-around')};
 `;
 
@@ -138,6 +138,15 @@ const BotaoLink = styled(Button)`
   align-items: flex-start;
  `;
 
+const BotaoFormDisable = styled(Button)`
+    border-radius: 50px;
+    width: 150px;
+    height: 45px;
+    align-self: flex-end;
+    margin: 20px;
+    justify-content: center;
+`;
+
 export {
   BackgroundImage,
   Container,
@@ -158,5 +167,6 @@ export {
   Conteudo,
   Hyperlink,
   ImagemPost,
-  Imagem
+  Imagem,
+  BotaoFormDisable
 };
