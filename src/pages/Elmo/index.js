@@ -32,9 +32,8 @@ import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 // import { analyticsData } from '../../utils/analytics';
 
-function Elmo({ route }) {
+function Elmo() {
   const navigation = useNavigation();
-  console.log(route.name);
   const netInfo = useNetInfo();
   const [conteudos, alterarConteudos] = useState([]);
   const [carregados, alterarCarregamento] = useState(false);
