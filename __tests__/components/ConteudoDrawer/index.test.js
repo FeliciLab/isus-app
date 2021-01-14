@@ -4,9 +4,14 @@ import { fireEvent, render } from 'util-teste';
 import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
 import MockedDrawerNavigator from '../../../__mocks__/navigator/mocked-drawer-navigator';
 import AppTab from '../../../src/routes/appBottomTab.routes';
+import { analyticsData } from '../../../src/utils/analytics';
 
-jest.mock('../../../src/utils/analytics.js', () => ({
-  analyticsData: () => jest.fn()
+// jest.mock('../../../src/utils/analytics.js', () => ({
+//   analyticsData: () => jest.fn()
+// }));
+
+jest.mock('../../../src/utils/analytics', () => ({
+  analyticsData: jest.fn()
 }));
 
 jest.mock('@react-navigation/native', () => ({
@@ -20,7 +25,69 @@ jest.mock('@react-navigation/native', () => ({
 
 const mockedNavigate = jest.fn();
 
-test('verifica se o item home foi adicionado', () => {
+test('deve renderizar o item home', () => {
+  const { getByTestId } = render(
+    <MockedDrawerNavigator
+      name="home"
+      component={AppTab}
+      initialParams={{}}
+      conteudoDrawer={props => (
+        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+      )}
+    />
+  );
+  const item = getByTestId('drawer-item-home');
+
+  expect(item).not.toBeNull();
+});
+
+test('deve renderizar o item Meu perfil', () => {
+  const { getByTestId } = render(
+    <MockedDrawerNavigator
+      name="PERFIL"
+      component={AppTab}
+      initialParams={{}}
+      conteudoDrawer={props => (
+        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+      )}
+    />
+  );
+  const item = getByTestId('drawer-item-perfil');
+
+  expect(item).not.toBeNull();
+});
+
+test('deve renderizar o item Fale conosco', () => {
+  const { getByTestId } = render(
+    <MockedDrawerNavigator
+      name="FEEDBACK"
+      component={AppTab}
+      initialParams={{}}
+      conteudoDrawer={props => (
+        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+      )}
+    />
+  );
+  const item = getByTestId('drawer-item-faleConosco');
+  expect(item).not.toBeNull();
+});
+
+test('deve renderizar o item SUS no Ceará', () => {
+  const { getByTestId } = render(
+    <MockedDrawerNavigator
+      name="SUS_NO_CEARA"
+      component={AppTab}
+      initialParams={{}}
+      conteudoDrawer={props => (
+        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+      )}
+    />
+  );
+  const item = getByTestId('drawer-item-SusNoCeara');
+  expect(item).not.toBeNull();
+});
+
+test('deve chamar o analytics data ao clicar no item Home no menu lateral', () => {
   const { getByTestId } = render(
     <MockedDrawerNavigator
       name="home"
@@ -33,11 +100,10 @@ test('verifica se o item home foi adicionado', () => {
   );
   const item = getByTestId('drawer-item-home');
   fireEvent.press(item);
-
-  expect(item).not.toBeNull();
+  expect(analyticsData).toHaveBeenCalled();
 });
 
-test('verifica se o item Meu perfil foi adicionado', () => {
+test('deve chamar o analytics data ao clicar no item Meu perfil no menu lateral', () => {
   const { getByTestId } = render(
     <MockedDrawerNavigator
       name="PERFIL"
@@ -50,11 +116,10 @@ test('verifica se o item Meu perfil foi adicionado', () => {
   );
   const item = getByTestId('drawer-item-perfil');
   fireEvent.press(item);
-
-  expect(item).not.toBeNull();
+  expect(analyticsData).toHaveBeenCalled();
 });
 
-test('verifica se o item Fale conosco foi adicionado', () => {
+test('deve chamar o analytics data ao clicar no item Fale conosco no menu lateral', () => {
   const { getByTestId } = render(
     <MockedDrawerNavigator
       name="FEEDBACK"
@@ -67,11 +132,10 @@ test('verifica se o item Fale conosco foi adicionado', () => {
   );
   const item = getByTestId('drawer-item-faleConosco');
   fireEvent.press(item);
-
-  expect(item).not.toBeNull();
+  expect(analyticsData).toHaveBeenCalled();
 });
 
-test('verifica se o item SUS no Ceará foi adicionado', () => {
+test('deve chamar o analytics data ao clicar no item SUS no Ceará no menu lateral', () => {
   const { getByTestId } = render(
     <MockedDrawerNavigator
       name="SUS_NO_CEARA"
@@ -84,6 +148,5 @@ test('verifica se o item SUS no Ceará foi adicionado', () => {
   );
   const item = getByTestId('drawer-item-SusNoCeara');
   fireEvent.press(item);
-
-  expect(item).not.toBeNull();
+  expect(analyticsData).toHaveBeenCalled();
 });
