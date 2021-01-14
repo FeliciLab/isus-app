@@ -23,20 +23,20 @@ const itemInferior = () => {
     {
       icone: 'information',
       nome: 'Sobre o iSUS',
+      labelDoAnalytics: 'sobre_o_isus',
       aoPressionar: () => navigationTermos.navigate('SOBRE')
     },
     {
       icone: 'clipboard-text',
       nome: 'Termos de Uso',
+      labelDoAnalytics: 'termos_de_uso',
       aoPressionar: () => navigationTermos.navigate('TERMOS_DE_USO')
     },
     {
       icone: 'share-variant',
       nome: 'Compartilhe o iSUS',
-      aoPressionar: () => {
-        analyticsData('Compartilhe_o_iSUS', 'Click', 'Home');
-        aoCompartilhar();
-      }
+      labelDoAnalytics: 'compartilhe_o_isus',
+      aoPressionar: () => aoCompartilhar()
     }
   ];
 
@@ -55,16 +55,21 @@ const itemInferior = () => {
     <>
       <ItensInferior>
         {
-          conteudoItem.map(item => (
+          conteudoItem.map(({
+            icone, nome, labelDoAnalytics, aoPressionar
+          }) => (
             <DrawerItem
-              icon={() => <Icon name={item.icone} size={22} color={CORES.PRETO54} />}
-              label={item.nome}
+              icon={() => <Icon name={icone} size={22} color={CORES.PRETO54} />}
+              label={nome}
               labelStyle={{ fontSize: 15 }}
               inactiveTintColor="#111"
               activeTintColor="#111"
               inactiveBackgroundColor="transparent"
               activeBackgroundColor="transparent"
-              onPress={item.aoPressionar}
+              onPress={() => {
+                analyticsData(labelDoAnalytics, 'click', 'Home');
+                aoPressionar();
+              }}
             />
           ))
         }

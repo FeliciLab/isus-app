@@ -13,6 +13,7 @@ import {
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
 import ItemInferior from './itemInferior';
+import { analyticsData } from '../../utils/analytics';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
@@ -29,37 +30,47 @@ function conteudoDoDrawer(props) {
       testID: 'drawer-item-home',
       nome: 'Home',
       icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
+      labelDoAnalytics: 'Home',
       rota: 'HOME'
     },
     {
       testID: 'drawer-item-perfil',
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color={CORES.PRETO54} />,
+      labelDoAnalytics: 'Meu Perfil',
       rota: tokenUsuario ? 'PERFIL' : 'LOGIN',
     },
     {
       testID: 'drawer-item-faleConosco',
       nome: 'Fale conosco',
       icone: <MaterialIcon name="feedback" size={22} color={CORES.PRETO54} />,
+      labelDoAnalytics: 'Fale conosco',
       rota: 'FEEDBACK'
     },
     {
       testID: 'drawer-item-SusNoCeara',
       nome: 'SUS no Ceará',
       icone: <Icon name="help-circle" size={22} color={CORES.PRETO54} />,
+      labelDoAnalytics: 'SUS no Ceara',
       rota: 'SUS_NO_CEARA'
     }
   ];
 
-  const RenderizaItensDoDrawer = () => ItensDoDrawer.map(item => (
+  const RenderizaItensDoDrawer = () => ItensDoDrawer.map(({
+    testID, nome, icone, rota, labelDoAnalytics
+  }) => (
     <ItemDrawer
-      testID={item.testID}
-      nome={item.nome}
-      icone={item.icone}
-      isFocado={routeName === item.rota}
-      onPress={() => navigate(item.rota)}
+      testID={testID}
+      nome={nome}
+      icone={icone}
+      isFocado={routeName === rota}
+      onPress={() => {
+        analyticsData('Home', 'Click', labelDoAnalytics);
+        navigate(rota);
+      }}
     />
   ));
+
 
   return (
     <>
