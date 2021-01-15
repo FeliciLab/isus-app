@@ -30,28 +30,28 @@ function conteudoDoDrawer(props) {
       testID: 'drawer-item-home',
       nome: 'Home',
       icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
-      labelDoAnalytics: 'Home',
+      labelDoAnalytics: 'home',
       rota: 'HOME'
     },
     {
       testID: 'drawer-item-perfil',
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color={CORES.PRETO54} />,
-      labelDoAnalytics: 'Meu Perfil',
+      labelDoAnalytics: 'meu_perfil',
       rota: tokenUsuario ? 'PERFIL' : 'LOGIN',
     },
     {
       testID: 'drawer-item-faleConosco',
       nome: 'Fale conosco',
       icone: <MaterialIcon name="feedback" size={22} color={CORES.PRETO54} />,
-      labelDoAnalytics: 'Fale conosco',
+      labelDoAnalytics: 'fale_conosco',
       rota: 'FEEDBACK'
     },
     {
       testID: 'drawer-item-SusNoCeara',
       nome: 'SUS no Ceará',
       icone: <Icon name="help-circle" size={22} color={CORES.PRETO54} />,
-      labelDoAnalytics: 'SUS no Ceara',
+      labelDoAnalytics: 'sus_no_ceara',
       rota: 'SUS_NO_CEARA'
     }
   ];
@@ -65,7 +65,7 @@ function conteudoDoDrawer(props) {
       icone={icone}
       isFocado={routeName === rota}
       onPress={() => {
-        analyticsData('Home', 'Click', labelDoAnalytics);
+        analyticsData(labelDoAnalytics, 'click', 'Home');
         navigate(rota);
       }}
     />
