@@ -14,6 +14,7 @@ import {
 import { CORES } from '../../constantes/estiloBase';
 import ItemInferior from './itemInferior';
 import { analyticsData } from '../../utils/analytics';
+import rotas from '../../constantes/rotas';
 
 function conteudoDoDrawer(props) {
   const [tokenUsuario, alterarTokenUsuario] = useState({});
@@ -52,7 +53,7 @@ function conteudoDoDrawer(props) {
       nome: 'SUS no Ceará',
       icone: <Icon name="help-circle" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'sus_no_ceara',
-      rota: 'SUS_NO_CEARA'
+      rota: rotas.SUS_NO_CEARA
     }
   ];
 

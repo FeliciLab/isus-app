@@ -6,6 +6,7 @@ import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfant
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
 import StyledTitulo from './styles';
 import CartaoHome from '../cartaoHome';
+import rotas from '../../../constantes/rotas';
 
 export default function LinhasDeCuidado({ navigation }) {
   const netInfo = useNetInfo();
@@ -28,7 +29,7 @@ export default function LinhasDeCuidado({ navigation }) {
       ativo: true,
       icone: MaternoInfantil,
       navegacao: {
-        componente: 'MaternoInfantil'
+        componente: rotas.MATERNO_INFANTIL
       }
     },
     {
@@ -66,7 +67,7 @@ export default function LinhasDeCuidado({ navigation }) {
             onPress={() => (netInfo.isConnected ? navigation.navigate(item.navegacao.componente, {
               title: item.navegacao.titulo,
               url: item.navegacao.url
-            }) : navigation.navigate('SemConexao'))}
+            }) : navigation.navigate(rotas.SEM_CONEXAO))}
           />
         )}
       />

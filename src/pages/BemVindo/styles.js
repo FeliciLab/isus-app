@@ -39,7 +39,7 @@ const PularTutorial = styled.Text`
   font-size: 16px;
   line-height: 16px;
   text-align: center;
-  letter-spacing: 0.75;
+  letter-spacing: 0.75px;
   text-transform: uppercase;
   color: #F2F2F2;
 `;
@@ -64,7 +64,7 @@ const TextoDescricao = styled.Text`
   font-size: 18px;
   line-height: 28px;
   text-align: center;
-  letter-spacing: 0.5;
+  letter-spacing: 0.5px;
   color: #FFFFFF;
 `;
 

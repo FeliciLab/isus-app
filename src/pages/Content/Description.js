@@ -98,7 +98,8 @@ export default function DescriptionScreen(props) {
   );
 
   const baixarConteudo = async () => {
-    // console.log('Baixar Conteudo');
+    console.log('Baixar Conteudo');
+    console.log(params);
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
       const postagemOffline = {

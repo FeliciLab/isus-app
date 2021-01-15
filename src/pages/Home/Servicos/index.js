@@ -38,7 +38,7 @@ function Servicos({ navigation }) {
       ativo: true,
       icone: Servico2,
       navegacao: {
-        componente: 'SUS_NO_CEARA'
+        componente: ROTAS.SUS_NO_CEARA
       }
     },
     {
@@ -118,7 +118,7 @@ function Servicos({ navigation }) {
   const onPress = (item) => {
     analyticsData(item.id, 'Click', 'Home');
     if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate('SemConexao');
+      navigation.navigate(ROTAS.SEM_CONEXAO);
       return;
     }
 

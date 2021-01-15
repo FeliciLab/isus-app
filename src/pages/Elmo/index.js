@@ -152,7 +152,7 @@ function Elmo() {
   const onPress = (item) => {
     // analyticsData(item.id, 'Click', 'Elmo');
     if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate('SemConexao');
+      navigation.navigate(ROTAS.SEM_CONEXAO);
       return;
     }
 
