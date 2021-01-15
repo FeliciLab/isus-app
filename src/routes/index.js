@@ -112,12 +112,12 @@ export default function App({ navigationRef }) {
           options={{ headerShown: true }}
         />
         <RootStack.Screen
-          name="SemConexao"
+          name={rotas.SEM_CONEXAO}
           component={SemConexao}
           options={{ headerShown: true }}
         />
         <RootStack.Screen
-          name="MaternoInfantil"
+          name={rotas.MATERNO_INFANTIL}
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />

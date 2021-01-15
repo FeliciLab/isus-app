@@ -47,7 +47,10 @@ export default function appDrawerScreen() {
         name={rotas.DUVIDAS_ELMO}
         component={DuvidasElmoStackScreen}
       />
-      <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
+      <Drawer.Screen
+        name={rotas.SUS_NO_CEARA}
+        component={SusNoCearaStackScreen}
+      />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
       <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
       <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />

@@ -7,6 +7,8 @@ import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
+import rotas from '../../constantes/rotas';
+
 const { width } = Dimensions.get('screen');
 const imageWidth = width * 0.8;
 
@@ -18,7 +20,7 @@ export default function Banner({
   const temEnderecoUrl = enderecoUrl.length > 0;
   return (
     <Card
-      onPress={() => (temEnderecoUrl ? (netInfo.isConnected ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate('SemConexao')) : navigation.navigate(pagina))}
+      onPress={() => (temEnderecoUrl ? (netInfo.isConnected ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate(rotas.SEM_CONEXAO)) : navigation.navigate(pagina))}
       style={estilos.cartao}
     >
       <View style={estilos.containerImage}>
