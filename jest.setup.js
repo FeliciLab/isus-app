@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 import { NativeModules } from 'react-native';
+import './__mocks__/@react-native-firebase';
 import 'react-native-gesture-handler/jestSetup';
 
 NativeModules.RNCNetInfo = {

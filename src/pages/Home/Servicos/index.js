@@ -1,6 +1,5 @@
 import React from 'react';
-import { Title } from 'react-native-paper';
-import { FlatList, StyleSheet, Linking } from 'react-native';
+import { Linking } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import QualiQuizIcon from '../../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../../assets/icons/servicos/servico_1.svg';
@@ -15,6 +14,8 @@ import { analyticsData } from '../../../utils/analytics';
 import estaAtiva from '../../../utils/estaAtiva';
 import features from '../../../constantes/features';
 import ROTAS from '../../../constantes/rotas';
+import { Titulo } from '../styles';
+import Carrossel from '../../../components/Carrossel';
 
 function Servicos({ navigation }) {
   const netInfo = useNetInfo();
@@ -135,18 +136,10 @@ function Servicos({ navigation }) {
 
   return (
     <>
-      <Title style={estilos.titulo}>Serviços</Title>
-
-      <FlatList
-        horizontal
-        data={listaServicos}
-        keyExtractor={(item, index) => `${index}`}
-        style={{
-          flexDirection: 'row',
-          alignSelf: 'center'
-        }}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
+      <Titulo>Serviços</Titulo>
+      <Carrossel
+        dados={listaServicos}
+        aoRenderizarItem={({ item }) => (
           <CartaoHome
             key={item.id}
             ativo={item.ativo}
@@ -160,14 +153,5 @@ function Servicos({ navigation }) {
     </>
   );
 }
-
-const estilos = StyleSheet.create({
-  titulo: {
-    marginHorizontal: 16,
-    fontSize: 20,
-    fontWeight: '500',
-    color: 'rgba(0, 0, 0, 0.6)'
-  }
-});
 
 export default Servicos;

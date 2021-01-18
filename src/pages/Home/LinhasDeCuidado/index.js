@@ -1,12 +1,12 @@
 import React from 'react';
-import { FlatList } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.svg';
 import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfantil.svg';
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
-import StyledTitulo from './styles';
 import CartaoHome from '../cartaoHome';
 import rotas from '../../../constantes/rotas';
+import { Titulo } from '../styles';
+import Carrossel from '../../../components/Carrossel';
 
 export default function LinhasDeCuidado({ navigation }) {
   const netInfo = useNetInfo();
@@ -47,17 +47,10 @@ export default function LinhasDeCuidado({ navigation }) {
 
   return (
     <>
-      <StyledTitulo>Linhas de Cuidado e Protocolos</StyledTitulo>
-      <FlatList
-        horizontal
-        data={listaLinhasDeCuidado}
-        keyExtractor={(item, index) => `${index}`}
-        style={{
-          flexDirection: 'row',
-          alignSelf: 'flex-start'
-        }}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
+      <Titulo>Linhas de Cuidado e Protocolos</Titulo>
+      <Carrossel
+        dados={listaLinhasDeCuidado}
+        aoRenderizarItem={({ item }) => (
           <CartaoHome
             ativo={item.ativo}
             testID={`cartaoHome-linhasDeCuidado-${item.id}`}
