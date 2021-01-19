@@ -59,7 +59,7 @@ export default [
     id: 'acao-5',
     titulo: 'Central de Ventiladores',
     ativo: true,
-    labelDoAnalytics: 'denuncias',
+    labelDoAnalytics: 'central_de_ventiladores',
     icone: CentralDeVentiladores,
     navegacao: {
       componente: 'webview',
@@ -71,7 +71,7 @@ export default [
     id: 'acao-6',
     titulo: 'Denúncias',
     ativo: true,
-    labelDoAnalytics: 'central_de_ventiladores',
+    labelDoAnalytics: 'denuncias',
     icone: Denuncias,
     navegacao: {
       componente: rotas.DENUNCIAR,
