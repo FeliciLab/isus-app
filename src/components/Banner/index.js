@@ -1,12 +1,11 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import {
-  Image, View, StyleSheet, Dimensions
+  Dimensions
 } from 'react-native';
-import { Card } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
-
+import { Cartao, ConteudoImagem, Imagem } from './styles';
 import rotas from '../../constantes/rotas';
 
 const { width } = Dimensions.get('screen');
@@ -19,31 +18,12 @@ export default function Banner({
   const navigation = useNavigation();
   const temEnderecoUrl = enderecoUrl.length > 0;
   return (
-    <Card
+    <Cartao
       onPress={() => (temEnderecoUrl ? (netInfo.isConnected ? navigation.navigate('webview', { title: titulo, url: enderecoUrl }) : navigation.navigate(rotas.SEM_CONEXAO)) : navigation.navigate(pagina))}
-      style={estilos.cartao}
     >
-      <View style={estilos.containerImage}>
-        <Image width={imageWidth} height={100} style={estilos.imagem} resizeMode="cover" source={imagem} />
-      </View>
-    </Card>
+      <ConteudoImagem>
+        <Imagem width={imageWidth} height={100} resizeMode="cover" source={imagem} />
+      </ConteudoImagem>
+    </Cartao>
   );
 }
-
-const estilos = StyleSheet.create({
-  imagem: {
-    borderRadius: 10,
-    height: 130,
-    width: '100%'
-  },
-  containerImagem: {
-    width: '100%',
-    height: 130
-  },
-  cartao: {
-    height: 130,
-    borderRadius: 10,
-    marginVertical: 20,
-    marginHorizontal: 16
-  }
-});

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Banner from './banner';
+import Banner from '../../components/Banner';
 import CovidHeroes from '../../assets/images/banners/covidHeroes.png';
 import IDSaude from '../../assets/images/banners/IDSaude.png';
 import CartilhaSaudeMental from '../../assets/images/banners/cartilhaSaudeMental.png';
