@@ -24,7 +24,7 @@ if (estaAtiva(feature.DENUNCIAR)) {
     const {
       getByTestId
     } = render(<ForcaTarefa navigation={navigation} />);
-    const itemCartaoHome = getByTestId('cards-acao-6');
+    const itemCartaoHome = getByTestId('cartaoHome-forcaTarefa-acao-6');
     fireEvent.press(itemCartaoHome);
 
     expect(mockedNavigate).toHaveBeenCalled();

@@ -14,7 +14,7 @@ function ForcaTarefa({ navigation }) {
         dados={listaForcaTarefaAntiCorona}
         aoRenderizarItem={({ item }) => (
           <CartaoHome
-            testID={`cards-${item.id}`}
+            testID={`cartaoHome-forcaTarefa-${item.id}`}
             key={item.id}
             ativo={item.ativo}
             titulo={item.titulo}

@@ -8,10 +8,6 @@ const navigation = {
   navigate: jest.fn()
 };
 
-jest.mock('../../../src/utils/analytics', () => ({
-  analyticsData: jest.fn()
-}));
-
 test('deve chamar o analytics data ao clicar no serviço IntegraSUS', () => {
   const { getByTestId } = render(<Servicos navigation={navigation} />);
   const item = getByTestId('cartaoHome-servicos-Integra_SUS');
