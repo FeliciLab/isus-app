@@ -1,4 +1,5 @@
 import React from 'react';
+import { Config } from 'react-native-config';
 import { useNavigation } from '@react-navigation/native';
 import { Text } from 'react-native';
 import { CORES } from '../../constantes/estiloBase';
@@ -6,14 +7,11 @@ import { CORES } from '../../constantes/estiloBase';
 const esqueceuSenhaBtn = ({ style }) => {
   const navigator = useNavigation();
   const abrirWebView = () => {
-    navigator.navigate(
-      'webview',
-      {
-        title: 'Esqueci minha senha',
-        url: 'https://dev.id.org.br/auth/realms/saude/login-actions/reset-credentials?client_id=account',
-        idSaude: true
-      }
-    );
+    navigator.navigate('webview', {
+      title: 'Esqueci minha senha',
+      url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
+      idSaude: true
+    });
   };
 
   return (
