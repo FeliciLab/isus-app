@@ -1,73 +1,69 @@
 import React, { useLayoutEffect } from 'react';
-import {
-  Text, TouchableOpacity, View
-} from 'react-native';
-import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
 
-export default function SemConexao() {
-  const navigation = useNavigation();
+
+import { cabecalhoVoltar, cabecalhoVoltarHome } from './layoutEffect/cabecalhoLayout';
+import { CORES } from '../constantes/estiloBase';
+import {
+  ScrollView,
+  View,
+  Botao,
+  TextoCentralizado,
+  TituloH6
+} from './style';
+
+
+export default function SemConexao(props) {
+  const { navigation } = props;
+  const { route } = props;
+  const tituloCabecalho = 'Sem Conexão';
+  const corFundo = 'verde';
+
+  const onPress = () => {
+    if (!route.params?.goHome) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('HOME', { screen: 'Home' });
+    }
+  };
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: '#4CAF50',
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: 'Sem Conexão',
-      headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-left" size={28} color="#FFF" />
-            </TouchableOpacity>
-      )
-    });
+    if (!route.params?.goHome) {
+      cabecalhoVoltar({
+        navegador: navigation,
+        titulo: tituloCabecalho,
+        cor: corFundo
+      });
+    } else {
+      cabecalhoVoltarHome({
+        navegador: navigation,
+        titulo: tituloCabecalho,
+        cor: corFundo
+      });
+    }
   });
-
 
   return (
     <>
-            <ScrollView style={{
-              backgroundColor: '#ffffff', flex: 1, padding: 14, marginBottom: 20
-            }}
+      <ScrollView>
+        <View>
+          <TituloH6>
+            Sem conexão com a internet
+          </TituloH6>
+        </View>
+        <View>
+            <TextoCentralizado>
+                Verifique se o wi-fi ou dados móveis estão ativos e tente novamente.
+            </TextoCentralizado>
+        </View>
+        <View>
+            <Botao
+              labelStyle={{ color: CORES.LARANJA }}
+              onPress={onPress}
             >
-                <View style={{
-                  justifyContent: 'center', display: 'flex', flexDirection: 'row', paddingTop: 26
-                }}
-                >
-                    <Text style={{ fontSize: 20, fontWeight: '600' }}>Sem conexão com a internet</Text>
-                </View>
-                <View style={{
-                  justifyContent: 'center', display: 'flex', flexDirection: 'row', paddingTop: 26
-                }}
-                >
-                    <Text style={{ fontSize: 16 }}>
-                        Verifique se o wi-fi ou dados móveis estão ativos e tente novamente.
-                    </Text>
-                </View>
-                <View style={{
-                  justifyContent: 'center', display: 'flex', flexDirection: 'row', paddingTop: 26
-                }}
-                >
-                    <Button
-                      color="#FF9800"
-                      onPress={() => navigation.goBack()}
-                    >
-                        VOLTAR
-                    </Button>
-                </View>
-            </ScrollView>
+              VOLTAR
+            </Botao>
+        </View>
+      </ScrollView>
     </>
   );
 }

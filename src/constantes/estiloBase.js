@@ -1,6 +1,7 @@
 export const CORES = {
   LARANJA: '#FF9800',
   VERDE: '#4CAF50',
+  VERDE_AMARELO: '#4CAF40',
   VERMELHO: '#F2453D',
   ROXO: '#9C27B0',
   INDIGO: '#4054B2',
