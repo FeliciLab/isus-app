@@ -100,7 +100,7 @@ const Texto = styled.Text`
   line-height: 20px;
   letter-spacing: 0.25px;
   text-align: left;
-  color: rgba(0, 0, 0, 0.6);
+  color: ${CORES.AZUL_ESCURO_ROYAL};
 `;
 
 const Imagem = styled(Image)`
@@ -127,25 +127,16 @@ const BackgroundImage = styled(ImageBackground)`
 
 const Botao = styled(Button)`
   justify-content: flex-start;
-  align-items: ${props => (props ? props.alignItems : CORES.INDIGO_DYE)};
+  align-items: ${props => (props.alignItems ? props.alignItems : 'flex-start')};
   margin: 0 16px;
   margin-top: 40px;
-  background-color: ${props => (props ? props.backgroundColor : CORES.INDIGO_DYE)};
+  background-color: ${props => (props.backgroundColor ? props.backgroundColor : CORES.BRANCO)};
  `;
 
 const BotaoLink = styled(Button)`
   justify-content: flex-start;
   align-items: flex-start;
  `;
-
-const BotaoFormDisable = styled(Button)`
-    border-radius: 50px;
-    width: 150px;
-    height: 45px;
-    align-self: flex-end;
-    margin: 20px;
-    justify-content: center;
-`;
 
 export {
   BackgroundImage,
@@ -167,6 +158,5 @@ export {
   Conteudo,
   Hyperlink,
   ImagemPost,
-  Imagem,
-  BotaoFormDisable
+  Imagem
 };

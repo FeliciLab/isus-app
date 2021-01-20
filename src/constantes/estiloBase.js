@@ -7,14 +7,15 @@ export const CORES = {
   INDIGO: '#4054B2',
   INDIGO_DYE: '#004964',
   AZUL: '#304FFE',
+  AZUL_ESCURO_ROYAL: '#00003C',
   AMARELO: '#FFEB3B',
-  PRETO: '#000',
-  PRETO30: '#1e1e1e',
-  PRETO60: '#00003C',
+  PRETO: '#000000',
+  PRETO_MISTERIOSO: '#1e1e1e',
   PRETO54: 'rgba(0, 0, 0, 0.54)',
   CINZA: '#BDBDBD',
   CINZA_WEB: '#828282',
-  BRANCO: '#FFF',
+  CINZA_DESABILITADO: '#DFDFDF',
+  BRANCO: '#FFFFFF',
 };
 
 export default {
