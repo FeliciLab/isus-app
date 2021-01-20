@@ -15,7 +15,7 @@ const View = styled.View`
 `;
 
 const AlertaBar = styled(Snackbar)`
-  background-color: ${CORES.PRETO30};
+  background-color: ${CORES.PRETO_MISTERIOSO};
 `;
 
 const EntradaTexto = styled(TextInput)`
@@ -30,7 +30,7 @@ const BotaoForm = styled(Button)`
   align-self: flex-end;
   justify-content: center;
   margin: 20px;
-  background-color: ${CORES.LARANJA};
+  background-color: ${props => (props.disabled ? CORES.CINZA_DESABILITADO : CORES.LARANJA)};
 `;
 
 const BotaoFormDisable = styled(Button)`

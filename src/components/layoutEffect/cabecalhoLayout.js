@@ -53,7 +53,7 @@ const TouchableGoHome = ({ navegador, cor }) => (
   <TouchableOpacity
     style={{ marginHorizontal: 19 }}
     onPress={() => {
-      navegador.navigate('HOME');
+      navegador.navigate('HOME', { screen: 'Home' });
     }}
   >
     <Icon name="arrow-left" size={28} color={cor} />

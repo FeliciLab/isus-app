@@ -13,34 +13,20 @@ import Regex from '../../utils/regex';
 import FormContext from '../../context/FormContext';
 import MsgErroFormCampo from '../../components/loginLayout/msgErroFormCampo';
 import {
-  View, BotaoForm, BotaoFormDisable, AlertaBar, EntradaTexto
+  View, BotaoForm, AlertaBar, EntradaTexto
 } from './sytles';
 
 
 export default function DuvidasElmoScreen() {
-  const duvidaInput = useRef(null);
-  const emailInput = useRef(null);
   const [sucessoAoEnviar, setSucessoAoEnviar] = useState(false);
   const [erroAoEnviar, setErroAoEnviar] = useState(false);
   const [mensagemDeErro, setMensagemDeErro] = useState('');
   const [carregando, setCarregando] = useState(false);
-  const [botaoAtivo, setBotaoAtivo] = useState(false);
+  const [botaoDesabilitado, setBotaoDesabilitado] = useState(false);
+  const botaoRef = useRef(null);
+  const duvidaInput = useRef(null);
+  const emailInput = useRef(null);
   const navigation = useNavigation();
-
-  const limparCampos = () => {
-    duvidaInput.current.clear();
-    emailInput.current.clear();
-    setBotaoAtivo(false);
-  };
-
-  const alteraValor = async (campo, valor) => {
-    setValue(campo, valor);
-    trigger(campo);
-    if (getValues('duvida') && getValues('email')) {
-      setBotaoAtivo(Object.entries(errors).length === 0);
-    }
-  };
-
 
   const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
@@ -52,9 +38,27 @@ export default function DuvidasElmoScreen() {
     getValues
   } = useContext(FormContext);
 
-  useFocusEffect(
-    useCallback(() => () => limparCampos(), [])
-  );
+
+  const limparCampos = () => {
+    duvidaInput.current.clear();
+    emailInput.current.clear();
+    setBotaoDesabilitado(true);
+    console.log(`botaoDesabilitado - Limpa: ${botaoDesabilitado}`);
+  };
+
+  const alteraValor = async (campo, valor) => {
+    setValue(campo, valor);
+    trigger(campo);
+    const duvida = getValues('duvida');
+    const email = getValues('email');
+    if (duvida.length > 0 && email.length > 0) {
+      if (emailValido(email)) {
+        setBotaoDesabilitado(false);
+        return;
+      }
+    }
+    setBotaoDesabilitado(true);
+  };
 
   const onSubmit = async () => {
     setTimeout(async () => {
@@ -89,32 +93,9 @@ export default function DuvidasElmoScreen() {
       });
   };
 
-  function renderizarBotao() {
-    if (!botaoAtivo) {
-      return (
-        <BotaoFormDisable
-          disabled={!botaoAtivo}
-          mode="contained"
-        >
-          Enviar
-        </BotaoFormDisable>
-      );
-    }
-    return (
-      <BotaoForm
-        disabled={!botaoAtivo}
-        mode="contained"
-        labelStyle={{ color: CORES.BRANCO }}
-        loading={carregando}
-        onPress={() => {
-          setCarregando(true);
-          onSubmit();
-        }}
-      >
-        Enviar
-      </BotaoForm>
-    );
-  }
+  useFocusEffect(
+    useCallback(() => limparCampos(), [])
+  );
 
   useEffect(() => {
     register('email', {
@@ -131,7 +112,6 @@ export default function DuvidasElmoScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        // backgroundColor: rotaAnteriorElmo ? CORES.INDIGO_DYE : CORES.VERDE,
         backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0
@@ -168,7 +148,7 @@ export default function DuvidasElmoScreen() {
   });
   return (
     <>
-      <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="white-content" />
+      <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
       <View>
         <EntradaTexto
           numberOfLines={5}
@@ -185,12 +165,24 @@ export default function DuvidasElmoScreen() {
           ref={emailInput}
           keyboardType="email-address"
           label="E-mail *"
-          onChangeText={text => alteraValor('email', text.trim())}
+          onChangeText={text => alteraValor('email', text.toLowerCase())}
         />
         <MsgErroFormCampo campo="email" />
       </View>
       <View>
-        {renderizarBotao()}
+        <BotaoForm
+          ref={botaoRef}
+          disabled={botaoDesabilitado}
+          mode="contained"
+          labelStyle={{ color: CORES.BRANCO }}
+          loading={carregando}
+          onPress={() => {
+            setCarregando(true);
+            onSubmit();
+          }}
+        >
+          Enviar
+        </BotaoForm>
         <AlertaBar
           visible={sucessoAoEnviar}
           onDismiss={() => setSucessoAoEnviar(false)}
