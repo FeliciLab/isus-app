@@ -43,7 +43,7 @@ export default function capacitacaoElmo() {
     <>
       <BarraDeStatus
         backgroundColor={CORES.INDIGO_DYE}
-        barStyle="white-content"
+        barStyle="light-content"
       />
       <ScrollView style={{ flex: 1 }}>
         <Titulo> Capacitação </Titulo>

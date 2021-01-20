@@ -148,7 +148,7 @@ export default function DuvidasElmoScreen() {
   });
   return (
     <>
-      <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="white-content" />
+      <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
       <View>
         <EntradaTexto
           numberOfLines={5}

@@ -87,7 +87,7 @@ export default function novidadesElmo(props) {
     <>
       <BarraDeStatus
         backgroundColor={CORES.INDIGO_DYE}
-        barStyle="white-content"
+        barStyle="light-content"
       />
       <ScrollView style={{ flex: 1 }}>
         <View style={{ marginTop: 20, marginBottom: 12 }}>

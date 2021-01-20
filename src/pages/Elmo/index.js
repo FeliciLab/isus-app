@@ -172,7 +172,7 @@ function Elmo() {
 
   return (
     <>
-      <BarraDeStatus backgroundColor={CORES.INDIGO_DYE} barStyle="white-content" />
+      <BarraDeStatus backgroundColor={CORES.INDIGO_DYE} barStyle="light-content" />
       <ScrollView style={{ flex: 1 }}>
         <BackgroundImage source={elmoPatternBG}>
           <SvgView>
