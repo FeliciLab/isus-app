@@ -61,7 +61,6 @@ const Hyperlink = styled.Text`
 
 const TituloH6 = styled.Text`
   /* styleName: H6; */
-  font-family: Roboto;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -72,7 +71,6 @@ const TituloH6 = styled.Text`
 `;
 const Titulo = styled.Text`
   /* styleName: H5; */
-  font-family: Roboto;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -93,7 +91,6 @@ const TextoCentralizado = styled.Text`
 
 const Texto = styled.Text`
   /* styleName: Body 2; */
-  font-family: Roboto;
   font-size: 14px;
   font-style: ${props => (props.fontStyle ? props.fontStyle : 'normal')};
   font-weight: ${props => (props.fontWeight ? props.fontWeight : 400)};
@@ -109,7 +106,7 @@ const Imagem = styled(Image)`
 `;
 
 const ImagemPost = styled(ImagemDePostagem)`
-  height: 110px; 
+  height: 110px;
   width: ${Dimensions.get('window').width / 2.2}px;
 `;
 
@@ -121,7 +118,7 @@ const Conteudo = styled(TouchableOpacity)`
 `;
 
 const BackgroundImage = styled(ImageBackground)`
-  flex: 1; 
+  flex: 1;
   align-items: center;
 `;
 

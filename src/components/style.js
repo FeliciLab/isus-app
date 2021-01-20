@@ -19,8 +19,8 @@ const ScrollView = styled.ScrollView`
 `;
 
 const View = styled.View`
-  justify-content: center; 
-  display: flex; 
+  justify-content: center;
+  display: flex;
   flex-direction: row;
   padding-top: 26px;
 `;
@@ -41,7 +41,6 @@ const CardSemConteudo = styled(Card)`
 
 const TituloH6 = styled.Text`
   /* styleName: H6; */
-  font-family: Roboto;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -52,7 +51,6 @@ const TituloH6 = styled.Text`
 `;
 const Titulo = styled.Text`
   /* styleName: H5; */
-  font-family: Roboto;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -73,7 +71,6 @@ const TextoCentralizado = styled.Text`
 
 const Texto = styled.Text`
   /* styleName: Body 2; */
-  font-family: Roboto;
   font-size: 14px;
   font-style: ${props => (props.fontStyle ? props.fontStyle : 'normal')};
   font-weight: ${props => (props.fontWeight ? props.fontWeight : 400)};
