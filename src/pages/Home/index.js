@@ -8,7 +8,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import Carrossel from './carrossel';
+import Banners from './Banners';
 import BarraDeStatus from '../../components/barraDeStatus';
 import Servicos from './Servicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
@@ -114,7 +114,7 @@ export default function HomeScreen() {
       { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
       <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-        <Carrossel sliderWidth={width} itemWidth={width} />
+        <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
         {
           estaLogado && (

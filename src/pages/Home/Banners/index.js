@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import bannersDoCarrossel from './bannersDoCarrossel';
+import ListaDeBanners from './listaDeBanners';
+import { CORES } from '../../../constantes/estiloBase';
 
-export default function Carrossel({ sliderWidth, itemWidth }) {
+export default function Banners({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
-  const banners = bannersDoCarrossel();
+  const banners = ListaDeBanners();
+
   function cardItem({ item }) {
     return item.banner;
   }
@@ -13,8 +15,8 @@ export default function Carrossel({ sliderWidth, itemWidth }) {
     return (
       <Pagination
         dotsLength={banners.length}
-        dotColor="#FF9800"
-        inactiveDotColor="#191919"
+        dotColor={CORES.LARANJA}
+        inactiveDotColor={CORES.PRETO_INATIVO}
         activeDotIndex={indiceAtivo}
         dotStyle={{
           height: 12,
