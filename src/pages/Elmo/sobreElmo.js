@@ -60,7 +60,7 @@ export default function sobreElmo() {
     <>
       <BarraDeStatus
         backgroundColor={CORES.INDIGO_DYE}
-        barStyle="white-content"
+        barStyle="light-content"
       />
       <ScrollView style={{ flex: 1 }}>
         <Titulo> Sobre o Elmo </Titulo>
