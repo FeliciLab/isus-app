@@ -1,4 +1,4 @@
-import { styled } from 'styled-components/native';
+import styled from 'styled-components/native';
 import { CORES } from '../../../constantes/estiloBase';
 
 
@@ -13,7 +13,8 @@ const TextoTermo = styled.Text`
 `;
 
 const TextoLink = styled.Text`
-  text-decoration: underline
+  text-decoration: underline;
+  text-decoration-color: ${CORES.BRANCO};
 `;
 
 export {

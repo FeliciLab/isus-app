@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { Config } from 'react-native-config';
 import { useNavigation } from '@react-navigation/native';
-import { DefaultTheme, TextInput, Button } from 'react-native-paper';
+import { DefaultTheme, TextInput } from 'react-native-paper';
 import Regex from '../../utils/regex';
 import Alerta from '../../components/alerta';
 import {
@@ -10,6 +10,7 @@ import {
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
+import { Botao } from './styles';
 
 function FormularioLogin() {
   const navigation = useNavigation();
@@ -92,9 +93,8 @@ function FormularioLogin() {
           secureTextEntry
         />
         <View style={{ marginTop: 18 }}>
-          <Button
+          <Botao
             disabled={!!(!emailValido() || !senhaValido())}
-            style={{ ...estilos.botao, backgroundColor: '#ffffff' }}
             mode="contained"
             loading={carregando}
             onPress={() => {
@@ -103,9 +103,8 @@ function FormularioLogin() {
             }}
           >
             Fazer Login
-          </Button>
-          <Button
-            style={estilos.botao}
+          </Botao>
+          <Botao
             onPress={() => navigation.navigate('webview', {
               title: 'Esqueci minha senha',
               url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account'`,
@@ -117,16 +116,12 @@ function FormularioLogin() {
             {' '}
             Esqueci minha senha
             {' '}
-          </Button>
+          </Botao>
         </View>
       </View>
       <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
     </>
   );
 }
-
-const estilos = StyleSheet.create({
-  botao: { borderRadius: 200, marginHorizontal: 16, marginVertical: 10 }
-});
 
 export default FormularioLogin;

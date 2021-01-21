@@ -5,10 +5,10 @@ import { View } from 'react-native';
 import { TESTIDS } from '../../../constantes/testIDs';
 import {
   ConteudoDoTexto,
-  Texto,
-  Botao
+  Texto
 } from './styles';
-
+import { Botao } from '../styles';
+import { analyticsData } from '../../../utils/analytics';
 
 const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
   const navigation = useNavigation();
@@ -32,7 +32,10 @@ const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
           testID={TESTIDS.BUTTON_JA_POSSUO_ID_SAUDE}
           mode="text"
           color="#ffffff"
-          onPress={() => alterarPossuirIDSaude(true)}
+          onPress={() => {
+            alterarPossuirIDSaude(true);
+            analyticsData();
+          }}
         >
           Já possuo ID Saúde
         </Botao>
