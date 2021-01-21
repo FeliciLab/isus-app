@@ -12,6 +12,7 @@ const { width } = Dimensions.get('screen');
 const imageWidth = width * 0.8;
 
 export default function Banner({
+  labelDoAnalytics,
   titulo, imagem,
   enderecoUrl = '', pagina = '',
   testID
@@ -22,7 +23,7 @@ export default function Banner({
   const temPagina = pagina.length > 0;
 
   const lidarComClick = () => {
-    analyticsData(); // TODO fazer a parametrização da função do analytics
+    analyticsData(labelDoAnalytics, 'Click', 'Home');
     if (temEnderecoUrl && netInfo.isConnected) {
       return navigation.navigate('webview', { title: titulo, url: enderecoUrl });
     }

@@ -37,10 +37,26 @@ test('deve chamar o analytics data ao clicar no banner Id Saúde', () => {
   expect(analyticsData).toHaveBeenCalled();
 });
 
-// test('deve chamar o analytics data ao clicar no banner Guia de Assistência farmacêutica', () => {
-//   const width = 400;
-//   const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-//   const item = getByTestId('home-banner-0');
-//   fireEvent.press(item);
-//   expect(analyticsData).toHaveBeenCalled();
-// });
+test('a função analytics data deve conter os parâmetros no banner Guia de Assistência farmacêutica', () => {
+  const width = 400;
+  const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
+  const item = getByTestId('home-banner-0');
+  fireEvent.press(item);
+  expect(analyticsData).toHaveBeenCalledWith('guia_assistencia_farmaceutica', 'Click', 'Home');
+});
+
+test('a função analytics data deve conter os parâmetros no banner Guia de Covid 19 Heroes', () => {
+  const width = 400;
+  const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
+  const item = getByTestId('home-banner-1');
+  fireEvent.press(item);
+  expect(analyticsData).toHaveBeenCalledWith('covid_19_heroes', 'Click', 'Home');
+});
+
+test('a função analytics data deve conter os parâmetros no banner Guia do Id Saúde', () => {
+  const width = 400;
+  const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
+  const item = getByTestId('home-banner-1');
+  fireEvent.press(item);
+  expect(analyticsData).toHaveBeenCalledWith('id_saude', 'Click', 'Home');
+});
