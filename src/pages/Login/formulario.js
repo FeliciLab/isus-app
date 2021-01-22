@@ -34,7 +34,7 @@ function FormularioLogin() {
   };
 
   useEffect(() => {
-    if (email.length > 1 && !emailValido()) {
+    if (email.length > 1 && !emailValido(email)) {
       alterarErro(true);
       return;
     }
@@ -94,7 +94,7 @@ function FormularioLogin() {
         <View style={{ marginTop: 18 }}>
           <Botao
             testID={TESTIDS.BUTTON_FAZER_LOGIN}
-            disabled={!!(!emailValido(email) || !senhaValido())}
+            disabled={!!(!emailValido(email) || !senhaValido(senha))}
             mode="contained"
             loading={carregando}
             onPress={() => {

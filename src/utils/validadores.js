@@ -8,7 +8,7 @@ import Regex from './regex';
 import { verificarEmailCadastrado, verificarCPFCadastrado } from '../apis/apiCadastro';
 
 export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-export const senhaValido = () => senha.replace(/\s/g, '').length;
+export const senhaValido = senha => senha.replace(/\s/g, '').length;
 export const nomeValido = nomeCompleto =>
   // eslint-disable-next-line implicit-arrow-linebreak
   Regex.NOME.test(nomeCompleto.toLowerCase());
