@@ -3,7 +3,6 @@ import { View, Text } from 'react-native';
 import { Config } from 'react-native-config';
 import { useNavigation } from '@react-navigation/native';
 import { DefaultTheme, TextInput } from 'react-native-paper';
-import Regex from '../../utils/regex';
 import Alerta from '../../components/alerta';
 import {
   autenticarComIdSaude,
@@ -11,6 +10,9 @@ import {
   pegarTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
 import { Botao } from './styles';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { emailValido, senhaValido } from '../../utils/validadores';
 
 function FormularioLogin() {
   const navigation = useNavigation();
@@ -38,9 +40,6 @@ function FormularioLogin() {
     }
     alterarErro(false);
   }, [email]);
-
-  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
-  const senhaValido = () => senha.replace(/\s/g, '').length;
 
   const mostrarAlerta = async (texto) => {
     alterarTextoDoAlerta(texto);
@@ -94,10 +93,12 @@ function FormularioLogin() {
         />
         <View style={{ marginTop: 18 }}>
           <Botao
-            disabled={!!(!emailValido() || !senhaValido())}
+            testID={TESTIDS.BUTTON_FAZER_LOGIN}
+            disabled={!!(!emailValido(email) || !senhaValido())}
             mode="contained"
             loading={carregando}
             onPress={() => {
+              analyticsData('fazer_login', 'Click', 'Perfil');
               alterarCarregando(true);
               fazerLogin();
             }}
@@ -105,11 +106,16 @@ function FormularioLogin() {
             Fazer Login
           </Botao>
           <Botao
-            onPress={() => navigation.navigate('webview', {
-              title: 'Esqueci minha senha',
-              url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account'`,
-              idSaude: true
-            })}
+            testID={TESTIDS.BUTTON_ESQUECI_SENHA}
+            onPress={() => {
+              analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
+              navigation.navigate('webview', {
+                title: 'Esqueci minha senha',
+                url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account'`,
+                idSaude: true
+              });
+            }
+            }
             mode="text"
             color="#ffffff"
           >

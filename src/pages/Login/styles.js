@@ -19,7 +19,7 @@ const ConteudoImagem = styled.View`
 `;
 
 const Botao = styled(Button)`
-  border-radius: 200;
+  border-radius: 200px;
   margin: 10px 16px;
   background-color: ${props => (props.mode === 'text' ? CORES.AZUL : CORES.BRANCO)};
 `;

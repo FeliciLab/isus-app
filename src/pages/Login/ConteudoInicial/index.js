@@ -34,7 +34,7 @@ const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
           color="#ffffff"
           onPress={() => {
             alterarPossuirIDSaude(true);
-            analyticsData();
+            analyticsData('ja_possuo_id_saude', 'Click', 'Perfil');
           }}
         >
           Já possuo ID Saúde

@@ -17,10 +17,22 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 
-test('deve chamar o analytics data ao clicar no "Já possuo ID Saúde"', () => {
-  const alterarPossuirIDSaude = jest.fn();
-  const { getByTestId } = render(<ConteudoInicial alterarPossuirIDSaude={alterarPossuirIDSaude} />);
+test('deve chamar o analytics data ao clicar em "Já possuo ID Saúde"', () => {
+  const { getByTestId } = render(
+    <ConteudoInicial alterarPossuirIDSaude={mockedNavigate} />
+  );
   const item = getByTestId(TESTIDS.BUTTON_JA_POSSUO_ID_SAUDE);
+
   fireEvent.press(item);
   expect(analyticsData).toHaveBeenCalled();
+});
+
+test('deve chamar o analytics data ao clicar em "Já possuo ID Saúde com Parametros corretos"', () => {
+  const { getByTestId } = render(
+    <ConteudoInicial alterarPossuirIDSaude={mockedNavigate} />
+  );
+  const item = getByTestId(TESTIDS.BUTTON_JA_POSSUO_ID_SAUDE);
+
+  fireEvent.press(item);
+  expect(analyticsData).toHaveBeenCalledWith('ja_possuo_id_saude', 'Click', 'Perfil');
 });
