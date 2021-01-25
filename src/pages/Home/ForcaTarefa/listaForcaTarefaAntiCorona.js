@@ -8,6 +8,7 @@ import VacinaCOVID19 from '../../../assets/icons/forcaTarefa/vacinaCovid19.svg';
 import rotas from '../../../constantes/rotas';
 import estaAtiva from '../../../utils/estaAtiva';
 import features from '../../../constantes/features';
+import labelsDoAnalytics from '../../../constantes/labelsDoAnalytics';
 
 
 const listForcaTarefa = [
@@ -88,12 +89,13 @@ if (estaAtiva(features.VACINACOVID19)) {
   listForcaTarefa.unshift({
     id: 'acao-vacinaCOVID19',
     titulo: 'Vacinação',
+    labelDoAnalytics: labelsDoAnalytics.CARTAO_VACINA_COVID19,
     ativo: true,
     icone: VacinaCOVID19,
     navegacao: {
       componente: 'webview',
       titulo: 'Vacinação',
-      url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
+      url: 'https://coronavirus.ceara.gov.br/vacina'
     }
   });
 }
