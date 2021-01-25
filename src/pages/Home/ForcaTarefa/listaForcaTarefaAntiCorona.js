@@ -8,7 +8,8 @@ import VacinaCOVID19 from '../../../assets/icons/forcaTarefa/vacinaCovid19.svg';
 import rotas from '../../../constantes/rotas';
 import estaAtiva from '../../../utils/estaAtiva';
 import features from '../../../constantes/features';
-import labelsDoAnalytics from '../../../constantes/labelsDoAnalytics';
+import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
+import urls from '../../../constantes/urls';
 
 
 const listForcaTarefa = [
@@ -21,7 +22,7 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Boletins',
-      url: 'https://coronavirus.ceara.gov.br/boletins/'
+      url: urls.BOLETINS
     }
   },
   {
@@ -33,7 +34,7 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Notificações de casos',
-      url: 'https://notifica.saude.gov.br/login'
+      url: urls.NOTIFICACAO_DE_CASOS
     }
   },
   {
@@ -45,7 +46,7 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Farmaco-vigilância',
-      url: 'https://coronavirus.ceara.gov.br/isus/farmacovigilancia/'
+      url: urls.FARMACO_VIGILANCIA
     }
   },
   {
@@ -57,7 +58,7 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Notas Técnicas',
-      url: 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/'
+      url: urls.NOTAS_TECNICAS
     }
   },
   {
@@ -69,7 +70,7 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Central de Ventiladores',
-      url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
+      url: urls.CENTRAL_DE_VENTILADORES
     }
   },
   {
@@ -89,13 +90,13 @@ if (estaAtiva(features.VACINACOVID19)) {
   listForcaTarefa.unshift({
     id: 'acao-vacinaCOVID19',
     titulo: 'Vacinação',
-    labelDoAnalytics: labelsDoAnalytics.CARTAO_VACINA_COVID19,
+    labelDoAnalytics: labelsAnalytics.CARTAO_VACINA_COVID19,
     ativo: true,
     icone: VacinaCOVID19,
     navegacao: {
       componente: 'webview',
       titulo: 'Vacinação',
-      url: 'https://coronavirus.ceara.gov.br/vacina'
+      url: urls.VACINA_COVID19
     }
   });
 }
