@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
-import urls from '../../../../src/constantes/urls';
+import { urls } from '../../../../src/constantes/urls';
 import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
 import { analyticsData } from '../../../../src/utils/analytics';
 

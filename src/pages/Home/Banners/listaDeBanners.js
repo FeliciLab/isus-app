@@ -6,7 +6,7 @@ import VacinaCovid19 from '../../../assets/images/banners/vacinaCovid19.png';
 import GuiaAssistenciaFarmaceutica from '../../../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
 import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
 import { TESTIDS } from '../../../constantes/testIDs';
-import urls from '../../../constantes/urls';
+import { urls } from '../../../constantes/urls';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
 const bannersDoCarrossel = () => {

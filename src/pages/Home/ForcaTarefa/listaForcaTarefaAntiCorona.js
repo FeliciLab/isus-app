@@ -9,7 +9,7 @@ import rotas from '../../../constantes/rotas';
 import estaAtiva from '../../../utils/estaAtiva';
 import features from '../../../constantes/features';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
-import urls from '../../../constantes/urls';
+import { urls } from '../../../constantes/urls';
 
 
 const listForcaTarefa = [

@@ -1,4 +1,4 @@
-const urls = {
+export const urls = {
   VACINA_COVID19: 'https://coronavirus.ceara.gov.br/vacina',
   CENTRAL_DE_VENTILADORES: 'https://coronavirus.ceara.gov.br/centraldeventiladores/',
   NOTAS_TECNICAS: 'https://coronavirus.ceara.gov.br/profissional/documentos/notas-tecnicas/',
