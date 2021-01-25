@@ -4,11 +4,15 @@ import FarmacoVigilancia from '../../../assets/icons/forcaTarefa/farmacoVigilanc
 import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVentiladores.svg';
 import Denuncias from '../../../assets/icons/forcaTarefa/denuncias.svg';
+import VacinaCOVID19 from '../../../assets/icons/forcaTarefa/vacinaCovid19.svg';
 import rotas from '../../../constantes/rotas';
+import estaAtiva from '../../../utils/estaAtiva';
+import features from '../../../constantes/features';
 
-export default [
+
+const listForcaTarefa = [
   {
-    id: 'acao-1',
+    id: 'acao-boletins',
     titulo: 'Boletins',
     ativo: true,
     labelDoAnalytics: 'boletins',
@@ -20,7 +24,7 @@ export default [
     }
   },
   {
-    id: 'acao-2',
+    id: 'acao-notificacao',
     titulo: 'Notificação de casos',
     ativo: true,
     labelDoAnalytics: 'notificacao_de_casos',
@@ -32,7 +36,7 @@ export default [
     }
   },
   {
-    id: 'acao-3',
+    id: 'acao-farmaco-viligancia',
     titulo: 'Farmaco-vigilância',
     ativo: true,
     labelDoAnalytics: 'farmaco_vigilancia',
@@ -44,7 +48,7 @@ export default [
     }
   },
   {
-    id: 'acao-4',
+    id: 'acao-notas-tecnicas',
     titulo: 'Notas Técnicas',
     ativo: true,
     labelDoAnalytics: 'notas_tecnicas',
@@ -56,7 +60,7 @@ export default [
     }
   },
   {
-    id: 'acao-5',
+    id: 'acao-central',
     titulo: 'Central de Ventiladores',
     ativo: true,
     labelDoAnalytics: 'central_de_ventiladores',
@@ -68,7 +72,7 @@ export default [
     }
   },
   {
-    id: 'acao-6',
+    id: 'acao-denuncias',
     titulo: 'Denúncias',
     ativo: true,
     labelDoAnalytics: 'denuncias',
@@ -79,3 +83,18 @@ export default [
     }
   }
 ];
+
+if (estaAtiva(features.VACINACOVID19)) {
+  listForcaTarefa.unshift({
+    id: 'acao-vacinaCOVID19',
+    titulo: 'Vacinação',
+    ativo: true,
+    icone: VacinaCOVID19,
+    navegacao: {
+      componente: 'webview',
+      titulo: 'Vacinação',
+      url: 'https://coronavirus.ceara.gov.br/centraldeventiladores/'
+    }
+  });
+}
+export default listForcaTarefa;

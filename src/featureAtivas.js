@@ -10,5 +10,6 @@ export default [
   feature.CONFIRMACAO_AO_SAIR,
   feature.QUALIQUIZ,
   feature.EDICAO_INFO_PESSOAIS,
-  feature.ELMO
+  feature.ELMO,
+  feature.VACINACOVID19
 ];
