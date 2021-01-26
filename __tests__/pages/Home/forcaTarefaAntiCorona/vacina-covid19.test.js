@@ -14,6 +14,13 @@ const navigation = {
   navigate: jest.fn()
 };
 
+jest.mock('@react-native-community/netinfo', () => ({
+  ...jest.requireActual('@react-native-community/netinfo'),
+  useNetInfo: () => ({
+    isConnected: true,
+  })
+}));
+
 if (estaAtiva(features.VACINACOVID19)) {
   beforeEach(() => {
     const { getByTestId } = render(<ForcaTarefa navigation={navigation} />);
@@ -30,7 +37,7 @@ if (estaAtiva(features.VACINACOVID19)) {
       expect(analyticsData).toHaveBeenCalled();
     });
 
-    test('deve chamar o analytics data quando clicar em vacina-covid19', () => {
+    test(`deve chamar o analytics data quando clicar em vacina-covid19 com o parâmetro do ${labelsAnalytics.CARTAO_VACINA_COVID19}`, () => {
       fireEvent.press(item);
       expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.CARTAO_VACINA_COVID19, 'Click', 'Home');
     });
@@ -43,8 +50,8 @@ if (estaAtiva(features.VACINACOVID19)) {
       });
     });
   });
+} else {
+  test('teste de sucesso', () => {
+    expect(true);
+  });
 }
-
-test('teste de sucesso', () => {
-  expect(true);
-});

@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Cartao, ConteudoImagem, Imagem } from './styles';
 import { analyticsData } from '../../utils/analytics';
+import rotas from '../../constantes/rotas';
 
 const { width } = Dimensions.get('screen');
 const imageWidth = width * 0.8;
@@ -30,7 +31,7 @@ export default function Banner({
     if (temPagina) {
       return navigation.navigate(pagina);
     }
-    return null;
+    return navigation.navigate(rotas.SEM_CONEXAO);
   };
 
   return (

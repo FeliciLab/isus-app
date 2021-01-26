@@ -8,6 +8,13 @@ const navigation = {
   navigate: jest.fn()
 };
 
+jest.mock('@react-native-community/netinfo', () => ({
+  ...jest.requireActual('@react-native-community/netinfo'),
+  useNetInfo: () => ({
+    isConnected: true,
+  })
+}));
+
 test('deve chamar o analytics data ao clicar em Boletins', () => {
   const { getByTestId } = render(<ForcaTarefa navigation={navigation} />);
   const item = getByTestId('cartaoHome-forcaTarefa-acao-boletins');
