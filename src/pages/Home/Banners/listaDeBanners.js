@@ -8,20 +8,12 @@ import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
 import { TESTIDS } from '../../../constantes/testIDs';
 import { urls } from '../../../constantes/urls';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
+import estaAtiva from '../../../utils/estaAtiva';
+import features from '../../../constantes/features';
 
 const bannersDoCarrossel = () => {
   const { estaLogado } = useContext(AutenticacaoContext);
-  return [
-    {
-      banner:
-        <Banner
-          labelDoAnalytics={labelsAnalytics.HOME_BANNER_0}
-          testID={TESTIDS.HOME_BANNER_0}
-          titulo="Vacinação"
-          imagem={VacinaCovid19}
-          enderecoUrl={urls.VACINA_COVID19}
-        />
-    },
+  const banners = [
     {
       banner:
         <Banner
@@ -53,6 +45,21 @@ const bannersDoCarrossel = () => {
         />
     }
   ];
+
+  if (estaAtiva(features.VACINACOVID19)) {
+    banners.unshift({
+      banner:
+        <Banner
+          labelDoAnalytics={labelsAnalytics.HOME_BANNER_0}
+          testID={TESTIDS.HOME_BANNER_0}
+          titulo="Vacinação"
+          imagem={VacinaCovid19}
+          enderecoUrl={urls.VACINA_COVID19}
+        />
+    });
+  }
+
+  return banners;
 };
 
 export default bannersDoCarrossel;
