@@ -4,6 +4,7 @@ import { fireEvent, render } from 'util-teste';
 import { analyticsData } from '../../../../src/utils/analytics';
 import Banners from '../../../../src/pages/Home/Banners';
 import { TESTIDS } from '../../../../src/constantes/testIDs';
+import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -43,7 +44,7 @@ test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.H
   const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
   const item = getByTestId(TESTIDS.HOME_BANNER_1);
   fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalledWith('guia_assistencia_farmaceutica', 'Click', 'Home');
+  expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_1, 'Click', 'Home');
 });
 
 test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.HOME_BANNER_2}`, () => {
@@ -51,7 +52,7 @@ test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.H
   const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
   const item = getByTestId(TESTIDS.HOME_BANNER_2);
   fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalledWith('covid_19_heroes', 'Click', 'Home');
+  expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_2, 'Click', 'Home');
 });
 
 test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.HOME_BANNER_3}`, () => {
@@ -59,5 +60,5 @@ test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.H
   const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
   const item = getByTestId(TESTIDS.HOME_BANNER_3);
   fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalledWith('id_saude', 'Click', 'Home');
+  expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_3, 'Click', 'Home');
 });
