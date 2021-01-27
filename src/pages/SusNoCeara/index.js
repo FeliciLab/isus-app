@@ -11,6 +11,9 @@ import {
 } from './textos';
 // import { navigate } from '../../routes/rootNavigation';
 import IconeSus30Anos from '../../assets/images/sus_30_anos.png';
+import { analyticsData } from '../../utils/analytics';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import testIDs from '../../constantes/testIDs';
 
 const informacoes = {
   InstagramESP: {
@@ -119,7 +122,12 @@ export default function SusNoCearaScreen() {
         />
       </View>
       <TextoSobreSUS />
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
+      <List.Accordion
+        testID={testIDs.SUS_NO_CEARA_ACORDION_SUS_NO_CEARA}
+        onPress={() => analyticsData(labelsAnalytics.SUS_NO_CEARA, 'Click', 'SUS NO CEARA')}
+        titleStyle={{ color: 'black' }}
+        title={<Text style={estilos.titulo}>SUS no Ceará</Text>}
+      >
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSUSCeara />}
