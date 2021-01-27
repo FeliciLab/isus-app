@@ -11,5 +11,6 @@ export default [
   feature.QUALIQUIZ,
   feature.EDICAO_INFO_PESSOAIS,
   feature.ELMO,
-  feature.VACINACOVID19
+  feature.VACINACOVID19,
+  feature.PLANO_CONTIGENCIA
 ];

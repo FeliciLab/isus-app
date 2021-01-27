@@ -23,4 +23,10 @@ describe('Teste de cenário de sem conexão do Força Tarefa', () => {
     fireEvent.press(item);
     expect(navigation.navigate).toHaveBeenCalledWith(rotas.SEM_CONEXAO);
   });
+  test('deve chamar a função navigate com o parâmetro sem conexao quando clicar no Cartão Plano de Contigencia', () => {
+    const { getByTestId } = render(<ForcaTarefa navigation={navigation} />);
+    const item = getByTestId('cartaoHome-forcaTarefa-acao-plano-contigencia');
+    fireEvent.press(item);
+    expect(navigation.navigate).toHaveBeenCalledWith(rotas.SEM_CONEXAO);
+  });
 });

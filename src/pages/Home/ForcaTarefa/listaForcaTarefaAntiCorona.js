@@ -5,6 +5,7 @@ import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import CentralDeVentiladores from '../../../assets/icons/forcaTarefa/centralDeVentiladores.svg';
 import Denuncias from '../../../assets/icons/forcaTarefa/denuncias.svg';
 import VacinaCOVID19 from '../../../assets/icons/forcaTarefa/vacinaCovid19.svg';
+import PlanoContigencia from '../../../assets/icons/forcaTarefa/planoDeContigencia.svg';
 import rotas from '../../../constantes/rotas';
 import estaAtiva from '../../../utils/estaAtiva';
 import features from '../../../constantes/features';
@@ -86,6 +87,20 @@ const listForcaTarefa = [
   }
 ];
 
+if (estaAtiva(features.PLANO_CONTIGENCIA)) {
+  listForcaTarefa.unshift({
+    id: 'acao-plano-contigencia',
+    titulo: 'Plano de Contigência',
+    labelDoAnalytics: labelsAnalytics.CARTAO_PLANO_CONTIGENCIA,
+    ativo: true,
+    icone: PlanoContigencia,
+    navegacao: {
+      componente: 'webview',
+      titulo: 'Plano de Contigência',
+      url: urls.PLANO_CONTIGENCIA
+    }
+  });
+}
 if (estaAtiva(features.VACINACOVID19)) {
   listForcaTarefa.unshift({
     id: 'acao-vacinaCOVID19',
