@@ -55,6 +55,11 @@ if (estaAtiva(features.VACINACOVID19)) {
       expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_0, 'Click', 'Home');
     });
 
+    test('deve chamar a função navigate quando clicar em vacina-covid19', () => {
+      fireEvent.press(item);
+      expect(mockNavigation).toHaveBeenCalled();
+    });
+
     test('deve chamar a função navigate contendo a url "http://coronavirus.ceara.gov.br/vacina" quando clicar em vacina-covid19', () => {
       fireEvent.press(item);
       expect(mockNavigation).toHaveBeenCalledWith('webview', {
