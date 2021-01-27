@@ -15,6 +15,7 @@ import MsgErroFormCampo from '../../components/loginLayout/msgErroFormCampo';
 import {
   View, BotaoForm, AlertaBar, EntradaTexto
 } from './sytles';
+import { TESTIDS } from '../../constantes/testIDs';
 
 
 export default function DuvidasElmoScreen() {
@@ -43,14 +44,15 @@ export default function DuvidasElmoScreen() {
     duvidaInput.current.clear();
     emailInput.current.clear();
     setBotaoDesabilitado(true);
-    console.log(`botaoDesabilitado - Limpa: ${botaoDesabilitado}`);
   };
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     trigger(campo);
-    const duvida = getValues('duvida');
-    const email = getValues('email');
+    let duvida = getValues('duvida');
+    let email = getValues('email');
+    if (duvida === undefined) { duvida = ''; }
+    if (email === undefined) { email = ''; }
     if (duvida.length > 0 && email.length > 0) {
       if (emailValido(email)) {
         setBotaoDesabilitado(false);
@@ -151,6 +153,7 @@ export default function DuvidasElmoScreen() {
       <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
       <View>
         <EntradaTexto
+          testID={TESTIDS.ELMO.DUVIDAS.SOBRE_ELMO}
           numberOfLines={5}
           mode="outlined"
           ref={duvidaInput}
@@ -160,6 +163,7 @@ export default function DuvidasElmoScreen() {
         />
         <MsgErroFormCampo campo="duvida" />
         <EntradaTexto
+          testID={TESTIDS.ELMO.DUVIDAS.EMAIL}
           margintop="20px"
           mode="outlined"
           ref={emailInput}
@@ -171,6 +175,7 @@ export default function DuvidasElmoScreen() {
       </View>
       <View>
         <BotaoForm
+          testID={TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR}
           ref={botaoRef}
           disabled={botaoDesabilitado}
           mode="contained"

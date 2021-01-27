@@ -39,15 +39,15 @@ function Elmo() {
   const [carregados, alterarCarregamento] = useState(false);
 
   const aoIniciar = async () => {
-    try {
-      alterarCarregamento(true);
-      const resposta = await pegarProjetosPorCategoria(744);
-      alterarConteudos(resposta.data.data);
-      alterarCarregamento(false);
-    } catch (err) {
-      console.log(err);
-      alterarCarregamento(false);
-    }
+    alterarCarregamento(true);
+    await pegarProjetosPorCategoria(744)
+      .then((resposta) => {
+        alterarConteudos(resposta.data.data);
+        alterarCarregamento(false);
+      }).catch((err) => {
+        console.log(err);
+        alterarCarregamento(false);
+      });
   };
 
   useEffect(() => {
