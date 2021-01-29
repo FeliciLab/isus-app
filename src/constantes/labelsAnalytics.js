@@ -7,6 +7,7 @@ export const labelsAnalytics = {
   ISUS_ESP: 'isus_esp',
   ESP_SESA: 'esp_sesa',
   CARTAO_VACINA_COVID19: 'cartao_vacina_covid19',
-  CARTAO_PLANO_CONTIGENCIA: 'cartao_plano_contingencia'
+  CARTAO_PLANO_CONTIGENCIA: 'cartao_plano_contingencia',
+  ENVIAR_ALERTA_FALTA_EPI: 'enviar_alerta_falta_epi'
 };
 export default { labelsAnalytics };
