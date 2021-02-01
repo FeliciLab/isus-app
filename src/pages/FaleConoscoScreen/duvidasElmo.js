@@ -4,8 +4,7 @@ import React, {
 import { TouchableOpacity, Keyboard } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { postDuvidasElmo } from '../../apis/apiHome';
 import { CORES } from '../../constantes/estiloBase';
 import BarraDeStatus from '../../components/barraDeStatus';
@@ -16,6 +15,7 @@ import {
   View, BotaoForm, AlertaBar, EntradaTexto
 } from './sytles';
 import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
 
 
 export default function DuvidasElmoScreen() {
@@ -103,7 +103,7 @@ export default function DuvidasElmoScreen() {
     register('email', {
       required: 'O campo e-mail é obrigatório',
       validate: email => emailValido(email)
-                || 'O e-mail deve ser no formato exemplo@exemplo.com'
+        || 'O e-mail deve ser no formato exemplo@exemplo.com'
     });
 
     register('duvida', {
@@ -182,6 +182,7 @@ export default function DuvidasElmoScreen() {
           labelStyle={{ color: CORES.BRANCO }}
           loading={carregando}
           onPress={() => {
+            analyticsData(labelsAnalytics.ENVIAR_DUVIDAS_ELMO, 'Click', 'Fale Conosco');
             setCarregando(true);
             onSubmit();
           }}
