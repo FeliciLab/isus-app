@@ -14,7 +14,7 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
-import Regex from '../../utils/regex';
+import { feedbackValido, emailValido } from '../../utils/validadores';
 import { vazio } from '../../utils/objectUtils';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
@@ -93,9 +93,6 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
     return '';
   };
-
-  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
-  const feedbackValido = () => feedback.replace(/\s/g, '').length;
 
   const verificaErroDePermissao = erro => (erro === "Permissions weren't granted" ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
     : erro);
@@ -221,8 +218,9 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       <View>
         <Button
           testID="button-feedback-enviar"
-          disabled={!!(!feedbackValido() || !emailValido())}
-          style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
+          disabled={!!(!feedbackValido(feedback) || !emailValido(email))}
+          style={feedbackValido(feedback) && emailValido(email)
+            ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}

@@ -10,6 +10,7 @@ export const labelsAnalytics = {
   CARTAO_PLANO_CONTIGENCIA: 'cartao_plano_contingencia',
   ENVIAR_ALERTA_FALTA_EPI: 'enviar_alerta_falta_epi',
   ENVIAR_DEMANDA_EDUCACAO: 'enviar_demanda_educacao',
-  ENVIAR_DUVIDAS_ELMO: 'enviar_duvidas_elmo'
+  ENVIAR_DUVIDAS_ELMO: 'enviar_duvidas_elmo',
+  ENVIAR_FEEDBACK: 'enviar_feedback'
 };
 export default { labelsAnalytics };

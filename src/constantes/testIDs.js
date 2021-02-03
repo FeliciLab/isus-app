@@ -12,6 +12,7 @@ export const TESTIDS = {
   HOME_BANNER_3: 'home-banner-3',
   BOTAO_ALERTAEPI_ENVIAR: 'botao-alertaEpi-enviar',
   BOTAO_DEMANDAEDUCACAO_ENVIAR: 'botao-demandaEducacao-enviar',
+  BOTAO_FEEDBACK_ENVIAR: 'botao-feedback-enviar',
   ELMO: {
     DUVIDAS: {
       SOBRE_ELMO: 'elmo-duvidas-sobreelmo',

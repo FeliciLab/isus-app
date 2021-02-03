@@ -10,6 +10,7 @@ import { verificarEmailCadastrado, verificarCPFCadastrado } from '../apis/apiCad
 export const descricaoValida = descricao => descricao.replace(/\s/g, '').length;
 export const unidadeDeSaudeValida = unidadeDeSaude => unidadeDeSaude.replace(/\s/g, '').length;
 
+export const feedbackValido = feedback => feedback.replace(/\s/g, '').length;
 export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
 export const senhaValido = senha => senha.replace(/\s/g, '').length;
 export const nomeValido = nomeCompleto =>

@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
-import DemandaEducacao from '../../../src/pages/FaleConoscoScreen/demandaEducacao';
+import Feedback from '../../../src/pages/FaleConoscoScreen/feedback';
 import { analyticsData } from '../../../src/utils/analytics';
 
 const mockedNavigate = jest.fn();
@@ -21,26 +21,26 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: jest.fn(),
   useIsFocused: jest.fn()
 }));
-let BotaoDemandaEducacao = null;
+let BotaoFeedback = null;
 
 beforeEach(() => {
-  const { getByTestId } = render(<DemandaEducacao />);
-  BotaoDemandaEducacao = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+  const { getByTestId } = render(<Feedback />);
+  BotaoFeedback = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 });
 
 
 describe('descreve os testes de Fale conosco', () => {
-  test('deve renderizar o botão de enviar ao renderizar o alertaFaltaEPI', () => {
-    expect(BotaoDemandaEducacao).not.toBeNull();
+  test('deve renderizar o botão de enviar ao renderizar o Feedback', () => {
+    expect(BotaoFeedback).not.toBeNull();
   });
 
   test('deve  chamar o analyticsData quando clicar no bota botão de enviar', () => {
-    fireEvent.press(BotaoDemandaEducacao);
+    fireEvent.press(BotaoFeedback);
     expect(analyticsData).toHaveBeenCalled();
   });
 
   test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
-    fireEvent.press(BotaoDemandaEducacao);
-    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO, 'Click', 'Fale Conosco');
+    fireEvent.press(BotaoFeedback);
+    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
   });
 });
