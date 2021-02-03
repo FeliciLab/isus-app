@@ -16,6 +16,9 @@ import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
 import { feedbackValido, emailValido } from '../../utils/validadores';
 import { vazio } from '../../utils/objectUtils';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const feedbackInput = React.createRef();
@@ -217,7 +220,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       </View>
       <View>
         <Button
-          testID="button-feedback-enviar"
+          testID={TESTIDS.BOTAO_FEEDBACK_ENVIAR}
           disabled={!!(!feedbackValido(feedback) || !emailValido(email))}
           style={feedbackValido(feedback) && emailValido(email)
             ? styles.button : styles.buttonDisabled}
@@ -225,6 +228,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
           mode="contained"
           loading={carregando}
           onPress={() => {
+            analyticsData(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
             setCarregando(true);
             onSubmit();
           }}
