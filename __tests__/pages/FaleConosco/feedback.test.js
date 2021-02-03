@@ -5,11 +5,12 @@ import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
 import Feedback from '../../../src/pages/FaleConoscoScreen/feedback';
 import { analyticsData } from '../../../src/utils/analytics';
+import { RELATAR_PROBLEMA } from '../../../src/pages/FaleConoscoScreen/tiposDeOcorrencia';
 
 const mockedNavigate = jest.fn();
 jest.mock('../../../src/utils/validadores.js', () => ({
-  descricaoValida: jest.fn(() => true),
-  unidadeDeSaudeValida: jest.fn(() => true)
+  feedbackValido: jest.fn(() => true),
+  emailValido: jest.fn(() => true)
 }));
 
 jest.mock('@react-navigation/native', () => ({
@@ -24,7 +25,7 @@ jest.mock('@react-navigation/native', () => ({
 let BotaoFeedback = null;
 
 beforeEach(() => {
-  const { getByTestId } = render(<Feedback />);
+  const { getByTestId } = render(<Feedback tipoDeFeedback={RELATAR_PROBLEMA} />);
   BotaoFeedback = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 });
 
