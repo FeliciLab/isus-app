@@ -13,6 +13,8 @@ export const TESTIDS = {
   BOTAO_ALERTAEPI_ENVIAR: 'botao-alertaEpi-enviar',
   BOTAO_DEMANDAEDUCACAO_ENVIAR: 'botao-demandaEducacao-enviar',
   BOTAO_FEEDBACK_ENVIAR: 'botao-feedback-enviar',
+  BOTAO_TUTORIAL_PULAR: 'botao-tutorial-pular',
+  BOTAO_TUTORIAL_PROXIMO: 'botao-tutorial-proximo',
   ELMO: {
     DUVIDAS: {
       SOBRE_ELMO: 'elmo-duvidas-sobreelmo',

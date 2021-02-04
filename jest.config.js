@@ -35,6 +35,7 @@ module.exports = {
     + '|@react-native-firebase'
     + '|react-native-render-html'
     + '|react-native-webview'
+    + '|react-native-app-intro-slider'
     + ')/)',
   ],
   moduleDirectories: [

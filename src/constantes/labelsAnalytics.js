@@ -11,6 +11,8 @@ export const labelsAnalytics = {
   ENVIAR_ALERTA_FALTA_EPI: 'enviar_alerta_falta_epi',
   ENVIAR_DEMANDA_EDUCACAO: 'enviar_demanda_educacao',
   ENVIAR_DUVIDAS_ELMO: 'enviar_duvidas_elmo',
-  ENVIAR_FEEDBACK: 'enviar_feedback'
+  ENVIAR_FEEDBACK: 'enviar_feedback',
+  PULAR_TUTORIAL: 'pular_tutorial',
+  PROXIMO_TUTORIAL: 'proximo_tutorial'
 };
 export default { labelsAnalytics };

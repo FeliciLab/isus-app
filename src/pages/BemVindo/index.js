@@ -21,6 +21,9 @@ import {
   TituloDescricao, BotaoCadastro, ConteudoImagem, TextoDescricao, PularTutorial,
   ConteudoPularTutorial
 } from './styles';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function BemVindo() {
   const navigation = useNavigation();
@@ -103,13 +106,18 @@ export default function BemVindo() {
   );
 
   const renderNextButton = () => (
-    <View>
+    <View testID={TESTIDS.BOTAO_TUTORIAL_PROXIMO}>
       <Entypo name="chevron-small-right" size={40} color="#FFFFFF" />
     </View>
   );
 
+  const aoMudarSlide = () => {
+    analyticsData(labelsAnalytics.PROXIMO_TUTORIAL, 'Click', 'Tutorial');
+  };
+
   async function moveToHome() {
     try {
+      analyticsData(labelsAnalytics.PULAR_TUTORIAL, 'Click', 'Tutorial');
       await salvarDados('@show-tutorial', false);
       return navigation.reset({
         index: 0,
@@ -129,7 +137,7 @@ export default function BemVindo() {
       <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       <SafeArea>
         <ConteudoPularTutorial>
-          <TouchableOpacity onPress={moveToHome}>
+          <TouchableOpacity testID={TESTIDS.BOTAO_TUTORIAL_PULAR} onPress={moveToHome}>
             <PularTutorial>
               Pular Tutorial
             </PularTutorial>
@@ -141,6 +149,7 @@ export default function BemVindo() {
           data={dataComPerfil}
           renderDoneButton={renderNextButton}
           renderNextButton={renderNextButton}
+          onSlideChange={aoMudarSlide}
           onSkip={moveToHome}
           onDone={moveToHome}
         />
