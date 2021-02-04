@@ -2,7 +2,7 @@
 name: Indicar Melhorias
 about: Indicar uma melhoria para o sistema
 title: "<Permitir uma base de dados de todo o Brasil> ..."
-labels: app, melhorias
+labels: app, Melhoria
 assignees: ''
 ---
 
