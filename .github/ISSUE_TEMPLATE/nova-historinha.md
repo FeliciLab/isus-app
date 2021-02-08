@@ -2,7 +2,7 @@
 name: Nova historinha
 about: Modelo de história
 title: "<Verbo> ..."
-labels: ''
+labels: app
 assignees: ''
 
 ---
@@ -19,7 +19,7 @@ assignees: ''
 
 ## **Escopo**
 
-- [] escopo1
+- [ ] escopo1
 
 ## **Fora de Escopo**
 
@@ -27,7 +27,7 @@ assignees: ''
 
 ## **Critérios de Aceitação**
 
-- [] titulo  
+- [ ] titulo  
 **Dado que** algo  
 **Quando** faço  
 **então** resulta
