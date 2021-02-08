@@ -9,7 +9,6 @@ export const TESTIDS = {
   HOME_BANNER_0: 'home-banner-0',
   HOME_BANNER_1: 'home-banner-1',
   HOME_BANNER_2: 'home-banner-2',
-  HOME_BANNER_3: 'home-banner-3',
   BOTAO_ALERTAEPI_ENVIAR: 'botao-alertaEpi-enviar',
   BOTAO_DEMANDAEDUCACAO_ENVIAR: 'botao-demandaEducacao-enviar',
   BOTAO_FEEDBACK_ENVIAR: 'botao-feedback-enviar',

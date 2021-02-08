@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Banner from '../../../components/Banner';
-import CovidHeroes from '../../../assets/images/banners/covidHeroes.png';
 import IDSaude from '../../../assets/images/banners/IDSaude.png';
 import VacinaCovid19 from '../../../assets/images/banners/vacinaCovid19.png';
 import GuiaAssistenciaFarmaceutica from '../../../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
@@ -29,16 +28,6 @@ const bannersDoCarrossel = () => {
         <Banner
           labelDoAnalytics={labelsAnalytics.HOME_BANNER_2}
           testID={TESTIDS.HOME_BANNER_2}
-          titulo="Covid-19 Heroes"
-          imagem={CovidHeroes}
-          enderecoUrl="https://heroescovid19study.org/survey/"
-        />
-    },
-    {
-      banner:
-        <Banner
-          labelDoAnalytics="id_saude"
-          testID={TESTIDS.HOME_BANNER_3}
           titulo="ID Saúde"
           imagem={IDSaude}
           pagina={estaLogado ? 'PERFIL' : 'LOGIN'}

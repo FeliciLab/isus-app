@@ -24,57 +24,44 @@ jest.mock('@react-native-community/netinfo', () => ({
   })
 }));
 
-const width = 400;
+let HomeBanner0 = null;
+let HomeBanner1 = null;
+let HomeBanner2 = null;
+
+
+beforeEach(() => {
+  const width = 400;
+  const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
+  HomeBanner0 = getByTestId(TESTIDS.HOME_BANNER_0);
+  HomeBanner1 = getByTestId(TESTIDS.HOME_BANNER_1);
+  HomeBanner2 = getByTestId(TESTIDS.HOME_BANNER_2);
+});
 
 describe('Testes do Analytics em Banners', () => {
   test(`deve chamar o analytics data ao clicar no banner ${TESTIDS.HOME_BANNER_1}`, () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_1);
-    fireEvent.press(item);
+    fireEvent.press(HomeBanner1);
     expect(analyticsData).toHaveBeenCalled();
   });
 
   test(`deve chamar o analytics data ao clicar no banner ${TESTIDS.HOME_BANNER_2}`, () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_2);
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
-
-  test(`deve chamar o analytics data ao clicar no banner ${TESTIDS.HOME_BANNER_3}`, () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_3);
-    fireEvent.press(item);
+    fireEvent.press(HomeBanner2);
     expect(analyticsData).toHaveBeenCalled();
   });
 
   test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.HOME_BANNER_1}`, () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_1);
-    fireEvent.press(item);
+    fireEvent.press(HomeBanner1);
     expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_1, 'Click', 'Home');
   });
 
   test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.HOME_BANNER_2}`, () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_2);
-    fireEvent.press(item);
+    fireEvent.press(HomeBanner2);
     expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_2, 'Click', 'Home');
-  });
-
-  test(`a função analytics data deve conter os parâmetros no banner ${TESTIDS.HOME_BANNER_3}`, () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_3);
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.HOME_BANNER_3, 'Click', 'Home');
   });
 });
 
 describe('Teste de cenário de sem conexão dos Banners', () => {
   test('deve chamar a função navigate com o parâmetro sem conexao quando clicar no banner vacina-covid19', () => {
-    const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
-    const item = getByTestId(TESTIDS.HOME_BANNER_0);
-    fireEvent.press(item);
+    fireEvent.press(HomeBanner0);
     expect(mockNavigation).toHaveBeenCalledWith(rotas.SEM_CONEXAO);
   });
 });
