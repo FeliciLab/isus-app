@@ -112,7 +112,7 @@ interação com os outros membros da comunidade.
 
 Depois de ter um plano de ação relativamente claro você deve estar pronto para
 contribuir com código. Para isso faça um fork do iSUS e trabalhe em cima de
-um branch diferente de master implementando suas soluções. Para saber mais sobre
+um branch diferente da main implementando suas soluções. Para saber mais sobre
 pull requests e como eles funcionam, veja
 [este link](https://help.github.com/articles/about-pull-requests/).
 
