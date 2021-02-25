@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -26,7 +26,9 @@ export default function EducationTabScreen(props) {
   });
 
   useFocusEffect(() => {
-    useApi.pegarCategorias();
+    useCallback(() => {
+      useApi.pegarCategorias();
+    });
   });
 
   useLayoutEffect(() => {
@@ -73,7 +75,7 @@ export default function EducationTabScreen(props) {
 
   return (
     <>
-    {(useApi.categorias !== null) && estaConectado ? (
+      {(useApi.categorias !== null) && estaConectado ? (
         <Tab.Navigator
           tabBarOptions={{
             scrollEnabled: true,
@@ -88,17 +90,17 @@ export default function EducationTabScreen(props) {
             }
           }}
         >
-        {useApi.categorias.map(item => (
-          <Tab.Screen
-            key={item.term_id}
-            name={item.name}
-            component={genericComponent}
-            initialParams={addTitle(item)}
-          />
-        ))}
+          {useApi.categorias.map(item => (
+            <Tab.Screen
+              key={item.term_id}
+              name={item.name}
+              component={genericComponent}
+              initialParams={addTitle(item)}
+            />
+          ))}
         </Tab.Navigator>
-    ) : (<></>)
-    }
+      ) : (<></>)
+      }
     </>
   );
 }
