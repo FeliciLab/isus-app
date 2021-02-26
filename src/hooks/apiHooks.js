@@ -7,8 +7,6 @@ import rotas from '../constantes/rotas';
 
 const useApiHooks = (props) => {
   const { route } = props;
-  // console.log(props);
-  // console.log(route);
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
     {

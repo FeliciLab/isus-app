@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
-
 import useApiHooks from '../hooks/apiHooks';
 import { CORES } from '../constantes/estiloBase';
 
@@ -25,11 +24,11 @@ export default function EducationTabScreen(props) {
     estaConectado = state.isConnected;
   });
 
-  useFocusEffect(() => {
+  useFocusEffect(
     useCallback(() => {
       useApi.pegarCategorias();
-    });
-  });
+    }, [])
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({

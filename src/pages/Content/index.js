@@ -7,6 +7,9 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
+import { analyticsData } from '../../utils/analytics';
+import { adicionaMascaraAnalytics } from '../../utils/mascaras';
+
 
 export default function InformationScreen(props) {
   const navigation = useNavigation();
@@ -15,9 +18,10 @@ export default function InformationScreen(props) {
   const [postagens, alterarPostagens] = useState([]);
   const [semConexao, alterarSemConexao] = useState(false);
 
-  console.log(`Term_ID: ${params.term_id}`);
+  // console.log(`Term_ID: ${params.name}`);
   useFocusEffect(
     useCallback(() => {
+      analyticsData(adicionaMascaraAnalytics(params.slug), 'click', params.title_description);
       async function pegarConteudo() {
         try {
           await pegarConteudoDaApi();
