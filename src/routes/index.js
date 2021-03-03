@@ -114,11 +114,11 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.SEM_CONEXAO}
-          component={() => (
+          component={props => (
             <Feature
               name={features.TELA_SEM_CONEXAO}
-              activeComponent={NovoSemConexao}
-              inactiveComponent={SemConexao}
+              activeComponent={() => <NovoSemConexao {...props} />}
+              inactiveComponent={() => <SemConexao {...props} />}
             />
           )}
           options={{ headerShown: true }}

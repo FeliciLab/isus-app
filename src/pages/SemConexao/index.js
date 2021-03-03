@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
-// import { cabecalhoVoltar, cabecalhoVoltarHome }
-// from '../../components/layoutEffect/cabecalhoLayout';
+import { cabecalhoVoltar, cabecalhoVoltarHome }
+  from '../../components/layoutEffect/cabecalhoLayout';
 import { CORES } from '../../constantes/estiloBase';
 import {
   ScrollView,
@@ -12,11 +12,11 @@ import {
 } from '../../components/style';
 
 
-export default function SemConexao() {
-  // const { navigation } = props;
-  // const { route } = props;
-  // const tituloCabecalho = 'Sem Conexão';
-  // const corFundo = 'verde';
+export default function SemConexao(props) {
+  const { navigation } = props;
+  const { route } = props;
+  const tituloCabecalho = 'Sem Conexão';
+  const corFundo = 'verde';
 
   // const onPress = () => {
   //   if (!route.params?.goHome) {
@@ -26,21 +26,21 @@ export default function SemConexao() {
   //   }
   // };
 
-  // useLayoutEffect(() => {
-  //   if (!route.params?.goHome) {
-  //     cabecalhoVoltar({
-  //       navegador: navigation,
-  //       titulo: tituloCabecalho,
-  //       cor: corFundo
-  //     });
-  //   } else {
-  //     cabecalhoVoltarHome({
-  //       navegador: navigation,
-  //       titulo: tituloCabecalho,
-  //       cor: corFundo
-  //     });
-  //   }
-  // });
+  useLayoutEffect(() => {
+    if (!route.params?.goHome) {
+      cabecalhoVoltar({
+        navegador: navigation,
+        titulo: tituloCabecalho,
+        cor: corFundo
+      });
+    } else {
+      cabecalhoVoltarHome({
+        navegador: navigation,
+        titulo: tituloCabecalho,
+        cor: corFundo
+      });
+    }
+  });
 
   return (
     <>
@@ -60,7 +60,7 @@ export default function SemConexao() {
             testID="botão-semconexao-voltar"
             labelStyle={{ color: CORES.LARANJA }}
           >
-            VOLTAR
+            ENTRAR
           </Botao>
         </View>
       </ScrollView>
