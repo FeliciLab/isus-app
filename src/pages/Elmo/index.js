@@ -40,9 +40,19 @@ function Elmo() {
 
   const aoIniciar = async () => {
     alterarCarregamento(true);
-    await pegarProjetosPorCategoria(744)
+    let vetorTemp = [];
+    await pegarProjetosPorCategoria(100744)
       .then((resposta) => {
         alterarConteudos(resposta.data.data);
+        vetorTemp = resposta.data.data;
+        alterarCarregamento(false);
+      }).catch((err) => {
+        console.log(err);
+        alterarCarregamento(false);
+      });
+    await pegarProjetosPorCategoria(2004)
+      .then((resposta) => {
+        alterarConteudos([...vetorTemp, ...resposta.data.data]);
         alterarCarregamento(false);
       }).catch((err) => {
         console.log(err);

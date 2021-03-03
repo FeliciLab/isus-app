@@ -21,8 +21,6 @@ export default function novidadesElmo(props) {
   const { params } = route;
   const { conteudos } = params;
   const [temConteudo, alterarTemConteudo] = useState(false);
-  console.log(`conteudos: ${conteudos}`);
-  console.log(`conteudos size: ${conteudos.length}`);
   const navigation = useNavigation();
 
   useEffect(() => {
