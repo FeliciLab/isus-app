@@ -28,6 +28,7 @@ import Elmo from '../pages/Elmo';
 import SobreElmo from '../pages/Elmo/sobreElmo';
 import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
+import NovoSemConexao from '../pages/SemConexao';
 
 const RootStack = createStackNavigator();
 
@@ -113,7 +114,13 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.SEM_CONEXAO}
-          component={SemConexao}
+          component={() => (
+            <Feature
+              name={features.TELA_SEM_CONEXAO}
+              activeComponent={NovoSemConexao}
+              inactiveComponent={SemConexao}
+            />
+          )}
           options={{ headerShown: true }}
         />
         <RootStack.Screen
