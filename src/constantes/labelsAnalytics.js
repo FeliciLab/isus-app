@@ -12,6 +12,9 @@ export const labelsAnalytics = {
   ENVIAR_DUVIDAS_ELMO: 'enviar_duvidas_elmo',
   ENVIAR_FEEDBACK: 'enviar_feedback',
   PULAR_TUTORIAL: 'pular_tutorial',
-  PROXIMO_TUTORIAL: 'proximo_tutorial'
+  PROXIMO_TUTORIAL: 'proximo_tutorial',
+  INICIAR_MEU_CADASTRO: 'iniciar_meu_cadastro',
+  FINALIZAR_MEU_CADASTRO: 'finalizar_meu_cadastro',
+  EDITAR_INFORMACOES_PROFISSIONAIS: 'editar_informacoes_profissionais'
 };
 export default { labelsAnalytics };

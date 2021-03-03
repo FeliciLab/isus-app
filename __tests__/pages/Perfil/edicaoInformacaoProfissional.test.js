@@ -5,6 +5,8 @@ import feature from '../../../src/constantes/features';
 import { DadosUsuarioProfissional } from '../../../src/pages/Perfil/DadosUsuario';
 import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
 import estaAtiva from '../../../src/utils/estaAtiva';
+import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
+import { analyticsData } from '../../../src/utils/analytics';
 
 const mockedNavigate = jest.fn();
 
@@ -20,7 +22,7 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
     const {
       getByTestId
     } = render(<DadosUsuarioProfissional dados={dadosUsuario} />,);
-    const botao = getByTestId('botao-dados-editar');
+    const botao = getByTestId(labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS);
 
     expect(botao).not.toBeNull();
   });
@@ -29,10 +31,24 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
     const {
       getByTestId
     } = render(<DadosUsuarioProfissional dados={dadosUsuario} />,);
-    const botao = getByTestId('botao-dados-editar');
+    const botao = getByTestId(labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS);
     fireEvent.press(botao);
 
     expect(mockedNavigate).toHaveBeenCalled();
+  });
+
+  test(`deve chamar analytics ao clicar no botao de editar ${labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS}`, () => {
+    const {
+      getByTestId
+    } = render(<DadosUsuarioProfissional dados={dadosUsuario} />,);
+    const botao = getByTestId(labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS);
+    fireEvent.press(botao);
+
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS,
+      'Click',
+      'Perfil'
+    );
   });
 } else {
   test('teste de exemplo', () => {

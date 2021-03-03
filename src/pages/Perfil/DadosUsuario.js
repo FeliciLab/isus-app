@@ -7,6 +7,8 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import features from '../../constantes/features';
 import rotas from '../../constantes/rotas';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { analyticsData } from '../../utils/analytics';
 
 function DadosUsuario({ dados }) {
   return (
@@ -105,7 +107,7 @@ function MostrarDadosUsuarioProfissional(dados) {
           <Botao
             uri={rotas.EDICAO_PROFISSIONAL}
             params={{ tela_anterior: rotas.PERFIL }}
-            testID="botao-dados-editar"
+            testID={labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS}
             style={estilos.botao}
           >
             EDITAR INFORMAÇÕES
@@ -159,7 +161,19 @@ const Botao = ({
 }) => {
   const navigation = useNavigation();
   return (
-    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate(uri, params)} testID={testID}>
+    <Button
+      testID={testID}
+      color="#FF9800"
+      contentStyle={{ justifyContent: 'flex-start' }}
+      onPress={() => {
+        analyticsData(
+          labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS,
+          'Click',
+          'Perfil'
+        );
+        navigation.navigate(uri, params);
+      }}
+    >
       {children}
     </Button>
   );

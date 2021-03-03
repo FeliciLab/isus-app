@@ -9,6 +9,7 @@ import {
 } from './styles';
 import { Botao } from '../styles';
 import { analyticsData } from '../../../utils/analytics';
+import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
 const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
   const navigation = useNavigation();
@@ -23,8 +24,16 @@ const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
       </ConteudoDoTexto>
       <View>
         <Botao
+          testID={TESTIDS.BUTTON_REALIZAR_CADASTRO}
           mode="contained"
-          onPress={() => navigation.navigate('CADASTRO')}
+          onPress={() => {
+            analyticsData(
+              labelsAnalytics.BUTTON_REALIZAR_CADASTRO,
+              'Click',
+              'Perfil'
+            );
+            navigation.navigate('CADASTRO');
+          }}
         >
           Realizar meu cadastro
         </Botao>
