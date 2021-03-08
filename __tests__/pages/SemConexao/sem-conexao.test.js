@@ -17,4 +17,10 @@ describe('testes na tela de sem conexão', () => {
     const BotaoVoltar = getByTestId('botão-semconexao-voltar');
     expect(BotaoVoltar).not.toBeNull();
   });
+
+  test('deve renderizar a tela de sem conexão renderizando o icone de sem conexao', () => {
+    const { getByTestId } = render(<SemConexao route={route} navigation={navigation} />);
+    const imagem = getByTestId('icone-semconexao-imagem');
+    expect(imagem).not.toBeNull();
+  });
 });

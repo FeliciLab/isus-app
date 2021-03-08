@@ -10,6 +10,8 @@ import {
   TextoCentralizado,
   TituloH6
 } from '../../components/style';
+import IconeSemConexao from '../../assets/icons/sem_conexao.svg';
+import { ConteudoSemConexao } from './styles';
 
 
 export default function SemConexao(props) {
@@ -45,11 +47,12 @@ export default function SemConexao(props) {
   return (
     <>
       <ScrollView>
-        <View>
+        <ConteudoSemConexao>
+          <IconeSemConexao testID="icone-semconexao-imagem" />
           <TituloH6>
             Sem conexão com a internet
           </TituloH6>
-        </View>
+        </ConteudoSemConexao>
         <View>
           <TextoCentralizado>
             Verifique se o wi-fi ou dados móveis estão ativos e tente novamente.
@@ -60,7 +63,7 @@ export default function SemConexao(props) {
             testID="botão-semconexao-voltar"
             labelStyle={{ color: CORES.LARANJA }}
           >
-            ENTRAR
+            VOLTAR
           </Botao>
         </View>
       </ScrollView>
