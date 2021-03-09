@@ -15,6 +15,14 @@ export const labelsAnalytics = {
   PROXIMO_TUTORIAL: 'proximo_tutorial',
   INICIAR_MEU_CADASTRO: 'iniciar_meu_cadastro',
   FINALIZAR_MEU_CADASTRO: 'finalizar_meu_cadastro',
-  EDITAR_INFORMACOES_PROFISSIONAIS: 'editar_informacoes_profissionais'
+  EDITAR_INFORMACOES_PROFISSIONAIS: 'editar_informacoes_profissionais',
+  MATERNO_INFANTIL: {
+    NASCER_NO_CEARA: 'nascer_no_ceara',
+    ESTRATIFICACAO_DE_RISCO: 'guias_estratificacao_risco',
+    PRE_NATAL_RISCO_HABITUAL: 'guias_pre_natal_risco_habitual',
+    PRE_NATAL_ALTO_RISCO: 'guias_pre_natal_alto_risco',
+    SINDROMES_HIPERTENSIVAS_GESTACAO: 'guias_sindromes_hipertensivas_gestacao',
+    GUIA_HEMORRAGIA_GESTACAO: 'guias_hemorragia_gestacao'
+  }
 };
 export default { labelsAnalytics };

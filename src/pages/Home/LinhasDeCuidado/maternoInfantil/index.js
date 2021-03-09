@@ -7,9 +7,12 @@ import IconSvgMaterno from '../../../../assets/icons/linhasDeCuidado/maternoInfa
 import {
   ScrollView, Texto, Titulo, Container, SvgView
 } from './styles';
+import { analyticsData } from '../../../../utils/analytics';
+import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
 
 export default function MaternoInfantil() {
   const navigation = useNavigation();
+  const { MATERNO_INFANTIL } = labelsAnalytics;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -80,7 +83,11 @@ export default function MaternoInfantil() {
               {' e aplicativos desenvolvidos para esse fim.'}
               </Texto>
             </View>
-            <List.Accordion title="Nascer no Ceará">
+            <List.Accordion
+              title="Nascer no Ceará"
+              onPress={() => analyticsData(MATERNO_INFANTIL.NASCER_NO_CEARA, 'Click', 'Materno Infantil')
+              }
+            >
                 <List.Item
                   titleNumberOfLines={80}
                   title={textoNascerNoCeara()}
@@ -92,8 +99,11 @@ export default function MaternoInfantil() {
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Estratificação de risco"
                       right={() => <List.Icon icon="chevron-right" />}
-                      onPress={() => Linking
-                        .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_1.pdf')
+                      onPress={() => {
+                        analyticsData(MATERNO_INFANTIL.ESTRATIFICACAO_DE_RISCO, 'Click', 'Materno Infantil');
+                        return Linking
+                          .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_1.pdf');
+                      }
                       }
                     />
                     <Divider />
@@ -101,8 +111,11 @@ export default function MaternoInfantil() {
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Pré-natal de risco habitual"
                       right={() => <List.Icon icon="chevron-right" />}
-                      onPress={() => Linking
-                        .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_2.pdf')
+                      onPress={() => {
+                        analyticsData(MATERNO_INFANTIL.PRE_NATAL_RISCO_HABITUAL, 'Click', 'Materno Infantil');
+                        return Linking
+                          .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_2.pdf');
+                      }
                       }
                     />
                     <Divider />
@@ -110,8 +123,11 @@ export default function MaternoInfantil() {
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Pré-natal de alto risco"
                       right={() => <List.Icon icon="chevron-right" />}
-                      onPress={() => Linking
-                        .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_3.pdf')
+                      onPress={() => {
+                        analyticsData(MATERNO_INFANTIL.PRE_NATAL_ALTO_RISCO, 'Click', 'Materno Infantil');
+                        return Linking
+                          .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_3.pdf');
+                      }
                       }
                     />
                     <Divider />
@@ -119,8 +135,11 @@ export default function MaternoInfantil() {
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Síndromes hipertensivas em gestação"
                       right={() => <List.Icon icon="chevron-right" />}
-                      onPress={() => Linking
-                        .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_4.pdf')
+                      onPress={() => {
+                        analyticsData(MATERNO_INFANTIL.SINDROMES_HIPERTENSIVAS_GESTACAO, 'Click', 'Materno Infantil');
+                        return Linking
+                          .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_4.pdf');
+                      }
                       }
                     />
                     <Divider />
@@ -128,8 +147,11 @@ export default function MaternoInfantil() {
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Hemorragia em Gestação"
                       right={() => <List.Icon icon="chevron-right" />}
-                      onPress={() => Linking
-                        .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_5.pdf')
+                      onPress={() => {
+                        analyticsData(MATERNO_INFANTIL.GUIA_HEMORRAGIA_GESTACAO, 'Click', 'Materno Infantil');
+                        return Linking
+                          .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_5.pdf');
+                      }
                       }
                     />
             </List.Accordion>
