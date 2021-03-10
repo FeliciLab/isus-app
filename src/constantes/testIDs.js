@@ -21,7 +21,15 @@ export const TESTIDS = {
       EMAIL: 'elmo-duvidas-email',
       BOTAO_ENVIAR: 'elmo-duvidas-botao-enviar'
     }
+  },
+  MATERNO_INFANTIL: {
+    NASCER_CEARA: 'materno-infantil-nascer-ceara',
+    ESTRATIFICACAO_RISCO: 'materno-infantil-estratificacao-de-risco',
+    PRE_NATAL_RISCO_HABITUAL: 'materno-infantil-pre-natal-de-risco-habitual',
+    PRE_NATAL_ALTO_RISCO: 'materno-infantil-pre-natal-de-alto-risco',
+    SINDROMES_HIPERTENSIVAS_GESTACAO: 'materno-infantil-sindromes-hipertensivas-em-gestacao',
+    HEMORRAGIA_GESTACAO: 'materno-infantil-hemorragia-em-gestacao'
   }
 };
 
-export default { TESTIDS };
+export default { ...TESTIDS };

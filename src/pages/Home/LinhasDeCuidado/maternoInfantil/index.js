@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, Linking, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { List, Divider } from 'react-native-paper';
@@ -9,13 +9,28 @@ import {
 } from './styles';
 import { analyticsData } from '../../../../utils/analytics';
 import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
+import { TESTIDS } from '../../../../constantes/testIDs';
 
 export default function MaternoInfantil() {
   const navigation = useNavigation();
   const { MATERNO_INFANTIL } = labelsAnalytics;
   const [expanded, setExpanded] = useState(false);
 
-  const handlePress = () => setExpanded(!expanded);
+  useEffect(() => {
+    console.log(expanded, 'effect');
+    if (expanded) {
+      analyticsData(
+        MATERNO_INFANTIL.NASCER_NO_CEARA,
+        'Click',
+        'Materno Infantil'
+      );
+    }
+  }, [expanded, analyticsData]);
+  const handlePress = () => {
+    console.log(expanded);
+    setExpanded(!expanded);
+  };
+  // () => setExpanded(!expanded);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -89,16 +104,8 @@ export default function MaternoInfantil() {
             <List.Accordion
               expanded={expanded}
               title="Nascer no Ceará"
-              onPress={() => {
-                console.log(expanded);
-                handlePress();
-                analyticsData(
-                  MATERNO_INFANTIL.NASCER_NO_CEARA,
-                  'Click',
-                  'Materno Infantil'
-                );
-              }
-              }
+              testID={TESTIDS.MATERNO_INFANTIL.NASCER_CEARA}
+              onPress={handlePress}
             >
                 <List.Item
                   titleNumberOfLines={80}
@@ -110,6 +117,7 @@ export default function MaternoInfantil() {
                     <List.Item
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Estratificação de risco"
+                      testID={TESTIDS.MATERNO_INFANTIL.ESTRATIFICACAO_RISCO}
                       right={() => <List.Icon icon="chevron-right" />}
                       onPress={() => {
                         analyticsData(MATERNO_INFANTIL.ESTRATIFICACAO_DE_RISCO, 'Click', 'Materno Infantil');
@@ -122,6 +130,7 @@ export default function MaternoInfantil() {
                     <List.Item
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Pré-natal de risco habitual"
+                      testID={TESTIDS.MATERNO_INFANTIL.PRE_NATAL_RISCO_HABITUAL}
                       right={() => <List.Icon icon="chevron-right" />}
                       onPress={() => {
                         analyticsData(MATERNO_INFANTIL.PRE_NATAL_RISCO_HABITUAL, 'Click', 'Materno Infantil');
@@ -134,6 +143,7 @@ export default function MaternoInfantil() {
                     <List.Item
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Pré-natal de alto risco"
+                      testID={TESTIDS.MATERNO_INFANTIL.PRE_NATAL_ALTO_RISCO}
                       right={() => <List.Icon icon="chevron-right" />}
                       onPress={() => {
                         analyticsData(MATERNO_INFANTIL.PRE_NATAL_ALTO_RISCO, 'Click', 'Materno Infantil');
@@ -146,6 +156,7 @@ export default function MaternoInfantil() {
                     <List.Item
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Síndromes hipertensivas em gestação"
+                      testID={TESTIDS.MATERNO_INFANTIL.SINDROMES_HIPERTENSIVAS_GESTACAO}
                       right={() => <List.Icon icon="chevron-right" />}
                       onPress={() => {
                         analyticsData(MATERNO_INFANTIL.SINDROMES_HIPERTENSIVAS_GESTACAO, 'Click', 'Materno Infantil');
@@ -158,6 +169,7 @@ export default function MaternoInfantil() {
                     <List.Item
                       left={() => <List.Icon icon="file-document" color="#808080" />}
                       title="Hemorragia em Gestação"
+                      testID={TESTIDS.MATERNO_INFANTIL.HEMORRAGIA_GESTACAO}
                       right={() => <List.Icon icon="chevron-right" />}
                       onPress={() => {
                         analyticsData(MATERNO_INFANTIL.GUIA_HEMORRAGIA_GESTACAO, 'Click', 'Materno Infantil');
