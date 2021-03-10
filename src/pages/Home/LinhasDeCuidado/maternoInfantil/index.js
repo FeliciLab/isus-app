@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, Linking, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { List, Divider } from 'react-native-paper';
@@ -13,6 +13,9 @@ import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
 export default function MaternoInfantil() {
   const navigation = useNavigation();
   const { MATERNO_INFANTIL } = labelsAnalytics;
+  const [expanded, setExpanded] = useState(false);
+
+  const handlePress = () => setExpanded(!expanded);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -84,8 +87,17 @@ export default function MaternoInfantil() {
               </Texto>
             </View>
             <List.Accordion
+              expanded={expanded}
               title="Nascer no Ceará"
-              onPress={() => analyticsData(MATERNO_INFANTIL.NASCER_NO_CEARA, 'Click', 'Materno Infantil')
+              onPress={() => {
+                console.log(expanded);
+                handlePress();
+                analyticsData(
+                  MATERNO_INFANTIL.NASCER_NO_CEARA,
+                  'Click',
+                  'Materno Infantil'
+                );
+              }
               }
             >
                 <List.Item

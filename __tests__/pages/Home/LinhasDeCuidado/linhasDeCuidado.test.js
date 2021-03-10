@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
-import LinhasDeCuidado from '../../../src/pages/Home/LinhasDeCuidado';
+import LinhasDeCuidado from '../../../../src/pages/Home/LinhasDeCuidado';
 
 const navigation = {
   navigate: jest.fn()
