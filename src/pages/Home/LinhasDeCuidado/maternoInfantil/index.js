@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, Linking, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { List, Divider } from 'react-native-paper';
@@ -14,10 +14,10 @@ import { TESTIDS } from '../../../../constantes/testIDs';
 export default function MaternoInfantil() {
   const navigation = useNavigation();
   const { MATERNO_INFANTIL } = labelsAnalytics;
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
-  useEffect(() => {
-    console.log(expanded, 'effect');
+  const handlePress = () => {
+    console.log(`expandedBefore: ${expanded}`);
     if (expanded) {
       analyticsData(
         MATERNO_INFANTIL.NASCER_NO_CEARA,
@@ -25,12 +25,9 @@ export default function MaternoInfantil() {
         'Materno Infantil'
       );
     }
-  }, [expanded, analyticsData]);
-  const handlePress = () => {
-    console.log(expanded);
     setExpanded(!expanded);
   };
-  // () => setExpanded(!expanded);
+  console.log(`expanded: ${expanded}`);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -102,7 +99,7 @@ export default function MaternoInfantil() {
               </Texto>
             </View>
             <List.Accordion
-              expanded={expanded}
+              expanded={!expanded}
               title="Nascer no Ceará"
               testID={TESTIDS.MATERNO_INFANTIL.NASCER_CEARA}
               onPress={handlePress}
