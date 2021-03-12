@@ -21,6 +21,7 @@ import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
+import PreCadastroRoutes from './preCadastro.routes';
 import features from '../constantes/features';
 import rotas from '../constantes/rotas';
 import estaAtiva from '../utils/estaAtiva';
@@ -28,6 +29,7 @@ import Elmo from '../pages/Elmo';
 import SobreElmo from '../pages/Elmo/sobreElmo';
 import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
+import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 import NovoSemConexao from '../pages/SemConexao';
 
 
@@ -72,6 +74,14 @@ function Cadastro() {
   );
 }
 
+const PreCadastro = () => (
+  <Feature
+    name="453"
+    inactiveComponent={PreCadastroRoutes}
+    activeComponent={PreCadastroRoutes}
+  />
+);
+
 function SemConexaoNovo(props) {
   return (
     <Feature
@@ -111,6 +121,16 @@ export default function App({ navigationRef }) {
           name="CADASTRO"
           options={{ headerShown: !estaAtiva(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
           component={Cadastro}
+        />
+        <RootStack.Screen
+          name="PRE_CADASTRO"
+          options={{ headerShown: false }}
+          component={PreCadastro}
+        />
+        <RootStack.Screen
+          name="PRE_CADASTRO_INTRODUCAO"
+          options={{ headerShown: false }}
+          component={PreCadastroIntroducao}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"
