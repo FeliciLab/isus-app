@@ -3,7 +3,8 @@
 import request from '../services/request';
 
 export function autenticar(email, senha) {
-  return request.post('auth', { email, senha });
+  return request.post('auth', { email, senha })
+    .then(result => result.data);
 }
 
 export async function pegarListaDeServicos() {

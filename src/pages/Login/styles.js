@@ -18,6 +18,11 @@ const ConteudoImagem = styled.View`
   justify-content: center;
 `;
 
+export const ChildrenView = styled.View`
+  flex: 1;
+  justify-content: space-between;
+`;
+
 const Botao = styled(Button)`
   border-radius: 200px;
   margin: 10px 16px;

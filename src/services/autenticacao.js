@@ -16,9 +16,8 @@ export const efetuarAcesso = async ({ email, senha }) => {
   return { erro: false };
 };
 
-async function autenticarComIdSaude(email, senha) {
-  const response = await autenticar(email, senha);
-  return response.data;
+function autenticarComIdSaude(email, senha) {
+  return autenticar(email, senha);
 }
 
 async function salvarDadosDeCadastro(dados) {
@@ -35,8 +34,8 @@ async function pegarTokenDoUsuarioNoStorage() {
   return token;
 }
 
-async function salvarTokenDoUsuarioNoStorage(token) {
-  await salvarDados('token_usuario', token);
+function salvarTokenDoUsuarioNoStorage(token) {
+  return salvarDados('token_usuario', token);
 }
 
 async function excluirTokenDoUsuarioNoStorage() {

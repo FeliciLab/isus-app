@@ -5,18 +5,15 @@ const FormContext = createContext({});
 
 export const FormProvider = ({ initValues, children }) => {
   const {
-    register,
+    control,
     errors,
-    trigger,
     handleSubmit,
     setValue,
-    getValues,
-    control,
-    unregister
+    getValues
   } = useForm({
     defaultValues: initValues || {},
     mode: 'onBlur',
-    reValidateMode: 'onChange',
+    reValidateMode: 'onChange'
   });
 
   const setValues = obj => Object.keys(obj).forEach(key => setValue(key, obj[key]));
@@ -24,15 +21,12 @@ export const FormProvider = ({ initValues, children }) => {
   return (
     <FormContext.Provider
       value={{
-        register,
+        control,
         errors,
-        trigger,
         handleSubmit,
         setValue,
         setValues,
-        getValues,
-        control,
-        unregister
+        getValues
       }}
     >
       {children}

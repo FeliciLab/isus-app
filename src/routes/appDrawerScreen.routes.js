@@ -9,6 +9,7 @@ import {
 import { CORES } from '../constantes/estiloBase';
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
+import FormLogin from '../pages/Login/formulario';
 import PerfilScreen from '../pages/Perfil/index';
 import TermoDeUsoScreen from '../pages/Perfil/TermosDeUso/index';
 import AppTab from './appBottomTab.routes';
@@ -40,6 +41,7 @@ export default function appDrawerScreen() {
     >
       <Drawer.Screen name="HOME" component={AppTab} />
       <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
+      <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
@@ -100,9 +102,23 @@ const LoginStack = createStackNavigator();
 function LoginStackScreen() {
   return (
     <LoginStack.Navigator>
-      <LoginStack.Screen name="ID SAÚDE" component={Login} initialParams={{ possuiIDSaude: false }} options={{ headerShown: true }} />
+      <LoginStack.Screen name="ID SAÚDE" component={Login} initialParams={{ possuiIDSaude: false }} options={{ headerShown: false }} />
       <LoginStack.Screen name="LOGIN" component={Login} initialParams={{ possuiIDSaude: true }} options={{ headerShown: true }} />
     </LoginStack.Navigator>
+  );
+}
+
+const FormLoginStack = createStackNavigator();
+function FormLoginStackScreen() {
+  return (
+    <FormLoginStack.Navigator>
+      <FormLoginStack.Screen
+        name="FORM_LOGIN"
+        component={FormLogin}
+        initialParams={{ possuiIDSaude: true }}
+        options={{ headerShown: false }}
+      />
+    </FormLoginStack.Navigator>
   );
 }
 

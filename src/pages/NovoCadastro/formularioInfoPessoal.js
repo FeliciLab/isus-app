@@ -22,6 +22,7 @@ import {
   ConteudoDropdown, IconeDropdown
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
+import { cabecalhoSemBotao, cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
 import textos from './textos.json';
 
 export default function FormularioInfoPessoal({ navigation }) {
@@ -110,32 +111,16 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
   }, [register]);
 
-  const pegarId = (municipio) => {
-    let teste = null;
-    cidades.forEach((element) => {
-      if (element.nome === municipio) {
-        teste = element.id;
-      }
-    });
-    return teste;
+  const pegarId = municipio => cidades.find(element => element.nome === municipio)
+    .reduce((acc, curr) => curr.id, null);
+
+  const layout = {
+    titulo: 'Cadastro',
+    navegador: navigation,
+    cor: 'branco'
   };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <Icon name="arrow-left" size={28} color="#304FFE" />
-        </TouchableOpacity>
-      )
-    });
-  });
+  useLayoutEffect(() => (layout ? cabecalhoVoltar(layout) : cabecalhoSemBotao(layout)));
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
