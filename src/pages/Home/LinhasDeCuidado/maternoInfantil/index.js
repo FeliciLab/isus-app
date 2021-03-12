@@ -11,23 +11,29 @@ import { analyticsData } from '../../../../utils/analytics';
 import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../../../constantes/testIDs';
 
-export default function MaternoInfantil() {
+export default function MaternoInfantil({ route }) {
+  const { params } = route;
+  const { expanded } = params;
   const navigation = useNavigation();
   const { MATERNO_INFANTIL } = labelsAnalytics;
-  const [expanded, setExpanded] = useState(true);
+  const [_expanded, setExpanded] = useState(expanded);
 
   const handlePress = () => {
-    console.log(`expandedBefore: ${expanded}`);
-    if (expanded) {
+    if (_expanded) {
       analyticsData(
         MATERNO_INFANTIL.NASCER_NO_CEARA,
         'Click',
         'Materno Infantil'
       );
     }
-    setExpanded(!expanded);
+    setExpanded(!_expanded);
   };
-  console.log(`expanded: ${expanded}`);
+
+  const onPressEstratificacaoRisco = () => {
+    analyticsData(MATERNO_INFANTIL.ESTRATIFICACAO_DE_RISCO, 'Click', 'Materno Infantil');
+    return Linking
+      .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_1.pdf');
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -99,7 +105,7 @@ export default function MaternoInfantil() {
               </Texto>
             </View>
             <List.Accordion
-              expanded={!expanded}
+              expanded={!_expanded}
               title="Nascer no Ceará"
               testID={TESTIDS.MATERNO_INFANTIL.NASCER_CEARA}
               onPress={handlePress}
@@ -116,12 +122,7 @@ export default function MaternoInfantil() {
                       title="Estratificação de risco"
                       testID={TESTIDS.MATERNO_INFANTIL.ESTRATIFICACAO_RISCO}
                       right={() => <List.Icon icon="chevron-right" />}
-                      onPress={() => {
-                        analyticsData(MATERNO_INFANTIL.ESTRATIFICACAO_DE_RISCO, 'Click', 'Materno Infantil');
-                        return Linking
-                          .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_1.pdf');
-                      }
-                      }
+                      onPress={onPressEstratificacaoRisco}
                     />
                     <Divider />
                     <List.Item

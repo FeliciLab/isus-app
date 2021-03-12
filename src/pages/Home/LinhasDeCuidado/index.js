@@ -67,7 +67,8 @@ export default function LinhasDeCuidado({ navigation }) {
               if (netInfo.isConnected) {
                 return navigation.navigate(item.navegacao.componente, {
                   title: item.navegacao.titulo,
-                  url: item.navegacao.url
+                  url: item.navegacao.url,
+                  expanded: true
                 });
               }
               return navigation.navigate(rotas.SEM_CONEXAO);
