@@ -6,7 +6,7 @@ import { Button, Card } from 'react-native-paper';
 import { CORES } from '../constantes/estiloBase';
 
 const Container = styled.View`
-  background-color: #fff;
+  background-color: #31f;
   margin: 0 16px;
   margin-top: 18px;
 `;
@@ -27,7 +27,9 @@ const View = styled.View`
 
 const CentralizarItensView = styled.View`
   justify-content: center;
+  align-items: center;
   width: 100%;
+  margin-top: ${props => (props.marginTop ? props.marginTop : '0px')};
 `;
 
 const Lista = styled.View`

@@ -8,10 +8,10 @@ import {
   View,
   Botao,
   TextoCentralizado,
-  TituloH6
+  TituloH6,
+  CentralizarItensView
 } from '../../components/style';
-import IconeSemConexao from '../../assets/icons/sem_conexao.svg';
-import { ConteudoSemConexao } from './styles';
+import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
 
 
 export default function SemConexao(props) {
@@ -20,13 +20,16 @@ export default function SemConexao(props) {
   const tituloCabecalho = 'Sem Conexão';
   const corFundo = 'verde';
 
-  // const onPress = () => {
-  //   if (!route.params?.goHome) {
-  //     navigation.goBack();
-  //   } else {
-  //     navigation.navigate('HOME', { screen: 'Home' });
-  //   }
-  // };
+  const onPressTentarNovamente = () => {
+    console.log('Tentar Novamente Pressionado');
+  };
+  const onPressVoltar = () => {
+    if (!route.params?.goHome) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('HOME', { screen: 'Home' });
+    }
+  };
 
   useLayoutEffect(() => {
     if (!route.params?.goHome) {
@@ -47,12 +50,12 @@ export default function SemConexao(props) {
   return (
     <>
       <ScrollView>
-        <ConteudoSemConexao>
-          <IconeSemConexao testID="icone-semconexao-imagem" />
+        <CentralizarItensView marginTop="59px">
+          <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
           <TituloH6>
             Sem conexão com a internet
           </TituloH6>
-        </ConteudoSemConexao>
+        </CentralizarItensView>
         <View>
           <TextoCentralizado>
             Verifique se o wi-fi ou dados móveis estão ativos e tente novamente.
@@ -62,8 +65,17 @@ export default function SemConexao(props) {
           <Botao
             testID="botão-semconexao-voltar"
             labelStyle={{ color: CORES.LARANJA }}
+            onPress={onPressVoltar}
           >
             VOLTAR
+          </Botao>
+          <Botao
+            testID="botão-semconexao-voltar"
+            labelStyle={{ color: CORES.BRANCO }}
+            backgroundColor={CORES.LARANJA}
+            onPress={onPressTentarNovamente}
+          >
+            TENTAR NOVAMENTE
           </Botao>
         </View>
       </ScrollView>
