@@ -30,6 +30,7 @@ import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
 import NovoSemConexao from '../pages/SemConexao';
 
+
 const RootStack = createStackNavigator();
 
 function EdicaoProfissional(props) {
@@ -67,6 +68,16 @@ function Cadastro() {
       name="316"
       inactiveComponent={() => <TelaDeCadastro />}
       activeComponent={CadastroRoutes}
+    />
+  );
+}
+
+function SemConexaoNovo(props) {
+  return (
+    <Feature
+      name={features.TELA_SEM_CONEXAO}
+      activeComponent={() => <NovoSemConexao {...props} />}
+      inactiveComponent={() => <SemConexao {...props} />}
     />
   );
 }
@@ -114,13 +125,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.SEM_CONEXAO}
-          component={props => (
-            <Feature
-              name={features.TELA_SEM_CONEXAO}
-              activeComponent={() => <NovoSemConexao {...props} />}
-              inactiveComponent={() => <SemConexao {...props} />}
-            />
-          )}
+          component={SemConexaoNovo}
           options={{ headerShown: true }}
         />
         <RootStack.Screen

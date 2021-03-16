@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useContext } from 'react';
 
 import { cabecalhoVoltar, cabecalhoVoltarHome }
   from '../../components/layoutEffect/cabecalhoLayout';
@@ -12,13 +12,16 @@ import {
   CentralizarItensView
 } from '../../components/style';
 import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
+import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg';
+import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoContext';
 
-
-export default function SemConexao(props) {
+function SemConexao(props) {
   const { navigation } = props;
   const { route } = props;
   const tituloCabecalho = 'Sem Conexão';
   const corFundo = 'verde';
+  const { telaAtual } = useContext(SemConexaoContext);
+  console.log(telaAtual.indice);
 
   const onPressTentarNovamente = () => {
     console.log('Tentar Novamente Pressionado');
@@ -51,7 +54,11 @@ export default function SemConexao(props) {
     <>
       <ScrollView>
         <CentralizarItensView marginTop="59px">
-          <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
+        {telaAtual.indice <= 2
+          ? <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
+          : <IconeSemConexaoVermelho />
+        }
+
           <TituloH6>
             Sem conexão com a internet
           </TituloH6>
@@ -80,5 +87,15 @@ export default function SemConexao(props) {
         </View>
       </ScrollView>
     </>
+  );
+}
+
+export default function NovoSemConexao(props) {
+  console.log('Passou no componente NovoSemConexao');
+  console.log(props);
+  return (
+    <SemConexaoProvider>
+      <SemConexao {...props} />
+    </SemConexaoProvider>
   );
 }
