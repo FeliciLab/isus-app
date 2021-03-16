@@ -54,10 +54,10 @@ function SemConexao(props) {
     <>
       <ScrollView>
         <CentralizarItensView marginTop="59px">
-        {telaAtual.indice <= 2
-          ? <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
-          : <IconeSemConexaoVermelho />
-        }
+          {telaAtual.indice <= 2
+            ? <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
+            : <IconeSemConexaoVermelho />
+          }
 
           <TituloH6>
             Sem conexão com a internet
@@ -77,7 +77,6 @@ function SemConexao(props) {
             VOLTAR
           </Botao>
           <Botao
-            testID="botão-semconexao-voltar"
             labelStyle={{ color: CORES.BRANCO }}
             backgroundColor={CORES.LARANJA}
             onPress={onPressTentarNovamente}
@@ -91,8 +90,6 @@ function SemConexao(props) {
 }
 
 export default function NovoSemConexao(props) {
-  console.log('Passou no componente NovoSemConexao');
-  console.log(props);
   return (
     <SemConexaoProvider>
       <SemConexao {...props} />
