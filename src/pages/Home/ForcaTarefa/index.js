@@ -37,7 +37,7 @@ function ForcaTarefa({ navigation }) {
                 });
               }
 
-              return navigation.navigate(rotas.SEM_CONEXAO);
+              return navigation.navigate(rotas.SEM_CONEXAO, { route: navegacao.componente });
             }}
           />
         )}

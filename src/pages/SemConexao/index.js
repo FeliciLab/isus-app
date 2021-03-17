@@ -18,14 +18,20 @@ import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoC
 function SemConexao(props) {
   const { navigation } = props;
   const { route } = props;
+  const { params } = route;
   const tituloCabecalho = 'Sem Conexão';
   const corFundo = 'verde';
-  const { telaAtual } = useContext(SemConexaoContext);
-  console.log(telaAtual.indice);
-
+  const { telaAtual, alterarTelaAtual } = useContext(SemConexaoContext);
+  console.log(params);
   const onPressTentarNovamente = () => {
-    console.log('Tentar Novamente Pressionado');
+    alterarTelaAtual({ indice: (telaAtual.indice + 1) });
+    navigation.navigate(params?.componente, {
+      title: params?.titulo,
+      url: params?.url,
+      expanded: true
+    });
   };
+
   const onPressVoltar = () => {
     if (!route.params?.goHome) {
       navigation.goBack();
@@ -58,7 +64,6 @@ function SemConexao(props) {
             ? <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
             : <IconeSemConexaoVermelho />
           }
-
           <TituloH6>
             Sem conexão com a internet
           </TituloH6>
@@ -69,20 +74,35 @@ function SemConexao(props) {
           </TextoCentralizado>
         </View>
         <View>
-          <Botao
-            testID="botão-semconexao-voltar"
-            labelStyle={{ color: CORES.LARANJA }}
-            onPress={onPressVoltar}
-          >
-            VOLTAR
-          </Botao>
-          <Botao
-            labelStyle={{ color: CORES.BRANCO }}
-            backgroundColor={CORES.LARANJA}
-            onPress={onPressTentarNovamente}
-          >
-            TENTAR NOVAMENTE
-          </Botao>
+          {telaAtual.indice <= 2
+            ? (
+              <>
+                <Botao
+                  testID="botão-semconexao-voltar"
+                  labelStyle={{ color: CORES.LARANJA }}
+                  onPress={onPressVoltar}
+                >
+                  VOLTAR
+                </Botao>
+                <Botao
+                  labelStyle={{ color: CORES.BRANCO }}
+                  backgroundColor={CORES.LARANJA}
+                  onPress={onPressTentarNovamente}
+                >
+                  TENTAR NOVAMENTE
+                </Botao>
+              </>
+            )
+            : (
+              <Botao
+                testID="botão-semconexao-voltar"
+                labelStyle={{ color: CORES.LARANJA }}
+                onPress={onPressVoltar}
+              >
+                VOLTAR
+              </Botao>
+            )
+          }
         </View>
       </ScrollView>
     </>

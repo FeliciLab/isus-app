@@ -119,7 +119,11 @@ function Servicos({ navigation }) {
   const onPress = (item) => {
     analyticsData(item.id, 'Click', 'Home');
     if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO);
+      navigation.navigate(ROTAS.SEM_CONEXAO, {
+        componente: item.navegacao.componente,
+        title: item.navegacao.titulo,
+        url: item.navegacao.url
+      });
       return;
     }
 

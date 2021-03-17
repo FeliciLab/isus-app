@@ -71,7 +71,12 @@ export default function LinhasDeCuidado({ navigation }) {
                   expanded: true
                 });
               }
-              return navigation.navigate(rotas.SEM_CONEXAO);
+              return navigation.navigate(rotas.SEM_CONEXAO, {
+                componente: item.navegacao.componente,
+                titulo: item.navegacao.titulo,
+                url: item.navegacao.url,
+                expanded: true
+              });
             }}
           />
         )}
