@@ -2,8 +2,9 @@
 name: Indicar Melhorias
 about: Indicar uma melhoria para o sistema
 title: "<Permitir uma base de dados de todo o Brasil> ..."
-labels: app, Melhoria
+labels: Melhoria, app
 assignees: ''
+
 ---
 
 Defenda a sua ideia e explique de forma convincente porque ela deve ser acolhida. Eis algumas questões a considerar:
