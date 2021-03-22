@@ -103,13 +103,11 @@ export const getOptionsCabecalhoSemBotao = ({ titulo, cor }) => ({
   headerRight: () => {}
 });
 
-export const cabecalhoSemBotao = ({ navegador, titulo, cor }) => {
-  return navegador.setOptions({
-    ...getOptions({ titulo, cor }),
-    headerLeft: () => {},
-    headerRight: () => {}
-  });
-};
+export const cabecalhoSemBotao = ({ navegador, titulo, cor }) => navegador.setOptions({
+  ...getOptions({ titulo, cor }),
+  headerLeft: () => {},
+  headerRight: () => {}
+});
 
 export default {
   cabecalhoMenuBusca,

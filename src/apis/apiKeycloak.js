@@ -2,6 +2,8 @@
 /* eslint-disable no-nested-ternary */
 import request from '../services/request';
 
+const ordenarPorNome = lista => lista.sort((a, b) => a.nome.localeCompare(b.nome));
+
 export function autenticar(email, senha) {
   return request.post('auth', { email, senha })
     .then(result => result.data);
@@ -9,30 +11,18 @@ export function autenticar(email, senha) {
 
 export async function pegarListaDeServicos() {
   const resultado = await request.get('/unidades-servico');
-  const lista = resultado.data;
-
-  lista.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
-
-  return lista;
+  return ordenarPorNome(resultado.data);
 }
 
 export async function pegarListaDeCategoriasProfissionais() {
   const resultado = await request.get('/categorias-profissionais');
-  const lista = resultado.data;
-
-  lista.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
-
-  return lista;
+  return ordenarPorNome(resultado.data);
 }
 
 export async function pegarListaDeEspecialidades(id) {
   if (id !== 0) {
     const resultado = await request.get(`/categorias-profissionais/${id}/especialidades`);
-    const lista = resultado.data;
-
-    lista.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
-
-    return lista;
+    return ordenarPorNome(resultado.data);
   }
   return [];
 }

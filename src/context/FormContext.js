@@ -5,28 +5,38 @@ const FormContext = createContext({});
 
 export const FormProvider = ({ initValues, children }) => {
   const {
-    control,
+    register,
     errors,
+    trigger,
     handleSubmit,
     setValue,
-    getValues
+    getValues,
+    control,
+    unregister,
+    formState
   } = useForm({
     defaultValues: initValues || {},
     mode: 'onBlur',
-    reValidateMode: 'onChange'
+    reValidateMode: 'onChange',
   });
 
   const setValues = obj => Object.keys(obj).forEach(key => setValue(key, obj[key]));
+  const fieldsEmpty = list => list.filter(item => getValues(item) === '').length > 0;
 
   return (
     <FormContext.Provider
       value={{
-        control,
+        register,
         errors,
+        trigger,
         handleSubmit,
         setValue,
         setValues,
-        getValues
+        getValues,
+        control,
+        unregister,
+        formState,
+        fieldsEmpty
       }}
     >
       {children}

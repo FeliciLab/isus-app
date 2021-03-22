@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export const BotaoLaranja = ({ children, onPress }) => (
+export const BotaoLaranja = ({ children, onPress, disabled }) => (
   <BotaoCircular
+    disabled={disabled}
     color="#fff"
-    backgroundColor={CORES.LARANJA}
+    backgroundColor={disabled ? CORES.CINZA_DESABILITADO : CORES.LARANJA}
     style={styles.shadow}
     onPress={onPress}
   >
