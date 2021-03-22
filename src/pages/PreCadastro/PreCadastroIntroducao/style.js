@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import { Dimensions, ImageBackground } from 'react-native';
 import { Paragraph } from 'react-native-paper';
-// import { CORES } from '../../../constantes/estiloBase';
 
 export const ContainerPage = styled(ImageBackground)`
   flex: 1;

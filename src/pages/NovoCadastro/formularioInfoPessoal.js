@@ -4,10 +4,9 @@ import React, {
   useLayoutEffect
 } from 'react';
 import { DefaultTheme } from 'react-native-paper';
-import { TouchableOpacity, Alert } from 'react-native';
+import { Alert } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import NetInfo from '@react-native-community/netinfo';
 import {
   emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado

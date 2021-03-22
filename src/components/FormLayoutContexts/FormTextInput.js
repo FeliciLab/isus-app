@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import FormContext from '../../context/FormContext';
 import { TextInput } from 'react-native-paper';
 import { Controller } from 'react-hook-form';
+import FormContext from '../../context/FormContext';
 
 const FormTextInput = ({
   name, label, placeholder, theme, rules

@@ -81,6 +81,13 @@ const PreCadastro = () => (
     activeComponent={PreCadastroRoutes}
   />
 );
+const PreCadastroIntro = () => (
+  <Feature
+    name="453"
+    inactiveComponent={PreCadastroIntroducao}
+    activeComponent={PreCadastroIntroducao}
+  />
+);
 
 function SemConexaoNovo(props) {
   return (
@@ -97,7 +104,9 @@ export default function App({ navigationRef }) {
   return (
     <NavigationContainer
       ref={navigationRef}
-      onReady={() => { routeNameRef.current = navigationRef.current.getCurrentRoute().name; }}
+      onReady={() => {
+        routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+      }}
       onStateChange={() => {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = navigationRef.current.getCurrentRoute().name;
@@ -105,7 +114,7 @@ export default function App({ navigationRef }) {
         if (previousRouteName !== currentRouteName) {
           analytics().logScreenView({
             screen_name: currentRouteName,
-            screen_class: currentRouteName,
+            screen_class: currentRouteName
           });
         }
         routeNameRef.current = currentRouteName;
@@ -130,7 +139,7 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="PRE_CADASTRO_INTRODUCAO"
           options={{ headerShown: false }}
-          component={PreCadastroIntroducao}
+          component={PreCadastroIntro}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"
@@ -153,8 +162,14 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen name="webview" component={WebViewPage} />
-        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
+        <RootStack.Screen
+          name="webview"
+          component={WebViewPage}
+        />
+        <RootStack.Screen
+          name="manejoWebview"
+          component={ManejoWebViewPage}
+        />
         <RootStack.Screen
           name="Buscar"
           component={searchStackScreen}
@@ -209,6 +224,7 @@ export default function App({ navigationRef }) {
 }
 
 const searchStack = createStackNavigator();
+
 function searchStackScreen() {
   return (
     <searchStack.Navigator>

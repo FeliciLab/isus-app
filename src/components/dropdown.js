@@ -8,10 +8,8 @@ export default function DropdownSimples({
 }) {
   const dropdownRef = React.createRef();
 
-
   return (
     <View style={{ position: 'relative' }}>
-
       <Dropdown
         ref={dropdownRef}
         label={label}
