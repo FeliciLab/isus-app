@@ -59,6 +59,7 @@ const itemInferior = () => {
             icone, nome, labelDoAnalytics, aoPressionar
           }) => (
             <DrawerItem
+              key={nome}
               icon={() => <Icon name={icone} size={22} color={CORES.PRETO54} />}
               label={nome}
               labelStyle={{ fontSize: 15 }}

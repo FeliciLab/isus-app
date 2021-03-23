@@ -61,6 +61,7 @@ function conteudoDoDrawer(props) {
     testID, nome, icone, rota, labelDoAnalytics
   }) => (
     <ItemDrawer
+      key={nome}
       testID={testID}
       nome={nome}
       icone={icone}
@@ -84,7 +85,7 @@ function conteudoDoDrawer(props) {
             {...props}
           >
             {
-              RenderizaItensDoDrawer().map(Item => <>{Item}</>)
+              RenderizaItensDoDrawer()
             }
           </ScrollView>
           <ItemInferior />
