@@ -1,4 +1,7 @@
 import React, { useLayoutEffect, useContext } from 'react';
+import { Linking } from 'react-native';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useNavigation } from '@react-navigation/native';
 
 import { cabecalhoVoltar, cabecalhoVoltarHome }
   from '../../components/layoutEffect/cabecalhoLayout';
@@ -16,27 +19,45 @@ import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg
 import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoContext';
 
 function SemConexao(props) {
-  const { navigation } = props;
   const { route } = props;
   const { params } = route;
   const tituloCabecalho = 'Sem Conexão';
   const corFundo = 'verde';
   const { telaAtual, alterarTelaAtual } = useContext(SemConexaoContext);
-  console.log(params);
+  const netInfo = useNetInfo();
+  const navigation = useNavigation();
+
+
   const onPressTentarNovamente = () => {
     alterarTelaAtual({ indice: (telaAtual.indice + 1) });
-    navigation.navigate(params?.componente, {
-      title: params?.titulo,
-      url: params?.url,
-      expanded: true
-    });
+    if (netInfo.isConnected) {
+      if (params?.componente === 'webview') {
+        navigation.navigate(params?.componente, {
+          title: params?.title,
+          url: params?.url,
+          rota: params?.rota,
+          idSaude: params?.idSaude,
+          expanded: params?.expanded
+        });
+        return;
+      }
+
+      if (params?.componente === 'browser') {
+        Linking.openURL(params?.url);
+        return;
+      }
+      // eslint-disable-next-line no-unused-expressions
+      params?.componente === 'ELMO'
+        ? navigation.navigate(params?.componente)
+        : (navigation.goBack());
+    }
   };
 
   const onPressVoltar = () => {
     if (!route.params?.goHome) {
       navigation.goBack();
     } else {
-      navigation.navigate('HOME', { screen: 'Home' });
+      navigation.popToTop();
     }
   };
 

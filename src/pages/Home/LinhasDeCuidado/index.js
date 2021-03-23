@@ -73,7 +73,7 @@ export default function LinhasDeCuidado({ navigation }) {
               }
               return navigation.navigate(rotas.SEM_CONEXAO, {
                 componente: item.navegacao.componente,
-                titulo: item.navegacao.titulo,
+                title: item.navegacao.titulo,
                 url: item.navegacao.url,
                 expanded: true
               });

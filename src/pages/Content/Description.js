@@ -14,6 +14,7 @@ import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNetInfo } from '@react-native-community/netinfo';
 
 import {
   salvarDados, pegarDados, removerDados, converterImagemParaBase64
@@ -23,6 +24,8 @@ import BarraInferior from '../../components/barraInferior';
 import ImagemDePostagem from './ImagemDePostagem';
 import formatarDataPorExtenso from '../../utils/dateUtils';
 import BarraDeStatus from '../../components/barraDeStatus';
+import rotas from '../../constantes/rotas';
+
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -33,6 +36,7 @@ export default function DescriptionScreen(props) {
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
   const dataDePostagem = postagem.post_date;
+  const netInfo = useNetInfo();
 
   useFocusEffect(
     useCallback(() => {
@@ -115,7 +119,7 @@ export default function DescriptionScreen(props) {
         Alert.alert(
           'Não foi possível baixar o conteúdo',
           'Já estamos trabalhando para que você possa ter mais leituras off-line. '
-        + 'Acompanhe as próximas versões do iSUS.',
+          + 'Acompanhe as próximas versões do iSUS.',
           [{
             text: 'OK',
             onPress: () => { }
@@ -145,6 +149,20 @@ export default function DescriptionScreen(props) {
     }, 3000);
   };
 
+  const baixarPDF = (event, href) => {
+    // eslint-disable-next-line no-unused-expressions
+    netInfo.isConnected
+      ? navigation.navigate('webview', {
+        title: 'Acesso ao conteúdo',
+        url: href
+      })
+      : navigation.navigate(rotas.SEM_CONEXAO, {
+        componente: 'webview',
+        title: 'Acesso ao conteúdo',
+        url: href
+      });
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
@@ -170,18 +188,18 @@ export default function DescriptionScreen(props) {
 
   return (
     <SafeAreaView style={styles.safeiOS}>
-    <BarraDeStatus backgroundColor={params.cor} barStyle={params.estiloBarra} />
+      <BarraDeStatus backgroundColor={params.cor} barStyle={params.estiloBarra} />
       <ScrollView>
         <View style={styles.titulo}>
           <View>
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
-            <ImagemDePostagem
-              conteudoBaixado={conteudoBaixado}
-              imagem={postagem.image}
-              estilo={styles.imagemDePostagem}
-            />
+          <ImagemDePostagem
+            conteudoBaixado={conteudoBaixado}
+            imagem={postagem.image}
+            estilo={styles.imagemDePostagem}
+          />
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,
@@ -191,12 +209,7 @@ export default function DescriptionScreen(props) {
             <View style={styles.viewHTML}>
               <HTML
                 html={postagem.post_content}
-                onLinkPress={(event, href) => {
-                  navigation.navigate('webview', {
-                    title: 'Acesso ao conteúdo',
-                    url: href
-                  });
-                }}
+                onLinkPress={baixarPDF}
               />
             </View>
           </View>

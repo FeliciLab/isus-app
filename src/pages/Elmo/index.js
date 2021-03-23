@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
-  TouchableOpacity, View, FlatList, Linking
+  TouchableOpacity, View, FlatList, Linking, BackHandler
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityIndicator } from 'react-native-paper';
@@ -41,28 +41,40 @@ function Elmo() {
   const aoIniciar = async () => {
     alterarCarregamento(true);
     let vetorTemp = [];
-    await pegarProjetosPorCategoria(100744)
-      .then((resposta) => {
-        alterarConteudos(resposta.data.data);
-        vetorTemp = resposta.data.data;
-        alterarCarregamento(false);
-      }).catch((err) => {
-        console.log(err);
-        alterarCarregamento(false);
-      });
-    await pegarProjetosPorCategoria(2004)
-      .then((resposta) => {
-        alterarConteudos([...vetorTemp, ...resposta.data.data]);
-        alterarCarregamento(false);
-      }).catch((err) => {
-        console.log(err);
-        alterarCarregamento(false);
-      });
+    try {
+      const resposta = await pegarProjetosPorCategoria(100744);
+
+      alterarConteudos(resposta.data.data);
+      vetorTemp = resposta.data.data;
+      alterarCarregamento(false);
+
+      const categoriasProjetos = await pegarProjetosPorCategoria(2004);
+
+      alterarConteudos([...vetorTemp, ...categoriasProjetos.data.data]);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      alterarCarregamento(false);
+    }
   };
 
   useEffect(() => {
     aoIniciar();
   }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.popToTop();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+    return () => {
+      backHandler.remove();
+    };
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -75,16 +87,16 @@ function Elmo() {
       headerTitleAlign: 'center',
       headerTitle: '',
       headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
-            </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.popToTop();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+        </TouchableOpacity>
       )
     });
   });
@@ -191,7 +203,7 @@ function Elmo() {
         </BackgroundImage>
         <Container>
           <Texto>
-          {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'}
+            {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'}
           </Texto>
         </Container>
         <BotaoLink
@@ -211,14 +223,14 @@ function Elmo() {
           }}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-          <CartaoHome
-            testID={`cards-${item.id}`}
-            key={item.id}
-            ativo={item.ativo}
-            titulo={item.titulo}
-            Icone={item.icone}
-            onPress={() => onPress(item)}
-          />
+            <CartaoHome
+              testID={`cards-${item.id}`}
+              key={item.id}
+              ativo={item.ativo}
+              titulo={item.titulo}
+              Icone={item.icone}
+              onPress={() => onPress(item)}
+            />
           )}
         />
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
@@ -228,7 +240,7 @@ function Elmo() {
             marginTop={20}
             onPress={() => navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })}
           >
-          Veja Mais
+            Veja Mais
           </BotaoLink>
         </View>
         <View style={{ marginTop: 20, marginBottom: 12 }}>

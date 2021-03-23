@@ -111,6 +111,7 @@ function Servicos({ navigation }) {
       navegacao: {
         net: true,
         componente: ROTAS.ELMO,
+        titulo: 'Elmo'
       }
     });
   }

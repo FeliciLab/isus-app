@@ -12,7 +12,7 @@ const indexComponent = 0;
 const indexTitle = 1;
 
 
-export default function EducationTabScreen(props) {
+export default function appTopTabScreen(props) {
   const { route } = props;
   const genericComponent = route.params[indexComponent].type;
   const title = route.params[indexTitle];

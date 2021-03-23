@@ -64,6 +64,15 @@ function FormularioLogin() {
     alterarCarregando(false);
   };
 
+  const abrirWebView = () => {
+    analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
+    navigation.navigate('webview', {
+      title: 'Esqueci minha senha',
+      url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
+      idSaude: true
+    });
+  };
+
   return (
     <>
       <View style={{ marginHorizontal: 16 }}>
@@ -107,15 +116,7 @@ function FormularioLogin() {
           </Botao>
           <Botao
             testID={TESTIDS.BUTTON_ESQUECI_SENHA}
-            onPress={() => {
-              analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
-              navigation.navigate('webview', {
-                title: 'Esqueci minha senha',
-                url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account'`,
-                idSaude: true
-              });
-            }
-            }
+            onPress={abrirWebView}
             mode="text"
             color="#ffffff"
           >
