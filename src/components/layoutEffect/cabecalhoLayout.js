@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '../../constantes/estiloBase';
+import rotas from '../../constantes/rotas';
 
 const estiloCores = {
   verde: {
@@ -53,7 +54,8 @@ const TouchableGoHome = ({ navegador, cor }) => (
   <TouchableOpacity
     style={{ marginHorizontal: 19 }}
     onPress={() => {
-      navegador.navigate('HOME', { screen: 'Home' });
+      navegador.navigate(rotas.HOME);
+      // navegador.popToTop();
     }}
   >
     <Icon name="arrow-left" size={28} color={cor} />

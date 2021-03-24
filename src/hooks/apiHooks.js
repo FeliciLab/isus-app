@@ -17,8 +17,6 @@ const useApiHooks = (props) => {
     }
   ]);
 
-  // console.log(route);
-
   const pegarCategorias = async () => {
     await pegarCategoriasArquitetura()
       .then(async (resposta) => {

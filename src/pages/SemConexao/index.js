@@ -17,6 +17,7 @@ import {
 import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
 import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg';
 import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoContext';
+import rotas from '../../constantes/rotas';
 
 function SemConexao(props) {
   const { route } = props;
@@ -53,13 +54,7 @@ function SemConexao(props) {
     }
   };
 
-  const onPressVoltar = () => {
-    if (!route.params?.goHome) {
-      navigation.goBack();
-    } else {
-      navigation.popToTop();
-    }
-  };
+  const onPressVoltar = () => navigation.navigate(rotas.HOME);
 
   useLayoutEffect(() => {
     if (!route.params?.goHome) {
