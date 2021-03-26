@@ -8,8 +8,9 @@ import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 // import SettingsStackScreen from '../pages/Settings';
 import ContentScreen from '../pages/Content';
-
 import HomeScreen from '../pages/Home';
+import { analyticsData } from '../utils/analytics';
+import rotas from '../constantes/rotas';
 
 const HomeStack = createStackNavigator();
 let title = '';
@@ -17,7 +18,11 @@ let title = '';
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
+      <HomeStack.Screen
+        name={rotas.HOME}
+        component={HomeScreen}
+        options={{ headerShown: true }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -43,7 +48,7 @@ function EducationStackScreen() {
   return (
     <EducationStack.Navigator>
       <EducationStack.Screen
-        name="Educação"
+        name={title}
         initialParams={[<ContentScreen />, title]}
         component={TopTab}
         options={{ headerShown: true }}
@@ -70,7 +75,8 @@ const AppTab = createMaterialBottomTabNavigator();
 export default function AppTabScreen() {
   return (
     <AppTab.Navigator
-      initialRouteName="Home"
+      backBehavior="history"
+      initialRouteName={rotas.HOME}
       activeColor="#4CAF50"
       inactiveColor="#828282"
       barStyle={{ backgroundColor: '#fff' }}
@@ -82,6 +88,11 @@ export default function AppTabScreen() {
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => <Icon name="home" color={color} size={20} />
         }}
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Home', 'Click', 'Home');
+          }
+        })}
       />
 
       { <AppTab.Screen
@@ -91,7 +102,12 @@ export default function AppTabScreen() {
           tabBarLabel: 'Minha Saúde',
           tabBarIcon: ({ color }) => <Icon name="heart" color={color} size={20} />
         }}
-      /> }
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Minha_saude', 'Click', 'Home');
+          }
+        })}
+      />}
 
       <AppTab.Screen
         name="Education"
@@ -100,6 +116,11 @@ export default function AppTabScreen() {
           tabBarLabel: 'Educação',
           tabBarIcon: ({ color }) => <Educacao color={color} size={20} />
         }}
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Educacao', 'Click', 'Home');
+          }
+        })}
       />
       <AppTab.Screen
         name="Search"
@@ -108,6 +129,11 @@ export default function AppTabScreen() {
           tabBarLabel: 'Pesquisa',
           tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />
         }}
+        listeners={() => ({
+          tabPress: () => {
+            analyticsData('Pesquisa', 'Click', 'Home');
+          }
+        })}
       />
     </AppTab.Navigator>
   );

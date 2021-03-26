@@ -3,9 +3,8 @@ import React, {
 } from 'react';
 
 import {
-  // eslint-disable-next-line no-unused-vars
-  View, Image, Text, Dimensions, StyleSheet, Platform,
-  ScrollView, Share, TouchableOpacity, SafeAreaView
+  View, Text, Dimensions, StyleSheet, Platform,
+  ScrollView, Share, TouchableOpacity, SafeAreaView, Alert
 }
   from 'react-native';
 import {
@@ -15,13 +14,17 @@ import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNetInfo } from '@react-native-community/netinfo';
+
 import {
   salvarDados, pegarDados, removerDados, converterImagemParaBase64
 } from '../../services/armazenamento';
-import { getProjectPorId } from '../../apis/apiHome';
+import { pegarProjetosPorId } from '../../apis/apiHome';
 import BarraInferior from '../../components/barraInferior';
 import ImagemDePostagem from './ImagemDePostagem';
 import formatarDataPorExtenso from '../../utils/dateUtils';
+import BarraDeStatus from '../../components/barraDeStatus';
+import rotas from '../../constantes/rotas';
 
 
 export default function DescriptionScreen(props) {
@@ -33,6 +36,7 @@ export default function DescriptionScreen(props) {
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
   const dataDePostagem = postagem.post_date;
+  const netInfo = useNetInfo();
 
   useFocusEffect(
     useCallback(() => {
@@ -53,16 +57,16 @@ export default function DescriptionScreen(props) {
       const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
       alterarPostagem(resposta);
     } catch (err) {
-      console.log(err);
+      console.log(`Erro ao pegar conteudo do storage: ${err.message}`);
     }
   };
 
   const pegarConteudoDaApi = async () => {
     try {
-      const resposta = await getProjectPorId(params.object.id);
+      const resposta = await pegarProjetosPorId(params.object.id);
       alterarPostagem(resposta.data);
     } catch (err) {
-      console.log(err);
+      console.log(`Erro ao pegar conteudo da API: ${err.message}`);
     }
   };
 
@@ -74,7 +78,7 @@ export default function DescriptionScreen(props) {
         message: messagTitle + messagLink
       });
     } catch (error) {
-      console.log(error.message);
+      console.log(`Erro ao compartilhar: ${error.message}`);
     }
   };
 
@@ -98,6 +102,8 @@ export default function DescriptionScreen(props) {
   );
 
   const baixarConteudo = async () => {
+    console.log('Baixar Conteudo');
+    console.log(params);
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
       const postagemOffline = {
@@ -108,7 +114,20 @@ export default function DescriptionScreen(props) {
       alterarPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
-      mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+      console.log('Erro de armazenamento:', e.message);
+      if (e.message.includes('SQLITE_FULL')) {
+        Alert.alert(
+          'Não foi possível baixar o conteúdo',
+          'Já estamos trabalhando para que você possa ter mais leituras off-line. '
+          + 'Acompanhe as próximas versões do iSUS.',
+          [{
+            text: 'OK',
+            onPress: () => { }
+          }]
+        );
+      } else {
+        mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+      }
     }
   };
 
@@ -130,12 +149,26 @@ export default function DescriptionScreen(props) {
     }, 3000);
   };
 
+  const baixarPDF = (event, href) => {
+    // eslint-disable-next-line no-unused-expressions
+    netInfo.isConnected
+      ? navigation.navigate('webview', {
+        title: 'Acesso ao conteúdo',
+        url: href
+      })
+      : navigation.navigate(rotas.SEM_CONEXAO, {
+        componente: 'webview',
+        title: 'Acesso ao conteúdo',
+        url: href
+      });
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
       headerTitle: route.params.title,
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: params.cor || '#4CAF50',
         elevation: 0,
         shadowOpacity: 0
       },
@@ -155,17 +188,18 @@ export default function DescriptionScreen(props) {
 
   return (
     <SafeAreaView style={styles.safeiOS}>
+      <BarraDeStatus backgroundColor={params.cor} barStyle={params.estiloBarra} />
       <ScrollView>
         <View style={styles.titulo}>
           <View>
             <Title style={styles.textTitleDetail}>{postagem.post_title}</Title>
           </View>
           <View style={styles.sub} />
-            <ImagemDePostagem
-              conteudoBaixado={conteudoBaixado}
-              imagem={postagem.image}
-              estilo={styles.imagemDePostagem}
-            />
+          <ImagemDePostagem
+            conteudoBaixado={conteudoBaixado}
+            imagem={postagem.image}
+            estilo={styles.imagemDePostagem}
+          />
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,
@@ -175,12 +209,7 @@ export default function DescriptionScreen(props) {
             <View style={styles.viewHTML}>
               <HTML
                 html={postagem.post_content}
-                onLinkPress={(event, href) => {
-                  navigation.navigate('webview', {
-                    title: 'Acesso ao conteúdo',
-                    url: href
-                  });
-                }}
+                onLinkPress={baixarPDF}
               />
             </View>
           </View>

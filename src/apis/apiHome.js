@@ -2,24 +2,23 @@ import request from '../services/request';
 import { vazio } from '../utils/objectUtils';
 import { pegarSO, pegarVersao } from '../utils/platform';
 
-export function getCategoriasArquitetura() {
+export function pegarCategoriasArquitetura() {
   return request.get('/categoriasArquitetura');
 }
 
-export function getProjetosPorCategoria(id) {
+export function pegarProjetosPorCategoria(id) {
   return request.get(`/projetosPorCategoria/${id}`);
 }
 
-export function getBusca(item, page) {
+export function pegarBusca(item, page) {
   return request.get(`/buscaPorProjetos?search=${item}&page=${page}`);
 }
 
-export function getProjectPorId(item) {
+export function pegarProjetosPorId(item) {
   return request.get(`/projeto/${item}`);
 }
 
 export async function pegarProjetosPorProfissional() {
-  console.log('token');
   return request.get('projetos-por-profissional');
 }
 
@@ -52,5 +51,10 @@ export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
 export function postDemandaEducacao(descricao, unidadeDeSaude, email) {
   return request.post('demanda-educacao', {
     descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
+  });
+}
+export function postDuvidasElmo(duvida, email) {
+  return request.post('duvidas-elmo', {
+    duvida, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
   });
 }

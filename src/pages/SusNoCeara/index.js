@@ -11,6 +11,9 @@ import {
 } from './textos';
 // import { navigate } from '../../routes/rootNavigation';
 import IconeSus30Anos from '../../assets/images/sus_30_anos.png';
+import { analyticsData } from '../../utils/analytics';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { TESTIDS } from '../../constantes/testIDs';
 
 const informacoes = {
   InstagramESP: {
@@ -118,12 +121,13 @@ export default function SusNoCearaScreen() {
           resizeMode="contain"
         />
       </View>
-      {/* <IconeSus30Anos style={{
-        marginTop: 15, marginRight: 35, marginLeft: 15, marginBottom: 15
-      }}
-      /> */}
       <TextoSobreSUS />
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>SUS no Ceará</Text>}>
+      <List.Accordion
+        testID={TESTIDS.ACORDEON_SUS_NO_CEARA}
+        onPress={() => analyticsData(labelsAnalytics.SUS_NO_CEARA, 'Click', 'SUS no Ceará')}
+        titleStyle={{ color: 'black' }}
+        title={<Text style={estilos.titulo}>SUS no Ceará</Text>}
+      >
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSUSCeara />}
@@ -135,7 +139,13 @@ export default function SusNoCearaScreen() {
           onPress={() => linkingURLouApp('Plano', 'site')}
         />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}>
+      <List.Accordion
+        testID={TESTIDS.ACORDEON_ISUS_ESP}
+        onPress={() => analyticsData(labelsAnalytics.ISUS_ESP, 'Click', 'SUS no Ceará')}
+        titleStyle={{ color: 'black' }}
+        title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}
+      >
+
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreSESA />}
@@ -176,7 +186,12 @@ export default function SusNoCearaScreen() {
         />
         <Divider style={estilos.borda} />
       </List.Accordion>
-      <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>A ESP é SESA</Text>}>
+      <List.Accordion
+        testID={TESTIDS.ACORDEON_ESP_SESA}
+        onPress={() => analyticsData(labelsAnalytics.ESP_SESA, 'Click', 'SUS no Ceará')}
+        titleStyle={{ color: 'black' }}
+        title={<Text style={estilos.titulo}>A ESP é SESA</Text>}
+      >
         <List.Item
           titleNumberOfLines={80}
           title={<TextoSobreESP />}

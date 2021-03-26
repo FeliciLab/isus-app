@@ -5,13 +5,20 @@ import {
 import { autenticar, pegarTokenDeAcesso } from '../apis/apiKeycloak';
 import { navigate } from '../routes/rootNavigation';
 
-async function autenticarComIdSaude(email, senha) {
-  try {
-    const response = await autenticar(email, senha);
-    return response.data;
-  } catch (err) {
-    throw err;
+export const efetuarAcesso = async ({ email, senha }) => {
+  const response = await autenticarComIdSaude(email, senha).then();
+  if (!response.sucesso) {
+    return { erro: true, msg: response.erros ? response.erros : response.mensagem };
   }
+
+  await salvarTokenDoUsuarioNoStorage(response.mensagem);
+  await pegarTokenDoUsuarioNoStorage();
+  return { erro: false };
+};
+
+async function autenticarComIdSaude(email, senha) {
+  const response = await autenticar(email, senha);
+  return response.data;
 }
 
 async function salvarDadosDeCadastro(dados) {

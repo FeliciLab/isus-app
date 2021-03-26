@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import {
   DefaultTheme, Checkbox
 } from 'react-native-paper';
+import { vazio } from '../../../utils/objectUtils';
 import DropDown from '../../../components/dropdown';
 import FormContext from '../../../context/FormContext';
 import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../../apis/apiKeycloak';
@@ -26,9 +27,6 @@ function EdicaoInfoProfissional({ route }) {
     getValues, setValue, register, unregister
   } = useContext(FormContext);
 
-  const [temCategoria, alterarTemCategoria] = useState(false);
-  const [temSetores, alterarTemSetores] = useState(false);
-  const [temEspecialidades, alterarTemEspecialidades] = useState(false);
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [carregando, alterarCarregando] = useState(false);
@@ -92,28 +90,61 @@ function EdicaoInfoProfissional({ route }) {
 
       const perfil = await pegarDados('perfil');
       alterarPerfilDoUsuario(perfil);
+      alterarCamposPreenchidos(perfil.profissional);
     };
     aoIniciar();
   }, []);
+
+  const alterarCamposPreenchidos = (dadosProfissionais) => {
+    if (dadosProfissionais.categoria_profissional) {
+      alterarTratarCategoriaProfissional(dadosProfissionais.categoria_profissional.id);
+      registrarCategoriaProfissional(JSON.stringify(dadosProfissionais.categoria_profissional));
+      verificarCategoriaEspecialidades();
+      unregister('especialidades');
+    }
+
+    if (dadosProfissionais.especialidades
+      && (
+        dadosProfissionais.categoria_profissional.id === 1
+        || dadosProfissionais.categoria_profissional.id === 3)) {
+      mudarValoresEspecialidades(dadosProfissionais.especialidades);
+      registrarEspecialidadesPreenchidas(dadosProfissionais.especialidades);
+    }
+
+    if (dadosProfissionais.unidades_servicos) {
+      mudarValoresUnidadesServicos(dadosProfissionais.unidades_servicos);
+      registrarUnidadesServicosPreenchidas(dadosProfissionais.unidades_servicos);
+    }
+  };
+
+  const registrarEspecialidadesPreenchidas = (especialidades) => {
+    unregister('especialidades');
+    if (especialidades.length !== 0) {
+      register({ name: 'especialidades' });
+      setValue('especialidades', JSON.stringify(especialidades));
+    }
+  };
+
+  const registrarUnidadesServicosPreenchidas = (unidadesServicos) => {
+    unregister('unidadeServico');
+    if (unidadesServicos.length !== 0) {
+      register({ name: 'unidadeServico' });
+      setValue('unidadeServico', JSON.stringify(unidadesServicos));
+    }
+  };
+
 
   const verificarCategoriaEspecialidades = () => {
     const { categoriaProfissional } = getValues();
     JSON.parse(categoriaProfissional, (key, value) => {
       if (key === 'id') {
         alterarTratarCategoriaProfissional(value);
-
-        if (value === 1 || value === 3) {
-          const aoEspecialidades = async () => {
-            const especialidades = await pegarListaDeEspecialidades(value);
-            // console.log('especialidades', especialidades);
-            alterarListaDeEspecialidades(especialidades);
-            especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
-            alterarTemEspecialidades(false);
-          };
-          aoEspecialidades();
-        } else {
-          alterarTemEspecialidades(true);
-        }
+        const aoEspecialidades = async () => {
+          const especialidades = await pegarListaDeEspecialidades(value);
+          alterarListaDeEspecialidades(especialidades);
+          especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
+        };
+        aoEspecialidades();
       }
     });
   };
@@ -146,6 +177,22 @@ function EdicaoInfoProfissional({ route }) {
     registrarUnidadesDeServico(check);
   };
 
+  const mudarValoresUnidadesServicos = (servicos) => {
+    const unidadesServicoCheckBoxes = { ...unidadesServico };
+    servicos.forEach((servico) => {
+      unidadesServicoCheckBoxes[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`] ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado : true };
+    });
+    alterarUnidadesServico(unidadesServicoCheckBoxes);
+  };
+
+  const mudarValoresEspecialidades = (especialidades) => {
+    const especialidadesCheckBoxes = { ...unidadesEspecialidades };
+    especialidades.forEach((especialidade) => {
+      especialidadesCheckBoxes[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: especialidadesCheckBoxes[`${especialidade.nome}`] ? !especialidadesCheckBoxes[`${especialidade.nome}`].foiMarcado : true };
+    });
+    alterarUnidadesEspecialidades(especialidadesCheckBoxes);
+  };
+
   const registrarCategoriaProfissional = (categoria) => {
     unregister('categoriaProfissional');
     register({ name: 'categoriaProfissional' });
@@ -159,7 +206,7 @@ function EdicaoInfoProfissional({ route }) {
     return { id: especialidade.id, nome: especialidade.nome, foiMarcado: false };
   };
 
-  const mudarValorEspecilidades = (especialidade) => {
+  const mudarValorEspecialidades = (especialidade) => {
     const check = { ...unidadesEspecialidades };
     check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
     alterarUnidadesEspecialidades(check);
@@ -196,14 +243,15 @@ function EdicaoInfoProfissional({ route }) {
       cidade: municipio.nome,
       termos: true,
       categoriaProfissional,
-      especialidades,
-      unidadeServico
+      especialidades: especialidades || '[]',
+      unidadeServico: unidadeServico || '[]'
     };
   };
 
   const salvarInformaçõesProfissionais = async () => {
     alterarCarregando(true);
     const { categoriaProfissional, especialidades, unidadeServico } = getValues();
+
     const usuarioTratado = tratarCamposDeUsuario(
       {
         ...perfildoUsuario, categoriaProfissional, especialidades, unidadeServico
@@ -221,7 +269,7 @@ function EdicaoInfoProfissional({ route }) {
     try {
       console.log('perfil atualizado', usuarioTratado);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: EstaEditavel ? 'Parabéns! Você atualizou suas informações profissionais.' : 'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
+      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você atualizou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
     } catch (err) {
@@ -229,21 +277,6 @@ function EdicaoInfoProfissional({ route }) {
       mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
       alterarCarregando(false);
     }
-  };
-
-  const verificarSetores = () => {
-    const { unidadeServico } = getValues();
-    return unidadeServico && JSON.parse(unidadeServico).length !== 0;
-  };
-
-  const verificarCategoria = () => {
-    const { categoriaProfissional } = getValues();
-    return categoriaProfissional && JSON.parse(categoriaProfissional).length !== 0;
-  };
-
-  const verificarEspecialidades = () => {
-    const { especialidades } = getValues();
-    return especialidades && JSON.parse(especialidades).length !== 0;
   };
 
   const Selecao = selecaoProps => (
@@ -263,19 +296,21 @@ function EdicaoInfoProfissional({ route }) {
           <TituloPrincipal>
             {
               EstaEditavel ? 'Selecione as informações profissionais que você deseja alterar:'
-                : 'Vamos agora adicionar suas informações profissionais,para isso, selecione as opções abaixo:'}
+                : 'Vamos agora adicionar suas informações profissionais, para isso, selecione as opções abaixo:'}
           </TituloPrincipal>
           <ConteudoFormulario>
             <Destaque>Categoria Profissional:</Destaque>
             <DropDown
               label="Categoria profissional"
               dados={listaDeCategorias}
-              valor={EstaEditavel ? JSON.stringify(perfildoUsuario.profissional.categoria_profissional) : ''}
+              valor={
+                !vazio(perfildoUsuario)
+                && JSON.stringify(perfildoUsuario.profissional.categoria_profissional)
+              }
               definirValor={item => JSON.stringify(item)}
               definirRotulo={item => item.nome}
               aoMudarValor={(categoria) => {
                 registrarCategoriaProfissional(categoria);
-                alterarTemCategoria(verificarCategoria());
                 verificarCategoriaEspecialidades();
               }}
             />
@@ -284,7 +319,7 @@ function EdicaoInfoProfissional({ route }) {
             tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
               <>
                 <Destaque>Qual é sua especialidade?</Destaque>
-                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Selecione as opções</Titulo>}>
+                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Especialidades</Titulo>}>
                   <View>
                     {unidadesEspecialidades && listaDeEspecialidades.length !== 0
                       && listaDeEspecialidades.map(especialidade => (
@@ -292,8 +327,7 @@ function EdicaoInfoProfissional({ route }) {
                           status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
                           label={especialidade.nome}
                           onPress={() => {
-                            mudarValorEspecilidades(especialidade);
-                            alterarTemEspecialidades(verificarEspecialidades());
+                            mudarValorEspecialidades(especialidade);
                           }
                           }
                         />
@@ -313,7 +347,6 @@ function EdicaoInfoProfissional({ route }) {
                     label={servico.nome}
                     onPress={() => {
                       mudarValor(servico);
-                      alterarTemSetores(verificarSetores());
                     }
                     }
                   />
@@ -323,18 +356,17 @@ function EdicaoInfoProfissional({ route }) {
           </ConteudoFormulario>
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
+        <BotaoSalvar
+          labelStyle={{ color: '#fff' }}
+          loading={carregando}
+          onPress={() => {
+            salvarInformaçõesProfissionais();
+          }}
+          mode="contained"
+        >
+          Salvar
+        </BotaoSalvar>
       </Scroll>
-      <BotaoSalvar
-        disabled={!(temCategoria && temEspecialidades && temSetores)}
-        labelStyle={{ color: '#fff' }}
-        loading={carregando}
-        onPress={() => {
-          salvarInformaçõesProfissionais();
-        }}
-        mode="contained"
-      >
-        Salvar
-      </BotaoSalvar>
     </SafeArea>
   );
 }

@@ -14,8 +14,11 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
-import Regex from '../../utils/regex';
+import { feedbackValido, emailValido } from '../../utils/validadores';
 import { vazio } from '../../utils/objectUtils';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const feedbackInput = React.createRef();
@@ -94,9 +97,6 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     return '';
   };
 
-  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
-  const feedbackValido = () => feedback.replace(/\s/g, '').length;
-
   const verificaErroDePermissao = erro => (erro === "Permissions weren't granted" ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
     : erro);
 
@@ -155,75 +155,80 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
 
   return (
     <>
-        <View style={{ flex: 1, padding: 15 }}>
-          <Text
-            style={{
-              letterSpacing: 0.25,
-              fontSize: 14,
-              lineHeight: 20,
-              color: '#828282',
-              marginBottom: 18
-            }}
+      <View style={{ flex: 1, padding: 15 }}>
+        <Text
+          style={{
+            letterSpacing: 0.25,
+            fontSize: 14,
+            lineHeight: 20,
+            color: '#828282',
+            marginBottom: 18
+          }}
+        >
+          Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
+          problemas e melhorar o app rapidamente.
+        </Text>
+
+        <TextInput
+          testID="input-feedback-motivo"
+          numberOfLines={5}
+          mode="outlined"
+          ref={feedbackInput}
+          multiline
+          value={feedback}
+          label="Motivo"
+          onChangeText={text => setFeedback(text)}
+        />
+
+        <Text
+          style={{
+            letterSpacing: 0.25,
+            fontSize: 12,
+            lineHeight: 20,
+            color: '#828282',
+            marginVertical: 10
+          }}
+        >
+          Lembre-se de especificar a seção do app a que você se refere
+        </Text>
+
+        <View style={{ flexDirection: 'row', marginBottom: 18, marginTop: 8 }}>
+          <Button
+            mode="text"
+            color="#FF9800"
+            compact
+            onPress={
+              () => ImagePicker.launchImageLibrary(
+                {},
+                response => definirNomeDaImagem(response)
+              )
+            }
           >
-            Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
-            problemas e melhorar o app rapidamente.
-          </Text>
-
-          <TextInput
-            numberOfLines={5}
-            mode="outlined"
-            ref={feedbackInput}
-            multiline
-            value={feedback}
-            label="Motivo"
-            onChangeText={text => setFeedback(text)}
-          />
-
-          <Text
-            style={{
-              letterSpacing: 0.25,
-              fontSize: 12,
-              lineHeight: 20,
-              color: '#828282',
-              marginVertical: 10
-            }}
-          >
-            Lembre-se de especificar a seção do app a que você se refere
-          </Text>
-
-          <View style={{ flexDirection: 'row', marginBottom: 18, marginTop: 8 }}>
-            <Button
-              mode="text"
-              color="#FF9800"
-              compact
-              onPress={
-                () => ImagePicker.launchImageLibrary(
-                  {},
-                  response => definirNomeDaImagem(response)
-                )
-              }
-            >
-                ANEXAR IMAGEM
-            </Button>
-            <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} />
-          </View>
-
-          <TextInput
-            mode="outlined"
-            ref={emailInput}
-            label="Email"
-            value={email}
-            onChangeText={text => setEmail(text.trim())}
-          />
+            ANEXAR IMAGEM
+          </Button>
+          <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} />
         </View>
-        <View>
+
+        <TextInput
+          testID="input-feedback-email"
+          mode="outlined"
+          ref={emailInput}
+          label="Email"
+          value={email}
+          onChangeText={text => setEmail(text.trim())}
+        />
+      </View>
+      <View>
         <Button
-          disabled={!!(!feedbackValido() || !emailValido())}
-          style={feedbackValido() && emailValido() ? styles.button : styles.buttonDisabled}
+          testID={TESTIDS.BOTAO_FEEDBACK_ENVIAR}
+          disabled={!!(!feedbackValido(feedback) || !emailValido(email))}
+          style={feedbackValido(feedback) && emailValido(email)
+            ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}
           onPress={() => {
+            analyticsData(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
             setCarregando(true);
             onSubmit();
           }}
@@ -253,7 +258,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
         >
           {mensagemDeErro}
         </Snackbar>
-        </View>
+      </View>
     </>
   );
 }

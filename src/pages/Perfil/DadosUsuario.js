@@ -5,8 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import { aplicaMascaraNumerica } from '../../utils/mascaras';
-import features from '../../utils/features';
-import rotas from '../../constants/rotas';
+import features from '../../constantes/features';
+import rotas from '../../constantes/rotas';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { analyticsData } from '../../utils/analytics';
 
 function DadosUsuario({ dados }) {
   return (
@@ -29,6 +31,19 @@ function DadosUsuario({ dados }) {
       <Text style={estilos.dado}>
         {dados.municipio ? dados.municipio.nome : 'Não informado'}
       </Text>
+      <Feature
+        name={features.EDICAO_INFO_PESSOAIS}
+        activeComponent={() => (
+          <Botao
+            uri={rotas.EDICAO_INFO_PESSOAIS}
+            // params={{ tela_anterior: rotas.PERFIL }}
+            testID="botao-editar-dado-pessoal"
+            style={estilos.espacamento}
+          >
+            EDITAR INFORMAÇÕES
+          </Botao>
+        )}
+      />
     </View>
   );
 }
@@ -48,7 +63,7 @@ function Especialidades({ dados }) {
                   dado.nome
                 )).join(', ')
               ) : (
-                '---'
+                ''
               )
           }
         </Text>
@@ -75,10 +90,7 @@ function MostrarDadosUsuarioProfissional(dados) {
           dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
         }
       </Text>
-      <Feature
-        name={features.MOSTRAR_ESPECIALIDADES_NO_PERFIL}
-        activeComponent={() => <Especialidades dados={dados} />}
-      />
+      <Especialidades dados={dados} />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
         {
@@ -93,8 +105,10 @@ function MostrarDadosUsuarioProfissional(dados) {
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
         activeComponent={() => (
           <Botao
-            uri={rotas.EdicaoProfissional}
-            params={{ tela_anterior: rotas.Perfil }}
+            uri={rotas.EDICAO_PROFISSIONAL}
+            params={{ tela_anterior: rotas.PERFIL }}
+            testID={labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS}
+            style={estilos.botao}
           >
             EDITAR INFORMAÇÕES
           </Botao>
@@ -114,23 +128,24 @@ function AdicionarDadosProfissionais() {
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
         activeComponent={() => (
           <Botao
-            uri={rotas.Cadastro}
+            uri={rotas.CADASTRO}
             params={
               {
-                screen: rotas.FormularioProfissional,
-                params: { tela_anterior: rotas.Perfil }
+                screen: rotas.FORMULARIO_PROFISSIONAL,
+                params: { tela_anterior: rotas.PERFIL }
               }}
+            testID="botao-dados-adicionar"
           >
             ADICIONAR INFORMAÇÕES
           </Botao>
         )}
         inactiveComponent={() => (
           <Botao
-            uri={rotas.EdicaoProfissional}
+            uri={rotas.EDICAO_PROFISSIONAL}
             params={
               {
-                screen: rotas.FormularioProfissional,
-                params: { tela_anterior: rotas.Perfil }
+                screen: rotas.FORMULARIO_PROFISSIONAL,
+                params: { tela_anterior: rotas.PERFIL }
               }}
           >
             ADICIONAR INFORMAÇÕES
@@ -141,10 +156,24 @@ function AdicionarDadosProfissionais() {
   );
 }
 
-const Botao = ({ children, uri, params = '' }) => {
+const Botao = ({
+  children, uri, params = '', testID
+}) => {
   const navigation = useNavigation();
   return (
-    <Button color="#FF9800" contentStyle={{ justifyContent: 'flex-start' }} onPress={() => navigation.navigate(uri, params)}>
+    <Button
+      testID={testID}
+      color="#FF9800"
+      contentStyle={{ justifyContent: 'flex-start' }}
+      onPress={() => {
+        analyticsData(
+          labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS,
+          'Click',
+          'Perfil'
+        );
+        navigation.navigate(uri, params);
+      }}
+    >
       {children}
     </Button>
   );

@@ -11,7 +11,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
+import { descricaoValida, unidadeDeSaudeValida } from '../../utils/validadores';
 import { postDemandaEducacao } from '../../apis/apiHome';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function DemandaEducacaoScreen() {
   const descricaoInput = React.createRef();
@@ -62,9 +66,6 @@ export default function DemandaEducacaoScreen() {
     return '';
   };
 
-  const descricaoValida = () => descricao.replace(/\s/g, '').length;
-  const unidadeDeSaudeValida = () => unidadeDeSaude.replace(/\s/g, '').length;
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -103,57 +104,59 @@ export default function DemandaEducacaoScreen() {
   });
   return (
     <>
-        <View style={{ flex: 1, padding: 15 }}>
-          <TextInput
-            numberOfLines={5}
-            mode="outlined"
-            ref={descricaoInput}
-            multiline
-            value={descricao}
-            label="Demandar por Educação Permanente *"
-            onChangeText={text => alterarDescricao(text)}
-            style={{ marginBottom: 20 }}
-          />
+      <View style={{ flex: 1, padding: 15 }}>
+        <TextInput
+          numberOfLines={5}
+          mode="outlined"
+          ref={descricaoInput}
+          multiline
+          value={descricao}
+          label="Demandar por Educação Permanente *"
+          onChangeText={text => alterarDescricao(text)}
+          style={{ marginBottom: 20 }}
+        />
 
-          <TextInput
-            mode="outlined"
-            ref={unidadeDeSaudeInput}
-            label="Unidade de Saúde *"
-            value={unidadeDeSaude}
-            onChangeText={text => alterarUnidadeDeSaude(text)}
-            style={{ marginBottom: 20 }}
-          />
+        <TextInput
+          mode="outlined"
+          ref={unidadeDeSaudeInput}
+          label="Unidade de Saúde *"
+          value={unidadeDeSaude}
+          onChangeText={text => alterarUnidadeDeSaude(text)}
+          style={{ marginBottom: 20 }}
+        />
 
-          <TextInput
-            mode="outlined"
-            ref={emailInput}
-            label="Email"
-            value={email}
-            onChangeText={text => setEmail(text)}
-            style={{ marginBottom: 20 }}
-          />
+        <TextInput
+          mode="outlined"
+          ref={emailInput}
+          label="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+          style={{ marginBottom: 20 }}
+        />
 
-          <Text
-            style={{
-              letterSpacing: 0.25,
-              fontSize: 14,
-              lineHeight: 20,
-              color: '#828282',
-              marginBottom: 18
-            }}
-          >
-            Campo Email não obrigatório
-          </Text>
-        </View>
-        <View>
+        <Text
+          style={{
+            letterSpacing: 0.25,
+            fontSize: 14,
+            lineHeight: 20,
+            color: '#828282',
+            marginBottom: 18
+          }}
+        >
+          Campo Email não obrigatório
+        </Text>
+      </View>
+      <View>
         <Button
-          disabled={!!(!descricaoValida() || !unidadeDeSaudeValida())}
-          style={descricaoValida() && unidadeDeSaudeValida()
+          testID={TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR}
+          disabled={!!(!descricaoValida(descricao) || !unidadeDeSaudeValida(unidadeDeSaude))}
+          style={descricaoValida(descricao) && unidadeDeSaudeValida(unidadeDeSaude)
             ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}
           onPress={() => {
+            analyticsData(labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO, 'Click', 'Fale Conosco');
             setCarregando(true);
             onSubmit();
           }}
@@ -183,7 +186,7 @@ export default function DemandaEducacaoScreen() {
         >
           {mensagemDeErro}
         </Snackbar>
-        </View>
+      </View>
     </>
   );
 }

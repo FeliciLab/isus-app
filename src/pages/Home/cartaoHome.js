@@ -2,17 +2,23 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 
-function CartaoHome({ Icone, titulo, onPress }) {
-  return (
-    <Card elevation={4} style={estilos.espacamento} onPress={onPress}>
-      <Icone />
-      <Card.Content>
-        <Paragraph style={estilos.paragrafo}>
-          { titulo }
-        </Paragraph>
-      </Card.Content>
-    </Card>
-  );
+function CartaoHome({
+  Icone, ativo, titulo, onPress, testID
+}) {
+  if (ativo) {
+    return (
+      <Card elevation={4} style={estilos.espacamento} onPress={onPress} testID={testID}>
+        <Icone />
+        <Card.Content>
+          <Paragraph style={estilos.paragrafo}>
+            {titulo}
+          </Paragraph>
+        </Card.Content>
+      </Card>
+    );
+  }
+
+  return (<></>);
 }
 
 const estilos = StyleSheet.create({

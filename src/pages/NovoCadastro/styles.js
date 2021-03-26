@@ -4,6 +4,8 @@ import {
 } from 'react-native-paper';
 import { ScrollView } from 'react-native';
 import IconDropdown from 'react-native-vector-icons/MaterialIcons';
+import featureAtivas from '../../featureAtivas';
+import features from '../../constantes/features';
 
 const Titulo = styled(Title)`
   font-size: 24px;
@@ -43,29 +45,37 @@ const Botao = styled(Button)`
   align-self: flex-end;
   margin: 20px;
   justify-content: center;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : '#304FFE')};
+  background-color: ${(props) => {
+    if (props.disabled) {
+      return '#BDBDBD';
+    }
+    if (featureAtivas.includes(features.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
+      return props.cor;
+    }
+    return '#304FFE';
+  }}
 `;
 
 const ConteudoDropdown = styled.View`
-  margin-top: 14px;
+margin-top: 14px;
 `;
 
 const IconeDropdown = styled(IconDropdown)`
-  position: absolute;
-  right: 8px;
-  top: 30px;
-  font-size: 25px;
+position: absolute;
+right: 8px;
+top: 30px;
+font-size: 25px;
 `;
 
 const PlaceholderAcordeon = styled(Text)`
-  font-size: 16;
-  color: rgba(0, 0, 0, 0.54);
+font-size: 16;
+color: rgba(0, 0, 0, 0.54);
 `;
 
 const Acordeon = styled(List.Accordion)`
-  border-color: rgba(25, 25, 25, 0.32);
-  border-width: 2;
-  margin-top: 16;
+border-color: rgba(25, 25, 25, 0.32);
+border-width: 2;
+margin-top: 16;
 `;
 
 export {

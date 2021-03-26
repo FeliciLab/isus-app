@@ -67,3 +67,6 @@ android-keystore.jks
 .env
 .env.prod
 .env.dev
+
+# Testes
+coverage/

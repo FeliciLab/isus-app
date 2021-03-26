@@ -280,7 +280,7 @@ function EdicaoInfoProfissional() {
             tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
               <>
                 <Destaque>Qual é sua especialidade?</Destaque>
-                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Selecione as opções</Titulo>}>
+                <Acordeon titleStyle={{ color: 'black' }} title={<Titulo>Especialidades</Titulo>}>
                   <View>
                     {unidadesEspecialidades && listaDeEspecialidades.length !== 0
                       && listaDeEspecialidades.map(especialidade => (
@@ -319,18 +319,18 @@ function EdicaoInfoProfissional() {
           </ConteudoFormulario>
         </ConteudoFormulario>
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
+        <BotaoSalvar
+          disabled={temCategoria && temEspecialidades && temSetores}
+          labelStyle={{ color: '#fff' }}
+          loading={carregando}
+          onPress={() => {
+            salvarInformaçõesProfissionais();
+          }}
+          mode="contained"
+        >
+          Salvar
+        </BotaoSalvar>
       </Scroll>
-      <BotaoSalvar
-        disabled={!(temCategoria && temEspecialidades && temSetores)}
-        labelStyle={{ color: '#fff' }}
-        loading={carregando}
-        onPress={() => {
-          salvarInformaçõesProfissionais();
-        }}
-        mode="contained"
-      >
-        Salvar
-      </BotaoSalvar>
     </SafeArea>
   );
 }

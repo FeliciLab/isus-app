@@ -12,6 +12,10 @@ import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
 import { postAlertaFaltaDeEpi } from '../../apis/apiHome';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { descricaoValida, unidadeDeSaudeValida } from '../../utils/validadores';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function AlertaFaltaDeEpiScreen() {
   const descricaoInput = React.createRef();
@@ -62,8 +66,6 @@ export default function AlertaFaltaDeEpiScreen() {
     return '';
   };
 
-  const descricaoValida = () => descricao.replace(/\s/g, '').length;
-  const unidadeDeSaudeValida = () => unidadeDeSaude.replace(/\s/g, '').length;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -103,70 +105,72 @@ export default function AlertaFaltaDeEpiScreen() {
   });
   return (
     <>
-        <View style={{ flex: 1, padding: 15 }}>
-          <Text
-            style={{
-              letterSpacing: 0.25,
-              fontSize: 14,
-              lineHeight: 20,
-              color: '#828282',
-              marginBottom: 18
-            }}
-          >
-            Reporte a falta ou escassez dos equipamentos de EPI da
-            sua Unidade de Saúde para nos ajudar a resolver o problema e melhorar a condição atual.
-          </Text>
+      <View style={{ flex: 1, padding: 15 }}>
+        <Text
+          style={{
+            letterSpacing: 0.25,
+            fontSize: 14,
+            lineHeight: 20,
+            color: '#828282',
+            marginBottom: 18
+          }}
+        >
+          Reporte a falta ou escassez dos equipamentos de EPI da
+          sua Unidade de Saúde para nos ajudar a resolver o problema e melhorar a condição atual.
+        </Text>
 
-          <TextInput
-            numberOfLines={5}
-            mode="outlined"
-            ref={descricaoInput}
-            multiline
-            value={descricao}
-            label="Descreva a situação atual *"
-            onChangeText={text => alterarDescricao(text)}
-            style={{ marginBottom: 20 }}
-          />
+        <TextInput
+          numberOfLines={5}
+          mode="outlined"
+          ref={descricaoInput}
+          multiline
+          value={descricao}
+          label="Descreva a situação atual *"
+          onChangeText={text => alterarDescricao(text)}
+          style={{ marginBottom: 20 }}
+        />
 
-          <TextInput
-            mode="outlined"
-            ref={unidadeDeSaudeInput}
-            label="Unidade de Saúde *"
-            value={unidadeDeSaude}
-            onChangeText={text => alterarUnidadeDeSaude(text)}
-            style={{ marginBottom: 20 }}
-          />
+        <TextInput
+          mode="outlined"
+          ref={unidadeDeSaudeInput}
+          label="Unidade de Saúde *"
+          value={unidadeDeSaude}
+          onChangeText={text => alterarUnidadeDeSaude(text)}
+          style={{ marginBottom: 20 }}
+        />
 
-          <TextInput
-            mode="outlined"
-            ref={emailInput}
-            label="Email"
-            value={email}
-            onChangeText={text => setEmail(text)}
-            style={{ marginBottom: 20 }}
-          />
+        <TextInput
+          mode="outlined"
+          ref={emailInput}
+          label="Email"
+          value={email}
+          onChangeText={text => setEmail(text)}
+          style={{ marginBottom: 20 }}
+        />
 
-          <Text
-            style={{
-              letterSpacing: 0.25,
-              fontSize: 14,
-              lineHeight: 20,
-              color: '#828282',
-              marginBottom: 18
-            }}
-          >
-            Campo Email não obrigatório
-          </Text>
-        </View>
-        <View>
+        <Text
+          style={{
+            letterSpacing: 0.25,
+            fontSize: 14,
+            lineHeight: 20,
+            color: '#828282',
+            marginBottom: 18
+          }}
+        >
+          Campo Email não obrigatório
+        </Text>
+      </View>
+      <View>
         <Button
-          disabled={!!(!descricaoValida() || !unidadeDeSaudeValida())}
-          style={descricaoValida() && unidadeDeSaudeValida()
+          testID={TESTIDS.BOTAO_ALERTAEPI_ENVIAR}
+          disabled={!!(!descricaoValida(descricao) || !unidadeDeSaudeValida(unidadeDeSaude))}
+          style={descricaoValida(descricao) && unidadeDeSaudeValida(unidadeDeSaude)
             ? styles.button : styles.buttonDisabled}
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}
           onPress={() => {
+            analyticsData(labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI, 'Click', 'Fale Conosco');
             setCarregando(true);
             onSubmit();
           }}
@@ -196,7 +200,7 @@ export default function AlertaFaltaDeEpiScreen() {
         >
           {mensagemDeErro}
         </Snackbar>
-        </View>
+      </View>
     </>
   );
 }

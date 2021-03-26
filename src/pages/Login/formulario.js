@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
+import { Config } from 'react-native-config';
 import { useNavigation } from '@react-navigation/native';
-import { DefaultTheme, TextInput, Button } from 'react-native-paper';
-import Regex from '../../utils/regex';
+import { DefaultTheme, TextInput } from 'react-native-paper';
 import Alerta from '../../components/alerta';
-import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  autenticarComIdSaude,
+  salvarTokenDoUsuarioNoStorage,
+  pegarTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
+import { Botao } from './styles';
+import { TESTIDS } from '../../constantes/testIDs';
+import { analyticsData } from '../../utils/analytics';
+import { emailValido, senhaValido } from '../../utils/validadores';
 
 function FormularioLogin() {
   const navigation = useNavigation();
@@ -26,15 +34,12 @@ function FormularioLogin() {
   };
 
   useEffect(() => {
-    if (email.length > 1 && !emailValido()) {
+    if (email.length > 1 && !emailValido(email)) {
       alterarErro(true);
       return;
     }
     alterarErro(false);
   }, [email]);
-
-  const emailValido = () => Regex.EMAIL.test(email.toLowerCase());
-  const senhaValido = () => senha.replace(/\s/g, '').length;
 
   const mostrarAlerta = async (texto) => {
     alterarTextoDoAlerta(texto);
@@ -48,73 +53,82 @@ function FormularioLogin() {
   };
 
   const fazerLogin = async () => {
-    try {
-      const response = await autenticarComIdSaude(email, senha);
-      if (response.sucesso) {
+    await autenticarComIdSaude(email, senha)
+      .then(async (response) => {
+        console.log(`Sucesso ${response.sucesso}`);
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
         await pegarTokenDoUsuarioNoStorage();
-        alterarCarregando(false);
-        // navigation.navigate('PERFIL');
         navigation.navigate('HOME');
-        return;
-      }
-      const mensagemErro = response.erros ? response.erros : response.mensagem;
-      alterarCarregando(false);
-      await mostrarAlerta(mensagemErro);
-    } catch (err) {
-      alterarCarregando(false);
-      mostrarAlerta(err.message);
-    }
+      })
+      .catch(err => mostrarAlerta(err.response.data.erros));
+    alterarCarregando(false);
+  };
+
+  const abrirWebView = () => {
+    analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
+    navigation.navigate('webview', {
+      title: 'Esqueci minha senha',
+      url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
+      idSaude: true
+    });
   };
 
   return (
     <>
-    <View style={{ marginHorizontal: 16 }}>
-    <TextInput
-      label="E-mail"
-      mode="outlined"
-      placeholder="E-mail"
-      selectionColor="#00000AB"
-      value={email}
-      onChangeText={textoEmail => alterarEmail(textoEmail)}
-      theme={theme}
-    />
-     { temErro && <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text> }
-     <TextInput
-       style={{
-         marginTop: 18
-       }}
-       onChangeText={textoSenha => alterarSenha(textoSenha)}
-       theme={theme}
-       label="Senha"
-       selectionColor="#00000AB"
-       placeholder="Senha"
-       mode="outlined"
-       secureTextEntry
-     />
-     <View style={{ marginTop: 18 }}>
-      <Button
-        disabled={!!(!emailValido() || !senhaValido())}
-        style={{ ...estilos.botao, backgroundColor: '#ffffff' }}
-        mode="contained"
-        loading={carregando}
-        onPress={() => {
-          alterarCarregando(true);
-          fazerLogin();
-        }}
-      >
-        Fazer Login
-      </Button>
-      <Button style={estilos.botao} onPress={() => navigation.navigate('webview', { title: 'Esqueci minha senha', url: 'https://dev.id.org.br/auth/realms/saude/login-actions/reset-credentials?client_id=account', idSaude: true })} mode="text" color="#ffffff"> Esqueci minha senha </Button>
-     </View>
-    </View>
-    <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
+      <View style={{ marginHorizontal: 16 }}>
+        <TextInput
+          label="E-mail"
+          mode="outlined"
+          placeholder="E-mail"
+          selectionColor="#0000AB"
+          value={email}
+          onChangeText={textoEmail => alterarEmail(textoEmail)}
+          theme={theme}
+        />
+        {temErro && (
+          <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text>
+        )}
+        <TextInput
+          style={{
+            marginTop: 18
+          }}
+          onChangeText={textoSenha => alterarSenha(textoSenha)}
+          theme={theme}
+          label="Senha"
+          selectionColor="#0000AB"
+          placeholder="Senha"
+          mode="outlined"
+          secureTextEntry
+        />
+        <View style={{ marginTop: 18 }}>
+          <Botao
+            testID={TESTIDS.BUTTON_FAZER_LOGIN}
+            disabled={!!(!emailValido(email) || !senhaValido(senha))}
+            mode="contained"
+            loading={carregando}
+            onPress={() => {
+              analyticsData('fazer_login', 'Click', 'Perfil');
+              alterarCarregando(true);
+              fazerLogin();
+            }}
+          >
+            Fazer Login
+          </Botao>
+          <Botao
+            testID={TESTIDS.BUTTON_ESQUECI_SENHA}
+            onPress={abrirWebView}
+            mode="text"
+            color="#ffffff"
+          >
+            {' '}
+            Esqueci minha senha
+            {' '}
+          </Botao>
+        </View>
+      </View>
+      <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
     </>
   );
 }
-
-const estilos = StyleSheet.create({
-  botao: { borderRadius: 200, marginHorizontal: 16, marginVertical: 10 },
-});
 
 export default FormularioLogin;

@@ -6,16 +6,23 @@ import { createStackNavigator } from '@react-navigation/stack';
 import {
   Dimensions
 } from 'react-native';
+import { CORES } from '../constantes/estiloBase';
 import AboutScreen from '../pages/About';
 import Login from '../pages/Login';
 import PerfilScreen from '../pages/Perfil/index';
 import TermoDeUsoScreen from '../pages/Perfil/TermosDeUso/index';
 import AppTab from './appBottomTab.routes';
-import ConteudoDoDrawer from './conteudoDoDrawer';
+import ConteudoDrawer from '../components/ConteudoDrawer';
 import FaleConoscoScreen from '../pages/FaleConoscoScreen';
 import SusNoCearaScreen from '../pages/SusNoCeara';
-import { ALERTA_FALTA_EPI, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
-import rotas from '../constants/rotas';
+import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
+import ContaExcluida from '../pages/Perfil/contaExcluida';
+import Denunciar from '../pages/Denunciar';
+import QualiQuizScreen from '../pages/QualiQuiz';
+import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
+
+import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
+import rotas from '../constantes/rotas';
 
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
@@ -28,21 +35,58 @@ export default function appDrawerScreen() {
         width: Dimensions.get('screen').width / 1.5
       }}
       drawerContent={props => (
-        <ConteudoDoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
       )}
     >
-      <Drawer.Screen name="HOME" component={AppTab} />
+      <Drawer.Screen name={rotas.HOME} component={AppTab} />
       <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
-      <Drawer.Screen name="ALERTA_EPI" component={AlertaEpiStackScreen} />
-      <Drawer.Screen name="SUS_NO_CEARA" component={SusNoCearaStackScreen} />
+      <Drawer.Screen
+        name={rotas.DUVIDAS_ELMO}
+        component={DuvidasElmoStackScreen}
+      />
+      <Drawer.Screen
+        name={rotas.SUS_NO_CEARA}
+        component={SusNoCearaStackScreen}
+      />
       <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
+      <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
+      <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />
+      <Drawer.Screen name="DENUNCIAR" component={DenunciarAccountScreen} />
+      <Drawer.Screen name="QUALIQUIZ" component={QualiQuizStackScreen} />
+      <Drawer.Screen name="QUALIQUIZ_LOGIN" component={QualiQuizLoginStackScreen} />
     </Drawer.Navigator>
   );
 }
 
+const DenunciarAccountStack = createStackNavigator();
+function DenunciarAccountScreen() {
+  return (
+    <DenunciarAccountStack.Navigator>
+      <DenunciarAccountStack.Screen name="DENUNCIAR" component={Denunciar} options={{ headerShown: true }} />
+    </DenunciarAccountStack.Navigator>
+  );
+}
+
+const DeleteAccountStack = createStackNavigator();
+function DeleteAccountScreen() {
+  return (
+    <DeleteAccountStack.Navigator>
+      <DeleteAccountStack.Screen name="CONTA_EXCLUIDA" component={ContaExcluida} options={{ headerShown: true }} />
+    </DeleteAccountStack.Navigator>
+  );
+}
+
+const DeleteProfileStack = createStackNavigator();
+function DeleteProfileScreen() {
+  return (
+    <DeleteProfileStack.Navigator>
+      <DeleteProfileStack.Screen name="EXCLUIR_PERFIL" component={ExcluirPerfil} options={{ headerShown: true }} />
+    </DeleteProfileStack.Navigator>
+  );
+}
 const AboutStack = createStackNavigator();
 function AboutStackScreen() {
   return (
@@ -67,7 +111,7 @@ function PerfilStackScreen() {
   return (
     <PerfilStack.Navigator>
       <PerfilStack.Screen
-        name={rotas.Perfil}
+        name={rotas.PERFIL}
         component={PerfilScreen}
         options={{ headerShown: true }}
       />
@@ -98,17 +142,17 @@ function FeedbackStackScreen() {
   );
 }
 
-const AlertaEpiStack = createStackNavigator();
-function AlertaEpiStackScreen() {
+const DuvidasElmoStack = createStackNavigator();
+function DuvidasElmoStackScreen() {
   return (
-    <AlertaEpiStack.Navigator>
-      <AlertaEpiStack.Screen
-        name="ALERTA_EPI"
+    <DuvidasElmoStack.Navigator>
+      <DuvidasElmoStack.Screen
+        name={rotas.DUVIDAS_ELMO}
         component={FaleConoscoScreen}
         options={{ headerShown: true }}
-        initialParams={{ ocorrencia: ALERTA_FALTA_EPI }}
+        initialParams={{ ocorrencia: DUVIDAS_ELMO }}
       />
-    </AlertaEpiStack.Navigator>
+    </DuvidasElmoStack.Navigator>
   );
 }
 
@@ -122,5 +166,38 @@ function SusNoCearaStackScreen() {
         options={{ headerShown: true }}
       />
     </SusNoCearaStack.Navigator>
+  );
+}
+
+const QualiQuizStack = createStackNavigator();
+function QualiQuizStackScreen() {
+  return (
+    <QualiQuizStack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: CORES.BRANCO }
+      }}
+    >
+      <QualiQuizStack.Screen
+        name="QUALIQUIZ"
+        component={QualiQuizScreen}
+        options={{ headerShown: true }}
+      />
+    </QualiQuizStack.Navigator>
+  );
+}
+const QualiQuizLoginStack = createStackNavigator();
+function QualiQuizLoginStackScreen() {
+  return (
+    <QualiQuizLoginStack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: CORES.BRANCO }
+      }}
+    >
+      <QualiQuizStack.Screen
+        name="QUALIQUIZ_LOGIN"
+        component={LoginQualiQuizScreen}
+        options={{ headerShown: true }}
+      />
+    </QualiQuizLoginStack.Navigator>
   );
 }

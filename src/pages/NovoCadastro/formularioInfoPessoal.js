@@ -1,15 +1,14 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable max-len */
 import React, {
   useContext,
   useEffect,
   useLayoutEffect
 } from 'react';
 import { DefaultTheme } from 'react-native-paper';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Alert } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import NetInfo from '@react-native-community/netinfo';
 import {
   emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado
 } from '../../utils/validadores';
@@ -23,15 +22,15 @@ import {
   ConteudoDropdown, IconeDropdown
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
-import featuresAtivas from '../../featureAtivas';
 import textos from './textos.json';
-import features from '../../utils/features';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
   const [cidades, pegaCidades] = React.useState([]);
+
+  let estaConectado = false;
 
   const theme = {
     ...DefaultTheme,
@@ -53,6 +52,23 @@ export default function FormularioInfoPessoal({ navigation }) {
     FormContext
   );
   useEffect(() => {
+    // eslint-disable-next-line no-undef
+    NetInfo.addEventListener((state) => {
+      estaConectado = state.isConnected;
+    });
+    if (!estaConectado) {
+      Alert.alert(
+        'Sem conexão com a internet',
+        'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
+        [{
+          text: 'OK',
+          onPress: () => { navigation.navigate('LOGIN'); }
+        }]
+      );
+    }
+  });
+
+  useEffect(() => {
     register('nomeCompleto', {
       required: true,
       validate: nomeCompleto => nomeValido(nomeCompleto)
@@ -61,8 +77,10 @@ export default function FormularioInfoPessoal({ navigation }) {
     register('email', {
       required: true,
       validate: {
-        emailValido: email => emailValido(email) || textos.formularioPessoal.mensagemEmail,
-        emailCadastrado: async email => await emailNaoCadastrado(email) || textos.formularioPessoal.mensagemEmailExistente
+        emailValido: email => emailValido(email)
+          || textos.formularioPessoal.mensagemEmail,
+        emailCadastrado: async email => await emailNaoCadastrado(email)
+          || textos.formularioPessoal.mensagemEmailExistente
       }
     });
     register('telefone', {
@@ -73,29 +91,20 @@ export default function FormularioInfoPessoal({ navigation }) {
       },
       maxLength: 14
     });
-    if (featuresAtivas.includes(features.IMPLEMENTAR_VALIDAÇÃO_CPF)) {
-      register('cpf', {
-        required: true,
-        minLength: {
-          value: 11,
-          message: textos.formularioPessoal.mensagemCPF
-        },
-        validate: {
-          cpfValido: cpf => cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
-          cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf) || textos.formularioPessoal.mensagemCPFExistente
-        },
-        maxLength: 14
-      });
-    } else {
-      register('cpf', {
-        required: true,
-        minLength: {
-          value: 11,
-          message: textos.formularioPessoal.mensagemCPF
-        },
-        maxLength: 14
-      });
-    }
+    register('cpf', {
+      required: true,
+      minLength: {
+        value: 11,
+        message: textos.formularioPessoal.mensagemCPF
+      },
+      validate: {
+        cpfValido: cpf => cpfValido(cpf)
+          || textos.formularioPessoal.mensagemCPFValidacao,
+        cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf)
+          || textos.formularioPessoal.mensagemCPFExistente
+      },
+      maxLength: 14
+    });
     register('cidade', {
       required: true
     });
@@ -166,9 +175,8 @@ export default function FormularioInfoPessoal({ navigation }) {
             alteraValor('nomeCompleto', text);
           }}
           mode="outlined"
-          theme={getValues().nomeCompleto === undefined || getValues().nomeCompleto === ''
-            ? theme : errors.nomeCompleto
-              ? themeError : theme}
+          theme={(getValues().nomeCompleto === undefined) || (getValues().nomeCompleto === ''
+            ? theme : errors.nomeCompleto) ? themeError : theme}
         />
         {errors.nomeCompleto && (
           <TextoDeErro>
@@ -183,9 +191,8 @@ export default function FormularioInfoPessoal({ navigation }) {
             alteraValor('email', text);
           }}
           mode="outlined"
-          theme={getValues().email === undefined || getValues().email === ''
-            ? theme : errors.email
-              ? themeError : theme}
+          theme={(getValues().email === undefined) || (getValues().email === ''
+            ? theme : errors.email) ? themeError : theme}
         />
         {errors.email && (
           <TextoDeErro>
@@ -198,9 +205,8 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={getValues().telefone === undefined || getValues().telefone === ''
-            ? theme : errors.telefone
-              ? themeError : theme}
+          theme={(getValues().telefone === undefined) || (getValues().telefone === ''
+            ? theme : errors.telefone) ? themeError : theme}
           maxLength={15}
           render={props => (
             <TextInputMask
@@ -224,9 +230,8 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={getValues().cpf === undefined || getValues().cpf === ''
-            ? theme : errors.cpf
-              ? themeError : theme}
+          theme={(getValues().cpf === undefined)
+            || (getValues().cpf === '' ? theme : errors.cpf) ? themeError : theme}
           maxLength={14}
           render={props => (
             <TextInputMask
@@ -261,11 +266,12 @@ export default function FormularioInfoPessoal({ navigation }) {
           />
         </ConteudoDropdown>
         <Botao
+          cor="#304FFE"
           disabled={!botaoAtivo}
           label="Próximo"
           labelStyle={{ color: '#fff' }}
           mode="contained"
-          onPress={() => navigation.navigate('FormularioInfoProfissional')}
+          onPress={() => (navigation.navigate('FormularioInfoProfissional'))}
         >
           Próximo
         </Botao>

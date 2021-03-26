@@ -4,9 +4,12 @@ import {
 } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { getProjetosPorCategoria } from '../../apis/apiHome';
+import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
+import { analyticsData } from '../../utils/analytics';
+import { adicionaMascaraAnalytics } from '../../utils/mascaras';
+
 
 export default function InformationScreen(props) {
   const navigation = useNavigation();
@@ -17,6 +20,11 @@ export default function InformationScreen(props) {
 
   useFocusEffect(
     useCallback(() => {
+      analyticsData(
+        adicionaMascaraAnalytics(params.slug),
+        'click',
+        params.title_description
+      );
       async function pegarConteudo() {
         try {
           await pegarConteudoDaApi();
@@ -37,7 +45,7 @@ export default function InformationScreen(props) {
   };
 
   const pegarConteudoDaApi = async () => {
-    const resposta = await getProjetosPorCategoria(params.term_id);
+    const resposta = await pegarProjetosPorCategoria(params.term_id);
     const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
     const postagensAtualizadas = marcarPostagensBaixadas(resposta.data.data, postagensBaixadas);
     alterarPostagens(postagensAtualizadas);
@@ -78,7 +86,13 @@ export default function InformationScreen(props) {
       renderItem={({ item }) => (
         <TouchableOpacity
           style={estilos.postagem}
-          onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: params.term_id }, title: params.title_description })}
+          onPress={() => navigation.navigate('Descrição', {
+            object: {
+              ...item,
+              categoria_id: params.term_id
+            },
+            title: params.title_description
+          })}
         >
           <ImagemDePostagem
             conteudoBaixado={semConexao}

@@ -1,9 +1,16 @@
-import Feature from './utils/features';
+import feature from './constantes/features';
 
 export default [
-  Feature.DISPOR_FORCA_TAREFA_EM_CARROSSEL,
-  Feature.MOSTRAR_ESPECIALIDADES_NO_PERFIL,
-  Feature.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO,
-  Feature.IMPLEMENTAR_VALIDAÇÃO_CPF,
-  Feature.FEATURE_LOGIN_AUTOMATICO_APOS_CADASTRO
+  feature.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO,
+  feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS,
+  feature.LINHAS_DE_CUIDADO,
+  feature.EXCLUSAO_USUARIO,
+  feature.DENUNCIAR,
+  feature.BANNER_ASSISTENCIA_FARMACEUTICA,
+  feature.CONFIRMACAO_AO_SAIR,
+  feature.QUALIQUIZ,
+  feature.EDICAO_INFO_PESSOAIS,
+  feature.ELMO,
+  feature.VACINACOVID19,
+  feature.PLANO_CONTIGENCIA
 ];

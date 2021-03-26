@@ -8,9 +8,14 @@ import { useNavigation } from '@react-navigation/native';
 function CartaoDeConteudo(props) {
   const { conteudo } = props;
   const { item } = conteudo;
+  const { cor, estiloBarra } = props;
   const navigation = useNavigation();
+
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: 700 }, title: item.post_title })}>
+    <TouchableOpacity onPress={() => navigation.navigate('Descrição', {
+      object: { ...item, categoria_id: 700 }, title: item.post_title, cor, estiloBarra
+    })}
+    >
       <View>
         <Image resizeMode="cover" style={estilos.imagem} source={{ uri: item.image }} />
         <Text style={estilos.data}>{moment(item.post_date).format('DD/MM/YYYY')}</Text>

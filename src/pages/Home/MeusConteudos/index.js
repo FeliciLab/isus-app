@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import {
-  TouchableOpacity, View, FlatList, Text, StyleSheet
+  TouchableOpacity, View, Text, StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Card, Paragraph, ActivityIndicator } from 'react-native-paper';
 import { pegarProjetosPorProfissional } from '../../../apis/apiHome';
 import CartaoDeConteudo from './CartaoDeConteudo';
+import { Titulo } from '../styles';
+import Carrossel from '../../../components/Carrossel';
 
 function MeusConteudos() {
   const navigation = useNavigation();
@@ -32,16 +34,9 @@ function MeusConteudos() {
   const ListaDeConteudo = () => {
     if (conteudos && conteudos.length > 0) {
       return (
-        <FlatList
-          horizontal
-          data={conteudos}
-          keyExtractor={(item, index) => `${index}`}
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center'
-          }}
-          showsHorizontalScrollIndicator={false}
-          renderItem={conteudo => (
+        <Carrossel
+          dados={conteudos.slice(0, 4)}
+          aoRenderizarItem={conteudo => (
             <CartaoDeConteudo conteudo={conteudo} />
           )}
         />
@@ -61,7 +56,7 @@ function MeusConteudos() {
   return (
     <>
       <View style={estilos.conteudoTitulo}>
-        <Text style={estilos.titulo}>Meus Conteúdos</Text>
+        <Titulo>Meus Conteúdos</Titulo>
         {conteudos && conteudos.length > 0 && (
           <TouchableOpacity
             style={estilos.conteudoVerMais}
@@ -100,11 +95,6 @@ const estilos = StyleSheet.create({
     textTransform: 'uppercase',
     color: '#FF9800',
 
-  },
-  titulo: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, 0.6)',
   },
   cardSemConteudo: {
     margin: 16,

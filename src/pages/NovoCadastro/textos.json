@@ -10,15 +10,10 @@
     "mensagemCPFExistente": "CPF já cadastrado"
   },
   "formularioProfissional": {
-    "introducao": "Vamos realizar seu cadastro, precisamos aprenas de suas informações profissionais:",
-    "titulo": "Informações profissionais",
-    "servicos": "Quais serviços em que atua?",
-    "especialidade": "Qual é sua especialidade?"
-  },
-  "AdicaoFormularioPerfil": {
-    "introducao": "Vamos agora adicionar suas informações profissionais, para isso, selecione as opções abaixo:",
+    "introducao": "Vamos realizar seu cadastro, precisamos apenas de suas informações profissionais:",
+    "introducaoAdicaoPerfil": "Vamos agora adicionar suas informações profissionais, para isso, selecione as opções abaixo:",
     "titulo": "Categoria Profissional:",
-    "servicos": "Quais serviços em que atua?",
+    "servicos": "Em que setor você está atuando?",
     "especialidade": "Qual é sua especialidade?"
   },
   "formularioSenha": {

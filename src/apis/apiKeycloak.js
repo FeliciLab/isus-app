@@ -1,4 +1,5 @@
 /* eslint-disable import/no-cycle */
+/* eslint-disable no-nested-ternary */
 import request from '../services/request';
 
 export function autenticar(email, senha) {
@@ -7,18 +8,30 @@ export function autenticar(email, senha) {
 
 export async function pegarListaDeServicos() {
   const resultado = await request.get('/unidades-servico');
-  return resultado.data;
+  const lista = resultado.data;
+
+  lista.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
+
+  return lista;
 }
 
 export async function pegarListaDeCategoriasProfissionais() {
   const resultado = await request.get('/categorias-profissionais');
-  return resultado.data;
+  const lista = resultado.data;
+
+  lista.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
+
+  return lista;
 }
 
 export async function pegarListaDeEspecialidades(id) {
   if (id !== 0) {
     const resultado = await request.get(`/categorias-profissionais/${id}/especialidades`);
-    return resultado.data;
+    const lista = resultado.data;
+
+    lista.sort((a, b) => (a.nome < b.nome ? -1 : a.nome > b.nome ? 1 : 0));
+
+    return lista;
   }
   return [];
 }
@@ -32,6 +45,9 @@ export async function pegarTokenDeAcesso(refreshToken) {
 
 
 export function logout(token) {
-  console.log('logout token', token);
   return request.post('logout', { refresh_token: token.refresh_token });
+}
+
+export function excluir(token) {
+  return request.delete('delete', { refresh_token: token.refresh_token });
 }

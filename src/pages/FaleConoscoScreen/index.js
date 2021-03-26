@@ -9,17 +9,20 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {
-  ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA, DEMANDA_EDUCACAO
+  ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA, DEMANDA_EDUCACAO, DUVIDAS_ELMO
 } from './tiposDeOcorrencia';
 import DropdownSimples from './dropdown';
 import FeedbackScreen from './feedback';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 import DemandaEducacao from './demandaEducacao';
+import DuvidasElmo from './duvidasElmo';
+import { FormProvider } from '../../context/FormContext';
 
 export default function FaleConoscoScreen({ route }) {
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = React.useState(
     route.params.ocorrencia
   );
+
   const navigation = useNavigation();
   useFocusEffect(
     useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), [])
@@ -29,7 +32,8 @@ export default function FaleConoscoScreen({ route }) {
     { value: ALERTA_FALTA_EPI.textoDoDropdown },
     { value: RELATAR_SUGESTAO.textoDoDropdown },
     { value: RELATAR_PROBLEMA.textoDoDropdown },
-    { value: DEMANDA_EDUCACAO.textoDoDropdown }
+    { value: DEMANDA_EDUCACAO.textoDoDropdown },
+    { value: DUVIDAS_ELMO.textoDoDropdown }
   ];
 
   function TipoDoDropdown({ tipo }) {
@@ -38,6 +42,12 @@ export default function FaleConoscoScreen({ route }) {
         return <AlertaFaltaDeEpiScreen />;
       case DEMANDA_EDUCACAO.textoDoDropdown:
         return <DemandaEducacao />;
+      case DUVIDAS_ELMO.textoDoDropdown:
+        return (
+          <FormProvider>
+            <DuvidasElmo />
+          </FormProvider>
+        );
       default:
         return <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} />;
     }

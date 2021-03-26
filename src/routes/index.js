@@ -3,24 +3,33 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Feature } from '@paralleldrive/react-feature-toggles';
+import analytics from '@react-native-firebase/analytics';
 import Description from '../pages/Content/Description';
-import Welcome from '../pages/Welcome';
+import BemVindo from '../pages/BemVindo';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import Buscar from '../pages/Buscar';
-import ClinicalManagement from '../pages/ClinicalManagement';
 import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
+import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal/index';
 import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
-
+import SemConexao from '../components/semConexao';
+import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
 import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
-import featuresAtivas from '../featureAtivas';
-import features from '../utils/features';
+import features from '../constantes/features';
+import rotas from '../constantes/rotas';
+import estaAtiva from '../utils/estaAtiva';
+import Elmo from '../pages/Elmo';
+import SobreElmo from '../pages/Elmo/sobreElmo';
+import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
+import NovidadesElmo from '../pages/Elmo/novidadesElmo';
+import NovoSemConexao from '../pages/SemConexao';
+
 
 const RootStack = createStackNavigator();
 
@@ -37,6 +46,22 @@ function EdicaoProfissional(props) {
   );
 }
 
+function EdicaoPessoal(props) {
+  return (
+    <FormProvider>
+      <EdicaoInfoPessoal {...props} />
+    </FormProvider>
+  );
+}
+
+function ElmoFunc(props) {
+  return (
+    <FormProvider>
+      <Elmo {...props} />
+    </FormProvider>
+  );
+}
+
 function Cadastro() {
   return (
     <Feature
@@ -47,9 +72,35 @@ function Cadastro() {
   );
 }
 
-export default function App({ navigationRef }) {
+function SemConexaoNovo(props) {
   return (
-    <NavigationContainer ref={navigationRef}>
+    <Feature
+      name={features.TELA_SEM_CONEXAO}
+      activeComponent={() => <NovoSemConexao {...props} />}
+      inactiveComponent={() => <SemConexao {...props} />}
+    />
+  );
+}
+
+export default function App({ navigationRef }) {
+  const routeNameRef = React.useRef();
+  return (
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => { routeNameRef.current = navigationRef.current.getCurrentRoute().name; }}
+      onStateChange={() => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef.current.getCurrentRoute().name;
+
+        if (previousRouteName !== currentRouteName) {
+          analytics().logScreenView({
+            screen_name: currentRouteName,
+            screen_class: currentRouteName,
+          });
+        }
+        routeNameRef.current = currentRouteName;
+      }}
+    >
       <RootStack.Navigator>
         <RootStack.Screen
           name="App"
@@ -58,7 +109,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name="CADASTRO"
-          options={{ headerShown: !featuresAtivas.includes(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
+          options={{ headerShown: !estaAtiva(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
           component={Cadastro}
         />
         <RootStack.Screen
@@ -73,8 +124,14 @@ export default function App({ navigationRef }) {
           options={{ headerShown: true }}
         />
         <RootStack.Screen
-          name="clinical management"
-          component={ClinicalManagement}
+          name={rotas.SEM_CONEXAO}
+          component={SemConexaoNovo}
+          options={{ headerShown: true }}
+        />
+        <RootStack.Screen
+          name={rotas.MATERNO_INFANTIL}
+          component={MaternoInfantil}
+          options={{ headerShown: true }}
         />
         <RootStack.Screen name="webview" component={WebViewPage} />
         <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
@@ -98,13 +155,33 @@ export default function App({ navigationRef }) {
           initialParams={{ conteudos: [] }}
         />
         <RootStack.Screen
-          name="EdicaoDadosProfissionais"
+          name={rotas.EDICAO_PROFISSIONAL}
           component={EdicaoProfissional}
         />
         <RootStack.Screen
-          name="Welcome"
-          component={Welcome}
+          name="BemVindo"
+          component={BemVindo}
           options={{ headerShown: false }}
+        />
+        <RootStack.Screen
+          name={rotas.EDICAO_INFO_PESSOAIS}
+          component={EdicaoPessoal}
+        />
+        <RootStack.Screen
+          name={rotas.ELMO}
+          component={ElmoFunc}
+        />
+        <RootStack.Screen
+          name={rotas.SOBRE_ELMO}
+          component={SobreElmo}
+        />
+        <RootStack.Screen
+          name={rotas.CAPACITACAO_ELMO}
+          component={CapacitacaoElmo}
+        />
+        <RootStack.Screen
+          name={rotas.NOVIDADES_ELMO}
+          component={NovidadesElmo}
         />
       </RootStack.Navigator>
     </NavigationContainer>

@@ -1,0 +1,30 @@
+name: Teste App
+on:
+  push:
+    branches:
+      - develop
+      - main
+jobs:
+  testes:
+    name: Teste do App iSUS
+    runs-on: ubuntu-latest
+    env:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+      - name: Instala Dependências
+        id: instalaDependencias
+        run: yarn install
+      - name: Executa Testes
+        id: executaTestes
+        run: yarn test
+      - name: Notificar no Slack
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#ci_cd'
+          if: always()

@@ -8,22 +8,21 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import ForcaTarefaAntiCorona from './forcatarefaanticorona';
-import ProviderDeVersaoDoManejo from '../ClinicalManagement/contexto/contextoVersaoManejo';
-import Carrossel from './carrossel';
+import Banners from './Banners';
 import BarraDeStatus from '../../components/barraDeStatus';
-import Servicos from './Servicos/servicos';
+import Servicos from './Servicos';
 import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
-import NovaForcaTarefa from './ForcaTarefa/NovaForcaTarefa';
+import ForcaTarefa from './ForcaTarefa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import features from '../../utils/features';
+import features from '../../constantes/features';
+import LinhasDeCuidado from './LinhasDeCuidado';
+import { analyticsData } from '../../utils/analytics';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-
   const {
     dadosUsuario,
     estaLogado,
@@ -38,7 +37,7 @@ export default function HomeScreen() {
     if (resp !== false) {
       return navigation.reset({
         index: 0,
-        routes: [{ name: 'Welcome' }]
+        routes: [{ name: 'BemVindo' }]
       });
     }
     return null;
@@ -54,7 +53,6 @@ export default function HomeScreen() {
           alterarTokenUsuario(token);
           try {
             const perfil = await perfilUsuario();
-            console.log('retornar', perfil.data);
             alterarDadosUsuario(perfil.data);
             alterarEstaLogado(true);
           } catch (err) {
@@ -85,7 +83,8 @@ export default function HomeScreen() {
           style={{
             marginHorizontal: 19
           }}
-          onPress={() => {
+          onPress={async () => {
+            await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate('Buscar');
           }}
         >
@@ -112,23 +111,21 @@ export default function HomeScreen() {
   return (
     <>
       { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
-      <ProviderDeVersaoDoManejo>
-        <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
-        <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-          <Carrossel sliderWidth={width} itemWidth={width} />
-          <Servicos navigation={navigation} />
-          {
-            estaLogado && (
-              <MeusConteudos />
-            )
-          }
-          <Feature
-            name={features.DISPOR_FORCA_TAREFA_EM_CARROSSEL}
-            inactiveComponent={() => <ForcaTarefaAntiCorona navigation={navigation} />}
-            activeComponent={() => <NovaForcaTarefa navigation={navigation} />}
-          />
-        </ScrollView>
-      </ProviderDeVersaoDoManejo>
+      <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
+      <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+        <Banners sliderWidth={width} itemWidth={width} />
+        <Servicos navigation={navigation} />
+        {
+          estaLogado && (
+            <MeusConteudos />
+          )
+        }
+        <Feature
+          name={features.LINHAS_DE_CUIDADO}
+          activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
+        />
+        <ForcaTarefa navigation={navigation} />
+      </ScrollView>
     </>
   );
 }

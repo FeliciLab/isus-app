@@ -5,6 +5,7 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.com.esp.isus.onesignal</string>
+		<string>group.com.esp.isus</string>
 	</array>
 </dict>
 </plist>

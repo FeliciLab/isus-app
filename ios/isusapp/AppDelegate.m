@@ -1,3 +1,4 @@
+#import <Firebase.h>
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
@@ -40,9 +41,25 @@ static void InitializeFlipper(UIApplication *application) {
 [AppCenterReactNative register];
 [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
 [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+
+if ([FIRApp defaultApp] == nil) {
+  NSString *filePath;
+  #ifdef DEBUG
+    NSLog(@"[FIREBASE] Development mode.");
+    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info-debug" ofType:@"plist" ];
+  #else
+    NSLog(@"[FIREBASE] Production mode.");
+    filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" ];
+  #endif
+    
+  FIROptions *options = [[FIROptions alloc] initWithContentsOfFile:filePath];
+  [FIRApp configureWithOptions:options];
+}
+
 #if DEBUG
   InitializeFlipper(application);
 #endif
+
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
@@ -64,7 +81,7 @@ static void InitializeFlipper(UIApplication *application) {
    options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
   return [RCTLinkingManager application:application openURL:url options:options];
-} 
+}
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

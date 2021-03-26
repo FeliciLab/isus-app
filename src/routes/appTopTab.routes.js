@@ -1,40 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useLayoutEffect, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useNavigation } from '@react-navigation/native';
-import { getCategoriasArquitetura } from '../apis/apiHome';
-import { salvarDados, pegarDados } from '../services/armazenamento';
-
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
+import useApiHooks from '../hooks/apiHooks';
+import { CORES } from '../constantes/estiloBase';
 
 const Tab = createMaterialTopTabNavigator();
 const indexComponent = 0;
 const indexTitle = 1;
 
 
-export default function EducationTabScreen(props) {
+export default function appTopTabScreen(props) {
   const { route } = props;
   const genericComponent = route.params[indexComponent].type;
   const title = route.params[indexTitle];
-
   const navigation = useNavigation();
-  const [categorias, setCategorias] = useState([
-    {
-      name: ' ',
-      slug: ' ',
-      term_group: 0,
-      term_id: 0
-    }
-  ]);
+  const useApi = useApiHooks(props);
+  let estaConectado;
 
-  React.useLayoutEffect(() => {
+  NetInfo.addEventListener((state) => {
+    estaConectado = state.isConnected;
+  });
+
+  useFocusEffect(
+    useCallback(() => {
+      useApi.pegarCategorias();
+    }, [])
+  );
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF40',
+        backgroundColor: CORES.VERDE_AMARELO,
         elevation: 0,
         shadowOpacity: 0
       },
-      headerTintColor: '#FFF',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: title,
       headerRight: () => (
@@ -46,7 +49,7 @@ export default function EducationTabScreen(props) {
             navigation.navigate('Buscar');
           }}
         >
-          <Icon name="magnify" size={28} color="#FFF" />
+          <Icon name="magnify" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -58,27 +61,11 @@ export default function EducationTabScreen(props) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       )
     });
   });
-
-  useEffect(() => {
-    const pegarCategorias = async () => {
-      try {
-        const resposta = await getCategoriasArquitetura();
-        setCategorias(resposta.data[props.route.name]);
-        await salvarDados(`@categorias_${props.route.name}`, resposta.data[props.route.name]);
-      } catch (err) {
-        if (err.message === 'Network Error') {
-          const resposta = await pegarDados(`@categorias_${props.route.name}`);
-          setCategorias(resposta);
-        }
-      }
-    };
-    pegarCategorias();
-  }, []);
 
   function addTitle(item) {
     item.title_description = title;
@@ -86,28 +73,33 @@ export default function EducationTabScreen(props) {
   }
 
   return (
-    <Tab.Navigator
-      tabBarOptions={{
-        scrollEnabled: true,
-        labelStyle: {
-          fontSize: 14
-        },
-        indicatorStyle: { backgroundColor: '#FFF' },
-        inactiveTintColor: 'rgba(0, 0, 0, 0.54)',
-        activeTintColor: '#FFF',
-        style: {
-          backgroundColor: '#4CAF50'
-        }
-      }}
-    >
-      {categorias.map(item => (
-        <Tab.Screen
-          key={item.term_id}
-          name={item.name}
-          component={genericComponent}
-          initialParams={addTitle(item)}
-        />
-      ))}
-    </Tab.Navigator>
+    <>
+      {(useApi.categorias !== null) && estaConectado ? (
+        <Tab.Navigator
+          tabBarOptions={{
+            scrollEnabled: true,
+            labelStyle: {
+              fontSize: 14
+            },
+            indicatorStyle: { backgroundColor: CORES.BRANCO },
+            inactiveTintColor: CORES.PRETO54,
+            activeTintColor: CORES.BRANCO,
+            style: {
+              backgroundColor: CORES.VERDE
+            }
+          }}
+        >
+          {useApi.categorias.map(item => (
+            <Tab.Screen
+              key={item.term_id}
+              name={item.name}
+              component={genericComponent}
+              initialParams={addTitle(item)}
+            />
+          ))}
+        </Tab.Navigator>
+      ) : (<></>)
+      }
+    </>
   );
 }

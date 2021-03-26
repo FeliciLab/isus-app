@@ -11,6 +11,8 @@ import { navigationRef, navigate } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
 import featuresAtivas from './featureAtivas';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
+import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
+import CaixaDialogo from './components/caixaDialogo';
 
 function App() {
   useEffect(() => {
@@ -20,7 +22,7 @@ function App() {
 
     OneSignal.init('917766a7-c01e-4655-89a1-86f648be2fc8', {
       kOSSettingsKeyAutoPrompt: false,
-      kOSSettingsKeyInAppLaunchURL: true,
+      kOSSettingsKeyInAppLaunchURL: false,
       kOSSettingsKeyInFocusDisplayOption: 2
     });
     OneSignal.inFocusDisplaying(2);
@@ -77,7 +79,10 @@ function App() {
       <StatusBar backgroundColor="#4CAF50" barStyle="light-content" />
       <FeatureToggles features={featuresAtivas}>
         <AutenticacaoProvider>
-          <Routes navigationRef={navigationRef} />
+          <CaixaDialogoProvider>
+            <Routes navigationRef={navigationRef} />
+            <CaixaDialogo />
+          </CaixaDialogoProvider>
         </AutenticacaoProvider>
       </FeatureToggles>
     </>

@@ -27,3 +27,8 @@ export async function verificarCPFCadastrado(cpf) {
   const response = await request.get(`/user/cpf-cadastrado/${cpf}`);
   return response;
 }
+
+export async function deletarUsuario() {
+  const response = await request.delete('/user');
+  return response;
+}
