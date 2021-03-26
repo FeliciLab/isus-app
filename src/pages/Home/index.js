@@ -1,8 +1,8 @@
 import React, {
-  useLayoutEffect, useCallback, useContext, useEffect
+  useLayoutEffect, useCallback, useContext
 } from 'react';
 import {
-  ScrollView, TouchableOpacity, Dimensions, BackHandler
+  ScrollView, TouchableOpacity, Dimensions
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,7 +20,6 @@ import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import features from '../../constantes/features';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import { analyticsData } from '../../utils/analytics';
-import rotas from '../../constantes/rotas';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -45,23 +44,6 @@ export default function HomeScreen() {
   }
 
   redirectToWelcome();
-
-  useEffect(() => {
-    const backAction = () => {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: rotas.HOME }]
-      });
-      return true;
-    };
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction
-    );
-    return () => {
-      backHandler.remove();
-    };
-  });
 
   useFocusEffect(
     useCallback(() => {

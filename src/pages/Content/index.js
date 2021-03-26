@@ -18,10 +18,13 @@ export default function InformationScreen(props) {
   const [postagens, alterarPostagens] = useState([]);
   const [semConexao, alterarSemConexao] = useState(false);
 
-  // console.log(`Term_ID: ${params.name}`);
   useFocusEffect(
     useCallback(() => {
-      analyticsData(adicionaMascaraAnalytics(params.slug), 'click', params.title_description);
+      analyticsData(
+        adicionaMascaraAnalytics(params.slug),
+        'click',
+        params.title_description
+      );
       async function pegarConteudo() {
         try {
           await pegarConteudoDaApi();
@@ -83,7 +86,13 @@ export default function InformationScreen(props) {
       renderItem={({ item }) => (
         <TouchableOpacity
           style={estilos.postagem}
-          onPress={() => navigation.navigate('Descrição', { object: { ...item, categoria_id: params.term_id }, title: params.title_description })}
+          onPress={() => navigation.navigate('Descrição', {
+            object: {
+              ...item,
+              categoria_id: params.term_id
+            },
+            title: params.title_description
+          })}
         >
           <ImagemDePostagem
             conteudoBaixado={semConexao}

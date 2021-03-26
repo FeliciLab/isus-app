@@ -32,7 +32,7 @@ function conteudoDoDrawer(props) {
       nome: 'Home',
       icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'home',
-      rota: 'HOME'
+      rota: rotas.HOME
     },
     {
       testID: 'drawer-item-perfil',

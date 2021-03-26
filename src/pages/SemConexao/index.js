@@ -48,7 +48,7 @@ function SemConexao(props) {
         return;
       }
       // eslint-disable-next-line no-unused-expressions
-      params?.componente === 'ELMO'
+      params?.componente === 'ELMO' || params?.componente === 'QUALIQUIZ'
         ? navigation.navigate(params?.componente)
         : (navigation.goBack());
     }
