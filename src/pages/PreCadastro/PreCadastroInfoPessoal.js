@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
@@ -22,6 +22,7 @@ import FormContext from '../../context/FormContext';
 export default function PreCadastroInfoPessoal() {
   const theme = INPUT_THEMES.LARANJA;
   const navigator = useNavigation();
+  const [disableBtn, setDisableBtn] = useState(true);
   const {
     errors,
     fieldsEmpty,
@@ -30,12 +31,19 @@ export default function PreCadastroInfoPessoal() {
     trigger
   } = useContext(FormContext);
 
-  setValues({
-    nome: 'Jeremias 420',
-    email: 'email@teste.com',
-    telefone: '(85) 98765-3212',
-    municipio: ''
-  });
+  useEffect(() => {
+    console.log('effect', getValues());
+    setDisableBtn(fieldsEmpty(['nome', 'email', 'telefone', 'cpf', 'municipio']));
+  }, [getValues]);
+
+  useEffect(() => {
+    setValues({
+      nome: 'Jeremias 420',
+      email: 'email@teste.com',
+      telefone: '(85) 98765-3212',
+      municipio: ''
+    });
+  }, []);
 
   return (
     <KeyboardAwareScrollView
@@ -109,10 +117,10 @@ export default function PreCadastroInfoPessoal() {
 
         <RowButton>
           <BotaoLaranja
-            disabled={fieldsEmpty(['nome', 'email', 'telefone', 'cpf', 'municipio']) || errors.nome || errors.email || errors.telefone || errors.cpf}
+            disabled={errors.nome || errors.email || errors.telefone || errors.cpf || errors.municipio}
             onPress={async () => {
-              await trigger(['nome', 'email', 'telefone', 'cpf']);
-              if (errors.nome || errors.email || errors.telefone || errors.cpf) return;
+              await trigger(['nome', 'email', 'telefone', 'cpf', 'municipio']);
+              if (errors.nome || errors.email || errors.telefone || errors.cpf || errors.municipio) return;
               navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
             }}
           >
@@ -122,10 +130,11 @@ export default function PreCadastroInfoPessoal() {
             onPress={() => console.log(
               'error', errors,
               'teste', fieldsEmpty(['nome', 'email', 'telefone', 'cpf', 'municipio']),
-              'testes', getValues('municipio')
+              'testes', getValues('municipio'),
+              'tttt', disableBtn
             )}
           >
-            log
+            LOG
           </BotaoLaranja>
         </RowButton>
       </ContainerBody>
