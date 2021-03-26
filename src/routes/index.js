@@ -123,7 +123,7 @@ export default function App({ navigationRef }) {
       <RootStack.Navigator>
         <RootStack.Screen
           name="App"
-          component={AppDrawerScreen}
+          component={PreCadastro}
           options={{ headerShown: false }}
         />
         <RootStack.Screen
