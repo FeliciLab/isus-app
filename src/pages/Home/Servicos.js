@@ -22,6 +22,7 @@ function Servicos({ navigation }) {
 
   const listaServicos = [
     {
+      ordem: 1,
       id: 'Integra_SUS',
       titulo: 'IntegraSUS',
       ativo: true,
@@ -34,6 +35,7 @@ function Servicos({ navigation }) {
       }
     },
     {
+      ordem: 3,
       id: 'SUS_no_Ceara',
       titulo: 'SUS no Ceará',
       ativo: true,
@@ -43,6 +45,7 @@ function Servicos({ navigation }) {
       }
     },
     {
+      ordem: 4,
       id: 'Fale_Conosco',
       titulo: 'Fale Conosco',
       ativo: true,
@@ -52,6 +55,7 @@ function Servicos({ navigation }) {
       }
     },
     {
+      ordem: 5,
       id: 'Acoes_do_governo',
       titulo: 'Ações do governo',
       ativo: true,
@@ -64,6 +68,7 @@ function Servicos({ navigation }) {
       }
     },
     {
+      ordem: 6,
       id: 'ESP',
       titulo: 'ESP',
       icone: Servico5,
@@ -76,6 +81,7 @@ function Servicos({ navigation }) {
       }
     },
     {
+      ordem: 7,
       id: 'ESP_Virtual',
       titulo: 'ESP Virtual',
       ativo: true,
@@ -91,6 +97,7 @@ function Servicos({ navigation }) {
 
   if (estaAtiva(features.QUALIQUIZ)) {
     listaServicos.unshift({
+      ordem: 99,
       id: 'qualiquiz',
       titulo: 'QualiQuiz',
       ativo: true,
@@ -104,6 +111,7 @@ function Servicos({ navigation }) {
 
   if (estaAtiva(features.ELMO)) {
     listaServicos.unshift({
+      ordem: 2,
       id: 'elmo',
       titulo: 'Elmo',
       ativo: true,
@@ -143,7 +151,7 @@ function Servicos({ navigation }) {
     <>
       <Titulo>Serviços</Titulo>
       <Carrossel
-        dados={listaServicos}
+        dados={listaServicos.sort((a, b) => (a.ordem - b.ordem))}
         aoRenderizarItem={({ item }) => (
           <CartaoHome
             key={item.id}
