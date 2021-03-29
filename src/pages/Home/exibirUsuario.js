@@ -1,19 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-function MostrarDadosUsuarioProfissional(dados) {
-  let unidadesServicoes = '';
-  if (dados.profissional && dados.profissional.unidades_servicos.length > 0) {
-    unidadesServicoes = dados.profissional.unidades_servicos[0].nome;
-  }
-
-  let categoriaProfissional = '';
-  if (dados.profissional && dados.profissional.categoria_profissional) {
-    categoriaProfissional = dados.profissional.categoria_profissional.nome;
-  }
-
-  return `${unidadesServicoes}, ${categoriaProfissional}`;
-}
 
 const style = StyleSheet.create({
   semPerfil: {
@@ -37,24 +23,16 @@ const style = StyleSheet.create({
 });
 
 export default function ExibirUsuario({ dados }) {
-  const [detalhes, setDetalhes] = useState('');
-
-  useEffect(() => {
-    // eslint-disable-next-line
-    if (dados?.profissional?.unidades_servicos) {
-      setDetalhes(MostrarDadosUsuarioProfissional(dados));
-    }
-  }, [dados, setDetalhes]);
-
   return (
     <View>
       <Text style={style.perfil}>
         Olá,
         {' '}
-        {dados.name}
+        {dados?.name?.split(' ')[0]}
       </Text>
       <Text style={style.atuacaoCategoria}>
-        {detalhes}
+        {/* eslint-disable-next-line */}
+        {dados?.profissional?.categoria_profissional?.nome}
       </Text>
     </View>
   );
