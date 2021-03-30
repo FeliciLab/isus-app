@@ -2,6 +2,9 @@
 import { NativeModules } from 'react-native';
 import './__mocks__/@react-native-firebase';
 import 'react-native-gesture-handler/jestSetup';
+import mockRNCNetInfo from '@react-native-community/netinfo/jest/netinfo-mock';
+
+jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo);
 
 NativeModules.RNCNetInfo = {
   getCurrentState: jest.fn(() => Promise.resolve()),
