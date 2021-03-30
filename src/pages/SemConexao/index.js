@@ -18,6 +18,7 @@ import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
 import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg';
 import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoContext';
 import rotas from '../../constantes/rotas';
+import { TESTIDS } from '../../constantes/testIDs';
 
 function SemConexao(props) {
   const { route } = props;
@@ -28,10 +29,11 @@ function SemConexao(props) {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
-
   const onPressTentarNovamente = () => {
+    console.log(netInfo.isConnected);
     alterarTelaAtual({ indice: (telaAtual.indice + 1) });
     if (netInfo.isConnected) {
+      console.log(`Conectado: ${netInfo.isConnected}`);
       if (params?.componente === 'webview') {
         navigation.navigate(params?.componente, {
           title: params?.title,
@@ -44,7 +46,9 @@ function SemConexao(props) {
       }
 
       if (params?.componente === 'browser') {
-        Linking.openURL(params?.url);
+        console.log(params.componente);
+        const response = Linking.openURL(params?.url);
+        console.log(response);
         return;
       }
       // eslint-disable-next-line no-unused-expressions
@@ -57,7 +61,7 @@ function SemConexao(props) {
   const onPressVoltar = () => navigation.navigate(rotas.HOME);
 
   useLayoutEffect(() => {
-    if (!route.params?.goHome) {
+    if (!params?.goHome) {
       cabecalhoVoltar({
         navegador: navigation,
         titulo: tituloCabecalho,
@@ -77,8 +81,8 @@ function SemConexao(props) {
       <ScrollView>
         <CentralizarItensView marginTop="59px">
           {telaAtual.indice <= 2
-            ? <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
-            : <IconeSemConexaoVermelho />
+            ? <IconeSemConexaoLaranja testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_LARANJA} />
+            : <IconeSemConexaoVermelho testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_VERMELHO} />
           }
           <TituloH6>
             Sem conexão com a internet
@@ -94,13 +98,14 @@ function SemConexao(props) {
             ? (
               <>
                 <Botao
-                  testID="botão-semconexao-voltar"
+                  testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
                   labelStyle={{ color: CORES.LARANJA }}
                   onPress={onPressVoltar}
                 >
                   VOLTAR
                 </Botao>
                 <Botao
+                  testID={TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}
                   labelStyle={{ color: CORES.BRANCO }}
                   backgroundColor={CORES.LARANJA}
                   onPress={onPressTentarNovamente}
@@ -111,7 +116,7 @@ function SemConexao(props) {
             )
             : (
               <Botao
-                testID="botão-semconexao-voltar"
+                testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
                 labelStyle={{ color: CORES.LARANJA }}
                 onPress={onPressVoltar}
               >
