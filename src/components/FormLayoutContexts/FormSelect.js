@@ -9,7 +9,7 @@ const FormSelect = ({
   data, name, rules, label
 }) => {
   const dropdown = useRef();
-  const { control } = useContext(FormContext);
+  const { control, setValue } = useContext(FormContext);
 
   return (
     <Controller
@@ -17,7 +17,9 @@ const FormSelect = ({
       name={name}
       rules={rules}
       defaultValue=""
-      render={({ onChange, value }) => (
+      render={({
+        onChange, onBlur, onFocus, value
+      }) => (
         <>
           <Dropdown
             ref={dropdown}
@@ -26,7 +28,12 @@ const FormSelect = ({
             data={data}
             labelExtractor={labelExtractor => labelExtractor.label}
             valueExtractor={valueExtractor => valueExtractor.value}
-            onChangeText={event => onChange(event)}
+            onChangeText={(v) => {
+              setValue(`_hidden.${name}`, v);
+              onChange(v);
+            }}
+            onBlur={onBlur}
+            onFocus={onFocus}
             baseColor={CORES.LARANJA}
           />
           <IconDropdown

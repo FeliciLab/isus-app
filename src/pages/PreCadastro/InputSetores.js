@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { pegarListaDeServicos } from '../../apis/apiKeycloak';
 import FormCheckBoxList from '../../components/FormLayoutContexts/FormCheckBoxList';
+import FormContext from '../../context/FormContext';
 
 const InputSetores = () => {
   const [data, setData] = useState([]);
+  const { setValue, register } = useContext(FormContext);
 
   const handleEffect = () => {
     pegarListaDeServicos()
       .then((result) => {
         setData(result.map(item => ({ label: item.nome, value: item.nome })));
+        register('_hidden.unidadesDeServicos');
+        setValue('_hidden.unidadesDeServicos', result);
       });
   };
 

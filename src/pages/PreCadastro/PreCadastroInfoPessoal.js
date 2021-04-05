@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Platform } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import React, { useContext, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { emailValido, cpfValido } from '../../utils/validadores';
-import { CORES, INPUT_THEMES } from '../../constantes/estiloBase';
+import { INPUT_THEMES } from '../../constantes/estiloBase';
 import FormTextInput from '../../components/FormLayoutContexts/FormTextInput';
 import FormTextInputMask from '../../components/FormLayoutContexts/FormTextInputMask';
 import FormError from '../../components/FormLayoutContexts/FormError';
@@ -22,49 +20,50 @@ import FormContext from '../../context/FormContext';
 export default function PreCadastroInfoPessoal() {
   const theme = INPUT_THEMES.LARANJA;
   const navigator = useNavigation();
-  const [disableBtn, setDisableBtn] = useState(true);
+
   const {
     errors,
-    fieldsEmpty,
-    getValues,
     setValues,
     trigger
   } = useContext(FormContext);
 
   useEffect(() => {
-    console.log('effect', getValues());
-    setDisableBtn(fieldsEmpty(['nome', 'email', 'telefone', 'cpf', 'municipio']));
-  }, [getValues]);
-
-  useEffect(() => {
     setValues({
-      nome: 'Jeremias 420',
+      nomeCompleto: 'Jeremias 420',
       email: 'email@teste.com',
       telefone: '(85) 98765-3212',
       municipio: ''
     });
+
+    trigger([
+      'nomeCompleto',
+      'email',
+      'telefone',
+      'cpf',
+      'municipio'
+    ]);
   }, []);
 
+  const hasErrors = errors.nome
+    || errors.email
+    || errors.telefone
+    || errors.cpf
+    || errors.municipio;
+
   return (
-    <KeyboardAwareScrollView
-      extraScrollHeight={100}
-      keyboardOpeningTime={100}
-      enableOnAndroid
-      enableAutomaticScroll={Platform.OS === 'ios'}
-      style={{ backgroundColor: CORES.BRANCO }}
-    >
+    <>
       <ContainerBody>
         <ContainerForm>
           <Title>Informações pessoais</Title>
           <RowInput>
             <FormTextInput
-              name="nome"
+              name="nomeCompleto"
               label="Nome Completo"
               theme={theme}
               rules={{ required: true }}
             />
             <FormError
-              name="nome"
+              name="nomeCompleto"
               msg="O nome completo é obrigatório."
             />
           </RowInput>
@@ -109,7 +108,7 @@ export default function PreCadastroInfoPessoal() {
           <RowInput>
             <InputMunicipios />
             <FormError
-              name="municipio"
+              name="cidadeId"
               msg="Escolha o município"
             />
           </RowInput>
@@ -117,27 +116,17 @@ export default function PreCadastroInfoPessoal() {
 
         <RowButton>
           <BotaoLaranja
-            disabled={errors.nome || errors.email || errors.telefone || errors.cpf || errors.municipio}
+            disabled={hasErrors}
             onPress={async () => {
               await trigger(['nome', 'email', 'telefone', 'cpf', 'municipio']);
-              if (errors.nome || errors.email || errors.telefone || errors.cpf || errors.municipio) return;
+              if (hasErrors) return;
               navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
             }}
           >
             Continuar
           </BotaoLaranja>
-          <BotaoLaranja
-            onPress={() => console.log(
-              'error', errors,
-              'teste', fieldsEmpty(['nome', 'email', 'telefone', 'cpf', 'municipio']),
-              'testes', getValues('municipio'),
-              'tttt', disableBtn
-            )}
-          >
-            LOG
-          </BotaoLaranja>
         </RowButton>
       </ContainerBody>
-    </KeyboardAwareScrollView>
+    </>
   );
 }

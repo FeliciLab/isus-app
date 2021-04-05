@@ -29,8 +29,10 @@ import Elmo from '../pages/Elmo';
 import SobreElmo from '../pages/Elmo/sobreElmo';
 import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
-import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 import NovoSemConexao from '../pages/SemConexao';
+
+import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
+import PreCadastroProfissional from '../pages/PreCadastro/PreCadastroProfissional';
 
 
 const RootStack = createStackNavigator();
@@ -224,7 +226,6 @@ export default function App({ navigationRef }) {
 }
 
 const searchStack = createStackNavigator();
-
 function searchStackScreen() {
   return (
     <searchStack.Navigator>

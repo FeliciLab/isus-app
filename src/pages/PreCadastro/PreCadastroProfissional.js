@@ -1,7 +1,6 @@
-import { Platform } from 'react-native';
 import React, { useContext } from 'react';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useNavigation } from '@react-navigation/native';
+import { Controller } from 'react-hook-form';
 import {
   ContainerBody,
   ContainerForm,
@@ -9,26 +8,20 @@ import {
   RowInput,
   Title
 } from './styles';
-import { CORES } from '../../constantes/estiloBase';
 import { BotaoLaranja } from '../../components/Botoes/BotoesCirculares';
 import ROTAS from '../../constantes/rotas';
 import InputCategoria from './InputCategoria';
 import InputEspecialidades from './InputEspecialidades';
 import InputSetores from './InputSetores';
 import FormContext from '../../context/FormContext';
+import { atualizarUsuario } from '../../services/usuarioService';
 
 const PreCadastroProfissional = () => {
   const navigator = useNavigation();
-  const { getValues } = useContext(FormContext);
+  const { control, getValues } = useContext(FormContext);
 
   return (
-    <KeyboardAwareScrollView
-      extraScrollHeight={500}
-      keyboardOpeningTime={100}
-      enableAutomaticScroll={Platform.OS === 'ios'}
-      style={{ backgroundColor: CORES.BRANCO }}
-      enableOnAndroid
-    >
+    <>
       <ContainerBody>
         <ContainerForm>
           <Title>Cadastro Profissional</Title>
@@ -36,21 +29,41 @@ const PreCadastroProfissional = () => {
             <InputCategoria />
           </RowInput>
           <RowInput>
-            <InputEspecialidades />
+            <Controller
+              control={control}
+              name="_hidden.categoriaProfissional"
+              defaultValue=""
+              render={({ value }) => (
+                <>
+                  <InputEspecialidades categoria={value} />
+                </>
+              )}
+            />
           </RowInput>
           <RowInput>
             <InputSetores />
           </RowInput>
         </ContainerForm>
+
         <RowButton>
           <BotaoLaranja
-            onPress={() => navigator.navigate(ROTAS.PRE_CADASTRO_SENHA)}
+            onPress={() => {
+              atualizarUsuario(getValues());
+              // .then(() => navigator.navigate(
+              //   ROTAS.CADASTRO_SUCESSO,
+              //   {
+              //     textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+              //     telaDeRedirecionamento: 'LOGIN',
+              //     telaDeBackground: '#304FFE'
+              //   }
+              // ));
+            }}
           >
             Concluir
           </BotaoLaranja>
         </RowButton>
       </ContainerBody>
-    </KeyboardAwareScrollView>
+    </>
   );
 };
 

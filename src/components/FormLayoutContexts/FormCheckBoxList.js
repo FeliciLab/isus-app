@@ -22,17 +22,18 @@ const FormCheckBoxList = ({
 }) => {
   const { register, setValue } = useContext(FormContext);
 
-  if (!data || data.length === 0) {
-    return <></>;
-  }
-
   useEffect(() => {
     if (!data || data.length === 0) return;
+
     data.forEach((item) => {
       register(`${name}.${item.value}`, rules);
       setValue(`${name}.${item.value}`, false);
     });
   }, [data]);
+
+  if (!data || data.length === 0) {
+    return <></>;
+  }
 
   return (
     <List.Accordion
