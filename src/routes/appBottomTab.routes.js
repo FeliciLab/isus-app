@@ -48,7 +48,7 @@ function EducationStackScreen() {
   return (
     <EducationStack.Navigator>
       <EducationStack.Screen
-        name={title}
+        name="Educação"
         initialParams={[<ContentScreen />, title]}
         component={TopTab}
         options={{ headerShown: true }}
