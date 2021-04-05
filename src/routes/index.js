@@ -32,7 +32,6 @@ import NovidadesElmo from '../pages/Elmo/novidadesElmo';
 import NovoSemConexao from '../pages/SemConexao';
 
 import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
-import PreCadastroProfissional from '../pages/PreCadastro/PreCadastroProfissional';
 
 const RootStack = createStackNavigator();
 

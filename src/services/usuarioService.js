@@ -30,11 +30,11 @@ const tratarDadosUsuario = form => ({
   termos: true
 });
 
-const realizarCadastroDoUsuario = async () => {
-  const dados = tratarDadosCadastro(getValues());
-  const resposta = await cadastrarUsuario(dados);
-  return resposta.data;
-};
+// export const realizarCadastroDoUsuario = async () => {
+//   const dados = tratarDadosUsuario(getValues());
+//   const resposta = await cadastrarUsuario(dados);
+//   return resposta.data;
+// };
 
 export const atualizarUsuario = async (dados) => {
   console.log(
