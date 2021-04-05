@@ -1,10 +1,9 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
-
 import useApiHooks from '../hooks/apiHooks';
 import { CORES } from '../constantes/estiloBase';
 
@@ -13,7 +12,7 @@ const indexComponent = 0;
 const indexTitle = 1;
 
 
-export default function EducationTabScreen(props) {
+export default function appTopTabScreen(props) {
   const { route } = props;
   const genericComponent = route.params[indexComponent].type;
   const title = route.params[indexTitle];
@@ -25,9 +24,11 @@ export default function EducationTabScreen(props) {
     estaConectado = state.isConnected;
   });
 
-  useFocusEffect(() => {
-    useApi.pegarCategorias();
-  });
+  useFocusEffect(
+    useCallback(() => {
+      useApi.pegarCategorias();
+    }, [])
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -73,7 +74,7 @@ export default function EducationTabScreen(props) {
 
   return (
     <>
-    {(useApi.categorias !== null) && estaConectado ? (
+      {(useApi.categorias !== null) && estaConectado ? (
         <Tab.Navigator
           tabBarOptions={{
             scrollEnabled: true,
@@ -88,17 +89,17 @@ export default function EducationTabScreen(props) {
             }
           }}
         >
-        {useApi.categorias.map(item => (
-          <Tab.Screen
-            key={item.term_id}
-            name={item.name}
-            component={genericComponent}
-            initialParams={addTitle(item)}
-          />
-        ))}
+          {useApi.categorias.map(item => (
+            <Tab.Screen
+              key={item.term_id}
+              name={item.name}
+              component={genericComponent}
+              initialParams={addTitle(item)}
+            />
+          ))}
         </Tab.Navigator>
-    ) : (<></>)
-    }
+      ) : (<></>)
+      }
     </>
   );
 }

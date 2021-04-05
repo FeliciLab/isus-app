@@ -37,12 +37,12 @@ export default function WebViewPage({
             marginHorizontal: 19
           }}
           onPress={() => {
+            // console.log(route.params?.rota);
             if (route.params.rota) {
               navigator.navigate(route.params.rota);
               return;
             }
-
-            navigator.goBack();
+            navigator.popToTop();
           }}
         >
           <Icon name="arrow-left" size={28} color="#FFF" />
@@ -53,18 +53,18 @@ export default function WebViewPage({
 
   return (
     <>
-    <BarraDeStatus backgroundColor={alterarBackground()} />
-    { mostrarEsqueletoDeCarregamento ? (
+      <BarraDeStatus backgroundColor={alterarBackground()} />
+      { mostrarEsqueletoDeCarregamento ? (
         <WebView
           source={{ uri: route.params.url }}
           startInLoadingState={mostrarEsqueletoDeCarregamento}
           renderLoading={() => esqueletoDeCarregamento}
         />
-    ) : (
-        <WebView
-          source={{ uri: route.params.url }}
-        />
-    )}
+      ) : (
+          <WebView
+            source={{ uri: route.params.url }}
+          />
+      )}
     </>
   );
 }

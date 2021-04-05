@@ -7,6 +7,7 @@ import CartaoHome from '../cartaoHome';
 import rotas from '../../../constantes/rotas';
 import { Titulo } from '../styles';
 import Carrossel from '../../../components/Carrossel';
+import { analyticsData } from '../../../utils/analytics';
 
 export default function LinhasDeCuidado({ navigation }) {
   const netInfo = useNetInfo();
@@ -17,6 +18,7 @@ export default function LinhasDeCuidado({ navigation }) {
       titulo: 'Manejo Covid-19',
       ativo: true,
       icone: ManejoClinico,
+      labelDoAnalytics: 'manejo_covid',
       navegacao: {
         componente: 'webview',
         titulo: 'Manejo Clínico',
@@ -28,6 +30,7 @@ export default function LinhasDeCuidado({ navigation }) {
       titulo: 'Materno-Infantil',
       ativo: true,
       icone: MaternoInfantil,
+      labelDoAnalytics: 'materno_infantil',
       navegacao: {
         componente: rotas.MATERNO_INFANTIL
       }
@@ -37,6 +40,7 @@ export default function LinhasDeCuidado({ navigation }) {
       titulo: 'Protocolos',
       ativo: true,
       icone: Protocolos,
+      labelDoAnalytics: 'protocolos',
       navegacao: {
         componente: 'webview',
         titulo: 'Protocolos',
@@ -57,10 +61,23 @@ export default function LinhasDeCuidado({ navigation }) {
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => (netInfo.isConnected ? navigation.navigate(item.navegacao.componente, {
-              title: item.navegacao.titulo,
-              url: item.navegacao.url
-            }) : navigation.navigate(rotas.SEM_CONEXAO))}
+
+            onPress={() => {
+              analyticsData(item.labelDoAnalytics, 'Click', 'Home');
+              if (netInfo.isConnected) {
+                return navigation.navigate(item.navegacao.componente, {
+                  title: item.navegacao.titulo,
+                  url: item.navegacao.url,
+                  expanded: true
+                });
+              }
+              return navigation.navigate(rotas.SEM_CONEXAO, {
+                componente: item.navegacao.componente,
+                title: item.navegacao.titulo,
+                url: item.navegacao.url,
+                expanded: true
+              });
+            }}
           />
         )}
       />

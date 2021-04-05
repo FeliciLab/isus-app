@@ -98,6 +98,15 @@ const FormularioLogin = ({ route }) => {
     fazerLogin(data);
   };
 
+  const abrirWebView = () => {
+    analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
+    navigation.navigate('webview', {
+      title: 'Esqueci minha senha',
+      url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
+      idSaude: true
+    });
+  };
+
   return (
     <IDSaudeLoginTemplate route={route}>
       <>

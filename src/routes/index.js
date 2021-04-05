@@ -29,7 +29,10 @@ import Elmo from '../pages/Elmo';
 import SobreElmo from '../pages/Elmo/sobreElmo';
 import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
+import NovoSemConexao from '../pages/SemConexao';
+
 import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
+import PreCadastroProfissional from '../pages/PreCadastro/PreCadastroProfissional';
 
 const RootStack = createStackNavigator();
 
@@ -87,6 +90,16 @@ const PreCadastroIntro = () => (
   />
 );
 
+function SemConexaoNovo(props) {
+  return (
+    <Feature
+      name={features.TELA_SEM_CONEXAO}
+      activeComponent={() => <NovoSemConexao {...props} />}
+      inactiveComponent={() => <SemConexao {...props} />}
+    />
+  );
+}
+
 export default function App({ navigationRef }) {
   const routeNameRef = React.useRef();
   return (
@@ -142,7 +155,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.SEM_CONEXAO}
-          component={SemConexao}
+          component={SemConexaoNovo}
           options={{ headerShown: true }}
         />
         <RootStack.Screen
@@ -212,7 +225,6 @@ export default function App({ navigationRef }) {
 }
 
 const searchStack = createStackNavigator();
-
 function searchStackScreen() {
   return (
     <searchStack.Navigator>

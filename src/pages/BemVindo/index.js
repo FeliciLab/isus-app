@@ -2,7 +2,6 @@ import React from 'react';
 import {
   ImageBackground, View, StatusBar
 } from 'react-native';
-
 import { useNavigation } from '@react-navigation/native';
 import Entypo from 'react-native-vector-icons/Entypo';
 import AppIntroSlider from 'react-native-app-intro-slider';
@@ -13,7 +12,6 @@ import educacao from '../../assets/icons/apresentacao/educacao.svg';
 import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
 import diagnostico from '../../assets/icons/apresentacao/diagnostico.svg';
 import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.svg';
-
 import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 import { salvarDados } from '../../services/armazenamento';
 import {

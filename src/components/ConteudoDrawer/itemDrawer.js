@@ -21,7 +21,6 @@ export default function ItemDrawer({
 
   return (
     <DrawerItem
-      key={nome}
       icon={() => icone}
       label={nome}
       testID={testID}

@@ -39,7 +39,7 @@ export default function appDrawerScreen() {
         <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
       )}
     >
-      <Drawer.Screen name="HOME" component={AppTab} />
+      <Drawer.Screen name={rotas.HOME} component={AppTab} />
       <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
       <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />

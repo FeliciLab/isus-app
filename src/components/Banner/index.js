@@ -31,7 +31,11 @@ export default function Banner({
     if (temPagina) {
       return navigation.navigate(pagina);
     }
-    return navigation.navigate(rotas.SEM_CONEXAO);
+    return navigation.navigate(rotas.SEM_CONEXAO, {
+      componente: 'webview',
+      title: titulo,
+      url: enderecoUrl,
+    });
   };
 
   return (

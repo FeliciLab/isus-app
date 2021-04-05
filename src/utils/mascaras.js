@@ -32,3 +32,7 @@ export function aplicaMascaraNumerica(valor, mask) {
 export function removeMascaraNumerica(valor) {
   return valor.replace(/\D/g, '');
 }
+
+export function adicionaMascaraAnalytics(slug) {
+  return slug.replace(/-/g, '_');
+}
