@@ -11,7 +11,10 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import Banners from './Banners';
 import BarraDeStatus from '../../components/barraDeStatus';
 import Servicos from './Servicos';
-import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  pegarTokenDoUsuarioNoStorage,
+  pegarEstadoLogadoArmazenado
+} from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
@@ -48,20 +51,23 @@ export default function HomeScreen() {
   useFocusEffect(
     useCallback(() => {
       async function pegarTokenUsuario() {
+        const logado = await pegarEstadoLogadoArmazenado();
         const token = await pegarTokenDoUsuarioNoStorage();
-        if (token) {
-          alterarTokenUsuario(token);
-          try {
-            const perfil = await perfilUsuario();
-            alterarDadosUsuario(perfil.data);
-            alterarEstaLogado(true);
-          } catch (err) {
-            alterarEstaLogado(false);
-            console.log('ERRO', err);
-          }
-        } else {
+
+        if (!logado || !token) {
           alterarTokenUsuario({});
           alterarEstaLogado(false);
+          return;
+        }
+
+        alterarTokenUsuario(token);
+        try {
+          const perfil = await perfilUsuario();
+          alterarDadosUsuario(perfil.data);
+          alterarEstaLogado(true);
+        } catch (err) {
+          alterarEstaLogado(false);
+          console.log('ERRO', err);
         }
       }
       pegarTokenUsuario();

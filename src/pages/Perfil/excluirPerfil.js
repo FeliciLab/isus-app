@@ -37,7 +37,6 @@ export default function ExcluirPerfil() {
   const realizarLogout = () => {
     try {
       const token = pegarTokenDoUsuarioNoStorage();
-      // console.log(token);
       logout(token);
     } catch (err) {
       console.log('erro', err);
