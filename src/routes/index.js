@@ -125,7 +125,7 @@ export default function App({ navigationRef }) {
       <RootStack.Navigator>
         <RootStack.Screen
           name="App"
-          component={PreCadastro}
+          component={AppDrawerScreen}
           options={{ headerShown: false }}
         />
         <RootStack.Screen

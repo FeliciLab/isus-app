@@ -8,7 +8,8 @@ import Alerta from '../../components/alerta';
 import {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
-  pegarTokenDoUsuarioNoStorage
+  pegarTokenDoUsuarioNoStorage,
+  armazenarEstadoLogado
 } from '../../services/autenticacao';
 import { Botao } from './styles';
 import { TESTIDS } from '../../constantes/testIDs';
@@ -76,14 +77,15 @@ const FormularioLogin = ({ route }) => {
       try {
         const perfil = await perfilUsuario();
         alterarDadosUsuario(perfil.data);
-        alterarEstaLogado(true);
         if (!perfil.cadastrado) {
           navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
           return;
         }
-
+        await armazenarEstadoLogado(true);
+        alterarEstaLogado(true);
         navigation.navigate('HOME');
       } catch (e) {
+        await armazenarEstadoLogado(false);
         alterarEstaLogado(false);
       }
     })
@@ -98,7 +100,7 @@ const FormularioLogin = ({ route }) => {
     fazerLogin(data);
   };
 
-  const abrirWebView = () => {
+  const abrirWebViewEsqueciMinhaSenha = () => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
     navigation.navigate('webview', {
       title: 'Esqueci minha senha',
@@ -169,20 +171,12 @@ const FormularioLogin = ({ route }) => {
             <Botao
               testID={TESTIDS.BUTTON_ESQUECI_SENHA}
               onPress={() => {
-                analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
-                navigation.navigate('webview', {
-                  title: 'Esqueci minha senha',
-                  url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account'`,
-                  idSaude: true
-                });
-              }
-              }
+                abrirWebViewEsqueciMinhaSenha();
+              }}
               mode="text"
               color="#ffffff"
             >
-              {' '}
               Esqueci minha senha
-              {' '}
             </Botao>
           </View>
         </View>
