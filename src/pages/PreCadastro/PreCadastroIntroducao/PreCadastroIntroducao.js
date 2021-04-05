@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import ROTAS from '../../../constantes/rotas';
 import BgIntro from '../../../assets/images/idsaude/bgIntro.png';
 import { BotaoLaranja } from '../../../components/Botoes/BotoesCirculares';
@@ -11,7 +12,8 @@ import {
   TextTitle
 } from './style';
 
-export default function PreCadastroIntroducao({ navigation }) {
+export default function PreCadastroIntroducao() {
+  const navigation = useNavigation();
   const onPress = () => {
     navigation.navigate(ROTAS.PRE_CADASTRO);
   };

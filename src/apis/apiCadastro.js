@@ -4,7 +4,10 @@ export const getMunicipiosCeara = () => request.get('/estados/6/municipios');
 
 export const cadastrarUsuario = dadosUsuario => request.post('/user', dadosUsuario);
 
-export const perfilUsuario = () => request.get('/perfil').then(r => r.data);
+export const perfilUsuario = async () => {
+  const result = await request.get('/perfil');
+  return result?.data;
+};
 
 export const alteraDadosDoUsuario = dadosDoUsuario => request.put('/user', dadosDoUsuario);
 

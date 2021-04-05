@@ -16,8 +16,10 @@ import {
   Title
 } from './styles';
 import FormContext from '../../context/FormContext';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 export default function PreCadastroInfoPessoal() {
+  const { dadosUsuario } = useContext(AutenticacaoContext);
   const theme = INPUT_THEMES.LARANJA;
   const navigator = useNavigation();
 
@@ -29,10 +31,10 @@ export default function PreCadastroInfoPessoal() {
 
   useEffect(() => {
     setValues({
-      nomeCompleto: 'Jeremias 420',
-      email: 'email@teste.com',
-      telefone: '(85) 98765-3212',
-      municipio: ''
+      nomeCompleto: dadosUsuario.name || '',
+      email: dadosUsuario.email || '',
+      telefone: dadosUsuario.telefone || '',
+      cidadeId: dadosUsuario.municipio_id || ''
     });
 
     trigger([
@@ -40,7 +42,7 @@ export default function PreCadastroInfoPessoal() {
       'email',
       'telefone',
       'cpf',
-      'municipio'
+      'cidadeId'
     ]);
   }, []);
 
@@ -80,12 +82,12 @@ export default function PreCadastroInfoPessoal() {
             />
           </RowInput>
           <RowInput>
-
-            <FormTextInput
+            <FormTextInputMask
               name="telefone"
               label="Telefone"
               theme={theme}
               rules={{ required: true }}
+              mask="([00]) [00000]-[0000]"
             />
             <FormError
               name="telefone"

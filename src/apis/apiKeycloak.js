@@ -4,9 +4,9 @@ import request from '../services/request';
 
 const ordenarPorNome = lista => lista.sort((a, b) => a.nome.localeCompare(b.nome));
 
-export function autenticar(email, senha) {
-  return request.post('auth', { email, senha })
-    .then(result => result.data);
+export async function autenticar(email, senha) {
+  const result = await request.post('auth', { email, senha });
+  return result?.data;
 }
 
 export async function pegarListaDeServicos() {

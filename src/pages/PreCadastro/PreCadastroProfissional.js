@@ -15,10 +15,23 @@ import InputEspecialidades from './InputEspecialidades';
 import InputSetores from './InputSetores';
 import FormContext from '../../context/FormContext';
 import { atualizarUsuario } from '../../services/usuarioService';
+import { CORES } from '../../constantes/estiloBase';
 
 const PreCadastroProfissional = () => {
   const navigator = useNavigation();
   const { control, getValues } = useContext(FormContext);
+
+  const onPress = () => {
+    atualizarUsuario(getValues())
+      .then(() => navigator.navigate(
+        ROTAS.CADASTRO_SUCESSO,
+        {
+          textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+          telaDeRedirecionamento: 'LOGIN',
+          telaDeBackground: CORES.AZUL
+        }
+      ));
+  };
 
   return (
     <>
@@ -46,19 +59,7 @@ const PreCadastroProfissional = () => {
         </ContainerForm>
 
         <RowButton>
-          <BotaoLaranja
-            onPress={() => {
-              atualizarUsuario(getValues());
-              // .then(() => navigator.navigate(
-              //   ROTAS.CADASTRO_SUCESSO,
-              //   {
-              //     textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
-              //     telaDeRedirecionamento: 'LOGIN',
-              //     telaDeBackground: '#304FFE'
-              //   }
-              // ));
-            }}
-          >
+          <BotaoLaranja onPress={() => onPress()}>
             Concluir
           </BotaoLaranja>
         </RowButton>
