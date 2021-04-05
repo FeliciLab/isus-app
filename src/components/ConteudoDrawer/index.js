@@ -32,7 +32,7 @@ function conteudoDoDrawer(props) {
       nome: 'Home',
       icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'home',
-      rota: 'HOME'
+      rota: rotas.HOME
     },
     {
       testID: 'drawer-item-perfil',
@@ -61,6 +61,7 @@ function conteudoDoDrawer(props) {
     testID, nome, icone, rota, labelDoAnalytics
   }) => (
     <ItemDrawer
+      key={nome}
       testID={testID}
       nome={nome}
       icone={icone}
@@ -84,7 +85,7 @@ function conteudoDoDrawer(props) {
             {...props}
           >
             {
-              RenderizaItensDoDrawer().map(Item => <>{Item}</>)
+              RenderizaItensDoDrawer()
             }
           </ScrollView>
           <ItemInferior />

@@ -23,7 +23,6 @@ import { analyticsData } from '../../utils/analytics';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
-
   const {
     dadosUsuario,
     estaLogado,

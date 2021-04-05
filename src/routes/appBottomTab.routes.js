@@ -10,6 +10,7 @@ import Pesquisa from '../assets/icons/pesquisa.svg';
 import ContentScreen from '../pages/Content';
 import HomeScreen from '../pages/Home';
 import { analyticsData } from '../utils/analytics';
+import rotas from '../constantes/rotas';
 
 const HomeStack = createStackNavigator();
 let title = '';
@@ -17,7 +18,11 @@ let title = '';
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerShown: true }} />
+      <HomeStack.Screen
+        name={rotas.HOME}
+        component={HomeScreen}
+        options={{ headerShown: true }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -70,7 +75,8 @@ const AppTab = createMaterialBottomTabNavigator();
 export default function AppTabScreen() {
   return (
     <AppTab.Navigator
-      initialRouteName="Home"
+      backBehavior="history"
+      initialRouteName={rotas.HOME}
       activeColor="#4CAF50"
       inactiveColor="#828282"
       barStyle={{ backgroundColor: '#fff' }}

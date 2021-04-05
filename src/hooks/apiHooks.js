@@ -7,8 +7,6 @@ import rotas from '../constantes/rotas';
 
 const useApiHooks = (props) => {
   const { route } = props;
-  // console.log(props);
-  // console.log(route);
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
     {
@@ -33,7 +31,10 @@ const useApiHooks = (props) => {
             .then((resposta) => {
               setCategorias(resposta);
             })
-            .catch(navigation.navigate(rotas.SEM_CONEXAO, { goHome: true }));
+            .catch(navigation.navigate(rotas.SEM_CONEXAO, {
+              goHome: true,
+              componente: route.name,
+            }));
         }
       });
   };

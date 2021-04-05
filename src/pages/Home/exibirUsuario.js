@@ -1,48 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function ExibirUsuario({ dados }) {
-  return (
-    <View>
-      <Text style={style.perfil}>
-        Olá,
-        {' '}
-        { dados.name }
-      </Text>
-      <Text style={style.atuacaoCategoria}>
-        {
-        // eslint-disable-next-line
-        dados.profissional && (dados.profissional.categoria_profissional && dados.profissional.unidades_servicos) ? MostrarDadosUsuarioProfissional(dados)
-          : ' '
-        }
-      </Text>
-    </View>
-  );
-}
-
-function MostrarDadosUsuarioProfissional(dados) {
-  return (
-    <>
-      {
-        dados.profissional && dados.profissional.unidades_servicos.length ? (
-          dados.profissional.unidades_servicos.map(dado => (
-            dado.nome
-          )).join(', ')
-        ) : (
-          ''
-        )
-      }
-      {', '}
-      {
-        dados.profissional && dados.profissional.categoria_profissional ? dados.profissional.categoria_profissional.nome : ''
-      }
-    </>
-  );
-}
-
 const style = StyleSheet.create({
   semPerfil: {
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   perfil: {
     backgroundColor: '#fff',
@@ -60,3 +21,19 @@ const style = StyleSheet.create({
     fontStyle: 'italic'
   }
 });
+
+export default function ExibirUsuario({ dados }) {
+  return (
+    <View>
+      <Text style={style.perfil}>
+        Olá,
+        {' '}
+        {dados?.name?.split(' ')[0]}
+      </Text>
+      <Text style={style.atuacaoCategoria}>
+        {/* eslint-disable-next-line */}
+        {dados?.profissional?.categoria_profissional?.nome}
+      </Text>
+    </View>
+  );
+}

@@ -11,7 +11,7 @@ const TextoVersao = styled.Text`
   font-weight: normal;
   font-size: 16px;
   line-height: 16px;
-  letter-spacing: 0.4;
+  letter-spacing: 0.4px;
   margin: 20px;
 `;
 

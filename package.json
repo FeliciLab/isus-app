@@ -1,13 +1,11 @@
 {
   "name": "iSUS",
-  "version": "3.15.3",
+  "version": "3.15.10",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
-    "build:ios": "cross-env ENVFILE=.env.dev react-native bundle --entry-file='index.js' --bundle-output='./ios/isusapp/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "ios": "cross-env ENVFILE=.env.dev react-native-fix-image && react-native run-ios",
     "android-prod": "cross-env ENVFILE=.env react-native run-android",
-    "build:ios-prod": "cross-env ENVFILE=.env react-native bundle --entry-file='index.js' --bundle-output='./ios/isusapp/main.jsbundle' --dev=false --platform='ios' --assets-dest='./ios'",
     "ios-prod": "cross-env ENVFILE=.env react-native-fix-image && react-native run-ios --configuration Release",
     "start": "react-native start",
     "fix": "yarn lint --fix",
