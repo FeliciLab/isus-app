@@ -46,10 +46,9 @@ export default function HomeScreen() {
     return null;
   }
 
-  redirectToWelcome();
-
   useFocusEffect(
     useCallback(() => {
+      redirectToWelcome();
       async function pegarTokenUsuario() {
         const logado = await pegarEstadoLogadoArmazenado();
         const token = await pegarTokenDoUsuarioNoStorage();

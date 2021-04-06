@@ -16,7 +16,6 @@ import InputEspecialidades from './InputEspecialidades';
 import InputSetores from './InputSetores';
 import FormContext from '../../context/FormContext';
 import { atualizarUsuario } from '../../services/usuarioService';
-import { CORES } from '../../constantes/estiloBase';
 
 const PreCadastroProfissional = () => {
   const navigator = useNavigation();
@@ -56,14 +55,9 @@ const PreCadastroProfissional = () => {
                 if (!result) {
                   return;
                 }
-
                 navigator.navigate(
                   ROTAS.CADASTRO_SUCESSO,
-                  {
-                    textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
-                    telaDeRedirecionamento: 'LOGIN',
-                    telaDeBackground: CORES.AZUL
-                  }
+                  { usuario: result }
                 );
               } catch (err) {
                 console.log('Falha ao atualizar', err);
