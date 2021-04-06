@@ -1,5 +1,9 @@
+import { atualizarUsuarioApi } from '../apis/apiCadastro';
+
 const tratarDadosUsuario = form => ({
   ...form,
+  cpf: form.cpf.replace(/\D/g, ''),
+  telefone: form.telefone.replace(/\D/g, ''),
   especialidades: JSON.stringify(
     Object.keys(form.especialidades)
       .filter(key => form.especialidades[key])
@@ -30,25 +34,17 @@ const tratarDadosUsuario = form => ({
   termos: true
 });
 
-// export const realizarCadastroDoUsuario = async () => {
-//   const dados = tratarDadosUsuario(getValues());
-//   const resposta = await cadastrarUsuario(dados);
-//   return resposta.data;
-// };
-
 export const atualizarUsuario = async (dados) => {
-  console.log(
-    'original',
-    dados
-  );
   const usuario = tratarDadosUsuario(dados);
   delete usuario._hidden;
-  console.log(
-    'tratado',
-    usuario
-  );
-  // const usuario = tratarDadosUsuario(dados);
-  // return resposta.then();
+
+  try {
+    await atualizarUsuarioApi(usuario);
+    return usuario;
+  } catch (err) {
+    console.log('Falha ao atualizar na API', err);
+    return false;
+  }
 };
 
 export default {

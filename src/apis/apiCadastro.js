@@ -9,7 +9,9 @@ export const perfilUsuario = async () => {
   return result?.data;
 };
 
+// TODO: remover método abaixo
 export const alteraDadosDoUsuario = dadosDoUsuario => request.put('/user', dadosDoUsuario);
+export const atualizarUsuarioApi = dadosDoUsuario => request.put('/user', dadosDoUsuario);
 
 export const verificarEmailCadastrado = email => request.get(`/user/email-cadastrado/${email}`);
 

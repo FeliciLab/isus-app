@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, {
   useContext, useState, useEffect, useLayoutEffect, useRef
 } from 'react';
@@ -31,12 +30,11 @@ import useConexao from '../../../hooks/conexao';
 
 function EdicaoInfoPessoal() {
   const {
-    getValues, setValue, trigger, register, unregister, errors
+    getValues, setValue, trigger, register, errors
   } = useContext(FormContext);
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
   const [carregando, alterarCarregando] = useState(false);
-  const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
   const [nomeUsuario, alterarNomeUsuario] = useState('');
   const [emailUsuario, alterarEmailUsuario] = useState('');
   const [telefoneUsuario, alterarTelefoneUsuario] = useState('');
@@ -98,7 +96,6 @@ function EdicaoInfoPessoal() {
       const perfil = await pegarDados('perfil');
       if (perfil === undefined) return;
       await pegarCidades();
-      alterarPerfilDoUsuario(perfil);
       registrarCampos(perfil);
       alterarCampos(perfil);
       refNomeCompleto.current.focus();
@@ -193,16 +190,6 @@ function EdicaoInfoPessoal() {
     await trigger();
   };
 
-  const mudarNome = (nome) => {
-    unregister(nome);
-    register('nomeCompleto', {
-      required: true,
-      validate: nomeCompleto => nomeValido(nomeCompleto)
-        || 'O nome deve conter apenas letras.'
-    });
-    alterarNomeUsuario(nome);
-  };
-
   const mostrarAlerta = (mensagem) => {
     alterarExibicaoDoAlerta(true);
     alterarMensagemDoAlerta(mensagem);
@@ -227,12 +214,10 @@ function EdicaoInfoPessoal() {
 
   const salvarInformacoesPessoais = async () => {
     alterarCarregando(true);
-    console.log('errors', errors);
     if (vazio(errors)) {
       const {
         nomeCompleto, telefone, email, cidade, cpf
       } = getValues();
-      console.log('cidade para salvar', cidade);
       const usuarioTratado = tratarCamposDeUsuario(
         {
           nomeCompleto, telefone, email, cidade, cpf

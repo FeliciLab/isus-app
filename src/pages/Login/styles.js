@@ -9,6 +9,9 @@ const SafeArea = styled.SafeAreaView`
 `;
 
 const Scroll = styled(ScrollView)`
+`;
+
+export const ChildrenView = styled.View`
   flex: 1;
 `;
 
@@ -16,11 +19,6 @@ const ConteudoImagem = styled.View`
   margin: 50px 0;
   flex-direction: row;
   justify-content: center;
-`;
-
-export const ChildrenView = styled.View`
-  flex: 1;
-  justify-content: space-between;
 `;
 
 const Botao = styled(Button)`
