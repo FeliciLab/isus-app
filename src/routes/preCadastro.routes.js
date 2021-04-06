@@ -6,6 +6,7 @@ import { getOptionsCabecalhoSemBotao } from '../components/layoutEffect/cabecalh
 import PreCadastroInfoPessoal from '../pages/PreCadastro/PreCadastroInfoPessoal';
 import PreCadastroProfissional from '../pages/PreCadastro/PreCadastroProfissional';
 import PreCadastroSenha from '../pages/PreCadastro/PreCadastroSenha';
+import PreCadastroSucesso from '../pages/PreCadastro/PreCadastroSucesso';
 
 const PreCadastroStack = createStackNavigator();
 
@@ -33,6 +34,12 @@ const PreCadastroRoutes = () => {
         <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_SENHA}
           component={PreCadastroSenha}
+          options={opcoes}
+        />
+
+        <PreCadastroStack.Screen
+          name={rotas.PRE_CADASTRO_SUCESSO}
+          component={PreCadastroSucesso}
           options={opcoes}
         />
       </PreCadastroStack.Navigator>

@@ -5,7 +5,7 @@ const tratarDadosUsuario = form => ({
   cpf: form.cpf.replace(/\D/g, ''),
   telefone: form.telefone.replace(/\D/g, ''),
   especialidades: JSON.stringify(
-    Object.keys(form.especialidades)
+    Object.keys(form?.especialidades || {})
       .filter(key => form.especialidades[key])
       .map((especialidade) => {
         const id = form._hidden.especialidades.find(item => item.nome === especialidade)?.id;
@@ -37,7 +37,6 @@ const tratarDadosUsuario = form => ({
 export const atualizarUsuario = async (dados) => {
   const usuario = tratarDadosUsuario(dados);
   delete usuario._hidden;
-
   try {
     await atualizarUsuarioApi(usuario);
     return usuario;

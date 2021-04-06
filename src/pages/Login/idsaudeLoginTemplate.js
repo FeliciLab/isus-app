@@ -32,9 +32,8 @@ function IDSaudeLoginTemplate({ children }) {
           <ChildrenView>
             {children}
           </ChildrenView>
+          <Termos />
         </Scroll>
-
-        <Termos />
       </SafeArea>
     </>
   );
