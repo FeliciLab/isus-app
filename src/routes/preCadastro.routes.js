@@ -27,7 +27,6 @@ const PreCadastroRoutes = () => {
         <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_PROFISSIONAL}
           component={PreCadastroProfissional}
-          initialParams={{ tela_anterior: rotas.PRE_CADASTRO_INFO_PESSOAL }}
           options={opcoes}
         />
 

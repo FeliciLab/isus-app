@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { emailValido, cpfValido } from '../../utils/validadores';
 import { INPUT_THEMES } from '../../constantes/estiloBase';
 import FormTextInput from '../../components/FormLayoutContexts/FormTextInput';
@@ -31,10 +32,11 @@ export default function PreCadastroInfoPessoal() {
 
   useEffect(() => {
     setValues({
-      nomeCompleto: dadosUsuario.name || '',
-      email: dadosUsuario.email || '',
-      telefone: dadosUsuario.telefone || '',
-      cidadeId: dadosUsuario.municipio_id || ''
+      nomeCompleto: dadosUsuario?.name || '',
+      email: dadosUsuario?.email || '',
+      telefone: dadosUsuario?.telefone || '(88) 99999-8888',
+      cidadeId: dadosUsuario?.municipio_id || 1347,
+      cpf: dadosUsuario?.cpf || '635.139.146-60'
     });
 
     trigger([
@@ -55,67 +57,68 @@ export default function PreCadastroInfoPessoal() {
   return (
     <>
       <ContainerBody>
-        <ContainerForm>
-          <Title>Informações pessoais</Title>
-          <RowInput>
-            <FormTextInput
-              name="nomeCompleto"
-              label="Nome Completo"
-              theme={theme}
-              rules={{ required: true }}
-            />
-            <FormError
-              name="nomeCompleto"
-              msg="O nome completo é obrigatório."
-            />
-          </RowInput>
-          <RowInput>
-            <FormTextInput
-              name="email"
-              label="E-mail"
-              theme={theme}
-              rules={{ required: true, validate: { emailValido: value => emailValido(value) } }}
-            />
-            <FormError
-              name="email"
-              msg="Insira um e-mail válido."
-            />
-          </RowInput>
-          <RowInput>
-            <FormTextInputMask
-              name="telefone"
-              label="Telefone"
-              theme={theme}
-              rules={{ required: true }}
-              mask="([00]) [00000]-[0000]"
-            />
-            <FormError
-              name="telefone"
-              msg="O campo telefone é obrigatório."
-            />
-          </RowInput>
-          <RowInput>
-            <FormTextInputMask
-              name="cpf"
-              label="CPF"
-              theme={theme}
-              rules={{ required: true, validate: { cpfValido: value => cpfValido(value) } }}
-              mask="[000].[000].[000]-[00]"
-            />
-            <FormError
-              name="cpf"
-              msg=" Insira um CPF válido. "
-            />
-          </RowInput>
-          <RowInput>
-            <InputMunicipios />
-            <FormError
-              name="cidadeId"
-              msg="Escolha o município"
-            />
-          </RowInput>
-        </ContainerForm>
-
+        <ScrollView>
+          <ContainerForm>
+            <Title>Informações pessoais</Title>
+            <RowInput>
+              <FormTextInput
+                name="nomeCompleto"
+                label="Nome Completo"
+                theme={theme}
+                rules={{ required: true }}
+              />
+              <FormError
+                name="nomeCompleto"
+                msg="O nome completo é obrigatório."
+              />
+            </RowInput>
+            <RowInput>
+              <FormTextInput
+                name="email"
+                label="E-mail"
+                theme={theme}
+                rules={{ required: true, validate: { emailValido: value => emailValido(value) } }}
+              />
+              <FormError
+                name="email"
+                msg="Insira um e-mail válido."
+              />
+            </RowInput>
+            <RowInput>
+              <FormTextInputMask
+                name="telefone"
+                label="Telefone"
+                theme={theme}
+                rules={{ required: true }}
+                mask="([00]) [00000]-[0000]"
+              />
+              <FormError
+                name="telefone"
+                msg="O campo telefone é obrigatório."
+              />
+            </RowInput>
+            <RowInput>
+              <FormTextInputMask
+                name="cpf"
+                label="CPF"
+                theme={theme}
+                rules={{ required: true, validate: { cpfValido: value => cpfValido(value) } }}
+                mask="[000].[000].[000]-[00]"
+              />
+              <FormError
+                name="cpf"
+                msg=" Insira um CPF válido. "
+              />
+            </RowInput>
+            <RowInput>
+              <InputMunicipios />
+              <FormError
+                name="cidadeId"
+                msg="Escolha o município"
+              />
+            </RowInput>
+          </ContainerForm>
+        </ScrollView>
         <RowButton>
           <BotaoLaranja
             disabled={hasErrors}

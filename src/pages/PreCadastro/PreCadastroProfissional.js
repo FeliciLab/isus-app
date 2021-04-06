@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Controller } from 'react-hook-form';
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   ContainerBody,
   ContainerForm,
@@ -21,45 +22,54 @@ const PreCadastroProfissional = () => {
   const navigator = useNavigation();
   const { control, getValues } = useContext(FormContext);
 
-  const onPress = () => {
-    atualizarUsuario(getValues())
-      .then(() => navigator.navigate(
-        ROTAS.CADASTRO_SUCESSO,
-        {
-          textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
-          telaDeRedirecionamento: 'LOGIN',
-          telaDeBackground: CORES.AZUL
-        }
-      ));
-  };
-
   return (
     <>
       <ContainerBody>
-        <ContainerForm>
-          <Title>Cadastro Profissional</Title>
-          <RowInput>
-            <InputCategoria />
-          </RowInput>
-          <RowInput>
-            <Controller
-              control={control}
-              name="_hidden.categoriaProfissional"
-              defaultValue=""
-              render={({ value }) => (
-                <>
-                  <InputEspecialidades categoria={value} />
-                </>
-              )}
-            />
-          </RowInput>
-          <RowInput>
-            <InputSetores />
-          </RowInput>
-        </ContainerForm>
-
+        <ScrollView>
+          <ContainerForm>
+            <Title>Cadastro Profissional</Title>
+            <RowInput>
+              <InputCategoria />
+            </RowInput>
+            <RowInput>
+              <Controller
+                control={control}
+                name="_hidden.categoriaProfissional"
+                defaultValue=""
+                render={({ value }) => (
+                  <>
+                    <InputEspecialidades categoria={value} />
+                  </>
+                )}
+              />
+            </RowInput>
+            <RowInput>
+              <InputSetores />
+            </RowInput>
+          </ContainerForm>
+        </ScrollView>
         <RowButton>
-          <BotaoLaranja onPress={() => onPress()}>
+          <BotaoLaranja
+            onPress={async () => {
+              try {
+                const result = await atualizarUsuario(getValues());
+                if (!result) {
+                  return;
+                }
+
+                navigator.navigate(
+                  ROTAS.CADASTRO_SUCESSO,
+                  {
+                    textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+                    telaDeRedirecionamento: 'LOGIN',
+                    telaDeBackground: CORES.AZUL
+                  }
+                );
+              } catch (err) {
+                console.log('Falha ao atualizar', err);
+              }
+            }}
+          >
             Concluir
           </BotaoLaranja>
         </RowButton>
