@@ -62,7 +62,9 @@ export default function FormularioInfoPessoal({ navigation }) {
         'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
         [{
           text: 'OK',
-          onPress: () => { navigation.navigate('LOGIN'); }
+          onPress: () => {
+            navigation.navigate('LOGIN');
+          }
         }]
       );
     }
@@ -110,9 +112,6 @@ export default function FormularioInfoPessoal({ navigation }) {
     });
   }, [register]);
 
-  const pegarId = municipio => cidades.find(element => element.nome === municipio)
-    .reduce((acc, curr) => curr.id, null);
-
   const layout = {
     titulo: 'Cadastro',
     navegador: navigation,
@@ -133,6 +132,7 @@ export default function FormularioInfoPessoal({ navigation }) {
       alteraNomeCidades(response.data.map(item => item.nome));
       pegaCidades(response.data.map(item => item));
     }
+
     pegarCidades();
   }, []);
 
@@ -141,13 +141,17 @@ export default function FormularioInfoPessoal({ navigation }) {
       await salvarDados('municipios', nomeCidades);
       await salvarDados('objeto', cidades);
     }
+
     guardarCidades();
   }, [nomeCidades]);
 
   return (
     <>
       <Scroll>
-        <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+        <BarraDeStatus
+          barStyle="dark-content"
+          backgroundColor="#FFF"
+        />
         <Titulo>{textos.formularioPessoal.introducao}</Titulo>
         <TituloDoFormulario>{textos.formularioPessoal.titulo}</TituloDoFormulario>
         <CampoDeTexto
@@ -215,7 +219,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           onChangeText={text => text}
           mode="outlined"
           theme={(getValues().cpf === undefined)
-            || (getValues().cpf === '' ? theme : errors.cpf) ? themeError : theme}
+          || (getValues().cpf === '' ? theme : errors.cpf) ? themeError : theme}
           maxLength={14}
           render={props => (
             <TextInputMask
@@ -241,7 +245,13 @@ export default function FormularioInfoPessoal({ navigation }) {
             labelExtractor={cidade => cidade}
             valueExtractor={cidade => cidade}
             onChangeText={(cidade) => {
-              alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
+              alteraValor(
+                'cidade',
+                {
+                  id: cidades.find(e => e.nome === cidade)?.id,
+                  nome: cidade
+                }
+              );
             }}
           />
           <IconeDropdown

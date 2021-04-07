@@ -40,7 +40,7 @@ const PreCadastroRoutes = () => {
         <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_SUCESSO}
           component={PreCadastroSucesso}
-          options={opcoes}
+          options={{ ...opcoes, headerShown: false }}
         />
       </PreCadastroStack.Navigator>
     </FormProvider>

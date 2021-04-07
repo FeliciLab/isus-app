@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { View, Text } from 'react-native';
 import { Config } from 'react-native-config';
@@ -25,7 +25,17 @@ import rotas from '../../constantes/rotas';
 const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
 
-  const { control, handleSubmit, errors } = useForm();
+  const {
+    control,
+    handleSubmit,
+    errors,
+    setValue,
+    formState,
+    trigger
+  } = useForm();
+
+  const { dirtyFields } = formState;
+
   const {
     alterarTokenUsuario,
     alterarDadosUsuario,
@@ -35,6 +45,11 @@ const FormularioLogin = ({ route }) => {
   const [carregando, alterarCarregando] = useState(false);
   const [textoDoAlerta, alterarTextoDoAlerta] = useState('');
   const [visivel, alterarVisibilidade] = useState(false);
+
+  useEffect(() => {
+    setValue('email', '');
+    setValue('senha', '');
+  }, []);
 
   const theme = {
     ...DefaultTheme,
@@ -77,12 +92,15 @@ const FormularioLogin = ({ route }) => {
       try {
         const perfil = await perfilUsuario();
         alterarDadosUsuario(perfil.data);
+
         if (!perfil.cadastrado) {
           navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
           return;
         }
+
         await armazenarEstadoLogado(true);
         alterarEstaLogado(true);
+
         navigation.navigate('HOME');
       } catch (e) {
         await armazenarEstadoLogado(false);
@@ -92,7 +110,11 @@ const FormularioLogin = ({ route }) => {
     .catch((err) => {
       mostrarAlerta(err.response.data.erros);
     })
-    .finally(() => alterarCarregando(false));
+    .finally(() => {
+      setValue('email', '');
+      setValue('senha', '');
+      alterarCarregando(false);
+    });
 
   const submitForm = (data) => {
     analyticsData('fazer_login', 'Click', 'Perfil');
@@ -125,7 +147,10 @@ const FormularioLogin = ({ route }) => {
                 placeholder="E-mail"
                 selectionColor="#0000AB"
                 onChangeText={v => onChange(v)}
-                onBlur={onBlur}
+                onBlur={(e) => {
+                  onBlur(e);
+                  trigger('email');
+                }}
                 value={value}
                 theme={theme}
               />
@@ -143,7 +168,10 @@ const FormularioLogin = ({ route }) => {
               <TextInput
                 style={{ marginTop: 18 }}
                 onChangeText={txt => onChange(txt)}
-                onBlur={onBlur}
+                onBlur={(e) => {
+                  onBlur(e);
+                  trigger('senha');
+                }}
                 value={value}
                 theme={theme}
                 label="Senha"
@@ -161,6 +189,7 @@ const FormularioLogin = ({ route }) => {
 
           <View style={{ marginTop: 18 }}>
             <Botao
+              disabled={!dirtyFields.email || !dirtyFields.senha || errors.email || errors.senha}
               testID={TESTIDS.BUTTON_FAZER_LOGIN}
               mode="contained"
               loading={carregando}
@@ -180,7 +209,10 @@ const FormularioLogin = ({ route }) => {
             </Botao>
           </View>
         </View>
-        <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
+        <Alerta
+          textoDoAlerta={textoDoAlerta}
+          visivel={visivel}
+        />
       </>
     </IDSaudeLoginTemplate>
   );

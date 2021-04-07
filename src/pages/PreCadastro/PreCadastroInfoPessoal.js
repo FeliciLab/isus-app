@@ -52,7 +52,7 @@ export default function PreCadastroInfoPessoal() {
     || errors.email
     || errors.telefone
     || errors.cpf
-    || errors.municipio;
+    || errors.cidadeId;
 
   return (
     <>

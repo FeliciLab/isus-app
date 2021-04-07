@@ -55,7 +55,7 @@ const PreCadastroProfissional = () => {
                 return;
               }
               navigator.navigate(
-                ROTAS.CADASTRO_SUCESSO,
+                ROTAS.PRE_CADASTRO_SUCESSO,
                 { usuario: result }
               );
             }}
