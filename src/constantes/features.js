@@ -11,6 +11,5 @@ export default {
   ELMO: '411',
   VACINACOVID19: '445',
   PLANO_CONTIGENCIA: '440',
-  PRE_CADASTRO: '453',
   TELA_SEM_CONEXAO: '384'
 };

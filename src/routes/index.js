@@ -21,7 +21,6 @@ import { FormProvider } from '../context/FormContext';
 import TelaDeSucesso from '../pages/TelaDeSucesso';
 import MeusConteudos from '../pages/MeusConteudos';
 import CadastroRoutes from './cadastro.routes';
-import PreCadastroRoutes from './preCadastro.routes';
 import features from '../constantes/features';
 import rotas from '../constantes/rotas';
 import estaAtiva from '../utils/estaAtiva';
@@ -31,7 +30,6 @@ import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
 import NovoSemConexao from '../pages/SemConexao';
 
-import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 
 const RootStack = createStackNavigator();
 
@@ -74,21 +72,6 @@ function Cadastro() {
   );
 }
 
-const PreCadastro = () => (
-  <Feature
-    name="453"
-    inactiveComponent={PreCadastroRoutes}
-    activeComponent={PreCadastroRoutes}
-  />
-);
-const PreCadastroIntro = () => (
-  <Feature
-    name="453"
-    inactiveComponent={PreCadastroIntroducao}
-    activeComponent={PreCadastroIntroducao}
-  />
-);
-
 function SemConexaoNovo(props) {
   return (
     <Feature
@@ -104,9 +87,7 @@ export default function App({ navigationRef }) {
   return (
     <NavigationContainer
       ref={navigationRef}
-      onReady={() => {
-        routeNameRef.current = navigationRef.current.getCurrentRoute().name;
-      }}
+      onReady={() => { routeNameRef.current = navigationRef.current.getCurrentRoute().name; }}
       onStateChange={() => {
         const previousRouteName = routeNameRef.current;
         const currentRouteName = navigationRef.current.getCurrentRoute().name;
@@ -114,18 +95,13 @@ export default function App({ navigationRef }) {
         if (previousRouteName !== currentRouteName) {
           analytics().logScreenView({
             screen_name: currentRouteName,
-            screen_class: currentRouteName
+            screen_class: currentRouteName,
           });
         }
         routeNameRef.current = currentRouteName;
       }}
     >
       <RootStack.Navigator>
-        {/* <RootStack.Screen
-          name="App"
-          component={PreCadastro}
-          options={{ headerShown: false }}
-        /> */}
         <RootStack.Screen
           name="App"
           component={AppDrawerScreen}
@@ -135,16 +111,6 @@ export default function App({ navigationRef }) {
           name="CADASTRO"
           options={{ headerShown: !estaAtiva(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
           component={Cadastro}
-        />
-        <RootStack.Screen
-          name="PRE_CADASTRO"
-          options={{ headerShown: false }}
-          component={PreCadastro}
-        />
-        <RootStack.Screen
-          name="PRE_CADASTRO_INTRODUCAO"
-          options={{ headerShown: false }}
-          component={PreCadastroIntro}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"
@@ -167,14 +133,8 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen
-          name="webview"
-          component={WebViewPage}
-        />
-        <RootStack.Screen
-          name="manejoWebview"
-          component={ManejoWebViewPage}
-        />
+        <RootStack.Screen name="webview" component={WebViewPage} />
+        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
         <RootStack.Screen
           name="Buscar"
           component={searchStackScreen}
