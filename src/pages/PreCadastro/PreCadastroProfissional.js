@@ -50,18 +50,14 @@ const PreCadastroProfissional = () => {
         <RowButton>
           <BotaoLaranja
             onPress={async () => {
-              try {
-                const result = await atualizarUsuario(getValues());
-                if (!result) {
-                  return;
-                }
-                navigator.navigate(
-                  ROTAS.CADASTRO_SUCESSO,
-                  { usuario: result }
-                );
-              } catch (err) {
-                console.log('Falha ao atualizar', err);
+              const result = await atualizarUsuario(getValues());
+              if (!result) {
+                return;
               }
+              navigator.navigate(
+                ROTAS.CADASTRO_SUCESSO,
+                { usuario: result }
+              );
             }}
           >
             Concluir

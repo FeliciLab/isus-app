@@ -34,9 +34,9 @@ export default function PreCadastroInfoPessoal() {
     setValues({
       nomeCompleto: dadosUsuario?.name || '',
       email: dadosUsuario?.email || '',
-      telefone: dadosUsuario?.telefone || '(88) 99999-8888',
-      cidadeId: dadosUsuario?.municipio_id || 1347,
-      cpf: dadosUsuario?.cpf || '635.139.146-60'
+      telefone: dadosUsuario?.telefone || '',
+      cidadeId: dadosUsuario?.municipio_id || '',
+      cpf: dadosUsuario?.cpf || ''
     });
 
     trigger([
@@ -123,7 +123,7 @@ export default function PreCadastroInfoPessoal() {
           <BotaoLaranja
             disabled={hasErrors}
             onPress={async () => {
-              await trigger(['nome', 'email', 'telefone', 'cpf', 'municipio']);
+              await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
               if (hasErrors) return;
               navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
             }}

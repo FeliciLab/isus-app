@@ -1,16 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import TelaDeSucesso from '../../components/TelaDeSucesso';
 import { CORES } from '../../constantes/estiloBase';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { armazenarEstadoLogado } from '../../services/autenticacao';
 
 const PreCadastroSucesso = ({ route }) => {
-  const { usuario } = route.params;
   const navigation = useNavigation();
+  const { usuario } = route.params;
+  const {
+    alterarDadosUsuario,
+    alterarEstaLogado
+  } = useContext(AutenticacaoContext);
 
   useEffect(() => {
-    console.log(usuario);
+    alterarDadosUsuario(usuario);
+    alterarEstaLogado(true);
+    armazenarEstadoLogado(true);
+
     setTimeout(() => {
-      console.log('vou *mudar*, desculpe mais eu vou *mudar*.....');
       navigation.navigate('HOME');
     }, 4000);
   }, []);
