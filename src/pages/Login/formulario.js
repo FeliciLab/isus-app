@@ -89,7 +89,6 @@ const FormularioLogin = ({ route }) => {
       try {
         const perfil = await perfilUsuario();
         alterarDadosUsuario(perfil.data);
-
         if (!perfil.cadastrado) {
           navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
           return;

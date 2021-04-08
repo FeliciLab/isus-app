@@ -33,7 +33,6 @@ import NovoSemConexao from '../pages/SemConexao';
 
 import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 
-
 const RootStack = createStackNavigator();
 
 function EdicaoProfissional(props) {
