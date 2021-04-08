@@ -147,7 +147,6 @@ export default function PreCadastroInfoPessoal() {
           >
             Continuar
           </BotaoLaranja>
-          <BotaoLaranja onPress={() => console.log(errors)}>LOG</BotaoLaranja>
         </RowButton>
       </ContainerBody>
     </>
