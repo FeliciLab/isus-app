@@ -60,3 +60,8 @@ export async function cpfNaoCadastrado(cpf) {
   const cpfExiste = resposta.data.cpf_existe;
   return !cpfExiste;
 }
+
+export async function cpfCadastradoIdSaude(cpf) {
+  const resposta = await verificarCPFCadastrado(cpf);
+  return resposta.data.cpf_existe;
+}

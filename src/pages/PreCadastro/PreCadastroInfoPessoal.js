@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { emailValido, cpfValido } from '../../utils/validadores';
+import { emailValido, cpfValido, cpfNaoCadastrado } from '../../utils/validadores';
 import { INPUT_THEMES } from '../../constantes/estiloBase';
 import FormTextInput from '../../components/FormLayoutContexts/FormTextInput';
 import FormTextInputMask from '../../components/FormLayoutContexts/FormTextInputMask';
@@ -18,6 +18,7 @@ import {
 } from './styles';
 import FormContext from '../../context/FormContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { formularioPessoal } from '../../constantes/erroFormMsg';
 
 export default function PreCadastroInfoPessoal() {
   const [emailSomenteLeitura, definirEmailSomenteLeitura] = useState(false);
@@ -82,11 +83,16 @@ export default function PreCadastroInfoPessoal() {
                 name="email"
                 label="E-mail"
                 theme={theme}
-                rules={{ required: true, validate: { emailValido: value => emailValido(value) } }}
+                rules={{
+                  required: true,
+                  validate: {
+                    emailValido: value => emailValido(value) || formularioPessoal.emailValido
+                  }
+                }}
               />
               <FormError
                 name="email"
-                msg="Insira um e-mail válido."
+                msg={errors.email?.message || 'Insira um e-mail válido.'}
               />
             </RowInput>
             <RowInput>
@@ -99,7 +105,7 @@ export default function PreCadastroInfoPessoal() {
               />
               <FormError
                 name="telefone"
-                msg="O campo telefone é obrigatório."
+                msg={formularioPessoal.telefoneObrigatorio}
               />
             </RowInput>
             <RowInput>
@@ -107,12 +113,18 @@ export default function PreCadastroInfoPessoal() {
                 name="cpf"
                 label="CPF"
                 theme={theme}
-                rules={{ required: true, validate: { cpfValido: value => cpfValido(value) } }}
+                rules={{
+                  required: true,
+                  validate: {
+                    cpfValido: value => cpfValido(value) || formularioPessoal.cpfInvalido,
+                    cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf.replace(/\D/g, '')) || formularioPessoal.cpfCadastrado
+                  }
+                }}
                 mask="[000].[000].[000]-[00]"
               />
               <FormError
                 name="cpf"
-                msg=" Insira um CPF válido. "
+                msg={errors.cpf?.message || 'Insira um CPF válido'}
               />
             </RowInput>
             <RowInput>
@@ -135,6 +147,7 @@ export default function PreCadastroInfoPessoal() {
           >
             Continuar
           </BotaoLaranja>
+          <BotaoLaranja onPress={() => console.log(errors)}>LOG</BotaoLaranja>
         </RowButton>
       </ContainerBody>
     </>
