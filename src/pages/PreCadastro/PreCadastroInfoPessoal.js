@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { emailValido, cpfValido } from '../../utils/validadores';
@@ -20,6 +20,7 @@ import FormContext from '../../context/FormContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 export default function PreCadastroInfoPessoal() {
+  const [emailSomenteLeitura, definirEmailSomenteLeitura] = useState(false);
   const { dadosUsuario } = useContext(AutenticacaoContext);
   const theme = INPUT_THEMES.LARANJA;
   const navigator = useNavigation();
@@ -31,6 +32,9 @@ export default function PreCadastroInfoPessoal() {
   } = useContext(FormContext);
 
   useEffect(() => {
+    if (dadosUsuario?.email) {
+      definirEmailSomenteLeitura(true);
+    }
     setValues({
       nomeCompleto: dadosUsuario?.name || '',
       email: dadosUsuario?.email || '',
@@ -74,6 +78,7 @@ export default function PreCadastroInfoPessoal() {
             </RowInput>
             <RowInput>
               <FormTextInput
+                readonly={emailSomenteLeitura}
                 name="email"
                 label="E-mail"
                 theme={theme}

@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form';
 import FormContext from '../../context/FormContext';
 
 const FormTextInput = ({
-  name, label, placeholder, theme, rules
+  name, label, placeholder, theme, rules, readonly
 }) => {
   const { control } = useContext(FormContext);
 
@@ -16,6 +16,7 @@ const FormTextInput = ({
       defaultValue=""
       render={({ onChange, onBlur, value }) => (
         <TextInput
+          disabled={readonly || false}
           mode="outlined"
           label={label}
           placeholder={placeholder || label}
