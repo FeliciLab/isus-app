@@ -30,11 +30,8 @@ const FormularioLogin = ({ route }) => {
     handleSubmit,
     errors,
     setValue,
-    formState,
     trigger
   } = useForm();
-
-  const { dirtyFields } = formState;
 
   const {
     alterarTokenUsuario,
@@ -119,6 +116,10 @@ const FormularioLogin = ({ route }) => {
   const submitForm = (data) => {
     analyticsData('fazer_login', 'Click', 'Perfil');
     alterarCarregando(true);
+    trigger();
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
     fazerLogin(data);
   };
 
@@ -189,7 +190,7 @@ const FormularioLogin = ({ route }) => {
 
           <View style={{ marginTop: 18 }}>
             <Botao
-              disabled={!dirtyFields.email || !dirtyFields.senha || errors.email || errors.senha}
+              disabled={errors.email || errors.senha}
               testID={TESTIDS.BUTTON_FAZER_LOGIN}
               mode="contained"
               loading={carregando}
