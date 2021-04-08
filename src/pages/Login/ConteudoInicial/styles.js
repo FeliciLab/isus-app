@@ -9,6 +9,9 @@ const ConteudoDoTexto = styled.View`
 const Texto = styled.Text`
   color: ${CORES.BRANCO};
   font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 23.44px;
 `;
 
 export {

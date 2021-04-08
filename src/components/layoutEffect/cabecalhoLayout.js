@@ -16,6 +16,10 @@ const estiloCores = {
   branco: {
     corFundo: CORES.BRANCO,
     corTexto: CORES.VERDE
+  },
+  azul: {
+    corFundo: CORES.AZUL,
+    corTexto: CORES.BRANCO
   }
 };
 
@@ -62,67 +66,55 @@ const TouchableGoHome = ({ navegador, cor }) => (
   </TouchableOpacity>
 );
 
+export const getOptions = ({ titulo, cor }) => ({
+  headerStyle: {
+    backgroundColor: estiloCores[cor].corFundo,
+    elevation: 0,
+    shadowOpacity: 0
+  },
+  headerTintColor: estiloCores[cor].corTexto,
+  headerTitleAlign: 'center',
+  headerTitle: titulo
+});
 
-export const cabecalhoMenuBusca = ({ navegador, titulo, cor }) => {
-  navegador.setOptions({
-    headerStyle: {
-      backgroundColor: estiloCores[cor].corFundo,
-      elevation: 0,
-      shadowOpacity: 0
-    },
-    headerTintColor: estiloCores[cor].corTexto,
-    headerTitleAlign: 'center',
-    headerTitle: titulo,
-    headerRight: () => <TouchableSearch navegador={navegador} cor={estiloCores[cor].corTexto} />,
-    headerLeft: () => <TouchableMenu navegador={navegador} />
-  });
-};
+export const cabecalhoMenuBusca = ({ navegador, titulo, cor }) => navegador.setOptions({
+  ...getOptions({ titulo, cor }),
+  headerRight: () => <TouchableSearch navegador={navegador} cor={estiloCores[cor].corTexto} />,
+  headerLeft: () => <TouchableMenu navegador={navegador} />
+});
 
-export const cabecalhoMenu = ({ navegador, titulo, cor }) => {
-  navegador.setOptions({
-    headerStyle: {
-      backgroundColor: estiloCores[cor].corFundo,
-      elevation: 0,
-      shadowOpacity: 0
-    },
-    headerTintColor: estiloCores[cor].corTexto,
-    headerTitleAlign: 'center',
-    headerTitle: titulo,
-    headerLeft: () => <TouchableMenu navegador={navegador} cor={estiloCores[cor].corTexto} />
-  });
-};
+export const cabecalhoMenu = ({ navegador, titulo, cor }) => navegador.setOptions({
+  ...getOptions({ titulo, cor }),
+  headerLeft: () => <TouchableMenu navegador={navegador} cor={estiloCores[cor].corTexto} />
+});
 
-export const cabecalhoVoltar = ({ navegador, titulo, cor }) => {
-  navegador.setOptions({
-    headerStyle: {
-      backgroundColor: estiloCores[cor].corFundo,
-      elevation: 0,
-      shadowOpacity: 0
-    },
-    headerTintColor: estiloCores[cor].corTexto,
-    headerTitleAlign: 'center',
-    headerTitle: titulo,
-    headerLeft: () => <TouchableGoBack navegador={navegador} cor={estiloCores[cor].corTexto} />
-  });
-};
+export const cabecalhoVoltar = ({ navegador, titulo, cor }) => navegador.setOptions({
+  ...getOptions({ titulo, cor }),
+  headerLeft: () => <TouchableGoBack navegador={navegador} cor={estiloCores[cor].corTexto} />
+});
 
-export const cabecalhoVoltarHome = ({ navegador, titulo, cor }) => {
-  navegador.setOptions({
-    headerStyle: {
-      backgroundColor: estiloCores[cor].corFundo,
-      elevation: 0,
-      shadowOpacity: 0
-    },
-    headerTintColor: estiloCores[cor].corTexto,
-    headerTitleAlign: 'center',
-    headerTitle: titulo,
-    headerLeft: () => <TouchableGoHome navegador={navegador} cor={estiloCores[cor].corTexto} />
-  });
-};
+export const cabecalhoVoltarHome = ({ navegador, titulo, cor }) => navegador.setOptions({
+  ...getOptions({ titulo, cor }),
+  headerLeft: () => <TouchableGoHome navegador={navegador} cor={estiloCores[cor].corTexto} />
+});
+
+
+export const getOptionsCabecalhoSemBotao = ({ titulo, cor }) => ({
+  ...getOptions({ titulo, cor }),
+  headerLeft: () => {},
+  headerRight: () => {}
+});
+
+export const cabecalhoSemBotao = ({ navegador, titulo, cor }) => navegador.setOptions({
+  ...getOptions({ titulo, cor }),
+  headerLeft: () => {},
+  headerRight: () => {}
+});
 
 export default {
   cabecalhoMenuBusca,
   cabecalhoMenu,
   cabecalhoVoltar,
-  cabecalhoVoltarHome
+  cabecalhoVoltarHome,
+  cabecalhoSemBotao
 };

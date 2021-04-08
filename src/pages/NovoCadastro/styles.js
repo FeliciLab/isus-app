@@ -68,14 +68,14 @@ font-size: 25px;
 `;
 
 const PlaceholderAcordeon = styled(Text)`
-font-size: 16;
+font-size: 16px;
 color: rgba(0, 0, 0, 0.54);
 `;
 
 const Acordeon = styled(List.Accordion)`
 border-color: rgba(25, 25, 25, 0.32);
-border-width: 2;
-margin-top: 16;
+border-width: 2px;
+margin-top: 16px;
 `;
 
 export {

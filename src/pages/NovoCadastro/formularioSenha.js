@@ -10,13 +10,20 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
-import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  autenticarComIdSaude,
+  salvarTokenDoUsuarioNoStorage,
+  pegarTokenDoUsuarioNoStorage,
+  armazenarEstadoLogado
+} from '../../services/autenticacao';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
+  const { alterarDadosUsuario, alterarEstaLogado } = useContext(AutenticacaoContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -83,12 +90,16 @@ export default function FormularioSenha({ navigation }) {
       const response = await autenticarComIdSaude(dados.email, dados.senha);
       if (response.sucesso) {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
+        await armazenarEstadoLogado(true);
         await pegarTokenDoUsuarioNoStorage();
+        await alterarDadosUsuario(dados);
+        await alterarEstaLogado(true);
       }
 
       navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
       return;
     }
+
     let mensagemErro;
     if (resultado.erros.cpf) {
       const [mensagemErroCPF] = resultado.erros.cpf;

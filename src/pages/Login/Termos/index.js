@@ -6,6 +6,7 @@ import { TESTIDS } from '../../../constantes/testIDs';
 
 const Termos = () => {
   const navigation = useNavigation();
+
   return (
     <ConteudoTermo>
       <TextoTermo>
