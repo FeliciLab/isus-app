@@ -35,7 +35,7 @@ export default function PreCadastroInfoPessoal() {
       nomeCompleto: dadosUsuario?.name || '',
       email: dadosUsuario?.email || '',
       telefone: dadosUsuario?.telefone || '',
-      cidadeId: dadosUsuario?.municipio_id || '',
+      cidadeId: dadosUsuario?.municipio_id ? parseInt(dadosUsuario.municipio_id, 10) : '',
       cpf: dadosUsuario?.cpf || ''
     });
 
