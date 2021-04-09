@@ -36,7 +36,7 @@ test(`deve chamar o analytics data ao clicar em ${TESTIDS.BUTTON_REALIZAR_CADAST
 
   fireEvent.press(item);
   expect(analyticsData).toHaveBeenCalledWith(
-    labelsAnalytics.BUTTON_REALIZAR_CADASTRO,
+    labelsAnalytics.INICIAR_MEU_CADASTRO,
     'Click',
     'Perfil'
   );
