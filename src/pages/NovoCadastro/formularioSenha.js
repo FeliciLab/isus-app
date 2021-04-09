@@ -17,6 +17,9 @@ import {
   armazenarEstadoLogado
 } from '../../services/autenticacao';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { analyticsData } from '../../utils/analytics';
+import { normalizeEspacoTextoAnalytics } from '../../utils/mascaras';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -134,6 +137,9 @@ export default function FormularioSenha({ navigation }) {
     register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais });
   }, [register]);
 
+  const valores = getValues();
+  const categoriaProfissional = JSON.parse(valores.categoriaProfissional).nome;
+
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
@@ -178,6 +184,21 @@ export default function FormularioSenha({ navigation }) {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
             alterarCarregando(false);
+            analyticsData(
+              labelsAnalytics.FINALIZAR_MEU_CADASTRO,
+              'Click',
+              'Perfil'
+            );
+            /* analyticsData(
+              'categoria_'.concat(normalizeEspacoTextoAnalytics(categoriaProfissional)),
+              'Click',
+              'Cadastro'
+            ); */
+
+            console.log(normalizeEspacoTextoAnalytics(categoriaProfissional));
+            console.log('unidade servico puro - ', valores.unidadeServico);
+            // const val2 = JSON.parse(valores.unidadeServico);
+            // console.log('array0 nome unidade serviço - ', val2.nome);
           } catch (err) {
             console.log(err);
             alterarCarregando(false);

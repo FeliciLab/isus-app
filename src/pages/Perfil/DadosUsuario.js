@@ -166,11 +166,13 @@ const Botao = ({
       color="#FF9800"
       contentStyle={{ justifyContent: 'flex-start' }}
       onPress={() => {
-        analyticsData(
-          labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS,
-          'Click',
-          'Perfil'
-        );
+        if (testID === labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS) {
+          analyticsData(
+            labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS,
+            'Click',
+            'Perfil'
+          );
+        }
         navigation.navigate(uri, params);
       }}
     >
