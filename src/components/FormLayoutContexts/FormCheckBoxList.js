@@ -20,14 +20,14 @@ const TitleText = ({ label }) => (
 const FormCheckBoxList = ({
   name, label, data, rules
 }) => {
-  const { register, setValue } = useContext(FormContext);
+  const { register, setValue, getValues } = useContext(FormContext);
 
   useEffect(() => {
     if (!data || data.length === 0) return;
 
     data.forEach((item) => {
       register(`${name}.${item.value}`, rules);
-      setValue(`${name}.${item.value}`, false);
+      setValue(`${name}.${item.value}`, getValues(`${name}.${item.value}`) || false);
     });
   }, [data]);
 

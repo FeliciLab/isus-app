@@ -1,9 +1,14 @@
 import { atualizarUsuarioApi } from '../apis/apiCadastro';
 
-const tratarDadosUsuario = form => ({
+const tratarDadosPessoais = form => ({
   ...form,
   cpf: form.cpf.replace(/\D/g, ''),
   telefone: form.telefone.replace(/\D/g, ''),
+  cidade: form._hidden?.municipios?.find(municipio => municipio.id === form.cidadeId)?.nome,
+  termos: true
+});
+
+const tratarDadosProfissionais = form => ({
   especialidades: JSON.stringify(
     Object.keys(form?.especialidades || {})
       .filter(key => form.especialidades[key])
@@ -16,7 +21,7 @@ const tratarDadosUsuario = form => ({
       })
   ),
   unidadeServico: JSON.stringify(
-    Object.keys(form.unidadeServico)
+    Object.keys(form?.unidadeServico || {})
       .filter(key => form.unidadeServico[key])
       .map((unidade) => {
         const id = form._hidden.unidadesDeServicos.find(item => item.nome === unidade)?.id;
@@ -27,16 +32,37 @@ const tratarDadosUsuario = form => ({
       })
   ),
   categoriaProfissional: JSON.stringify(
-    form._hidden.categoriasProfissionais
-      .find(categoria => categoria.id === form.categoriaProfissional)
+    form._hidden?.categoriasProfissionais?.find(
+      categoria => categoria.id === form.categoriaProfissional
+    ) || false
   ),
-  cidade: form._hidden.municipios.find(municipio => municipio.id === form.cidadeId)?.nome,
   termos: true
 });
 
-export const atualizarUsuario = async (dados) => {
-  const usuario = tratarDadosUsuario(dados);
+
+const tratarDadosUsuario = (form, { somentePessoais, somenteProfissionais }) => {
+  if (somentePessoais) {
+    return tratarDadosPessoais(form);
+  }
+  if (somenteProfissionais) {
+    return tratarDadosProfissionais(form);
+  }
+
+  return ({
+    ...tratarDadosPessoais(form),
+    ...tratarDadosProfissionais(form),
+    termos: true
+  });
+};
+
+export const atualizarUsuario = async (dados, { somentePessoais, somenteProfissionais }) => {
+  const usuario = tratarDadosUsuario(
+    dados,
+    { somentePessoais, somenteProfissionais }
+  );
+
   delete usuario._hidden;
+
   try {
     await atualizarUsuarioApi(usuario);
     return usuario;

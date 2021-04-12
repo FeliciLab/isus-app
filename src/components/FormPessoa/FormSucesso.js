@@ -5,18 +5,16 @@ import { CORES } from '../../constantes/estiloBase';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { armazenarEstadoLogado } from '../../services/autenticacao';
 
-const PreCadastroSucesso = ({ route }) => {
+const FormSucesso = ({ route }) => {
   const navigation = useNavigation();
   const { usuario } = route.params;
   const {
     alterarDadosUsuario,
-    alterarEstaLogado,
-    alterarPessoa,
+    alterarEstaLogado
   } = useContext(AutenticacaoContext);
 
   useEffect(() => {
     alterarDadosUsuario(usuario);
-    alterarPessoa(usuario);
     alterarEstaLogado(true);
     armazenarEstadoLogado(true);
 
@@ -33,4 +31,4 @@ const PreCadastroSucesso = ({ route }) => {
   );
 };
 
-export default PreCadastroSucesso;
+export default FormSucesso;
