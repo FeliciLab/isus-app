@@ -19,7 +19,7 @@ import {
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { analyticsData } from '../../utils/analytics';
-import { normalizeEspacoTextoAnalytics } from '../../utils/mascaras';
+import { analitycsCategoria, analitycsUnidadeServico } from '../../utils/funcoesAnalytics';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -32,16 +32,9 @@ export default function FormularioSenha({ navigation }) {
   } = useContext(FormContext);
 
   const valores = getValues();
-  const categoriaProfissional = JSON.parse(valores.categoriaProfissional).nome;
-  const us = JSON.parse(valores.unidadeServico);
-
-  const unidadeServico = (vetor) => {
-    let result = '';
-    vetor.forEach((i) => {
-      result = result.concat(' ').concat(i.id);
-    });
-    return result;
-  };
+  const { categoriaProfissional } = valores;
+  const uniServ = JSON.parse(valores.unidadeServico);
+  const now = Date.now();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -199,16 +192,8 @@ export default function FormularioSenha({ navigation }) {
               'Click',
               'Perfil'
             );
-            analyticsData(
-              'categoria_'.concat(normalizeEspacoTextoAnalytics(categoriaProfissional)),
-              'Cadastro',
-              'Perfil'
-            );
-            analyticsData(
-              'setores'.concat(normalizeEspacoTextoAnalytics(unidadeServico(us))),
-              'Cadastro',
-              'Perfil'
-            );
+            analitycsCategoria(categoriaProfissional, now);
+            analitycsUnidadeServico(uniServ, now);
           } catch (err) {
             console.log(err);
             alterarCarregando(false);

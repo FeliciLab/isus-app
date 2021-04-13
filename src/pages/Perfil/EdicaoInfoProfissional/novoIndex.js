@@ -21,8 +21,7 @@ import {
   SafeArea, Scroll, ConteudoFormulario, TituloPrincipal, Acordeon, Destaque,
   Titulo, BotaoSalvar
 } from './styles';
-// import { analyticsData } from '../../../utils/analytics';
-// import { normalizeEspacoTextoAnalytics } from '../../../utils/mascaras';
+import { analitycsCategoria, analitycsUnidadeServico } from '../../../utils/funcoesAnalytics';
 
 function EdicaoInfoProfissional({ route }) {
   const {
@@ -39,10 +38,8 @@ function EdicaoInfoProfissional({ route }) {
   const [unidadesServico, alterarUnidadesServico] = useState({});
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
-  // const [categoriaAnalitycs, setCategoriaAnalitycs] = useState('');
-  const [servicosAnalitycs, setServicosAnalitycs] = useState('');
+  const [categoriaAnalitycs, setCategoriaAnalitycs] = useState('');
   const navigation = useNavigation();
-  // const catProfAnalitycs = normalizeEspacoTextoAnalytics(JSON.parse(categoriaAnalitycs).nome);
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -54,6 +51,7 @@ function EdicaoInfoProfissional({ route }) {
   };
 
   const EstaEditavel = route.params.modo === 'edicao';
+  const now = Date.now();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -267,15 +265,17 @@ function EdicaoInfoProfissional({ route }) {
         categoria_profissional: categoriaProfissional,
         // eslint-disable-next-line object-shorthand
         especialidades: especialidades,
-        unidade_servico: unidadeServico
+        unidade_servico: unidadeServico,
       }
     );
+    const uniServ = JSON.parse(usuarioTratado.unidadeServico);
     try {
-      console.log('perfil atualizado', usuarioTratado);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
       navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você atualizou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
+      analitycsCategoria(categoriaAnalitycs, now);
+      analitycsUnidadeServico(uniServ, now);
     } catch (err) {
       console.log(err);
       mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
@@ -316,7 +316,7 @@ function EdicaoInfoProfissional({ route }) {
               aoMudarValor={(categoria) => {
                 registrarCategoriaProfissional(categoria);
                 verificarCategoriaEspecialidades();
-                // setCategoriaAnalitycs(categoria);
+                setCategoriaAnalitycs(categoria);
               }}
             />
           </ConteudoFormulario>
@@ -352,7 +352,6 @@ function EdicaoInfoProfissional({ route }) {
                     label={servico.nome}
                     onPress={() => {
                       mudarValor(servico);
-                      setServicosAnalitycs(servico);
                     }
                     }
                   />
@@ -371,20 +370,6 @@ function EdicaoInfoProfissional({ route }) {
           mode="contained"
         >
           Salvar
-        </BotaoSalvar>
-        <BotaoSalvar
-          labelStyle={{ color: '#fff' }}
-          onPress={() => {
-            /* analyticsData(
-              'categ_'.concat(catProfAnalitycs),
-              'Atualização Cadastro',
-              'Perfil'
-            ); */
-            console.log(servicosAnalitycs);
-          }}
-          mode="contained"
-        >
-          Teste
         </BotaoSalvar>
       </Scroll>
     </SafeArea>
