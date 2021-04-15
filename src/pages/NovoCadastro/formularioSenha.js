@@ -19,7 +19,7 @@ import {
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { analyticsData } from '../../utils/analytics';
-import { analitycsCategoria, analitycsUnidadeServico } from '../../utils/funcoesAnalytics';
+import { analyticsCategoria, analyticsUnidadeServico } from '../../utils/funcoesAnalytics';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -192,8 +192,8 @@ export default function FormularioSenha({ navigation }) {
               'Click',
               'Perfil'
             );
-            analitycsCategoria(categoriaProfissional, now);
-            analitycsUnidadeServico(uniServ, now);
+            analyticsCategoria(categoriaProfissional, now, 'Cadastro');
+            analyticsUnidadeServico(uniServ, now, 'Cadastro');
           } catch (err) {
             console.log(err);
             alterarCarregando(false);

@@ -21,7 +21,7 @@ import {
   SafeArea, Scroll, ConteudoFormulario, TituloPrincipal, Acordeon, Destaque,
   Titulo, BotaoSalvar
 } from './styles';
-import { analitycsCategoria, analitycsUnidadeServico } from '../../../utils/funcoesAnalytics';
+import { analyticsCategoria, analyticsUnidadeServico } from '../../../utils/funcoesAnalytics';
 
 function EdicaoInfoProfissional({ route }) {
   const {
@@ -270,12 +270,13 @@ function EdicaoInfoProfissional({ route }) {
     );
     const uniServ = JSON.parse(usuarioTratado.unidadeServico);
     try {
+      console.log('cate ana teste', categoriaAnalitycs);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
       navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você atualizou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
-      analitycsCategoria(categoriaAnalitycs, now);
-      analitycsUnidadeServico(uniServ, now);
+      analyticsCategoria(categoriaAnalitycs, now, 'Atualização Cadastro');
+      analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
     } catch (err) {
       console.log(err);
       mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
@@ -363,6 +364,7 @@ function EdicaoInfoProfissional({ route }) {
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
           labelStyle={{ color: '#fff' }}
+          testID="salvar-edicao-info-profissional"
           loading={carregando}
           onPress={() => {
             salvarInformaçõesProfissionais();
