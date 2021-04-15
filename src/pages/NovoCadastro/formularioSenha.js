@@ -31,6 +31,18 @@ export default function FormularioSenha({ navigation }) {
     register, setValue, trigger, errors, getValues
   } = useContext(FormContext);
 
+  const valores = getValues();
+  const categoriaProfissional = JSON.parse(valores.categoriaProfissional).nome;
+  const us = JSON.parse(valores.unidadeServico);
+
+  const unidadeServico = (vetor) => {
+    let result = '';
+    vetor.forEach((i) => {
+      result = result.concat(' ').concat(i.id);
+    });
+    return result;
+  };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
@@ -137,8 +149,6 @@ export default function FormularioSenha({ navigation }) {
     register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais });
   }, [register]);
 
-  const valores = getValues();
-  const categoriaProfissional = JSON.parse(valores.categoriaProfissional).nome;
 
   return (
     <Scroll>
@@ -189,16 +199,16 @@ export default function FormularioSenha({ navigation }) {
               'Click',
               'Perfil'
             );
-            /* analyticsData(
+            analyticsData(
               'categoria_'.concat(normalizeEspacoTextoAnalytics(categoriaProfissional)),
-              'Click',
-              'Cadastro'
-            ); */
-
-            console.log(normalizeEspacoTextoAnalytics(categoriaProfissional));
-            console.log('unidade servico puro - ', valores.unidadeServico);
-            // const val2 = JSON.parse(valores.unidadeServico);
-            // console.log('array0 nome unidade serviço - ', val2.nome);
+              'Cadastro',
+              'Perfil'
+            );
+            analyticsData(
+              'setores'.concat(normalizeEspacoTextoAnalytics(unidadeServico(us))),
+              'Cadastro',
+              'Perfil'
+            );
           } catch (err) {
             console.log(err);
             alterarCarregando(false);

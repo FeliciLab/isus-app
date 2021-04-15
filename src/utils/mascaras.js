@@ -38,6 +38,6 @@ export function adicionaMascaraAnalytics(slug) {
 }
 
 export function normalizeEspacoTextoAnalytics(slug) {
-  const a = slug?.normalize('NFKD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z\s])/g, '');
-  return a.replace(/\s/g, '_');
+  const a = slug?.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z\s])/g, '');
+  return a.replace(/\s/g, '_').toLowerCase();
 }
