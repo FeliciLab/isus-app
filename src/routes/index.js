@@ -14,7 +14,6 @@ import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
 import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
 import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal/index';
-import NovoEdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/novoIndex';
 import SemConexao from '../components/semConexao';
 import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
 import { FormProvider } from '../context/FormContext';
@@ -35,12 +34,13 @@ import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/Pr
 
 const RootStack = createStackNavigator();
 
+// TODO: Avaliar a remoção deste Feature Toggle
 function EdicaoProfissional(props) {
   return (
     <FormProvider>
       <Feature
         name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
-        activeComponent={() => <NovoEdicaoInfoProfissional {...props} />}
+        activeComponent={() => <EdicaoInfoProfissional {...props} />}
         inactiveComponent={() => <EdicaoInfoProfissional {...props} />}
       />
 

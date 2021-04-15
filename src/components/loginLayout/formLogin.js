@@ -48,7 +48,8 @@ const formLogin = ({ rotaAposLogin }) => {
   const {
     alterarDadosUsuario,
     alterarTokenUsuario,
-    alterarEstaLogado
+    alterarEstaLogado,
+    alterarPessoa
   } = useContext(AutenticacaoContext);
 
   useEffect(() => {
@@ -115,6 +116,7 @@ const formLogin = ({ rotaAposLogin }) => {
             try {
               const perfil = await perfilUsuario();
               alterarDadosUsuario(perfil.data);
+              alterarPessoa(perfil.data);
               alterarEstaLogado(true);
             } catch (err) {
               alterarEstaLogado(false);

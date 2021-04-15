@@ -4,6 +4,8 @@ import { List, Button } from 'react-native-paper';
 const SafeArea = styled.SafeAreaView`
     height: 100%;
     background-color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
 `;
 
 const Scroll = styled.ScrollView`

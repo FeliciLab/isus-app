@@ -13,7 +13,7 @@ export const FormProvider = ({ initValues, children }) => {
     getValues,
     control,
     unregister,
-    formState
+    formState,
   } = useForm({
     defaultValues: initValues || {},
     mode: 'onBlur',

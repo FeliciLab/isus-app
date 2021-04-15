@@ -31,7 +31,8 @@ export default function HomeScreen() {
     estaLogado,
     alterarDadosUsuario,
     alterarTokenUsuario,
-    alterarEstaLogado
+    alterarEstaLogado,
+    alterarPessoa
   } = useContext(AutenticacaoContext);
 
   async function redirectToWelcome() {
@@ -63,6 +64,7 @@ export default function HomeScreen() {
         try {
           const perfil = await perfilUsuario();
           alterarDadosUsuario(perfil.data);
+          alterarPessoa(perfil.data);
           alterarEstaLogado(true);
         } catch (err) {
           alterarEstaLogado(false);

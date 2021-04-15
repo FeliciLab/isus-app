@@ -24,6 +24,9 @@ export default function FormularioSenha({ navigation }) {
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
   const { alterarDadosUsuario, alterarEstaLogado } = useContext(AutenticacaoContext);
+  const {
+    register, setValue, trigger, errors, getValues
+  } = useContext(FormContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -47,10 +50,6 @@ export default function FormularioSenha({ navigation }) {
     alterarCadastroRealizado(true);
     setTimeout(() => alterarCadastroRealizado(false), 4000);
   };
-
-  const {
-    register, setValue, trigger, errors, getValues
-  } = useContext(FormContext);
 
   const theme = {
     ...DefaultTheme,
