@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import TelaDeSucesso from '../../components/TelaDeSucesso';
+import TelaDeSucesso from '../TelaDeSucesso';
 import { CORES } from '../../constantes/estiloBase';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { armazenarEstadoLogado } from '../../services/autenticacao';
