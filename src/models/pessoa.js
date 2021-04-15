@@ -14,9 +14,18 @@ const pessoaModelo = {
   unidadeServico: []
 };
 
-const cidadeMunicipioId = dados => dados?.cidadeId || dados?.municipio_id || dados?.municipio?.id;
+const cidadeMunicipioId = dados => dados?.cidadeId || dados?.municipio_id || dados?.municipio?.id || '';
 const cidadeNome = dados => dados?.cidade || dados?.municipio?.nome || '';
 const nomeCompletoName = dados => dados?.nomeCompleto || dados?.name || '';
+
+const infoPessoal = dados => ({
+  nomeCompleto: nomeCompletoName(dados),
+  email: dados?.email || '',
+  telefone: dados?.telefone || '',
+  cpf: dados?.cpf || '',
+  cidadeId: parseInt(cidadeMunicipioId(dados), 10),
+  cidade: cidadeNome(dados)
+});
 
 const mapDadosProfissionaisKeycloakToModel = (dados) => {
   const result = {
@@ -55,15 +64,6 @@ const mapDadosProfissionaisKeycloakToModel = (dados) => {
 
   return result;
 };
-
-const infoPessoal = dados => ({
-  nomeCompleto: nomeCompletoName(dados),
-  email: dados?.email || '',
-  telefone: dados?.telefone || '',
-  cpf: dados?.cpf || '',
-  cidadeId: parseInt(cidadeMunicipioId(dados), 10),
-  cidade: cidadeNome(dados)
-});
 
 const definirFormCategoriaProfissional = (dados, formProfissional) => {
   if (formProfissional && dados?.categoriaProfissional?.id) {

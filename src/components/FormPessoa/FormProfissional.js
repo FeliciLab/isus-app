@@ -22,13 +22,13 @@ const FormProfissional = ({
 }) => {
   const [carregando, definirCarregando] = useState(false);
   const [infoProfissional, definirInfoProfissional] = useState({});
-  const { control } = useContext(FormContext);
+  const { control, setValue } = useContext(FormContext);
   const { pessoa } = useContext(AutenticacaoContext);
 
   useEffect(() => {
-    definirInfoProfissional({
-      ...PessoaModel.mapInfoProfissional(pessoa, true)
-    });
+    const infoProf = { ...PessoaModel.mapInfoProfissional(pessoa, true) };
+    definirInfoProfissional({ ...infoProf });
+    setValue('_hidden.categoriaProfissional', infoProf.categoriaProfissional);
   }, []);
 
   return (

@@ -34,11 +34,12 @@ const tratarDadosProfissionais = form => ({
 });
 
 
-const tratarDadosUsuario = (form, { somentePessoais, somenteProfissionais }) => {
-  if (somentePessoais) {
+const tratarDadosUsuario = (form, options) => {
+  if (options?.somentePessoais) {
     return tratarDadosPessoais(form);
   }
-  if (somenteProfissionais) {
+
+  if (options?.somenteProfissionais) {
     return tratarDadosProfissionais(form);
   }
 
@@ -49,12 +50,12 @@ const tratarDadosUsuario = (form, { somentePessoais, somenteProfissionais }) => 
   });
 };
 
-export const atualizarUsuario = async (dados, { somentePessoais, somenteProfissionais }) => {
+export const atualizarUsuario = async (dados, options) => {
   const usuario = {
     ...dados,
     ...tratarDadosUsuario(
       dados,
-      { somentePessoais, somenteProfissionais }
+      options
     )
   };
 

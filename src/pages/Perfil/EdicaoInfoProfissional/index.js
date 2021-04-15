@@ -6,7 +6,7 @@ import FormContext from '../../../context/FormContext';
 import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import {
-  SafeArea, Scroll, ConteudoFormulario, TituloPrincipal
+  SafeArea, ConteudoFormulario, TituloPrincipal
 } from './styles';
 import FormProfissional from '../../../components/FormPessoa/FormProfissional';
 import { cabecalhoVoltar } from '../../../components/layoutEffect/cabecalhoLayout';
@@ -45,45 +45,42 @@ function EdicaoInfoProfissional() {
         backgroundColor="#ffffff"
         barStyle="dark-content"
       />
-      <Scroll>
-        <ConteudoFormulario>
-          <TituloPrincipal>
-            Vamos agora adicionar suas informações profissionais,
-            para isso, selecione as opções abaixo:ssssssssssS
-          </TituloPrincipal>
-        </ConteudoFormulario>
-        <FormProfissional
-          labelButton="Salvar"
-          actionPress={handleSubmit(async () => {
-            try {
-              const result = await atualizarUsuario(
+      <ConteudoFormulario>
+        <TituloPrincipal>
+          Vamos agora adicionar suas informações profissionais,
+          para isso, selecione as opções abaixo:
+        </TituloPrincipal>
+      </ConteudoFormulario>
+      <FormProfissional
+        labelButton="Salvar"
+        actionPress={handleSubmit(async () => {
+          try {
+            const result = await atualizarUsuario(
+              {
+                ...pessoa,
+                ...getValues()
+              },
+              { somenteProfissionais: true }
+            );
+            if (result) {
+              navigation.navigate('TelaDeSucesso',
                 {
-                  ...pessoa,
-                  ...getValues()
-                },
-                { somentePessoais: true }
-              );
-              if (result) {
-                navigation.navigate('TelaDeSucesso',
-                  {
-                    textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
-                    telaDeRedirecionamento: ROTAS.PERFIL,
-                    telaDeBackground: CORES.VERDE
-                  });
-              }
-            } catch (e) {
-              console.log(e);
-              mostrarAlerta(CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
+                  textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+                  telaDeRedirecionamento: ROTAS.PERFIL,
+                  telaDeBackground: CORES.VERDE
+                });
             }
-          })}
-        />
+          } catch (e) {
+            console.log(e);
+            mostrarAlerta(CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
+          }
+        })}
+      />
 
-        <Alerta
-          visivel={exibicaoDoAlerta}
-          textoDoAlerta={mensagemDoAlerta}
-        />
-
-      </Scroll>
+      <Alerta
+        visivel={exibicaoDoAlerta}
+        textoDoAlerta={mensagemDoAlerta}
+      />
     </SafeArea>
   );
 }
