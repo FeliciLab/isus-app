@@ -3,7 +3,7 @@ import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
 import { pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import FormContext from '../../context/FormContext';
 
-const InputEspecialidades = ({ categoria }) => {
+const InputEspecialidades = ({ categoria, defaultValue }) => {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
   const { setValue, register } = useContext(FormContext);
@@ -27,7 +27,7 @@ const InputEspecialidades = ({ categoria }) => {
       return;
     }
 
-    handleEffect().then(() => setShow(true)).finally(() => console.log(data));
+    handleEffect().then(() => setShow(true));
   }, [categoria]);
 
   return (
@@ -38,6 +38,7 @@ const InputEspecialidades = ({ categoria }) => {
           label="Qual é a sua especialidade?"
           data={data}
           rules={{}}
+          defaultValue={defaultValue}
         />
       )
       }

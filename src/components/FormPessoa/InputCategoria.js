@@ -3,7 +3,7 @@ import FormSelect from '../FormLayoutContexts/FormSelect';
 import { pegarListaDeCategoriasProfissionais } from '../../apis/apiKeycloak';
 import FormContext from '../../context/FormContext';
 
-const InputCategoria = () => {
+const InputCategoria = ({ defaultValue }) => {
   const [data, setData] = useState([]);
   const { setValue, register } = useContext(FormContext);
 
@@ -14,9 +14,11 @@ const InputCategoria = () => {
         register('_hidden.categoriasProfissionais');
         setValue('_hidden.categoriasProfissionais', result);
       });
+
+    setValue('categoriaProfissional', defaultValue || '');
   };
 
-  useEffect(handleEffect, []);
+  useEffect(handleEffect, [defaultValue]);
 
   return (
     <>

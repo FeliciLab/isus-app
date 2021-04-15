@@ -14,12 +14,12 @@ import ROTAS from '../../../constantes/rotas';
 import { CORES } from '../../../constantes/estiloBase';
 import { cabecalhoVoltarRota } from '../../../components/layoutEffect/cabecalhoLayout';
 import { atualizarUsuario } from '../../../services/usuarioService';
+import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
 
 function EdicaoInfoPessoal() {
-  const {
-    getValues,
-    handleSubmit
-  } = useContext(FormContext);
+  const { handleSubmit, getValues } = useContext(FormContext);
+
+  const { pessoa } = useContext(AutenticacaoContext);
 
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
@@ -28,7 +28,7 @@ function EdicaoInfoPessoal() {
   useLayoutEffect(() => {
     cabecalhoVoltarRota({
       navegador: navigation,
-      titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.CABEÇALHO,
+      titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.CABECALHO,
       cor: 'brancoPreto',
       rota: ROTAS.PERFIL
     });
@@ -56,7 +56,13 @@ function EdicaoInfoPessoal() {
         <FormInfoPessoal
           actionPress={handleSubmit(async () => {
             try {
-              const result = await atualizarUsuario(getValues(), { somentePessoais: true });
+              const result = await atualizarUsuario(
+                {
+                  ...pessoa,
+                  ...getValues()
+                },
+                { somentePessoais: true }
+              );
               if (result) {
                 navigation.navigate('TelaDeSucesso',
                   {

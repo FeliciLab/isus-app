@@ -17,7 +17,7 @@ import {
 import FormContext from '../../context/FormContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { formularioPessoal } from '../../constantes/erroFormMsg';
-import { infoPessoal } from '../../models/pessoa';
+import PessoaModel from '../../models/pessoa';
 
 export default function FormInfoPessoal({
   actionPress,
@@ -43,7 +43,7 @@ export default function FormInfoPessoal({
 
     definirCpfAntigo(pessoa?.cpf);
 
-    setValues({ ...infoPessoal(pessoa) });
+    setValues(PessoaModel.criar(pessoa));
 
     trigger([
       'nomeCompleto',
@@ -52,7 +52,7 @@ export default function FormInfoPessoal({
       'cpf',
       'cidadeId'
     ]);
-  }, []);
+  }, [pessoa]);
 
   const hasErrors = errors.nome
     || errors.email

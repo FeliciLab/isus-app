@@ -1,41 +1,43 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
   ContainerBody,
   ContainerForm,
   RowButton,
-  RowInput,
-  Title
+  RowInput
 } from './styles';
 import { BotaoLaranja } from '../Botoes/BotoesCirculares';
 import InputCategoria from './InputCategoria';
 import InputEspecialidades from './InputEspecialidades';
 import InputSetores from './InputSetores';
 import FormContext from '../../context/FormContext';
+import PessoaModel from '../../models/pessoa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import { infoProfissional } from '../../models/pessoa';
 
 const FormProfissional = ({
   actionPress,
   labelButton,
   hiddenActionButton
 }) => {
-  const { control, setValues } = useContext(FormContext);
-  const { dadosUsuario } = useContext(AutenticacaoContext);
+  const [carregando, definirCarregando] = useState(false);
+  const [infoProfissional, definirInfoProfissional] = useState({});
+  const { control } = useContext(FormContext);
+  const { pessoa } = useContext(AutenticacaoContext);
 
   useEffect(() => {
-    setValues({ ...infoProfissional(dadosUsuario) });
-  }, [dadosUsuario]);
+    definirInfoProfissional({
+      ...PessoaModel.mapInfoProfissional(pessoa, true)
+    });
+  }, []);
 
   return (
     <>
       <ContainerBody>
         <ScrollView>
           <ContainerForm>
-            <Title>Cadastro Profissional</Title>
             <RowInput>
-              <InputCategoria />
+              <InputCategoria defaultValue={infoProfissional.categoriaProfissional} />
             </RowInput>
             <RowInput>
               <Controller
@@ -44,19 +46,35 @@ const FormProfissional = ({
                 defaultValue=""
                 render={({ value }) => (
                   <>
-                    <InputEspecialidades categoria={value} />
+                    <InputEspecialidades
+                      categoria={value}
+                      defaultValue={infoProfissional.especialidades}
+                    />
                   </>
                 )}
               />
             </RowInput>
             <RowInput>
-              <InputSetores />
+              <InputSetores
+                defaultValue={infoProfissional.unidadeServico}
+              />
             </RowInput>
           </ContainerForm>
         </ScrollView>
         <RowButton>
           {!hiddenActionButton && (
-            <BotaoLaranja onPress={actionPress}>
+            <BotaoLaranja
+              loading={carregando}
+              disabled={carregando}
+              onPress={async () => {
+                definirCarregando(true);
+                try {
+                  await actionPress();
+                } finally {
+                  definirCarregando(false);
+                }
+              }}
+            >
               {labelButton || 'Continuar'}
             </BotaoLaranja>
           )}

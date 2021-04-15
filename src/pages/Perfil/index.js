@@ -31,7 +31,8 @@ export default function PerfilScreen() {
     alterarDadosUsuario,
     tokenUsuario,
     alterarTokenUsuario,
-    alterarEstaLogado
+    alterarEstaLogado,
+    alterarPessoa
   } = useContext(AutenticacaoContext);
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
@@ -63,6 +64,8 @@ export default function PerfilScreen() {
     } catch (err) {
       console.log('erro', err);
     }
+
+    await alterarPessoa({});
     await alterarEstaLogado(false);
     await excluirTokenDoUsuarioNoStorage();
     await armazenarEstadoLogado(false);

@@ -9,33 +9,27 @@ const tratarDadosPessoais = form => ({
 });
 
 const tratarDadosProfissionais = form => ({
-  especialidades: JSON.stringify(
-    Object.keys(form?.especialidades || {})
-      .filter(key => form.especialidades[key])
-      .map((especialidade) => {
-        const id = form._hidden.especialidades.find(item => item.nome === especialidade)?.id;
-        return {
-          id,
-          nome: especialidade
-        };
-      })
-  ),
-  unidadeServico: JSON.stringify(
-    Object.keys(form?.unidadeServico || {})
-      .filter(key => form.unidadeServico[key])
-      .map((unidade) => {
-        const id = form._hidden.unidadesDeServicos.find(item => item.nome === unidade)?.id;
-        return {
-          id,
-          nome: unidade
-        };
-      })
-  ),
-  categoriaProfissional: JSON.stringify(
-    form._hidden?.categoriasProfissionais?.find(
-      categoria => categoria.id === form.categoriaProfissional
-    ) || false
-  ),
+  especialidades: Object.keys(form?.especialidades || {})
+    .filter(key => form.especialidades[key])
+    .map((especialidade) => {
+      const id = form._hidden.especialidades.find(item => item.nome === especialidade)?.id;
+      return {
+        id,
+        nome: especialidade
+      };
+    }),
+  unidadeServico: Object.keys(form?.unidadeServico || {})
+    .filter(key => form.unidadeServico[key])
+    .map((unidade) => {
+      const id = form._hidden.unidadesDeServicos.find(item => item.nome === unidade)?.id;
+      return {
+        id,
+        nome: unidade
+      };
+    }),
+  categoriaProfissional: form._hidden?.categoriasProfissionais?.find(
+    categoria => categoria.id === form.categoriaProfissional
+  ) || false,
   termos: true
 });
 
@@ -56,13 +50,15 @@ const tratarDadosUsuario = (form, { somentePessoais, somenteProfissionais }) => 
 };
 
 export const atualizarUsuario = async (dados, { somentePessoais, somenteProfissionais }) => {
-  const usuario = tratarDadosUsuario(
-    dados,
-    { somentePessoais, somenteProfissionais }
-  );
+  const usuario = {
+    ...dados,
+    ...tratarDadosUsuario(
+      dados,
+      { somentePessoais, somenteProfissionais }
+    )
+  };
 
   delete usuario._hidden;
-
   try {
     await atualizarUsuarioApi(usuario);
     return usuario;

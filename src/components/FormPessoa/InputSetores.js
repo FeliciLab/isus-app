@@ -3,14 +3,17 @@ import { pegarListaDeServicos } from '../../apis/apiKeycloak';
 import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
 import FormContext from '../../context/FormContext';
 
-const InputSetores = () => {
+const InputSetores = ({ defaultValue }) => {
   const [data, setData] = useState([]);
   const { setValue, register } = useContext(FormContext);
 
   const handleEffect = () => {
     pegarListaDeServicos()
       .then((result) => {
-        setData(result.map(item => ({ label: item.nome, value: item.nome })));
+        setData(result.map(item => ({
+          label: item.nome,
+          value: item.nome
+        })));
         register('_hidden.unidadesDeServicos');
         setValue('_hidden.unidadesDeServicos', result);
       });
@@ -26,8 +29,8 @@ const InputSetores = () => {
       label="Em que setor você está atuando?"
       data={data}
       rules={{}}
+      defaultValue={defaultValue}
     />
   );
 };
-
 export default InputSetores;

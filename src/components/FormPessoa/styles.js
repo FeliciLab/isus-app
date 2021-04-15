@@ -13,8 +13,6 @@ export const ContainerBody = styled.View`
   flex: 1;
   justify-content: space-between;
   background-color: ${CORES.BRANCO};
-  padding-left: 14px;
-  padding-right: 14px;
 `;
 
 export const ContainerForm = styled.View`
