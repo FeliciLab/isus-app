@@ -38,36 +38,32 @@ const mapDadosProfissionaisKeycloakToModel = (dados) => {
   };
 
   if (dados?.profissional?.especialidades) {
-    result.especialidades = dados?.profissional?.especialidades
-      .map(dadoEspecialidade => Object.keys(especialidade)
-        .reduce((acc, curr) => {
-          if (!acc?.curr) {
-            acc[curr] = dadoEspecialidade[curr];
-          }
-          return acc;
-        }, {})
-      );
+    result.especialidades = dados.profissional.especialidades
+      .map(dadoEspecialidade => ({
+        ...especialidade,
+        id: dadoEspecialidade.id || '',
+        nome: dadoEspecialidade.nome || ''
+      }));
   }
 
   if (dados?.profissional?.unidades_servicos) {
     result.unidadeServico = dados?.profissional?.unidades_servicos
-      .map(item => Object.keys(unidadeServico)
-        .reduce((acc, curr) => {
-          if (!acc?.curr) {
-            acc[curr] = item[curr];
-          }
-
-          return acc;
-        }, {})
-      );
+      .map(item => ({
+        ...unidadeServico,
+        id: item.id || '',
+        nome: item.nome || ''
+      }));
   }
 
   return result;
 };
 
 const definirFormCategoriaProfissional = (dados, formProfissional) => {
-  if (formProfissional && dados?.categoriaProfissional?.id) {
-    return dados?.categoriaProfissional?.id || '';
+  if (formProfissional) {
+    return JSON.stringify({
+      id: dados?.categoriaProfissional?.id || '',
+      nome: dados?.categoriaProfissional?.nome || ''
+    });
   }
 
   return dados?.categoriaProfissional || '';
@@ -79,8 +75,9 @@ const definirFormEspecialidades = (dados, formProfissional) => {
   }
 
   return dados?.especialidades?.reduce((acc, curr) => {
-    if (!acc[curr.nome]) {
-      acc[curr.nome] = true;
+    const chave = JSON.stringify({ id: curr.id, nome: curr.nome });
+    if (!acc[chave]) {
+      acc[chave] = true;
     }
 
     return acc;
@@ -93,8 +90,9 @@ const definirFormUnidadesServicos = (dados, formProfissional) => {
   }
 
   return dados?.unidadeServico?.reduce((acc, curr) => {
-    if (!acc[curr.nome]) {
-      acc[curr.nome] = true;
+    const chave = JSON.stringify({ id: curr?.id || '', nome: curr?.nome || '' });
+    if (!acc[chave]) {
+      acc[chave] = true;
     }
 
     return acc;

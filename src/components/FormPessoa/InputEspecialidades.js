@@ -1,33 +1,32 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
 import { pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
-import FormContext from '../../context/FormContext';
 
 const InputEspecialidades = ({ categoria, defaultValue }) => {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
-  const { setValue, register } = useContext(FormContext);
 
-  const handleEffect = () => pegarListaDeEspecialidades(categoria)
+  const handleEffect = idCategoria => pegarListaDeEspecialidades(idCategoria)
     .then((result) => {
       setData(
-        result.map(item => ({ label: item.nome, value: item.nome }))
+        result.map(item => ({
+          label: item.nome,
+          value: JSON.stringify({ id: item.id, nome: item.nome })
+        }))
       );
-
-      setValue('_hidden.especialidades', result);
     });
 
   useEffect(() => {
-    register('_hidden.especialidades');
-    setValue('_hidden.especialidades', []);
+    const categoriaParse = JSON.parse(categoria || '{}');
+    const idCategoria = categoriaParse?.id || 0;
 
-    if (!categoria || (categoria !== 1 && categoria !== 3)) {
+    if (!idCategoria || (idCategoria !== 1 && idCategoria !== 3)) {
       setData([]);
       setShow(false);
       return;
     }
 
-    handleEffect().then(() => setShow(true));
+    handleEffect(idCategoria).then(() => setShow(true));
   }, [categoria]);
 
   return (

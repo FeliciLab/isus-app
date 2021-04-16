@@ -5,14 +5,20 @@ import FormContext from '../../context/FormContext';
 
 const InputCategoria = ({ defaultValue }) => {
   const [data, setData] = useState([]);
-  const { setValue, register } = useContext(FormContext);
+  const { setValue } = useContext(FormContext);
 
   const handleEffect = () => {
     pegarListaDeCategoriasProfissionais()
       .then((result) => {
-        setData(result);
-        register('_hidden.categoriasProfissionais');
-        setValue('_hidden.categoriasProfissionais', result);
+        setData(
+          result.map(m => ({
+            label: m.nome,
+            value: JSON.stringify({
+              id: m.id,
+              nome: m.nome
+            })
+          }))
+        );
       });
 
     setValue('categoriaProfissional', defaultValue || '');
@@ -23,7 +29,7 @@ const InputCategoria = ({ defaultValue }) => {
   return (
     <>
       <FormSelect
-        data={data.map(m => ({ label: m.nome, value: m.id }))}
+        data={data}
         name="categoriaProfissional"
         rules={{ required: true }}
         label="Categoria profissional"

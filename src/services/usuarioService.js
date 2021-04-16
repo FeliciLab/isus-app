@@ -11,25 +11,11 @@ const tratarDadosPessoais = form => ({
 const tratarDadosProfissionais = form => ({
   especialidades: Object.keys(form?.especialidades || {})
     .filter(key => form.especialidades[key])
-    .map((especialidade) => {
-      const id = form._hidden.especialidades.find(item => item.nome === especialidade)?.id;
-      return {
-        id,
-        nome: especialidade
-      };
-    }),
+    .map(item => JSON.parse(item)) || [],
   unidadeServico: Object.keys(form?.unidadeServico || {})
     .filter(key => form.unidadeServico[key])
-    .map((unidade) => {
-      const id = form._hidden.unidadesDeServicos.find(item => item.nome === unidade)?.id;
-      return {
-        id,
-        nome: unidade
-      };
-    }),
-  categoriaProfissional: form._hidden?.categoriasProfissionais?.find(
-    categoria => categoria.id === form.categoriaProfissional
-  ) || false,
+    .map(item => JSON.parse(item)) || [],
+  categoriaProfissional: JSON.parse(form.categoriaProfissional) || {},
   termos: true
 });
 

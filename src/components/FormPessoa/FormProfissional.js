@@ -10,7 +10,7 @@ import {
 import { BotaoLaranja } from '../Botoes/BotoesCirculares';
 import InputCategoria from './InputCategoria';
 import InputEspecialidades from './InputEspecialidades';
-import InputSetores from './InputSetores';
+import InputUnidadeServico from './InputUnidadeServico';
 import FormContext from '../../context/FormContext';
 import PessoaModel from '../../models/pessoa';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
@@ -21,7 +21,7 @@ const FormProfissional = ({
   hiddenActionButton
 }) => {
   const [carregando, definirCarregando] = useState(false);
-  const [infoProfissional, definirInfoProfissional] = useState({});
+  const [infoProfissional, definirInfoProfissional] = useState('{}');
   const { control, setValue } = useContext(FormContext);
   const { pessoa } = useContext(AutenticacaoContext);
 
@@ -55,7 +55,7 @@ const FormProfissional = ({
               />
             </RowInput>
             <RowInput>
-              <InputSetores
+              <InputUnidadeServico
                 defaultValue={infoProfissional.unidadeServico}
               />
             </RowInput>

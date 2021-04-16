@@ -49,6 +49,7 @@ export default function PerfilScreen() {
         try {
           const perfil = await perfilUsuario();
           alterarDadosUsuario(perfil.data);
+          alterarPessoa(perfil.data);
           salvarDados('perfil', perfil.data);
         } catch (err) {
           console.log('ERRO', err);
