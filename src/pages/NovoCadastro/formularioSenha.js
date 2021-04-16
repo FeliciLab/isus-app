@@ -78,7 +78,18 @@ export default function FormularioSenha({ navigation }) {
 
   const realizarCadastroDoUsuario = async () => {
     const dados = tratarDadosCadastro(getValues());
-    const resposta = await cadastrarUsuario(dados);
+    console.log({
+      ...dados,
+      unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
+      especialidades: JSON.parse(dados?.especialidades || '[]'),
+      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}')
+    });
+    const resposta = await cadastrarUsuario({
+      ...dados,
+      unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
+      especialidades: JSON.parse(dados?.especialidades || '[]'),
+      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}')
+    });
     return resposta.data;
   };
 
