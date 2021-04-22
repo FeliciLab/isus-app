@@ -1,26 +1,19 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { CORES } from '../../constantes/estiloBase';
 
 const useCaixaDialogo = () => {
+  const netInfo = useNetInfo();
+
   const {
     mostrarCaixaDialogo,
     fecharCaixaDialogo,
   } = useContext(CaixaDialogoContext);
 
-  const netInfo = useNetInfo();
-  let estaConectado = true;
-
-  useEffect(() => {
-    estaConectado = netInfo.isConnected;
-  }, [estaConectado]);
-
-  const SemConexao = ({ acaoConcluir }, indice) => {
-    console.log('entrou em caixaDialogoSemConexao');
-    if (!estaConectado) {
-      console.log('estaConectado:', estaConectado);
+  const SemConexao = ({ acaoConcluir }, tentativa) => {
+    if (!netInfo.isConnected) {
       mostrarCaixaDialogo({
         titulo: 'Sem conexão com a internet',
         texto: 'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
@@ -28,17 +21,13 @@ const useCaixaDialogo = () => {
         textoConclusao: 'TENTAR NOVAMENTE',
         textoCancelamento: 'VOLTAR',
         aoConcluir: () => {
-          console.log(indice);
-          if (indice <= 3) acaoConcluir(indice);
+          if (tentativa <= 3) { acaoConcluir(tentativa); }
           fecharCaixaDialogo();
         },
-        aoCancelar: () => {
-          console.log('passou aqui');
-          fecharCaixaDialogo();
-        }
+        aoCancelar: () => { fecharCaixaDialogo(); }
       });
     }
-    return indice;
+    return tentativa;
   };
   return { SemConexao };
 };

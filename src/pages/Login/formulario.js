@@ -79,11 +79,13 @@ const FormularioLogin = ({ route }) => {
       return;
     }
     try {
-      const result = await fazerLogin(data);
-      console.log('Result:', result);
-    } catch (err) {
-      mostrarAlerta(err?.message);
-      // mostrarAlerta(err.response.data.erros);
+      await fazerLogin(data);
+    } catch (erro) {
+      const err = JSON.parse(erro.message);
+      if (!err.semConexao) {
+        mostrarAlerta(err.mensagem);
+        return;
+      }
       if (tentativa <= 3) {
         caixaDialogo.SemConexao(
           {
@@ -91,24 +93,18 @@ const FormularioLogin = ({ route }) => {
           }, tentativa
         );
       }
-    } finally {
-      console.log('finally');
     }
   };
 
   const tentarLoginNovamente = (tentativa) => {
-    console.log('tentativa:', tentativa);
     if (tentativa >= 3) {
       navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
     }
-    console.log('email:', getValues('email'));
-    console.log('senha:', getValues('senha'));
     return submitForm(getValues(), { tentativa: tentativa + 1 });
   };
 
   const fazerLogin = async ({ email, senha }) => autenticarComIdSaude(email, senha)
     .then(async (response) => {
-      console.log('response', response);
       try {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
       } catch (e) {
@@ -141,19 +137,24 @@ const FormularioLogin = ({ route }) => {
         await armazenarEstadoLogado(false);
         alterarEstaLogado(false);
       }
-
-      // mostrarAlerta(err.response.data.erros);
     })
     .catch((err) => {
-      // TODO: Diferenciar a exceção de email ou senha inválido da exceção de
-      //      sem conexão. Ambos os casos estão caindo aqui!
-      throw new Error(err);
-      // mostrarAlerta(err.response.data.erros);
+      if (err.response?.status === 401) {
+        throw new Error(JSON.stringify({
+          semConexao: false,
+          mensagem: err.response?.data?.erros
+        }));
+      }
+      if (err.message === 'Network Error') {
+        throw new Error(JSON.stringify({
+          semConexao: true,
+          mensagem: 'Falha na conexão'
+        }));
+      }
     })
     .finally(() => {
       alterarCarregando(false);
     });
-
 
   const abrirWebViewEsqueciMinhaSenha = () => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
