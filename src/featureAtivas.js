@@ -12,5 +12,6 @@ export default [
   feature.EDICAO_INFO_PESSOAIS,
   feature.ELMO,
   feature.VACINACOVID19,
-  feature.PLANO_CONTIGENCIA
+  feature.PLANO_CONTIGENCIA,
+  feature.TELA_SEM_CONEXAO
 ];

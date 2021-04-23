@@ -55,9 +55,9 @@ function SemConexao(props) {
 
       if (params?.componente === 'ELMO' || params?.componente === 'QUALIQUIZ') {
         navigation.navigate(params?.componente);
+        return;
       }
-      console.log('going back');
-      navigation.goBack(-2);
+      navigation.goBack();
     }
   };
 
