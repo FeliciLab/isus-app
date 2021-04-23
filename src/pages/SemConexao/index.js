@@ -57,8 +57,7 @@ function SemConexao(props) {
         navigation.navigate(params?.componente);
         return;
       }
-      console.log('going back');
-      navigation.goBack(-2);
+      navigation.goBack();
     }
   };
 
