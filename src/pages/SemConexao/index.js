@@ -56,11 +56,12 @@ function SemConexao(props) {
       if (params?.componente === 'ELMO' || params?.componente === 'QUALIQUIZ') {
         navigation.navigate(params?.componente);
       }
-      navigation.goBack();
+      console.log('going back');
+      navigation.goBack(-2);
     }
   };
 
-  const onPressVoltar = () => navigation.navigate(rotas.HOME);
+  const onPressVoltar = () => navigation.navigate(rotas.HOME, { screen: 'Home' });
 
   useLayoutEffect(() => {
     if (!params?.goHome) {
