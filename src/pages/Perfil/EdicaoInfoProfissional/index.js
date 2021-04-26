@@ -15,6 +15,7 @@ import ROTAS from '../../../constantes/rotas';
 import { atualizarUsuario } from '../../../services/usuarioService';
 import { CORES } from '../../../constantes/estiloBase';
 import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
+import { analyticsCategoria, analyticsUnidadeServico } from '../../../utils/funcoesAnalytics';
 
 function EdicaoInfoProfissional() {
   const navigation = useNavigation();
@@ -24,7 +25,7 @@ function EdicaoInfoProfissional() {
 
   const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
-
+  const now = Date.now();
   useLayoutEffect(() => {
     cabecalhoVoltar({
       navegador: navigation,
@@ -69,6 +70,10 @@ function EdicaoInfoProfissional() {
                   telaDeRedirecionamento: ROTAS.PERFIL,
                   telaDeBackground: CORES.VERDE
                 });
+              const categoriaProfissional = JSON.stringify(result.categoriaProfissional);
+              const uniServ = result.unidadeServico;
+              analyticsCategoria(categoriaProfissional, now, 'Atualização Cadastro');
+              analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
             }
           } catch (e) {
             console.log(e);

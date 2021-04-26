@@ -17,6 +17,9 @@ import {
   armazenarEstadoLogado
 } from '../../services/autenticacao';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { analyticsData } from '../../utils/analytics';
+import { analyticsCategoria, analyticsUnidadeServico } from '../../utils/funcoesAnalytics';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
@@ -27,6 +30,11 @@ export default function FormularioSenha({ navigation }) {
   const {
     register, setValue, trigger, errors, getValues
   } = useContext(FormContext);
+
+  const valores = getValues();
+  const { categoriaProfissional } = valores;
+  const uniServ = JSON.parse(valores.unidadeServico);
+  const now = Date.now();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -134,6 +142,7 @@ export default function FormularioSenha({ navigation }) {
     register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais });
   }, [register]);
 
+
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
@@ -178,6 +187,13 @@ export default function FormularioSenha({ navigation }) {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
             alterarCarregando(false);
+            analyticsData(
+              labelsAnalytics.FINALIZAR_MEU_CADASTRO,
+              'Click',
+              'Perfil'
+            );
+            analyticsCategoria(categoriaProfissional, now, 'Cadastro');
+            analyticsUnidadeServico(uniServ, now, 'Cadastro');
           } catch (err) {
             console.log(err);
             alterarCarregando(false);

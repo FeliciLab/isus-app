@@ -28,7 +28,7 @@ const ConteudoInicial = () => {
           mode="contained"
           onPress={() => {
             analyticsData(
-              labelsAnalytics.BUTTON_REALIZAR_CADASTRO,
+              labelsAnalytics.INICIAR_MEU_CADASTRO,
               'Click',
               'Perfil'
             );
