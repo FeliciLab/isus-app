@@ -57,6 +57,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
         setCarregando(false);
       } else {
         limparCampos();
+        limparCampoEmail();
         setCarregando(false);
         setSucessoAoEnviar(true);
       }
