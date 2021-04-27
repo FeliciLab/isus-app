@@ -86,6 +86,9 @@ const FormularioLogin = ({ route }) => {
         mostrarAlerta(err.mensagem);
         return;
       }
+      if (tentativa > 3) {
+        navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
+      }
       if (tentativa <= 3) {
         caixaDialogo.SemConexao(
           {
@@ -96,12 +99,7 @@ const FormularioLogin = ({ route }) => {
     }
   };
 
-  const tentarLoginNovamente = (tentativa) => {
-    if (tentativa >= 3) {
-      navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
-    }
-    return submitForm(getValues(), { tentativa: tentativa + 1 });
-  };
+  const tentarLoginNovamente = tentativa => submitForm(getValues(), { tentativa: tentativa + 1 });
 
   const fazerLogin = async ({ email, senha }) => autenticarComIdSaude(email, senha)
     .then(async (response) => {
