@@ -1,34 +1,20 @@
 import request from '../services/request';
 
-export function getMunicipiosCeara() {
-  return request.get('/estados/6/municipios');
-}
+export const getMunicipiosCeara = () => request.get('/estados/6/municipios');
 
-export function cadastrarUsuario(dadosUsuario) {
-  return request.post('/user', dadosUsuario);
-}
+export const cadastrarUsuario = dadosUsuario => request.post('/user', dadosUsuario);
 
-export async function perfilUsuario() {
-  const response = await request.get('/perfil');
-  return response.data;
-}
+export const perfilUsuario = async () => {
+  const result = await request.get('/perfil');
+  return result?.data;
+};
 
-export async function alteraDadosDoUsuario(dadosDoUsuario) {
-  const response = await request.put('/user', dadosDoUsuario);
-  return response;
-}
+// TODO: remover método abaixo
+export const alteraDadosDoUsuario = dadosDoUsuario => request.put('/user', dadosDoUsuario);
+export const atualizarUsuarioApi = dadosDoUsuario => request.put('/user', dadosDoUsuario);
 
-export async function verificarEmailCadastrado(email) {
-  const response = await request.get(`/user/email-cadastrado/${email}`);
-  return response;
-}
+export const verificarEmailCadastrado = email => request.get(`/user/email-cadastrado/${email}`);
 
-export async function verificarCPFCadastrado(cpf) {
-  const response = await request.get(`/user/cpf-cadastrado/${cpf}`);
-  return response;
-}
+export const verificarCPFCadastrado = cpf => request.get(`/user/cpf-cadastrado/${cpf}`);
 
-export async function deletarUsuario() {
-  const response = await request.delete('/user');
-  return response;
-}
+export const deletarUsuario = () => request.delete('/user');

@@ -1,5 +1,5 @@
 import React, {
-  useLayoutEffect, useCallback, useState, useContext
+  useLayoutEffect, useCallback, useContext
 } from 'react';
 import {
   View, TouchableOpacity, StyleSheet, ScrollView,
@@ -11,28 +11,45 @@ import CabecalhoPerfil from './cabecalhoPerfil';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
 import { logout } from '../../apis/apiKeycloak';
-import { pegarTokenDoUsuarioNoStorage, excluirTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  pegarTokenDoUsuarioNoStorage,
+  excluirTokenDoUsuarioNoStorage,
+  pegarEstadoLogadoArmazenado,
+  armazenarEstadoLogado
+} from '../../services/autenticacao';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import { salvarDados } from '../../services/armazenamento';
 import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 export default function PerfilScreen() {
-  const [dadosUsuario, alterarDadosUsuario] = useState({});
-  const [tokenUsuario, alterarTokenUsuario] = useState({});
+  const {
+    dadosUsuario,
+    alterarDadosUsuario,
+    tokenUsuario,
+    alterarTokenUsuario,
+    alterarEstaLogado,
+    alterarPessoa
+  } = useContext(AutenticacaoContext);
+
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
   const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => {
       async function pegarTokenUsuario() {
+        const logado = await pegarEstadoLogadoArmazenado();
+        if (!logado) return;
+
         const token = await pegarTokenDoUsuarioNoStorage();
         alterarTokenUsuario(token);
         try {
           const perfil = await perfilUsuario();
           alterarDadosUsuario(perfil.data);
+          alterarPessoa(perfil.data);
           salvarDados('perfil', perfil.data);
         } catch (err) {
           console.log('ERRO', err);
@@ -48,7 +65,11 @@ export default function PerfilScreen() {
     } catch (err) {
       console.log('erro', err);
     }
+
+    await alterarPessoa({});
+    await alterarEstaLogado(false);
     await excluirTokenDoUsuarioNoStorage();
+    await armazenarEstadoLogado(false);
     navigation.navigate('HOME');
   };
 

@@ -9,6 +9,9 @@ const SafeArea = styled.SafeAreaView`
 `;
 
 const Scroll = styled(ScrollView)`
+`;
+
+export const ChildrenView = styled.View`
   flex: 1;
 `;
 

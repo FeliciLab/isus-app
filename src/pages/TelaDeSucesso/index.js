@@ -14,6 +14,7 @@ function TelaDeSucesso({ route }) {
       navigation.navigate(telaDeRedirecionamento);
     }, 4000);
   }, []);
+
   return (
     <>
       <BarraDeStatus backgroundColor={telaDeBackground} barStyle="light-content" />

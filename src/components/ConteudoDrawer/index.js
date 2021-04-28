@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import {
@@ -7,7 +7,10 @@ import {
 import { ScrollView } from 'react-native-gesture-handler';
 import ItemDrawer from './itemDrawer';
 import Heart from '../../assets/icons/isus_hor.svg';
-import { pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  pegarTokenDoUsuarioNoStorage,
+  pegarEstadoLogadoArmazenado
+} from '../../services/autenticacao';
 import {
   DroidSafeArea
 } from './styles';
@@ -15,16 +18,27 @@ import { CORES } from '../../constantes/estiloBase';
 import ItemInferior from './itemInferior';
 import { analyticsData } from '../../utils/analytics';
 import rotas from '../../constantes/rotas';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 function conteudoDoDrawer(props) {
-  const [tokenUsuario, alterarTokenUsuario] = useState({});
+  const {
+    estaLogado,
+    tokenUsuario,
+    alterarTokenUsuario,
+    alterarEstaLogado
+  } = useContext(AutenticacaoContext);
+
   const {
     navigation: { navigate },
     routeName
   } = props;
 
-
-  pegarTokenDoUsuarioNoStorage().then(token => alterarTokenUsuario(token));
+  useEffect(() => {
+    Promise.all([
+      pegarTokenDoUsuarioNoStorage().then(token => alterarTokenUsuario(token)),
+      pegarEstadoLogadoArmazenado().then(estado => alterarEstaLogado(estado))
+    ]);
+  }, [alterarTokenUsuario, alterarEstaLogado]);
 
   const ItensDoDrawer = [
     {
@@ -39,7 +53,7 @@ function conteudoDoDrawer(props) {
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'meu_perfil',
-      rota: tokenUsuario ? 'PERFIL' : 'LOGIN',
+      rota: tokenUsuario && estaLogado ? 'PERFIL' : 'LOGIN',
     },
     {
       testID: 'drawer-item-faleConosco',

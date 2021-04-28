@@ -21,6 +21,7 @@ import {
   SafeArea, Scroll, ConteudoFormulario, TituloPrincipal, Acordeon, Destaque,
   Titulo, BotaoSalvar
 } from './styles';
+import { analyticsCategoria, analyticsUnidadeServico } from '../../../utils/funcoesAnalytics';
 
 function EdicaoInfoProfissional({ route }) {
   const {
@@ -37,8 +38,8 @@ function EdicaoInfoProfissional({ route }) {
   const [unidadesServico, alterarUnidadesServico] = useState({});
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
+  const [categoriaAnalitycs, setCategoriaAnalitycs] = useState('');
   const navigation = useNavigation();
-
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -50,6 +51,7 @@ function EdicaoInfoProfissional({ route }) {
   };
 
   const EstaEditavel = route.params.modo === 'edicao';
+  const now = Date.now();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -263,15 +265,18 @@ function EdicaoInfoProfissional({ route }) {
         categoria_profissional: categoriaProfissional,
         // eslint-disable-next-line object-shorthand
         especialidades: especialidades,
-        unidade_servico: unidadeServico
+        unidade_servico: unidadeServico,
       }
     );
+    const uniServ = JSON.parse(usuarioTratado.unidadeServico);
     try {
-      console.log('perfil atualizado', usuarioTratado);
+      console.log('cate ana teste', categoriaAnalitycs);
       const resposta = await alteraDadosDoUsuario(usuarioTratado);
       navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você atualizou suas informações profissionais. Você será redirecionado para sua página de Perfil.', telaDeRedirecionamento: 'PERFIL', telaDeBackground: '#4CAF50' });
       console.log(resposta.data);
       alterarCarregando(false);
+      analyticsCategoria(categoriaAnalitycs, now, 'Atualização Cadastro');
+      analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
     } catch (err) {
       console.log(err);
       mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
@@ -312,6 +317,7 @@ function EdicaoInfoProfissional({ route }) {
               aoMudarValor={(categoria) => {
                 registrarCategoriaProfissional(categoria);
                 verificarCategoriaEspecialidades();
+                setCategoriaAnalitycs(categoria);
               }}
             />
           </ConteudoFormulario>
@@ -358,6 +364,7 @@ function EdicaoInfoProfissional({ route }) {
         <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
         <BotaoSalvar
           labelStyle={{ color: '#fff' }}
+          testID="salvar-edicao-info-profissional"
           loading={carregando}
           onPress={() => {
             salvarInformaçõesProfissionais();

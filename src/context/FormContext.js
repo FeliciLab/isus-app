@@ -12,7 +12,8 @@ export const FormProvider = ({ initValues, children }) => {
     setValue,
     getValues,
     control,
-    unregister
+    unregister,
+    formState,
   } = useForm({
     defaultValues: initValues || {},
     mode: 'onBlur',
@@ -20,6 +21,7 @@ export const FormProvider = ({ initValues, children }) => {
   });
 
   const setValues = obj => Object.keys(obj).forEach(key => setValue(key, obj[key]));
+  const fieldsEmpty = list => list.filter(item => getValues(item) === '').length > 0;
 
   return (
     <FormContext.Provider
@@ -32,7 +34,9 @@ export const FormProvider = ({ initValues, children }) => {
         setValues,
         getValues,
         control,
-        unregister
+        unregister,
+        formState,
+        fieldsEmpty
       }}
     >
       {children}

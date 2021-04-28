@@ -15,6 +15,8 @@ module.exports = {
     'func-names': 'off',
     'no-param-reassign': 'off',
     'react/jsx-indent': 'off',
+    'no-underscore-dangle': ["error", { "allow": ["_hidden"] }],
+    'camelcase': 'off'
   },
   globals: {
     fetch: false,

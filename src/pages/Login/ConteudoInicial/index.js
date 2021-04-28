@@ -11,15 +11,15 @@ import { Botao } from '../styles';
 import { analyticsData } from '../../../utils/analytics';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
-const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
+const ConteudoInicial = () => {
   const navigation = useNavigation();
 
   return (
     <>
       <ConteudoDoTexto>
         <Texto>
-          Crie seu ID Saúde para ter acesso a conteúdos
-          personalizados com seu perfil do iSUS!
+          O seu passaporte de acesso a todas as soluções digitais da
+          Escola de Sáúde Pública do Ceará
         </Texto>
       </ConteudoDoTexto>
       <View>
@@ -28,7 +28,7 @@ const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
           mode="contained"
           onPress={() => {
             analyticsData(
-              labelsAnalytics.BUTTON_REALIZAR_CADASTRO,
+              labelsAnalytics.INICIAR_MEU_CADASTRO,
               'Click',
               'Perfil'
             );
@@ -42,8 +42,8 @@ const ConteudoInicial = ({ alterarPossuirIDSaude }) => {
           mode="text"
           color="#ffffff"
           onPress={() => {
-            alterarPossuirIDSaude(true);
             analyticsData('ja_possuo_id_saude', 'Click', 'Perfil');
+            navigation.navigate('FORM_LOGIN');
           }}
         >
           Já possuo ID Saúde

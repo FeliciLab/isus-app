@@ -44,6 +44,16 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
     const botao = getByTestId(labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS);
     fireEvent.press(botao);
 
+    expect(analyticsData).toHaveBeenCalled();
+  });
+
+  test(`deve chamar analytics ao clicar no botao de editar ${labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS} com parâmetros corretos`, () => {
+    const {
+      getByTestId
+    } = render(<DadosUsuarioProfissional dados={dadosUsuario} />,);
+    const botao = getByTestId(labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS);
+    fireEvent.press(botao);
+
     expect(analyticsData).toHaveBeenCalledWith(
       labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS,
       'Click',
