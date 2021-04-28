@@ -12,7 +12,7 @@ export const unidadeDeSaudeValida = unidadeDeSaude => unidadeDeSaude.replace(/\s
 
 export const feedbackValido = feedback => feedback.replace(/\s/g, '').length;
 export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-export const senhaValido = senha => senha.replace(/\s/g, '').length;
+export const senhaValido = senha => senha.replace(/\s/g, '').length > 0;
 export const nomeValido = nomeCompleto =>
   // eslint-disable-next-line implicit-arrow-linebreak
   Regex.NOME.test(nomeCompleto.toLowerCase());
@@ -20,7 +20,7 @@ export const nomeValido = nomeCompleto =>
 // eslint-disable-next-line arrow-parens
 export const cpfValido = cpf => {
   cpf = cpf.replace(/[^\d]+/g, '');
-  if (cpf == '') return false;
+  if (cpf === '') return false;
   if (
     cpf.length != 11 ||
     cpf === '00000000000' ||
@@ -59,4 +59,9 @@ export async function cpfNaoCadastrado(cpf) {
   const resposta = await verificarCPFCadastrado(cpf);
   const cpfExiste = resposta.data.cpf_existe;
   return !cpfExiste;
+}
+
+export async function cpfCadastradoIdSaude(cpf) {
+  const resposta = await verificarCPFCadastrado(cpf);
+  return resposta.data.cpf_existe;
 }

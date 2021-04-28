@@ -10,13 +10,31 @@ import {
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import textos from './textos.json';
-import { autenticarComIdSaude, salvarTokenDoUsuarioNoStorage, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import {
+  autenticarComIdSaude,
+  salvarTokenDoUsuarioNoStorage,
+  pegarTokenDoUsuarioNoStorage,
+  armazenarEstadoLogado
+} from '../../services/autenticacao';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { analyticsData } from '../../utils/analytics';
+import { analyticsCategoria, analyticsUnidadeServico } from '../../utils/funcoesAnalytics';
 
 export default function FormularioSenha({ navigation }) {
   const [carregando, alterarCarregando] = React.useState(false);
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
   const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
+  const { alterarDadosUsuario, alterarEstaLogado } = useContext(AutenticacaoContext);
+  const {
+    register, setValue, trigger, errors, getValues
+  } = useContext(FormContext);
+
+  const valores = getValues();
+  const { categoriaProfissional } = valores;
+  const uniServ = JSON.parse(valores.unidadeServico);
+  const now = Date.now();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -40,10 +58,6 @@ export default function FormularioSenha({ navigation }) {
     alterarCadastroRealizado(true);
     setTimeout(() => alterarCadastroRealizado(false), 4000);
   };
-
-  const {
-    register, setValue, trigger, errors, getValues
-  } = useContext(FormContext);
 
   const theme = {
     ...DefaultTheme,
@@ -72,7 +86,18 @@ export default function FormularioSenha({ navigation }) {
 
   const realizarCadastroDoUsuario = async () => {
     const dados = tratarDadosCadastro(getValues());
-    const resposta = await cadastrarUsuario(dados);
+    console.log({
+      ...dados,
+      unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
+      especialidades: JSON.parse(dados?.especialidades || '[]'),
+      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}')
+    });
+    const resposta = await cadastrarUsuario({
+      ...dados,
+      unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
+      especialidades: JSON.parse(dados?.especialidades || '[]'),
+      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}')
+    });
     return resposta.data;
   };
 
@@ -83,12 +108,16 @@ export default function FormularioSenha({ navigation }) {
       const response = await autenticarComIdSaude(dados.email, dados.senha);
       if (response.sucesso) {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
+        await armazenarEstadoLogado(true);
         await pegarTokenDoUsuarioNoStorage();
+        await alterarDadosUsuario(dados);
+        await alterarEstaLogado(true);
       }
 
       navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
       return;
     }
+
     let mensagemErro;
     if (resultado.erros.cpf) {
       const [mensagemErroCPF] = resultado.erros.cpf;
@@ -112,6 +141,7 @@ export default function FormularioSenha({ navigation }) {
     register('senha', { required: true, minLength: { value: 8, message: textos.formularioSenha.erroTamanho } });
     register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais });
   }, [register]);
+
 
   return (
     <Scroll>
@@ -157,6 +187,13 @@ export default function FormularioSenha({ navigation }) {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
             alterarCarregando(false);
+            analyticsData(
+              labelsAnalytics.FINALIZAR_MEU_CADASTRO,
+              'Click',
+              'Perfil'
+            );
+            analyticsCategoria(categoriaProfissional, now, 'Cadastro');
+            analyticsUnidadeServico(uniServ, now, 'Cadastro');
           } catch (err) {
             console.log(err);
             alterarCarregando(false);

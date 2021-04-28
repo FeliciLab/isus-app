@@ -1,6 +1,6 @@
 const PERFIL = {
   EDICAO_INFO_PESSOAIS: {
-    CABEÇALHO: 'Informações Pessoais',
+    CABECALHO: 'Informações Pessoais',
     INTRODUCAO: 'Vamos realizar seu cadastro, '
       + 'precisamos apenas de algumas informações:',
     TITULO: 'Informações Pessoais:',
@@ -9,6 +9,10 @@ const PERFIL = {
     MSG_TELEFONE: 'O telefone deve ter pelo menos 11 número',
     MSG_SUCESSO: 'Parabéns! Você atualizou suas informações pessoais. '
       + 'Você será redirecionado para sua página de Perfil.'
+  },
+  EDICAO_INFO_PROFISSIONAL: {
+    CABECALHO: 'Informações Profissionais',
+    MSG_ERRO_SALVAR: 'Houve um problema ao salvar os dados.'
   }
 };
 

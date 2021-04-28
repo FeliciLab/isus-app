@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.15.10",
+  "version": "3.16.0",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -24,6 +24,7 @@
     "@react-native-firebase/analytics": "^10.1.0",
     "@react-native-firebase/app": "^10.1.0",
     "@react-native-firebase/crashlytics": "^10.1.0",
+    "@react-native-picker/picker": "^1.9.12",
     "@react-navigation/bottom-tabs": "^5.2.7",
     "@react-navigation/drawer": "^5.5.1",
     "@react-navigation/material-bottom-tabs": "^5.1.9",
@@ -52,6 +53,7 @@
     "react-native-onesignal": "^3.7.3",
     "react-native-paper": "^3.10.1",
     "react-native-password-eye": "^1.0.2",
+    "react-native-picker-select": "^8.0.4",
     "react-native-reanimated": "^1.7.1",
     "react-native-render-html": "^4.2.0",
     "react-native-safe-area-context": "^0.7.3",
@@ -61,7 +63,7 @@
     "react-native-tab-view": "^2.14.0",
     "react-native-text-input-mask": "^2.0.0",
     "react-native-vector-icons": "^6.6.0",
-    "react-native-webview": "^9.4.0",
+    "react-native-webview": "^11.0.0",
     "rn-fetch-blob": "^0.12.0",
     "rn-placeholder": "^3.0.1",
     "styled-components": "^5.2.0"

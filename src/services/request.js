@@ -17,6 +17,7 @@ request.interceptors.request.use(async (req) => {
   if (token) {
     req.headers.Authorization = `Bearer ${token.access_token}`;
   }
+
   return req;
 });
 
