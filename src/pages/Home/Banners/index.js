@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import ListaDeBanners from './listaDeBanners';
+import listaBanners from './listaDeBanners';
 import { CORES } from '../../../constantes/estiloBase';
+import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
 
 export default function Banners({ sliderWidth, itemWidth }) {
   const [indiceAtivo, alterarIndiceAtivo] = useState(0);
-  const banners = ListaDeBanners();
+  const [banners, alterarBanners] = useState([]);
+  const { estaLogado } = useContext(AutenticacaoContext);
+
+  const aoIniciar = async () => {
+    try {
+      const mostrarBanners = await listaBanners(estaLogado);
+      alterarBanners(mostrarBanners);
+    } catch (error) {
+      console.log(`erro ao listar Banners. ${error}`);
+    }
+  };
+  useEffect(() => {
+    aoIniciar();
+  }, []);
 
   function cardItem({ item }) {
     return item.banner;
