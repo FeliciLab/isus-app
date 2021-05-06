@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
 import FormCheckboxListItem from './FormCheckboxListItem';
 import randomKey from '../../utils/randomKey';
+import { CORES } from '../../constantes/estiloBase'
 
 const TitleText = ({ label }) => (
   <Text
@@ -11,7 +12,10 @@ const TitleText = ({ label }) => (
       marginTop: 10,
       fontSize: 18,
       wordWrap: 'break-word',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      textDecorationStyle: 'solid',
+      textDecorationLines: 'underline',
+      textDecorationColor: CORES.CINZA_INPUT
     }}
   >
     {label || 'Selecione as opções'}
@@ -22,6 +26,7 @@ const FormCheckBoxList = ({
   name, label, data, rules, defaultValue
 }) => {
   const { register, setValue, getValues } = useContext(FormContext);
+  const [itensList, setItensLista] = useState([]);
 
   useEffect(() => {
     if (!data || data.length === 0) return;
@@ -37,22 +42,28 @@ const FormCheckBoxList = ({
   }
 
   return (
-    <List.Accordion
-      titleStyle={{ color: 'black' }}
-      title={<TitleText label={label} />}
-    >
-      <View>
-        {data.map(item => (
-          <FormCheckboxListItem
-            key={randomKey()}
-            label={item.label}
-            value={item.value}
-            name={name}
-          />
-        ))}
-      </View>
-    </List.Accordion>
-
+    <>
+      <TitleText label={label} />
+      <List.Accordion
+        title="Selecione as opções"
+      >
+        <View>
+          {data.map(item => (
+            <FormCheckboxListItem
+              key={randomKey()}
+              label={item.label}
+              value={item.value}
+              name={name}
+              updateItems={() => {
+                const ieie = getValues();
+                console.log(ieie[`${name}`]);
+                setItensLista(getValues(name));
+              }}
+            />
+          ))}
+        </View>
+      </List.Accordion>
+    </>
   );
 };
 

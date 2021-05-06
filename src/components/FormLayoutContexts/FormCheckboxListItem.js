@@ -14,7 +14,7 @@ const theme = {
   }
 };
 
-const FormCheckboxListItem = ({ name, label, value }) => {
+const FormCheckboxListItem = ({ name, label, value, updateItems }) => {
   const [checked, setChecked] = useState('unchecked');
 
   const { setValue, getValues } = useContext(FormContext);
@@ -36,6 +36,7 @@ const FormCheckboxListItem = ({ name, label, value }) => {
       onPress={() => {
         setValue(`${name}.${value}`, !getValues(`${name}.${value}`));
         setChecked(getStatus(`${name}.${value}`));
+        updateItems();
       }}
     />
   );

@@ -46,23 +46,23 @@ const PreCadastroProfissional = () => {
               <InputSetores />
             </RowInput>
           </ContainerForm>
+          <RowButton>
+            <BotaoLaranja
+              onPress={async () => {
+                const result = await atualizarUsuario(getValues());
+                if (!result) {
+                  return;
+                }
+                navigator.navigate(
+                  ROTAS.PRE_CADASTRO_SUCESSO,
+                  { usuario: result }
+                );
+              }}
+            >
+              Concluir
+            </BotaoLaranja>
+          </RowButton>
         </ScrollView>
-        <RowButton>
-          <BotaoLaranja
-            onPress={async () => {
-              const result = await atualizarUsuario(getValues());
-              if (!result) {
-                return;
-              }
-              navigator.navigate(
-                ROTAS.PRE_CADASTRO_SUCESSO,
-                { usuario: result }
-              );
-            }}
-          >
-            Concluir
-          </BotaoLaranja>
-        </RowButton>
       </ContainerBody>
     </>
   );
