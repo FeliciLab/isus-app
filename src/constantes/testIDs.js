@@ -15,6 +15,12 @@ export const TESTIDS = {
   BOTAO_FEEDBACK_ENVIAR: 'botao-feedback-enviar',
   BOTAO_TUTORIAL_PULAR: 'botao-tutorial-pular',
   BOTAO_TUTORIAL_PROXIMO: 'botao-tutorial-proximo',
+  FORMULARIO: {
+    LOGIN: {
+      CAMPO_EMAIL: 'campo-email',
+      CAMPO_SENHA: 'campo-senha',
+    },
+  },
   ELMO: {
     DUVIDAS: {
       SOBRE_ELMO: 'elmo-duvidas-sobreelmo',

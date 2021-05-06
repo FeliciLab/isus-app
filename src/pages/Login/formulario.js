@@ -1,7 +1,7 @@
 import React, {
   useState, useContext, useRef
 } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { View, Text } from 'react-native';
 import { Config } from 'react-native-config';
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +23,7 @@ import { perfilUsuario } from '../../apis/apiCadastro';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import rotas from '../../constantes/rotas';
 import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
+import FormContext from '../../context/FormContext';
 
 const FormularioLogin = ({ route }) => {
   const refSenha = useRef();
@@ -36,7 +37,7 @@ const FormularioLogin = ({ route }) => {
     getValues,
     setValue,
     trigger,
-  } = useForm();
+  } = useContext(FormContext);
 
   const {
     alterarTokenUsuario,
@@ -174,6 +175,7 @@ const FormularioLogin = ({ route }) => {
             defaultValue=""
             render={({ onChange, onBlur, value }) => (
               <TextInput
+                testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
                 autoFocus
                 label="E-mail"
                 mode="outlined"
@@ -190,7 +192,7 @@ const FormularioLogin = ({ route }) => {
               />
             )}
           />
-          {errors.email && (
+          {errors?.email && (
             <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text>
           )}
           <Controller
@@ -200,6 +202,7 @@ const FormularioLogin = ({ route }) => {
             defaultValue=""
             render={({ onChange, onBlur, value }) => (
               <TextInput
+                testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
                 ref={refSenha}
                 style={{ marginTop: 18 }}
                 onChangeText={txt => onChange(txt)}
@@ -218,14 +221,14 @@ const FormularioLogin = ({ route }) => {
             )}
           />
 
-          {errors.senha && (
+          {errors?.senha && (
             <Text style={{ color: '#ffffff' }}> O campo de senha deve ser preenchido. </Text>
           )}
 
           <View style={{ marginTop: 18 }}>
             <Botao
               ref={refSubmit}
-              disabled={errors.email || errors.senha}
+              disabled={errors?.email || errors?.senha}
               testID={TESTIDS.BUTTON_FAZER_LOGIN}
               mode="contained"
               loading={carregando}
