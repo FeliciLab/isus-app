@@ -30,8 +30,8 @@ const FormCheckBoxList = ({
   const [placeholder, setPlaceholder] = useState('Selecione as opções');
   const [quantidadeSelecionados, definirQuantidadeSelecionados] = useState(0);
 
-  const definirPlaceholder = (valor) => {
-    const quantidade = valor || quantidadeSelecionados;
+  const definirPlaceholder = ({ valor }) => {
+    const quantidade = valor === undefined ? quantidadeSelecionados : valor;
     if (quantidade === 0) {
       setPlaceholder('Selecione as opções');
     }
@@ -58,13 +58,13 @@ const FormCheckBoxList = ({
     });
 
     definirQuantidadeSelecionados(quantidade);
-    definirPlaceholder(quantidade);
+    definirPlaceholder({ valor: quantidade });
   }, [data]);
 
   const updateItems = useCallback((check) => {
     const quantidade = (check ? quantidadeSelecionados + 1 : quantidadeSelecionados - 1);
     definirQuantidadeSelecionados(quantidade);
-    definirPlaceholder(quantidade);
+    definirPlaceholder({ valor: quantidade });
   });
 
   if (!data || data.length === 0) {
