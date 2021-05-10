@@ -15,6 +15,12 @@ export const TESTIDS = {
   BOTAO_FEEDBACK_ENVIAR: 'botao-feedback-enviar',
   BOTAO_TUTORIAL_PULAR: 'botao-tutorial-pular',
   BOTAO_TUTORIAL_PROXIMO: 'botao-tutorial-proximo',
+  FORMULARIO: {
+    LOGIN: {
+      CAMPO_EMAIL: 'campo-email',
+      CAMPO_SENHA: 'campo-senha',
+    },
+  },
   ELMO: {
     DUVIDAS: {
       SOBRE_ELMO: 'elmo-duvidas-sobreelmo',
@@ -29,6 +35,12 @@ export const TESTIDS = {
     PRE_NATAL_ALTO_RISCO: 'materno-infantil-pre-natal-de-alto-risco',
     SINDROMES_HIPERTENSIVAS_GESTACAO: 'materno-infantil-sindromes-hipertensivas-em-gestacao',
     HEMORRAGIA_GESTACAO: 'materno-infantil-hemorragia-em-gestacao'
+  },
+  SEM_CONEXAO: {
+    BOTAO_VOLTAR: 'botao-semconexao-voltar',
+    BOTAO_TENTAR_NOVAMENTE: 'botao_semconexao_tentar_novamente',
+    ICONE_SEM_CONEXAO_VERMELHO: 'icone-semconexao-vermelho',
+    ICONE_SEM_CONEXAO_LARANJA: 'icone-semconexao-laranja'
   }
 };
 

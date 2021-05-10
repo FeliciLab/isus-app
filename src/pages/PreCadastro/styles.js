@@ -28,6 +28,7 @@ export const RowInput = styled.View`
 
 export const RowButton = styled.View`
   align-self: flex-end;
+  margin-top: 40px;
   margin-bottom: 20px;
 `;
 

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useContext } from 'react';
+import React, { useLayoutEffect, useContext, useEffect } from 'react';
 import { Linking } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
@@ -18,19 +18,24 @@ import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
 import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg';
 import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoContext';
 import rotas from '../../constantes/rotas';
+import { TESTIDS } from '../../constantes/testIDs';
 
 function SemConexao(props) {
   const { route } = props;
   const { params } = route;
+  const formlogin = params?.formlogin || false;
   const tituloCabecalho = 'Sem Conexão';
   const corFundo = 'verde';
-  const { telaAtual, alterarTelaAtual } = useContext(SemConexaoContext);
+  const { indice, mudarIndice } = useContext(SemConexaoContext);
   const netInfo = useNetInfo();
   const navigation = useNavigation();
 
+  useEffect(() => {
+    if (formlogin) mudarIndice(3);
+  }, [formlogin]);
 
   const onPressTentarNovamente = () => {
-    alterarTelaAtual({ indice: (telaAtual.indice + 1) });
+    mudarIndice(indice + 1);
     if (netInfo.isConnected) {
       if (params?.componente === 'webview') {
         navigation.navigate(params?.componente, {
@@ -47,17 +52,19 @@ function SemConexao(props) {
         Linking.openURL(params?.url);
         return;
       }
-      // eslint-disable-next-line no-unused-expressions
-      params?.componente === 'ELMO' || params?.componente === 'QUALIQUIZ'
-        ? navigation.navigate(params?.componente)
-        : (navigation.goBack());
+
+      if (params?.componente === 'ELMO' || params?.componente === 'QUALIQUIZ') {
+        navigation.navigate(params?.componente);
+        return;
+      }
+      navigation.goBack();
     }
   };
 
-  const onPressVoltar = () => navigation.navigate(rotas.HOME);
+  const onPressVoltar = () => navigation.navigate(rotas.HOME, { screen: 'Home' });
 
   useLayoutEffect(() => {
-    if (!route.params?.goHome) {
+    if (!params?.goHome) {
       cabecalhoVoltar({
         navegador: navigation,
         titulo: tituloCabecalho,
@@ -76,9 +83,9 @@ function SemConexao(props) {
     <>
       <ScrollView>
         <CentralizarItensView marginTop="59px">
-          {telaAtual.indice <= 2
-            ? <IconeSemConexaoLaranja testID="icone-semconexao-imagem" />
-            : <IconeSemConexaoVermelho />
+          {(indice < 3)
+            ? <IconeSemConexaoLaranja testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_LARANJA} />
+            : <IconeSemConexaoVermelho testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_VERMELHO} />
           }
           <TituloH6>
             Sem conexão com a internet
@@ -90,17 +97,18 @@ function SemConexao(props) {
           </TextoCentralizado>
         </View>
         <View>
-          {telaAtual.indice <= 2
+          {(indice < 3)
             ? (
               <>
                 <Botao
-                  testID="botão-semconexao-voltar"
+                  testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
                   labelStyle={{ color: CORES.LARANJA }}
                   onPress={onPressVoltar}
                 >
                   VOLTAR
                 </Botao>
                 <Botao
+                  testID={TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}
                   labelStyle={{ color: CORES.BRANCO }}
                   backgroundColor={CORES.LARANJA}
                   onPress={onPressTentarNovamente}
@@ -111,7 +119,7 @@ function SemConexao(props) {
             )
             : (
               <Botao
-                testID="botão-semconexao-voltar"
+                testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
                 labelStyle={{ color: CORES.LARANJA }}
                 onPress={onPressVoltar}
               >

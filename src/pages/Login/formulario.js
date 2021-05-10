@@ -1,9 +1,12 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React, {
+  useState, useContext, useRef
+} from 'react';
+import { Controller } from 'react-hook-form';
 import { View, Text } from 'react-native';
 import { Config } from 'react-native-config';
 import { useNavigation } from '@react-navigation/native';
 import { DefaultTheme, TextInput } from 'react-native-paper';
+
 import Alerta from '../../components/alerta';
 import {
   autenticarComIdSaude,
@@ -18,20 +21,23 @@ import { emailValido, senhaValido } from '../../utils/validadores';
 import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-
 import rotas from '../../constantes/rotas';
-
+import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
+import FormContext from '../../context/FormContext';
 
 const FormularioLogin = ({ route }) => {
+  const refSenha = useRef();
+  const refSubmit = useRef();
+  const caixaDialogo = useCaixaDialogo();
   const navigation = useNavigation();
-
   const {
     control,
     handleSubmit,
     errors,
+    getValues,
     setValue,
-    trigger
-  } = useForm();
+    trigger,
+  } = useContext(FormContext);
 
   const {
     alterarTokenUsuario,
@@ -42,11 +48,6 @@ const FormularioLogin = ({ route }) => {
   const [carregando, alterarCarregando] = useState(false);
   const [textoDoAlerta, alterarTextoDoAlerta] = useState('');
   const [visivel, alterarVisibilidade] = useState(false);
-
-  useEffect(() => {
-    setValue('email', '');
-    setValue('senha', '');
-  }, []);
 
   const theme = {
     ...DefaultTheme,
@@ -70,7 +71,38 @@ const FormularioLogin = ({ route }) => {
     });
   };
 
-  const fazerLogin = ({ email, senha }) => autenticarComIdSaude(email, senha)
+  const submitForm = async (data, options) => {
+    const tentativa = options?.tentativa || 1;
+    analyticsData('fazer_login', 'Click', 'Perfil');
+    alterarCarregando(true);
+    trigger();
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+    try {
+      await fazerLogin(data);
+    } catch (erro) {
+      const err = JSON.parse(erro.message);
+      if (!err.semConexao) {
+        mostrarAlerta(err.mensagem);
+        return;
+      }
+      if (tentativa > 3) {
+        navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
+      }
+      if (tentativa <= 3) {
+        caixaDialogo.SemConexao(
+          {
+            acaoConcluir: tentarLoginNovamente
+          }, tentativa
+        );
+      }
+    }
+  };
+
+  const tentarLoginNovamente = tentativa => submitForm(getValues(), { tentativa: tentativa + 1 });
+
+  const fazerLogin = async ({ email, senha }) => autenticarComIdSaude(email, senha)
     .then(async (response) => {
       try {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
@@ -96,6 +128,8 @@ const FormularioLogin = ({ route }) => {
 
         await armazenarEstadoLogado(true);
         alterarEstaLogado(true);
+        setValue('email', '');
+        setValue('senha', '');
 
         navigation.navigate('HOME');
       } catch (e) {
@@ -104,23 +138,22 @@ const FormularioLogin = ({ route }) => {
       }
     })
     .catch((err) => {
-      mostrarAlerta(err.response.data.erros);
+      if (err.response?.status === 401) {
+        throw new Error(JSON.stringify({
+          semConexao: false,
+          mensagem: err.response?.data?.erros
+        }));
+      }
+      if (err.message === 'Network Error') {
+        throw new Error(JSON.stringify({
+          semConexao: true,
+          mensagem: 'Falha na conexão'
+        }));
+      }
     })
     .finally(() => {
-      setValue('email', '');
-      setValue('senha', '');
       alterarCarregando(false);
     });
-
-  const submitForm = (data) => {
-    analyticsData('fazer_login', 'Click', 'Perfil');
-    alterarCarregando(true);
-    trigger();
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-    fazerLogin(data);
-  };
 
   const abrirWebViewEsqueciMinhaSenha = () => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
@@ -142,6 +175,8 @@ const FormularioLogin = ({ route }) => {
             defaultValue=""
             render={({ onChange, onBlur, value }) => (
               <TextInput
+                testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
+                autoFocus
                 label="E-mail"
                 mode="outlined"
                 placeholder="E-mail"
@@ -150,13 +185,14 @@ const FormularioLogin = ({ route }) => {
                 onBlur={(e) => {
                   onBlur(e);
                   trigger('email');
+                  refSenha.current.focus();
                 }}
                 value={value}
                 theme={theme}
               />
             )}
           />
-          {errors.email && (
+          {errors?.email && (
             <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text>
           )}
           <Controller
@@ -166,6 +202,8 @@ const FormularioLogin = ({ route }) => {
             defaultValue=""
             render={({ onChange, onBlur, value }) => (
               <TextInput
+                testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
+                ref={refSenha}
                 style={{ marginTop: 18 }}
                 onChangeText={txt => onChange(txt)}
                 onBlur={(e) => {
@@ -183,13 +221,14 @@ const FormularioLogin = ({ route }) => {
             )}
           />
 
-          {errors.senha && (
+          {errors?.senha && (
             <Text style={{ color: '#ffffff' }}> O campo de senha deve ser preenchido. </Text>
           )}
 
           <View style={{ marginTop: 18 }}>
             <Botao
-              disabled={errors.email || errors.senha}
+              ref={refSubmit}
+              disabled={errors?.email || errors?.senha}
               testID={TESTIDS.BUTTON_FAZER_LOGIN}
               mode="contained"
               loading={carregando}

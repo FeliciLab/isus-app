@@ -3,13 +3,13 @@ import React, { createContext, useState } from 'react';
 const SemConexaoContext = createContext();
 
 const SemConexaoProvider = ({ children }) => {
-  const [telaAtual, alterarTelaAtual] = useState({ indice: 0 });
+  const [indice, mudarIndice] = useState(0);
 
   return (
     <SemConexaoContext.Provider
       value={{
-        telaAtual,
-        alterarTelaAtual
+        indice,
+        mudarIndice
       }}
     >
       {children}
