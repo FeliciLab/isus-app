@@ -4,6 +4,7 @@ import { fireEvent, render } from 'util-teste';
 import { analyticsData } from '../../../src/utils/analytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
 import FormularioLogin from '../../../src/pages/Login/formulario';
+import { FormProvider } from '../../../src/context/FormContext';
 
 const mockedNavigate = jest.fn();
 
@@ -21,42 +22,70 @@ jest.mock('../../../src/utils/validadores', () => ({
   senhaValido: jest.fn(() => true)
 }));
 
-test('deve chamar o analytics data ao clicar em "Fazer Login"', () => {
-  const { getByTestId } = render(
-    <FormularioLogin />
-  );
-  const item = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
+jest.mock('@react-native-community/netinfo', () => ({
+  ...jest.requireActual('@react-native-community/netinfo'),
+  useNetInfo: () => ({
+    isConnected: true,
+  })
+}));
 
-  fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalled();
+describe('Tela Login Sem Conexão', () => {
+  describe('DADO que estou na tela de login', () => {
+    const email = 'test@test.com';
+    const senha = '12345678';
+    let campoEmailID;
+
+    beforeEach(() => {
+      const { getByTestId } = render(
+        <FormProvider initValues={{ email, senha }}>
+          <FormularioLogin />
+        </FormProvider>
+      );
+      campoEmailID = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+    });
+
+    describe('E renderizo a pagina', () => {
+      beforeEach(() => {
+      });
+      test('ENTÃO o campo e-mail deve estar em branco.', () => {
+        expect(campoEmailID.props.value).toEqual('');
+      });
+    });
+  });
 });
 
-test('deve chamar o analytics data ao clicar em "Fazer Login" com os parâmetros corretamente', () => {
-  const { getByTestId } = render(
-    <FormularioLogin />
-  );
-  const item = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
+describe('Testes de Analytics da tela Login', () => {
+  let botaoFazerLogin;
+  let botaoEsqueciSenha;
 
-  fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalledWith('fazer_login', 'Click', 'Perfil');
-});
+  beforeEach(() => {
+    const { getByTestId } = render(
+      <FormProvider>
+        <FormularioLogin />
+      </FormProvider>
+    );
+    botaoFazerLogin = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
+    botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
+  });
 
-test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha"', () => {
-  const { getByTestId } = render(
-    <FormularioLogin />
-  );
-  const item = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
+  test('deve chamar o analytics data ao clicar em "Fazer Login"', () => {
+    fireEvent.press(botaoFazerLogin);
+    expect(analyticsData).toHaveBeenCalled();
+  });
 
-  fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalled();
-});
+  test('deve chamar o analytics data ao clicar em "Fazer Login" com os parâmetros corretamente', () => {
+    fireEvent.press(botaoFazerLogin);
+    expect(analyticsData)
+      .toHaveBeenCalledWith('fazer_login', 'Click', 'Perfil');
+  });
 
-test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha" com os parâmetros corretamente', () => {
-  const { getByTestId } = render(
-    <FormularioLogin />
-  );
-  const item = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
+  test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha"', () => {
+    fireEvent.press(botaoEsqueciSenha);
+    expect(analyticsData).toHaveBeenCalled();
+  });
 
-  fireEvent.press(item);
-  expect(analyticsData).toHaveBeenCalledWith('esqueci_minha_senha', 'Click', 'Perfil');
+  test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha" com os parâmetros corretamente', () => {
+    fireEvent.press(botaoEsqueciSenha);
+    expect(analyticsData).toHaveBeenCalledWith('esqueci_minha_senha', 'Click', 'Perfil');
+  });
 });

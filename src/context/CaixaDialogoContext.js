@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react';
 const CaixaDialogoContext = createContext();
 
 function CaixaDialogoProvider({ children }) {
+  const [indice, mudarIndice] = useState(0);
   const [visivel, alterarVisibilidade] = useState(false);
   const [titulo, alterarTitulo] = useState('');
   const [texto, alterarTexto] = useState('');
@@ -41,7 +42,9 @@ function CaixaDialogoProvider({ children }) {
         textoConclusao,
         textoCancelamento,
         aoCancelar,
-        aoConcluir
+        aoConcluir,
+        indice,
+        mudarIndice
       }}
     >
       {children}

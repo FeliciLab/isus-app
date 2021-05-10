@@ -6,7 +6,10 @@ const ordenarPorNome = lista => lista.sort((a, b) => a.nome.localeCompare(b.nome
 
 export async function autenticar(email, senha) {
   const result = await request.post('auth', { email, senha });
-  return result?.data;
+  if (result?.data) {
+    return result?.data;
+  }
+  return result;
 }
 
 export async function pegarListaDeServicos() {

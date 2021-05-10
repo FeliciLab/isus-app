@@ -24,6 +24,8 @@ import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
 
 import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
+import { SemConexaoProvider } from '../context/SemConexaoContext';
+import { FormProvider } from '../context/FormContext';
 
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
@@ -111,14 +113,18 @@ function LoginStackScreen() {
 const FormLoginStack = createStackNavigator();
 function FormLoginStackScreen() {
   return (
-    <FormLoginStack.Navigator>
-      <FormLoginStack.Screen
-        name="FORM_LOGIN"
-        component={FormLogin}
-        initialParams={{ possuiIDSaude: true }}
-        options={{ headerShown: false }}
-      />
-    </FormLoginStack.Navigator>
+    <FormProvider>
+      <SemConexaoProvider>
+        <FormLoginStack.Navigator>
+          <FormLoginStack.Screen
+            name="FORM_LOGIN"
+            component={FormLogin}
+            initialParams={{ possuiIDSaude: true }}
+            options={{ headerShown: false }}
+          />
+        </FormLoginStack.Navigator>
+      </SemConexaoProvider>
+    </FormProvider>
   );
 }
 
