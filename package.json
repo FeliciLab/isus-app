@@ -47,7 +47,7 @@
     "react-native-code-push": "^6.2.1",
     "react-native-config": "^1.2.0",
     "react-native-gesture-handler": "^1.6.1",
-    "react-native-image-picker": "^2.3.1",
+    "react-native-image-picker": "^3.6.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-material-dropdown-v2": "0.11.1",
     "react-native-onesignal": "^3.7.3",
