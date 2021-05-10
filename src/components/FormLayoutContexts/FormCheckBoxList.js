@@ -1,4 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback
+} from 'react';
 import { Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
@@ -22,37 +27,69 @@ const FormCheckBoxList = ({
   name, label, data, rules, defaultValue
 }) => {
   const { register, setValue, getValues } = useContext(FormContext);
+  const [placeholder, setPlaceholder] = useState('Selecione as opções');
+  const [quantidadeSelecionados, definirQuantidadeSelecionados] = useState(0);
+
+  const definirPlaceholder = ({ valor }) => {
+    const quantidade = valor === undefined ? quantidadeSelecionados : valor;
+    if (quantidade === 0) {
+      setPlaceholder('Selecione as opções');
+    }
+
+    if (quantidade === 1) {
+      setPlaceholder(`${quantidade} item selecionado`);
+    }
+
+    if (quantidade > 1) {
+      setPlaceholder(`${quantidade} itens selecionados`);
+    }
+  };
 
   useEffect(() => {
     if (!data || data.length === 0) return;
+    let quantidade = 0;
     data.forEach((item) => {
       const field = `${name}.${item.value}`;
       register(field, rules);
       setValue(field, defaultValue?.[item.value] || getValues(field) || false);
+      if (getValues(field)) {
+        quantidade += 1;
+      }
     });
+
+    definirQuantidadeSelecionados(quantidade);
+    definirPlaceholder({ valor: quantidade });
   }, [data]);
+
+  const updateItems = useCallback((check) => {
+    const quantidade = (check ? quantidadeSelecionados + 1 : quantidadeSelecionados - 1);
+    definirQuantidadeSelecionados(quantidade);
+    definirPlaceholder({ valor: quantidade });
+  });
 
   if (!data || data.length === 0) {
     return <></>;
   }
 
   return (
-    <List.Accordion
-      titleStyle={{ color: 'black' }}
-      title={<TitleText label={label} />}
-    >
-      <View>
-        {data.map(item => (
-          <FormCheckboxListItem
-            key={randomKey()}
-            label={item.label}
-            value={item.value}
-            name={name}
-          />
-        ))}
-      </View>
-    </List.Accordion>
-
+    <>
+      <TitleText label={label} />
+      <List.Accordion
+        title={placeholder}
+      >
+        <View>
+          {data.map(item => (
+            <FormCheckboxListItem
+              key={randomKey()}
+              label={item.label}
+              value={item.value}
+              name={name}
+              updateItems={updateItems}
+            />
+          ))}
+        </View>
+      </List.Accordion>
+    </>
   );
 };
 
