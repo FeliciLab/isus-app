@@ -20,24 +20,20 @@ const PreCadastroRoutes = () => {
     <FormProvider>
       <PreCadastroStack.Navigator>
         <PreCadastroStack.Screen
-          name={rotas.PRE_CADASTRO_PROFISSIONAL}
-          component={PreCadastroProfissional}
-          options={opcoes}
-        />
-
-        <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_INFO_PESSOAL}
           component={PreCadastroInfoPessoal}
           options={opcoes}
         />
-
-
+        <PreCadastroStack.Screen
+          name={rotas.PRE_CADASTRO_PROFISSIONAL}
+          component={PreCadastroProfissional}
+          options={opcoes}
+        />
         <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_SENHA}
           component={PreCadastroSenha}
           options={opcoes}
         />
-
         <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_SUCESSO}
           component={PreCadastroSucesso}

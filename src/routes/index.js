@@ -123,14 +123,9 @@ export default function App({ navigationRef }) {
       <RootStack.Navigator>
         <RootStack.Screen
           name="App"
-          component={PreCadastro}
-          options={{ headerShown: false }}
-        />
-        {/* <RootStack.Screen
-          name="App"
           component={AppDrawerScreen}
           options={{ headerShown: false }}
-        /> */}
+        />
         <RootStack.Screen
           name="CADASTRO"
           options={{ headerShown: !estaAtiva(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
