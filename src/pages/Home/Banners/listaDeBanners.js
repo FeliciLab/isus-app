@@ -57,13 +57,17 @@ const verificarLogin = (item, estaLogado) => {
   return false;
 };
 
-const listaDeBanners = async (estaLogado) => {
-  const bannerAPI = await pegarBanners();
-  return (bannerAPI.data
+export const gerarListaBanners = (banners, estaLogado) => (
+  banners
     .filter(item => verificarLogin(item, estaLogado))
     .map(item => ({
       banner: definirBanner(item)
-    })));
+    }))
+);
+
+const listaDeBanners = async (estaLogado) => {
+  const bannerAPI = await pegarBanners();
+  return gerarListaBanners(bannerAPI.data, estaLogado);
 };
 
 export default listaDeBanners;
