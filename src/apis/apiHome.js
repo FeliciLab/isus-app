@@ -58,3 +58,7 @@ export function postDuvidasElmo(duvida, email) {
     duvida, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
   });
 }
+
+export function pegarBanners() {
+  return request.get('banner-config');
+}
