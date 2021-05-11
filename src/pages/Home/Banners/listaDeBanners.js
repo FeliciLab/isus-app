@@ -1,15 +1,8 @@
 import React from 'react';
 import Banner from '../../../components/Banner';
-import IDSaude from '../../../assets/images/banners/IDSaude.png';
-import VacinaCovid19 from '../../../assets/images/banners/vacinaCovid19.png';
 import GuiaAssistenciaFarmaceutica from '../../../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
 import { pegarBanners } from '../../../apis/apiHome';
-
-const listaDeImagens = {
-  'images/banners/guiaAssistenciaFarmaceutica.jpg': GuiaAssistenciaFarmaceutica,
-  'images/banners/IDSaude.png': IDSaude,
-  'images/banners/vacinaCovid19.png': VacinaCovid19,
-};
+import { listaDeImagens } from '../../../constantes/imagens';
 
 const buscarImagem = ({ imagem, localImagem }) => {
   if (localImagem === 'web' || !localImagem) {

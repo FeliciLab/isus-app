@@ -19,7 +19,7 @@ export default function Banners({ sliderWidth, itemWidth }) {
   };
   useEffect(() => {
     aoIniciar();
-  }, []);
+  }, [estaLogado]);
 
   function cardItem({ item }) {
     return item.banner;
