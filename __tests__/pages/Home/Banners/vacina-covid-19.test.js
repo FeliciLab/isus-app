@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // import React from 'react';
 // // eslint-disable-next-line import/no-unresolved
 // import { fireEvent, render } from 'util-teste';
@@ -36,7 +37,6 @@
 //       const { getByTestId } = render(<Banners sliderWidth={width} itemWidth={width} />);
 //       item = getByTestId(TESTIDS.HOME_BANNER_1);
 //     });
-
 //     test('deve renderizar o banner da vacina do covid19 quando renderizar o carrossel de banners', () => {
 //       console.log(item);
 //       expect(item).not.toBeNull();
