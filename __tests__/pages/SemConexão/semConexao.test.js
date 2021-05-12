@@ -92,13 +92,12 @@ describe('testes na tela de sem conexão webviews', () => {
     expect(iconeVermelho).not.toBeNull();
   });
 });
-
 describe('testes na tela de sem conexão browser', () => {
-  test('renderizar tela ESP Virtual com e sem parametros', () => {
+  test('renderizar tela ESP Virtual ', () => {
     const params = {
       componente: 'browser',
       title: '',
-      url: 'http://espvirtual.esp.ce.gov.br/',
+      url: '',
       rota: '',
       expanded: true
     };
