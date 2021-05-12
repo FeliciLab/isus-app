@@ -1,4 +1,6 @@
-import React, { useLayoutEffect, useContext, useEffect } from 'react';
+import React, {
+  useLayoutEffect, useContext, useEffect, useState
+} from 'react';
 import { Linking } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
@@ -27,18 +29,20 @@ function SemConexao(props) {
   const tituloCabecalho = 'Sem Conexão';
   const corFundo = 'verde';
   const { indice, mudarIndice } = useContext(SemConexaoContext);
-  const netInfo = useNetInfo();
+  const estaConectado = useNetInfo().isConnected;
   const navigation = useNavigation();
+  const [carregando, mudarCarregando] = useState(false);
 
   useEffect(() => {
     if (formlogin) mudarIndice(3);
   }, [formlogin]);
 
   const onPressTentarNovamente = () => {
+    mudarCarregando(true);
     mudarIndice(indice + 1);
-    if (netInfo.isConnected) {
+    if (estaConectado) {
       if (params?.componente === 'webview') {
-        navigation.navigate(params?.componente, {
+        navigation.replace(params?.componente, {
           title: params?.title,
           url: params?.url,
           rota: params?.rota,
@@ -54,11 +58,15 @@ function SemConexao(props) {
       }
 
       if (params?.componente === 'ELMO' || params?.componente === 'QUALIQUIZ') {
-        navigation.navigate(params?.componente);
+        navigation.replace(params?.componente);
         return;
       }
+
       navigation.goBack();
     }
+    setTimeout(() => {
+      mudarCarregando(false);
+    }, 1500);
   };
 
   const onPressVoltar = () => navigation.navigate(rotas.HOME, { screen: 'Home' });
@@ -108,6 +116,7 @@ function SemConexao(props) {
                   VOLTAR
                 </Botao>
                 <Botao
+                  loading={carregando}
                   testID={TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}
                   labelStyle={{ color: CORES.BRANCO }}
                   backgroundColor={CORES.LARANJA}
