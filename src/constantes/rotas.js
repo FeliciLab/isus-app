@@ -1,4 +1,5 @@
 export default {
+  DESCRICAO: 'Descrição',
   FORMULARIO_PESSOAL: 'FormularioInfoPessoal',
   FORMULARIO_PROFISSIONAL: 'FormularioInfoProfissional',
   FORMULARIO_SENHA: 'FormularioSenha',

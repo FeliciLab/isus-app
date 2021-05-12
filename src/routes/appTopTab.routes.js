@@ -2,8 +2,7 @@ import React, { useLayoutEffect, useCallback } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import NetInfo from '@react-native-community/netinfo';
+import { useFocusEffect } from '@react-navigation/native';
 import useApiHooks from '../hooks/apiHooks';
 import { CORES } from '../constantes/estiloBase';
 
@@ -16,13 +15,8 @@ export default function appTopTabScreen(props) {
   const { route } = props;
   const genericComponent = route.params[indexComponent].type;
   const title = route.params[indexTitle];
-  const navigation = useNavigation();
+  const { navigation } = props;
   const useApi = useApiHooks(props);
-  let estaConectado;
-
-  NetInfo.addEventListener((state) => {
-    estaConectado = state.isConnected;
-  });
 
   useFocusEffect(
     useCallback(() => {
@@ -71,10 +65,9 @@ export default function appTopTabScreen(props) {
     item.title_description = title;
     return item;
   }
-
   return (
     <>
-      {(useApi.categorias !== null) && estaConectado ? (
+      {(useApi.categorias !== null) ? (
         <Tab.Navigator
           tabBarOptions={{
             scrollEnabled: true,

@@ -36,10 +36,13 @@ export default function DescriptionScreen(props) {
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
   const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
   const dataDePostagem = postagem.post_date;
-  const netInfo = useNetInfo();
+  const estaConectado = useNetInfo().isConnected;
 
   useFocusEffect(
     useCallback(() => {
+      if (!estaConectado) {
+        navigation.navigate(rotas.SEM_CONEXAO);
+      }
       async function pegarConteudo() {
         if (conteudoBaixado) {
           await pegarConteudoDoStorage();
@@ -48,7 +51,7 @@ export default function DescriptionScreen(props) {
         }
       }
       pegarConteudo();
-    }, [props])
+    }, [props, estaConectado])
   );
 
 
@@ -96,7 +99,7 @@ export default function DescriptionScreen(props) {
         postado em
       </Text>
       <Text style={styles.informacaoLateral}>
-        { formatarDataPorExtenso(dataDePostagem) }
+        {formatarDataPorExtenso(dataDePostagem)}
       </Text>
     </>
   );
@@ -151,7 +154,7 @@ export default function DescriptionScreen(props) {
 
   const baixarPDF = (event, href) => {
     // eslint-disable-next-line no-unused-expressions
-    netInfo.isConnected
+    estaConectado
       ? navigation.navigate('webview', {
         title: 'Acesso ao conteúdo',
         url: href
