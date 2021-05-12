@@ -37,7 +37,6 @@ function SemConexao(props) {
   const onPressTentarNovamente = () => {
     mudarIndice(indice + 1);
     if (netInfo.isConnected) {
-      console.log(`Conectado: ${netInfo.isConnected}`);
       if (params?.componente === 'webview') {
         navigation.navigate(params?.componente, {
           title: params?.title,
@@ -50,9 +49,7 @@ function SemConexao(props) {
       }
 
       if (params?.componente === 'browser') {
-        console.log(params.componente);
-        const response = Linking.openURL(params?.url);
-        console.log(response);
+        Linking.openURL(params?.url);
         return;
       }
 

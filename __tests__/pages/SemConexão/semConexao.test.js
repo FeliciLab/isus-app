@@ -4,6 +4,7 @@ import { render, fireEvent } from 'util-teste';
 import { TESTIDS } from '../../../src/constantes/testIDs';
 import SemConexao from '../../../src/pages/SemConexao';
 
+
 const mockLinking = jest.fn(() => Promise.resolve('500'));
 jest.mock('react-native/Libraries/Linking/Linking', () => ({
   openURL: mockLinking
