@@ -104,6 +104,7 @@ const FormularioLogin = ({ route }) => {
 
   const fazerLogin = async ({ email, senha }) => autenticarComIdSaude(email, senha)
     .then(async (response) => {
+      console.log('response', response);
       try {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
       } catch (e) {
@@ -136,6 +137,8 @@ const FormularioLogin = ({ route }) => {
         await armazenarEstadoLogado(false);
         alterarEstaLogado(false);
       }
+
+      // mostrarAlerta(err.response.data.erros);
     })
     .catch((err) => {
       if (err.response?.status === 401) {
