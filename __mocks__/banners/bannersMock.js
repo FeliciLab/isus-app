@@ -47,5 +47,6 @@ const banners = [
 
 export const bannersAutenticado = banners.filter(i => i.options.login !== false);
 export const bannersNaoAutenticado = banners.filter(i => i.options.login !== true);
+export const bannersRota = banners.filter(i => i.tipo === 'rota');
 
 export default banners;
