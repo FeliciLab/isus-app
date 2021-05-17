@@ -34,7 +34,7 @@
     "appcenter": "3.0.3",
     "appcenter-analytics": "3.0.3",
     "appcenter-crashes": "3.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "intl": "^1.2.5",
     "jwt-decode": "^2.2.0",
     "moment": "^2.25.3",
