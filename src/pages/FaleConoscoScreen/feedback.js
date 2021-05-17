@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
-import ImagePicker from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
 import { feedbackValido, emailValido } from '../../utils/validadores';
@@ -199,10 +199,12 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             color="#FF9800"
             compact
             onPress={
-              () => ImagePicker.launchImageLibrary(
-                {},
-                response => definirNomeDaImagem(response)
-              )
+              () => {
+                launchImageLibrary(
+                  { mediaType: 'photo' },
+                  response => definirNomeDaImagem(response)
+                );
+              }
             }
           >
             ANEXAR IMAGEM
