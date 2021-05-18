@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
-import ImagePicker from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import { postFeedback } from '../../apis/apiHome';
 import Tag from './Tag';
 import { feedbackValido, emailValido } from '../../utils/validadores';
@@ -48,6 +48,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       setImagem(parsearResponse(responseDaBiblioteca));
     }
   }, [responseDaBiblioteca]);
+
   const onSubmit = async () => {
     try {
       const { data } = await postFeedback(tipoDeFeedback.textoDoDropdown, feedback, email, imagem);
@@ -89,10 +90,13 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     nome: nomeImagem,
     tipo: response.type,
     tamanho: response.fileSize,
-    dados: response.data
+    dados: response.base64
   });
 
   const extrairMensagemDeErro = (response) => {
+    if (response.errors['imagem.dados']) {
+      return 'Falha no envio da imagem. Entre em contato com o suporte técnico para verificar o problema.';
+    }
     if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
     if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
     return '';
@@ -199,10 +203,15 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             color="#FF9800"
             compact
             onPress={
-              () => ImagePicker.launchImageLibrary(
-                {},
-                response => definirNomeDaImagem(response)
-              )
+              () => {
+                launchImageLibrary(
+                  {
+                    mediaType: 'photo',
+                    includeBase64: true
+                  },
+                  response => definirNomeDaImagem(response)
+                );
+              }
             }
           >
             ANEXAR IMAGEM
