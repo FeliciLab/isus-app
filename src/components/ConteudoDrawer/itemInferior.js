@@ -2,39 +2,43 @@ import React from 'react';
 import {
   Share
 } from 'react-native';
-import {
-  DrawerItem
-} from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import ItemDrawer from './itemDrawer';
 import { analyticsData } from '../../utils/analytics';
 import packageJson from '../../../package.json';
 import {
   ItensInferior, ConteudoVersao, TextoVersao
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
+import testIDs from '../../constantes/testIDs';
+import rotas from '../../constantes/rotas';
+
 
 const itemInferior = () => {
   const navigationTermos = useNavigation();
-
   const versaoSistema = packageJson.version;
 
   const conteudoItem = [
     {
-      icone: 'information',
+      icone: <Icon name="information" size={22} color={CORES.PRETO54} />,
       nome: 'Sobre o iSUS',
+      testID: testIDs.DRAWER.ITEM_SOBRE_O_ISUS,
       labelDoAnalytics: 'sobre_o_isus',
-      aoPressionar: () => navigationTermos.navigate('SOBRE')
+      aoPressionar: () => navigationTermos.navigate(rotas.SOBRE_O_ISUS)
     },
     {
-      icone: 'clipboard-text',
+      icone: <Icon name="clipboard-text" size={22} color={CORES.PRETO54} />,
       nome: 'Termos de Uso',
+      testID: testIDs.DRAWER.ITEM_TERMOS_DE_USO,
       labelDoAnalytics: 'termos_de_uso',
-      aoPressionar: () => navigationTermos.navigate('TERMOS_DE_USO')
+      aoPressionar: () => navigationTermos.navigate(rotas.TERMOS_DE_USO)
     },
     {
-      icone: 'share-variant',
+      icone: <Icon name="share-variant" size={22} color={CORES.PRETO54} />,
       nome: 'Compartilhe o iSUS',
+      testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
       labelDoAnalytics: 'compartilhe_o_isus',
       aoPressionar: () => aoCompartilhar()
     }
@@ -56,17 +60,13 @@ const itemInferior = () => {
       <ItensInferior>
         {
           conteudoItem.map(({
-            icone, nome, labelDoAnalytics, aoPressionar
+            icone, nome, testID, labelDoAnalytics, aoPressionar
           }) => (
-            <DrawerItem
+            <ItemDrawer
               key={nome}
-              icon={() => <Icon name={icone} size={22} color={CORES.PRETO54} />}
-              label={nome}
-              labelStyle={{ fontSize: 15 }}
-              inactiveTintColor="#111"
-              activeTintColor="#111"
-              inactiveBackgroundColor="transparent"
-              activeBackgroundColor="transparent"
+              testID={testID}
+              icone={icone}
+              nome={nome}
               onPress={() => {
                 analyticsData(labelDoAnalytics, 'click', 'Home');
                 aoPressionar();
