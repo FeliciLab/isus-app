@@ -23,6 +23,7 @@ import {
   pegarTokenDoUsuarioNoStorage,
   excluirTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
+import { analyticsData } from '../../utils/analytics';
 
 export default function ExcluirPerfil() {
   const [palavra, alterarPalavra] = useState({});
@@ -67,6 +68,7 @@ export default function ExcluirPerfil() {
           if (value.status === 200) {
             realizarLogout();
             navigation.navigate('CONTA_EXCLUIDA');
+            analyticsData('confirmar_exclusao_conta', 'Click', 'Perfil');
           }
         }).catch((error) => {
           console.log(error);

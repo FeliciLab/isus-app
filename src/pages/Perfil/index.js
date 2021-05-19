@@ -24,6 +24,7 @@ import { salvarDados } from '../../services/armazenamento';
 import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { analyticsData } from '../../utils/analytics';
 
 export default function PerfilScreen() {
   const {
@@ -82,8 +83,12 @@ export default function PerfilScreen() {
       textoCancelamento: 'Voltar',
       aoConcluir: () => {
         fecharCaixaDialogo(); navigation.navigate('EXCLUIR_PERFIL');
+        analyticsData('solicitar_confirmacao_exclusao_conta', 'Click', 'Perfil');
       },
-      aoCancelar: () => { fecharCaixaDialogo(); }
+      aoCancelar: () => {
+        fecharCaixaDialogo();
+        analyticsData('cancelar_exclusao_conta', 'Click', 'Perfil');
+      }
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
@@ -157,7 +162,10 @@ export default function PerfilScreen() {
               <MenuPerfilItem
                 icone="delete-forever"
                 titulo="Excluir Conta"
-                onPress={() => { abrirCaixaDialogo(); }}
+                onPress={() => {
+                  abrirCaixaDialogo();
+                  analyticsData('iniciar_exclusao_conta', 'Click', 'Perfil');
+                }}
               />
               )}
             />
