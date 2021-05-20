@@ -48,7 +48,7 @@ function EdicaoInfoPessoal() {
       />
       <Scroll>
         <ConteudoFormulario>
-          <TituloPrincipal>
+          <TituloPrincipal testID="texto">
             Edite as informações pessoais que você deseja atualizar:
           </TituloPrincipal>
         </ConteudoFormulario>
