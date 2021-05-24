@@ -15,7 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 describe('Dado que estou na tela de edição de informações pessoais', () => {
-  let compTextoTopo;
+  let getTest;
   const textoTopo = 'Edite as informações pessoais que você deseja atualizar:';
 
   beforeEach(() => {
@@ -24,10 +24,12 @@ describe('Dado que estou na tela de edição de informações pessoais', () => {
         <EdicaoInfoPessoal />
       </FormProvider>
     );
-    compTextoTopo = getByTestId('texto');
+    getTest = getByTestId;
   });
+  
   describe('Quando a tela é renderizada corretamente', () => {
     test('Então devo visualizar o texto no topo', () => {
+      compTextoTopo = getTest('texto');
       expect(compTextoTopo.props.children).toEqual(textoTopo);
     });
   });

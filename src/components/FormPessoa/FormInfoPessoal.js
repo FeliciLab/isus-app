@@ -110,7 +110,8 @@ export default function FormInfoPessoal({
                 label="Telefone"
                 theme={theme}
                 rules={{ required: true }}
-                mask="([00]) [00000]-[0000]"
+                mask="(##) #####-####"
+                numero
               />
               <FormError
                 name="telefone"
@@ -129,7 +130,8 @@ export default function FormInfoPessoal({
                     cpfCadastrado: async cpf => await validarCpfCadastrado(cpf.replace(/\D/g, '')) || formularioPessoal.cpfCadastrado
                   }
                 }}
-                mask="[000].[000].[000]-[00]"
+                mask="###.###.###-##"
+                numero
               />
               <FormError
                 name="cpf"
