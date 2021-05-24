@@ -76,8 +76,10 @@ export default function FormInfoPessoal({
             <Title>Informações pessoais</Title>
             <RowInput>
               <FormTextInput
+                testID="nomeCompleto"
                 name="nomeCompleto"
                 label="Nome Completo"
+                placeholder="teste"
                 theme={theme}
                 rules={{ required: true }}
               />
@@ -91,6 +93,7 @@ export default function FormInfoPessoal({
                 readonly={emailSomenteLeitura}
                 name="email"
                 label="E-mail"
+                placeholder="teste"
                 theme={theme}
                 rules={{
                   required: true,

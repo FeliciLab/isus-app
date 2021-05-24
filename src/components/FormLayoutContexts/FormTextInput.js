@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
+// import { TextInput } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { Controller } from 'react-hook-form';
 import FormContext from '../../context/FormContext';
 
 const FormTextInput = ({
-  name, label, placeholder, theme, rules, readonly
+  name, label, placeholder, theme, rules, readonly, testID
 }) => {
   const { control } = useContext(FormContext);
-
+  React.useEffect(() => {
+    console.log(`Label: ${label}`);
+    console.log(`PlaceHolder: ${placeholder}`);
+  });
   return (
     <Controller
       control={control}
@@ -16,6 +20,7 @@ const FormTextInput = ({
       defaultValue=""
       render={({ onChange, onBlur, value }) => (
         <TextInput
+          testID={testID}
           disabled={readonly || false}
           mode="outlined"
           label={label}
