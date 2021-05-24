@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
-import { render, waitFor } from 'util-teste';
+import { render } from 'util-teste';
 import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
 // import dadosUsuario from '../../../../__mocks__/valores/dadosUsuario';
@@ -26,10 +26,10 @@ describe('Dado que estou na tela de edição de informações pessoais', () => {
     );
     getTest = getByTestId;
   });
-  
+
   describe('Quando a tela é renderizada corretamente', () => {
     test('Então devo visualizar o texto no topo', () => {
-      compTextoTopo = getTest('texto');
+      const compTextoTopo = getTest('texto');
       expect(compTextoTopo.props.children).toEqual(textoTopo);
     });
     test('Então devo visualizar o texto no topo', async () => {
