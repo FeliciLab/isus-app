@@ -15,7 +15,7 @@ export const FormProvider = ({ initValues, children }) => {
     unregister,
     formState,
   } = useForm({
-    defaultValues: initValues || {},
+    defaultValues: initValues,
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });

@@ -55,6 +55,7 @@ const FormTextInputMask = ({
       defaultValue=""
       render={({ onChange, onBlur, value }) => (
         <TextInput
+          testID={`textinput-${name}`}
           keyboardType={numero ? 'number-pad' : 'default'}
           mode="outlined"
           label={label}
