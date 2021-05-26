@@ -94,7 +94,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       const labelId = getAllByText(nomeLabel);
       expect(labelId[0].props.children).toEqual(nomeLabel);
     });
-    // test('ENTÃO o campo Telefone deve estar preenchido com o nome da pessoa autenticada', 
+    // test('ENTÃO o campo Telefone deve estar preenchido com o nome da pessoa autenticada',
     // async () => {
     //   let value = '85987654321';
     //   value = value.replace(/85/i, '11');
@@ -119,7 +119,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       const labelId = getAllByText(nomeLabel);
       expect(labelId[0].props.children).toEqual(nomeLabel);
     });
-    // test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada', 
+    // test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada',
     // async () => {
     //   let value = '11111111111';
     //   console.log(value);
@@ -143,7 +143,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       const labelId = getAllByText(nomeLabel);
       expect(labelId[0].props.children).toEqual(nomeLabel);
     });
-    // test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada', 
+    // test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada',
     // async () => {
     //   let value = 'Município';
     //   console.log(value);
