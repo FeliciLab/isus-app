@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
-import { render, waitFor } from 'util-teste';
+import { render, waitFor, cleanup } from 'util-teste';
 
 import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
@@ -26,7 +26,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
   //   );
   //   getTest = getByTestId;
   // });
-
+  afterEach(cleanup);
   describe('QUANDO a tela é renderizada corretamente', () => {
     test('ENTÃO devo visualizar o texto no topo', () => {
       const { getByTestId } = render(
@@ -84,5 +84,74 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       const campoID = getByTestId(`textinput-${nomeController}`);
       await waitFor(() => expect(campoID.props.value).toEqual(value));
     });
+    test('ENTÃO um campo do tipo input/text deve ser exibido com a label Telefone', () => {
+      const { getAllByText } = render(
+        <FormProvider>
+          <EdicaoInfoPessoal />
+        </FormProvider>
+      );
+      const nomeLabel = 'Telefone';
+      const labelId = getAllByText(nomeLabel);
+      expect(labelId[0].props.children).toEqual(nomeLabel);
+    });
+    // test('ENTÃO o campo Telefone deve estar preenchido com o nome da pessoa autenticada', async () => {
+    //   let value = '85987654321';
+    //   value = value.replace(/85/i, '11');
+    //   console.log(value);
+    //   const { getByTestId, debug } = render(
+    //     <FormProvider initValues={{ telefone: value }}>
+    //       <EdicaoInfoPessoal />
+    //     </FormProvider>
+    //   );
+    //   debug();
+    //   const nomeController = 'telefone';
+    //   // const campoID = getByTestId(`textinput-${nomeController}`);
+    //   // await waitFor(() => expect(campoID.props.value).toEqual(value));
+    // });
+    test('ENTÃO um campo do tipo input/text deve ser exibido com a label CPF', () => {
+      const { getAllByText } = render(
+        <FormProvider>
+          <EdicaoInfoPessoal />
+        </FormProvider>
+      );
+      const nomeLabel = 'CPF';
+      const labelId = getAllByText(nomeLabel);
+      expect(labelId[0].props.children).toEqual(nomeLabel);
+    });
+    // test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada', async () => {
+    //   let value = '11111111111';
+    //   console.log(value);
+    //   const { getByTestId } = render(
+    //     <FormProvider initValues={{ cpf: value }}>
+    //       <EdicaoInfoPessoal />
+    //     </FormProvider>
+    //   );
+    //   const nomeController = 'cpf';
+    //   // const campoID = getByTestId(`textinput-${nomeController}`);
+    //   // await waitFor(() => expect(campoID.props.value).toEqual(value));
+    // });
+    test('ENTÃO um campo do tipo input/text deve ser exibido com a label Município', () => {
+      const { getAllByText, debug } = render(
+        <FormProvider>
+          <EdicaoInfoPessoal />
+        </FormProvider>
+      );
+      debug();
+      const nomeLabel = 'Município';
+      const labelId = getAllByText(nomeLabel);
+      expect(labelId[0].props.children).toEqual(nomeLabel);
+    });
+    // test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada', async () => {
+    //   let value = 'Município';
+    //   console.log(value);
+    //   const { getByTestId } = render(
+    //     <FormProvider initValues={{ : value }}>
+    //       <EdicaoInfoPessoal />
+    //     </FormProvider>
+    //   );
+    //   const nomeController = '';
+    //   // const campoID = getByTestId(`textinput-${nomeController}`);
+    //   // await waitFor(() => expect(campoID.props.value).toEqual(value));
+    // });
   });
 });

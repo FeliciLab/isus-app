@@ -75,7 +75,7 @@ const FormTextInputMask = ({
   );
 };
 
-FormTextInputMask.defaulProps = {
+FormTextInputMask.defaultProps = {
   padraoMascara: '#'
 };
 
