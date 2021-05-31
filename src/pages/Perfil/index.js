@@ -26,6 +26,7 @@ import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import rotas from '../../constantes/rotas';
 
+
 export default function PerfilScreen() {
   const {
     dadosUsuario,
@@ -83,8 +84,12 @@ export default function PerfilScreen() {
       textoCancelamento: 'Voltar',
       aoConcluir: () => {
         fecharCaixaDialogo(); navigation.navigate('EXCLUIR_PERFIL');
+        analyticsData('solicitar_confirmacao_exclusao_conta', 'Click', 'Perfil');
       },
-      aoCancelar: () => { fecharCaixaDialogo(); }
+      aoCancelar: () => {
+        fecharCaixaDialogo();
+        analyticsData('cancelar_exclusao_conta', 'Click', 'Perfil');
+      }
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
