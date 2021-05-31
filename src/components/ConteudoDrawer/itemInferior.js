@@ -37,7 +37,7 @@ const itemInferior = () => {
     },
     {
       icone: <Icon name="share-variant" size={22} color={CORES.PRETO54} />,
-      nome: 'Compartilhe o iSUS',
+      nome: 'Compartilhar',
       testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
       labelDoAnalytics: 'compartilhe_o_isus',
       aoPressionar: () => aoCompartilhar()
