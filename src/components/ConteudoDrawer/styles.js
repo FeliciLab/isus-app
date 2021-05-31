@@ -21,7 +21,8 @@ const DroidSafeArea = styled.SafeAreaView`
 `;
 
 const ItensInferior = styled.View`
-  align-items: flex-start;
+  text-align: left;
+  align-content: flex-start;
 `;
 
 export {

@@ -5,6 +5,7 @@ import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
 import MockedDrawerNavigator from '../../../__mocks__/navigator/mocked-drawer-navigator';
 import AppTab from '../../../src/routes/appBottomTab.routes';
 import { analyticsData } from '../../../src/utils/analytics';
+import testIDs, { TESTIDS } from '../../../src/constantes/testIDs';
 
 jest.mock('../../../src/utils/analytics', () => ({
   analyticsData: jest.fn()
@@ -32,7 +33,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-home');
+    const item = getByTestId(TESTIDS.DRAWER.ITEM_HOME);
 
     expect(item).not.toBeNull();
   });
@@ -48,7 +49,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-perfil');
+    const item = getByTestId(TESTIDS.DRAWER.ITEM_PERFIL);
 
     expect(item).not.toBeNull();
   });
@@ -64,7 +65,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-faleConosco');
+    const item = getByTestId(testIDs.DRAWER.ITEM_FALECONOSCO);
     expect(item).not.toBeNull();
   });
 
@@ -79,7 +80,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-SusNoCeara');
+    const item = getByTestId(testIDs.DRAWER.ITEM_SUSNOCEARA);
     expect(item).not.toBeNull();
   });
 
@@ -94,7 +95,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-home');
+    const item = getByTestId(TESTIDS.DRAWER.ITEM_HOME);
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();
   });
@@ -110,7 +111,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-perfil');
+    const item = getByTestId(TESTIDS.DRAWER.ITEM_PERFIL);
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();
   });
@@ -126,7 +127,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-faleConosco');
+    const item = getByTestId(testIDs.DRAWER.ITEM_FALECONOSCO);
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();
   });
@@ -142,7 +143,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-SusNoCeara');
+    const item = getByTestId(testIDs.DRAWER.ITEM_SUSNOCEARA);
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();
   });
@@ -158,7 +159,7 @@ describe('testes do conteúdo do menu lateral do app', () => {
         )}
       />
     );
-    const item = getByTestId('drawer-item-SusNoCeara');
+    const item = getByTestId(testIDs.DRAWER.ITEM_SUSNOCEARA);
     fireEvent.press(item);
     expect(mockedNavigate).toHaveBeenCalled();
   });

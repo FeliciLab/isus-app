@@ -41,6 +41,15 @@ export const TESTIDS = {
     BOTAO_TENTAR_NOVAMENTE: 'botao_semconexao_tentar_novamente',
     ICONE_SEM_CONEXAO_VERMELHO: 'icone-semconexao-vermelho',
     ICONE_SEM_CONEXAO_LARANJA: 'icone-semconexao-laranja'
+  },
+  DRAWER: {
+    ITEM_HOME: 'drawer-item-home',
+    ITEM_PERFIL: 'drawer-item-perfil',
+    ITEM_FALECONOSCO: 'drawer-item-faleconosco',
+    ITEM_SUSNOCEARA: 'drawer-item-susnoceara',
+    ITEM_SOBRE_O_ISUS: 'drawer-item-sobre-o-isus',
+    ITEM_TERMOS_DE_USO: 'drawer-item-termos-de-uso',
+    ITEM_COMPARTILHE_O_ISUS: 'drawer-item-compartilhe-o-isus'
   }
 };
 
