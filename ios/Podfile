@@ -2,10 +2,10 @@ platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 def add_flipper_pods!(versions = {})
-  versions['Flipper'] ||= '~> 0.62.0'
+  versions['Flipper'] ||= '~> 0.91.2'
   versions['DoubleConversion'] ||= '1.1.7'
   versions['Flipper-Folly'] ||= '~> 2.2'
-  versions['Flipper-Glog'] ||= '0.3.6'
+  versions['Flipper-Glog'] ||= '0.3.9'
   versions['Flipper-PeerTalk'] ||= '~> 0.0.4'
   versions['Flipper-RSocket'] ||= '~> 1.1'
 
@@ -94,11 +94,11 @@ target 'isusapp' do
   add_flipper_pods!
   post_install do |installer|
     flipper_post_install(installer)
-    installer.pods_project.targets.each do |target|
-      target.build_configurations.each do |config|
-        config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
-      end
-    end
+#    installer.pods_project.targets.each do |target|
+#      target.build_configurations.each do |config|
+#        config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+#      end
+#    end
   end
 end
 
