@@ -25,7 +25,7 @@ import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import rotas from '../../constantes/rotas';
-
+import { analyticsData } from '../../utils/analytics';
 
 export default function PerfilScreen() {
   const {
