@@ -10,7 +10,7 @@ import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
 import { analyticsData } from '../../utils/analytics';
-import { adicionaMascaraAnalytics } from '../../utils/mascaras';
+import { normalizeEspacoTextoAnalytics, adicionaMascaraAnalytics } from '../../utils/mascaras';
 import rotas from '../../constantes/rotas';
 
 export default function InformationScreen(props) {
@@ -26,19 +26,22 @@ export default function InformationScreen(props) {
       if (!estaConectado) {
         navigation.navigate(rotas.SEM_CONEXAO);
       }
-      analyticsData(
-        adicionaMascaraAnalytics(params.slug),
-        'click',
-        params.title_description
-      );
     });
     return press;
   }, [navigation, estaConectado]);
 
   useFocusEffect(
     useCallback(() => {
+      const title = normalizeEspacoTextoAnalytics(params.title_description);
+      const slug = adicionaMascaraAnalytics(params.slug);
+      let analytics = '';
+      if (slug === ' ') {
+        analytics = title;
+      } else {
+        analytics = `${title}_${slug}`;
+      }
       analyticsData(
-        adicionaMascaraAnalytics(params.slug),
+        analytics,
         'click',
         params.title_description
       );
