@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.18.0",
+  "version": "3.18.1",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -10,6 +10,7 @@
     "start": "react-native start",
     "fix": "yarn lint --fix",
     "test": "jest",
+    "silent-test": "jest --silent",
     "lint": "eslint .",
     "post-version": "react-native-version",
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."
