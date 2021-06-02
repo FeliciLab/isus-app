@@ -180,7 +180,7 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
-  - OneSignal (2.16.1)
+  - OneSignal (3.4.4)
   - OneSignalXCFramework (3.4.4)
   - OpenSSL-Universal (1.1.180)
   - PromisesObjC (1.2.12)
@@ -490,7 +490,7 @@ DEPENDENCIES:
   - FlipperKit/SKIOSNetworkPlugin (~> 0.91.2)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - OneSignal (< 3.0, >= 2.6.2)
+  - OneSignal (< 4.0, >= 3.0)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -709,7 +709,7 @@ SPEC CHECKSUMS:
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
-  OneSignal: 5f6514ec2b931306eb067acb124afbb2e49970af
+  OneSignal: d20ee5601f44496573c7abe95923a04d1b49977f
   OneSignalXCFramework: eaf286b7438aa1f030f03e5fa9f1c79ede5d8f04
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
@@ -757,6 +757,6 @@ SPEC CHECKSUMS:
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e0fd94f3836eedb9ce5b9facea6d2c9c05c21233
+PODFILE CHECKSUM: 420a7bd5940097a523208b0b269bed68dd21f7f5
 
 COCOAPODS: 1.10.1
