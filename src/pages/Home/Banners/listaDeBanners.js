@@ -1,54 +1,73 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Banner from '../../../components/Banner';
-import IDSaude from '../../../assets/images/banners/IDSaude.png';
-import VacinaCovid19 from '../../../assets/images/banners/vacinaCovid19.png';
 import GuiaAssistenciaFarmaceutica from '../../../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
-import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
-import { TESTIDS } from '../../../constantes/testIDs';
-import { urls } from '../../../constantes/urls';
-import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
-import estaAtiva from '../../../utils/estaAtiva';
-import features from '../../../constantes/features';
+import { pegarBanners } from '../../../apis/apiHome';
+import { listaDeImagens } from '../../../constantes/imagens';
 
-const bannersDoCarrossel = () => {
-  const { estaLogado } = useContext(AutenticacaoContext);
-  const banners = [
-    {
-      banner:
-        <Banner
-          labelDoAnalytics={labelsAnalytics.HOME_BANNER_1}
-          testID={TESTIDS.HOME_BANNER_1}
-          titulo="Guia de Assistência Farmacêutica"
-          imagem={GuiaAssistenciaFarmaceutica}
-          enderecoUrl="https://coronavirus.ceara.gov.br/project/secretaria-de-saude-disponibiliza-guia-da-assistencia-farmaceutica-no-estado-do-ceara/"
-        />
-    },
-    {
-      banner:
-        <Banner
-          labelDoAnalytics={labelsAnalytics.HOME_BANNER_2}
-          testID={TESTIDS.HOME_BANNER_2}
-          titulo="ID Saúde"
-          imagem={IDSaude}
-          pagina={estaLogado ? 'PERFIL' : 'LOGIN'}
-        />
-    }
-  ];
-
-  if (estaAtiva(features.VACINACOVID19)) {
-    banners.unshift({
-      banner:
-        <Banner
-          labelDoAnalytics={labelsAnalytics.HOME_BANNER_0}
-          testID={TESTIDS.HOME_BANNER_0}
-          titulo="Vacinação"
-          imagem={VacinaCovid19}
-          enderecoUrl={urls.VACINA_COVID19}
-        />
-    });
+const buscarImagem = ({ imagem, localImagem }) => {
+  if (localImagem === 'web' || !localImagem) {
+    return listaDeImagens[imagem];
   }
-
-  return banners;
+  return GuiaAssistenciaFarmaceutica;
 };
 
-export default bannersDoCarrossel;
+const definirBanner = ({
+  titulo,
+  imagem,
+  valor,
+  tipo,
+  ordem,
+  options
+}) => {
+  if (tipo === 'webview') {
+    return (
+      <Banner
+        labelDoAnalytics={options?.labelAnalytics || 'home-banner'}
+        testID={`home-banner-${ordem}`}
+        titulo={titulo}
+        imagem={buscarImagem({ imagem, localImagem: options?.localImagem })}
+        enderecoUrl={valor}
+      />
+    );
+  }
+  if (tipo === 'rota') {
+    return (
+      <Banner
+        labelDoAnalytics={options?.labelAnalytics || 'home-banner'}
+        testID={`home-banner-${ordem}`}
+        titulo={titulo}
+        imagem={buscarImagem({ imagem, localImagem: options?.localImagem })}
+        pagina={valor}
+      />
+    );
+  }
+  return <></>;
+};
+
+const verificarLogin = (item, estaLogado) => {
+  if (item.options?.login === undefined) {
+    return true;
+  }
+  if (item.options?.login === true && estaLogado) {
+    return true;
+  }
+  if (item.options?.login === false && !estaLogado) {
+    return true;
+  }
+  return false;
+};
+
+export const gerarListaBanners = (banners, estaLogado) => (
+  banners
+    .filter(item => verificarLogin(item, estaLogado))
+    .map(item => ({
+      banner: definirBanner(item)
+    }))
+);
+
+const listaDeBanners = async (estaLogado) => {
+  const bannerAPI = await pegarBanners();
+  return gerarListaBanners(bannerAPI.data, estaLogado);
+};
+
+export default listaDeBanners;

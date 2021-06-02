@@ -24,6 +24,8 @@ import { salvarDados } from '../../services/armazenamento';
 import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import rotas from '../../constantes/rotas';
+import { analyticsData } from '../../utils/analytics';
 
 export default function PerfilScreen() {
   const {
@@ -82,8 +84,12 @@ export default function PerfilScreen() {
       textoCancelamento: 'Voltar',
       aoConcluir: () => {
         fecharCaixaDialogo(); navigation.navigate('EXCLUIR_PERFIL');
+        analyticsData('solicitar_confirmacao_exclusao_conta', 'Click', 'Perfil');
       },
-      aoCancelar: () => { fecharCaixaDialogo(); }
+      aoCancelar: () => {
+        fecharCaixaDialogo();
+        analyticsData('cancelar_exclusao_conta', 'Click', 'Perfil');
+      }
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
@@ -143,7 +149,7 @@ export default function PerfilScreen() {
             <DadosUsuarioProfissional dados={dadosUsuario} />
           </MenuPerfil>
           <MenuPerfil titulo="Privacidade">
-            <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
+            <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate(rotas.TERMOS_DE_USO)} />
           </MenuPerfil>
           <MenuPerfil titulo="Preferências">
             <Feature
@@ -154,11 +160,11 @@ export default function PerfilScreen() {
             <Feature
               name={features.EXCLUSAO_USUARIO}
               activeComponent={() => (
-              <MenuPerfilItem
-                icone="delete-forever"
-                titulo="Excluir Conta"
-                onPress={() => { abrirCaixaDialogo(); }}
-              />
+                <MenuPerfilItem
+                  icone="delete-forever"
+                  titulo="Excluir Conta"
+                  onPress={() => { abrirCaixaDialogo(); }}
+                />
               )}
             />
           </MenuPerfil>

@@ -19,6 +19,7 @@ import ItemInferior from './itemInferior';
 import { analyticsData } from '../../utils/analytics';
 import rotas from '../../constantes/rotas';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import testIDs from '../../constantes/testIDs';
 
 function conteudoDoDrawer(props) {
   const {
@@ -42,28 +43,28 @@ function conteudoDoDrawer(props) {
 
   const ItensDoDrawer = [
     {
-      testID: 'drawer-item-home',
+      testID: testIDs.DRAWER.ITEM_HOME,
       nome: 'Home',
       icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'home',
       rota: rotas.HOME
     },
     {
-      testID: 'drawer-item-perfil',
+      testID: testIDs.DRAWER.ITEM_PERFIL,
       nome: 'Meu perfil',
       icone: <Icon name="account" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'meu_perfil',
-      rota: tokenUsuario && estaLogado ? 'PERFIL' : 'LOGIN',
+      rota: tokenUsuario && estaLogado ? rotas.PERFIL : rotas.LOGIN,
     },
     {
-      testID: 'drawer-item-faleConosco',
+      testID: testIDs.DRAWER.ITEM_FALECONOSCO,
       nome: 'Fale conosco',
       icone: <MaterialIcon name="feedback" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'fale_conosco',
-      rota: 'FEEDBACK'
+      rota: rotas.FALE_CONOSCO
     },
     {
-      testID: 'drawer-item-SusNoCeara',
+      testID: testIDs.DRAWER.ITEM_SUSNOCEARA,
       nome: 'SUS no Ceará',
       icone: <Icon name="help-circle" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'sus_no_ceara',
