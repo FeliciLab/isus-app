@@ -1,22 +1,39 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
   View, FlatList, Dimensions, TouchableOpacity, Text, StyleSheet
 } from 'react-native';
 import { Caption } from 'react-native-paper';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
+import { useNetInfo } from '@react-native-community/netinfo';
+
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
 import { analyticsData } from '../../utils/analytics';
 import { adicionaMascaraAnalytics } from '../../utils/mascaras';
-
+import rotas from '../../constantes/rotas';
 
 export default function InformationScreen(props) {
-  const navigation = useNavigation();
+  const { navigation } = props;
   const { route } = props;
   const { params } = route;
   const [postagens, alterarPostagens] = useState([]);
   const [semConexao, alterarSemConexao] = useState(false);
+  const estaConectado = useNetInfo().isConnected;
+
+  useEffect(() => {
+    const press = navigation.addListener('tabPress', () => {
+      if (!estaConectado) {
+        navigation.navigate(rotas.SEM_CONEXAO);
+      }
+      analyticsData(
+        adicionaMascaraAnalytics(params.slug),
+        'click',
+        params.title_description
+      );
+    });
+    return press;
+  }, [navigation, estaConectado]);
 
   useFocusEffect(
     useCallback(() => {

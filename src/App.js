@@ -19,23 +19,33 @@ function App() {
     SimpleLineIcons.loadFont();
 
     OneSignal.setLogLevel(6, 0);
+    OneSignal.setAppId('917766a7-c01e-4655-89a1-86f648be2fc8');
 
-    OneSignal.init('917766a7-c01e-4655-89a1-86f648be2fc8', {
-      kOSSettingsKeyAutoPrompt: false,
-      kOSSettingsKeyInAppLaunchURL: false,
-      kOSSettingsKeyInFocusDisplayOption: 2
+    OneSignal.promptForPushNotificationsWithUserResponse(n => console.log(n));
+
+    OneSignal.setNotificationOpenedHandler((openResult) => {
+      const urlManejo = 'isusapp://manejoclinico';
+      if (openResult.notification.payload.launchURL) {
+        const launchUrl = openResult.notification.payload.launchURL;
+        if (launchUrl === urlManejo) {
+          return redirecionaManejo();
+        }
+        return redirecionaWebView(openResult);
+      }
+      return navigate('App');
     });
-    OneSignal.inFocusDisplaying(2);
 
-    OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
+    OneSignal.setInAppMessageClickHandler((result) => {
+      const açãoDoBotãoClicado = Platform.OS === 'ios' ? result.clickName : result.click_name;
+      if (açãoDoBotãoClicado === OneSignalActions.FEEDBACK_SIM) {
+        navigate('App', { screen: 'FEEDBACK' });
+        OneSignal.sendTag('acessou_feedback', 'sim');
+      } else {
+        OneSignal.sendTag('acessou_feedback', 'nao');
+      }
+    });
 
-    OneSignal.addEventListener('opened', onOpened);
-    OneSignal.addEventListener('inAppMessageClicked', onInAppClicked);
-
-    return function cleanup() {
-      OneSignal.removeEventListener('opened', onOpened);
-      OneSignal.removeEventListener('inAppMessageClicked', onInAppClicked);
-    };
+    return () => OneSignal.clearHandlers();
   }, []);
 
   const redirecionaManejo = () => navigate('clinical management');
@@ -46,33 +56,6 @@ function App() {
       url: urlWebview
     });
   };
-
-  function onOpened(openResult) {
-    const urlManejo = 'isusapp://manejoclinico';
-    if (openResult.notification.payload.launchURL) {
-      const launchUrl = openResult.notification.payload.launchURL;
-      if (launchUrl === urlManejo) {
-        return redirecionaManejo();
-      }
-      return redirecionaWebView(openResult);
-    }
-    return navigate('App');
-  }
-
-  function onInAppClicked(result) {
-    const açãoDoBotãoClicado = Platform.OS === 'ios' ? result.clickName : result.click_name;
-
-    if (açãoDoBotãoClicado === OneSignalActions.FEEDBACK_SIM) {
-      navigate('App', { screen: 'FEEDBACK' });
-      OneSignal.sendTag('acessou_feedback', 'sim');
-    } else {
-      OneSignal.sendTag('acessou_feedback', 'nao');
-    }
-  }
-
-  function myiOSPromptCallback(permission) {
-    console.log(permission);
-  }
 
   return (
     <>
