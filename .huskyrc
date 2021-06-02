@@ -1,5 +1,5 @@
 {
   "hooks": {
-    "pre-push": "npm run lint --fix && npm run test"
+    "pre-push": "npm run lint --fix && npm run silent-test"
   }
 }

@@ -10,6 +10,7 @@
     "start": "react-native start",
     "fix": "yarn lint --fix",
     "test": "jest",
+    "silent-test": "jest --silent",
     "lint": "eslint .",
     "post-version": "react-native-version",
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."
