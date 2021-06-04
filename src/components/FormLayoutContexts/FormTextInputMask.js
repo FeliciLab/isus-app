@@ -64,7 +64,7 @@ const FormTextInputMask = ({
       control={control}
       name={name}
       rules={rules}
-      // defaultValue={myDefaulValue}
+      defaultValue={myDefaulValue}
       render={({ onChange, onBlur, value }) => (
         <TextInput
           testID={`textinput-${name}`}
