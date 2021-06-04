@@ -45,6 +45,9 @@ def flipper_post_install(installer)
 end
 
 target 'isusapp' do
+  # ExternalPods
+  pod 'OneSignal', '>= 3.0', '< 4.0'
+
   # Pods for isusapp
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
@@ -80,11 +83,6 @@ target 'isusapp' do
 
   # CodePush plugin dependency
 
-  target 'isusappTests' do
-    inherit! :complete
-    # Pods for testing
-  end
-
   use_native_modules!
 
   # Enables Flipper.
@@ -99,15 +97,9 @@ target 'isusapp' do
 #        config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
 #      end
 #    end
-  end
-end
-
-target 'isusapp-tvOS' do
-  # Pods for isusapp-tvOS
-
-  target 'isusapp-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
+    # installer.pods_project.build_configurations.each do |config|
+    #   config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    # end
   end
 end
 
