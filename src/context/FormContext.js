@@ -20,6 +20,10 @@ export const FormProvider = ({ initValues, children }) => {
     reValidateMode: 'onChange',
   });
 
+  // React.useEffect(() => {
+  //   console.log(initValues);
+  // }, []);
+
   const setValues = obj => Object.keys(obj).forEach(key => setValue(key, obj[key]));
   const fieldsEmpty = list => list.filter(item => getValues(item) === '').length > 0;
 
