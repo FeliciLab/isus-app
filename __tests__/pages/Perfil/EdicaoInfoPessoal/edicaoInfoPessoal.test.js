@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // import React from 'react';
 // // eslint-disable-next-line import/no-unresolved
 // import {
@@ -198,7 +199,7 @@
 //     //     expect(elementoBotao.props).not.toBeTruthy();
 //     //   });
 //     // });
-// 	  //   describe('QUANDO preencho algum campo de forma incorreta', () => {
+//   //   describe('QUANDO preencho algum campo de forma incorreta', () => {
 //     //   test('ENTÃO o botão de ação estará desabilitado', async () => {
 //     //     const { getByA11yState, getByTestId, debug } = render(
 //     //       <FormProvider initValues={{ nomeCompleto: 'Jeferson' }}>
