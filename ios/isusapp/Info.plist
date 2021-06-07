@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key> LSSupportsOpeningDocumentsInPlace </key>
-	<true />
+	<true/>
 	<key> UIFileSharingEnabled </key>
-	<true />
+	<true/>
 	<key> UISupportsDocumentBrowser </key>
-	<true />
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -60,17 +60,17 @@
 		<string>instagram</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true />
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
@@ -110,6 +110,6 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 </dict>
 </plist>
