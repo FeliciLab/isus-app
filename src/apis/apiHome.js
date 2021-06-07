@@ -62,3 +62,7 @@ export function postDuvidasElmo(duvida, email) {
 export function pegarBanners() {
   return request.get('banner-config');
 }
+
+export function pegarCards() {
+  return request.get('/api/elmo/definicoes/cards');
+}
