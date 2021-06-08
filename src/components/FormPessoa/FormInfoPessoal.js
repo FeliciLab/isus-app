@@ -114,7 +114,6 @@ export default function FormInfoPessoal({
                 theme={theme}
                 rules={{ required: true }}
                 mask="(##) #####-####"
-                myDefaulValue="(85) 99999-9999"
                 numero
               />
               <FormError
@@ -135,7 +134,6 @@ export default function FormInfoPessoal({
                   }
                 }}
                 mask="###.###.###-##"
-                myDefaulValue="435.256.670-51"
                 numero
               />
               <FormError
