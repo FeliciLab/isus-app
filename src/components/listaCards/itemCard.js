@@ -1,7 +1,7 @@
 import React from 'react';
 import { Cartao, Paragrafo } from './styles';
 
-function itemCard({
+function ItemCard({
   Icone, titulo, onPress, testID
 }) {
   return (
@@ -16,4 +16,4 @@ function itemCard({
   );
 }
 
-export default itemCard;
+export default ItemCard;

@@ -32,6 +32,7 @@ import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import estaAtiva from '../../utils/estaAtiva';
 import features from '../../constantes/features';
+import ListaCardsElmo from './ListaCardsElmo';
 // import { analyticsData } from '../../utils/analytics';
 
 function Elmo() {
@@ -215,7 +216,7 @@ function Elmo() {
         >
           Saiba Mais
         </BotaoLink>
-        {estaAtiva(features.LISTA_CARDS) ? <listaCardsElmo />
+        {estaAtiva(features.LISTA_CARDS) ? <ListaCardsElmo />
           : (
         <FlatList
           horizontal

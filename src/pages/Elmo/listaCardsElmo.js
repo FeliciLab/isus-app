@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import listaCards from '../../components/listaCards';
-// import pegarCardsElmo from '../../apis/apiHome';
+import React, { useState } from 'react';
+import ListaCards from '../../components/ListaCards';
+//  import pegarCardsElmo from '../../apis/apiHome';
 import cardsElmoMock from '../../../__mocks__/cards/cardsElmoMock';
 
-function listaCardsElmo() {
+function ListaCardsElmo() {
   const [cardsElmo, alterarCardsElmo] = useState([]);
+  alterarCardsElmo(cardsElmoMock);
   /* const buscarLista = async () => {
     const lista = await pegarCardsElmo();
     alterarCardsElmo(lista);
-  }; */
+  };
 
   useEffect(() => {
-    // buscarLista();
-    alterarCardsElmo(cardsElmoMock);
-  }, []);
+    buscarLista();
+  }, []); */
 
   return (
-    <listaCards lista={cardsElmo} />
+    <ListaCards lista={cardsElmo} />
   );
 }
 
 
-export default listaCardsElmo;
+export default ListaCardsElmo;

@@ -3,7 +3,7 @@ import { FlatList, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import ROTAS from '../../constantes/rotas';
-import itemCard from './itemCard';
+import ItemCard from './ItemCard';
 
 
 export default function ({ lista }) {
@@ -40,7 +40,7 @@ export default function ({ lista }) {
       }}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => (
-        <itemCard
+        <ItemCard
           testID={`cards-${item.id}`}
           key={item.id}
           ativo={item.ativo}
