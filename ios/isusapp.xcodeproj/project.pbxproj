@@ -11,6 +11,7 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		51AF9EB081CB9534C9E34FDD /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63CB77A8D4FBA65FD1FC0D26 /* libPods-OneSignalNotificationServiceExtension.a */; };
 		781A4DE59E9BAA5757117AC8 /* libPods-isusapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C6E3A0FEDDEAF4F287CAACB3 /* libPods-isusapp.a */; };
 		807EF168257EB41300D19221 /* GoogleService-Info-debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 807EF167257EB41300D19221 /* GoogleService-Info-debug.plist */; };
 		8B1175D7249BDE8600835874 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8B1175D6249BDE8600835874 /* AppCenter-Config.plist */; };
@@ -96,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51AF9EB081CB9534C9E34FDD /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +263,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 96147258266814D300C8B9F8 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceExtension" */;
 			buildPhases = (
+				E7794874324973DD22C813B3 /* [CP] Check Pods Manifest.lock */,
 				9614724C266814D300C8B9F8 /* Sources */,
 				9614724D266814D300C8B9F8 /* Frameworks */,
 				9614724E266814D300C8B9F8 /* Resources */,
@@ -430,6 +433,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-isusapp/Pods-isusapp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E7794874324973DD22C813B3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -503,7 +528,7 @@
 				CODE_SIGN_ENTITLEMENTS = isusapp/iSUS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -543,7 +568,7 @@
 				CODE_SIGN_ENTITLEMENTS = isusapp/iSUS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = isusapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -690,6 +715,7 @@
 		};
 		96147259266814D300C8B9F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F73E792E1C1B69CB3E4BC60E /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -699,7 +725,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 53;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = XT8X924G47;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -724,6 +750,7 @@
 		};
 		9614725A266814D300C8B9F8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7E054DA0271E632FE575D28 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -734,7 +761,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 50;
+				CURRENT_PROJECT_VERSION = 53;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = XT8X924G47;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
