@@ -24,6 +24,7 @@ import { salvarDados } from '../../services/armazenamento';
 import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import rotas from '../../constantes/rotas';
 import { analyticsData } from '../../utils/analytics';
 
 export default function PerfilScreen() {
@@ -148,7 +149,7 @@ export default function PerfilScreen() {
             <DadosUsuarioProfissional dados={dadosUsuario} />
           </MenuPerfil>
           <MenuPerfil titulo="Privacidade">
-            <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate('TERMOS_DE_USO')} />
+            <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate(rotas.TERMOS_DE_USO)} />
           </MenuPerfil>
           <MenuPerfil titulo="Preferências">
             <Feature
@@ -159,14 +160,11 @@ export default function PerfilScreen() {
             <Feature
               name={features.EXCLUSAO_USUARIO}
               activeComponent={() => (
-              <MenuPerfilItem
-                icone="delete-forever"
-                titulo="Excluir Conta"
-                onPress={() => {
-                  abrirCaixaDialogo();
-                  analyticsData('iniciar_exclusao_conta', 'Click', 'Perfil');
-                }}
-              />
+                <MenuPerfilItem
+                  icone="delete-forever"
+                  titulo="Excluir Conta"
+                  onPress={() => { abrirCaixaDialogo(); }}
+                />
               )}
             />
           </MenuPerfil>

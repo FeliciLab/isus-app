@@ -12,6 +12,7 @@ import {
   MandeEmail, RecipienteBotaoEmail, BotaoEmail,
   BotaoLigarSus, Termos, TermosLink
 } from './styles';
+import rotas from '../../constantes/rotas';
 
 export default function Denunciar() {
   const navigation = useNavigation();
@@ -123,7 +124,7 @@ export default function Denunciar() {
               <TermosLink
                 testID="termo-de-uso"
                 onPress={() => {
-                  navigation.navigate('TERMOS_DE_USO');
+                  navigation.navigate(rotas.TERMOS_DE_USO);
                 }}
               >
                 Termos e Uso
