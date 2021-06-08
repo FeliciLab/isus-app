@@ -13,10 +13,10 @@ export const listaDeImagens = {
 };
 
 export const listaImagensElmo = {
-  SvgElmoLogo,
-  SvgCapacitacao,
-  SvgManualUso,
-  SvgFaleConosco
+  'icons/logo/logo-elmo-h1.svg': SvgElmoLogo,
+  'icons/elmo/icon_capacitacao.svg': SvgCapacitacao,
+  'icons/elmo/icon_manual_uso.svg': SvgManualUso,
+  'icons/elmo/icon_fale_conosco.svg': SvgFaleConosco
 };
 
 export default { listaDeImagens, listaImagensElmo };

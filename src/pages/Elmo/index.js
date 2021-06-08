@@ -30,6 +30,8 @@ import { CORES } from '../../constantes/estiloBase';
 import ROTAS from '../../constantes/rotas';
 import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
+import estaAtiva from '../../utils/estaAtiva';
+import features from '../../constantes/features';
 // import { analyticsData } from '../../utils/analytics';
 
 function Elmo() {
@@ -213,6 +215,8 @@ function Elmo() {
         >
           Saiba Mais
         </BotaoLink>
+        {estaAtiva(features.LISTA_CARDS) ? <listaCardsElmo />
+          : (
         <FlatList
           horizontal
           data={listaElmoCards}
@@ -233,6 +237,8 @@ function Elmo() {
             />
           )}
         />
+          )
+        }
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
           <TituloH6> Novidades </TituloH6>
           <BotaoLink

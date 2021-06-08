@@ -63,6 +63,6 @@ export function pegarBanners() {
   return request.get('banner-config');
 }
 
-export function pegarCards() {
+export function pegarCardsElmo() {
   return request.get('/api/elmo/definicoes/cards');
 }
