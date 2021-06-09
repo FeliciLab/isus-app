@@ -1,11 +1,11 @@
-import { listaImagensElmo } from '../../src/constantes/imagens';
 import { CORES } from '../../src/constantes/estiloBase';
 import ROTAS from '../../src/constantes/rotas';
+import { listaImagensElmo } from '../../src/constantes/imagens';
 
-const cardsElmo = [
+const cardsElmoMock = [
   {
     id: 'elmo-capacitacao',
-    titulo: 'Capacitação Mock',
+    titulo: 'Capacitação',
     ativo: true,
     icone: listaImagensElmo.SvgCapacitacao,
     navegacao: {
@@ -35,4 +35,4 @@ const cardsElmo = [
   }
 ];
 
-export default cardsElmo;
+export default cardsElmoMock;

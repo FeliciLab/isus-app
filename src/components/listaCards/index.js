@@ -1,15 +1,16 @@
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useNetInfo } from '@react-native-community/netinfo';
 import ROTAS from '../../constantes/rotas';
 import ItemCard from './ItemCard';
 
-
-export default function ({ lista }) {
+export default function ListaCards({ lista }) {
   const navigation = useNavigation();
   const netInfo = useNetInfo();
+
   const onPress = (item) => {
+    // analyticsData(item.id, 'Click', 'Elmo');
     if (item.navegacao.net && !netInfo.isConnected) {
       navigation.navigate(ROTAS.SEM_CONEXAO);
       return;
@@ -40,14 +41,14 @@ export default function ({ lista }) {
       }}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => (
-        <ItemCard
-          testID={`cards-${item.id}`}
-          key={item.id}
-          ativo={item.ativo}
-          titulo={item.titulo}
-          Icone={item.icone}
-          onPress={() => onPress(item)}
-        />
+      <ItemCard
+        testID={`cards-${item.id}`}
+        key={item.id}
+        ativo={item.ativo}
+        titulo={item.titulo}
+        Icone={item.icone}
+        onPress={() => onPress(item)}
+      />
       )}
     />
   );

@@ -32,8 +32,7 @@ import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import estaAtiva from '../../utils/estaAtiva';
 import features from '../../constantes/features';
-import ListaCardsElmo from './ListaCardsElmo';
-// import { analyticsData } from '../../utils/analytics';
+import ListaCardsElmo from './listaCardsElmo';
 
 function Elmo() {
   const navigation = useNavigation();
@@ -218,16 +217,16 @@ function Elmo() {
         </BotaoLink>
         {estaAtiva(features.LISTA_CARDS) ? <ListaCardsElmo />
           : (
-        <FlatList
-          horizontal
-          data={listaElmoCards}
-          keyExtractor={(items, index) => `${index}`}
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center'
-          }}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
+          <FlatList
+            horizontal
+            data={listaElmoCards}
+            keyExtractor={(items, index) => `${index}`}
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'center'
+            }}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
             <CartaoHome
               testID={`cards-${item.id}`}
               key={item.id}
@@ -236,8 +235,8 @@ function Elmo() {
               Icone={item.icone}
               onPress={() => onPress(item)}
             />
-          )}
-        />
+            )}
+          />
           )
         }
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
