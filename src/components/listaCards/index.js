@@ -11,23 +11,31 @@ export default function ListaCards({ lista }) {
 
   const onPress = (item) => {
     // analyticsData(item.id, 'Click', 'Elmo');
-    if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO);
+    if (item.tipo === 'webview' && !netInfo.isConnected) {
+      navigation.navigate(ROTAS.SEM_CONEXAO, {
+        componente: 'webview',
+        title: item.titulo,
+        url: item.valor,
+      });
       return;
     }
 
-    if (item.navegacao.componente === 'browser') {
-      Linking.openURL(item.navegacao.url);
+    if (item.tipo === 'webview') {
+      navigation.navigate('webview', {
+        title: item.titulo,
+        url: item.valor
+      });
       return;
     }
 
-    navigation.navigate(item.navegacao.componente, {
-      title: item.navegacao.titulo,
-      url: item.navegacao.url,
-      headerStyle: {
-        backgroundColor: item.navegacao.background
-      },
-    });
+    if (item.tipo === 'browser') {
+      Linking.openURL(item.valor);
+      return;
+    }
+
+    if (item.tipo === 'rota') {
+      navigation.navigate(item.valor);
+    }
   };
 
   return (
@@ -46,7 +54,7 @@ export default function ListaCards({ lista }) {
         key={item.id}
         ativo={item.ativo}
         titulo={item.titulo}
-        Icone={item.icone}
+        Icone={item.imagem}
         onPress={() => onPress(item)}
       />
       )}

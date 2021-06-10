@@ -1,36 +1,110 @@
-import { CORES } from '../../src/constantes/estiloBase';
-import ROTAS from '../../src/constantes/rotas';
 import { listaImagensElmo } from '../../src/constantes/imagens';
+import ROTAS from '../../src/constantes/rotas';
 
 const cardsElmoMock = [
   {
     id: 'elmo-capacitacao',
-    titulo: 'Capacitação',
+    ordem: 1,
     ativo: true,
-    icone: listaImagensElmo.SvgCapacitacao,
-    navegacao: {
-      componente: ROTAS.CAPACITACAO_ELMO,
-      titulo: 'Elmo',
-      background: CORES.INDIGO_DYE
+    titulo: 'Treinamento',
+    imagem: listaImagensElmo.SvgCapacitacao,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    tipo: 'webview',
+    valor: 'https://sus.ce.gov.br/elmo/faca-sua-capacitacao/',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_treinamento',
     }
   },
   {
     id: 'elmo-manual-uso',
-    titulo: 'Manual de Uso',
+    ordem: 2,
     ativo: true,
-    icone: listaImagensElmo.SvgManualUso,
-    navegacao: {
-      componente: 'browser',
-      url: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf'
+    titulo: 'Manual de Uso',
+    imagem: listaImagensElmo.SvgManualUso,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    valor: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
+    tipo: 'browser',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_manualdeuso'
     }
   },
   {
     id: 'elmo-fale-conosco',
-    titulo: 'Fale Conosco',
+    ordem: 3,
     ativo: true,
-    icone: listaImagensElmo.SvgFaleConosco,
-    navegacao: {
-      componente: ROTAS.DUVIDAS_ELMO,
+    titulo: 'Fale Conosco',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    valor: ROTAS.DUVIDAS_ELMO,
+    tipo: 'rota',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_faleconosco',
+    }
+  },
+  {
+    id: 'elmo-materiais',
+    ordem: 4,
+    ativo: true,
+    titulo: 'Materiais',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    valor: 'https://sus.ce.gov.br/elmo/materiais/',
+    tipo: 'browser',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_materiais'
+    }
+  },
+  {
+    id: 'elmo-depoimentos',
+    ordem: 5,
+    ativo: true,
+    titulo: 'Depoimentos',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    valor: 'https://sus.ce.gov.br/elmo/depoimentos/',
+    tipo: 'browser',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_depoimentos'
+    }
+  },
+  {
+    id: 'elmo-biblioteca',
+    ordem: 6,
+    ativo: true,
+    titulo: 'Biblioteca',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    valor: 'https://sus.ce.gov.br/elmo/biblioteca/',
+    tipo: 'browser',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_biblioteca'
+    }
+  },
+  {
+    id: 'elmo-doacoes',
+    ordem: 7,
+    ativo: true,
+    titulo: 'Doações',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    categoria: 'elmo',
+    sessao: 'conteudos',
+    valor: 'https://sus.ce.gov.br/elmo/doacoes/',
+    tipo: 'browser',
+    opcoes: {
+      localImagem: 'app',
+      labelAnalytics: 'elmo_card_doacoes'
     }
   }
 ];
