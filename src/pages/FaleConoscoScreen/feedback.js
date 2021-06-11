@@ -60,8 +60,12 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
         setSucessoAoEnviar(true);
       }
     } catch (err) {
-      if (err.message === 'Network Error') setMensagemDeErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
-      else setMensagemDeErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      if (err.message === 'Network Error') {
+        setMensagemDeErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
+      } else {
+        setMensagemDeErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      }
+
       setErroAoEnviar(true);
       setCarregando(false);
     }
@@ -121,6 +125,11 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       setNomeImagem(extrairNomeDoArquivo(path));
     } else {
       setNomeImagem(response.fileName);
+    }
+
+    if (response.assets[0]) {
+      setResponseDaBiblioteca(response.assets[0]);
+      return;
     }
 
     setResponseDaBiblioteca(response);
