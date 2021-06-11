@@ -66,42 +66,6 @@ export default function DemandaEducacaoScreen() {
     return '';
   };
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: '#4CAF50',
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: 'Educação Permanente',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.toggleDrawer();
-          }}
-        >
-          <Icon name="menu" size={28} color="#FFF" />
-        </TouchableOpacity>
-      )
-    });
-  });
   return (
     <>
       <View style={{ flex: 1, padding: 15 }}>

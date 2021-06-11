@@ -1,13 +1,11 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import {
   View,
-  TouchableOpacity,
   Text,
   Platform,
   StyleSheet,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
@@ -19,6 +17,7 @@ import { vazio } from '../../utils/objectUtils';
 import { TESTIDS } from '../../constantes/testIDs';
 import { analyticsData } from '../../utils/analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { cabecalhoMenuBusca } from '../../components/layoutEffect/cabecalhoLayout';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const feedbackInput = React.createRef();
@@ -97,8 +96,11 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     if (response.errors['imagem.dados']) {
       return 'Falha no envio da imagem. Entre em contato com o suporte técnico para verificar o problema.';
     }
+
     if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
+
     if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
+
     return '';
   };
 
@@ -113,50 +115,18 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       setErroAoEnviar(true);
       return;
     }
-    let path = response.uri;
+
+    let path = response.uri || response.assets[0].uri;
     if (Platform.OS === 'ios') path = extrairCaminhoDoArquivo(path);
-    if (!response.fileName) setNomeImagem(extrairNomeDoArquivo(path));
-    else setNomeImagem(response.fileName);
+
+    if (!response.fileName) {
+      setNomeImagem(extrairNomeDoArquivo(path));
+    } else {
+      setNomeImagem(response.fileName);
+    }
+
     setResponseDaBiblioteca(response);
   };
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: '#4CAF50',
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: tipoDeFeedback.header,
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.toggleDrawer();
-          }}
-        >
-          <Icon name="menu" size={28} color="#FFF" />
-        </TouchableOpacity>
-      )
-    });
-  });
-
 
   return (
     <>

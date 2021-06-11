@@ -111,43 +111,6 @@ export default function DuvidasElmoScreen() {
     });
   }, [register]);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: CORES.VERDE,
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: CORES.BRANCO,
-      headerTitleAlign: 'center',
-      headerTitle: 'Dúvidas Sobre o Elmo',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color={CORES.BRANCO} />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            Keyboard.dismiss();
-            navigation.toggleDrawer();
-          }}
-        >
-          <Icon name="menu" size={28} color={CORES.BRANCO} />
-        </TouchableOpacity>
-      )
-    });
-  });
   return (
     <>
       <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
