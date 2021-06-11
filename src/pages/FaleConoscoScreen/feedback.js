@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   View,
   Text,
   Platform,
   StyleSheet,
 } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
@@ -17,7 +17,6 @@ import { vazio } from '../../utils/objectUtils';
 import { TESTIDS } from '../../constantes/testIDs';
 import { analyticsData } from '../../utils/analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import { cabecalhoMenuBusca } from '../../components/layoutEffect/cabecalhoLayout';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const feedbackInput = React.createRef();
@@ -31,7 +30,6 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
   const [mensagemDeErro, setMensagemDeErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
   const [responseDaBiblioteca, setResponseDaBiblioteca] = React.useState({});
-  const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => () => {
