@@ -2,12 +2,10 @@ import React, { useState, useCallback } from 'react';
 
 import {
   View,
-  TouchableOpacity,
   Text,
   StyleSheet,
 } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
@@ -28,7 +26,6 @@ export default function AlertaFaltaDeEpiScreen() {
   const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
   const [mensagemDeErro, setMensagemDeErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
-  const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => () => limparCampos(), [])

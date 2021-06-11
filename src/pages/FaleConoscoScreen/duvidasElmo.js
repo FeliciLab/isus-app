@@ -1,9 +1,11 @@
 import React, {
-  useState, useCallback, useRef, useContext, useEffect, useLayoutEffect
+  useState,
+  useCallback,
+  useRef,
+  useContext,
+  useEffect
 } from 'react';
-import { TouchableOpacity, Keyboard } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { postDuvidasElmo } from '../../apis/apiHome';
 import { CORES } from '../../constantes/estiloBase';
@@ -12,7 +14,10 @@ import Regex from '../../utils/regex';
 import FormContext from '../../context/FormContext';
 import MsgErroFormCampo from '../../components/loginLayout/msgErroFormCampo';
 import {
-  View, BotaoForm, AlertaBar, EntradaTexto
+  View,
+  BotaoForm,
+  AlertaBar,
+  EntradaTexto
 } from './sytles';
 import { TESTIDS } from '../../constantes/testIDs';
 import { analyticsData } from '../../utils/analytics';
@@ -27,7 +32,6 @@ export default function DuvidasElmoScreen() {
   const botaoRef = useRef(null);
   const duvidaInput = useRef(null);
   const emailInput = useRef(null);
-  const navigation = useNavigation();
 
   const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
