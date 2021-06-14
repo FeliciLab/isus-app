@@ -1,11 +1,23 @@
 export default {
-  termos: true,
-  nomeCompleto: 'teste',
-  email: 'testeeeedd@outlookee.com',
+  idKeycloak: 'fbf4212e-5b6c-4abc-852e-7c2e31274d87',
+  nomeCompleto: 'Rui moreno',
+  email: 'ruiguemo@gmail.com',
   telefone: '85999999999',
-  cpf: '02233344455',
-  cidadeId: '1347',
+  cpf: '57171434001',
+  cidadeId: 1347,
   cidade: 'Fortaleza',
-  categoriaProfissional: '{\'id\':1,\'nome\':\'Medicina 1\'}',
-  unidadeServico: '[{\'id\':5,\'nome\':\'Pronto-socorro\'},{\'id\':6,\'nome\':\'Ambulatório\'}]'
+  especialidades: [
+    { id: 60, nome: 'Assistência de enfermagem em anestesiologia' },
+    { id: 111, nome: 'Bioética' }
+  ],
+  categoriaProfissional: { id: 3, nome: 'Enfermagem' },
+  unidadeServico: [
+    { id: 18, nome: 'Acolhimento psicossocial' },
+    {
+      id: 19,
+      nome: 'Alimentação e assistência nutricional e dietética'
+    }
+  ],
+  senha: '',
+  confirmarSenha: ''
 };

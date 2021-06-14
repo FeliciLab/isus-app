@@ -1,16 +1,16 @@
 export default {
-  id: 47,
-  id_keycloak: '5fe15ff1-9f8e-470f-a718-c3fde3b29013',
-  name: 'Nome ',
-  email: 'Restates@asd.com',
-  cpf: '74534550065',
-  telefone: '30492304923',
-  created_at: '2020-11-04T17:30:20.000000Z',
-  updated_at: '2020-11-09T16:59:06.000000Z',
+  id: 93,
+  id_keycloak: 'fbf4212e-5b6c-4abc-852e-7c2e31274d87',
+  name: 'Rui moreno',
+  email: 'ruiguemo@gmail.com',
+  cpf: '57171434001',
+  telefone: '85999999999',
+  created_at: '2021-04-08T13:04:55.000000Z',
+  updated_at: '2021-06-09T17:36:30.000000Z',
   municipio: {
-    id: 1126,
+    id: 1347,
     estado_id: 6,
-    nome: 'Acopiara'
+    nome: 'Fortaleza'
   },
   estado: {
     id: 6,
@@ -20,11 +20,38 @@ export default {
   profissional: {
     categoria_profissional: {
       id: 3,
-      nome: 'Enfermagem'
+      nome: 'Enfermagem',
+      ordem: 3
     },
     tipos_contratacoes: [],
     titulacoes_academica: [],
-    unidades_servicos: [],
-    especialidades: []
+    unidades_servicos: [
+      {
+        id: 18,
+        pai: 3,
+        nome: 'Acolhimento psicossocial',
+        created_at: null,
+        updated_at: null
+      },
+      {
+        id: 19,
+        pai: 3,
+        nome: 'Alimentação e assistência nutricional e dietética',
+        created_at: null,
+        updated_at: null
+      }
+    ],
+    especialidades: [
+      {
+        id: 60,
+        categoriaprofissional_id: 3,
+        nome: 'Assistência de enfermagem em anestesiologia'
+      },
+      {
+        id: 111,
+        categoriaprofissional_id: 3,
+        nome: 'Bioética'
+      }
+    ]
   }
 };

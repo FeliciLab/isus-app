@@ -9,6 +9,8 @@ import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
 
+// import { tratarDadosPessoais } from '../../../../src/services/usuarioService';
+
 const mockNavigation = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -51,7 +53,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       );
       const nomeController = 'nomeCompleto';
       const campoID = getByTestId(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('teste');
+      expect(campoID.props.value).toEqual('Rui moreno');
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label E-mail', () => {
@@ -73,7 +75,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       );
       const nomeController = 'email';
       const campoID = getByTestId(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('testeeeedd@outlookee.com');
+      expect(campoID.props.value).toEqual('ruiguemo@gmail.com');
     });
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label Telefone', () => {
       const { getAllByText } = render(
@@ -114,7 +116,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       );
       const nomeController = 'cpf';
       const campoID = getByTestId(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('022.333.444-55');
+      expect(campoID.props.value).toEqual('571.714.340-01');
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label Município', () => {
@@ -127,73 +129,45 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       const labelId = getAllByText(nomeLabel);
       expect(labelId[0].props.children).toEqual(nomeLabel);
     });
-    // test('ENTÃO o campo município deve estar preenchido com o município da pessoa autenticada', () => {
-    //   const { getByTestId } = render(
-    //     <FormProvider initValues={{ cidadeId: '1347' }}>
-    //       <EdicaoInfoPessoal />
-    //     </FormProvider>
-    //   );
-    //   // const nomeController = 'cidadeId';
-    //   const campoID = getByTestId('municipio');
-    //   expect(campoID.props.value).toEqual('1347');
-    // });
-    // describe('QUANDO apresento o formulário com os campos preenchidos e validados', () => {
-    //   test('ENTÃO o botão de ação está habilitado', async () => {
-    //     const {
-    //       getByTestId,
-    //       // getByA11yRole,
-    //       getByAccessibilityStates,
-    //       debug
-    //     } = render(
-    //       <FormProvider>
-    //         <EdicaoInfoPessoal />
-    //       </FormProvider>
-    //     );
-    //     const nomeController = 'nomeCompleto';
-    //     const elementoNome = getByTestId(`textinput-${nomeController}`);
-    //     fireEvent.changeText(elementoNome, 'Jeferson');
-    //     debug();
-    //     await waitFor(() => expect(getByTestId(`textinput-${nomeController}`).props.value).toEqual('Jeferson'));
+    test('ENTÃO o campo município deve estar preenchido com o município da pessoa autenticada', () => {
+      const { getByDisplayValue } = render(
+        <FormProvider initValues={modeloPessoaMock}>
+          <EdicaoInfoPessoal />
+        </FormProvider>
+      );
+      const campoID = getByDisplayValue('1347');
 
-
-    //     const campoEmailId = getByTestId('textinput-email');
-    //     fireEvent.changeText(campoEmailId, 'jeferson@gmail.com');
-    //     fireEvent.changeText(campoEmailId, '');
-    //     // console.log(campoEmailId.props);
-
-    //     const campoTelefoneId = getByTestId('textinput-telefone');
-    //     fireEvent.changeText(campoTelefoneId, '85987654321');
-    //     console.log(campoTelefoneId.props);
-
-
-    //     const campoCpfId = getByTestId('textinput-cpf');
-    //     fireEvent.changeText(campoCpfId, '66029133012');
-    //     console.log(campoCpfId.props);
-
-
-    //     // const elementoBotao = getByA11yRole('button');
-    //     const elementoBotao = getByAccessibilityStates({ disabled: false });
-    //     // fireEvent.press(elementoBotao);
-    //     debug();
-    //     // const elementoBotao = getByA11yState({ disabled: true });
-    //     expect(elementoBotao.props).not.toBeTruthy();
-    //   });
-    // });
-    // describe('QUANDO preencho algum campo de forma incorreta', () => {
-    //   test('ENTÃO o botão de ação estará desabilitado', async () => {
-    //     const { getByA11yState, getByTestId, debug } = render(
-    //       <FormProvider initValues={{ nomeCompleto: 'Jeferson' }}>
-    //         <EdicaoInfoPessoal />
-    //       </FormProvider>
-    //     );
-    //     const elementoBotao = getByA11yState({ disabled: true });
-    //     const elementoNomeCompleto = getByTestId('textinput-nomeCompleto');
-    //     fireEvent.changeText(elementoNomeCompleto, '');
-    //     debug();
-    //     await waitFor(() => expect(
-    //       elementoBotao.props.accessibilityState.disabled
-    //     ).not.toBeTruthy());
-    //   });
-    // });
+      expect(campoID.props.value).toEqual('1347');
+    });
+    /* ***************************************** */
+    /* ***************************************** */
+    /* ***************************************** */
+    /* ***************************************** */
+    describe('QUANDO apresento o formulário com os campos preenchidos e validados', () => {
+      test('ENTÃO o botão de ação está habilitado', async () => {
+        const { queryByA11yState } = render(
+          <FormProvider initValues={modeloPessoaMock}>
+            <EdicaoInfoPessoal />
+          </FormProvider>
+        );
+        const campoID = queryByA11yState({ disabled: false });
+        await waitFor(() => expect(campoID).not.toBeNull());
+      });
+    });
+    describe('QUANDO preencho algum campo de forma incorreta', () => {
+      test('ENTÃO o botão de ação estará desabilitado', () => {
+        const { debug } = render(
+          <FormProvider>
+            <EdicaoInfoPessoal />
+          </FormProvider>
+        );
+        debug();
+        // const nomeController = 'telefone';
+        // const campoTelefone = getByTestId(`textinput-${nomeController}`);
+        // fireEvent.changeText(campoTelefone, '85');
+        // const campoID = queryByA11yState({ disabled: true });
+        // expect(campoID).not.toBeNull();
+      });
+    });
   });
 });

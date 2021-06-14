@@ -76,7 +76,6 @@ export default function FormInfoPessoal({
             <Title>Informações pessoais</Title>
             <RowInput>
               <FormTextInput
-                testID="nomeCompleto"
                 name="nomeCompleto"
                 label="Nome Completo"
                 placeholder="teste"
