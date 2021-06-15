@@ -11,13 +11,28 @@ export default function ListaCards({ lista }) {
 
   const onPress = (item) => {
     // analyticsData(item.id, 'Click', 'Elmo');
-    if (item.tipo === 'webview' && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO, {
-        componente: 'webview',
-        title: item.titulo,
-        url: item.valor,
-      });
-      return;
+    if (!netInfo.isConnected) {
+      if (item.tipo === 'webview') {
+        navigation.navigate(ROTAS.SEM_CONEXAO, {
+          componente: 'webview',
+          title: item.titulo,
+          url: item.valor,
+        });
+        return;
+      }
+      if (item.tipo === 'browser') {
+        navigation.navigate(ROTAS.SEM_CONEXAO, {
+          componente: 'browser',
+          url: item.valor,
+        });
+        return;
+      }
+      if (item.tipo === 'rota') {
+        navigation.navigate(ROTAS.SEM_CONEXAO, {
+          componente: item.valor,
+        });
+        return;
+      }
     }
 
     if (item.tipo === 'webview') {
