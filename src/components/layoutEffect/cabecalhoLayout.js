@@ -125,7 +125,7 @@ export const cabecalhoMenuBusca = ({ navegador, titulo, cor }) => navegador.setO
       cor={estiloCores[cor].corTexto}
     />
   ),
-  headerLeft: () => <TouchableMenu navegador={navegador} />
+  headerLeft: () => <TouchableMenu navegador={navegador} cor={estiloCores[cor].corTexto} />
 });
 
 export const cabecalhoMenu = ({ navegador, titulo, cor }) => navegador.setOptions({

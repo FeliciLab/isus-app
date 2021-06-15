@@ -2,12 +2,10 @@ import React, { useState, useCallback } from 'react';
 
 import {
   View,
-  TouchableOpacity,
   Text,
   StyleSheet,
 } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   TextInput, Button, Snackbar
 } from 'react-native-paper';
@@ -28,7 +26,6 @@ export default function AlertaFaltaDeEpiScreen() {
   const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
   const [mensagemDeErro, setMensagemDeErro] = React.useState('');
   const [carregando, setCarregando] = React.useState(false);
-  const navigation = useNavigation();
 
   useFocusEffect(
     useCallback(() => () => limparCampos(), [])
@@ -66,43 +63,6 @@ export default function AlertaFaltaDeEpiScreen() {
     return '';
   };
 
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: '#4CAF50',
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: 'Alerta de falta de EPI',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.toggleDrawer();
-          }}
-        >
-          <Icon name="menu" size={28} color="#FFF" />
-        </TouchableOpacity>
-      )
-    });
-  });
   return (
     <>
       <View style={{ flex: 1, padding: 15 }}>
