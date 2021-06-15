@@ -71,15 +71,15 @@ export default function FaleConoscoScreen({ route }) {
       enableOnAndroid
       enableAutomaticScroll={Platform.OS === 'ios'}
     >
-        <View style={{ flex: 1, padding: 15 }}>
-          <DropdownSimples
-            label="Tipo de ocorrência"
-            dados={tiposDeOcorrencia}
-            valorInicial={ocorrenciaAtual}
-            aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
-          />
-          <TipoDoDropdown tipo={ocorrenciaAtual.textoDoDropdown} />
-        </View>
+      <View style={{ flex: 1, padding: 15 }}>
+        <DropdownSimples
+          label="Tipo de ocorrência"
+          dados={tiposDeOcorrencia}
+          valorInicial={ocorrenciaAtual}
+          aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
+        />
+        <TipoDoDropdown tipo={ocorrenciaAtual.textoDoDropdown} />
+      </View>
     </KeyboardAwareScrollView>
   );
 }
