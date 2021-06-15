@@ -32,7 +32,7 @@ export default function FormInfoPessoal({
 
   const {
     errors,
-    setValues,
+    setValue,
     trigger
   } = useContext(FormContext);
 
@@ -42,8 +42,14 @@ export default function FormInfoPessoal({
     }
 
     definirCpfAntigo(pessoa?.cpf);
+    const modelPessoa = PessoaModel.criar(pessoa);
+    console.log(modelPessoa);
 
-    setValues(PessoaModel.criar(pessoa));
+    setValue('nomeCompleto', modelPessoa.nomeCompleto);
+    setValue('email', modelPessoa.email);
+    setValue('telefone', modelPessoa.telefone);
+    setValue('cpf', modelPessoa.cpf);
+    setValue('cidadeId', modelPessoa.cidadeId);
 
     trigger([
       'nomeCompleto',
@@ -52,13 +58,20 @@ export default function FormInfoPessoal({
       'cpf',
       'cidadeId'
     ]);
+    console.log('Errors');
+    console.log(errors);
   }, [pessoa]);
 
-  const hasErrors = errors.nome
-    || errors.email
-    || errors.telefone
-    || errors.cpf
-    || errors.cidadeId;
+  const hasErrors = errors.nomeCompleto
+  || errors.email
+  || errors.telefone
+  || errors.cpf
+  || errors.cidadeId;
+
+  // useEffect(() => {
+  //   console.log(`hasErros:${hasErrors}`);
+  //   console.log(errors);
+  // }, [hasErrors]);
 
   const validarCpfCadastrado = async (cpf) => {
     if (cpfAntigo === false || (cpfAntigo && cpfAntigo === cpf)) {
@@ -78,7 +91,6 @@ export default function FormInfoPessoal({
               <FormTextInput
                 name="nomeCompleto"
                 label="Nome Completo"
-                placeholder="teste"
                 theme={theme}
                 rules={{ required: true }}
               />
@@ -92,7 +104,6 @@ export default function FormInfoPessoal({
                 readonly={emailSomenteLeitura}
                 name="email"
                 label="E-mail"
-                placeholder="teste"
                 theme={theme}
                 rules={{
                   required: true,
@@ -156,7 +167,7 @@ export default function FormInfoPessoal({
                 loading={carregando}
                 disabled={hasErrors || carregando}
                 onPress={async () => {
-                  await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
+                  await trigger(['nomeCompleto', 'email', 'telefone', 'cpf', 'cidadeId']);
                   if (hasErrors) return;
                   definirCarregando(true);
 

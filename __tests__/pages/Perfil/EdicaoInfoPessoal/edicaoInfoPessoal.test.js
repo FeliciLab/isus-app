@@ -8,8 +8,22 @@ import {
 import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
-
+// import request from '../../../../src/services/request';
+// import modeloPessoaInvalidaMock from '../../../../__mocks__/valores/modeloPessoaInvalidaMock';
 // import { tratarDadosPessoais } from '../../../../src/services/usuarioService';
+
+
+// jest.mock('../../../../src/services/request');
+
+// const mockRequest = jest.fn();
+// jest.mock('../../../../src/services/request', () => ({
+//   ...jest.requireActual('../../../../src/services/request'),
+//   request: () => ({
+//     post: mockRequest,
+//     put: mockRequest,
+//     get: mockRequest
+//   })
+// }));
 
 const mockNavigation = jest.fn();
 jest.mock('@react-navigation/native', () => ({
@@ -153,21 +167,27 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
         const campoID = queryByA11yState({ disabled: false });
         await waitFor(() => expect(campoID).not.toBeNull());
       });
-    });
-    describe('QUANDO preencho algum campo de forma incorreta', () => {
-      test('ENTÃO o botão de ação estará desabilitado', () => {
-        const { debug } = render(
-          <FormProvider>
+      test('Então devo enviar os campos do formulário para rota /user', () => {
+        const { getByRole } = render(
+          <FormProvider initValues={modeloPessoaMock}>
             <EdicaoInfoPessoal />
           </FormProvider>
         );
-        debug();
-        // const nomeController = 'telefone';
-        // const campoTelefone = getByTestId(`textinput-${nomeController}`);
-        // fireEvent.changeText(campoTelefone, '85');
-        // const campoID = queryByA11yState({ disabled: true });
-        // expect(campoID).not.toBeNull();
+        fireEvent.press(getByRole('button'));
+        // expect(request.put).toHaveBeenCalledWith('/user', modeloPessoaMock);
       });
     });
+    // TODO: Fazer teste de botao desabilitado
+    // describe('QUANDO preencho algum campo de forma incorreta', () => {
+    //   test('ENTÃO o botão de ação estará desabilitado', () => {
+    //     const { debug, getByTestId } = render(
+    //       <FormProvider initValues={modeloPessoaInvalidaMock}>
+    //         <EdicaoInfoPessoal />
+    //       </FormProvider>
+    //     );
+    //     const testIdCPF = getByTestId('textinput-cpf');
+    //     fireEvent.changeText(testIdCPF, '5717143400');
+    //   });
+    // });
   });
 });
