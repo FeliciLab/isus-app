@@ -23,7 +23,7 @@ export default function InformationScreen(props) {
 
   useEffect(() => {
     const press = navigation.addListener('tabPress', () => {
-      if (!estaConectado) {
+      if (!estaConectado && estaConectado !== null) {
         navigation.navigate(rotas.SEM_CONEXAO);
       }
     });

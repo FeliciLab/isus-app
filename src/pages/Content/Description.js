@@ -1,5 +1,5 @@
 import React, {
-  useState, useCallback, useLayoutEffect
+  useState, useCallback, useLayoutEffect, useEffect
 } from 'react';
 
 import {
@@ -38,11 +38,14 @@ export default function DescriptionScreen(props) {
   const dataDePostagem = postagem.post_date;
   const estaConectado = useNetInfo().isConnected;
 
+  useEffect(() => {
+    if (!estaConectado && estaConectado !== null) {
+      navigation.navigate(rotas.SEM_CONEXAO);
+    }
+  }, [estaConectado]);
+
   useFocusEffect(
     useCallback(() => {
-      if (!estaConectado) {
-        navigation.navigate(rotas.SEM_CONEXAO);
-      }
       async function pegarConteudo() {
         if (conteudoBaixado) {
           await pegarConteudoDoStorage();
@@ -51,7 +54,7 @@ export default function DescriptionScreen(props) {
         }
       }
       pegarConteudo();
-    }, [props, estaConectado])
+    }, [])
   );
 
 
