@@ -64,5 +64,5 @@ export function pegarBanners() {
 }
 
 export function pegarCardsElmo() {
-  return request.get('/api/elmo/definicoes/cards');
+  return request.get('/api/definicoes-conteudos/elmo');
 }
