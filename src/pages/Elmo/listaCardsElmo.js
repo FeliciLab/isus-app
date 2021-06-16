@@ -1,5 +1,5 @@
 import React from 'react';
-import ListaCards from '../../components/ListaCards';
+import ListaCards from '../../components/listaCards';
 //  import pegarCardsElmo from '../../apis/apiHome';
 import cardsElmoMock from '../../../__mocks__/cards/cardsElmoMock';
 
