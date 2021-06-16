@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   // eslint-disable-next-line no-unused-vars
-  render, waitFor, fireEvent, handlePress, screen
+  render, waitFor, fireEvent, handlePress, screen, waitForElementToBeRemoved, cleanup
 // eslint-disable-next-line import/no-unresolved
 } from 'util-teste';
 import { FormProvider } from '../../../../src/context/FormContext';
@@ -34,6 +34,10 @@ jest.mock('@react-navigation/native', () => ({
   }),
   useIsFocused: jest.fn()
 }));
+
+afterEach(cleanup, () => {
+  jest.useRealTimers();
+});
 
 describe('DADO QUE estou na tela de edição de informações pessoais', () => {
   describe('QUANDO a tela é renderizada corretamente', () => {
@@ -167,26 +171,30 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
         const campoID = queryByA11yState({ disabled: false });
         await waitFor(() => expect(campoID).not.toBeNull());
       });
-      test('Então devo enviar os campos do formulário para rota /user', () => {
-        const { getByRole } = render(
-          <FormProvider initValues={modeloPessoaMock}>
-            <EdicaoInfoPessoal />
-          </FormProvider>
-        );
-        fireEvent.press(getByRole('button'));
-        // expect(request.put).toHaveBeenCalledWith('/user', modeloPessoaMock);
-      });
+      // test('Então devo enviar os campos do formulário para rota /user', () => {
+      //   const { getByRole } = render(
+      //     <FormProvider initValues={modeloPessoaMock}>
+      //       <EdicaoInfoPessoal />
+      //     </FormProvider>
+      //   );
+      //   fireEvent.press(getByRole('button'));
+      //   // expect(request.put).toHaveBeenCalledWith('/user', modeloPessoaMock);
+      // });
     });
     // TODO: Fazer teste de botao desabilitado
     // describe('QUANDO preencho algum campo de forma incorreta', () => {
-    //   test('ENTÃO o botão de ação estará desabilitado', () => {
-    //     const { debug, getByTestId } = render(
+    //   test('ENTÃO o botão de ação estará desabilitado', async () => {
+    //     const { debug, getByTestId, queryByRole } = render(
     //       <FormProvider initValues={modeloPessoaInvalidaMock}>
     //         <EdicaoInfoPessoal />
     //       </FormProvider>
     //     );
     //     const testIdCPF = getByTestId('textinput-cpf');
-    //     fireEvent.changeText(testIdCPF, '5717143400');
+    //     fireEvent.changeText(testIdCPF, '');
+    //     fireEvent.press(queryByRole('button'));
+    //     // debug();
+    //     console.log(testIdCPF.props);
+    //     // fireEvent.changeText(testIdCPF, '5717143400');
     //   });
     // });
   });

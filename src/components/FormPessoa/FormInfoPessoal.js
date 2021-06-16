@@ -32,7 +32,7 @@ export default function FormInfoPessoal({
 
   const {
     errors,
-    setValue,
+    setValues,
     trigger
   } = useContext(FormContext);
 
@@ -42,14 +42,7 @@ export default function FormInfoPessoal({
     }
 
     definirCpfAntigo(pessoa?.cpf);
-    const modelPessoa = PessoaModel.criar(pessoa);
-    console.log(modelPessoa);
-
-    setValue('nomeCompleto', modelPessoa.nomeCompleto);
-    setValue('email', modelPessoa.email);
-    setValue('telefone', modelPessoa.telefone);
-    setValue('cpf', modelPessoa.cpf);
-    setValue('cidadeId', modelPessoa.cidadeId);
+    setValues(PessoaModel.criar(pessoa));
 
     trigger([
       'nomeCompleto',
@@ -58,8 +51,6 @@ export default function FormInfoPessoal({
       'cpf',
       'cidadeId'
     ]);
-    console.log('Errors');
-    console.log(errors);
   }, [pessoa]);
 
   const hasErrors = errors.nomeCompleto
@@ -68,10 +59,9 @@ export default function FormInfoPessoal({
   || errors.cpf
   || errors.cidadeId;
 
-  // useEffect(() => {
-  //   console.log(`hasErros:${hasErrors}`);
-  //   console.log(errors);
-  // }, [hasErrors]);
+  useEffect(() => {
+    console.log(`hasErrors:${!!hasErrors}`);
+  }, [hasErrors]);
 
   const validarCpfCadastrado = async (cpf) => {
     if (cpfAntigo === false || (cpfAntigo && cpfAntigo === cpf)) {
@@ -165,7 +155,7 @@ export default function FormInfoPessoal({
             <RowButton>
               <BotaoLaranja
                 loading={carregando}
-                disabled={hasErrors || carregando}
+                disabled={!!hasErrors || carregando}
                 onPress={async () => {
                   await trigger(['nomeCompleto', 'email', 'telefone', 'cpf', 'cidadeId']);
                   if (hasErrors) return;
