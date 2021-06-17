@@ -1,4 +1,4 @@
-import { listaImagensElmo } from '../../src/constantes/imagens';
+// import { listaImagensElmo } from '../../src/constantes/imagens';
 import ROTAS from '../../src/constantes/rotas';
 
 const cardsElmoMock = [
@@ -7,7 +7,7 @@ const cardsElmoMock = [
     ordem: 1,
     ativo: true,
     titulo: 'Treinamento',
-    imagem: listaImagensElmo.SvgCapacitacao,
+    imagem: 'SvgCapacitacao',
     categoria: 'elmo',
     sessao: 'conteudos',
     tipo: 'webview',
@@ -22,7 +22,7 @@ const cardsElmoMock = [
     ordem: 2,
     ativo: true,
     titulo: 'Manual de Uso',
-    imagem: listaImagensElmo.SvgManualUso,
+    imagem: 'SvgManualUso',
     categoria: 'elmo',
     sessao: 'conteudos',
     valor: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
@@ -37,7 +37,7 @@ const cardsElmoMock = [
     ordem: 3,
     ativo: true,
     titulo: 'Fale Conosco',
-    imagem: listaImagensElmo.SvgFaleConosco,
+    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
     sessao: 'conteudos',
     valor: ROTAS.DUVIDAS_ELMO,
@@ -52,7 +52,7 @@ const cardsElmoMock = [
     ordem: 4,
     ativo: true,
     titulo: 'Materiais',
-    imagem: listaImagensElmo.SvgFaleConosco,
+    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
     sessao: 'conteudos',
     valor: 'https://sus.ce.gov.br/elmo/materiais/',
@@ -67,7 +67,7 @@ const cardsElmoMock = [
     ordem: 5,
     ativo: true,
     titulo: 'Depoimentos',
-    imagem: listaImagensElmo.SvgFaleConosco,
+    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
     sessao: 'conteudos',
     valor: 'https://sus.ce.gov.br/elmo/depoimentos/',
@@ -82,7 +82,7 @@ const cardsElmoMock = [
     ordem: 6,
     ativo: true,
     titulo: 'Biblioteca',
-    imagem: listaImagensElmo.SvgFaleConosco,
+    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
     sessao: 'conteudos',
     valor: 'https://sus.ce.gov.br/elmo/biblioteca/',
@@ -97,7 +97,7 @@ const cardsElmoMock = [
     ordem: 7,
     ativo: true,
     titulo: 'Doações',
-    imagem: listaImagensElmo.SvgFaleConosco,
+    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
     sessao: 'conteudos',
     valor: 'https://sus.ce.gov.br/elmo/doacoes/',
