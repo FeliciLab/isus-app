@@ -29,7 +29,7 @@ function HomeStackScreen() {
 
 const MinhaSaudeStack = createStackNavigator();
 function MinhaSaudeStackScreen() {
-  title = 'Minha Saúde';
+  title = 'minhaSaude';
   return (
     <MinhaSaudeStack.Navigator>
       <MinhaSaudeStack.Screen
