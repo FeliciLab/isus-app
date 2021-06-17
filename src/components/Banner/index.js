@@ -14,8 +14,10 @@ const imageWidth = width * 0.8;
 
 export default function Banner({
   labelDoAnalytics,
-  titulo, imagem,
-  enderecoUrl = '', pagina = '',
+  titulo,
+  imagem,
+  enderecoUrl = '',
+  pagina = '',
   testID
 }) {
   const netInfo = useNetInfo();
