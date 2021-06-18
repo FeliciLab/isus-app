@@ -11,6 +11,8 @@ import ContentScreen from '../pages/Content';
 import HomeScreen from '../pages/Home';
 import { analyticsData } from '../utils/analytics';
 import rotas from '../constantes/rotas';
+import { ConteudoProvider } from '../context/ConteudoContext';
+import EstruturaConteudo from '../pages/Content/EstruturaConteudo';
 
 const HomeStack = createStackNavigator();
 let title = '';
@@ -29,16 +31,19 @@ function HomeStackScreen() {
 
 const MinhaSaudeStack = createStackNavigator();
 function MinhaSaudeStackScreen() {
-  title = 'minhaSaude';
   return (
-    <MinhaSaudeStack.Navigator>
-      <MinhaSaudeStack.Screen
-        name={title}
-        initialParams={[<ContentScreen />, title]}
-        component={TopTab}
-        options={{ headerShown: true }}
-      />
-    </MinhaSaudeStack.Navigator>
+    <ConteudoProvider
+      categoria="minhaSaude"
+      titulo="Minha Saúde"
+    >
+      <MinhaSaudeStack.Navigator>
+        <MinhaSaudeStack.Screen
+          name="minhaSaude"
+          component={EstruturaConteudo}
+          options={{ headerShown: true, title: 'Minha Saúde' }}
+        />
+      </MinhaSaudeStack.Navigator>
+    </ConteudoProvider>
   );
 }
 
