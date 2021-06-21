@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Image } from 'react-native';
 import ListaCards from '../../components/listaCards';
 import { pegarCardsElmo } from '../../apis/apiHome';
 import { listaImagensElmo } from '../../constantes/imagens';
+import { Imagem } from '../../components/listaCards/styles';
 
 function ListaCardsElmo() {
   const [cardsElmo, alterarCardsElmo] = useState([]);
@@ -22,10 +22,16 @@ function ListaCardsElmo() {
   const tratarLista = lista => lista.map((item) => {
     let imagem;
     if (item.opcoes?.localImagem === 'web') {
-      imagem = <Image source={{ uri: item.imagem }} />;
+      imagem = (
+        <Imagem
+          resizeMode="contain"
+          source={{ uri: item.imagem }}
+        />
+      );
     }
     if (item.opcoes?.localImagem === 'app') {
-      imagem = listaImagensElmo[item.imagem];
+      const ImgSvg = listaImagensElmo[item.imagem];
+      imagem = <ImgSvg />;
     }
     return {
       ...item,

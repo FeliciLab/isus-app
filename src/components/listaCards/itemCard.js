@@ -10,7 +10,7 @@ function ItemCard({
     (ativo)
     && (
     <Cartao elevation={4} onPress={onPress} testID={testID}>
-      <Icone />
+      {Icone}
       <Cartao.Content>
         <Paragrafo>
           {titulo}
