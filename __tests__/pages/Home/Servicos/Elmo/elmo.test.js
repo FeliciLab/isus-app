@@ -162,4 +162,8 @@ if (estaAtiva(feature.LISTA_CARDS)) {
       });
     });
   });
+} else {
+  test('teste de exemplo', () => {
+    expect(true);
+  });
 }
