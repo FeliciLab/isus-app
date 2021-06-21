@@ -1,107 +1,113 @@
-// import { listaImagensElmo } from '../../src/constantes/imagens';
-import ROTAS from '../../src/constantes/rotas';
+import { listaImagensElmo } from '../../src/constantes/imagens';
 
 const cardsElmoMock = [
   {
-    id: 'elmo-capacitacao',
-    ordem: 1,
+    id: 1,
+    id_publico: 'elmo_treinamento',
     ativo: true,
-    titulo: 'Treinamento',
-    imagem: 'SvgCapacitacao',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgCapacitacao,
+    ordem: 1,
     sessao: 'conteudos',
     tipo: 'webview',
+    titulo: 'Treinamento',
     valor: 'https://sus.ce.gov.br/elmo/faca-sua-capacitacao/',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_treinamento',
+      labelAnalytics: 'elmo_card_treinamento'
     }
   },
   {
-    id: 'elmo-manual-uso',
-    ordem: 2,
+    id: 2,
+    id_publico: 'elmo_manual_uso',
     ativo: true,
-    titulo: 'Manual de Uso',
-    imagem: 'SvgManualUso',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgManualUso,
+    ordem: 2,
     sessao: 'conteudos',
-    valor: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
     tipo: 'browser',
+    titulo: 'Manual de Uso',
+    valor: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
     opcoes: {
       localImagem: 'app',
       labelAnalytics: 'elmo_card_manualdeuso'
     }
   },
   {
-    id: 'elmo-fale-conosco',
-    ordem: 3,
+    id: 3,
+    id_publico: 'elmo_fale_conosco',
     ativo: true,
-    titulo: 'Fale Conosco',
-    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    ordem: 3,
     sessao: 'conteudos',
-    valor: ROTAS.DUVIDAS_ELMO,
     tipo: 'rota',
+    titulo: 'Fale Conosco',
+    valor: 'DUVIDAS_ELMO',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_faleconosco',
+      labelAnalytics: 'elmo_card_faleconosco'
     }
   },
   {
-    id: 'elmo-materiais',
-    ordem: 4,
+    id: 4,
+    id_publico: 'elmo_materiais',
     ativo: true,
-    titulo: 'Materiais',
-    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    ordem: 4,
     sessao: 'conteudos',
-    valor: 'https://sus.ce.gov.br/elmo/materiais/',
     tipo: 'browser',
+    titulo: 'Materiais',
+    valor: 'https://sus.ce.gov.br/elmo/materiais/',
     opcoes: {
       localImagem: 'app',
       labelAnalytics: 'elmo_card_materiais'
     }
   },
   {
-    id: 'elmo-depoimentos',
-    ordem: 5,
+    id: 5,
+    id_publico: 'elmo_depoimentos',
     ativo: true,
-    titulo: 'Depoimentos',
-    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    ordem: 5,
     sessao: 'conteudos',
-    valor: 'https://sus.ce.gov.br/elmo/depoimentos/',
     tipo: 'browser',
+    titulo: 'Depoimentos',
+    valor: 'https://sus.ce.gov.br/elmo/depoimentos/',
     opcoes: {
       localImagem: 'app',
       labelAnalytics: 'elmo_card_depoimentos'
     }
   },
   {
-    id: 'elmo-biblioteca',
-    ordem: 6,
+    id: 6,
+    id_publico: 'elmo_biblioteca',
     ativo: true,
-    titulo: 'Biblioteca',
-    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    ordem: 6,
     sessao: 'conteudos',
-    valor: 'https://sus.ce.gov.br/elmo/biblioteca/',
     tipo: 'browser',
+    titulo: 'Biblioteca',
+    valor: 'https://sus.ce.gov.br/elmo/biblioteca/',
     opcoes: {
       localImagem: 'app',
       labelAnalytics: 'elmo_card_biblioteca'
     }
   },
   {
-    id: 'elmo-doacoes',
-    ordem: 7,
+    id: 7,
+    id_publico: 'elmo_doacoes',
     ativo: true,
-    titulo: 'Doações',
-    imagem: 'SvgFaleConosco',
     categoria: 'elmo',
+    imagem: listaImagensElmo.SvgFaleConosco,
+    ordem: 7,
     sessao: 'conteudos',
-    valor: 'https://sus.ce.gov.br/elmo/doacoes/',
     tipo: 'browser',
+    titulo: 'Doações',
+    valor: 'https://sus.ce.gov.br/elmo/doacoes/',
     opcoes: {
       localImagem: 'app',
       labelAnalytics: 'elmo_card_doacoes'

@@ -3,10 +3,10 @@ import React from 'react';
 import { render, fireEvent } from 'util-teste';
 import feature from '../../../../../src/constantes/features';
 import estaAtiva from '../../../../../src/utils/estaAtiva';
-import ListaCardsElmo from '../../../../../src/pages/Elmo/listaCardsElmo';
 import mockElmo from '../../../../../__mocks__/cards/cardsElmoMock';
 import ROTAS from '../../../../../src/constantes/rotas';
 import { listaImagensElmo } from '../../../../../src/constantes/imagens';
+import ListaCards from '../../../../../src/components/listaCards';
 
 const mockedNavigate = jest.fn();
 
@@ -33,11 +33,11 @@ if (estaAtiva(feature.LISTA_CARDS)) {
   describe('Dado que estou na home', () => {
     describe('Quando acesso a tela do Elmo', () => {
       test('verifica se todos os cards vindos da API estão sendo renderizados (quantidade de cards)', () => {
-        const cardsTestIds = mockElmo.map(i => `cards-${i.id}`);
+        const cardsTestIds = mockElmo.map(i => `cards-${i.id_publico}`);
         const {
           getByTestId
         } = render(
-          <ListaCardsElmo />
+          <ListaCards lista={mockElmo} />
         );
         cardsTestIds.forEach(id => expect(getByTestId(id)).not.toBeNull());
       });
@@ -45,7 +45,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
   });
 
   describe('Dado que estou na tela do ELMO', () => {
-    const cardsTestIds = mockElmo.map(i => `cards-${i.id}`);
+    const cardsTestIds = mockElmo.map(i => `cards-${i.id_publico}`);
     let getText;
     let getTestId;
     let arrayTestId;
@@ -53,7 +53,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
       const {
         getByTestId, getByText
       } = render(
-            <ListaCardsElmo />
+        <ListaCards lista={mockElmo} />
       );
       // debug();
       getText = getByText;
