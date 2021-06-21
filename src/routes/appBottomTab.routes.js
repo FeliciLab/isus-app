@@ -13,7 +13,6 @@ import { analyticsData } from '../utils/analytics';
 import rotas from '../constantes/rotas';
 
 const HomeStack = createStackNavigator();
-let title = '';
 
 function HomeStackScreen() {
   return (
@@ -29,14 +28,13 @@ function HomeStackScreen() {
 
 const MinhaSaudeStack = createStackNavigator();
 function MinhaSaudeStackScreen() {
-  title = 'Minha Saúde';
   return (
     <MinhaSaudeStack.Navigator>
       <MinhaSaudeStack.Screen
-        name={title}
-        initialParams={[<ContentScreen />, title]}
+        name="minhaSaude"
+        initialParams={[<ContentScreen />, 'Minha Saúde']}
         component={TopTab}
-        options={{ headerShown: true }}
+        options={{ headerShown: true, title: 'Minha Saúde' }}
       />
     </MinhaSaudeStack.Navigator>
   );
@@ -44,28 +42,26 @@ function MinhaSaudeStackScreen() {
 
 const EducationStack = createStackNavigator();
 function EducationStackScreen() {
-  title = 'Educação Permanente';
   return (
     <EducationStack.Navigator>
       <EducationStack.Screen
-        name="Educação"
-        initialParams={[<ContentScreen />, title]}
+        name="educacao"
+        initialParams={[<ContentScreen />, 'Educação Permanente']}
         component={TopTab}
-        options={{ headerShown: true }}
+        options={{ headerShown: true, title: 'Educação Permanente' }}
       />
     </EducationStack.Navigator>
   );
 }
 const SearchesStack = createStackNavigator();
 function SearchesStackScreen() {
-  title = 'Pesquisa Científica';
   return (
     <SearchesStack.Navigator>
       <SearchesStack.Screen
-        name={title}
-        initialParams={[<ContentScreen />, title]}
+        name="pesquisaCientifica"
+        initialParams={[<ContentScreen />, 'Pesquisa Científica']}
         component={TopTab}
-        options={{ headerShown: true }}
+        options={{ headerShown: true, title: 'Pesquisa Científica' }}
       />
     </SearchesStack.Navigator>
   );
