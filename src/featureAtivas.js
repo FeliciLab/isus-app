@@ -13,5 +13,6 @@ export default [
   feature.ELMO,
   feature.VACINACOVID19,
   feature.PLANO_CONTIGENCIA,
-  feature.TELA_SEM_CONEXAO
+  feature.TELA_SEM_CONEXAO,
+  // feature.LISTA_CARDS
 ];
