@@ -32,10 +32,12 @@ export default function ({ navigation }) {
     try {
       const resposta = await pegarCategoriasArquitetura();
       if (categoria === undefined) {
+        console.log('Categorias undefined!');
         return;
       }
 
       if (!resposta.data[categoria]) {
+        console.log('Resposta categorias sem dados');
         return;
       }
 
