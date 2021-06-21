@@ -1,22 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import ListaCards from '../../components/listaCards';
-//  import pegarCardsElmo from '../../apis/apiHome';
-import cardsElmoMock from '../../../__mocks__/cards/cardsElmoMock';
+import { pegarCardsElmo } from '../../apis/apiHome';
 import { listaImagensElmo } from '../../constantes/imagens';
 
 function ListaCardsElmo() {
-  // const [cardsElmo, alterarCardsElmo] = useState([]);
-  // alterarCardsElmo(cardsElmoMock);
-  /* const buscarLista = async () => {
-    const lista = await pegarCardsElmo();
-    alterarCardsElmo(lista);
+  const [cardsElmo, alterarCardsElmo] = useState([]);
+  const buscarLista = async () => {
+    try {
+      const lista = await pegarCardsElmo();
+      alterarCardsElmo(lista.data);
+    } catch (error) {
+      console.log(`erro ao listar Cards. ${error}`);
+    }
   };
 
   useEffect(() => {
     buscarLista();
-  }, []); */
-
+  }, []);
 
   const tratarLista = lista => lista.map((item) => {
     let imagem;
@@ -33,7 +34,7 @@ function ListaCardsElmo() {
   });
 
   return (
-    <ListaCards lista={tratarLista(cardsElmoMock)} />
+    <ListaCards lista={tratarLista(cardsElmo)} />
   );
 }
 
