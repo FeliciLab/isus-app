@@ -45,17 +45,9 @@ export default function InformationScreen(props) {
         'click',
         params.title_description
       );
-      async function pegarConteudo() {
-        try {
-          await pegarConteudoDaApi();
-        } catch (err) {
-          if (err.message === 'Network Error') {
-            alterarSemConexao(true);
-            await pegarConteudoDoStorage();
-          }
-        }
-      }
-      pegarConteudo();
+
+      pegarConteudoDaApi()
+        .catch(() => pegarConteudoDoStorage());
     }, [props])
   );
 

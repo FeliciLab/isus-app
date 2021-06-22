@@ -46,14 +46,8 @@ export default function DescriptionScreen(props) {
 
   useFocusEffect(
     useCallback(() => {
-      async function pegarConteudo() {
-        if (conteudoBaixado) {
-          await pegarConteudoDoStorage();
-        } else {
-          await pegarConteudoDaApi();
-        }
-      }
-      pegarConteudo();
+      pegarConteudoDoStorage()
+        .catch(() => pegarConteudoDaApi());
     }, [])
   );
 
