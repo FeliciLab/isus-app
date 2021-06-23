@@ -12,15 +12,18 @@ export default function WebViewPage({
 }) {
   const navigator = useNavigation();
   const widthView = Dimensions.get('window').width;
-  let res = '';
-  // verificando o tamanho da tela do dispositivo para limitar os caracteres.
-  if (widthView <= 320) {
-    // eslint-disable-next-line no-unused-expressions
-    (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 24).trim()}...` : res = route.params.title;
-  } else {
-    // eslint-disable-next-line no-unused-expressions
-    (route.params.title.length > 35) ? res = `${route.params.title.substring(0, 35).trim()}...` : res = route.params.title;
-  }
+
+  const definirTituloWebView = (title) => {
+    if (title.length <= 35) {
+      return title;
+    }
+
+    if (widthView <= 320) {
+      return `${title.substring(0, 24).trim()}...`;
+    }
+
+    return `${title.substring(0, 35).trim()}...`;
+  };
 
   const alterarBackground = () => (route.params.idSaude ? '#304FFE' : '#4CAF50');
   useLayoutEffect(() => {
@@ -30,7 +33,7 @@ export default function WebViewPage({
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
-      headerTitle: res,
+      headerTitle: definirTituloWebView(route.params.title),
       headerLeft: () => (
         <TouchableOpacity
           style={{

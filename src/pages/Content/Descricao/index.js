@@ -1,18 +1,25 @@
 import React, {
-  useState, useLayoutEffect, useEffect
+  useState,
+  useLayoutEffect,
+  useEffect
 } from 'react';
-
 import {
-  View, Dimensions, StyleSheet,
-  ScrollView, Share, Alert, Linking
-}
-  from 'react-native';
+  View,
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+  Share,
+  Alert,
+  Linking
+} from 'react-native';
 import HTML from 'react-native-render-html';
 import 'moment/locale/pt-br';
 import { useNetInfo } from '@react-native-community/netinfo';
-
 import {
-  salvarDados, pegarDados, removerDados, converterImagemParaBase64
+  salvarDados,
+  pegarDados,
+  removerDados,
+  converterImagemParaBase64
 } from '../../../services/armazenamento';
 import { pegarProjetosPorId } from '../../../apis/apiHome';
 import BarraInferior from '../../../components/barraInferior';
@@ -21,6 +28,8 @@ import formatarDataPorExtenso from '../../../utils/dateUtils';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import rotas from '../../../constantes/rotas';
 import { cabecalhoVoltar } from '../../../components/layoutEffect/cabecalhoLayout';
+import WebView from '../../../components/WebView';
+import wordpress from '../../../services/wordpress';
 import {
   AreaConteudo,
   CorpoPrincipal,
@@ -31,6 +40,7 @@ import {
   Barra,
   TextoLateral
 } from './style';
+
 
 export default function ({ route, navigation }) {
   const { parametros, title } = route.params;
@@ -76,7 +86,7 @@ export default function ({ route, navigation }) {
   const pegarConteudoDaApi = async () => {
     try {
       const resposta = await pegarProjetosPorId(parametros.id);
-      console.log(resposta.data.post_content);
+      console.log(resposta.data);
       alterarPostagem(resposta.data);
     } catch (err) {
       console.log(`Erro ao pegar conteudo da API: ${err.message}`);
@@ -177,33 +187,38 @@ export default function ({ route, navigation }) {
     return <></>;
   }
 
+
   return (
     <AreaConteudo>
+      { estaConectado && <WebView url={wordpress.urlPostagem(postagem.id)} /> }
+      { !estaConectado && (
+        <ScrollView>
+          <CorpoPrincipal>
+            <View>
+              <Titulo>{postagem.post_title}</Titulo>
+            </View>
+
+            <Espacador />
+
+            <ImagemDePostagem
+              conteudoBaixado={conteudoBaixado}
+              imagem={postagem.image}
+              estilo={styles.imagemDePostagem}
+            />
+
+            <CorpoConteudo>
+              <ConteudoHtml>
+                <HTML
+                  html={postagem.post_content.replace('iframe', 'span')}
+                  onLinkPress={baixarPDF}
+                />
+              </ConteudoHtml>
+            </CorpoConteudo>
+          </CorpoPrincipal>
+        </ScrollView>
+      )}
+
       <BarraDeStatus backgroundColor={route.params.cor} barStyle={route.params.estiloBarra} />
-      <ScrollView>
-        <CorpoPrincipal>
-          <View>
-            <Titulo>{postagem.post_title}</Titulo>
-          </View>
-
-          <Espacador />
-
-          <ImagemDePostagem
-            conteudoBaixado={conteudoBaixado}
-            imagem={postagem.image}
-            estilo={styles.imagemDePostagem}
-          />
-
-          <CorpoConteudo>
-            <ConteudoHtml>
-              <HTML
-                html={postagem.post_content.replace('iframe', 'span')}
-                onLinkPress={baixarPDF}
-              />
-            </ConteudoHtml>
-          </CorpoConteudo>
-        </CorpoPrincipal>
-      </ScrollView>
 
       <Barra visible={visivel}>
         {textoDoFeedback}
@@ -222,35 +237,6 @@ export default function ({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  searchHeaderBack: {
-    marginHorizontal: 19
-  },
-  textData: {
-    marginLeft: 16,
-    marginTop: 20,
-    marginBottom: 20,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 12,
-    lineHeight: 16,
-    letterSpacing: 0.4,
-    color: '#0000008A'
-  },
-  contentText: {
-    marginLeft: 16,
-    backgroundColor: 'red',
-  },
-  subShare: {
-    marginRight: 20,
-    marginTop: 12,
-    marginBottom: 12,
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    fontSize: 12,
-    lineHeight: 16,
-    letterSpacing: 0.4,
-    color: '#EEEEEE'
-  },
   imagemDePostagem: {
     height: Dimensions.get('window').width / 1.5,
     width: Dimensions.get('window').width
