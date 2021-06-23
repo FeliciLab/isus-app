@@ -7,19 +7,19 @@ assignees: ''
 
 ---
 
-## **Descrição**
+# Descrição
 
 -
 
-## Passo-a-passo para replicar
+# Passo-a-passo para replicar
 
 -
 
-## **Escopo de solução**
+# Ideia de solução
 
-- [ ] escopo1
+-
 
-## **Critérios de Aceitação**
+# Critérios de Aceitação
 
 - [ ] titulo  
 **Dado que** algo  
