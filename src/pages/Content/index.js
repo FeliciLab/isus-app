@@ -48,7 +48,7 @@ export default function InformationScreen(props) {
 
       pegarConteudoDaApi()
         .catch(() => pegarConteudoDoStorage());
-    }, [props])
+    }, [])
   );
 
   const pegarConteudoDoStorage = async () => {
