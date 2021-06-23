@@ -13,8 +13,6 @@ assignees: ''
 
 ## Passo-a-passo para replicar
 
-## **Contexto**
-
 -
 
 ## **Escopo de solução**
