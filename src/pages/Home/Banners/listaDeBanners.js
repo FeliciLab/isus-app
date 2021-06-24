@@ -7,7 +7,9 @@ const buscarImagem = ({ imagem, localImagem }) => {
   if (localImagem !== 'web' || !localImagem) {
     return listaDeImagens[imagem];
   }
-
+  if (imagem.substr(-4) === '.svg') {
+    return { svg: imagem };
+  }
   return { uri: imagem };
 };
 
