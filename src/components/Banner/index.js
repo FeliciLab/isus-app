@@ -4,6 +4,7 @@ import {
   Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { SvgCssUri } from 'react-native-svg';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Cartao, ConteudoImagem, Imagem } from './styles';
 import { analyticsData } from '../../utils/analytics';
@@ -40,14 +41,21 @@ export default function Banner({
     });
   };
 
+  const exibirImg = () => {
+    if (imagem.svg) {
+      return <SvgCssUri width="100%" height="100%" uri={imagem.svg} />;
+    }
+    return <Imagem width={imageWidth} height={100} resizeMode="cover" source={imagem} />;
+  };
+
   return (
     <Cartao
       testID={testID}
       onPress={lidarComClick}
     >
-      <ConteudoImagem>
-        <Imagem width={imageWidth} height={100} resizeMode="cover" source={imagem} />
-      </ConteudoImagem>
+    <ConteudoImagem>
+      {exibirImg()}
+    </ConteudoImagem>
     </Cartao>
   );
 }
