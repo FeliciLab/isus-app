@@ -1,20 +1,8 @@
-import React, {
-  useState,
-  useLayoutEffect,
-  useEffect
-} from 'react';
-import {
-  View,
-  Dimensions,
-  StyleSheet,
-  ScrollView,
-  Share,
-  Alert,
-  Linking
-} from 'react-native';
-import HTML from 'react-native-render-html';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
+import { Share, Alert } from 'react-native';
 import 'moment/locale/pt-br';
 import { useNetInfo } from '@react-native-community/netinfo';
+
 import {
   salvarDados,
   pegarDados,
@@ -23,7 +11,6 @@ import {
 } from '../../../services/armazenamento';
 import { pegarProjetosPorId } from '../../../apis/apiHome';
 import BarraInferior from '../../../components/barraInferior';
-import ImagemDePostagem from '../ImagemDePostagem';
 import formatarDataPorExtenso from '../../../utils/dateUtils';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import rotas from '../../../constantes/rotas';
@@ -32,11 +19,6 @@ import WebView from '../../../components/WebView';
 import wordpress from '../../../services/wordpress';
 import {
   AreaConteudo,
-  CorpoPrincipal,
-  Titulo,
-  Espacador,
-  CorpoConteudo,
-  ConteudoHtml,
   Barra,
   TextoLateral
 } from './style';
@@ -44,6 +26,12 @@ import {
 
 export default function ({ route, navigation }) {
   const { parametros, title } = route.params;
+  const estaConectado = useNetInfo().isConnected;
+  const [postagem, alterarPostagem] = useState();
+  const [visivel, alterarVisibilidade] = useState(false);
+  const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(!!parametros.offline);
+  const dataDePostagem = postagem?.post_date || '';
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
@@ -53,14 +41,6 @@ export default function ({ route, navigation }) {
     });
   });
 
-  const estaConectado = useNetInfo().isConnected;
-
-  // const { params } = route;
-  const [postagem, alterarPostagem] = useState();
-  const [visivel, alterarVisibilidade] = useState(false);
-  const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(!!parametros.offline);
-  const dataDePostagem = postagem?.post_date || '';
 
   useEffect(() => {
     if (!estaConectado && estaConectado !== null) {
@@ -170,19 +150,6 @@ export default function ({ route, navigation }) {
     }, 3000);
   };
 
-  const baixarPDF = (event, href) => {
-    if (!estaConectado) {
-      navigation.navigate(rotas.SEM_CONEXAO, {
-        componente: 'webview',
-        title: 'Acesso ao conteúdo',
-        url: href
-      });
-      return;
-    }
-
-    Linking.openURL(href);
-  };
-
   if (!postagem) {
     return <></>;
   }
@@ -190,33 +157,7 @@ export default function ({ route, navigation }) {
 
   return (
     <AreaConteudo>
-      { estaConectado && <WebView url={wordpress.urlPostagem(postagem.id)} /> }
-      { !estaConectado && (
-        <ScrollView>
-          <CorpoPrincipal>
-            <View>
-              <Titulo>{postagem.post_title}</Titulo>
-            </View>
-
-            <Espacador />
-
-            <ImagemDePostagem
-              conteudoBaixado={conteudoBaixado}
-              imagem={postagem.image}
-              estilo={styles.imagemDePostagem}
-            />
-
-            <CorpoConteudo>
-              <ConteudoHtml>
-                <HTML
-                  html={postagem.post_content.replace('iframe', 'span')}
-                  onLinkPress={baixarPDF}
-                />
-              </ConteudoHtml>
-            </CorpoConteudo>
-          </CorpoPrincipal>
-        </ScrollView>
-      )}
+      {estaConectado && <WebView url={wordpress.urlPostagem(postagem.id)} />}
 
       <BarraDeStatus backgroundColor={route.params.cor} barStyle={route.params.estiloBarra} />
 
@@ -235,10 +176,3 @@ export default function ({ route, navigation }) {
     </AreaConteudo>
   );
 }
-
-const styles = StyleSheet.create({
-  imagemDePostagem: {
-    height: Dimensions.get('window').width / 1.5,
-    width: Dimensions.get('window').width
-  }
-});
