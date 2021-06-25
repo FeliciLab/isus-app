@@ -3,7 +3,7 @@ import { vazio } from '../utils/objectUtils';
 import { pegarSO, pegarVersao } from '../utils/platform';
 
 export function pegarCategoriasArquitetura() {
-  return request.get('/categoriasArquitetura');
+  return request.get('/categoriasArquitetura?v2=true');
 }
 
 export function pegarProjetosPorCategoria(id) {
