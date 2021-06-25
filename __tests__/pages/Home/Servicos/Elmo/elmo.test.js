@@ -55,14 +55,13 @@ if (estaAtiva(feature.LISTA_CARDS)) {
       } = render(
         <ListaCards lista={mockElmo} />
       );
-      // debug();
       getText = getByText;
       getTestId = getByTestId;
       arrayTestId = cardsTestIds;
     });
     describe('Quando o card Treinamento está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[0]).children[0].type).toBe(listaImagensElmo.SvgCapacitacao);
+        expect(getTestId(arrayTestId[0]).children[0]).toBe(listaImagensElmo.SvgCapacitacao);
       });
       test('e o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[0].titulo).props.children).toBe('Treinamento');
@@ -70,7 +69,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
     });
     describe('Quando o card Manual de Uso está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[1]).children[0].type).toBe(listaImagensElmo.SvgManualUso);
+        expect(getTestId(arrayTestId[1]).children[0]).toBe(listaImagensElmo.SvgManualUso);
       });
       test('o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[1].titulo).props.children).toBe('Manual de Uso');
@@ -78,7 +77,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
     });
     describe('Quando o card Fale Conosco está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[2]).children[0].type).toBe(listaImagensElmo.SvgFaleConosco);
+        expect(getTestId(arrayTestId[2]).children[0]).toBe(listaImagensElmo.SvgFaleConosco);
       });
       test('o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[2].titulo).props.children).toBe('Fale Conosco');
@@ -86,7 +85,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
     });
     describe('Quando o card Materiais está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[3]).children[0].type).toBe(listaImagensElmo.SvgFaleConosco);
+        expect(getTestId(arrayTestId[3]).children[0]).toBe(listaImagensElmo.SvgFaleConosco);
       });
       test('o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[3].titulo).props.children).toBe('Materiais');
@@ -94,7 +93,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
     });
     describe('Quando o card Depoimentos está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[4]).children[0].type).toBe(listaImagensElmo.SvgFaleConosco);
+        expect(getTestId(arrayTestId[4]).children[0]).toBe(listaImagensElmo.SvgFaleConosco);
       });
       test('o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[4].titulo).props.children).toBe('Depoimentos');
@@ -102,7 +101,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
     });
     describe('Quando o card Biblioteca está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[5]).children[0].type).toBe(listaImagensElmo.SvgFaleConosco);
+        expect(getTestId(arrayTestId[5]).children[0]).toBe(listaImagensElmo.SvgFaleConosco);
       });
       test('o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[5].titulo).props.children).toBe('Biblioteca');
@@ -110,7 +109,7 @@ if (estaAtiva(feature.LISTA_CARDS)) {
     });
     describe('Quando o card Doações está sendo exibido', () => {
       test('então deve estar com a imagem no background definida de acordo com API', () => {
-        expect(getTestId(arrayTestId[6]).children[0].type).toBe(listaImagensElmo.SvgFaleConosco);
+        expect(getTestId(arrayTestId[6]).children[0]).toBe(listaImagensElmo.SvgFaleConosco);
       });
       test('o título abaixo do card deve ser o mesmo definido pela API', () => {
         expect(getText(mockElmo[6].titulo).props.children).toBe('Doações');
