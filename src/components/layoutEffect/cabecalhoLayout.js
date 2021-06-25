@@ -192,11 +192,3 @@ export const cabecalhoSemBotao = ({ navegador, titulo, cor }) => navegador.setOp
   headerRight: () => {
   }
 });
-
-export default {
-  cabecalhoMenuBusca,
-  cabecalhoMenu,
-  cabecalhoVoltar,
-  cabecalhoVoltarHome,
-  cabecalhoSemBotao
-};

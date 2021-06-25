@@ -3,16 +3,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import AppDrawerScreen from './appDrawerScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import TopTab from './appTopTab.routes';
 import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 // import SettingsStackScreen from '../pages/Settings';
-import ContentScreen from '../pages/Content';
 import HomeScreen from '../pages/Home';
 import { analyticsData } from '../utils/analytics';
 import rotas from '../constantes/rotas';
+import { ConteudoProvider } from '../context/ConteudoContext';
+import EstruturaConteudo from '../pages/Content/EstruturaConteudo';
 
 const HomeStack = createStackNavigator();
+let title = '';
+let categoria = '';
 
 function HomeStackScreen() {
   return (
@@ -28,42 +30,60 @@ function HomeStackScreen() {
 
 const MinhaSaudeStack = createStackNavigator();
 function MinhaSaudeStackScreen() {
+  categoria = 'minhaSaude';
+  title = 'Minha Saúde';
   return (
-    <MinhaSaudeStack.Navigator>
-      <MinhaSaudeStack.Screen
-        name="minhaSaude"
-        initialParams={[<ContentScreen />, 'Minha Saúde']}
-        component={TopTab}
-        options={{ headerShown: true, title: 'Minha Saúde' }}
-      />
-    </MinhaSaudeStack.Navigator>
+    <ConteudoProvider
+      categoria={categoria}
+      titulo={title}
+    >
+      <MinhaSaudeStack.Navigator>
+        <MinhaSaudeStack.Screen
+          name="minhaSaude"
+          component={EstruturaConteudo}
+          options={{ headerShown: true, title }}
+        />
+      </MinhaSaudeStack.Navigator>
+    </ConteudoProvider>
   );
 }
 
 const EducationStack = createStackNavigator();
 function EducationStackScreen() {
+  categoria = 'educacao';
+  title = 'Educação Permanente';
   return (
-    <EducationStack.Navigator>
-      <EducationStack.Screen
-        name="educacao"
-        initialParams={[<ContentScreen />, 'Educação Permanente']}
-        component={TopTab}
-        options={{ headerShown: true, title: 'Educação Permanente' }}
-      />
-    </EducationStack.Navigator>
+    <ConteudoProvider
+      categoria={categoria}
+      titulo={title}
+    >
+      <EducationStack.Navigator>
+        <EducationStack.Screen
+          name={categoria}
+          component={EstruturaConteudo}
+          options={{ headerShown: true, title }}
+        />
+      </EducationStack.Navigator>
+    </ConteudoProvider>
   );
 }
 const SearchesStack = createStackNavigator();
 function SearchesStackScreen() {
+  categoria = 'pesquisaCientifica';
+  title = 'Pesquisa Científica';
   return (
-    <SearchesStack.Navigator>
-      <SearchesStack.Screen
-        name="pesquisaCientifica"
-        initialParams={[<ContentScreen />, 'Pesquisa Científica']}
-        component={TopTab}
-        options={{ headerShown: true, title: 'Pesquisa Científica' }}
-      />
-    </SearchesStack.Navigator>
+    <ConteudoProvider
+      categoria={categoria}
+      titulo={title}
+    >
+      <SearchesStack.Navigator>
+        <SearchesStack.Screen
+          name={categoria}
+          component={EstruturaConteudo}
+          options={{ headerShown: true, title }}
+        />
+      </SearchesStack.Navigator>
+    </ConteudoProvider>
   );
 }
 
@@ -91,7 +111,7 @@ export default function AppTabScreen() {
         })}
       />
 
-      { <AppTab.Screen
+      {<AppTab.Screen
         name="Health"
         component={MinhaSaudeStackScreen} // Teste
         options={{

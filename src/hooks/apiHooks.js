@@ -5,8 +5,7 @@ import { pegarCategoriasArquitetura } from '../apis/apiHome';
 import { salvarDados, pegarDados } from '../services/armazenamento';
 import rotas from '../constantes/rotas';
 
-const useApiHooks = (props) => {
-  const { route } = props;
+const useApiHooks = () => {
   const navigation = useNavigation();
   const [categorias, setCategorias] = useState([
     {
@@ -17,7 +16,7 @@ const useApiHooks = (props) => {
     }
   ]);
 
-  const pegarCategorias = async () => {
+  const pegarCategorias = async (route) => {
     await pegarCategoriasArquitetura()
       .then(async (resposta) => {
         setCategorias(resposta.data[route.name]);
