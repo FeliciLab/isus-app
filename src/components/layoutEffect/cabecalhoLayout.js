@@ -28,6 +28,10 @@ const estiloCores = {
   azul: {
     corFundo: CORES.AZUL,
     corTexto: CORES.BRANCO
+  },
+  indigo: {
+    corFundo: CORES.INDIGO_DYE,
+    corText: CORES.BRANCO
   }
 };
 
