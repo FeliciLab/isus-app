@@ -31,7 +31,7 @@ const estiloCores = {
   },
   indigo: {
     corFundo: CORES.INDIGO_DYE,
-    corText: CORES.BRANCO
+    corTexto: CORES.BRANCO
   }
 };
 

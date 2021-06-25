@@ -23,7 +23,6 @@ import {
   TextoLateral
 } from './style';
 
-
 export default function ({ route, navigation }) {
   const { parametros, title } = route.params;
   const estaConectado = useNetInfo().isConnected;
@@ -35,7 +34,7 @@ export default function ({ route, navigation }) {
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
-      cor: 'verde',
+      cor: parametros.cor || 'verde',
       titulo: 'Descrição',
       navegador: navigation
     });
@@ -160,7 +159,10 @@ export default function ({ route, navigation }) {
     <AreaConteudo>
       <WebView url={wordpress.urlPostagem(postagem.id)} />
 
-      <BarraDeStatus backgroundColor={route.params.cor} barStyle={route.params.estiloBarra} />
+      <BarraDeStatus
+        backgroundColor={parametros.barraStatus}
+        barStyle={route.params.estiloBarra}
+      />
 
       <Barra visible={visivel}>
         {textoDoFeedback}

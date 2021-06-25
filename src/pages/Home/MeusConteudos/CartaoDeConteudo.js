@@ -5,6 +5,7 @@ import {
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
 import rotas from '../../../constantes/rotas';
+import { CORES } from '../../../constantes/estiloBase';
 
 function CartaoDeConteudo(props) {
   const { conteudo } = props;
@@ -12,18 +13,21 @@ function CartaoDeConteudo(props) {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(
-      rotas.DESCRICAO,
-      {
-        parametros: {
-          ...item,
-          categoria_id: 700
-        },
-        title: item.post_title,
-      }
-    )}
+    <TouchableOpacity
+      onPress={() => navigation.navigate(
+        rotas.DESCRICAO,
+        {
+          parametros: {
+            ...item,
+            categoria_id: 700,
+            cor: 'indigo',
+            barraStatus: CORES.INDIGO_DYE
+          },
+          title: item.post_title,
+        }
+      )}
     >
-      <View>
+      <View style={{ marginBottom: 20 }}>
         <Image resizeMode="cover" style={estilos.imagem} source={{ uri: item.image }} />
         <Text style={estilos.data}>{moment(item.post_date).format('DD/MM/YYYY')}</Text>
         <Text numberOfLines={3} style={estilos.texto}>{item.post_title}</Text>
