@@ -47,12 +47,13 @@ export default function ({ route, navigation }) {
       navigation.navigate(rotas.SEM_CONEXAO);
       return;
     }
+
     if (conteudoBaixado) {
       pegarConteudoDoStorage();
     } else {
       pegarConteudoDaApi();
     }
-  }, [estaConectado]);
+  }, []);
 
   const pegarConteudoDoStorage = async () => {
     try {
@@ -157,7 +158,7 @@ export default function ({ route, navigation }) {
 
   return (
     <AreaConteudo>
-      {estaConectado && <WebView url={wordpress.urlPostagem(postagem.id)} />}
+      <WebView url={wordpress.urlPostagem(postagem.id)} />
 
       <BarraDeStatus backgroundColor={route.params.cor} barStyle={route.params.estiloBarra} />
 
