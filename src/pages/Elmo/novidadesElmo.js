@@ -17,14 +17,7 @@ export default function (props) {
   const { route } = props;
   const { params } = route;
   const { conteudos } = params;
-  const [temConteudo, alterarTemConteudo] = useState(false);
   const navigation = useNavigation();
-
-  useEffect(() => {
-    const haConteudo = !!conteudos.length;
-    alterarTemConteudo(haConteudo);
-    console.log(`TemConteudo: ${temConteudo}`);
-  }, []);
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
