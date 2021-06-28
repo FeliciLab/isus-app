@@ -66,7 +66,6 @@ export default function ({ route, navigation }) {
   const pegarConteudoDaApi = async () => {
     try {
       const resposta = await pegarProjetosPorId(parametros.id);
-      console.log(resposta.data);
       alterarPostagem(resposta.data);
     } catch (err) {
       console.log(`Erro ao pegar conteudo da API: ${err.message}`);
