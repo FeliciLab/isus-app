@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
   FlatList,
 } from 'react-native';
