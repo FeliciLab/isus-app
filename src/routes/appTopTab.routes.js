@@ -1,28 +1,67 @@
-import React, { useLayoutEffect, useCallback } from 'react';
+import React,
+{
+  useLayoutEffect,
+  useEffect,
+  useState
+} from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useFocusEffect } from '@react-navigation/native';
-import useApiHooks from '../hooks/apiHooks';
+// import { useFocusEffect } from '@react-navigation/native';
+// import useApiHooks from '../hooks/apiHooks';
+import { pegarCategoriasArquitetura } from '../apis/apiHome';
 import { CORES } from '../constantes/estiloBase';
+import { salvarDados, pegarDados } from '../services/armazenamento';
+import rotas from '../constantes/rotas';
 
 const Tab = createMaterialTopTabNavigator();
 const indexComponent = 0;
 const indexTitle = 1;
 
-
-export default function appTopTabScreen(props) {
-  const { route } = props;
+export default function appTopTabScreen({ route, navigation }) {
   const genericComponent = route.params[indexComponent].type;
   const title = route.params[indexTitle];
-  const { navigation } = props;
-  const useApi = useApiHooks(props);
+  const [categorias, setCategorias] = useState([
+    {
+      name: ' ',
+      slug: ' ',
+      term_group: 0,
+      term_id: 0
+    }
+  ]);
 
-  useFocusEffect(
-    useCallback(() => {
-      useApi.pegarCategorias();
-    }, [])
-  );
+  useEffect(() => {
+    pegarCategorias();
+  }, []);
+
+  const pegarCategorias = async () => {
+    try {
+      const resposta = await pegarCategoriasArquitetura();
+      if (route.name === undefined) {
+        return;
+      }
+      if (!resposta.data[route.name]) {
+        return;
+      }
+
+      setCategorias(resposta.data[route.name]);
+      salvarDados(
+        `@categorias_${route.name}`, resposta.data[route.name]
+      );
+    } catch (err) {
+      if (err.message === 'Network Error') {
+        try {
+          const resp = await pegarDados(`@categorias_${route.name}`);
+          setCategorias(resp);
+        } catch (err2) {
+          navigation.navigate(rotas.SEM_CONEXAO, {
+            goHome: true,
+            componente: route.name,
+          });
+        }
+      }
+    }
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -67,7 +106,7 @@ export default function appTopTabScreen(props) {
   }
   return (
     <>
-      {(useApi.categorias !== null) ? (
+      {(categorias !== null) && (
         <Tab.Navigator
           tabBarOptions={{
             scrollEnabled: true,
@@ -82,7 +121,7 @@ export default function appTopTabScreen(props) {
             }
           }}
         >
-          {useApi.categorias.map(item => (
+          {categorias.map(item => (
             <Tab.Screen
               key={item.term_id}
               name={item.name}
@@ -91,8 +130,7 @@ export default function appTopTabScreen(props) {
             />
           ))}
         </Tab.Navigator>
-      ) : (<></>)
-      }
+      )}
     </>
   );
 }

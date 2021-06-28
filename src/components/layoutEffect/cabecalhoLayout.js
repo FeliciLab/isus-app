@@ -28,6 +28,10 @@ const estiloCores = {
   azul: {
     corFundo: CORES.AZUL,
     corTexto: CORES.BRANCO
+  },
+  indigo: {
+    corFundo: CORES.INDIGO_DYE,
+    corTexto: CORES.BRANCO
   }
 };
 
@@ -192,11 +196,3 @@ export const cabecalhoSemBotao = ({ navegador, titulo, cor }) => navegador.setOp
   headerRight: () => {
   }
 });
-
-export default {
-  cabecalhoMenuBusca,
-  cabecalhoMenu,
-  cabecalhoVoltar,
-  cabecalhoVoltarHome,
-  cabecalhoSemBotao
-};

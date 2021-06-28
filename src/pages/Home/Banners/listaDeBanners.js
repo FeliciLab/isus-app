@@ -1,14 +1,16 @@
 import React from 'react';
 import Banner from '../../../components/Banner';
-import GuiaAssistenciaFarmaceutica from '../../../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
 import { pegarBanners } from '../../../apis/apiHome';
 import { listaDeImagens } from '../../../constantes/imagens';
 
 const buscarImagem = ({ imagem, localImagem }) => {
-  if (localImagem === 'web' || !localImagem) {
+  if (localImagem !== 'web' || !localImagem) {
     return listaDeImagens[imagem];
   }
-  return GuiaAssistenciaFarmaceutica;
+  if (imagem.substr(-4) === '.svg') {
+    return { svg: imagem };
+  }
+  return { uri: imagem };
 };
 
 const definirBanner = ({
