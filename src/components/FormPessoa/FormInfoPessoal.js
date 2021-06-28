@@ -59,10 +59,6 @@ export default function FormInfoPessoal({
   || errors.cpf
   || errors.cidadeId;
 
-  useEffect(() => {
-    console.log(`hasErrors:${!!hasErrors}`);
-  }, [hasErrors]);
-
   const validarCpfCadastrado = async (cpf) => {
     if (cpfAntigo === false || (cpfAntigo && cpfAntigo === cpf)) {
       return true;
