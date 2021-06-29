@@ -2,7 +2,6 @@
 import React from 'react';
 import {
   Dimensions,
-  Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SvgCssUri } from 'react-native-svg';
@@ -43,13 +42,12 @@ export default function Banner({
   };
 
   const exibirImg = () => {
-    console.log('imagem', imagem)
     if (imagem.svg) {
       return <SvgCssUri width="100%" height="100%" uri={imagem.svg} cache="reload" />;
     }
     let source = imagem;
     if (imagem.uri) {
-      source = { ...imagem, cache: 'reload' }
+      source = { ...imagem, cache: 'reload' };
     }
     return <Imagem width={imageWidth} height={100} resizeMode="cover" source={source} />;
   };
@@ -59,7 +57,9 @@ export default function Banner({
       testID={testID}
       onPress={lidarComClick}
     >
-      {exibirImg()}
+      <ConteudoImagem>
+        {exibirImg()}
+      </ConteudoImagem>
     </Cartao>
   );
 }
