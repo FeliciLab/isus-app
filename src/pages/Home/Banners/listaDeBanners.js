@@ -10,6 +10,7 @@ const buscarImagem = ({ imagem, localImagem }) => {
   if (imagem.substr(-4) === '.svg') {
     return { svg: imagem };
   }
+
   return { uri: imagem };
 };
 
