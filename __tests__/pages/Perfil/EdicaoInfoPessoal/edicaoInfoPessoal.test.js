@@ -9,6 +9,11 @@ import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
 
+const mockAtualizarUsuario = jest.fn();
+jest.mock('../../../../src/services/usuarioService', () => ({
+  ...jest.requireActual('../../../../src/services/usuarioService'),
+  handleSubmit: () => ({ atualizarUsuario: mockAtualizarUsuario })
+}));
 const mockNavigation = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -162,8 +167,19 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
           </FormProvider>
         );
         const botaoSalvar = getByText('Salvar');
-
         expect(botaoSalvar).not.toBeNull();
+      });
+      test('ENTÃO a função de edição deve ser chamada atualizarUsuario()', () => {
+        const { getByRole } = render(
+          <FormProvider initValues={modeloPessoaMock}>
+            <EdicaoInfoPessoal />
+          </FormProvider>
+        );
+        // debug();
+        const botaoSalvar = getByRole('button');
+        console.log(botaoSalvar.props);
+        // fireEvent.press(botaoSalvar);
+        // expect(mockAtualizarUsuario).toHaveBeenCalled();
       });
     });
   });
