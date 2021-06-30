@@ -22,21 +22,21 @@ const itemInferior = () => {
 
   const conteudoItem = [
     {
-      icone: <Icon name="information" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-information" name="information" size={22} color={CORES.PRETO54} />,
       nome: 'Sobre o iSUS',
       testID: testIDs.DRAWER.ITEM_SOBRE_O_ISUS,
       labelDoAnalytics: 'sobre_o_isus',
       aoPressionar: () => navigationTermos.navigate(rotas.SOBRE_O_ISUS)
     },
     {
-      icone: <Icon name="clipboard-text" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-clipboard-text" name="clipboard-text" size={22} color={CORES.PRETO54} />,
       nome: 'Termos de Uso',
       testID: testIDs.DRAWER.ITEM_TERMOS_DE_USO,
       labelDoAnalytics: 'termos_de_uso',
       aoPressionar: () => navigationTermos.navigate(rotas.TERMOS_DE_USO)
     },
     {
-      icone: <Icon name="share-variant" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-share-variant" name="share-variant" size={22} color={CORES.PRETO54} />,
       nome: 'Compartilhar',
       testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
       labelDoAnalytics: 'compartilhe_o_isus',
