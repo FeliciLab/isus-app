@@ -71,6 +71,10 @@ function conteudoDoDrawer(props) {
       rota: rotas.SUS_NO_CEARA
     }
   ];
+  // console.log('token:', tokenUsuario);
+  // console.log('logado:', estaLogado);
+  // console.log('dupla:', (tokenUsuario && estaLogado));
+
 
   const RenderizaItensDoDrawer = () => ItensDoDrawer.map(({
     testID, nome, icone, rota, labelDoAnalytics
