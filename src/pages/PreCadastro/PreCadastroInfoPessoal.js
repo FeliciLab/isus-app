@@ -135,19 +135,19 @@ export default function PreCadastroInfoPessoal() {
               />
             </RowInput>
           </ContainerForm>
+          <RowButton>
+            <BotaoLaranja
+              disabled={hasErrors}
+              onPress={async () => {
+                await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
+                if (hasErrors) return;
+                navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
+              }}
+            >
+              Continuar
+            </BotaoLaranja>
+          </RowButton>
         </ScrollView>
-        <RowButton>
-          <BotaoLaranja
-            disabled={hasErrors}
-            onPress={async () => {
-              await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
-              if (hasErrors) return;
-              navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
-            }}
-          >
-            Continuar
-          </BotaoLaranja>
-        </RowButton>
       </ContainerBody>
     </>
   );
