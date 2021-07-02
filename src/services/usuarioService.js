@@ -58,7 +58,3 @@ export const atualizarUsuario = async (dados, options) => {
 export default {
   atualizarUsuario
 };
-
-export {
-  tratarDadosPessoais
-};

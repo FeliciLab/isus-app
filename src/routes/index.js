@@ -12,8 +12,8 @@ import BuscarDescription from '../pages/Buscar/Description';
 import WebViewPage from '../pages/WebView';
 import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
 import TelaDeCadastro from '../pages/Cadastro';
-import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional';
-import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal';
+import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional/index';
+import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal/index';
 import SemConexao from '../components/semConexao';
 import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
 import { FormProvider } from '../context/FormContext';
@@ -39,7 +39,12 @@ const RootStack = createStackNavigator();
 function EdicaoProfissional(props) {
   return (
     <FormProvider>
-      <EdicaoInfoProfissional {...props} />
+      <Feature
+        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
+        activeComponent={() => <EdicaoInfoProfissional {...props} />}
+        inactiveComponent={() => <EdicaoInfoProfissional {...props} />}
+      />
+
     </FormProvider>
   );
 }

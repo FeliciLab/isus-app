@@ -60,27 +60,25 @@ const FormProfissional = ({
               />
             </RowInput>
           </ContainerForm>
-          {
-            !hiddenActionButton && (
-              <RowButton>
-                <BotaoLaranja
-                  loading={carregando}
-                  disabled={carregando}
-                  onPress={async () => {
-                    definirCarregando(true);
-                    try {
-                      await actionPress();
-                    } finally {
-                      definirCarregando(false);
-                    }
-                  }}
-                >
-                  {labelButton || 'Continuar'}
-                </BotaoLaranja>
-              </RowButton>
-            )
-          }
         </ScrollView>
+        <RowButton>
+          {!hiddenActionButton && (
+            <BotaoLaranja
+              loading={carregando}
+              disabled={carregando}
+              onPress={async () => {
+                definirCarregando(true);
+                try {
+                  await actionPress();
+                } finally {
+                  definirCarregando(false);
+                }
+              }}
+            >
+              {labelButton || 'Continuar'}
+            </BotaoLaranja>
+          )}
+        </RowButton>
       </ContainerBody>
     </>
   );
