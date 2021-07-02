@@ -12,10 +12,6 @@ NativeModules.RNCNetInfo = {
   removeListeners: jest.fn()
 };
 
-jest.mock('react-native-text-input-mask', () => ({
-  default: jest.fn()
-}));
-
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock');
 

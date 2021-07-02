@@ -13,9 +13,9 @@ const FormTextInput = ({
       control={control}
       name={name}
       rules={rules}
+      defaultValue=""
       render={({ onChange, onBlur, value }) => (
         <TextInput
-          testID={`textinput-${name}`}
           disabled={readonly || false}
           mode="outlined"
           label={label}

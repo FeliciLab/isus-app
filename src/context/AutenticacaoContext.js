@@ -3,9 +3,9 @@ import Pessoa from '../models/pessoa';
 
 const AutenticacaoContext = createContext();
 
-const AutenticacaoProvider = ({ pessoaAutenticada, children }) => {
+const AutenticacaoProvider = ({ children }) => {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
-  const [pessoa, definirPessoa] = useState(pessoaAutenticada || {});
+  const [pessoa, definirPessoa] = useState({});
   const [tokenUsuario, alterarTokenUsuario] = useState({});
   const [estaLogado, alterarEstaLogado] = useState(false);
 

@@ -31,14 +31,19 @@ function DadosUsuario({ dados }) {
       <Text style={estilos.dado}>
         {dados.municipio ? dados.municipio.nome : 'Não informado'}
       </Text>
-      <Botao
-        uri={rotas.EDICAO_INFO_PESSOAIS}
-        // params={{ tela_anterior: rotas.PERFIL }}
-        testID="botao-editar-dado-pessoal"
-        style={estilos.espacamento}
-      >
-        EDITAR INFORMAÇÕES
-      </Botao>
+      <Feature
+        name={features.EDICAO_INFO_PESSOAIS}
+        activeComponent={() => (
+          <Botao
+            uri={rotas.EDICAO_INFO_PESSOAIS}
+            // params={{ tela_anterior: rotas.PERFIL }}
+            testID="botao-editar-dado-pessoal"
+            style={estilos.espacamento}
+          >
+            EDITAR INFORMAÇÕES
+          </Botao>
+        )}
+      />
     </View>
   );
 }
@@ -48,20 +53,20 @@ function Especialidades({ dados }) {
     && dados.profissional.categoria_profissional.id === 1
     || dados.profissional.categoria_profissional.id === 3 ? (
       <>
-      <Text style={estilos.label}>ESPECIALIDADE</Text>
-      <Text style={estilos.dado}>
-        {
-          dados.profissional
-            && dados.profissional.especialidades
-            && dados.profissional.especialidades.length ? (
-              dados.profissional.especialidades.map(dado => (
-                dado.nome
-              )).join(', ')
-            ) : (
-              ''
-            )
-        }
-      </Text>
+        <Text style={estilos.label}>ESPECIALIDADE</Text>
+        <Text style={estilos.dado}>
+          {
+            dados.profissional
+              && dados.profissional.especialidades
+              && dados.profissional.especialidades.length ? (
+                dados.profissional.especialidades.map(dado => (
+                  dado.nome
+                )).join(', ')
+              ) : (
+                ''
+              )
+          }
+        </Text>
       </>
     ) : (
       <></>
