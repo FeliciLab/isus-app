@@ -23,7 +23,7 @@ export default function InformationScreen(props) {
 
   useEffect(() => {
     const press = navigation.addListener('tabPress', () => {
-      if (!estaConectado) {
+      if (!estaConectado && estaConectado !== null) {
         navigation.navigate(rotas.SEM_CONEXAO);
       }
     });
@@ -45,18 +45,10 @@ export default function InformationScreen(props) {
         'click',
         params.title_description
       );
-      async function pegarConteudo() {
-        try {
-          await pegarConteudoDaApi();
-        } catch (err) {
-          if (err.message === 'Network Error') {
-            alterarSemConexao(true);
-            await pegarConteudoDoStorage();
-          }
-        }
-      }
-      pegarConteudo();
-    }, [props])
+
+      pegarConteudoDaApi()
+        .catch(() => pegarConteudoDoStorage());
+    }, [])
   );
 
   const pegarConteudoDoStorage = async () => {

@@ -30,7 +30,9 @@ import { CORES } from '../../constantes/estiloBase';
 import ROTAS from '../../constantes/rotas';
 import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
-// import { analyticsData } from '../../utils/analytics';
+import estaAtiva from '../../utils/estaAtiva';
+import features from '../../constantes/features';
+import ListaCardsElmo from './listaCardsElmo';
 
 function Elmo() {
   const navigation = useNavigation();
@@ -213,16 +215,18 @@ function Elmo() {
         >
           Saiba Mais
         </BotaoLink>
-        <FlatList
-          horizontal
-          data={listaElmoCards}
-          keyExtractor={(items, index) => `${index}`}
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center'
-          }}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
+        {estaAtiva(features.LISTA_CARDS) ? <ListaCardsElmo />
+          : (
+          <FlatList
+            horizontal
+            data={listaElmoCards}
+            keyExtractor={(items, index) => `${index}`}
+            style={{
+              flexDirection: 'row',
+              alignSelf: 'center'
+            }}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item }) => (
             <CartaoHome
               testID={`cards-${item.id}`}
               key={item.id}
@@ -231,8 +235,10 @@ function Elmo() {
               Icone={item.icone}
               onPress={() => onPress(item)}
             />
-          )}
-        />
+            )}
+          />
+          )
+        }
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
           <TituloH6> Novidades </TituloH6>
           <BotaoLink

@@ -31,6 +31,7 @@ import NovidadesElmo from '../pages/Elmo/novidadesElmo';
 import NovoSemConexao from '../pages/SemConexao';
 
 import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
+import Descricao from '../pages/Content/Descricao';
 
 const RootStack = createStackNavigator();
 
@@ -146,6 +147,11 @@ export default function App({ navigationRef }) {
           name="Descrição"
           component={Description}
           options={{ headerShown: true }}
+        />
+        <RootStack.Screen
+          name={rotas.DESCRICAO}
+          component={Descricao}
+          options={{ headerShown: true, title: 'Descrição' }}
         />
         <RootStack.Screen
           name={rotas.SEM_CONEXAO}

@@ -15,7 +15,6 @@ const TitleText = ({ label }) => (
     style={{
       marginTop: 10,
       fontSize: 18,
-      wordWrap: 'break-word',
       fontWeight: 'bold'
     }}
   >

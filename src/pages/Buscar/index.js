@@ -16,6 +16,7 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
+import rotas from '../../constantes/rotas';
 import { analyticsData } from '../../utils/analytics';
 
 export default class Buscar extends Component {
@@ -48,6 +49,7 @@ export default class Buscar extends Component {
       this.setState({ estaVazio: true, loading: false });
       return;
     }
+
     this.setState({
       data: [...this.state.data, ...response.data.data],
       page: this.state.page + 1,
@@ -91,9 +93,6 @@ export default class Buscar extends Component {
     </View>
   )
 
-  // eslint-disable-next-line react/sort-comp
-  car
-
   /* FUNÇÃO SOMENTE PARA MOSTRAR UM CONTEÚDO COM INFORMAÇÃO INICIAL OU CASO NÃO
     ENCONTRE NENHUM ARTIGO */
   infoPreview() {
@@ -124,7 +123,15 @@ export default class Buscar extends Component {
       <View style={styles.backgroundColor}>
         <TouchableOpacity
           style={styles.backgroundColor}
-          onPress={() => navigation.navigate('Descrição', { object: { id: item.ID } })}
+          onPress={() => navigation.navigate(
+            rotas.DESCRICAO,
+            {
+              parametros: {
+                ...item
+              },
+              title: item.post_title,
+            }
+          )}
         >
           <View style={styles.content}>
             {item.image ? (

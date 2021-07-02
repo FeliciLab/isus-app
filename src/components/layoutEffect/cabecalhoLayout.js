@@ -28,6 +28,10 @@ const estiloCores = {
   azul: {
     corFundo: CORES.AZUL,
     corTexto: CORES.BRANCO
+  },
+  indigo: {
+    corFundo: CORES.INDIGO_DYE,
+    corTexto: CORES.BRANCO
   }
 };
 
@@ -125,7 +129,7 @@ export const cabecalhoMenuBusca = ({ navegador, titulo, cor }) => navegador.setO
       cor={estiloCores[cor].corTexto}
     />
   ),
-  headerLeft: () => <TouchableMenu navegador={navegador} />
+  headerLeft: () => <TouchableMenu navegador={navegador} cor={estiloCores[cor].corTexto} />
 });
 
 export const cabecalhoMenu = ({ navegador, titulo, cor }) => navegador.setOptions({
@@ -192,11 +196,3 @@ export const cabecalhoSemBotao = ({ navegador, titulo, cor }) => navegador.setOp
   headerRight: () => {
   }
 });
-
-export default {
-  cabecalhoMenuBusca,
-  cabecalhoMenu,
-  cabecalhoVoltar,
-  cabecalhoVoltarHome,
-  cabecalhoSemBotao
-};

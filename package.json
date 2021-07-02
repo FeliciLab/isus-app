@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.18.4",
+  "version": "3.19.5.1",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -20,7 +20,7 @@
     "@paralleldrive/react-feature-toggles": "^2.3.1",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
-    "@react-native-community/netinfo": "^5.9.7",
+    "@react-native-community/netinfo": "^6.0.0",
     "@react-native-community/toolbar-android": "^0.1.0-rc.2",
     "@react-native-firebase/analytics": "^10.1.0",
     "@react-native-firebase/app": "^10.1.0",

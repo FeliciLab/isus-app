@@ -145,30 +145,30 @@ export default function FormInfoPessoal({
               />
             </RowInput>
           </ContainerForm>
-        </ScrollView>
-        {
-          !hiddenActionButton && (
-            <RowButton>
-              <BotaoLaranja
-                loading={carregando}
-                disabled={!!hasErrors || carregando}
-                onPress={async () => {
-                  await trigger(['nomeCompleto', 'email', 'telefone', 'cpf', 'cidadeId']);
-                  if (hasErrors) return;
-                  definirCarregando(true);
+          {
+            !hiddenActionButton && (
+              <RowButton>
+                <BotaoLaranja
+                  loading={carregando}
+                  disabled={hasErrors || carregando}
+                  onPress={async () => {
+                    await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
+                    if (hasErrors) return;
+                    definirCarregando(true);
 
-                  try {
-                    await actionPress();
-                  } finally {
-                    definirCarregando(false);
-                  }
-                }}
-              >
-                {labelButton || 'Continuar'}
-              </BotaoLaranja>
-            </RowButton>
-          )
-        }
+                    try {
+                      await actionPress();
+                    } finally {
+                      definirCarregando(false);
+                    }
+                  }}
+                >
+                  {labelButton || 'Continuar'}
+                </BotaoLaranja>
+              </RowButton>
+            )
+          }
+        </ScrollView>
       </ContainerBody>
     </>
   );

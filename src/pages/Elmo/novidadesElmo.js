@@ -1,56 +1,29 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
-  View,
-  TouchableOpacity,
   FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import {
-  ScrollView,
   TextoCentralizado,
   CardSemConteudo
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import { CORES } from '../../constantes/estiloBase';
 import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
+import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
+import randomKey from '../../utils/randomKey';
 
-export default function novidadesElmo(props) {
+export default function (props) {
   const { route } = props;
   const { params } = route;
   const { conteudos } = params;
-  const [temConteudo, alterarTemConteudo] = useState(false);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const haConteudo = !!conteudos.length;
-    alterarTemConteudo(haConteudo);
-    console.log(`TemConteudo: ${temConteudo}`);
-  }, []);
-
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: CORES.INDIGO_DYE,
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: CORES.BRANCO,
-      headerTitleAlign: 'center',
-      headerTitle: 'Novidades Elmo',
-      headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
-            </TouchableOpacity>
-      )
+    cabecalhoVoltar({
+      navegador: navigation,
+      titulo: 'Novidades Elmo',
+      cor: 'indigo'
     });
   });
 
@@ -61,13 +34,20 @@ export default function novidadesElmo(props) {
           showsVerticalScrollIndicator={false}
           numColumns={2}
           data={conteudos}
-          keyExtractor={index => `${index}`}
+          keyExtractor={() => `${randomKey()}`}
           style={{
+            marginTop: 20,
+            marginBottom: 12,
             flex: 1,
             alignSelf: 'center'
           }}
           renderItem={conteudo => (
-            <CartaoDeConteudo conteudo={conteudo} cor={CORES.INDIGO_DYE} estiloBarra="dark-white" />
+            <CartaoDeConteudo
+              key={randomKey()}
+              conteudo={conteudo}
+              cor={CORES.INDIGO_DYE}
+              estiloBarra="dark-white"
+            />
           )}
         />
       );
@@ -87,11 +67,7 @@ export default function novidadesElmo(props) {
         backgroundColor={CORES.INDIGO_DYE}
         barStyle="light-content"
       />
-      <ScrollView style={{ flex: 1 }}>
-        <View style={{ marginTop: 20, marginBottom: 12 }}>
-          <ListaDeConteudo />
-        </View>
-      </ScrollView>
+      <ListaDeConteudo />
     </>
   );
 }

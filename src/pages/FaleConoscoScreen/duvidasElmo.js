@@ -1,9 +1,11 @@
 import React, {
-  useState, useCallback, useRef, useContext, useEffect, useLayoutEffect
+  useState,
+  useCallback,
+  useRef,
+  useContext,
+  useEffect
 } from 'react';
-import { TouchableOpacity, Keyboard } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useFocusEffect } from '@react-navigation/native';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { postDuvidasElmo } from '../../apis/apiHome';
 import { CORES } from '../../constantes/estiloBase';
@@ -12,7 +14,10 @@ import Regex from '../../utils/regex';
 import FormContext from '../../context/FormContext';
 import MsgErroFormCampo from '../../components/loginLayout/msgErroFormCampo';
 import {
-  View, BotaoForm, AlertaBar, EntradaTexto
+  View,
+  BotaoForm,
+  AlertaBar,
+  EntradaTexto
 } from './sytles';
 import { TESTIDS } from '../../constantes/testIDs';
 import { analyticsData } from '../../utils/analytics';
@@ -27,7 +32,6 @@ export default function DuvidasElmoScreen() {
   const botaoRef = useRef(null);
   const duvidaInput = useRef(null);
   const emailInput = useRef(null);
-  const navigation = useNavigation();
 
   const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
@@ -111,43 +115,6 @@ export default function DuvidasElmoScreen() {
     });
   }, [register]);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: CORES.VERDE,
-        elevation: 0,
-        shadowOpacity: 0
-      },
-      headerTintColor: CORES.BRANCO,
-      headerTitleAlign: 'center',
-      headerTitle: 'Dúvidas Sobre o Elmo',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color={CORES.BRANCO} />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            Keyboard.dismiss();
-            navigation.toggleDrawer();
-          }}
-        >
-          <Icon name="menu" size={28} color={CORES.BRANCO} />
-        </TouchableOpacity>
-      )
-    });
-  });
   return (
     <>
       <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
