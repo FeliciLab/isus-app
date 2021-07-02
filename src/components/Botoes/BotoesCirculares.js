@@ -20,6 +20,7 @@ export const BotaoLaranja = ({
   children, onPress, disabled, loading
 }) => (
   <BotaoCircular
+    accessibilityState={{ disabled }}
     loading={loading}
     disabled={disabled}
     color="#fff"

@@ -16,7 +16,6 @@ const FormSelect = ({
       control={control}
       name={name}
       rules={rules}
-      defaultValue=""
       render={({
         onChange, onBlur, onFocus, value
       }) => (
