@@ -3,7 +3,7 @@ import { TextInput } from 'react-native-paper';
 import { Controller } from 'react-hook-form';
 import FormContext from '../../context/FormContext';
 
-function formatarMascarar({
+export function formatarMascarar({
   antigo, valor, mascara, padrao
 }) {
   if (valor === undefined) return valor;

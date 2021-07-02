@@ -7,6 +7,7 @@ import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
 import { AutenticacaoProvider } from '../../../../src/context/AutenticacaoContext';
+import { formatarMascarar } from '../../../../src/components/FormLayoutContexts/FormTextInputMask';
 
 const mockNavigation = jest.fn();
 jest.mock('@react-navigation/native', () => ({
@@ -56,8 +57,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
     });
     test('ENTÃO devo visualizar o texto no topo', () => {
       const textoTopo = 'Edite as informações pessoais que você deseja atualizar:';
-      const textoTopoId = getByTestIdTest('texto');
-      expect(textoTopoId.props.children).toEqual(textoTopo);
+      expect(getByTextTest(textoTopo)).not.toBeNull();
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label Nome Completo', () => {
@@ -69,7 +69,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
     test('ENTÃO o campo Nome Completo deve estar preenchido com o nome da pessoa autenticada', () => {
       const nomeController = 'nomeCompleto';
       const campoID = getByTestIdTest(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('Rui moreno');
+      expect(campoID.props.value).toEqual(modeloPessoaMock.nomeCompleto);
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label E-mail', () => {
@@ -81,7 +81,7 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
     test('ENTÃO o campo E-mail deve estar preenchido com o nome da pessoa autenticada', () => {
       const nomeController = 'email';
       const campoID = getByTestIdTest(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('ruiguemo@gmail.com');
+      expect(campoID.props.value).toEqual(modeloPessoaMock.email);
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label Telefone', () => {
@@ -93,7 +93,12 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
     test('ENTÃO o campo telefone deve estar preenchido com o telefone da pessoa autenticada', () => {
       const nomeController = 'telefone';
       const campoID = getByTestIdTest(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('(85) 99999-9999');
+      const maskTelefone = formatarMascarar({
+        antigo: '',
+        valor: modeloPessoaMock.telefone,
+        mascara: '(##) #####-####'
+      });
+      expect(campoID.props.value).toEqual(maskTelefone);
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label CPF', () => {
@@ -105,7 +110,12 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
     test('ENTÃO o campo CPF deve estar preenchido com o nome da pessoa autenticada', () => {
       const nomeController = 'cpf';
       const campoID = getByTestIdTest(`textinput-${nomeController}`);
-      expect(campoID.props.value).toEqual('571.714.340-01');
+      const maskCpf = formatarMascarar({
+        antigo: '',
+        valor: modeloPessoaMock.cpf,
+        mascara: '###.###.###-##'
+      });
+      expect(campoID.props.value).toEqual(maskCpf);
     });
 
     test('ENTÃO um campo do tipo input/text deve ser exibido com a label Município', () => {
@@ -113,15 +123,16 @@ describe('DADO QUE estou na tela de edição de informações pessoais', () => {
       const labelId = getAllByTextTest(nomeLabel);
       expect(labelId[0].props.children).toEqual(nomeLabel);
     });
+
     test('ENTÃO o campo município deve estar preenchido com o município da pessoa autenticada', () => {
-      const campoID = getByDisplayValueTest('1347');
-      expect(campoID.props.value).toEqual('1347');
+      const campoID = getByDisplayValueTest(modeloPessoaMock.cidadeId.toString());
+      expect(campoID.props.value).toEqual(modeloPessoaMock.cidadeId.toString());
     });
 
     describe('QUANDO apresento o formulário com os campos preenchidos e validados', () => {
-      test('ENTÃO o botão SALVAR deve está habilitado', async () => {
+      test('ENTÃO o botão SALVAR deve está habilitado', () => {
         const campoID = queryByA11yStateTest({ disabled: false });
-        await waitFor(() => expect(campoID).not.toBeNull());
+        expect(campoID).not.toBeNull();
       });
 
       test('ENTÃO o botão deve exibir o texto SALVAR', () => {
