@@ -16,6 +16,7 @@ export const labelsAnalytics = {
   INICIAR_MEU_CADASTRO: 'iniciar_meu_cadastro',
   FINALIZAR_MEU_CADASTRO: 'finalizar_meu_cadastro',
   EDITAR_INFORMACOES_PROFISSIONAIS: 'editar_informacoes_profissionais',
+  EDITAR_INFORMACOES_PESSOAL: 'editar_info_pessoal',
   MATERNO_INFANTIL: {
     NASCER_NO_CEARA: 'nascer_no_ceara',
     ESTRATIFICACAO_DE_RISCO: 'guias_estratificacao_risco',
