@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
 } from 'react-native';
@@ -29,8 +30,8 @@ function conteudoDoDrawer(props) {
     alterarEstaLogado
   } = useContext(AutenticacaoContext);
 
+  const { navigate } = useNavigation();
   const {
-    navigation: { navigate },
     routeName
   } = props;
 
@@ -71,10 +72,6 @@ function conteudoDoDrawer(props) {
       rota: rotas.SUS_NO_CEARA
     }
   ];
-  // console.log('token:', tokenUsuario);
-  // console.log('logado:', estaLogado);
-  // console.log('dupla:', (tokenUsuario && estaLogado));
-
 
   const RenderizaItensDoDrawer = () => ItensDoDrawer.map(({
     testID, nome, icone, rota, labelDoAnalytics
