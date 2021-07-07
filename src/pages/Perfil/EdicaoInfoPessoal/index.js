@@ -15,6 +15,8 @@ import { CORES } from '../../../constantes/estiloBase';
 import { cabecalhoVoltarRota } from '../../../components/layoutEffect/cabecalhoLayout';
 import { atualizarUsuario } from '../../../services/usuarioService';
 import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
+import { analyticsData } from '../../../utils/analytics';
+import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
 function EdicaoInfoPessoal() {
   const { handleSubmit, getValues } = useContext(FormContext);
@@ -64,6 +66,11 @@ function EdicaoInfoPessoal() {
                 { somentePessoais: true }
               );
               if (result) {
+                analyticsData(
+                  labelsAnalytics.EDITAR_INFORMACOES_PESSOAL,
+                  'Click',
+                  'atualizar informacao pessoal'
+                );
                 navigation.navigate('TelaDeSucesso',
                   {
                     textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
