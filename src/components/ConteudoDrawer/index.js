@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
 } from 'react-native';
@@ -29,8 +30,8 @@ function conteudoDoDrawer(props) {
     alterarEstaLogado
   } = useContext(AutenticacaoContext);
 
+  const { navigate } = useNavigation();
   const {
-    navigation: { navigate },
     routeName
   } = props;
 
@@ -45,28 +46,28 @@ function conteudoDoDrawer(props) {
     {
       testID: testIDs.DRAWER.ITEM_HOME,
       nome: 'Home',
-      icone: <Icon name="home" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-home" name="home" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'home',
       rota: rotas.HOME
     },
     {
       testID: testIDs.DRAWER.ITEM_PERFIL,
       nome: 'Meu perfil',
-      icone: <Icon name="account" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-account" name="account" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'meu_perfil',
       rota: tokenUsuario && estaLogado ? rotas.PERFIL : rotas.LOGIN,
     },
     {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
       nome: 'Fale conosco',
-      icone: <MaterialIcon name="feedback" size={22} color={CORES.PRETO54} />,
+      icone: <MaterialIcon testID="icon-drawer-feedback" name="feedback" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'fale_conosco',
       rota: rotas.FALE_CONOSCO
     },
     {
       testID: testIDs.DRAWER.ITEM_SUSNOCEARA,
       nome: 'SUS no Ceará',
-      icone: <Icon name="help-circle" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-susnoceara" name="help-circle" size={22} color={CORES.PRETO54} />,
       labelDoAnalytics: 'sus_no_ceara',
       rota: rotas.SUS_NO_CEARA
     }
@@ -93,7 +94,7 @@ function conteudoDoDrawer(props) {
     <>
       <DroidSafeArea>
         <View>
-          <Heart size={40} style={{ margin: 10 }} />
+          <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
         </View>
         <View style={{ height: '100%', flexDirection: 'column', justifyContent: 'space-around' }}>
           <ScrollView

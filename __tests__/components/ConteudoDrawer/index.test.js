@@ -1,16 +1,10 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
-import { fireEvent, render } from 'util-teste';
+import { render } from 'util-teste';
 import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
-import MockedDrawerNavigator from '../../../__mocks__/navigator/mocked-drawer-navigator';
-import AppTab from '../../../src/routes/appBottomTab.routes';
-import { analyticsData } from '../../../src/utils/analytics';
-import testIDs, { TESTIDS } from '../../../src/constantes/testIDs';
+import { TESTIDS } from '../../../src/constantes/testIDs';
 
-jest.mock('../../../src/utils/analytics', () => ({
-  analyticsData: jest.fn()
-}));
-
+const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => ({
@@ -20,147 +14,82 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn()
 }));
 
-const mockedNavigate = jest.fn();
-describe('testes do conteúdo do menu lateral do app', () => {
-  test('deve renderizar o item home', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="home"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(TESTIDS.DRAWER.ITEM_HOME);
+jest.mock('../../../src/components/ConteudoDrawer/aoCompartilhar', () => jest.fn());
 
-    expect(item).not.toBeNull();
-  });
-
-  test('deve renderizar o item Meu perfil', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="PERFIL"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(TESTIDS.DRAWER.ITEM_PERFIL);
-
-    expect(item).not.toBeNull();
-  });
-
-  test('deve renderizar o item Fale conosco', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="FEEDBACK"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(testIDs.DRAWER.ITEM_FALECONOSCO);
-    expect(item).not.toBeNull();
-  });
-
-  test('deve renderizar o item SUS no Ceará', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="SUS_NO_CEARA"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(testIDs.DRAWER.ITEM_SUSNOCEARA);
-    expect(item).not.toBeNull();
-  });
-
-  test('deve chamar o analytics data ao clicar no item Home no menu lateral', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="home"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(TESTIDS.DRAWER.ITEM_HOME);
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
-
-  test('deve chamar o analytics data ao clicar no item Meu perfil no menu lateral', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="PERFIL"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(TESTIDS.DRAWER.ITEM_PERFIL);
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
-
-  test('deve chamar o analytics data ao clicar no item Fale conosco no menu lateral', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="FEEDBACK"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(testIDs.DRAWER.ITEM_FALECONOSCO);
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
-
-  test('deve chamar o analytics data quando clicar no item SUS no Ceará no menu lateral', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="SUS_NO_CEARA"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(testIDs.DRAWER.ITEM_SUSNOCEARA);
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
-
-  test('deve chamar o navigate quando clicar no item SUS no Ceará no menu lateral', () => {
-    const { getByTestId } = render(
-      <MockedDrawerNavigator
-        name="SUS_NO_CEARA"
-        component={AppTab}
-        initialParams={{}}
-        conteudoDrawer={props => (
-          <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
-        )}
-      />
-    );
-    const item = getByTestId(testIDs.DRAWER.ITEM_SUSNOCEARA);
-    fireEvent.press(item);
-    expect(mockedNavigate).toHaveBeenCalled();
+describe('testes de interface para o menu lateral do app', () => {
+  describe('Dado que clico no menu lateral', () => {
+    describe('Quando o menu lateral abre', () => {
+      test('então visualizo a logo do iSUS', () => {
+        const { getByTestId } = render(
+          <ConteudoDrawer />
+        );
+        const item = getByTestId('svg-heart');
+        expect(item).not.toBeNull();
+        expect(item.type).toEqual('SvgMock');
+      });
+      test('então visualizo o texto e o ícone da HOME', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('Home');
+        const item = getByTestId(TESTIDS.ICONS.ICON_HOME);
+        expect(itemNome[0].props.children).toEqual('Home');
+        expect(item.props.children).not.toBeNull();
+      });
+      test('então visualizo o icone do boneco (account) e o texto Meu Perfil', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('Meu perfil');
+        const item = getByTestId(TESTIDS.ICONS.ICON_PERFIL);
+        expect(itemNome[0].props.children).toEqual('Meu perfil');
+        expect(item.props.children).not.toBeNull();
+      });
+      test('então visualizo o icone do chat+exclamação (feedback) e visualizo o texto Fale Conosco', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('Fale conosco');
+        const item = getByTestId(TESTIDS.ICONS.ICON_FALECONOSCO);
+        expect(itemNome[0].props.children).toEqual('Fale conosco');
+        expect(item.props.children).not.toBeNull();
+      });
+      test('então visualizo o icone do circulo+interrogação (help-circle) e visualizo o texto SUS no Ceará', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('SUS no Ceará');
+        const item = getByTestId(TESTIDS.ICONS.ICON_SUSNOCEARA);
+        expect(itemNome[0].props.children).toEqual('SUS no Ceará');
+        expect(item.props.children).not.toBeNull();
+      });
+      test('então visualizo o icone do circulo+interrogação (information) e visualizo o texto Sobre o iSUS', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('Sobre o iSUS');
+        const item = getByTestId(TESTIDS.ICONS.ICON_SOBRE_O_ISUS);
+        expect(itemNome[0].props.children).toEqual('Sobre o iSUS');
+        expect(item.props.children).not.toBeNull();
+      });
+      test('então visualizo o icone do circulo+interrogação (clipboard-text) e visualizo o texto Termos de Uso', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('Termos de Uso');
+        const item = getByTestId(TESTIDS.ICONS.ICON_TERMOS_DE_USO);
+        expect(itemNome[0].props.children).toEqual('Termos de Uso');
+        expect(item.props.children).not.toBeNull();
+      });
+      test('então visualizo o icone do circulo+interrogação (share-varian) e visualizo o texto Compartilhar', () => {
+        const { getByTestId, queryAllByText } = render(
+          <ConteudoDrawer />
+        );
+        const itemNome = queryAllByText('Compartilhar');
+        const item = getByTestId(TESTIDS.ICONS.ICON_COMPARTILHAR);
+        expect(itemNome[0].props.children).toEqual('Compartilhar');
+        expect(item.props.children).not.toBeNull();
+      });
+    });
   });
 });

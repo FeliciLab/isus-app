@@ -3,11 +3,11 @@ import Pessoa from '../models/pessoa';
 
 const AutenticacaoContext = createContext();
 
-const AutenticacaoProvider = ({ pessoaAutenticada, children }) => {
+const AutenticacaoProvider = ({ valoresIniciais, pessoaAutenticada, children }) => {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
   const [pessoa, definirPessoa] = useState(pessoaAutenticada || {});
-  const [tokenUsuario, alterarTokenUsuario] = useState({});
-  const [estaLogado, alterarEstaLogado] = useState(false);
+  const [tokenUsuario, alterarTokenUsuario] = useState(valoresIniciais?.tokenAutenticacao || false);
+  const [estaLogado, alterarEstaLogado] = useState(valoresIniciais?.estaLogade || false);
 
   const alterarPessoa = (dados) => {
     definirPessoa({

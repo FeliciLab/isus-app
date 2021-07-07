@@ -1,7 +1,4 @@
 import React from 'react';
-import {
-  Share
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -14,6 +11,7 @@ import {
 import { CORES } from '../../constantes/estiloBase';
 import testIDs from '../../constantes/testIDs';
 import rotas from '../../constantes/rotas';
+import aoCompartilhar from './aoCompartilhar';
 
 
 const itemInferior = () => {
@@ -22,38 +20,27 @@ const itemInferior = () => {
 
   const conteudoItem = [
     {
-      icone: <Icon name="information" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-information" name="information" size={22} color={CORES.PRETO54} />,
       nome: 'Sobre o iSUS',
       testID: testIDs.DRAWER.ITEM_SOBRE_O_ISUS,
       labelDoAnalytics: 'sobre_o_isus',
       aoPressionar: () => navigationTermos.navigate(rotas.SOBRE_O_ISUS)
     },
     {
-      icone: <Icon name="clipboard-text" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-clipboard-text" name="clipboard-text" size={22} color={CORES.PRETO54} />,
       nome: 'Termos de Uso',
       testID: testIDs.DRAWER.ITEM_TERMOS_DE_USO,
       labelDoAnalytics: 'termos_de_uso',
       aoPressionar: () => navigationTermos.navigate(rotas.TERMOS_DE_USO)
     },
     {
-      icone: <Icon name="share-variant" size={22} color={CORES.PRETO54} />,
+      icone: <Icon testID="icon-drawer-share-variant" name="share-variant" size={22} color={CORES.PRETO54} />,
       nome: 'Compartilhar',
       testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
       labelDoAnalytics: 'compartilhe_o_isus',
       aoPressionar: () => aoCompartilhar()
     }
   ];
-
-  const aoCompartilhar = async () => {
-    const messagLink = 'Conhece o app iSUS? Um produto digital do governo do Ceará de apoio a profissionais de saúde, com informações, serviços e oportunidades na palma da mão! Saiba mais: https://coronavirus.ceara.gov.br/isus/';
-    try {
-      await Share.share({
-        message: messagLink
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   return (
     <>
