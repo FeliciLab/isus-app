@@ -67,7 +67,7 @@ describe('Dado que abro o menu lateral', () => {
     });
   });
   describe('Quando clico em Meu Perfil (E estou autenticado - login(verdadeiro) e token(verdadeiro))', () => {
-    test('então sou redirecionado para a página de login/cadastro', () => {
+    test('então sou redirecionado para a página de perfil', () => {
       const { getByTestId } = render(
         <AutenticacaoProvider valoresIniciais={{ estaLogade: true, tokenAutenticacao: true }}>
           <ConteudoDrawer />
@@ -135,8 +135,7 @@ describe('Dado que abro o menu lateral', () => {
         <ConteudoDrawer />
       );
       const item = getByText(`Versão ${versaoSistema}`);
-      // eslint-disable-next-line no-underscore-dangle
-      expect(item._fiber.memoizedProps.children[2]).toEqual(versaoSistema);
+      expect(item.props.children[2]).toEqual(versaoSistema);
     });
   });
 });

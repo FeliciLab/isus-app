@@ -50,6 +50,15 @@ export const TESTIDS = {
     ITEM_SOBRE_O_ISUS: 'drawer-item-sobre-o-isus',
     ITEM_TERMOS_DE_USO: 'drawer-item-termos-de-uso',
     ITEM_COMPARTILHE_O_ISUS: 'drawer-item-compartilhe-o-isus'
+  },
+  ICONS: {
+    ICON_HOME: 'icon-drawer-home',
+    ICON_PERFIL: 'icon-drawer-account',
+    ICON_FALECONOSCO: 'icon-drawer-feedback',
+    ICON_SUSNOCEARA: 'icon-drawer-susnoceara',
+    ICON_SOBRE_O_ISUS: 'icon-drawer-information',
+    ICON_TERMOS_DE_USO: 'icon-drawer-clipboard-text',
+    ICON_COMPARTILHAR: 'icon-drawer-share-variant'
   }
 };
 
