@@ -33,7 +33,7 @@ function DadosUsuario({ dados }) {
       </Text>
       <Botao
         uri={rotas.EDICAO_INFO_PESSOAIS}
-        // params={{ tela_anterior: rotas.PERFIL }}
+        params={{ tela_anterior: rotas.PERFIL }}
         testID="botao-editar-dado-pessoal"
         style={estilos.espacamento}
       >
