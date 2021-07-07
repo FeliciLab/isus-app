@@ -168,13 +168,6 @@ const Botao = ({
             'Perfil'
           );
         }
-        if (testID === 'botao-editar-dado-pessoal') {
-          analyticsData(
-            labelsAnalytics.EDITAR_INFORMACOES_PESSOAL,
-            'Click',
-            'Perfil'
-          );
-        }
         navigation.navigate(uri, params);
       }}
     >
