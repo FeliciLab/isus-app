@@ -1,32 +1,20 @@
 ---
 name: Reportar Bug
-about: Modelo de reporte de bug
-title: "<Tela de login não aparece ao clicar em 'Já possuo Id Saúde'> ..."
-labels: bug, app
+about: Modelo para reportar um bug encontrado no aplicativo
+title: Encontrei...
+labels: bug-report
 assignees: ''
 
 ---
 
 # Descrição
 
--
+> Descreva tudo que poder sobre o problema encontrado no aplicativo
 
 # Passo-a-passo para replicar
 
--
+> Descreva quais foram os passos para que possamos replicar o problema
 
-# Ideia de solução
+# Sugestões
 
--
-
-# Critérios de Aceitação
-
-- [ ] titulo  
-**Dado que** algo  
-**Quando** faço  
-**então** resulta
-
-
-# Observações
-
-ex: Prototipo
+> Caso tenha alguma sugestão de solução, sinta-se a vontade.
