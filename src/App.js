@@ -12,6 +12,7 @@ import OneSignalActions from './utils/oneSignalActions';
 import featuresAtivas from './featureAtivas';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
 import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
+import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import CaixaDialogo from './components/caixaDialogo';
 
 function App() {
@@ -62,10 +63,12 @@ function App() {
       <StatusBar backgroundColor="#4CAF50" barStyle="light-content" />
       <FeatureToggles features={featuresAtivas}>
         <AutenticacaoProvider>
-          <CaixaDialogoProvider>
-            <Routes navigationRef={navigationRef} />
-            <CaixaDialogo />
-          </CaixaDialogoProvider>
+          <AppTrackTransparencyProvider>
+            <CaixaDialogoProvider>
+              <Routes navigationRef={navigationRef} />
+              <CaixaDialogo />
+            </CaixaDialogoProvider>
+          </AppTrackTransparencyProvider>
         </AutenticacaoProvider>
       </FeatureToggles>
     </>
