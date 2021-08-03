@@ -111,5 +111,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false />
+  <key>NSUserTrackingUsageDescription</key>
+	<string>$(PRODUCT_NAME) requisita sua permissão para rastrear alguns dados afim de promover uma melhor experiência no aplicativo.</string>
 </dict>
 </plist>
