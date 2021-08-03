@@ -8921,6 +8921,11 @@ react-native-text-input-mask@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-text-input-mask/-/react-native-text-input-mask-2.0.1.tgz#d28602d2e6f2e5f0d860cc8a0bdc09d3180d861c"
   integrity sha512-9n7JehpaJ1xf185RKdeHYRFAT6zv3vdf1gW3OYZ1kNSXthUVoOQw/MORC/ycYPhWCCdzdWQAp4Jx6JCZxLnwyw==
 
+react-native-tracking-transparency@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-tracking-transparency/-/react-native-tracking-transparency-0.1.1.tgz#6426d4c826d0deaed7ed32f707cb2d15b09c3c3f"
+  integrity sha512-yGzpprmZ7dnlScegpoq1uQLuMLR2yDcFVHKF39FB0hxUBmck3G0bKSIbjj1ienM9IgjPvJQPgvG0dX9asyZ7NA==
+
 react-native-vector-icons@^6.6.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.7.0.tgz#8871ba52ef8e98878ba7a932847f96b6dfc1c137"
