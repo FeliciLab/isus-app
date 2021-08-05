@@ -19,13 +19,16 @@ import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
 import MeusConteudos from './MeusConteudos';
 import ForcaTarefa from './ForcaTarefa';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import features from '../../constantes/features';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import { analyticsData } from '../../utils/analytics';
 
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
+
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const { verificarRastreio } = useContext(AppTrackTransparencyContext);
   const {
     dadosUsuario,
     estaLogado,
@@ -49,6 +52,7 @@ export default function HomeScreen() {
 
   useFocusEffect(
     useCallback(() => {
+      verificarRastreio();
       redirectToWelcome();
       async function pegarTokenUsuario() {
         const logado = await pegarEstadoLogadoArmazenado();

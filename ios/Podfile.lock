@@ -363,7 +363,7 @@ PODS:
   - react-native-text-input-mask (2.0.1):
     - React
     - RNInputMask
-  - react-native-tracking-transparency (0.1.1):
+  - react-native-tracking-transparency (0.1.0):
     - React
   - react-native-webview (11.6.5):
     - React-Core
@@ -733,7 +733,7 @@ SPEC CHECKSUMS:
   react-native-onesignal: a7e433eec906c928954de4f124b6886418386bb4
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-text-input-mask: cffd00848940e7670cf233a99e7be782257935ed
-  react-native-tracking-transparency: b2029ff756f1128b1f2c7c7c7f3003bc3c950f9f
+  react-native-tracking-transparency: c1c4b412fcdcb0a02e23bb42b123def5a6d86a56
   react-native-webview: 2e8fe70dc32b50d3231c23043f8e8b5a5525d346
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
