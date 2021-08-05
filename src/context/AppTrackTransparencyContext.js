@@ -20,8 +20,8 @@ export const AppTrackTransparencyProvider = ({ children }) => {
 
   const verificarRastreio = async () => {
     let permissao = await getTrackingStatus();
-    if (permissao === 'not-determined') {
-      permissao = requestTrackingPermission();
+    if (permissao === 'not-determined' || !rastreioTransparenteHabilitado) {
+      permissao = await requestTrackingPermission();
     }
 
     atribuirRastreioTransparenteHabilitado(definirSeRastreioHabilitado(permissao));

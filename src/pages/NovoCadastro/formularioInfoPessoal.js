@@ -11,7 +11,6 @@ import NetInfo from '@react-native-community/netinfo';
 import {
   emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado
 } from '../../utils/validadores';
-import FormContext from '../../context/FormContext';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
 import {
@@ -24,7 +23,21 @@ import BarraDeStatus from '../../components/barraDeStatus';
 import { cabecalhoSemBotao, cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
 import textos from './textos.json';
 
+import FormContext from '../../context/FormContext';
+import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
+
 export default function FormularioInfoPessoal({ navigation }) {
+  const {
+    rastreioTransparenteHabilitado,
+    verificarRastreio,
+  } = React.useContext(AppTrackTransparencyContext);
+  React.useEffect(() => {
+    verificarRastreio()
+      .then(() => {
+        console.log('rastreio', rastreioTransparenteHabilitado);
+      });
+  }, [rastreioTransparenteHabilitado]);
+
   const dropdown = React.createRef();
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
