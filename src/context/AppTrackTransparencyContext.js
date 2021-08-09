@@ -8,6 +8,7 @@ export const AppTrackTransparencyContext = createContext();
 
 export const AppTrackTransparencyProvider = ({ children }) => {
   const [rastreioTransparenteHabilitado, atribuirRastreioTransparenteHabilitado] = useState(false);
+  const [exibirDialogAlertaRastreio, atribuirExibirDialogAlertaRastreio] = useState('not-determined');
 
   const definirSeRastreioHabilitado = (permissao) => {
     const habilitar = [
@@ -17,6 +18,15 @@ export const AppTrackTransparencyProvider = ({ children }) => {
 
     return habilitar.includes(permissao);
   };
+  
+  const definirSeDeveExibirDialog = (permissao) => {
+    const exibir = [
+      'denied',
+      'restrict'
+    ];
+    
+    return exibir.includes(permissao);
+  };
 
   const verificarRastreio = async () => {
     let permissao = await getTrackingStatus();
@@ -24,6 +34,7 @@ export const AppTrackTransparencyProvider = ({ children }) => {
       permissao = await requestTrackingPermission();
     }
 
+    atribuirExibirDialogAlertaRastreio(definirSeDeveExibirDialog(permissao));
     atribuirRastreioTransparenteHabilitado(definirSeRastreioHabilitado(permissao));
   };
 
