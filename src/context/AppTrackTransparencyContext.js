@@ -41,7 +41,8 @@ export const AppTrackTransparencyProvider = ({ children }) => {
   const values = {
     rastreioTransparenteHabilitado,
     atribuirRastreioTransparenteHabilitado,
-    verificarRastreio
+    verificarRastreio,
+    exibirDialogAlertaRastreio
   };
 
   return (
