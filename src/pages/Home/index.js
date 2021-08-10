@@ -24,9 +24,11 @@ import LinhasDeCuidado from './LinhasDeCuidado';
 import { analyticsData } from '../../utils/analytics';
 
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+  const { verificarRastreio } = useContext(AppTrackTransparencyContext);
   const {
     dadosUsuario,
     estaLogado,
@@ -50,6 +52,7 @@ export default function HomeScreen() {
 
   useFocusEffect(
     useCallback(() => {
+      verificarRastreio();
       redirectToWelcome();
       async function pegarTokenUsuario() {
         const logado = await pegarEstadoLogadoArmazenado();
