@@ -18,13 +18,13 @@ export const AppTrackTransparencyProvider = ({ children }) => {
 
     return habilitar.includes(permissao);
   };
-  
+
   const definirSeDeveExibirDialog = (permissao) => {
     const exibir = [
       'denied',
       'restrict'
     ];
-    
+
     return exibir.includes(permissao);
   };
 
