@@ -8,7 +8,7 @@ export const AppTrackTransparencyContext = createContext();
 
 export const AppTrackTransparencyProvider = ({ children }) => {
   const [rastreioTransparenteHabilitado, atribuirRastreioTransparenteHabilitado] = useState(false);
-  const [exibirDialogAlertaRastreio, atribuirExibirDialogAlertaRastreio] = useState('not-determined');
+  const [exibirDialogAlertaRastreio, atribuirExibirDialogAlertaRastreio] = useState(false);
 
   const definirSeRastreioHabilitado = (permissao) => {
     const habilitar = [
