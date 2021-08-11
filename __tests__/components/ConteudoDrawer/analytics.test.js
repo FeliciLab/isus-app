@@ -26,7 +26,7 @@ describe('testes de interface para o menu lateral do app', () => {
   let fetchByTestId;
   beforeEach(() => {
     const { getByTestId } = render(
-      <AppTrackTransparencyProvider>
+      <AppTrackTransparencyProvider mock>
         <MockedDrawerNavigator
           name="home"
           component={AppTab}

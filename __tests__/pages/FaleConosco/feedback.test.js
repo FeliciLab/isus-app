@@ -6,6 +6,7 @@ import { TESTIDS } from '../../../src/constantes/testIDs';
 import Feedback from '../../../src/pages/FaleConoscoScreen/feedback';
 import { analyticsData } from '../../../src/utils/analytics';
 import { RELATAR_PROBLEMA } from '../../../src/pages/FaleConoscoScreen/tiposDeOcorrencia';
+import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('../../../src/utils/validadores.js', () => ({
@@ -25,7 +26,11 @@ jest.mock('@react-navigation/native', () => ({
 let BotaoFeedback = null;
 
 beforeEach(() => {
-  const { getByTestId } = render(<Feedback tipoDeFeedback={RELATAR_PROBLEMA} />);
+  const { getByTestId } = render(
+    <AppTrackTransparencyProvider mock>
+      <Feedback tipoDeFeedback={RELATAR_PROBLEMA} />
+    </AppTrackTransparencyProvider>
+  );
   BotaoFeedback = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 });
 

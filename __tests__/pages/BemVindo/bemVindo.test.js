@@ -5,6 +5,7 @@ import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
 import { analyticsData } from '../../../src/utils/analytics';
 import BemVindo from '../../../src/pages/BemVindo';
+import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -22,7 +23,12 @@ let BotaoTutorialPular = null;
 let BotaoProximoTutorial = null;
 
 beforeEach(() => {
-  const { getByTestId } = render(<BemVindo />);
+  const { getByTestId } = render(
+    <AppTrackTransparencyProvider mock>
+      <BemVindo />
+    </AppTrackTransparencyProvider>
+  );
+
   BotaoTutorialPular = getByTestId(TESTIDS.BOTAO_TUTORIAL_PULAR);
   BotaoProximoTutorial = getByTestId(TESTIDS.BOTAO_TUTORIAL_PROXIMO);
 });

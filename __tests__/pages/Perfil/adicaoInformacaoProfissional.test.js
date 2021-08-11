@@ -5,6 +5,7 @@ import feature from '../../../src/constantes/features';
 import { DadosUsuarioProfissional } from '../../../src/pages/Perfil/DadosUsuario';
 import dadosUsuarioSemInfoProfissional from '../../../__mocks__/valores/dadosUsuarioSemInfoProfisisonal';
 import estaAtiva from '../../../src/utils/estaAtiva';
+import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -17,20 +18,22 @@ jest.mock('@react-navigation/native', () => ({
 
 
 if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
-  test('botao de adicao deve estar na tela', () => {
-    const {
-      getByTestId
-    } = render(<DadosUsuarioProfissional dados={dadosUsuarioSemInfoProfissional} />,);
-    const botao = getByTestId('botao-dados-adicionar');
+  let renderObject;
+  beforeEach(() => {
+    renderObject = render(
+      <AppTrackTransparencyProvider mock>
+        <DadosUsuarioProfissional dados={dadosUsuarioSemInfoProfissional} />
+      </AppTrackTransparencyProvider>
+    );
+  });
 
+  test('botao de adicao deve estar na tela', () => {
+    const botao = renderObject.getByTestId('botao-dados-adicionar');
     expect(botao).not.toBeNull();
   });
 
   test('deve chamar navigate ao clicar no botao de adicionar', () => {
-    const {
-      getByTestId
-    } = render(<DadosUsuarioProfissional dados={dadosUsuarioSemInfoProfissional} />,);
-    const botao = getByTestId('botao-dados-adicionar');
+    const botao = renderObject.getByTestId('botao-dados-adicionar');
     fireEvent.press(botao);
 
     expect(mockedNavigate).toHaveBeenCalled();

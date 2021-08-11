@@ -6,11 +6,20 @@ import {
 
 export const AppTrackTransparencyContext = createContext();
 
-export const AppTrackTransparencyProvider = ({ children }) => {
-  const [rastreioTransparenteHabilitado, atribuirRastreioTransparenteHabilitado] = useState(false);
-  const [exibirDialogAlertaRastreio, atribuirExibirDialogAlertaRastreio] = useState(false);
+export const AppTrackTransparencyProvider = ({ mock, mockDialog, children }) => {
+  const [
+    rastreioTransparenteHabilitado,
+    atribuirRastreioTransparenteHabilitado
+  ] = useState(mock || false);
+
+  const [
+    exibirDialogAlertaRastreio,
+    atribuirExibirDialogAlertaRastreio
+  ] = useState(mockDialog || false);
 
   const definirSeRastreioHabilitado = (permissao) => {
+    if (mock) return true;
+
     const habilitar = [
       'authorized',
       'unavailable'
@@ -20,6 +29,8 @@ export const AppTrackTransparencyProvider = ({ children }) => {
   };
 
   const definirSeDeveExibirDialog = (permissao) => {
+    if (mockDialog) return true;
+
     const exibir = [
       'denied',
       'restrict'
