@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ConteudoTermo, TextoTermo, TextoLink } from './styles';
-import { analyticsData } from '../../../utils/analytics';
+import useAnalytics from '../../../hooks/Analytics';
 import { TESTIDS } from '../../../constantes/testIDs';
 import rotas from '../../../constantes/rotas';
 
 const Termos = () => {
+  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
 
   return (

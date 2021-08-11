@@ -8,10 +8,11 @@ import {
   Texto
 } from './styles';
 import { Botao } from '../styles';
-import { analyticsData } from '../../../utils/analytics';
+import useAnalytics from '../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
 const ConteudoInicial = () => {
+  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
 
   return (

@@ -7,7 +7,9 @@ import analytics from '@react-native-firebase/analytics';
  * @param {*} category É a categoria na qual o evento será inserido.
  */
 const analyticsData = async (
-  name, event, category
+  name,
+  event,
+  category
 ) => {
   try {
     await analytics().logEvent(name, {

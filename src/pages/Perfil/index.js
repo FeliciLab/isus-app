@@ -25,9 +25,11 @@ import features from '../../constantes/features';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import rotas from '../../constantes/rotas';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 
 export default function PerfilScreen() {
+  const { analyticsData } = useAnalytics();
+
   const {
     dadosUsuario,
     alterarDadosUsuario,

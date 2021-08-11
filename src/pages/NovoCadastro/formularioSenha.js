@@ -18,10 +18,11 @@ import {
 } from '../../services/autenticacao';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { analyticsCategoria, analyticsUnidadeServico } from '../../utils/funcoesAnalytics';
 
 export default function FormularioSenha({ navigation }) {
+  const { analyticsData } = useAnalytics();
   const [carregando, alterarCarregando] = React.useState(false);
   const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
   const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');

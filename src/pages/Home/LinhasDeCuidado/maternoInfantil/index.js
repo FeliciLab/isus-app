@@ -7,11 +7,12 @@ import IconSvgMaterno from '../../../../assets/icons/linhasDeCuidado/maternoInfa
 import {
   ScrollView, Texto, Titulo, Container, SvgView
 } from './styles';
-import { analyticsData } from '../../../../utils/analytics';
+import useAnalytics from '../../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../../../constantes/testIDs';
 
 export default function MaternoInfantil({ route }) {
+  const { analyticsData } = useAnalytics();
   const { params } = route;
   const { expanded } = params;
   const navigation = useNavigation();

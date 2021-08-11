@@ -15,10 +15,11 @@ import { CORES } from '../../../constantes/estiloBase';
 import { cabecalhoVoltarRota } from '../../../components/layoutEffect/cabecalhoLayout';
 import { atualizarUsuario } from '../../../services/usuarioService';
 import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
-import { analyticsData } from '../../../utils/analytics';
+import useAnalytics from '../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
 function EdicaoInfoPessoal() {
+  const { analyticsData } = useAnalytics();
   const { handleSubmit, getValues } = useContext(FormContext);
 
   const { pessoa } = useContext(AutenticacaoContext);

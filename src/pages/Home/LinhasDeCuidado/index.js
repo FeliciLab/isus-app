@@ -7,9 +7,10 @@ import CartaoHome from '../cartaoHome';
 import rotas from '../../../constantes/rotas';
 import { Titulo } from '../styles';
 import Carrossel from '../../../components/Carrossel';
-import { analyticsData } from '../../../utils/analytics';
+import useAnalytics from '../../../hooks/Analytics';
 
 export default function LinhasDeCuidado({ navigation }) {
+  const { analyticsData } = useAnalytics();
   const netInfo = useNetInfo();
 
   const listaLinhasDeCuidado = [

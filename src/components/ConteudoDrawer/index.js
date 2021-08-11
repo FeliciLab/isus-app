@@ -17,7 +17,7 @@ import {
 } from './styles';
 import { CORES } from '../../constantes/estiloBase';
 import ItemInferior from './itemInferior';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import rotas from '../../constantes/rotas';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import testIDs from '../../constantes/testIDs';
@@ -30,6 +30,7 @@ function conteudoDoDrawer(props) {
     alterarEstaLogado
   } = useContext(AutenticacaoContext);
 
+  const { analyticsData } = useAnalytics();
   const { navigate } = useNavigation();
   const {
     routeName

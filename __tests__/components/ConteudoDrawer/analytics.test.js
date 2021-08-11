@@ -11,6 +11,7 @@ import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTrans
 jest.mock('../../../src/utils/analytics', () => ({
   analyticsData: jest.fn()
 }));
+
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),

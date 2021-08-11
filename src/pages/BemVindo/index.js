@@ -20,11 +20,12 @@ import {
   ConteudoPularTutorial
 } from './styles';
 import { TESTIDS } from '../../constantes/testIDs';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function BemVindo() {
   const navigation = useNavigation();
+  const { analyticsData } = useAnalytics();
 
   const dataComPerfil = [
     {

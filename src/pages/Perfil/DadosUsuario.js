@@ -8,7 +8,7 @@ import { aplicaMascaraNumerica } from '../../utils/mascaras';
 import features from '../../constantes/features';
 import rotas from '../../constantes/rotas';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 
 function DadosUsuario({ dados }) {
   return (
@@ -154,6 +154,7 @@ function AdicionarDadosProfissionais() {
 const Botao = ({
   children, uri, params = '', testID
 }) => {
+  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
   return (
     <Button

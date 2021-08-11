@@ -11,7 +11,7 @@ import {
 } from './textos';
 // import { navigate } from '../../routes/rootNavigation';
 import IconeSus30Anos from '../../assets/images/sus_30_anos.png';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../constantes/testIDs';
 
@@ -67,6 +67,7 @@ const informacoes = {
 };
 
 export default function SusNoCearaScreen() {
+  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
 
   useLayoutEffect(() => {

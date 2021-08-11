@@ -16,7 +16,7 @@ import {
 } from '../../services/autenticacao';
 import { Botao } from './styles';
 import { TESTIDS } from '../../constantes/testIDs';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { emailValido, senhaValido } from '../../utils/validadores';
 import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
 import { perfilUsuario } from '../../apis/apiCadastro';
@@ -26,6 +26,7 @@ import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
 import FormContext from '../../context/FormContext';
 
 const FormularioLogin = ({ route }) => {
+  const { analyticsData } = useAnalytics();
   const refSenha = useRef();
   const refSubmit = useRef();
   const caixaDialogo = useCaixaDialogo();

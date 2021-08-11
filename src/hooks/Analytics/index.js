@@ -1,7 +1,6 @@
 import { useContext } from 'react';
-import analytics from '@react-native-firebase/analytics';
 import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
-
+import { analyticsData as analytics } from '../../utils/analytics';
 
 const useAnalytics = () => {
   const { rastreioTransparenteHabilitado } = useContext(AppTrackTransparencyContext);
@@ -21,19 +20,13 @@ const useAnalytics = () => {
       return false;
     }
 
-    try {
-      await analytics().logEvent(name, {
-        event,
-        category,
-      });
+    const result = await analytics(
+      name,
+      event,
+      category
+    );
 
-      console.log(`FA LogEvent - ${name}`);
-    } catch (e) {
-      console.log('Falha ao executar o Analytics', e);
-      throw new Error(`Falha ao executar Analytics ${e}`);
-    }
-
-    return true;
+    return result;
   };
 
   return {

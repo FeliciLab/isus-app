@@ -2,13 +2,14 @@
 import React from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Titulo } from '../styles';
-import { analyticsData } from '../../../utils/analytics';
+import useAnalytics from '../../../hooks/Analytics';
 import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
 import CartaoHome from '../cartaoHome';
 import Carrossel from '../../../components/Carrossel';
 import rotas from '../../../constantes/rotas';
 
 function ForcaTarefa({ navigation }) {
+  const { analyticsData } = useAnalytics();
   const netInfo = useNetInfo();
   return (
     <>
