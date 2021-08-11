@@ -17,7 +17,8 @@ describe('Servicos', () => {
         <Servicos navigation={navigation} />
       </AppTrackTransparencyProvider>
     );
-  })
+  });
+
   test('deve chamar o analytics data ao clicar no serviço IntegraSUS', () => {
     const item = renderedObject.getByTestId('cartaoHome-servicos-Integra_SUS');
     fireEvent.press(item);
