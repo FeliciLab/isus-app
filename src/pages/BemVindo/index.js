@@ -21,9 +21,11 @@ import {
 } from './styles';
 import { TESTIDS } from '../../constantes/testIDs';
 import useAnalytics from '../../hooks/Analytics';
+import useDialogAppTrack from '../../hooks/DialogAppTrack';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function BemVindo() {
+  const { exibirDialog } = useDialogAppTrack();
   const navigation = useNavigation();
   const { analyticsData } = useAnalytics();
 
@@ -67,6 +69,9 @@ export default function BemVindo() {
         <BotaoCadastro
           labelStyle={{ color: '#4CAF50', fontWeight: '600' }}
           onPress={() => {
+            if (exibirDialog('o Cadastro')) {
+              return;
+            }
             salvarDados('@show-tutorial', false);
             navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
           }

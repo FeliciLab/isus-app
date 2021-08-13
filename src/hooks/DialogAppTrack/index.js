@@ -18,7 +18,7 @@ const useDialogAppTrack = () => {
     }
     mostrarCaixaDialogo({
       titulo: 'App Tracking Transparency',
-      texto: `Para efetuar o ${tipo}, você deve habilitar nas configurações do seu dispositivo a permissão do App Track`,
+      texto: `Para efetuar ${tipo}, você deve habilitar nas configurações do seu dispositivo a permissão do App Track`,
       textoConclusao: 'OK',
       aoConcluir: () => { fecharCaixaDialogo(); }
     });

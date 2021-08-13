@@ -35,7 +35,7 @@ const ConteudoInicial = () => {
               'Click',
               'Perfil'
             );
-            if (!exibirDialog('Cadastro')) {
+            if (!exibirDialog('o Cadastro')) {
               navigation.navigate('CADASTRO');
             }
           }

@@ -24,10 +24,11 @@ import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import rotas from '../../constantes/rotas';
 import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
 import FormContext from '../../context/FormContext';
+import useDialogAppTrack from '../../hooks/DialogAppTrack';
 
 const FormularioLogin = ({ route }) => {
+  const { exibirDialog } = useDialogAppTrack();
   const { analyticsData } = useAnalytics();
-  const refSenha = useRef();
   const refSubmit = useRef();
   const caixaDialogo = useCaixaDialogo();
   const navigation = useNavigation();
@@ -73,6 +74,9 @@ const FormularioLogin = ({ route }) => {
   };
 
   const submitForm = async (data, options) => {
+    if (exibirDialog('o Login')) {
+      return;
+    }
     const tentativa = options?.tentativa || 1;
     analyticsData('fazer_login', 'Click', 'Perfil');
     alterarCarregando(true);
@@ -177,7 +181,6 @@ const FormularioLogin = ({ route }) => {
             render={({ onChange, onBlur, value }) => (
               <TextInput
                 testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
-                autoFocus
                 label="E-mail"
                 mode="outlined"
                 placeholder="E-mail"
@@ -186,7 +189,6 @@ const FormularioLogin = ({ route }) => {
                 onBlur={(e) => {
                   onBlur(e);
                   trigger('email');
-                  refSenha.current.focus();
                 }}
                 value={value}
                 theme={theme}
@@ -204,7 +206,6 @@ const FormularioLogin = ({ route }) => {
             render={({ onChange, onBlur, value }) => (
               <TextInput
                 testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
-                ref={refSenha}
                 style={{ marginTop: 18 }}
                 onChangeText={txt => onChange(txt)}
                 onBlur={(e) => {
