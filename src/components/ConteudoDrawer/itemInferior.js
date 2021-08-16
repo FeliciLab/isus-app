@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ItemDrawer from './itemDrawer';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import packageJson from '../../../package.json';
 import {
   ItensInferior, ConteudoVersao, TextoVersao
@@ -16,6 +16,8 @@ import aoCompartilhar from './aoCompartilhar';
 
 const itemInferior = () => {
   const navigationTermos = useNavigation();
+  const { analyticsData } = useAnalytics();
+
   const versaoSistema = packageJson.version;
 
   const conteudoItem = [

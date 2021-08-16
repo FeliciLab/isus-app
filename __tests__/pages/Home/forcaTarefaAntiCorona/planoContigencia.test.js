@@ -8,6 +8,7 @@ import estaAtiva from '../../../../src/utils/estaAtiva';
 import features from '../../../../src/constantes/features';
 import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
 import listaForcaTarefa from '../../../../src/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
+import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
 
 const navigation = {
   navigate: jest.fn()
@@ -23,7 +24,11 @@ jest.mock('@react-native-community/netinfo', () => ({
 let item = null;
 
 beforeEach(() => {
-  const { getByTestId } = render(<ForcaTarefa navigation={navigation} />);
+  const { getByTestId } = render(
+    <AppTrackTransparencyProvider mock>
+      <ForcaTarefa navigation={navigation} />
+    </AppTrackTransparencyProvider>
+  );
   item = getByTestId('cartaoHome-forcaTarefa-acao-plano-contigencia');
 });
 

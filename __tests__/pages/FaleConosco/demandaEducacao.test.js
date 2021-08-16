@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
+import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 import DemandaEducacao from '../../../src/pages/FaleConoscoScreen/demandaEducacao';
 import { analyticsData } from '../../../src/utils/analytics';
 
@@ -21,15 +22,19 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: jest.fn(),
   useIsFocused: jest.fn()
 }));
-let BotaoDemandaEducacao = null;
-
-beforeEach(() => {
-  const { getByTestId } = render(<DemandaEducacao />);
-  BotaoDemandaEducacao = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
-});
-
 
 describe('descreve os testes de Fale conosco', () => {
+  let BotaoDemandaEducacao = null;
+  beforeEach(() => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyProvider mock>
+        <DemandaEducacao />
+      </AppTrackTransparencyProvider>
+    );
+
+    BotaoDemandaEducacao = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+  });
+
   test('deve renderizar o botão de enviar ao renderizar o alertaFaltaEPI', () => {
     expect(BotaoDemandaEducacao).not.toBeNull();
   });

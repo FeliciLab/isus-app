@@ -12,10 +12,11 @@ import {
 import { descricaoValida, unidadeDeSaudeValida } from '../../utils/validadores';
 import { postDemandaEducacao } from '../../apis/apiHome';
 import { TESTIDS } from '../../constantes/testIDs';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function DemandaEducacaoScreen() {
+  const { analyticsData } = useAnalytics();
   const descricaoInput = React.createRef();
   const unidadeDeSaudeInput = React.createRef();
   const emailInput = React.createRef();

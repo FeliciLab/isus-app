@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../src/constantes/testIDs';
+import { AppTrackTransparencyProvider } from '../../src/context/AppTrackTransparencyContext';
 import SusNoCearaScreen from '../../src/pages/SusNoCeara';
 import { analyticsData } from '../../src/utils/analytics';
 
@@ -22,7 +23,12 @@ let IsusEsp = null;
 let SusCeara = null;
 
 beforeEach(() => {
-  const { getByTestId } = render(<SusNoCearaScreen />);
+  const { getByTestId } = render(
+    <AppTrackTransparencyProvider mock>
+      <SusNoCearaScreen />
+    </AppTrackTransparencyProvider>
+  );
+
   SusCeara = getByTestId(TESTIDS.ACORDEON_SUS_NO_CEARA);
   IsusEsp = getByTestId(TESTIDS.ACORDEON_ISUS_ESP);
   EspSesa = getByTestId(TESTIDS.ACORDEON_ESP_SESA);

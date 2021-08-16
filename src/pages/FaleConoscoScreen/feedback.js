@@ -15,10 +15,11 @@ import Tag from './Tag';
 import { feedbackValido, emailValido } from '../../utils/validadores';
 import { vazio } from '../../utils/objectUtils';
 import { TESTIDS } from '../../constantes/testIDs';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
+  const { analyticsData } = useAnalytics();
   const feedbackInput = React.createRef();
   const emailInput = React.createRef();
   const [feedback, setFeedback] = React.useState('');

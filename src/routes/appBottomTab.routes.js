@@ -7,7 +7,7 @@ import Educacao from '../assets/icons/educacao.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 // import SettingsStackScreen from '../pages/Settings';
 import HomeScreen from '../pages/Home';
-import { analyticsData } from '../utils/analytics';
+import useAnalytics from '../hooks/Analytics';
 import rotas from '../constantes/rotas';
 import { ConteudoProvider } from '../context/ConteudoContext';
 import EstruturaConteudo from '../pages/Content/EstruturaConteudo';
@@ -89,6 +89,7 @@ function SearchesStackScreen() {
 
 const AppTab = createMaterialBottomTabNavigator();
 export default function AppTabScreen() {
+  const { analyticsData } = useAnalytics();
   return (
     <AppTab.Navigator
       backBehavior="history"

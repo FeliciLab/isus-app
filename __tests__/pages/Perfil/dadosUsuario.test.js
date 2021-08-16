@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
+import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 import { DadosUsuario } from '../../../src/pages/Perfil/DadosUsuario';
 import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
 
@@ -13,21 +14,24 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
-test('verifica se o botao de edicao esta na tela', () => {
-  const {
-    getByTestId
-  } = render(<DadosUsuario dados={dadosUsuario} />);
-  const botao = getByTestId('botao-editar-dado-pessoal');
+describe('DadosUsuario', () => {
+  let renderObject;
+  beforeEach(() => {
+    renderObject = render(
+      <AppTrackTransparencyProvider mock>
+        <DadosUsuario dados={dadosUsuario} />
+      </AppTrackTransparencyProvider>
+    );
+  });
 
-  expect(botao).not.toBeNull();
-});
+  test('verifica se o botao de edicao esta na tela', () => {
+    const botao = renderObject.getByTestId('botao-editar-dado-pessoal');
+    expect(botao).not.toBeNull();
+  });
 
-test('deve chamar navigate ao clicar no botao de editar', () => {
-  const {
-    getByTestId
-  } = render(<DadosUsuario dados={dadosUsuario} />,);
-  const botao = getByTestId('botao-editar-dado-pessoal');
-  fireEvent.press(botao);
-
-  expect(mockedNavigate).toHaveBeenCalled();
+  test('deve chamar navigate ao clicar no botao de editar', () => {
+    const botao = renderObject.getByTestId('botao-editar-dado-pessoal');
+    fireEvent.press(botao);
+    expect(mockedNavigate).toHaveBeenCalled();
+  });
 });
