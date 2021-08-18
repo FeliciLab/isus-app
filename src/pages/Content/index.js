@@ -9,11 +9,12 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import { normalizeEspacoTextoAnalytics, adicionaMascaraAnalytics } from '../../utils/mascaras';
 import rotas from '../../constantes/rotas';
 
 export default function InformationScreen(props) {
+  const { analyticsData } = useAnalytics();
   const { navigation } = props;
   const { route } = props;
   const { params } = route;

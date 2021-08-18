@@ -42,7 +42,6 @@ export default function FormInfoPessoal({
     }
 
     definirCpfAntigo(pessoa?.cpf);
-
     setValues(PessoaModel.criar(pessoa));
 
     trigger([
@@ -54,11 +53,11 @@ export default function FormInfoPessoal({
     ]);
   }, [pessoa]);
 
-  const hasErrors = errors.nome
-    || errors.email
-    || errors.telefone
-    || errors.cpf
-    || errors.cidadeId;
+  const hasErrors = errors.nomeCompleto
+  || errors.email
+  || errors.telefone
+  || errors.cpf
+  || errors.cidadeId;
 
   const validarCpfCadastrado = async (cpf) => {
     if (cpfAntigo === false || (cpfAntigo && cpfAntigo === cpf)) {
@@ -110,7 +109,8 @@ export default function FormInfoPessoal({
                 label="Telefone"
                 theme={theme}
                 rules={{ required: true }}
-                mask="([00]) [00000]-[0000]"
+                mask="(##) #####-####"
+                numero
               />
               <FormError
                 name="telefone"
@@ -129,7 +129,8 @@ export default function FormInfoPessoal({
                     cpfCadastrado: async cpf => await validarCpfCadastrado(cpf.replace(/\D/g, '')) || formularioPessoal.cpfCadastrado
                   }
                 }}
-                mask="[000].[000].[000]-[00]"
+                mask="###.###.###-##"
+                numero
               />
               <FormError
                 name="cpf"
@@ -144,30 +145,30 @@ export default function FormInfoPessoal({
               />
             </RowInput>
           </ContainerForm>
-        </ScrollView>
-        {
-          !hiddenActionButton && (
-            <RowButton>
-              <BotaoLaranja
-                loading={carregando}
-                disabled={hasErrors || carregando}
-                onPress={async () => {
-                  await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
-                  if (hasErrors) return;
-                  definirCarregando(true);
+          {
+            !hiddenActionButton && (
+              <RowButton>
+                <BotaoLaranja
+                  loading={carregando}
+                  disabled={hasErrors || carregando}
+                  onPress={async () => {
+                    await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
+                    if (hasErrors) return;
+                    definirCarregando(true);
 
-                  try {
-                    await actionPress();
-                  } finally {
-                    definirCarregando(false);
-                  }
-                }}
-              >
-                {labelButton || 'Continuar'}
-              </BotaoLaranja>
-            </RowButton>
-          )
-        }
+                    try {
+                      await actionPress();
+                    } finally {
+                      definirCarregando(false);
+                    }
+                  }}
+                >
+                  {labelButton || 'Continuar'}
+                </BotaoLaranja>
+              </RowButton>
+            )
+          }
+        </ScrollView>
       </ContainerBody>
     </>
   );

@@ -15,8 +15,11 @@ import { CORES } from '../../../constantes/estiloBase';
 import { cabecalhoVoltarRota } from '../../../components/layoutEffect/cabecalhoLayout';
 import { atualizarUsuario } from '../../../services/usuarioService';
 import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
+import useAnalytics from '../../../hooks/Analytics';
+import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 
 function EdicaoInfoPessoal() {
+  const { analyticsData } = useAnalytics();
   const { handleSubmit, getValues } = useContext(FormContext);
 
   const { pessoa } = useContext(AutenticacaoContext);
@@ -48,7 +51,7 @@ function EdicaoInfoPessoal() {
       />
       <Scroll>
         <ConteudoFormulario>
-          <TituloPrincipal>
+          <TituloPrincipal testID="texto">
             Edite as informações pessoais que você deseja atualizar:
           </TituloPrincipal>
         </ConteudoFormulario>
@@ -64,6 +67,11 @@ function EdicaoInfoPessoal() {
                 { somentePessoais: true }
               );
               if (result) {
+                analyticsData(
+                  labelsAnalytics.EDITAR_INFORMACOES_PESSOAL,
+                  'Click',
+                  'atualizar informacao pessoal'
+                );
                 navigation.navigate('TelaDeSucesso',
                   {
                     textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,

@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
+import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 import AlertaFaltaDeEpiScreen from '../../../src/pages/FaleConoscoScreen/alertaFaltaDeEpi';
 import { analyticsData } from '../../../src/utils/analytics';
 
@@ -21,15 +22,18 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: jest.fn(),
   useIsFocused: jest.fn()
 }));
-let BotaoFaltaDeEPI = null;
-
-beforeEach(() => {
-  const { getByTestId } = render(<AlertaFaltaDeEpiScreen />);
-  BotaoFaltaDeEPI = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
-});
-
 
 describe('descreve os testes de Fale conosco', () => {
+  let BotaoFaltaDeEPI = null;
+  beforeEach(() => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyProvider mock>
+        <AlertaFaltaDeEpiScreen />
+      </AppTrackTransparencyProvider>
+    );
+    BotaoFaltaDeEPI = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+  });
+
   test('deve renderizar o botão de enviar ao renderizar o alertaFaltaEPI', () => {
     expect(BotaoFaltaDeEPI).not.toBeNull();
   });

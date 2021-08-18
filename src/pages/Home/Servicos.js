@@ -10,7 +10,7 @@ import Servico5 from '../../assets/icons/servicos/servico_5.svg';
 import Servico6 from '../../assets/icons/servicos/servico_6.svg';
 import Servico7 from '../../assets/icons/servicos/servico_7.svg';
 import CartaoHome from './cartaoHome';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import estaAtiva from '../../utils/estaAtiva';
 import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
@@ -18,6 +18,7 @@ import { Titulo } from './styles';
 import Carrossel from '../../components/Carrossel';
 
 function Servicos({ navigation }) {
+  const { analyticsData } = useAnalytics();
   const netInfo = useNetInfo();
 
   const listaServicos = [

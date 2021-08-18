@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SvgCssUri } from 'react-native-svg';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { Cartao, ConteudoImagem, Imagem } from './styles';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 import rotas from '../../constantes/rotas';
 
 const { width } = Dimensions.get('screen');
@@ -21,6 +21,7 @@ export default function Banner({
   pagina = '',
   testID
 }) {
+  const { analyticsData } = useAnalytics();
   const netInfo = useNetInfo();
   const navigation = useNavigation();
   const temEnderecoUrl = enderecoUrl.length > 0;
@@ -28,6 +29,7 @@ export default function Banner({
 
   const lidarComClick = () => {
     analyticsData(labelDoAnalytics, 'Click', 'Home');
+
     if (temEnderecoUrl && netInfo.isConnected) {
       return navigation.navigate('webview', { title: titulo, url: enderecoUrl });
     }
@@ -45,6 +47,7 @@ export default function Banner({
     if (imagem.svg) {
       return <SvgCssUri width="100%" height="100%" uri={imagem.svg} cache="reload" />;
     }
+
     let source = imagem;
     if (imagem.uri) {
       source = { ...imagem, cache: 'reload' };

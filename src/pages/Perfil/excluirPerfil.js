@@ -23,9 +23,10 @@ import {
   pegarTokenDoUsuarioNoStorage,
   excluirTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 
 export default function ExcluirPerfil() {
+  const { analyticsData } = useAnalytics();
   const [palavra, alterarPalavra] = useState({});
   const [isvalidator, alterarisvalidator] = useState(true);
   const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');

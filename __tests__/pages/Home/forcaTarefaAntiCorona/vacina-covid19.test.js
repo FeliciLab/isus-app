@@ -4,6 +4,7 @@ import { fireEvent, render } from 'util-teste';
 import features from '../../../../src/constantes/features';
 import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
 import { urls } from '../../../../src/constantes/urls';
+import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
 import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
 import { analyticsData } from '../../../../src/utils/analytics';
 import estaAtiva from '../../../../src/utils/estaAtiva';
@@ -23,7 +24,11 @@ jest.mock('@react-native-community/netinfo', () => ({
 
 if (estaAtiva(features.VACINACOVID19)) {
   beforeEach(() => {
-    const { getByTestId } = render(<ForcaTarefa navigation={navigation} />);
+    const { getByTestId } = render(
+      <AppTrackTransparencyProvider mock>
+        <ForcaTarefa navigation={navigation} />
+      </AppTrackTransparencyProvider>
+    );
     item = getByTestId('cartaoHome-forcaTarefa-acao-vacinaCOVID19');
   });
 

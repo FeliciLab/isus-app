@@ -8,11 +8,14 @@ import {
   Texto
 } from './styles';
 import { Botao } from '../styles';
-import { analyticsData } from '../../../utils/analytics';
+import useAnalytics from '../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
+import useDialogAppTrack from '../../../hooks/DialogAppTrack';
 
 const ConteudoInicial = () => {
+  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
+  const { exibirDialog } = useDialogAppTrack();
 
   return (
     <>
@@ -32,8 +35,11 @@ const ConteudoInicial = () => {
               'Click',
               'Perfil'
             );
-            navigation.navigate('CADASTRO');
-          }}
+            if (!exibirDialog('o Cadastro')) {
+              navigation.navigate('CADASTRO');
+            }
+          }
+          }
         >
           Realizar meu cadastro
         </Botao>

@@ -20,10 +20,11 @@ import {
   EntradaTexto
 } from './sytles';
 import { TESTIDS } from '../../constantes/testIDs';
-import { analyticsData } from '../../utils/analytics';
+import useAnalytics from '../../hooks/Analytics';
 
 
 export default function DuvidasElmoScreen() {
+  const { analyticsData } = useAnalytics();
   const [sucessoAoEnviar, setSucessoAoEnviar] = useState(false);
   const [erroAoEnviar, setErroAoEnviar] = useState(false);
   const [mensagemDeErro, setMensagemDeErro] = useState('');
