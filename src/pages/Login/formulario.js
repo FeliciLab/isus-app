@@ -44,7 +44,8 @@ const FormularioLogin = ({ route }) => {
   const {
     alterarTokenUsuario,
     alterarDadosUsuario,
-    alterarEstaLogado
+    alterarEstaLogado,
+    alterarPessoa
   } = useContext(AutenticacaoContext);
 
   const [carregando, alterarCarregando] = useState(false);
@@ -77,13 +78,17 @@ const FormularioLogin = ({ route }) => {
     if (exibirDialog('o Login')) {
       return;
     }
+
     const tentativa = options?.tentativa || 1;
+
     analyticsData('fazer_login', 'Click', 'Perfil');
     alterarCarregando(true);
     trigger();
+
     if (Object.keys(errors).length > 0) {
       return;
     }
+
     try {
       await fazerLogin(data);
     } catch (erro) {
@@ -107,58 +112,40 @@ const FormularioLogin = ({ route }) => {
 
   const tentarLoginNovamente = tentativa => submitForm(getValues(), { tentativa: tentativa + 1 });
 
-  const fazerLogin = async ({ email, senha }) => autenticarComIdSaude(email, senha)
-    .then(async (response) => {
-      try {
-        await salvarTokenDoUsuarioNoStorage(response.mensagem);
-      } catch (e) {
-        console.log('problema em salvar o token', e);
+  const fazerLogin = async ({ email, senha }) => {
+    let response;
+    try {
+      response = await autenticarComIdSaude(email, senha);
+    } catch (e) {
+      mostrarAlerta('Falha a executar o login');
+      return;
+    }
+
+    await salvarTokenDoUsuarioNoStorage(response.mensagem);
+    alterarTokenUsuario(response.mensagem);
+
+    try {
+      const perfil = await perfilUsuario(response.mensagem);
+      console.log('dadossss', perfil.data);
+      alterarDadosUsuario(perfil.data);
+      alterarPessoa(perfil.data);
+      if (!perfil.cadastrado) {
+        navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
+        return;
       }
 
-      try {
-        await pegarTokenDoUsuarioNoStorage();
-      } catch (e) {
-        console.log('problema em pegar o token', e);
-      }
+      await armazenarEstadoLogado(true);
+      alterarEstaLogado(true);
 
-      alterarTokenUsuario(response.mensagem);
+      setValue('email', '');
+      setValue('senha', '');
 
-      try {
-        const perfil = await perfilUsuario();
-        alterarDadosUsuario(perfil.data);
-        if (!perfil.cadastrado) {
-          navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
-          return;
-        }
-
-        await armazenarEstadoLogado(true);
-        alterarEstaLogado(true);
-        setValue('email', '');
-        setValue('senha', '');
-
-        navigation.navigate('HOME');
-      } catch (e) {
-        await armazenarEstadoLogado(false);
-        alterarEstaLogado(false);
-      }
-    })
-    .catch((err) => {
-      if (err.response?.status === 401) {
-        throw new Error(JSON.stringify({
-          semConexao: false,
-          mensagem: err.response?.data?.erros
-        }));
-      }
-      if (err.message === 'Network Error') {
-        throw new Error(JSON.stringify({
-          semConexao: true,
-          mensagem: 'Falha na conexão'
-        }));
-      }
-    })
-    .finally(() => {
-      alterarCarregando(false);
-    });
+      navigation.navigate('HOME');
+    } catch (e) {
+      await armazenarEstadoLogado(false);
+      alterarEstaLogado(false);
+    }
+  };
 
   const abrirWebViewEsqueciMinhaSenha = () => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
