@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { FormProvider } from '../context/FormContext';
 import rotas from '../constantes/rotas';
@@ -7,6 +7,7 @@ import PreCadastroInfoPessoal from '../pages/PreCadastro/PreCadastroInfoPessoal'
 import PreCadastroProfissional from '../pages/PreCadastro/PreCadastroProfissional';
 import PreCadastroSenha from '../pages/PreCadastro/PreCadastroSenha';
 import PreCadastroSucesso from '../pages/PreCadastro/PreCadastroSucesso';
+import { AutenticacaoContext } from '../context/AutenticacaoContext';
 
 const PreCadastroStack = createStackNavigator();
 
@@ -15,9 +16,10 @@ const PreCadastroRoutes = () => {
     titulo: 'Cadastro',
     cor: 'branco'
   });
+  const { pessoa } = useContext(AutenticacaoContext);
 
   return (
-    <FormProvider>
+    <FormProvider initValues={pessoa}>
       <PreCadastroStack.Navigator>
         <PreCadastroStack.Screen
           name={rotas.PRE_CADASTRO_INFO_PESSOAL}
