@@ -1,10 +1,6 @@
-import React, {
-  useLayoutEffect, useCallback, useContext
-} from 'react';
-import {
-  ScrollView, TouchableOpacity, Dimensions
-} from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import React, { useLayoutEffect, useContext, useEffect } from 'react';
+import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
@@ -13,7 +9,9 @@ import BarraDeStatus from '../../components/barraDeStatus';
 import Servicos from './Servicos';
 import {
   pegarTokenDoUsuarioNoStorage,
-  pegarEstadoLogadoArmazenado
+  pegarEstadoLogadoArmazenado,
+  salvarTokenDoUsuarioNoStorage,
+  armazenarEstadoLogado
 } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import ExibirUsuario from './exibirUsuario';
@@ -51,34 +49,38 @@ export default function HomeScreen() {
     return null;
   }
 
-  useFocusEffect(
-    useCallback(() => {
-      verificarRastreio();
-      redirectToWelcome();
-      async function pegarTokenUsuario() {
-        const logado = await pegarEstadoLogadoArmazenado();
-        const token = await pegarTokenDoUsuarioNoStorage();
+  useEffect(() => {
+    verificarRastreio();
+    redirectToWelcome();
 
-        if (!logado || !token) {
-          alterarTokenUsuario({});
-          alterarEstaLogado(false);
-          return;
-        }
+    async function pegarTokenUsuario() {
+      const logado = await pegarEstadoLogadoArmazenado();
+      const token = await pegarTokenDoUsuarioNoStorage();
 
-        alterarTokenUsuario(token);
-        try {
-          const perfil = await perfilUsuario();
-          alterarDadosUsuario(perfil.data);
-          alterarPessoa(perfil.data);
-          alterarEstaLogado(true);
-        } catch (err) {
-          alterarEstaLogado(false);
-          console.log('ERRO', err);
-        }
+      if (!logado) {
+        alterarTokenUsuario({});
+        salvarTokenDoUsuarioNoStorage(false);
+
+        alterarEstaLogado(false);
+        armazenarEstadoLogado(false);
+
+        return;
       }
-      pegarTokenUsuario();
-    }, [])
-  );
+
+      alterarTokenUsuario(token);
+      try {
+        const perfil = await perfilUsuario();
+        alterarDadosUsuario(perfil.data);
+        alterarPessoa(perfil.data);
+        alterarEstaLogado(true);
+      } catch (err) {
+        alterarEstaLogado(false);
+        console.log('ERRO', err);
+      }
+    }
+
+    pegarTokenUsuario();
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -122,8 +124,13 @@ export default function HomeScreen() {
 
   return (
     <>
+      <BarraDeStatus
+        backgroundColor={estaLogado ? '#FFF' : '#4CAF50'}
+        barStyle={estaLogado ? 'dark-content' : 'light-content'}
+      />
+
       { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
-      <BarraDeStatus backgroundColor={estaLogado ? '#FFF' : '#4CAF50'} barStyle={estaLogado ? 'dark-content' : 'light-content'} />
+
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
