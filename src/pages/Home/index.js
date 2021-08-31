@@ -29,7 +29,6 @@ export default function HomeScreen() {
   const { analyticsData } = useAnalytics();
   const { verificarRastreio } = useContext(AppTrackTransparencyContext);
   const {
-    dadosUsuario,
     estaLogado,
     alterarDadosUsuario,
     alterarTokenUsuario,
@@ -129,7 +128,7 @@ export default function HomeScreen() {
         barStyle={estaLogado ? 'dark-content' : 'light-content'}
       />
 
-      { estaLogado ? <ExibirUsuario dados={dadosUsuario} /> : <></>}
+      { estaLogado ? <ExibirUsuario /> : <></>}
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
