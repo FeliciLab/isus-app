@@ -126,7 +126,6 @@ const FormularioLogin = ({ route }) => {
 
     try {
       const perfil = await perfilUsuario(response.mensagem);
-      console.log('dadossss', perfil.data);
       alterarDadosUsuario(perfil.data);
       alterarPessoa(perfil.data);
       if (!perfil.cadastrado) {
