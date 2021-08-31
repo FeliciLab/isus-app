@@ -10,10 +10,24 @@ import ROTAS from '../../constantes/rotas';
 import FormContext from '../../context/FormContext';
 import { atualizarUsuario } from '../../services/usuarioService';
 import FormProfissional from '../../components/FormPessoa/FormProfissional';
+import { perfilUsuario } from '../../apis/apiCadastro';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 const PreCadastroProfissional = () => {
   const navigator = useNavigation();
   const { getValues } = useContext(FormContext);
+  const {
+    alterarDadosUsuario,
+    tokenUsuario,
+    alterarPessoa
+  } = useContext(AutenticacaoContext);
+
+  const atualizarAutenticacao = async () => {
+    const perfil = await perfilUsuario(tokenUsuario);
+    console.log('atualizando perfil', perfil.data);
+    alterarDadosUsuario(perfil.data);
+    alterarPessoa(perfil.data);
+  };
 
   return (
     <>
@@ -27,6 +41,14 @@ const PreCadastroProfissional = () => {
                 if (!result) {
                   return;
                 }
+
+                try {
+                  await atualizarAutenticacao();
+                } catch (e) {
+                  console.log('problema ao atualizar perfil no context');
+                  return;
+                }
+
                 navigator.navigate(
                   ROTAS.PRE_CADASTRO_SUCESSO,
                   { usuario: result }
