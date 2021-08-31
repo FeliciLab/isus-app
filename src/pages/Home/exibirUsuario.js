@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 
 const style = StyleSheet.create({
   semPerfil: {
@@ -22,18 +23,21 @@ const style = StyleSheet.create({
   }
 });
 
-export default function ExibirUsuario({ dados }) {
+const ExibirUsuario = () => {
+  const { pessoa } = useContext(AutenticacaoContext);
+
   return (
     <View>
       <Text style={style.perfil}>
         Olá,
         {' '}
-        {dados?.name?.split(' ')[0]}
+        {pessoa?.nomeCompleto?.split(' ')[0] || ''}
       </Text>
       <Text style={style.atuacaoCategoria}>
-        {/* eslint-disable-next-line */}
-        {dados?.profissional?.categoria_profissional?.nome}
+        {pessoa?.categoriaProfissional?.nome || ''}
       </Text>
     </View>
   );
-}
+};
+
+export default ExibirUsuario;

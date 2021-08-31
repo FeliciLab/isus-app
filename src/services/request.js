@@ -28,7 +28,7 @@ request.interceptors.response.use(response => response, async (error) => {
     try {
       await atualizarTokenDeAcessoDoUsuario();
       const token = await pegarTokenDoUsuarioNoStorage();
-      error.config.headers.Authorization = `Bearer ${token.access_token}`;
+      error.config.headers.Authorization = `Bearer ${token?.access_token || ''}`;
       return axios.request(error.config);
     } catch (err) {
       console.log(err);
