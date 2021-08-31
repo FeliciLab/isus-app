@@ -8,7 +8,7 @@ import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import FormContext from '../../context/FormContext';
 import BtnLogin from './btnLogin';
-import { efetuarAcesso, pegarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
+import { efetuarAcesso, salvarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import { emailNaoCadastrado } from '../../utils/validadores';
 import { CORES } from '../../constantes/estiloBase';
@@ -79,58 +79,53 @@ const formLogin = ({ rotaAposLogin }) => {
     });
   };
 
-  const efetuarLogin = (data) => {
-    setTimeout(async () => {
-      textInputEmail.current.clear();
-      textInputSenha.current.clear();
-    }, 8000);
+  const efetuarLogin = async (data) => {
     trigger();
-
     if (Object.keys(errors).length > 0) {
       return;
     }
 
     atribuirCarregando(true);
+    const invalido = await emailNaoCadastrado(data.email);
+    if (invalido) {
+      exibirNovoCadastro();
+      return;
+    }
 
-    emailNaoCadastrado(data.email)
-      .then((invalido) => {
-        if (invalido) {
-          return exibirNovoCadastro();
-        }
+    const result = await efetuarAcesso({ email: data.email, senha: data.senha });
+    atribuirExibirErroSenha(false);
+    if (result.error) {
+      atribuirExibirErroSenha(true);
+      return;
+    }
 
-        return efetuarAcesso({ email: data.email, senha: data.senha })
-          .then(async (result) => {
-            if (result.error) {
-              atribuirExibirErroSenha(true);
-              return false;
-            }
-            atribuirExibirErroSenha(false);
+    const token = result.mensagem.access_token;
+    if (!token) {
+      alterarEstaLogado(false);
+      atribuirCarregando(false);
+      return;
+    }
 
-            const token = await pegarTokenDoUsuarioNoStorage();
-            if (!token) {
-              alterarTokenUsuario({});
-              alterarEstaLogado(false);
-            }
+    alterarTokenUsuario(token);
+    salvarTokenDoUsuarioNoStorage(token);
 
-            alterarTokenUsuario(token);
-            try {
-              const perfil = await perfilUsuario();
-              alterarDadosUsuario(perfil.data);
-              alterarPessoa(perfil.data);
-              alterarEstaLogado(true);
-            } catch (err) {
-              alterarEstaLogado(false);
-              console.log('ERRO', err);
-            }
+    try {
+      const perfil = await perfilUsuario();
 
-            return navigator.navigate(rotaAposLogin);
-          })
-          .catch((err) => {
-            atribuirExibirErroSenha(true);
-            console.log('err', err);
-          });
-      })
-      .finally(() => atribuirCarregando(false));
+      alterarDadosUsuario(perfil.data);
+      alterarPessoa(perfil.data);
+
+      alterarEstaLogado(true);
+      atribuirCarregando(false);
+
+      navigator.navigate(rotaAposLogin);
+      return;
+    } catch (err) {
+      alterarEstaLogado(false);
+      console.log('ERRO', err);
+    } finally {
+      atribuirCarregando(false);
+    }
   };
 
   return (
