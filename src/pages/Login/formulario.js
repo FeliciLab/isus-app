@@ -11,7 +11,6 @@ import Alerta from '../../components/alerta';
 import {
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
-  pegarTokenDoUsuarioNoStorage,
   armazenarEstadoLogado
 } from '../../services/autenticacao';
 import { Botao } from './styles';
