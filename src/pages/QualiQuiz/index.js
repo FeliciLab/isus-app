@@ -39,11 +39,10 @@ export default function QualiQuiz({ navigation }) {
     return () => {
       backHandler.remove();
     };
-  });
-
+  }, []);
   useFocusEffect(() => {
     handleEffect();
-  }, [estaLogado, handleEffect]);
+  });
 
   useLayoutEffect(() => cabecalhoVoltar({
     title: 'QualiQuiz',

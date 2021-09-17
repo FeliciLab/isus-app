@@ -99,17 +99,16 @@ const formLogin = ({ rotaAposLogin }) => {
       return;
     }
 
-    const token = result.mensagem.access_token;
-    if (!token) {
-      alterarEstaLogado(false);
-      atribuirCarregando(false);
-      return;
-    }
-
-    alterarTokenUsuario(token);
-    salvarTokenDoUsuarioNoStorage(token);
-
     try {
+      const { token } = result;
+      if (!token) {
+        alterarEstaLogado(false);
+        atribuirCarregando(false);
+        return;
+      }
+      alterarTokenUsuario(token);
+      salvarTokenDoUsuarioNoStorage(token);
+
       const perfil = await perfilUsuario();
 
       alterarDadosUsuario(perfil.data);
