@@ -5,11 +5,16 @@ import request from '../services/request';
 const ordenarPorNome = lista => lista.sort((a, b) => a.nome.localeCompare(b.nome));
 
 export async function autenticar(email, senha) {
-  const result = await request.post('auth', { email, senha });
-  if (result?.data) {
-    return result?.data;
+  try {
+    const result = await request.post('auth', { email, senha });
+    if (result?.data) {
+      return result?.data;
+    }
+
+    return result;
+  } catch (e) {
+    return e;
   }
-  return result;
 }
 
 export async function pegarListaDeServicos() {

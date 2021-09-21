@@ -10,10 +10,9 @@ export const efetuarAcesso = async ({ email, senha }) => {
   if (!response.sucesso) {
     return { erro: true, msg: response.erros ? response.erros : response.mensagem };
   }
-
   await salvarTokenDoUsuarioNoStorage(response.mensagem);
-  await pegarTokenDoUsuarioNoStorage();
-  return { erro: false };
+  const token = await pegarTokenDoUsuarioNoStorage();
+  return { erro: false, token };
 };
 
 export const armazenarEstadoLogado = estado => salvarDados('usuario-logado', estado);

@@ -14,7 +14,11 @@ const pessoaModelo = {
   unidadeServico: []
 };
 
-const cidadeMunicipioId = dados => dados?.cidadeId || dados?.municipio_id || dados?.municipio?.id || '';
+const cidadeMunicipioId = dados => dados?.cidadeId
+  || dados?.municipio_id
+  || dados?.municipio?.id
+  || false;
+
 const cidadeNome = dados => dados?.cidade || dados?.municipio?.nome || '';
 const nomeCompletoName = dados => dados?.nomeCompleto || dados?.name || '';
 
@@ -23,7 +27,7 @@ const infoPessoal = dados => ({
   email: dados?.email || '',
   telefone: dados?.telefone || '',
   cpf: dados?.cpf || '',
-  cidadeId: parseInt(cidadeMunicipioId(dados), 10),
+  cidadeId: parseInt(cidadeMunicipioId(dados), 10) || '',
   cidade: cidadeNome(dados)
 });
 

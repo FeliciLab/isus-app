@@ -16,12 +16,12 @@ const LoginQualiQuiz = ({ navigation }) => {
     return () => {
       backHandler.remove();
     };
-  });
+  }, []);
   useLayoutEffect(() => cabecalhoVoltarHome({
     navegador: navigation,
     cor: 'verde',
     titulo: 'QualiQuiz'
-  }));
+  }, []));
 
   return (
     <View>
