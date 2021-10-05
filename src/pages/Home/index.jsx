@@ -1,28 +1,32 @@
-import React, { useLayoutEffect, useContext, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import Banners from './Banners';
-import BarraDeStatus from '../../components/barraDeStatus';
-import Servicos from './Servicos';
-import {
-  pegarTokenDoUsuarioNoStorage,
-  pegarEstadoLogadoArmazenado,
-  salvarTokenDoUsuarioNoStorage,
-  armazenarEstadoLogado
-} from '../../services/autenticacao';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useLayoutEffect
+} from 'react';
+import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
-import ExibirUsuario from './exibirUsuario';
-import MeusConteudos from './MeusConteudos';
-import ForcaTarefa from './ForcaTarefa';
+import BarraDeStatus from '../../components/barraDeStatus';
 import features from '../../constantes/features';
-import LinhasDeCuidado from './LinhasDeCuidado';
-import useAnalytics from '../../hooks/Analytics';
-
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
+import useAnalytics from '../../hooks/Analytics';
+import useAutenticacao from '../../hooks/useAutenticacao';
+import {
+  armazenarEstadoLogado,
+  pegarEstadoLogadoArmazenado,
+  pegarTokenDoUsuarioNoStorage,
+  salvarTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
+import Banners from './Banners';
+import ExibirUsuario from './exibirUsuario';
+import ForcaTarefa from './ForcaTarefa';
+import LinhasDeCuidado from './LinhasDeCuidado';
+import MeusConteudos from './MeusConteudos';
+import Servicos from './Servicos';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -34,7 +38,7 @@ export default function HomeScreen() {
     alterarTokenUsuario,
     alterarEstaLogado,
     alterarPessoa
-  } = useContext(AutenticacaoContext);
+  } = useAutenticacao();
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
@@ -48,38 +52,38 @@ export default function HomeScreen() {
     return null;
   }
 
-  useEffect(() => {
-    verificarRastreio();
-    redirectToWelcome();
+  const pegarTokenUsuario = useCallback(async () => {
+    const logado = await pegarEstadoLogadoArmazenado();
+    const token = await pegarTokenDoUsuarioNoStorage();
 
-    async function pegarTokenUsuario() {
-      const logado = await pegarEstadoLogadoArmazenado();
-      const token = await pegarTokenDoUsuarioNoStorage();
-
-      if (!logado) {
-        alterarTokenUsuario({});
-        salvarTokenDoUsuarioNoStorage(false);
-
-        alterarEstaLogado(false);
-        armazenarEstadoLogado(false);
-
-        return;
-      }
-
-      alterarTokenUsuario(token);
-      try {
-        const perfil = await perfilUsuario();
-        alterarDadosUsuario(perfil.data);
-        alterarPessoa(perfil.data);
-        alterarEstaLogado(true);
-      } catch (err) {
-        alterarEstaLogado(false);
-        console.log('ERRO', err);
-      }
+    if (!logado) {
+      alterarTokenUsuario({});
+      salvarTokenDoUsuarioNoStorage(false);
+      alterarEstaLogado(false);
+      armazenarEstadoLogado(false);
+      return;
     }
 
-    pegarTokenUsuario();
+    alterarTokenUsuario(token);
+
+    try {
+      const perfil = await perfilUsuario();
+      alterarDadosUsuario(perfil.data);
+      alterarPessoa(perfil.data);
+      alterarEstaLogado(true);
+    } catch (err) {
+      alterarEstaLogado(false);
+      console.log('ERRO', err);
+    }
   }, []);
+
+  useEffect(() => {
+    verificarRastreio();
+
+    redirectToWelcome();
+
+    pegarTokenUsuario();
+  }, [verificarRastreio, redirectToWelcome, pegarTokenUsuario]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -101,7 +105,11 @@ export default function HomeScreen() {
             navigation.navigate('Buscar');
           }}
         >
-          <Icon name="magnify" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
+          <Icon
+            name="magnify"
+            size={28}
+            color={estaLogado ? '#4CAF50' : '#FFF'}
+          />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -128,16 +136,12 @@ export default function HomeScreen() {
         barStyle={estaLogado ? 'dark-content' : 'light-content'}
       />
 
-      { estaLogado ? <ExibirUsuario /> : <></>}
+      {estaLogado ? <ExibirUsuario /> : <></>}
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
-        {
-          estaLogado && (
-            <MeusConteudos />
-          )
-        }
+        {estaLogado && <MeusConteudos />}
         <Feature
           name={features.LINHAS_DE_CUIDADO}
           activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
