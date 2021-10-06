@@ -1,16 +1,20 @@
-
-import React from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { Titulo } from '../styles';
-import useAnalytics from '../../../hooks/Analytics';
-import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
-import CartaoHome from '../cartaoHome';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import Carrossel from '../../../components/Carrossel';
 import rotas from '../../../constantes/rotas';
+import useAnalytics from '../../../hooks/Analytics';
+import CartaoHome from '../cartaoHome';
+import { Titulo } from '../styles';
+import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
 
-function ForcaTarefa({ navigation }) {
+function ForcaTarefa() {
+  const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
+
   const netInfo = useNetInfo();
+
   return (
     <>
       <Titulo>Força-tarefa Anticorona</Titulo>
@@ -34,7 +38,7 @@ function ForcaTarefa({ navigation }) {
               }
               if (!navegacao.url) {
                 return navigation.navigate(navegacao.componente, {
-                  title: navegacao.titulo,
+                  title: navegacao.titulo
                 });
               }
 

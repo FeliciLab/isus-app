@@ -1,19 +1,14 @@
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useLayoutEffect
-} from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import features from '../../constantes/features';
-import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
 import useAnalytics from '../../hooks/Analytics';
+import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
@@ -28,10 +23,13 @@ import LinhasDeCuidado from './LinhasDeCuidado';
 import MeusConteudos from './MeusConteudos';
 import Servicos from './Servicos';
 
-export default function HomeScreen() {
+export default function Home() {
   const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
-  const { verificarRastreio } = useContext(AppTrackTransparencyContext);
+
+  const { verificarRastreio } = useAppTrackTransparency();
+
   const {
     estaLogado,
     alterarDadosUsuario,
@@ -83,7 +81,7 @@ export default function HomeScreen() {
     redirectToWelcome();
 
     pegarTokenUsuario();
-  }, [verificarRastreio, redirectToWelcome, pegarTokenUsuario]);
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -136,17 +134,17 @@ export default function HomeScreen() {
         barStyle={estaLogado ? 'dark-content' : 'light-content'}
       />
 
-      {estaLogado ? <ExibirUsuario /> : <></>}
+      {estaLogado && <ExibirUsuario />}
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
-        <Servicos navigation={navigation} />
+        <Servicos />
         {estaLogado && <MeusConteudos />}
         <Feature
           name={features.LINHAS_DE_CUIDADO}
-          activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
+          activeComponent={() => <LinhasDeCuidado />}
         />
-        <ForcaTarefa navigation={navigation} />
+        <ForcaTarefa />
       </ScrollView>
     </>
   );

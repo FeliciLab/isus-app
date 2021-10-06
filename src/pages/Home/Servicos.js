@@ -16,9 +16,13 @@ import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
 import { Titulo } from './styles';
 import Carrossel from '../../components/Carrossel';
+import { useNavigation } from '@react-navigation/native';
 
-function Servicos({ navigation }) {
+function Servicos() {
+  const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
+
   const netInfo = useNetInfo();
 
   const listaServicos = [

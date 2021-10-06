@@ -8,9 +8,13 @@ import rotas from '../../../constantes/rotas';
 import { Titulo } from '../styles';
 import Carrossel from '../../../components/Carrossel';
 import useAnalytics from '../../../hooks/Analytics';
+import { useNavigation } from '@react-navigation/native';
 
-export default function LinhasDeCuidado({ navigation }) {
+export default function LinhasDeCuidado() {
+  const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
+
   const netInfo = useNetInfo();
 
   const listaLinhasDeCuidado = [
