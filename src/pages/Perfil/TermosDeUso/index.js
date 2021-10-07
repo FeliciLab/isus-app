@@ -1,6 +1,10 @@
 import React, { useLayoutEffect } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, ScrollView
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
@@ -35,38 +39,36 @@ export default function TermosDeUsoScreen() {
   });
 
   return (
-    <>
-      <ScrollView style={{ backgroundColor: '#fff' }}>
-        <View>
-          <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
-        </View>
-        <View style={estilos.conteudoTexto}>
-          {
-            termoDeUso.paragrafos.map(paragrafo => (
-              <Text style={estilos.texto}>
+    <ScrollView style={{ backgroundColor: '#fff' }}>
+      <View>
+        <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
+      </View>
+      <View style={estilos.conteudoTexto}>
+        {termoDeUso.paragrafos.map((paragrafo, index) => (
+          <Text key={index} style={estilos.texto}>
+            {paragrafo}
+          </Text>
+        ))}
+        {termoDeUso.secoes.map((secao, index) => (
+          <View key={index}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 18,
+                textAlign: 'center'
+              }}
+            >
+              {secao.titulo}
+            </Text>
+            {secao.paragrafos.map((paragrafo, index) => (
+              <Text key={index} style={estilos.texto}>
                 {paragrafo}
               </Text>
-            ))
-          }
-          {
-            termoDeUso.secoes.map(secao => (
-              <View>
-                <Text style={{ fontWeight: 'bold', fontSize: 18, textAlign: 'center' }}>
-                  {secao.titulo}
-                </Text>
-                {
-                  secao.paragrafos.map(paragrafo => (
-                    <Text style={estilos.texto}>
-                      {paragrafo}
-                    </Text>
-                  ))
-                }
-              </View>
-            ))
-          }
-        </View>
-      </ScrollView>
-    </>
+            ))}
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
@@ -74,6 +76,11 @@ const estilos = StyleSheet.create({
   titulo: { fontSize: 23, marginTop: 30, textAlign: 'center' },
   conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
   texto: {
-    color: '#000000', opacity: 0.6, fontSize: 14, marginBottom: 8, marginTop: 8, textAlign: 'justify'
+    color: '#000000',
+    opacity: 0.6,
+    fontSize: 14,
+    marginBottom: 8,
+    marginTop: 8,
+    textAlign: 'justify'
   }
 });
