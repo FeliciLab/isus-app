@@ -1,13 +1,16 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "parser": "babel-eslint",
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "window": true,
+    "module": true
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -25,6 +28,7 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "react/prop-types": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-console": "off"
   }
 }

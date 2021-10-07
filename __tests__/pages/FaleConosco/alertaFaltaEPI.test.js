@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
@@ -17,7 +16,7 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => ({
     navigate: mockedNavigate,
-    setOptions: mockedNavigate,
+    setOptions: mockedNavigate
   }),
   useFocusEffect: jest.fn(),
   useIsFocused: jest.fn()
@@ -45,6 +44,10 @@ describe('descreve os testes de Fale conosco', () => {
 
   test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
     fireEvent.press(BotaoFaltaDeEPI);
-    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI, 'Click', 'Fale Conosco');
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI,
+      'Click',
+      'Fale Conosco'
+    );
   });
 });

@@ -5,5 +5,5 @@ jest.setup.js
 metro.config.js
 
 # pastas ignoradas pelo eslint
-__tests__/*
-__mocks__/*
+#__tests__/*
+#__mocks__/*

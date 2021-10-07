@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
 import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
