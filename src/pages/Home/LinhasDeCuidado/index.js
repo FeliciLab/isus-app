@@ -1,18 +1,15 @@
-import React from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
+import React from 'react';
 import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.svg';
 import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfantil.svg';
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
-import CartaoHome from '../cartaoHome';
-import rotas from '../../../constantes/rotas';
-import { Titulo } from '../styles';
 import Carrossel from '../../../components/Carrossel';
+import rotas from '../../../constantes/rotas';
 import useAnalytics from '../../../hooks/Analytics';
-import { useNavigation } from '@react-navigation/native';
+import CartaoHome from '../cartaoHome';
+import { Titulo } from '../styles';
 
-export default function LinhasDeCuidado() {
-  const navigation = useNavigation();
-
+export default function LinhasDeCuidado({ navigation }) {
   const { analyticsData } = useAnalytics();
 
   const netInfo = useNetInfo();
@@ -66,7 +63,6 @@ export default function LinhasDeCuidado() {
             key={item.id}
             titulo={item.titulo}
             Icone={item.icone}
-
             onPress={() => {
               analyticsData(item.labelDoAnalytics, 'Click', 'Home');
               if (netInfo.isConnected) {

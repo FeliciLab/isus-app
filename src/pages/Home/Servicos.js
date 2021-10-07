@@ -16,11 +16,8 @@ import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
 import { Titulo } from './styles';
 import Carrossel from '../../components/Carrossel';
-import { useNavigation } from '@react-navigation/native';
 
-function Servicos() {
-  const navigation = useNavigation();
-
+function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();
 
   const netInfo = useNetInfo();
@@ -129,7 +126,7 @@ function Servicos() {
     });
   }
 
-  const onPress = (item) => {
+  const onPress = item => {
     analyticsData(item.id, 'Click', 'Home');
     if (item.navegacao.net && !netInfo.isConnected) {
       navigation.navigate(ROTAS.SEM_CONEXAO, {
@@ -155,7 +152,7 @@ function Servicos() {
     <View>
       <Titulo>Serviços</Titulo>
       <Carrossel
-        dados={listaServicos.sort((a, b) => (a.ordem - b.ordem))}
+        dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
         aoRenderizarItem={({ item }) => (
           <CartaoHome
             key={item.id}

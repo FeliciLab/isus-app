@@ -1,5 +1,4 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import Carrossel from '../../../components/Carrossel';
@@ -9,9 +8,7 @@ import CartaoHome from '../cartaoHome';
 import { Titulo } from '../styles';
 import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
 
-function ForcaTarefa() {
-  const navigation = useNavigation();
-
+function ForcaTarefa({ navigation }) {
   const { analyticsData } = useAnalytics();
 
   const netInfo = useNetInfo();

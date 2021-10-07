@@ -138,13 +138,13 @@ export default function Home() {
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
-        <Servicos />
+        <Servicos navigation={navigation} />
         {estaLogado && <MeusConteudos />}
         <Feature
           name={features.LINHAS_DE_CUIDADO}
-          activeComponent={() => <LinhasDeCuidado />}
+          activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
         />
-        <ForcaTarefa />
+        <ForcaTarefa navigation={navigation} />
       </ScrollView>
     </>
   );
