@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import QualiQuizIcon from '../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../assets/icons/servicos/servico_1.svg';
@@ -129,7 +129,6 @@ function Servicos() {
     });
   }
 
-
   const onPress = (item) => {
     analyticsData(item.id, 'Click', 'Home');
     if (item.navegacao.net && !netInfo.isConnected) {
@@ -153,7 +152,7 @@ function Servicos() {
   };
 
   return (
-    <>
+    <View>
       <Titulo>Serviços</Titulo>
       <Carrossel
         dados={listaServicos.sort((a, b) => (a.ordem - b.ordem))}
@@ -168,7 +167,7 @@ function Servicos() {
           />
         )}
       />
-    </>
+    </View>
   );
 }
 

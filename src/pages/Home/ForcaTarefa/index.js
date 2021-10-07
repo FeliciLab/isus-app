@@ -1,6 +1,7 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { View } from 'react-native';
 import Carrossel from '../../../components/Carrossel';
 import rotas from '../../../constantes/rotas';
 import useAnalytics from '../../../hooks/Analytics';
@@ -16,7 +17,7 @@ function ForcaTarefa() {
   const netInfo = useNetInfo();
 
   return (
-    <>
+    <View>
       <Titulo>Força-tarefa Anticorona</Titulo>
       <Carrossel
         dados={listaForcaTarefaAntiCorona}
@@ -51,7 +52,7 @@ function ForcaTarefa() {
           />
         )}
       />
-    </>
+    </View>
   );
 }
 

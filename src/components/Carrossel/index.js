@@ -1,11 +1,11 @@
 import React from 'react';
-import CarrosselStyle from './styles';
+import { CarrosselStyle } from './styles';
 
 const Carrossel = ({ dados, aoRenderizarItem }) => (
   <CarrosselStyle
     horizontal
     data={dados}
-    keyExtractor={(item, index) => `${index}`}
+    keyExtractor={(index) => `${index}`}
     showsHorizontalScrollIndicator={false}
     renderItem={aoRenderizarItem}
   />
