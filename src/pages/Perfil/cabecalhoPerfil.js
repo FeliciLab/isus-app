@@ -6,8 +6,8 @@ export default function CabecalhoPerfil({ nome }) {
     <View style={estilos.espacamento}>
       <Text style={estilos.nome}>
       Olá,
-      {' '}
-      {nome}
+        {' '}
+        {nome}
       </Text>
     </View>
   );

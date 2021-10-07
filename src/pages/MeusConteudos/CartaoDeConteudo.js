@@ -14,8 +14,8 @@ export default function CartaoDeConteudo(props) {
       <TouchableOpacity style={estilos.cartao} onPress={() => navigation.navigate('Descrição', { object: { ...conteudo, categoria_id: 700 }, title: conteudo.post_title })}>
         <Image resizeMode="cover" style={estilos.imagem} source={{ uri: conteudo.image }} />
         <View style={estilos.textos}>
-            <Text numberOfLines={2} style={estilos.titulo}>{conteudo.post_title}</Text>
-            <Text style={estilos.data}>{moment(conteudo.post_date).format('DD/MM/YYYY')}</Text>
+          <Text numberOfLines={2} style={estilos.titulo}>{conteudo.post_title}</Text>
+          <Text style={estilos.data}>{moment(conteudo.post_date).format('DD/MM/YYYY')}</Text>
         </View>
       </TouchableOpacity>
     </Surface>

@@ -48,20 +48,20 @@ function Especialidades({ dados }) {
     && dados.profissional.categoria_profissional.id === 1
     || dados.profissional.categoria_profissional.id === 3 ? (
       <>
-      <Text style={estilos.label}>ESPECIALIDADE</Text>
-      <Text style={estilos.dado}>
-        {
-          dados.profissional
+        <Text style={estilos.label}>ESPECIALIDADE</Text>
+        <Text style={estilos.dado}>
+          {
+            dados.profissional
             && dados.profissional.especialidades
             && dados.profissional.especialidades.length ? (
-              dados.profissional.especialidades.map(dado => (
-                dado.nome
-              )).join(', ')
-            ) : (
-              ''
-            )
-        }
-      </Text>
+                dados.profissional.especialidades.map(dado => (
+                  dado.nome
+                )).join(', ')
+              ) : (
+                ''
+              )
+          }
+        </Text>
       </>
     ) : (
       <></>

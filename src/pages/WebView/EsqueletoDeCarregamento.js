@@ -27,19 +27,19 @@ export default function EsqueletoDeCarregamento() {
   };
 
   return (
-  <View style={container}>
-    <Placeholder
-      Animation={Shine}
-    >
-      <PlaceholderMedia size={80} style={cabecalho} />
-      <View style={conteudo}>
-        <PlaceholderLine style={titulo} />
-        <PlaceholderLine width={20} />
-        <PlaceholderMedia size={80} style={imagem} />
-        {calculaLinhasdeArtigo()}
-      </View>
-    </Placeholder>
-  </View>
+    <View style={container}>
+      <Placeholder
+        Animation={Shine}
+      >
+        <PlaceholderMedia size={80} style={cabecalho} />
+        <View style={conteudo}>
+          <PlaceholderLine style={titulo} />
+          <PlaceholderLine width={20} />
+          <PlaceholderMedia size={80} style={imagem} />
+          {calculaLinhasdeArtigo()}
+        </View>
+      </Placeholder>
+    </View>
   );
 }
 

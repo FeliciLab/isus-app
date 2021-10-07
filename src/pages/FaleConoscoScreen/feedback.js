@@ -107,7 +107,7 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     return '';
   };
 
-  const verificaErroDePermissao = erro => (erro === "Permissions weren't granted" ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
+  const verificaErroDePermissao = erro => (erro === 'Permissions weren\'t granted' ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
     : erro);
 
   const definirNomeDaImagem = (response) => {

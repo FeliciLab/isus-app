@@ -38,17 +38,17 @@ function MeusConteudos({ route }) {
 
   return (
     <>
-    <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-       <ScrollView style={{ backgroundColor: '#ffffff', height: '100%' }}>
-           <Text style={estilos.titulo}>
+      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
+      <ScrollView style={{ backgroundColor: '#ffffff', height: '100%' }}>
+        <Text style={estilos.titulo}>
                Meus Conteúdos
-           </Text>
-           <View>
-               {
-                   conteudos.map(item => <CartaoDeConteudo conteudo={item} />)
-               }
-           </View>
-       </ScrollView>
+        </Text>
+        <View>
+          {
+            conteudos.map(item => <CartaoDeConteudo conteudo={item} />)
+          }
+        </View>
+      </ScrollView>
     </>
   );
 }

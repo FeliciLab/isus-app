@@ -28,7 +28,7 @@ export default function TermosDeUsoScreen() {
             navigation.goBack();
           }}
         >
-           <SetaEsquerda />
+          <SetaEsquerda />
         </TouchableOpacity>
       )
     });
@@ -36,36 +36,36 @@ export default function TermosDeUsoScreen() {
 
   return (
     <>
-    <ScrollView style={{ backgroundColor: '#fff' }}>
-      <View>
-        <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
-      </View>
-      <View style={estilos.conteudoTexto}>
-        {
-          termoDeUso.paragrafos.map(paragrafo => (
-            <Text style={estilos.texto}>
-              {paragrafo}
-            </Text>
-          ))
-        }
-        {
-          termoDeUso.secoes.map(secao => (
-            <View>
-              <Text style={{ fontWeight: 'bold', fontSize: 18, textAlign: 'center' }}>
-                {secao.titulo}
+      <ScrollView style={{ backgroundColor: '#fff' }}>
+        <View>
+          <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
+        </View>
+        <View style={estilos.conteudoTexto}>
+          {
+            termoDeUso.paragrafos.map(paragrafo => (
+              <Text style={estilos.texto}>
+                {paragrafo}
               </Text>
+            ))
+          }
+          {
+            termoDeUso.secoes.map(secao => (
+              <View>
+                <Text style={{ fontWeight: 'bold', fontSize: 18, textAlign: 'center' }}>
+                  {secao.titulo}
+                </Text>
                 {
                   secao.paragrafos.map(paragrafo => (
                     <Text style={estilos.texto}>
-                    {paragrafo}
+                      {paragrafo}
                     </Text>
                   ))
                 }
-            </View>
-          ))
-        }
-      </View>
-    </ScrollView>
+              </View>
+            ))
+          }
+        </View>
+      </ScrollView>
     </>
   );
 }

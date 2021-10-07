@@ -25,9 +25,9 @@ function IDSaudeLoginTemplate({ children }) {
     <>
       <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
       <SafeArea>
-          <ConteudoImagem>
-            <IDSaudeBranco />
-          </ConteudoImagem>
+        <ConteudoImagem>
+          <IDSaudeBranco />
+        </ConteudoImagem>
         <Scroll>
           <ChildrenView>
             {children}
