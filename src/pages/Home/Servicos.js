@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import QualiQuizIcon from '../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../assets/icons/servicos/servico_1.svg';
@@ -19,6 +19,7 @@ import Carrossel from '../../components/Carrossel';
 
 function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();
+
   const netInfo = useNetInfo();
 
   const listaServicos = [
@@ -125,8 +126,7 @@ function Servicos({ navigation }) {
     });
   }
 
-
-  const onPress = (item) => {
+  const onPress = item => {
     analyticsData(item.id, 'Click', 'Home');
     if (item.navegacao.net && !netInfo.isConnected) {
       navigation.navigate(ROTAS.SEM_CONEXAO, {
@@ -149,13 +149,12 @@ function Servicos({ navigation }) {
   };
 
   return (
-    <>
+    <View>
       <Titulo>Serviços</Titulo>
       <Carrossel
-        dados={listaServicos.sort((a, b) => (a.ordem - b.ordem))}
+        dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
         aoRenderizarItem={({ item }) => (
           <CartaoHome
-            key={item.id}
             ativo={item.ativo}
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
@@ -164,7 +163,7 @@ function Servicos({ navigation }) {
           />
         )}
       />
-    </>
+    </View>
   );
 }
 

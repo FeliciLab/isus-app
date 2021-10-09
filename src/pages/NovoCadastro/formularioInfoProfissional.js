@@ -1,37 +1,40 @@
-/* eslint-disable import/no-cycle */
-import React, {
-  useContext, useState, useEffect, useLayoutEffect
-} from 'react';
-import {
-  View, TouchableOpacity
-} from 'react-native';
-import {
-  DefaultTheme, Checkbox
-} from 'react-native-paper';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { Checkbox, DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
-  Scroll, ConteudoDropdown, TituloDoFormulario, Acordeon, Botao, Titulo, PlaceholderAcordeon
-} from './styles';
+  pegarListaDeCategoriasProfissionais,
+  pegarListaDeEspecialidades,
+  pegarListaDeServicos
+} from '../../apis/apiKeycloak';
+import BarraDeStatus from '../../components/barraDeStatus';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
-import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
-import BarraDeStatus from '../../components/barraDeStatus';
+import {
+  Acordeon,
+  Botao,
+  ConteudoDropdown,
+  PlaceholderAcordeon,
+  Scroll,
+  Titulo,
+  TituloDoFormulario
+} from './styles';
 import textos from './textos.json';
-
+import { uniqueId } from 'lodash';
 
 function FormularioInfoProfissional({ navigation }) {
-  const {
-    setValue, register, unregister, getValues
-  } = useContext(FormContext);
+  const { setValue, register, unregister, getValues } = useContext(FormContext);
 
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
   const [categoriaSelecionada, alterarCategoriaSelecionada] = useState('');
   const [unidadesServico, alterarUnidadesServico] = useState({});
-  const [tratarCategoriaProfissional, alterarTratarCategoriaProfissional] = React.useState(0);
+  const [
+    tratarCategoriaProfissional,
+    alterarTratarCategoriaProfissional
+  ] = React.useState(0);
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
-
 
   const theme = {
     ...DefaultTheme,
@@ -39,8 +42,8 @@ function FormularioInfoProfissional({ navigation }) {
     colors: {
       ...DefaultTheme.colors,
       primary: 'rgba(0, 0, 0, 0.6);',
-      accent: '#f1c40f',
-    },
+      accent: '#f1c40f'
+    }
   };
 
   const pegarValoresUnidadesServicos = () => {
@@ -51,25 +54,28 @@ function FormularioInfoProfissional({ navigation }) {
     }
   };
 
-  const pegarValoresEspecialidades = async (especialidadesLista) => {
+  const pegarValoresEspecialidades = async especialidadesLista => {
     const { especialidades } = getValues();
     const especialidadesSalva = JSON.parse(especialidades);
 
     if (especialidadesSalva) {
-      const especialidadesFiltrada = filtrarEspecialidades(especialidadesSalva,
-        especialidadesLista);
+      const especialidadesFiltrada = filtrarEspecialidades(
+        especialidadesSalva,
+        especialidadesLista
+      );
       if (especialidadesFiltrada && especialidadesFiltrada.length > 0) {
         mudarValoresEspecialidades(especialidadesFiltrada);
       }
     }
   };
 
-  const filtrarEspecialidades = (
-    especialidadesSalva, especialidadesLista
-  ) => especialidadesSalva.map((especialidade) => {
-    const especialidadeFiltrada = especialidadesLista.filter(esp => especialidade.id === esp.id);
-    return especialidadeFiltrada[0];
-  });
+  const filtrarEspecialidades = (especialidadesSalva, especialidadesLista) =>
+    especialidadesSalva.map(especialidade => {
+      const especialidadeFiltrada = especialidadesLista.filter(
+        esp => especialidade.id === esp.id
+      );
+      return especialidadeFiltrada[0];
+    });
 
   const pegarValoresCategoriaProfissional = () => {
     const valores = getValues();
@@ -87,7 +93,9 @@ function FormularioInfoProfissional({ navigation }) {
       alterarListaDeCategorias(categorias);
       pegarValoresCategoriaProfissional();
 
-      const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
+      const especialidades = await pegarListaDeEspecialidades(
+        tratarCategoriaProfissional
+      );
       alterarListaDeEspecialidades(especialidades);
     };
     aoIniciar();
@@ -130,36 +138,62 @@ function FormularioInfoProfissional({ navigation }) {
     }
   };
 
-  const mudarValoresUnidadesServicos = (servicos) => {
+  const mudarValoresUnidadesServicos = servicos => {
     const unidadesServicoCheckBoxes = { ...unidadesServico };
-    servicos.forEach((servico) => {
-      unidadesServicoCheckBoxes[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`] ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado : true };
+    servicos.forEach(servico => {
+      unidadesServicoCheckBoxes[`${servico.nome}`] = {
+        id: servico.id,
+        nome: servico.nome,
+        foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`]
+          ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado
+          : true
+      };
     });
     alterarUnidadesServico(unidadesServicoCheckBoxes);
   };
 
-  const mudarValorEspecilidades = (especialidade) => {
+  const mudarValorEspecilidades = especialidade => {
     const check = { ...unidadesEspecialidades };
-    check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
+    check[`${especialidade.nome}`] = {
+      id: especialidade.id,
+      nome: especialidade.nome,
+      foiMarcado: check[`${especialidade.nome}`]
+        ? !check[`${especialidade.nome}`].foiMarcado
+        : true
+    };
     alterarUnidadesEspecialidades(check);
   };
 
-  const mudarValoresEspecialidades = (especialidades) => {
+  const mudarValoresEspecialidades = especialidades => {
     const especialidadesCheckBoxes = { ...unidadesServico };
-    especialidades.forEach((servico) => {
-      especialidadesCheckBoxes[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: especialidadesCheckBoxes[`${servico.nome}`] ? !especialidadesCheckBoxes[`${servico.nome}`].foiMarcado : true };
+    especialidades.forEach(servico => {
+      especialidadesCheckBoxes[`${servico.nome}`] = {
+        id: servico.id,
+        nome: servico.nome,
+        foiMarcado: especialidadesCheckBoxes[`${servico.nome}`]
+          ? !especialidadesCheckBoxes[`${servico.nome}`].foiMarcado
+          : true
+      };
     });
     alterarUnidadesEspecialidades(especialidadesCheckBoxes);
   };
 
-  const mudarValor = (servico) => {
+  const mudarValor = servico => {
     const check = { ...unidadesServico };
-    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: check[`${servico.nome}`] ? !check[`${servico.nome}`].foiMarcado : true };
+    check[`${servico.nome}`] = {
+      id: servico.id,
+      nome: servico.nome,
+      foiMarcado: check[`${servico.nome}`]
+        ? !check[`${servico.nome}`].foiMarcado
+        : true
+    };
     alterarUnidadesServico(check);
   };
 
   const tratarUnidadesDeServico = () => {
-    const ServicosMarcados = Object.values(unidadesServico).filter(servico => servico.foiMarcado);
+    const ServicosMarcados = Object.values(unidadesServico).filter(
+      servico => servico.foiMarcado
+    );
     return JSON.stringify(
       ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
     );
@@ -173,7 +207,7 @@ function FormularioInfoProfissional({ navigation }) {
     setValue('unidadeServico', servicosTratados);
   };
 
-  const registarCategoriaProfissional = (categoria) => {
+  const registarCategoriaProfissional = categoria => {
     register({ name: 'categoriaProfissional' });
     setValue('categoriaProfissional', categoria);
   };
@@ -198,14 +232,11 @@ function FormularioInfoProfissional({ navigation }) {
     setValue('especialidades', especialidadesTratados);
   };
 
-
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <ConteudoDropdown>
-        <Titulo>
-          {textos.formularioProfissional.introducao}
-        </Titulo>
+        <Titulo>{textos.formularioProfissional.introducao}</Titulo>
         <TituloDoFormulario>
           {textos.formularioProfissional.titulo}
         </TituloDoFormulario>
@@ -215,60 +246,78 @@ function FormularioInfoProfissional({ navigation }) {
           valor={categoriaSelecionada}
           definirValor={item => JSON.stringify(item)}
           definirRotulo={item => item.nome}
-          aoMudarValor={(categoria) => {
+          aoMudarValor={categoria => {
             registarCategoriaProfissional(categoria);
             verificarCategoria();
           }}
         />
-        {
-          tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
+        {tratarCategoriaProfissional === 1 ||
+        tratarCategoriaProfissional === 3 ? (
             <>
               <TituloDoFormulario>
                 {textos.formularioProfissional.especialidade}
               </TituloDoFormulario>
               <Acordeon
                 titleStyle={{ color: 'black' }}
-                title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
+                title={
+                  <PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>
+                }
               >
                 <View>
-                  {unidadesEspecialidades && listaDeEspecialidades.length !== 0
-                    && listaDeEspecialidades.map(especialidade => (
-                      <Checkbox.Item
-                        status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
-                        labelStyle={{ maxWidth: '70%' }}
-                        theme={theme}
-                        color="#304FFE"
-                        label={especialidade.nome}
-                        onPress={() => {
-                          mudarValorEspecilidades(especialidade);
-                        }
-                        }
-                      />
-                    ))}
+                  {unidadesEspecialidades &&
+                  listaDeEspecialidades.length !== 0 &&
+                  listaDeEspecialidades.map(especialidade => (
+                    <Checkbox.Item
+                      key={uniqueId('especialidade')}
+                      status={
+                        unidadesEspecialidades[especialidade.nome] &&
+                        unidadesEspecialidades[especialidade.nome].foiMarcado
+                          ? 'checked'
+                          : 'unchecked'
+                      }
+                      labelStyle={{ maxWidth: '70%' }}
+                      theme={theme}
+                      color="#304FFE"
+                      label={especialidade.nome}
+                      onPress={() => {
+                        mudarValorEspecilidades(especialidade);
+                      }}
+                    />
+                  ))}
                 </View>
               </Acordeon>
             </>
-          ) : (<></>)
-        }
-        <TituloDoFormulario>{textos.formularioProfissional.servicos}</TituloDoFormulario>
+          ) : (
+            <></>
+          )}
+        <TituloDoFormulario>
+          {textos.formularioProfissional.servicos}
+        </TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
           title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
         >
           <View>
-            {unidadesServico && listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
-              <Checkbox.Item
-                status={unidadesServico[servico.nome] && unidadesServico[servico.nome].foiMarcado ? 'checked' : 'unchecked'}
-                labelStyle={{ maxWidth: '70%' }}
-                theme={theme}
-                color="#304FFE"
-                label={servico.nome}
-                onPress={() => {
-                  mudarValor(servico);
-                }
-                }
-              />
-            ))}
+            {unidadesServico &&
+              listaDeServicos.length !== 0 &&
+              listaDeServicos.map(servico => (
+                <Checkbox.Item
+                  key={uniqueId('servco')}
+                  status={
+                    unidadesServico[servico.nome] &&
+                    unidadesServico[servico.nome].foiMarcado
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  labelStyle={{ maxWidth: '70%' }}
+                  theme={theme}
+                  color="#304FFE"
+                  label={servico.nome}
+                  onPress={() => {
+                    mudarValor(servico);
+                  }}
+                />
+              ))}
           </View>
         </Acordeon>
       </ConteudoDropdown>

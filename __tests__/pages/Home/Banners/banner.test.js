@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { render, fireEvent } from 'util-teste';
 import BannerCarrossel from '../../../../src/pages/Home/Banners/BannerCarrossel';
 import { bannersAutenticado, bannersNaoAutenticado, bannersRota } from '../../../../__mocks__/banners/bannersMock';

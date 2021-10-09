@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
 import { analyticsData } from '../../../../src/utils/analytics';
@@ -17,7 +16,7 @@ const navigation = {
 jest.mock('@react-native-community/netinfo', () => ({
   ...jest.requireActual('@react-native-community/netinfo'),
   useNetInfo: () => ({
-    isConnected: true,
+    isConnected: true
   })
 }));
 
@@ -64,7 +63,11 @@ if (estaAtiva(features.PLANO_CONTIGENCIA)) {
 
     test('deve chamar o analytics data ao passar os parâmetros clicar em cartaoHome-forcaTarefa-acao-plano-contigencia', () => {
       fireEvent.press(item);
-      expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.CARTAO_PLANO_CONTIGENCIA, 'Click', 'Home');
+      expect(analyticsData).toHaveBeenCalledWith(
+        labelsAnalytics.CARTAO_PLANO_CONTIGENCIA,
+        'Click',
+        'Home'
+      );
     });
   });
 } else {

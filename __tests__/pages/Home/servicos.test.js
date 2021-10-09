@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
 import Servicos from '../../../src/pages/Home/Servicos';

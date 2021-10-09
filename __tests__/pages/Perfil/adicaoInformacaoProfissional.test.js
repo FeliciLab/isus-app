@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import feature from '../../../src/constantes/features';
 import { DadosUsuarioProfissional } from '../../../src/pages/Perfil/DadosUsuario';

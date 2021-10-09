@@ -4,14 +4,10 @@ import React, {
   useCallback,
   useEffect
 } from 'react';
-import {
-  TouchableOpacity, StyleSheet, View, Text
-} from 'react-native';
+import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  TextInput, DefaultTheme, Button
-} from 'react-native-paper';
+import { TextInput, DefaultTheme, Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import TextInputMask from 'react-native-text-input-mask';
@@ -19,9 +15,7 @@ import FormContext from '../../context/FormContext';
 import Regex from '../../utils/regex';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
-// eslint-disable-next-line import/no-cycle
 import WizardContext from '../../context/WizardContext';
-// eslint-disable-next-line import/no-cycle
 import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
@@ -39,20 +33,17 @@ export default function FormularioInfoPessoal() {
     }
   };
 
-  const {
-    register, setValue, trigger, errors
-  } = useContext(
-    FormContext
-  );
+  const { register, setValue, trigger, errors } = useContext(FormContext);
   useEffect(() => {
     register('nomeCompleto', {
       required: true,
-      validate: nomeCompleto => nomeValido(nomeCompleto)
-        || 'O nome deve conter apenas letras.'
+      validate: nomeCompleto =>
+        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.'
     });
     register('email', {
       required: true,
-      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+      validate: email =>
+        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
     });
     register('telefone', {
       required: true,
@@ -75,9 +66,9 @@ export default function FormularioInfoPessoal() {
     });
   }, [register]);
 
-  const pegarId = (municipio) => {
+  const pegarId = municipio => {
     let teste = null;
-    cidades.forEach((element) => {
+    cidades.forEach(element => {
       if (element.nome === municipio) {
         teste = element.id;
       }
@@ -86,7 +77,8 @@ export default function FormularioInfoPessoal() {
   };
 
   const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-  const nomeValido = nomeCompleto => Regex.NOME.test(nomeCompleto.toLowerCase());
+  const nomeValido = nomeCompleto =>
+    Regex.NOME.test(nomeCompleto.toLowerCase());
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
@@ -150,8 +142,7 @@ export default function FormularioInfoPessoal() {
       {errors.nomeCompleto && (
         <Text style={{ color: '#000000' }}>
           {' '}
-          {errors.nomeCompleto.message}
-          {' '}
+          {errors.nomeCompleto.message}{' '}
         </Text>
       )}
       <TextInput
@@ -164,11 +155,7 @@ export default function FormularioInfoPessoal() {
         theme={theme}
       />
       {errors.email && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.email.message}
-          {' '}
-        </Text>
+        <Text style={{ color: '#000000' }}> {errors.email.message} </Text>
       )}
       <TextInput
         label="Telefone"
@@ -191,11 +178,7 @@ export default function FormularioInfoPessoal() {
         )}
       />
       {errors.telefone && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.telefone.message}
-          {' '}
-        </Text>
+        <Text style={{ color: '#000000' }}> {errors.telefone.message} </Text>
       )}
       <TextInput
         label="CPF"
@@ -218,11 +201,7 @@ export default function FormularioInfoPessoal() {
         )}
       />
       {errors.cpf && (
-        <Text style={{ color: '#000000' }}>
-          {' '}
-          {errors.cpf.message}
-          {' '}
-        </Text>
+        <Text style={{ color: '#000000' }}> {errors.cpf.message} </Text>
       )}
       <View style={{ marginTop: 14 }}>
         <Dropdown
@@ -231,13 +210,16 @@ export default function FormularioInfoPessoal() {
           data={nomeCidades}
           labelExtractor={cidade => cidade}
           valueExtractor={cidade => cidade}
-          onChangeText={(cidade) => {
+          onChangeText={cidade => {
             alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
           }}
         />
         <IconDropdown
           style={{
-            position: 'absolute', right: 8, top: 30, fontSize: 25
+            position: 'absolute',
+            right: 8,
+            top: 30,
+            fontSize: 25
           }}
           name="arrow-drop-down"
           onPress={() => dropdown.current.focus()}
@@ -249,9 +231,9 @@ export default function FormularioInfoPessoal() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        onPress={() => alterarTelaAtual(
-          { indice: 1, tela: <FormularioInfoProfissional /> }
-        )}
+        onPress={() =>
+          alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })
+        }
       >
         Próximo
       </Button>
@@ -284,7 +266,7 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#BDBDBD',
+    backgroundColor: '#BDBDBD'
   },
   botaoHabilitado: {
     borderRadius: 50,
@@ -294,5 +276,5 @@ const estilos = StyleSheet.create({
     margin: 20,
     justifyContent: 'center',
     backgroundColor: '#304FFE'
-  },
+  }
 });

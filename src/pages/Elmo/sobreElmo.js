@@ -42,16 +42,16 @@ export default function sobreElmo() {
       headerTitleAlign: 'center',
       headerTitle: 'Elmo',
       headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
-            </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+        </TouchableOpacity>
       )
     });
   });
@@ -68,13 +68,13 @@ export default function sobreElmo() {
 
         <View style={{ marginHorizontal: 16, marginTop: 18 }}>
           <Texto>
-          {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes.'}
-          {'\n\n'}
-          {'Criado em abril de 2020 em uma força-tarefa que envolve uma parceria público-privada, o equipamento inovador surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica por Covid-19.'}
-          {'\n\n'}
-          <Texto fontWeight="bold">{'Como funciona\n'}</Texto>
-          {'O Elmo envolve toda a cabeça do paciente. Ele é fixado no pescoço com uma base que veda a passagem do ar.\n'}
-          {'Aplica-se um fluxo de gases medicinais com oxigênio (O2) e ar comprimido capaz de gerar uma pressão positiva (acima da pressão atmosférica). Essa pressão ajuda em situações em que o pulmão está com dificuldade de oxigenação.'}
+            {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes.'}
+            {'\n\n'}
+            {'Criado em abril de 2020 em uma força-tarefa que envolve uma parceria público-privada, o equipamento inovador surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica por Covid-19.'}
+            {'\n\n'}
+            <Texto fontWeight="bold">{'Como funciona\n'}</Texto>
+            {'O Elmo envolve toda a cabeça do paciente. Ele é fixado no pescoço com uma base que veda a passagem do ar.\n'}
+            {'Aplica-se um fluxo de gases medicinais com oxigênio (O2) e ar comprimido capaz de gerar uma pressão positiva (acima da pressão atmosférica). Essa pressão ajuda em situações em que o pulmão está com dificuldade de oxigenação.'}
           </Texto>
           <TextoCentralizado color={CORES.PRETO54} marginTop="35px">
             Realização

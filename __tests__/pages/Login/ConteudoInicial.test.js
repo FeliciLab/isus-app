@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import { analyticsData } from '../../../src/utils/analytics';
 import ConteudoInicial from '../../../src/pages/Login/ConteudoInicial';

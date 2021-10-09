@@ -1,0 +1,9 @@
+# Arquivos ignorados pelo eslint
+babel.config.js
+jest.config.js
+jest.setup.js
+metro.config.js
+
+# pastas ignoradas pelo eslint
+#__tests__/*
+#__mocks__/*

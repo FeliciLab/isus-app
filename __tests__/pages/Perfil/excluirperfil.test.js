@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import featuresAtivas from '../../../src/featureAtivas';
 import feature from '../../../src/constantes/features';

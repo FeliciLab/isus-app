@@ -53,20 +53,20 @@ function BarraInferior({
   return (
     <>
       {
-      <Animated.View style={{ opacity: valorVisibilidade, height: valorVisibilidade }}>
+        <Animated.View style={{ opacity: valorVisibilidade, height: valorVisibilidade }}>
           <Appbar style={{ ...estilos.inferior }}>
             <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                <View style={{ marginVertical: 11 }}>
-                    { informacaoLateral() }
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
-                    <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
-                </View>
+              <View style={{ marginVertical: 11 }}>
+                { informacaoLateral() }
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
+                <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
+              </View>
             </View>
           </Appbar>
-      </Animated.View>
-     }
+        </Animated.View>
+      }
     </>
   );
 }

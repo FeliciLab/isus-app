@@ -25,16 +25,16 @@ export default function capacitacaoElmo() {
       headerTitleAlign: 'center',
       headerTitle: 'Elmo',
       headerLeft: () => (
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 19
-              }}
-              onPress={() => {
-                navigation.goBack();
-              }}
-            >
-              <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
-            </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+        </TouchableOpacity>
       )
     });
   });
@@ -49,17 +49,17 @@ export default function capacitacaoElmo() {
         <Titulo> Capacitação </Titulo>
         <Container>
           <Texto>
-          {'Neste momento, as ações de capacitação para uso do Elmo são realizadas na modalidade presencial, com priorização das unidades de saúde que já receberam o equipamento.'}
-          {'\n\n'}
-          {'A Escola de Saúde Pública está preparando uma formação híbrida (Presencial e EAD) que será ofertada a profissionais de saúde interessados. Clique no botão abaixo e deixe os seus contatos para receber uma notificação quando o curso estiver disponível.'}
+            {'Neste momento, as ações de capacitação para uso do Elmo são realizadas na modalidade presencial, com priorização das unidades de saúde que já receberam o equipamento.'}
+            {'\n\n'}
+            {'A Escola de Saúde Pública está preparando uma formação híbrida (Presencial e EAD) que será ofertada a profissionais de saúde interessados. Clique no botão abaixo e deixe os seus contatos para receber uma notificação quando o curso estiver disponível.'}
           </Texto>
         </Container>
         <Botao
 
-        // style={{
-        // eslint-disable-next-line max-len
-        //   marginTop: 22, marginHorizontal: 16, alignItems: 'center', backgroundColor: CORES.LARANJA,
-        // }}
+          // style={{
+          // eslint-disable-next-line max-len
+          //   marginTop: 22, marginHorizontal: 16, alignItems: 'center', backgroundColor: CORES.LARANJA,
+          // }}
           backgroundColor={CORES.LARANJA}
           alignItems="center"
           marginTop={22}

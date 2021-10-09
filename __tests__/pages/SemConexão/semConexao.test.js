@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { render, fireEvent } from 'util-teste';
 import { TESTIDS } from '../../../src/constantes/testIDs';

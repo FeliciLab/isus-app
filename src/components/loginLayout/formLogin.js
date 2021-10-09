@@ -145,6 +145,7 @@ const formLogin = ({ rotaAposLogin }) => {
         label="E-mail"
         textContentType="emailAddress"
         keyboardType="email-address"
+        autoCapitalize="none"
         onChangeText={text => setValue('email', text)}
       />
       <MsgErroFormCampo campo="email" />
