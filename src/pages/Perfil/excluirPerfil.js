@@ -174,33 +174,33 @@ export default function ExcluirPerfil() {
 
   return (
     <>
-    <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
-    <View style={estilos.margem}>
-      <Text style={estilos.tituloDestaque}>
+      <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
+      <View style={estilos.margem}>
+        <Text style={estilos.tituloDestaque}>
         Para confirmar a exclusão da sua conta no ID Saúde, digite EXCLUIR.
-      </Text>
-      <TextInput
-        label="Confirmação de exclusão"
-        autoFocus={estaFocado}
-        onChangeText={text => onChange(text)}
-        style={estilos.campoDeTexto}
-        mode="outlined"
-        theme={theme}
-        ref={refEntradaTexto}
-      />
-      {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
-      <Button
-        testID="botao-excluir-perfil"
-        style={estilos.botaoHabilitado}
-        mode="contained"
-        labelStyle={estilos.botaoExcluirConta}
-        onPress={() => {
-          excluirUsuario();
-        }}
-      >
+        </Text>
+        <TextInput
+          label="Confirmação de exclusão"
+          autoFocus={estaFocado}
+          onChangeText={text => onChange(text)}
+          style={estilos.campoDeTexto}
+          mode="outlined"
+          theme={theme}
+          ref={refEntradaTexto}
+        />
+        {(isvalidator === false) ? mostrarMensagemErro(false) : mostrarMensagemErro(true)}
+        <Button
+          testID="botao-excluir-perfil"
+          style={estilos.botaoHabilitado}
+          mode="contained"
+          labelStyle={estilos.botaoExcluirConta}
+          onPress={() => {
+            excluirUsuario();
+          }}
+        >
         EXCLUIR CONTA
-      </Button>
-    </View>
+        </Button>
+      </View>
     </>
   );
 }

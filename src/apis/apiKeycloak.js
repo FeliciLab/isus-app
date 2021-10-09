@@ -1,14 +1,13 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable no-nested-ternary */
 import request from '../services/request';
 
-const ordenarPorNome = lista => lista.sort((a, b) => a.nome.localeCompare(b.nome));
+const ordenarPorNome = lista =>
+  lista.sort((a, b) => a.nome.localeCompare(b.nome));
 
 export async function autenticar(email, senha) {
   try {
     const result = await request.post('auth', { email, senha });
-    if (result?.data) {
-      return result?.data;
+    if (result.data) {
+      return result.data;
     }
 
     return result;
@@ -29,7 +28,9 @@ export async function pegarListaDeCategoriasProfissionais() {
 
 export async function pegarListaDeEspecialidades(id) {
   if (id !== 0) {
-    const resultado = await request.get(`/categorias-profissionais/${id}/especialidades`);
+    const resultado = await request.get(
+      `/categorias-profissionais/${id}/especialidades`
+    );
     return ordenarPorNome(resultado.data);
   }
   return [];
@@ -41,7 +42,6 @@ export async function pegarTokenDeAcesso(refreshToken) {
   });
   return resultado.data;
 }
-
 
 export function logout(token) {
   return request.post('logout', { refresh_token: token.refresh_token });

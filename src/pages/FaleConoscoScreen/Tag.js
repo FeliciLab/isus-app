@@ -10,12 +10,12 @@ export default function Tag({ text, onClose }) {
 
   return (
     <View style={styles.tagContainer}>
-        <View style={styles.textContainer}>
-            <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tagText}>{text}</Text>
-        </View>
-        <TouchableOpacity style={styles.closeIcon} onPress={onClose}>
-            <Icon name="close-circle" size={20} />
-        </TouchableOpacity>
+      <View style={styles.textContainer}>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tagText}>{text}</Text>
+      </View>
+      <TouchableOpacity style={styles.closeIcon} onPress={onClose}>
+        <Icon name="close-circle" size={20} />
+      </TouchableOpacity>
     </View>
   );
 }

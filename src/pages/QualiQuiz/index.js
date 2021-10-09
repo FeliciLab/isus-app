@@ -1,28 +1,26 @@
-import React, { useLayoutEffect, useContext, useEffect } from 'react';
-import { View, Text, BackHandler } from 'react-native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { BackHandler, Text, View } from 'react-native';
 import { Config } from 'react-native-config';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import IsusSvg from '../../assets/icons/isus_hor.svg';
 import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import useAutenticacao from '../../hooks/useAutenticacao';
 
 export default function QualiQuiz({ navigation }) {
   const navigator = useNavigation();
-  const { estaLogado, tokenUsuario } = useContext(AutenticacaoContext);
+
+  const { estaLogado, tokenUsuario } = useAutenticacao();
 
   const handleEffect = () => {
     setTimeout(() => {
       if (!estaLogado) {
         navigation.navigate('QUALIQUIZ_LOGIN');
       } else {
-        navigator.navigate(
-          'webview',
-          {
-            title: 'QualiQuiz',
-            url: `${Config.QUALIQUIZ_URL}/isus/login/1/${tokenUsuario.access_token}`,
-            rota: 'HOME'
-          }
-        );
+        navigator.navigate('webview', {
+          title: 'QualiQuiz',
+          url: `${Config.QUALIQUIZ_URL}/isus/login/1/${tokenUsuario.access_token}`,
+          rota: 'HOME'
+        });
       }
     }, 1500);
   };
@@ -40,15 +38,18 @@ export default function QualiQuiz({ navigation }) {
       backHandler.remove();
     };
   }, []);
+
   useFocusEffect(() => {
     handleEffect();
   });
 
-  useLayoutEffect(() => cabecalhoVoltar({
-    title: 'QualiQuiz',
-    navegador: navigation,
-    cor: 'verde'
-  }));
+  useLayoutEffect(() =>
+    cabecalhoVoltar({
+      title: 'QualiQuiz',
+      navegador: navigation,
+      cor: 'verde'
+    })
+  );
 
   return (
     <>

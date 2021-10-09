@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { AppRegistry } from 'react-native';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
-import App from './src/App';
 import { name as appName } from './app.json';
-
-import('./src/utils/reactotronConfig').then(() => console.log('Reactotron Configured'));
+import App from './src/App';
+import './src/utils/reactotronConfig';
 
 const theme = {
   ...DefaultTheme,

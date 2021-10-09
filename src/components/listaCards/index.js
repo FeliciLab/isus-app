@@ -64,14 +64,14 @@ export default function ListaCards({ lista }) {
       }}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => (
-      <ItemCard
-        testID={`cards-${item.id_publico}`}
-        key={item.id_publico}
-        ativo={item.ativo}
-        titulo={item.titulo}
-        Icone={item.imagem}
-        onPress={() => onPress(item)}
-      />
+        <ItemCard
+          testID={`cards-${item.id_publico}`}
+          key={item.id_publico}
+          ativo={item.ativo}
+          titulo={item.titulo}
+          Icone={item.imagem}
+          onPress={() => onPress(item)}
+        />
       )}
     />
   );

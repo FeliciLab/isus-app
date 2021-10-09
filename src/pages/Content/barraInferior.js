@@ -23,22 +23,22 @@ function BarraInferior({
 
   return (
     <>
-        <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                <View style={{ marginVertical: 11 }}>
-                    <Text style={estilos.texto}>
+      <Appbar style={Platform.OS === 'ios' ? { ...estilos.inferior, ...estilos.safeAreaiOS } : { ...estilos.inferior }}>
+        <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+          <View style={{ marginVertical: 11 }}>
+            <Text style={estilos.texto}>
                         postado em
-                    </Text>
-                    <Text style={estilos.texto}>
-                        {formatarDataPorExtenso(dataDePostagem)}
-                    </Text>
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
-                    <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
-                </View>
-            </View>
-        </Appbar>
+            </Text>
+            <Text style={estilos.texto}>
+              {formatarDataPorExtenso(dataDePostagem)}
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
+            <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
+          </View>
+        </View>
+      </Appbar>
     </>
   );
 }

@@ -9,14 +9,14 @@ function ItemCard({
   return (
     (ativo)
     && (
-    <Cartao elevation={4} onPress={onPress} testID={testID}>
-      {Icone}
-      <Cartao.Content>
-        <Paragrafo>
-          {titulo}
-        </Paragrafo>
-      </Cartao.Content>
-    </Cartao>
+      <Cartao elevation={4} onPress={onPress} testID={testID}>
+        {Icone}
+        <Cartao.Content>
+          <Paragrafo>
+            {titulo}
+          </Paragrafo>
+        </Cartao.Content>
+      </Cartao>
     )
   );
 }

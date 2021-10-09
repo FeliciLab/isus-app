@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import {
   salvarDados, pegarDados, removerDados
 } from './armazenamento';

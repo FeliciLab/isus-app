@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import React, { createContext, useState } from 'react';
 import FormularioInfoPessoal from '../pages/Cadastro/formularioInfoPessoal';
 
