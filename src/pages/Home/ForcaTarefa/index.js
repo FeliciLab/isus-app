@@ -7,6 +7,7 @@ import useAnalytics from '../../../hooks/Analytics';
 import CartaoHome from '../cartaoHome';
 import { Titulo } from '../styles';
 import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
+import { uniqueId } from 'lodash';
 
 function ForcaTarefa({ navigation }) {
   const { analyticsData } = useAnalytics();
@@ -21,7 +22,7 @@ function ForcaTarefa({ navigation }) {
         aoRenderizarItem={({ item }) => (
           <CartaoHome
             testID={`cartaoHome-forcaTarefa-${item.id}`}
-            key={item.id}
+            key={uniqueId()}
             ativo={item.ativo}
             titulo={item.titulo}
             Icone={item.icone}

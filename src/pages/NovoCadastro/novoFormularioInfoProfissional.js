@@ -24,6 +24,7 @@ import {
   TituloDoFormulario
 } from './styles';
 import textos from './textos.json';
+import { uniqueId } from 'lodash';
 
 function FormularioInfoProfissional({ navigation, route }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
@@ -365,9 +366,9 @@ function FormularioInfoProfissional({ navigation, route }) {
                 <View>
                   {unidadesEspecialidades &&
                   listaDeEspecialidades.length !== 0 &&
-                  listaDeEspecialidades.map((especialidade, index) => (
+                  listaDeEspecialidades.map(especialidade => (
                     <Checkbox.Item
-                      key={index}
+                      key={uniqueId('especialidade')}
                       status={
                         unidadesEspecialidades[especialidade.nome] &&
                         unidadesEspecialidades[especialidade.nome].foiMarcado
@@ -399,9 +400,9 @@ function FormularioInfoProfissional({ navigation, route }) {
           <View>
             {unidadesServico &&
               listaDeServicos.length !== 0 &&
-              listaDeServicos.map((servico, index) => (
+              listaDeServicos.map(servico => (
                 <Checkbox.Item
-                  key={index}
+                  key={uniqueId('servico')}
                   status={
                     unidadesServico[servico.nome] &&
                     unidadesServico[servico.nome].foiMarcado

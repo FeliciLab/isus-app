@@ -29,6 +29,7 @@ import {
   Titulo,
   TituloPrincipal
 } from './styles';
+import { uniqueId } from 'lodash';
 
 function EdicaoInfoProfissional({ route }) {
   const { getValues, setValue, register, unregister } = useContext(FormContext);
@@ -402,9 +403,9 @@ function EdicaoInfoProfissional({ route }) {
                   <View>
                     {unidadesEspecialidades &&
                     listaDeEspecialidades.length !== 0 &&
-                    listaDeEspecialidades.map((especialidade, index) => (
+                    listaDeEspecialidades.map(especialidade => (
                       <Selecao
-                        key={index}
+                        key={uniqueId('especialidade')}
                         status={
                           unidadesEspecialidades[especialidade.nome] &&
                           unidadesEspecialidades[especialidade.nome].foiMarcado
@@ -431,9 +432,9 @@ function EdicaoInfoProfissional({ route }) {
             >
               <View>
                 {listaDeServicos.length !== 0 &&
-                  listaDeServicos.map((servico, index) => (
+                  listaDeServicos.map(servico => (
                     <Selecao
-                      key={index}
+                      key={uniqueId('servico')}
                       status={
                         unidadesServico[`${servico.nome}`] &&
                         unidadesServico[`${servico.nome}`].foiMarcado

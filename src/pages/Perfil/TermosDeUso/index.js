@@ -9,6 +9,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 import termoDeUso from './termo-de-uso.json';
+import { uniqueId } from 'lodash';
 
 export default function TermosDeUsoScreen() {
   const navigation = useNavigation();
@@ -44,13 +45,13 @@ export default function TermosDeUsoScreen() {
         <Text style={estilos.titulo}>TERMOS E CONDIÇÕES DE USO</Text>
       </View>
       <View style={estilos.conteudoTexto}>
-        {termoDeUso.paragrafos.map((paragrafo, index) => (
-          <Text key={index} style={estilos.texto}>
+        {termoDeUso.paragrafos.map(paragrafo => (
+          <Text key={uniqueId('paragrafo')} style={estilos.texto}>
             {paragrafo}
           </Text>
         ))}
-        {termoDeUso.secoes.map((secao, index) => (
-          <View key={index}>
+        {termoDeUso.secoes.map(secao => (
+          <View key={uniqueId('secao')}>
             <Text
               style={{
                 fontWeight: 'bold',
@@ -60,8 +61,8 @@ export default function TermosDeUsoScreen() {
             >
               {secao.titulo}
             </Text>
-            {secao.paragrafos.map((paragrafo, index) => (
-              <Text key={index} style={estilos.texto}>
+            {secao.paragrafos.map(paragrafo => (
+              <Text key={uniqueId('paragrafo')} style={estilos.texto}>
                 {paragrafo}
               </Text>
             ))}

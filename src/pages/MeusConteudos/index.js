@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 import CartaoDeConteudo from './CartaoDeConteudo';
+import { uniqueId } from 'lodash';
 
 function MeusConteudos({ route }) {
   const navigation = useNavigation();
@@ -46,8 +47,8 @@ function MeusConteudos({ route }) {
       <ScrollView style={{ backgroundColor: '#ffffff', height: '100%' }}>
         <Text style={estilos.titulo}>Meus Conteúdos</Text>
         <View>
-          {conteudos.map((item, index) => (
-            <CartaoDeConteudo key={index} conteudo={item} />
+          {conteudos.map(item => (
+            <CartaoDeConteudo key={uniqueId('card-conteudo')} conteudo={item} />
           ))}
         </View>
       </ScrollView>

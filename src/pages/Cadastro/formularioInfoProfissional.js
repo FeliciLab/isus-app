@@ -11,6 +11,7 @@ import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
 import WizardContext from '../../context/WizardContext';
 import FormularioSenha from './formularioSenha';
+import { uniqueId } from 'lodash';
 
 function FormularioInfoProfissional() {
   const { getValues, setValue, register, unregister } = useContext(FormContext);
@@ -166,9 +167,9 @@ function FormularioInfoProfissional() {
           <View>
             {unidadesEspecialidades &&
               listaDeEspecialidades.length !== 0 &&
-              listaDeEspecialidades.map((especialidade, index) => (
+              listaDeEspecialidades.map(especialidade => (
                 <Checkbox.Item
-                  key={index}
+                  key={uniqueId('especialidade')}
                   status={
                     unidadesEspecialidades[especialidade.nome] &&
                     unidadesEspecialidades[especialidade.nome].foiMarcado
@@ -216,9 +217,9 @@ function FormularioInfoProfissional() {
           <View>
             {unidadesServico &&
               listaDeServicos.length !== 0 &&
-              listaDeServicos.map((servico, index) => (
+              listaDeServicos.map(servico => (
                 <Checkbox.Item
-                  key={index}
+                  key={uniqueId('servico')}
                   status={
                     unidadesServico[servico.nome] &&
                     unidadesServico[servico.nome].foiMarcado
