@@ -4,8 +4,11 @@ const doMask = (pattern, value) => {
   let currentIndexPattern = 0;
   const valueArray = value.split('');
   let resultMask = '';
-  pattern.split('').forEach((pat) => {
-    if (currentIndexPattern >= valueArray.length || currentIndexPattern === limitIndexPattern) {
+  pattern.split('').forEach(pat => {
+    if (
+      currentIndexPattern >= valueArray.length ||
+      currentIndexPattern === limitIndexPattern
+    ) {
       return;
     }
     if (pat === '#') {
@@ -38,6 +41,8 @@ export function adicionaMascaraAnalytics(slug) {
 }
 
 export function normalizeEspacoTextoAnalytics(slug) {
-  const a = slug?.normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z\s])/g, '');
+  const a = slug
+    .normalize('NFD')
+    .replace(/([\u0300-\u036f]|[^0-9a-zA-Z\s])/g, '');
   return a.replace(/\s/g, '_').toLowerCase();
 }

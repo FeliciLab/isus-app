@@ -1,6 +1,5 @@
 
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import MaternoInfantil from '../../../../src/pages/Home/LinhasDeCuidado/maternoInfantil/index';
 import { analyticsData } from '../../../../src/utils/analytics';

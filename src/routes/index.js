@@ -124,7 +124,11 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name="CADASTRO"
-          options={{ headerShown: !estaAtiva(features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO) }}
+          options={{
+            headerShown: !estaAtiva(
+              features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO
+            )
+          }}
           component={Cadastro}
         />
         <RootStack.Screen
@@ -163,14 +167,8 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen
-          name="webview"
-          component={WebViewPage}
-        />
-        <RootStack.Screen
-          name="manejoWebview"
-          component={ManejoWebViewPage}
-        />
+        <RootStack.Screen name="webview" component={WebViewPage} />
+        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
         <RootStack.Screen
           name="Buscar"
           component={searchStackScreen}
@@ -203,14 +201,8 @@ export default function App({ navigationRef }) {
           name={rotas.EDICAO_INFO_PESSOAIS}
           component={EdicaoPessoal}
         />
-        <RootStack.Screen
-          name={rotas.ELMO}
-          component={ElmoFunc}
-        />
-        <RootStack.Screen
-          name={rotas.SOBRE_ELMO}
-          component={SobreElmo}
-        />
+        <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
+        <RootStack.Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
         <RootStack.Screen
           name={rotas.CAPACITACAO_ELMO}
           component={CapacitacaoElmo}

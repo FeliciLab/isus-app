@@ -59,7 +59,7 @@ export default function AboutScreen() {
   function link(text, linkTo) {
     return (
       <Text style={{ marginHorizontal: 20, color: '#4CAF50', textDecorationLine: 'underline' }} onPress={() => Linking.openURL(linkTo)}>
-      {text}
+        {text}
       </Text>
     );
   }
@@ -107,30 +107,30 @@ export default function AboutScreen() {
           </Title>
           <Text style={styles.spaceRight}>
             Iniciativa da
-              {' '}
-              { link('Escola de saúde publica', 'https://www.esp.ce.gov.br/') }
+            {' '}
+            { link('Escola de saúde publica', 'https://www.esp.ce.gov.br/') }
               , com apoio da
-              {' '}
-              { link('Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap)', 'https://www.funcap.ce.gov.br/') }
+            {' '}
+            { link('Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap)', 'https://www.funcap.ce.gov.br/') }
               , por meio do projeto "SMART Health", desenvolvido em parceria com o
-              {' '}
-              { link('Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD)', 'https://http://www.uece.br/gesad/') }
-              {' '}
+            {' '}
+            { link('Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD)', 'https://http://www.uece.br/gesad/') }
+            {' '}
               da
-              {' '}
-              { link('Universidade Estadual do Ceará (UECE)', 'http://www.uece.br/') }
+            {' '}
+            { link('Universidade Estadual do Ceará (UECE)', 'http://www.uece.br/') }
           </Text>
           <Text style={styles.spaceRight}>
             A criação do aplicativo compõe as ações da
-              {' '}
-              { link('Força Tarefa Digital de Combate ao Coronavírus', 'http://bit.ly/ForcaTarefaAntiCorona') }
+            {' '}
+            { link('Força Tarefa Digital de Combate ao Coronavírus', 'http://bit.ly/ForcaTarefaAntiCorona') }
               , que estão sendo realizadas de forma aberta para promover a inovação e
               viabilizar a colaboração em rede.
           </Text>
           <Text style={styles.spaceRight}>
             O projeto conta ainda com o apoio da
-              {' '}
-              { link('ThoughtWorks', 'https://www.thoughtworks.com/pt') }
+            {' '}
+            { link('ThoughtWorks', 'https://www.thoughtworks.com/pt') }
               , consultoria em tecnologia que está apoiando o projeto de forma
               voluntária, como parte de seu enfrentamento à pandemia.
           </Text>
@@ -180,7 +180,7 @@ export default function AboutScreen() {
             onPress={() => Linking.openURL('https://escoladesaudepublica.github.io/#FeliciLab')}
             style={{ height: 130, alignItems: 'center' }}
           >
-              <Felicilabsvg />
+            <Felicilabsvg />
           </Text>
           <Text
             onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
@@ -203,14 +203,14 @@ export default function AboutScreen() {
           <View style={styles.hrLateral} />
         </View>
         <View style={styles.viewEstado2}>
-        <View style={{ marginTop: 26 }}>
-          <Text
-            onPress={() => Linking.openURL('https://www.ceara.gov.br/')}
-            style={{ height: 150, }}
-          >
-            <Governosvg />
-          </Text>
-        </View>
+          <View style={{ marginTop: 26 }}>
+            <Text
+              onPress={() => Linking.openURL('https://www.ceara.gov.br/')}
+              style={{ height: 150, }}
+            >
+              <Governosvg />
+            </Text>
+          </View>
         </View>
       </View>
       {/* Fim View container */}

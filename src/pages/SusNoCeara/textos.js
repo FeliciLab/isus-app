@@ -111,68 +111,68 @@ export const TextoSobreSUSCeara = () => (
 
 export const TextoSobreSESA = () => (
   <>
-<Text style={estilos.textoConteudo}>
+    <Text style={estilos.textoConteudo}>
 O iSUS foi criado na
-{' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('ESPCE')}>Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues</Text>
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('ESPCE')}>Escola de Saúde Pública do Ceará Paulo Marcelo Martins Rodrigues</Text>
 (ESP/CE), contando com a parceria da
-{' '}
-  <Text style={estilos.textoLink} onPress={() => abrirUrl('UECE')}>Universidade Estadual do Ceará</Text>
-{' '}
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => abrirUrl('UECE')}>Universidade Estadual do Ceará</Text>
+      {' '}
 e da
-{' '}
-    <Text style={estilos.textoLink} onPress={() => navegar('ThoughtWorks')}>ThoughtWorks</Text>
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('ThoughtWorks')}>ThoughtWorks</Text>
 , se tornando um caso de trabalho colaborativo, transparente e focado na experiência
 e na necessidade dos profissionais de saúde.
-{'\n\n'}
+      {'\n\n'}
 Criada em 22 de julho de 1993, a ESP/CE existe para promover a formação e educação permanente,
 pesquisa e extensão na área da saúde, com inovação e produção tecnológica, integrando
 ensino-serviço-comunidade às suas práticas. E no último ano assumiu o desafio de funcionar como
 um Centro de Inteligência em Saúde no Estado.
-{'\n\n'}
+      {'\n\n'}
 Sua atuação engloba um pioneiro trabalho junto a programas de residências em saúde, educação
 profissional em saúde, cursos e projetos nas áreas da gestão, atenção, vigilância e extensão
 em saúde.
-{'\n\n'}
+      {'\n\n'}
 Também promove fomento à pesquisa e conhecimento científico por meio de iniciativas e programas
 de estímulo e disseminação da ciência em articulação direta com a saúde e a educação.
-{'\n\n'}
-<Text style={estilos.negrito}>Endereço: </Text>
+      {'\n\n'}
+      <Text style={estilos.negrito}>Endereço: </Text>
 Av. Antônio Justa, 3161. Meireles. Fortaleza-CE
-{'\n'}
-<Text style={estilos.negrito}>Telefones: </Text>
+      {'\n'}
+      <Text style={estilos.negrito}>Telefones: </Text>
 (85) 3101.1398 - FAX (85) 3101.1423
-</Text>
+    </Text>
   </>
 );
 
 
 export const TextoSobreESP = () => (
   <>
-<Text style={estilos.textoConteudo}>
+    <Text style={estilos.textoConteudo}>
 A ESP é uma autarquia vinculada à
-{' '}
-<Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>Secretaria da Saúde do Estado do Ceará (Sesa)</Text>
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('SaudeCeara')}>Secretaria da Saúde do Estado do Ceará (Sesa)</Text>
 , órgão da administração direta do
-{' '}
-<Text style={estilos.textoLink} onPress={() => navegar('Governo')}>Governo estadual</Text>
+      {' '}
+      <Text style={estilos.textoLink} onPress={() => navegar('Governo')}>Governo estadual</Text>
 . A SESA é a responsável pelo gerenciamento
 do Sistema Único de Saúde (SUS) no Ceará.
-{'\n\n'}
+      {'\n\n'}
 O órgão tem como base das suas atividades o tripé da ética, moral e integridade, disponibilizando
 todos os meios necessários para que seus colaboradores e todos os que interagem com ela possam,
 juntos, desenvolver e proteger a instituição dos descaminhos políticos e socioculturais.
-{'\n\n'}
+      {'\n\n'}
 Seu compromisso é o de cumprir as políticas públicas de saúde na garantia do atendimento à população
 de forma plena e com qualidade. Além de gerenciar o sistema de saúde no Estado, proporcionando
 resolutividade, satisfação e acessibilidade a todas as pessoas.
-{'\n\n'}
-<Text style={estilos.negrito}>Endereço: </Text>
+      {'\n\n'}
+      <Text style={estilos.negrito}>Endereço: </Text>
 Av. Almirante Barroso, 600. Praia de Iracema. Fortaleza-CE
-{'\n'}
-<Text style={estilos.negrito}>Telefones: </Text>
+      {'\n'}
+      <Text style={estilos.negrito}>Telefones: </Text>
 (85) 3101.5223
-</Text>
+    </Text>
   </>
 );
 

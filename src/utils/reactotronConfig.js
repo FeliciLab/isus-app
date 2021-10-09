@@ -9,4 +9,6 @@ console.tron = Reactotron;
 
 Reactotron.clear();
 
+console.log('Reactotron Configured');
+
 export default reactotron;

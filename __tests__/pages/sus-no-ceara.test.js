@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../src/constantes/labelsAnalytics';

@@ -1,26 +1,27 @@
-/* eslint-disable import/no-cycle */
-import React, { useContext, useState, useEffect } from 'react';
-import {
-  View, Text, StyleSheet
-} from 'react-native';
-import {
-  DefaultTheme, List, Checkbox, Button
-} from 'react-native-paper';
 import { Feature } from '@paralleldrive/react-feature-toggles';
+import React, { useContext, useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, Checkbox, DefaultTheme, List } from 'react-native-paper';
+import {
+  pegarListaDeCategoriasProfissionais,
+  pegarListaDeEspecialidades,
+  pegarListaDeServicos
+} from '../../apis/apiKeycloak';
 import DropDown from '../../components/dropdown';
 import FormContext from '../../context/FormContext';
-import { pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 import WizardContext from '../../context/WizardContext';
 import FormularioSenha from './formularioSenha';
+import { uniqueId } from 'lodash';
 
 function FormularioInfoProfissional() {
-  const {
-    getValues, setValue, register, unregister
-  } = useContext(FormContext);
+  const { getValues, setValue, register, unregister } = useContext(FormContext);
 
   const [listaDeServicos, alterarListaDeServicos] = useState([]);
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
-  const [tratarCategoriaProfissional, alterarTratarCategoriaProfissional] = React.useState(0);
+  const [
+    tratarCategoriaProfissional,
+    alterarTratarCategoriaProfissional
+  ] = React.useState(0);
   const [unidadesServico, alterarUnidadesServico] = useState({});
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
@@ -32,8 +33,8 @@ function FormularioInfoProfissional() {
     colors: {
       ...DefaultTheme.colors,
       primary: 'rgba(0, 0, 0, 0.6);',
-      accent: '#f1c40f',
-    },
+      accent: '#f1c40f'
+    }
   };
 
   useEffect(() => {
@@ -45,7 +46,9 @@ function FormularioInfoProfissional() {
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
 
-      const especialidades = await pegarListaDeEspecialidades(tratarCategoriaProfissional);
+      const especialidades = await pegarListaDeEspecialidades(
+        tratarCategoriaProfissional
+      );
       alterarListaDeEspecialidades(especialidades);
       especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
     };
@@ -70,21 +73,29 @@ function FormularioInfoProfissional() {
     });
   };
 
-  const pegarValorPadrãoDoCheckbox = (servico) => {
+  const pegarValorPadrãoDoCheckbox = servico => {
     if (unidadesServico[`${servico.nome}`]) {
       return unidadesServico[`${servico.nome}`];
     }
     return { id: servico.id, nome: servico.nome, foiMarcado: false };
   };
 
-  const mudarValor = (servico) => {
+  const mudarValor = servico => {
     const check = { ...unidadesServico };
-    check[`${servico.nome}`] = { id: servico.id, nome: servico.nome, foiMarcado: check[`${servico.nome}`] ? !check[`${servico.nome}`].foiMarcado : true };
+    check[`${servico.nome}`] = {
+      id: servico.id,
+      nome: servico.nome,
+      foiMarcado: check[`${servico.nome}`]
+        ? !check[`${servico.nome}`].foiMarcado
+        : true
+    };
     alterarUnidadesServico(check);
   };
 
   const tratarUnidadesDeServico = () => {
-    const ServicosMarcados = Object.values(unidadesServico).filter(servico => servico.foiMarcado);
+    const ServicosMarcados = Object.values(unidadesServico).filter(
+      servico => servico.foiMarcado
+    );
     return JSON.stringify(
       ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
     );
@@ -98,21 +109,31 @@ function FormularioInfoProfissional() {
     setValue('unidadeServico', servicosTratados);
   };
 
-  const registarCategoriaProfissional = (categoria) => {
+  const registarCategoriaProfissional = categoria => {
     register({ name: 'categoriaProfissional' });
     setValue('categoriaProfissional', categoria);
   };
 
-  const pegarValorPadrãoDoCheckboxEspecilidades = (especialidade) => {
+  const pegarValorPadrãoDoCheckboxEspecilidades = especialidade => {
     if (unidadesEspecialidades[`${especialidade.nome}`]) {
       return unidadesServico[`${especialidade.nome}`];
     }
-    return { id: especialidade.id, nome: especialidade.nome, foiMarcado: false };
+    return {
+      id: especialidade.id,
+      nome: especialidade.nome,
+      foiMarcado: false
+    };
   };
 
-  const mudarValorEspecilidades = (especialidade) => {
+  const mudarValorEspecilidades = especialidade => {
     const check = { ...unidadesEspecialidades };
-    check[`${especialidade.nome}`] = { id: especialidade.id, nome: especialidade.nome, foiMarcado: check[`${especialidade.nome}`] ? !check[`${especialidade.nome}`].foiMarcado : true };
+    check[`${especialidade.nome}`] = {
+      id: especialidade.id,
+      nome: especialidade.nome,
+      foiMarcado: check[`${especialidade.nome}`]
+        ? !check[`${especialidade.nome}`].foiMarcado
+        : true
+    };
     alterarUnidadesEspecialidades(check);
   };
 
@@ -135,30 +156,41 @@ function FormularioInfoProfissional() {
     setValue('especialidades', especialidadesTratados);
   };
 
-  const CampoEspecialidades = () => (
+  const CampoEspecialidades = () =>
     tratarCategoriaProfissional === 1 || tratarCategoriaProfissional === 3 ? (
       <>
         <Text style={estilos.tituloDestaque}>Qual é sua especialidade?</Text>
-        <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+        <List.Accordion
+          titleStyle={{ color: 'black' }}
+          title={<Text style={estilos.titulo}>Selecione as opções</Text>}
+        >
           <View>
-            {unidadesEspecialidades && listaDeEspecialidades.length !== 0
-              && listaDeEspecialidades.map(especialidade => (
+            {unidadesEspecialidades &&
+              listaDeEspecialidades.length !== 0 &&
+              listaDeEspecialidades.map(especialidade => (
                 <Checkbox.Item
-                  status={unidadesEspecialidades[especialidade.nome] && unidadesEspecialidades[especialidade.nome].foiMarcado ? 'checked' : 'unchecked'}
+                  key={uniqueId('especialidade')}
+                  status={
+                    unidadesEspecialidades[especialidade.nome] &&
+                    unidadesEspecialidades[especialidade.nome].foiMarcado
+                      ? 'checked'
+                      : 'unchecked'
+                  }
                   labelStyle={{ maxWidth: '70%' }}
                   theme={theme}
                   color="#304FFE"
                   label={especialidade.nome}
                   onPress={() => {
                     mudarValorEspecilidades(especialidade);
-                  }
-                  }
+                  }}
                 />
               ))}
           </View>
         </List.Accordion>
       </>
-    ) : (<></>));
+    ) : (
+      <></>
+    );
 
   return (
     <>
@@ -169,31 +201,40 @@ function FormularioInfoProfissional() {
           dados={listaDeCategorias}
           definirValor={item => JSON.stringify(item)}
           definirRotulo={item => item.nome}
-          aoMudarValor={(categoria) => {
+          aoMudarValor={categoria => {
             registarCategoriaProfissional(categoria);
             verificarCategoria();
           }}
         />
-        <Feature
-          name="309"
-          activeComponent={() => <CampoEspecialidades />}
-        />
-        <Text style={estilos.tituloDestaque}>Em que setor você está atuando?</Text>
-        <List.Accordion titleStyle={{ color: 'black' }} title={<Text style={estilos.titulo}>Selecione as opções</Text>}>
+        <Feature name="309" activeComponent={() => <CampoEspecialidades />} />
+        <Text style={estilos.tituloDestaque}>
+          Em que setor você está atuando?
+        </Text>
+        <List.Accordion
+          titleStyle={{ color: 'black' }}
+          title={<Text style={estilos.titulo}>Selecione as opções</Text>}
+        >
           <View>
-            {unidadesServico && listaDeServicos.length !== 0 && listaDeServicos.map(servico => (
-              <Checkbox.Item
-                status={unidadesServico[servico.nome] && unidadesServico[servico.nome].foiMarcado ? 'checked' : 'unchecked'}
-                labelStyle={{ maxWidth: '70%' }}
-                theme={theme}
-                color="#304FFE"
-                label={servico.nome}
-                onPress={() => {
-                  mudarValor(servico);
-                }
-                }
-              />
-            ))}
+            {unidadesServico &&
+              listaDeServicos.length !== 0 &&
+              listaDeServicos.map(servico => (
+                <Checkbox.Item
+                  key={uniqueId('servico')}
+                  status={
+                    unidadesServico[servico.nome] &&
+                    unidadesServico[servico.nome].foiMarcado
+                      ? 'checked'
+                      : 'unchecked'
+                  }
+                  labelStyle={{ maxWidth: '70%' }}
+                  theme={theme}
+                  color="#304FFE"
+                  label={servico.nome}
+                  onPress={() => {
+                    mudarValor(servico);
+                  }}
+                />
+              ))}
           </View>
         </List.Accordion>
       </View>
@@ -216,7 +257,7 @@ function FormularioInfoProfissional() {
 const estilos = StyleSheet.create({
   titulo: {
     fontSize: 18,
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   tituloDestaque: {
     marginTop: 10,
@@ -231,7 +272,7 @@ const estilos = StyleSheet.create({
     margin: 20,
     justifyContent: 'center',
     backgroundColor: '#304FFE'
-  },
+  }
 });
 
 export default FormularioInfoProfissional;

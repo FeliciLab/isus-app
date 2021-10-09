@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   render, waitFor, cleanup
-  // eslint-disable-next-line import/no-unresolved
 } from 'util-teste';
 import { FormProvider } from '../../../../src/context/FormContext';
 import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';

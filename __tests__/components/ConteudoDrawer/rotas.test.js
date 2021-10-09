@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
@@ -140,7 +139,7 @@ describe('Dado que abro o menu lateral', () => {
       test('Então a versão é visualizada na parte inferior do menu.', () => {
         const versaoSistema = packageJson.version;
         const item = renderedObject.getByText(`Versão ${versaoSistema}`);
-        expect(item.props.children[2]).toEqual(versaoSistema);
+        expect(item.props.children[1]).toEqual(versaoSistema);
       });
     });
   });

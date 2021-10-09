@@ -217,26 +217,26 @@ function Elmo() {
         </BotaoLink>
         {estaAtiva(features.LISTA_CARDS) ? <ListaCardsElmo />
           : (
-          <FlatList
-            horizontal
-            data={listaElmoCards}
-            keyExtractor={(items, index) => `${index}`}
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center'
-            }}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-            <CartaoHome
-              testID={`cards-${item.id}`}
-              key={item.id}
-              ativo={item.ativo}
-              titulo={item.titulo}
-              Icone={item.icone}
-              onPress={() => onPress(item)}
+            <FlatList
+              horizontal
+              data={listaElmoCards}
+              keyExtractor={(items, index) => `${index}`}
+              style={{
+                flexDirection: 'row',
+                alignSelf: 'center'
+              }}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <CartaoHome
+                  testID={`cards-${item.id}`}
+                  key={item.id}
+                  ativo={item.ativo}
+                  titulo={item.titulo}
+                  Icone={item.icone}
+                  onPress={() => onPress(item)}
+                />
+              )}
             />
-            )}
-          />
           )
         }
         <View style={{ justifyContent: 'space-between', flexDirection: 'row', }}>
