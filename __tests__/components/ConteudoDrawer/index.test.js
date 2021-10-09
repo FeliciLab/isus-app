@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import React from 'react';
 import { render } from 'util-teste';
 import ConteudoDrawer from '../../../src/components/ConteudoDrawer';

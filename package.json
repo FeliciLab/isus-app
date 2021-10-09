@@ -1,6 +1,6 @@
 {
   "name": "iSUS",
-  "version": "3.19.14",
+  "version": "3.20.0",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -38,6 +38,7 @@
     "axios": "^0.21.1",
     "intl": "^1.2.5",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.21",
     "moment": "^2.25.3",
     "react": "16.11.0",
     "react-content-loader": "^5.0.4",

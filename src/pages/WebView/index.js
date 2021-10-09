@@ -64,9 +64,9 @@ export default function WebViewPage({
           renderLoading={() => esqueletoDeCarregamento}
         />
       ) : (
-          <WebView
-            source={{ uri: route.params.url }}
-          />
+        <WebView
+          source={{ uri: route.params.url }}
+        />
       )}
     </>
   );

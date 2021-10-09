@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components/native';
 
 const ConteudoSemConexao = styled.View`
@@ -6,6 +5,4 @@ const ConteudoSemConexao = styled.View`
   justify-content: center;
 `;
 
-export {
-  ConteudoSemConexao
-};
+export { ConteudoSemConexao };

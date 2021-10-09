@@ -1,5 +1,4 @@
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { fireEvent, render } from 'util-teste';
 import features from '../../../../src/constantes/features';
 import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';

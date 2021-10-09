@@ -8,9 +8,10 @@ import rotas from '../constantes/rotas';
 import { ConteudoProvider } from '../context/ConteudoContext';
 import useAnalytics from '../hooks/Analytics';
 import EstruturaConteudo from '../pages/Content/EstruturaConteudo';
-import HomeScreen from '../pages/Home';
+import Home from '../pages/Home';
 
 const HomeStack = createStackNavigator();
+
 let title = '';
 let categoria = '';
 
@@ -19,7 +20,7 @@ function HomeStackScreen() {
     <HomeStack.Navigator>
       <HomeStack.Screen
         name={rotas.HOME}
-        component={HomeScreen}
+        component={Home}
         options={{ headerShown: true }}
       />
     </HomeStack.Navigator>

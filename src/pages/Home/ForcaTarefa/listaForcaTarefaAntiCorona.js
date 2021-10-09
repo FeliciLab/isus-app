@@ -12,7 +12,6 @@ import features from '../../../constantes/features';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 import { urls } from '../../../constantes/urls';
 
-
 const listForcaTarefa = [
   {
     id: 'acao-boletins',

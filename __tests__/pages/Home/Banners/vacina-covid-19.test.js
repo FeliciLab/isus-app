@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 // import React from 'react';
-// // eslint-disable-next-line import/no-unresolved
 // import { fireEvent, render } from 'util-teste';
 // import { analyticsData } from '../../../../src/utils/analytics';
 // import Banners from '../../../../src/pages/Home/Banners';

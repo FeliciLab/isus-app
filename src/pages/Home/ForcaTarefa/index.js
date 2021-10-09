@@ -1,25 +1,28 @@
-
-import React from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { Titulo } from '../styles';
-import useAnalytics from '../../../hooks/Analytics';
-import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
-import CartaoHome from '../cartaoHome';
+import React from 'react';
+import { View } from 'react-native';
 import Carrossel from '../../../components/Carrossel';
 import rotas from '../../../constantes/rotas';
+import useAnalytics from '../../../hooks/Analytics';
+import CartaoHome from '../cartaoHome';
+import { Titulo } from '../styles';
+import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
+import { uniqueId } from 'lodash';
 
 function ForcaTarefa({ navigation }) {
   const { analyticsData } = useAnalytics();
+
   const netInfo = useNetInfo();
+
   return (
-    <>
+    <View>
       <Titulo>Força-tarefa Anticorona</Titulo>
       <Carrossel
         dados={listaForcaTarefaAntiCorona}
         aoRenderizarItem={({ item }) => (
           <CartaoHome
             testID={`cartaoHome-forcaTarefa-${item.id}`}
-            key={item.id}
+            key={uniqueId()}
             ativo={item.ativo}
             titulo={item.titulo}
             Icone={item.icone}
@@ -34,7 +37,7 @@ function ForcaTarefa({ navigation }) {
               }
               if (!navegacao.url) {
                 return navigation.navigate(navegacao.componente, {
-                  title: navegacao.titulo,
+                  title: navegacao.titulo
                 });
               }
 
@@ -47,7 +50,7 @@ function ForcaTarefa({ navigation }) {
           />
         )}
       />
-    </>
+    </View>
   );
 }
 

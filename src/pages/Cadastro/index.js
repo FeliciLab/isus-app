@@ -22,14 +22,14 @@ function TelaDeCadastro() {
         enableOnAndroid
         enableAutomaticScroll={Platform.OS === 'ios'}
       >
-          <View style={{ marginHorizontal: 16 }}>
-            {
-              TelaAtual.indice === 2
-                ? <Text style={estilos.apresentacao}>{textoDeTelaSenha}</Text>
-                : <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
-            }
-              { TelaAtual.tela }
-          </View>
+        <View style={{ marginHorizontal: 16 }}>
+          {
+            TelaAtual.indice === 2
+              ? <Text style={estilos.apresentacao}>{textoDeTelaSenha}</Text>
+              : <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
+          }
+          { TelaAtual.tela }
+        </View>
       </KeyboardAwareScrollView>
     </>
   );

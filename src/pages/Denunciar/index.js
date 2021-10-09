@@ -83,17 +83,17 @@ export default function Denunciar() {
             <MandeEmail>{faleLigacao}</MandeEmail>
               Diante da necessidade de conter eventos, ligue para
               a Polícia, pelo
-              {' '}
+            {' '}
             {emailLigacao('190', 'tel:190')}
               .
-              {' '}
+            {' '}
               Nos demais casos, ligue para a Ouvidoria do SUS,
               pelo
-              {' '}
+            {' '}
             {emailLigacao('136', 'tel:136')}
             {' '}
               ou
-              {' '}
+            {' '}
             {emailLigacao('08002751520', 'tel:08002751520')}
               .
           </TextoEmail>
