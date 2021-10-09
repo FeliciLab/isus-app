@@ -5,7 +5,7 @@ const Carrossel = ({ dados, aoRenderizarItem }) => (
   <CarrosselStyle
     horizontal
     data={dados}
-    keyExtractor={(index) => `${index}`}
+    keyExtractor={item => String(item.id)}
     showsHorizontalScrollIndicator={false}
     renderItem={aoRenderizarItem}
   />

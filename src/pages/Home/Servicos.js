@@ -16,7 +16,6 @@ import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
 import { Titulo } from './styles';
 import Carrossel from '../../components/Carrossel';
-import { uniqueId } from 'lodash';
 
 function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();
@@ -156,7 +155,6 @@ function Servicos({ navigation }) {
         dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
         aoRenderizarItem={({ item }) => (
           <CartaoHome
-            key={uniqueId('cartaoHome-servicos')}
             ativo={item.ativo}
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
