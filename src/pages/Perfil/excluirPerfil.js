@@ -198,7 +198,7 @@ export default function ExcluirPerfil() {
             excluirUsuario();
           }}
         >
-        EXCLUIR CONTA
+        EXCLUIR
         </Button>
       </View>
     </>
