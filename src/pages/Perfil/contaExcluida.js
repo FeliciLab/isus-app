@@ -57,7 +57,7 @@ export default function ExcluirPerfil() {
               color="#fff"
               mode="contained"
               style={estilos.botaoOk}
-              onPress={() => navigation.navigate('HOME')}
+              onPress={() => navigation.navigate('ID SAÚDE')}
             >
               OK
             </Button>
