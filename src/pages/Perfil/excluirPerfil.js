@@ -24,6 +24,7 @@ import {
   excluirTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
 import useAnalytics from '../../hooks/Analytics';
+import useAutenticacao from '../../hooks/useAutenticacao';
 
 export default function ExcluirPerfil() {
   const { analyticsData } = useAnalytics();
@@ -35,6 +36,7 @@ export default function ExcluirPerfil() {
   const appState = useRef(AppState.currentState);
   let estaConectado = true;
   const estaFocado = true;
+  const { alterarEstaLogado } = useAutenticacao();
 
   const realizarLogout = () => {
     try {
@@ -44,6 +46,7 @@ export default function ExcluirPerfil() {
       console.log('erro', err);
     }
     excluirTokenDoUsuarioNoStorage();
+    alterarEstaLogado(false);
   };
 
   const excluirUsuario = () => {
