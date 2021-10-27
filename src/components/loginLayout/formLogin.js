@@ -1,18 +1,19 @@
-import React, {
-  useEffect, useContext, useState, useRef
-} from 'react';
-import { Text, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import FormContext from '../../context/FormContext';
-import BtnLogin from './btnLogin';
-import { efetuarAcesso, salvarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
-import { emailNaoCadastrado } from '../../utils/validadores';
 import { CORES } from '../../constantes/estiloBase';
+import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
+import FormContext from '../../context/FormContext';
+import useAutenticacao from '../../hooks/useAutenticacao';
+import {
+  efetuarAcesso,
+  salvarTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
 import Regex from '../../utils/regex';
+import { emailNaoCadastrado } from '../../utils/validadores';
+import BtnLogin from './btnLogin';
 import MsgErroFormCampo from './msgErroFormCampo';
 
 const style = StyleSheet.create({
@@ -31,30 +32,32 @@ const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
 const formLogin = ({ rotaAposLogin }) => {
   const navigator = useNavigation();
+
   const textInputEmail = useRef(null);
+
   const textInputSenha = useRef(null);
+
   const [carregando, atribuirCarregando] = useState(false);
+
   const [exibirErroSenha, atribuirExibirErroSenha] = useState(false);
-  const {
-    register,
-    setValue,
-    trigger,
-    errors
-  } = useContext(FormContext);
-  const {
-    mostrarCaixaDialogo,
-    fecharCaixaDialogo
-  } = useContext(CaixaDialogoContext);
+
+  const { register, setValue, trigger, errors } = useContext(FormContext);
+
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
+    CaixaDialogoContext
+  );
+
   const {
     alterarDadosUsuario,
     alterarTokenUsuario,
     alterarEstaLogado,
     alterarPessoa
-  } = useContext(AutenticacaoContext);
+  } = useAutenticacao();
 
   useEffect(() => {
     register('email', {
-      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+      validate: email =>
+        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
     });
 
     register('senha', {
@@ -65,7 +68,8 @@ const formLogin = ({ rotaAposLogin }) => {
   const exibirNovoCadastro = () => {
     mostrarCaixaDialogo({
       titulo: 'E-mail não cadastrado',
-      texto: 'E-mail informado não está no ID Saúde. Verifique seus dados ou cadastre-se para acessar nossos conteúdos personalizados.',
+      texto:
+        'E-mail informado não está no ID Saúde. Verifique seus dados ou cadastre-se para acessar nossos conteúdos personalizados.',
       cor: CORES.LARANJA,
       textoConclusao: 'CRIAR CONTA',
       textoCancelamento: 'VOLTAR',
@@ -79,7 +83,7 @@ const formLogin = ({ rotaAposLogin }) => {
     });
   };
 
-  const efetuarLogin = async (data) => {
+  const efetuarLogin = async data => {
     trigger();
     if (Object.keys(errors).length > 0) {
       return;
@@ -92,7 +96,10 @@ const formLogin = ({ rotaAposLogin }) => {
       return;
     }
 
-    const result = await efetuarAcesso({ email: data.email, senha: data.senha });
+    const result = await efetuarAcesso({
+      email: data.email,
+      senha: data.senha
+    });
     atribuirExibirErroSenha(false);
     if (result.error) {
       atribuirExibirErroSenha(true);
@@ -161,8 +168,8 @@ const formLogin = ({ rotaAposLogin }) => {
       <MsgErroFormCampo campo="senha" />
       {exibirErroSenha && !carregando && (
         <Text style={{ color: CORES.LARANJA }}>
-          Senha, incorreta. Tente novamente ou clique em
-          &ldquo;Esqueci a senha&rdquo; para redefini-la.
+          Senha, incorreta. Tente novamente ou clique em &ldquo;Esqueci a
+          senha&rdquo; para redefini-la.
         </Text>
       )}
       <BtnLogin

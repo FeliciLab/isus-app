@@ -66,7 +66,6 @@ export default function ListaCards({ lista }) {
       renderItem={({ item }) => (
         <ItemCard
           testID={`cards-${item.id_publico}`}
-          key={item.id_publico}
           ativo={item.ativo}
           titulo={item.titulo}
           Icone={item.imagem}
