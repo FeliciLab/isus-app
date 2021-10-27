@@ -2,39 +2,56 @@ import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FormContext from '../../context/FormContext';
 import { cadastrarUsuario } from '../../apis/apiCadastro';
 import Alerta from '../../components/alerta';
-import {
-  Titulo, Scroll, TituloDoFormulario, CampoDeTexto, TextoDeErro, Botao
-} from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
-import textos from './textos.json';
-import {
-  autenticarComIdSaude,
-  salvarTokenDoUsuarioNoStorage,
-  pegarTokenDoUsuarioNoStorage,
-  armazenarEstadoLogado
-} from '../../services/autenticacao';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import FormContext from '../../context/FormContext';
 import useAnalytics from '../../hooks/Analytics';
-import { analyticsCategoria, analyticsUnidadeServico } from '../../utils/funcoesAnalytics';
+import useAutenticacao from '../../hooks/useAutenticacao';
+import {
+  armazenarEstadoLogado,
+  autenticarComIdSaude,
+  pegarTokenDoUsuarioNoStorage,
+  salvarTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
+import {
+  analyticsCategoria,
+  analyticsUnidadeServico
+} from '../../utils/funcoesAnalytics';
+import {
+  Botao,
+  CampoDeTexto,
+  Scroll,
+  TextoDeErro,
+  Titulo,
+  TituloDoFormulario
+} from './styles';
+import textos from './textos.json';
 
 export default function FormularioSenha({ navigation }) {
   const { analyticsData } = useAnalytics();
-  const [carregando, alterarCarregando] = React.useState(false);
-  const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
-  const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
-  const { alterarDadosUsuario, alterarEstaLogado } = useContext(AutenticacaoContext);
-  const {
-    register, setValue, trigger, errors, getValues
-  } = useContext(FormContext);
+
+  const [carregando, setCarregando] = React.useState(false);
+
+  const [botaoAtivo, setBotaoAtivo] = React.useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = React.useState('');
+
+  const [cadastroRealizado, setCadastroRealizado] = React.useState(false);
+
+  const { alterarDadosUsuario, alterarEstaLogado } = useAutenticacao();
+
+  const { register, setValue, trigger, errors, getValues } = useContext(
+    FormContext
+  );
 
   const valores = getValues();
+
   const { categoriaProfissional } = valores;
+
   const uniServ = JSON.parse(valores.unidadeServico);
+
   const now = Date.now();
 
   useLayoutEffect(() => {
@@ -52,12 +69,11 @@ export default function FormularioSenha({ navigation }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
-  const mostrarAlerta = (mensagem) => {
-    alterarMensagemDoAlerta(mensagem);
-    alterarCadastroRealizado(true);
-    setTimeout(() => alterarCadastroRealizado(false), 4000);
+  const mostrarAlerta = mensagem => {
+    setMensagemDoAlerta(mensagem);
+    setCadastroRealizado(true);
   };
 
   const theme = {
@@ -70,10 +86,10 @@ export default function FormularioSenha({ navigation }) {
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger(['senha', 'repetirsenha']);
-    alteraBotaoAtivo(Object.entries(errors).length === 0);
+    setBotaoAtivo(Object.entries(errors).length === 0);
   };
 
-  const tratarDadosCadastro = (dadosCadastro) => {
+  const tratarDadosCadastro = dadosCadastro => {
     const { cidade, cpf, telefone } = dadosCadastro;
     return {
       ...dadosCadastro,
@@ -102,7 +118,7 @@ export default function FormularioSenha({ navigation }) {
     return resposta.data;
   };
 
-  const aposCadastro = async (resultado) => {
+  const aposCadastro = async resultado => {
     if (resultado.sucesso) {
       const dados = tratarDadosCadastro(getValues());
 
@@ -115,7 +131,12 @@ export default function FormularioSenha({ navigation }) {
         await alterarEstaLogado(true);
       }
 
-      navigation.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'HOME', telaDeBackground: '#304FFE' });
+      navigation.navigate('TelaDeSucesso', {
+        textoApresentacao:
+          'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+        telaDeRedirecionamento: 'HOME',
+        telaDeBackground: '#304FFE'
+      });
       return;
     }
 
@@ -139,10 +160,16 @@ export default function FormularioSenha({ navigation }) {
   };
 
   useEffect(() => {
-    register('senha', { required: true, minLength: { value: 8, message: textos.formularioSenha.erroTamanho } });
-    register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais });
+    register('senha', {
+      required: true,
+      minLength: { value: 8, message: textos.formularioSenha.erroTamanho }
+    });
+    register('repetirsenha', {
+      required: true,
+      validate: repetirsenha =>
+        repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais
+    });
   }, [register]);
-
 
   return (
     <Scroll>
@@ -157,11 +184,7 @@ export default function FormularioSenha({ navigation }) {
         mode="outlined"
         theme={theme}
       />
-      {errors.senha && (
-        <TextoDeErro>
-          { errors.senha.message}
-        </TextoDeErro>
-      )}
+      {errors.senha && <TextoDeErro>{errors.senha.message}</TextoDeErro>}
       <CampoDeTexto
         label="Confirmação de senha"
         name="repetirsenha"
@@ -172,9 +195,7 @@ export default function FormularioSenha({ navigation }) {
         theme={theme}
       />
       {errors.repetirsenha && (
-        <TextoDeErro>
-          {errors.repetirsenha.message}
-        </TextoDeErro>
+        <TextoDeErro>{errors.repetirsenha.message}</TextoDeErro>
       )}
       <Botao
         cor="#304FFE"
@@ -183,11 +204,11 @@ export default function FormularioSenha({ navigation }) {
         mode="contained"
         loading={carregando}
         onPress={async () => {
-          alterarCarregando(true);
+          setCarregando(true);
           try {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
-            alterarCarregando(false);
+            setCarregando(false);
             analyticsData(
               labelsAnalytics.FINALIZAR_MEU_CADASTRO,
               'Click',
@@ -197,13 +218,18 @@ export default function FormularioSenha({ navigation }) {
             analyticsUnidadeServico(uniServ, now, 'Cadastro');
           } catch (err) {
             console.log(err);
-            alterarCarregando(false);
+            setCarregando(false);
           }
         }}
       >
         Finalizar
       </Botao>
-      <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDoAlerta} />
+      <Alerta
+        visivel={cadastroRealizado}
+        textoDoAlerta={mensagemDoAlerta}
+        duration={4000}
+        onDismiss={() => setCadastroRealizado(false)}
+      />
     </Scroll>
   );
 }

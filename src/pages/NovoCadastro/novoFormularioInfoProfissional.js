@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
@@ -24,27 +25,37 @@ import {
   TituloDoFormulario
 } from './styles';
 import textos from './textos.json';
-import { uniqueId } from 'lodash';
 
 function FormularioInfoProfissional({ navigation, route }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
 
-  const [listaDeServicos, alterarListaDeServicos] = useState([]);
-  const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
-  const [categoriaSelecionada, alterarCategoriaSelecionada] = useState('');
-  const [unidadesServico, alterarUnidadesServico] = useState({});
+  const [listaDeServicos, setListaDeServicos] = useState([]);
+
+  const [listaDeCategorias, setListaDeCategorias] = useState([]);
+
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+
+  const [unidadesServico, setUnidadesServico] = useState({});
+
   const [
     tratarCategoriaProfissional,
-    alterarTratarCategoriaProfissional
-  ] = React.useState(0);
-  const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
-  const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
-  const [carregando, alterarCarregando] = useState(false);
-  const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
-  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
-  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
+    setTratarCategoriaProfissional
+  ] = useState(0);
+
+  const [listaDeEspecialidades, setListaDeEspecialidades] = useState([]);
+
+  const [unidadesEspecialidades, setUnidadesEspecialidades] = useState({});
+
+  const [carregando, setCarregando] = useState(false);
+
+  const [perfildoUsuario, setPerfilDoUsuario] = useState({});
+
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
 
   const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
+
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -88,28 +99,28 @@ function FormularioInfoProfissional({ navigation, route }) {
 
   const pegarValoresCategoriaProfissional = () => {
     const valores = getValues();
-    alterarCategoriaSelecionada(valores.categoriaProfissional);
+    setCategoriaSelecionada(valores.categoriaProfissional);
     verificarCategoria();
   };
 
   useEffect(() => {
     const aoIniciar = async () => {
       const servicos = await pegarListaDeServicos();
-      alterarListaDeServicos(servicos);
+      setListaDeServicos(servicos);
       pegarValoresUnidadesServicos();
 
       const categorias = await pegarListaDeCategoriasProfissionais();
-      alterarListaDeCategorias(categorias);
+      setListaDeCategorias(categorias);
       pegarValoresCategoriaProfissional();
 
       const especialidades = await pegarListaDeEspecialidades(
         tratarCategoriaProfissional
       );
-      alterarListaDeEspecialidades(especialidades);
+      setListaDeEspecialidades(especialidades);
 
       if (veioDoPerfil) {
         const perfil = await pegarDados('perfil');
-        alterarPerfilDoUsuario(perfil);
+        setPerfilDoUsuario(perfil);
       }
     };
     aoIniciar();
@@ -142,12 +153,12 @@ function FormularioInfoProfissional({ navigation, route }) {
     if (categoriaProfissional) {
       JSON.parse(categoriaProfissional, (key, value) => {
         if (key === 'id') {
-          alterarTratarCategoriaProfissional(value);
+          setTratarCategoriaProfissional(value);
 
           if (value === 1 || value === 3) {
             const aoEspecialidades = async () => {
               const especialidades = await pegarListaDeEspecialidades(value);
-              alterarListaDeEspecialidades(especialidades);
+              setListaDeEspecialidades(especialidades);
               pegarValoresEspecialidades(especialidades);
             };
             aoEspecialidades();
@@ -170,7 +181,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           : true
       };
     });
-    alterarUnidadesServico(unidadesServicoCheckBoxes);
+    setUnidadesServico(unidadesServicoCheckBoxes);
   };
 
   const mudarValorEspecilidades = especialidade => {
@@ -182,7 +193,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         ? !check[`${especialidade.nome}`].foiMarcado
         : true
     };
-    alterarUnidadesEspecialidades(check);
+    setUnidadesEspecialidades(check);
   };
 
   const mudarValoresEspecialidades = especialidades => {
@@ -196,7 +207,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           : true
       };
     });
-    alterarUnidadesEspecialidades(especialidadesCheckBoxes);
+    setUnidadesEspecialidades(especialidadesCheckBoxes);
   };
 
   const mudarValor = servico => {
@@ -208,7 +219,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         ? !check[`${servico.nome}`].foiMarcado
         : true
     };
-    alterarUnidadesServico(check);
+    setUnidadesServico(check);
   };
 
   const tratarUnidadesDeServico = () => {
@@ -284,14 +295,13 @@ function FormularioInfoProfissional({ navigation, route }) {
   };
 
   const mostrarAlerta = mensagem => {
-    alterarExibicaoDoAlerta(true);
-    alterarMensagemDoAlerta(mensagem);
-    setTimeout(() => alterarExibicaoDoAlerta(false), 4000);
+    setExibicaoDoAlerta(true);
+    setMensagemDoAlerta(mensagem);
   };
 
   // Adicionar Informações profissionais
   const adicionarInformaçõesProfissionais = async () => {
-    alterarCarregando(true);
+    setCarregando(true);
     const {
       categoriaProfissional,
       especialidades,
@@ -303,7 +313,7 @@ function FormularioInfoProfissional({ navigation, route }) {
       especialidades,
       unidadeServico
     });
-    alterarPerfilDoUsuario({
+    setPerfilDoUsuario({
       ...perfildoUsuario,
       categoria_profissional: categoriaProfissional,
       // eslint-disable-next-line object-shorthand
@@ -320,11 +330,11 @@ function FormularioInfoProfissional({ navigation, route }) {
         telaDeBackground: '#4CAF50'
       });
       console.log(resposta.data);
-      alterarCarregando(false);
+      setCarregando(false);
     } catch (err) {
       console.log(err);
       mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
-      alterarCarregando(false);
+      setCarregando(false);
     }
   };
 
@@ -438,7 +448,12 @@ function FormularioInfoProfissional({ navigation, route }) {
       >
         {veioDoPerfil ? 'salvar' : 'Próximo'}
       </Botao>
-      <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
+      <Alerta
+        visivel={exibicaoDoAlerta}
+        textoDoAlerta={mensagemDoAlerta}
+        duration={4000}
+        onDismiss={() => setExibicaoDoAlerta(false)}
+      />
     </Scroll>
   );
 }

@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
@@ -29,26 +30,37 @@ import {
   Titulo,
   TituloPrincipal
 } from './styles';
-import { uniqueId } from 'lodash';
 
 function EdicaoInfoProfissional({ route }) {
   const { getValues, setValue, register, unregister } = useContext(FormContext);
 
-  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = React.useState(false);
-  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
-  const [carregando, alterarCarregando] = useState(false);
-  const [perfildoUsuario, alterarPerfilDoUsuario] = useState({});
-  const [listaDeServicos, alterarListaDeServicos] = useState([]);
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = React.useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = React.useState('');
+
+  const [carregando, setCarregando] = useState(false);
+
+  const [perfildoUsuario, setPerfilDoUsuario] = useState({});
+
+  const [listaDeServicos, ListaDeServicos] = useState([]);
+
   const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
+
   const [
     tratarCategoriaProfissional,
-    alterarTratarCategoriaProfissional
-  ] = React.useState(0);
+    setTratarCategoriaProfissional
+  ] = useState(0);
+
   const [unidadesServico, alterarUnidadesServico] = useState({});
+
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
+
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
+
   const [categoriaAnalitycs, setCategoriaAnalitycs] = useState('');
+
   const navigation = useNavigation();
+
   const theme = {
     ...DefaultTheme,
     roundness: 2,
@@ -60,6 +72,7 @@ function EdicaoInfoProfissional({ route }) {
   };
 
   const EstaEditavel = route.params.modo === 'edicao';
+
   const now = Date.now();
 
   useLayoutEffect(() => {
@@ -90,7 +103,7 @@ function EdicaoInfoProfissional({ route }) {
   useEffect(() => {
     const aoIniciar = async () => {
       const servicos = await pegarListaDeServicos();
-      alterarListaDeServicos(servicos);
+      ListaDeServicos(servicos);
 
       const categorias = await pegarListaDeCategoriasProfissionais();
       alterarListaDeCategorias(categorias);
@@ -102,7 +115,7 @@ function EdicaoInfoProfissional({ route }) {
       especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
 
       const perfil = await pegarDados('perfil');
-      alterarPerfilDoUsuario(perfil);
+      setPerfilDoUsuario(perfil);
       alterarCamposPreenchidos(perfil.profissional);
     };
     aoIniciar();
@@ -110,7 +123,7 @@ function EdicaoInfoProfissional({ route }) {
 
   const alterarCamposPreenchidos = dadosProfissionais => {
     if (dadosProfissionais.categoria_profissional) {
-      alterarTratarCategoriaProfissional(
+      setTratarCategoriaProfissional(
         dadosProfissionais.categoria_profissional.id
       );
       registrarCategoriaProfissional(
@@ -157,7 +170,7 @@ function EdicaoInfoProfissional({ route }) {
     const { categoriaProfissional } = getValues();
     JSON.parse(categoriaProfissional, (key, value) => {
       if (key === 'id') {
-        alterarTratarCategoriaProfissional(value);
+        setTratarCategoriaProfissional(value);
         const aoEspecialidades = async () => {
           const especialidades = await pegarListaDeEspecialidades(value);
           alterarListaDeEspecialidades(especialidades);
@@ -169,9 +182,8 @@ function EdicaoInfoProfissional({ route }) {
   };
 
   const mostrarAlerta = mensagem => {
-    alterarExibicaoDoAlerta(true);
-    alterarMensagemDoAlerta(mensagem);
-    setTimeout(() => alterarExibicaoDoAlerta(false), 4000);
+    setExibicaoDoAlerta(true);
+    setMensagemDoAlerta(mensagem);
   };
 
   const tratarUnidadesDeServico = unidadesDeServico => {
@@ -312,7 +324,7 @@ function EdicaoInfoProfissional({ route }) {
   };
 
   const salvarInformaçõesProfissionais = async () => {
-    alterarCarregando(true);
+    setCarregando(true);
     const {
       categoriaProfissional,
       especialidades,
@@ -325,7 +337,7 @@ function EdicaoInfoProfissional({ route }) {
       especialidades,
       unidadeServico
     });
-    alterarPerfilDoUsuario({
+    setPerfilDoUsuario({
       ...perfildoUsuario,
       categoria_profissional: categoriaProfissional,
       // eslint-disable-next-line object-shorthand
@@ -343,13 +355,13 @@ function EdicaoInfoProfissional({ route }) {
         telaDeBackground: '#4CAF50'
       });
       console.log(resposta.data);
-      alterarCarregando(false);
+      setCarregando(false);
       analyticsCategoria(categoriaAnalitycs, now, 'Atualização Cadastro');
       analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
     } catch (err) {
       console.log(err);
       mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
-      alterarCarregando(false);
+      setCarregando(false);
     }
   };
 
@@ -451,7 +463,12 @@ function EdicaoInfoProfissional({ route }) {
             </Acordeon>
           </ConteudoFormulario>
         </ConteudoFormulario>
-        <Alerta visivel={exibicaoDoAlerta} textoDoAlerta={mensagemDoAlerta} />
+        <Alerta
+          visivel={exibicaoDoAlerta}
+          textoDoAlerta={mensagemDoAlerta}
+          duration={4000}
+          onDismiss={() => setExibicaoDoAlerta(false)}
+        />
         <BotaoSalvar
           labelStyle={{ color: '#fff' }}
           testID="salvar-edicao-info-profissional"

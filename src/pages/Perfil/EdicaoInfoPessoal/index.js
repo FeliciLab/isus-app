@@ -1,32 +1,36 @@
-import React, {
-  useContext, useState, useLayoutEffect
-} from 'react';
 import { useNavigation } from '@react-navigation/native';
-import FormContext from '../../../context/FormContext';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
-import {
-  SafeArea, Scroll, ConteudoFormulario, TituloPrincipal
-} from './styles';
 import FormInfoPessoal from '../../../components/FormPessoa/FormInfoPessoal';
-import CONST_TEXT from '../../../constantes/textos';
-import ROTAS from '../../../constantes/rotas';
-import { CORES } from '../../../constantes/estiloBase';
 import { cabecalhoVoltarRota } from '../../../components/layoutEffect/cabecalhoLayout';
-import { atualizarUsuario } from '../../../services/usuarioService';
-import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
-import useAnalytics from '../../../hooks/Analytics';
+import { CORES } from '../../../constantes/estiloBase';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
+import ROTAS from '../../../constantes/rotas';
+import CONST_TEXT from '../../../constantes/textos';
+import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
+import FormContext from '../../../context/FormContext';
+import useAnalytics from '../../../hooks/Analytics';
+import { atualizarUsuario } from '../../../services/usuarioService';
+import {
+  ConteudoFormulario,
+  SafeArea,
+  Scroll,
+  TituloPrincipal
+} from './styles';
 
 function EdicaoInfoPessoal() {
+  const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
+
   const { handleSubmit, getValues } = useContext(FormContext);
 
   const { pessoa } = useContext(AutenticacaoContext);
 
-  const [exibicaoDoAlerta, alterarExibicaoDoAlerta] = useState(false);
-  const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
-  const navigation = useNavigation();
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
 
   useLayoutEffect(() => {
     cabecalhoVoltarRota({
@@ -35,20 +39,16 @@ function EdicaoInfoPessoal() {
       cor: 'brancoPreto',
       rota: ROTAS.PERFIL
     });
-  });
+  }, []);
 
-  const mostrarAlerta = (mensagem) => {
-    alterarExibicaoDoAlerta(true);
-    alterarMensagemDoAlerta(mensagem);
-    setTimeout(() => alterarExibicaoDoAlerta(false), 4000);
+  const mostrarAlerta = mensagem => {
+    setExibicaoDoAlerta(true);
+    setMensagemDoAlerta(mensagem);
   };
 
   return (
     <SafeArea>
-      <BarraDeStatus
-        backgroundColor="#ffffff"
-        barStyle="dark-content"
-      />
+      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <Scroll>
         <ConteudoFormulario>
           <TituloPrincipal testID="texto">
@@ -72,16 +72,18 @@ function EdicaoInfoPessoal() {
                   'Click',
                   'atualizar informacao pessoal'
                 );
-                navigation.navigate('TelaDeSucesso',
-                  {
-                    textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
-                    telaDeRedirecionamento: ROTAS.PERFIL,
-                    telaDeBackground: CORES.VERDE
-                  });
+                navigation.navigate('TelaDeSucesso', {
+                  textoApresentacao:
+                    CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+                  telaDeRedirecionamento: ROTAS.PERFIL,
+                  telaDeBackground: CORES.VERDE
+                });
               }
             } catch (e) {
               console.log(e);
-              mostrarAlerta('Encontramos erros no formulário. Verifique antes de prosseguir');
+              mostrarAlerta(
+                'Encontramos erros no formulário. Verifique antes de prosseguir'
+              );
             }
           })}
           labelButton="Salvar"
@@ -90,6 +92,8 @@ function EdicaoInfoPessoal() {
         <Alerta
           visivel={exibicaoDoAlerta}
           textoDoAlerta={mensagemDoAlerta}
+          duration={4000}
+          onDismiss={() => setExibicaoDoAlerta(false)}
         />
       </Scroll>
     </SafeArea>

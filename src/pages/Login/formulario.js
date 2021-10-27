@@ -7,11 +7,7 @@ import React, {
   useState
 } from 'react';
 import { Controller } from 'react-hook-form';
-import {
-  // Alert,
-  Text,
-  View
-} from 'react-native';
+import { Text, View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme, TextInput } from 'react-native-paper';
 import { perfilUsuario } from '../../apis/apiCadastro';
@@ -74,15 +70,9 @@ const FormularioLogin = ({ route }) => {
     }
   };
 
-  const mostrarAlerta = useCallback(async texto => {
+  const mostrarAlerta = useCallback(texto => {
     setTextoDoAlerta(texto);
     setVisivel(true);
-    return new Promise(resolve => {
-      setTimeout(() => {
-        setVisivel(false);
-        resolve();
-      }, 5000);
-    });
   }, []);
 
   const submitForm = async (data, options) => {
@@ -131,13 +121,8 @@ const FormularioLogin = ({ route }) => {
       response = await autenticarComIdSaude(email, senha);
     } catch (error) {
       if (error.response) {
+        // 401 => Não autorizado
         if (error.response.status === 401) {
-          // Alert.alert('Título', 'Email e/ou senha incorreto(s)', [
-          //   {
-          //     text: 'Cancel',
-          //     style: 'default'
-          //   },
-          // ]);
           mostrarAlerta('Email e/ou senha incorreto(s)');
         }
       }
@@ -277,7 +262,12 @@ const FormularioLogin = ({ route }) => {
           </Botao>
         </View>
       </View>
-      <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
+      <Alerta
+        textoDoAlerta={textoDoAlerta}
+        visivel={visivel}
+        duration={5000}
+        onDismiss={() => setVisivel(false)}
+      />
     </IDSaudeLoginTemplate>
   );
 };
