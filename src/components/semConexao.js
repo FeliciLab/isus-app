@@ -1,11 +1,10 @@
 import React, { useLayoutEffect } from 'react';
-
+import { CORES } from '../constantes/estiloBase';
 import {
   cabecalhoVoltar,
   cabecalhoVoltarHome
 } from './layoutEffect/cabecalhoLayout';
-import { CORES } from '../constantes/estiloBase';
-import { ScrollView, View, Botao, TextoCentralizado, TituloH6 } from './style';
+import { Botao, ScrollView, TextoCentralizado, TituloH6, View } from './style';
 
 export default function SemConexao(props) {
   const { navigation } = props;
@@ -35,7 +34,7 @@ export default function SemConexao(props) {
         cor: corFundo
       });
     }
-  });
+  }, []);
 
   return (
     <>

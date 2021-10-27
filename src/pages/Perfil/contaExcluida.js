@@ -1,11 +1,14 @@
-import React, {
-  useLayoutEffect, useEffect
-} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useLayoutEffect } from 'react';
 import {
-  View, StyleSheet, Text, BackHandler, Dimensions, ScrollView
+  BackHandler,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 import DeletarConta from '../../assets/images/deletar_conta.svg';
 import BarraDeStatus from '../../components/barraDeStatus';
 
@@ -37,7 +40,8 @@ export default function ExcluirPerfil() {
       headerTitleAlign: 'center',
       headerTitle: ''
     });
-  });
+  }, []);
+
   return (
     <>
       <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
@@ -46,9 +50,8 @@ export default function ExcluirPerfil() {
           <View style={estilos.parteCenter}>
             <DeletarConta style={estilos.imagemUser} />
             <Text style={estilos.textoInfo}>
-              Conta excluída com sucesso.
-              Esta ação não pode ser desfeita,
-              mas você pode criar novamente uma conta quando quiser.
+              Conta excluída com sucesso. Esta ação não pode ser desfeita, mas
+              você pode criar novamente uma conta quando quiser.
             </Text>
             <Text style={estilos.textoInfo}>
               Esperamos que você retorne em breve.
@@ -67,9 +70,9 @@ export default function ExcluirPerfil() {
     </>
   );
 }
-const widthView = (Dimensions.get('window').width);
-const heightViewAux = (Dimensions.get('window').height) / 2;
-const heightView = (Dimensions.get('window').height);
+const widthView = Dimensions.get('window').width;
+const heightViewAux = Dimensions.get('window').height / 2;
+const heightView = Dimensions.get('window').height;
 
 const estilos = StyleSheet.create({
   container: {
@@ -87,16 +90,16 @@ const estilos = StyleSheet.create({
   },
   imagemUser: {
     alignSelf: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   textoInfo: {
-    width: widthView - (widthView * 0.05),
+    width: widthView - widthView * 0.05,
     color: '#fff',
     alignSelf: 'center',
     marginTop: 32,
     fontSize: 24,
     fontWeight: '400',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   botaoOk: {
     width: 145,

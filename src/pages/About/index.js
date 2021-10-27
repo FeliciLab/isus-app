@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
   Dimensions, Image,
   Linking, ScrollView,
@@ -21,7 +21,7 @@ import Thoughtworkssvg from '../../assets/images/sobreOiSUS/thoughtworks.svg';
 export default function AboutScreen() {
   const navigation = useNavigation();
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
         backgroundColor: '#4CAF50',
@@ -56,7 +56,7 @@ export default function AboutScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   function link(text, linkTo) {
     return (

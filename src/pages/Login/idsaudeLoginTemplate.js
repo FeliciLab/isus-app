@@ -5,21 +5,20 @@ import IDSaudeBranco from '../../assets/icons/idsaude-branco.svg';
 import { CORES } from '../../constantes/estiloBase';
 import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
 import Termos from './Termos';
-import {
-  ConteudoImagem,
-  SafeArea,
-  Scroll,
-  ChildrenView
-} from './styles';
+import { ConteudoImagem, SafeArea, Scroll, ChildrenView } from './styles';
 
 function IDSaudeLoginTemplate({ children }) {
   const navigation = useNavigation();
 
-  useLayoutEffect(() => cabecalhoVoltar({
-    title: '',
-    navegador: navigation,
-    cor: 'azul'
-  }));
+  useLayoutEffect(
+    () =>
+      cabecalhoVoltar({
+        title: '',
+        navegador: navigation,
+        cor: 'azul'
+      }),
+    []
+  );
 
   return (
     <>
@@ -29,9 +28,7 @@ function IDSaudeLoginTemplate({ children }) {
           <IDSaudeBranco />
         </ConteudoImagem>
         <Scroll>
-          <ChildrenView>
-            {children}
-          </ChildrenView>
+          <ChildrenView>{children}</ChildrenView>
           <Termos />
         </Scroll>
       </SafeArea>

@@ -1,26 +1,33 @@
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect
-} from 'react';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { DefaultTheme } from 'react-native-paper';
 import { Alert } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import TextInputMask from 'react-native-text-input-mask';
 import NetInfo from '@react-native-community/netinfo';
 import {
-  emailValido, cpfValido, nomeValido, emailNaoCadastrado, cpfNaoCadastrado
+  emailValido,
+  cpfValido,
+  nomeValido,
+  emailNaoCadastrado,
+  cpfNaoCadastrado
 } from '../../utils/validadores';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
 import {
-  Titulo, Scroll,
-  TituloDoFormulario, CampoDeTexto,
-  TextoDeErro, Botao,
-  ConteudoDropdown, IconeDropdown
+  Titulo,
+  Scroll,
+  TituloDoFormulario,
+  CampoDeTexto,
+  TextoDeErro,
+  Botao,
+  ConteudoDropdown,
+  IconeDropdown
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
-import { cabecalhoSemBotao, cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
+import {
+  cabecalhoSemBotao,
+  cabecalhoVoltar
+} from '../../components/layoutEffect/cabecalhoLayout';
 import textos from './textos.json';
 
 import FormContext from '../../context/FormContext';
@@ -29,13 +36,12 @@ import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyC
 export default function FormularioInfoPessoal({ navigation }) {
   const {
     rastreioTransparenteHabilitado,
-    verificarRastreio,
+    verificarRastreio
   } = React.useContext(AppTrackTransparencyContext);
   React.useEffect(() => {
-    verificarRastreio()
-      .then(() => {
-        console.log('rastreio', rastreioTransparenteHabilitado);
-      });
+    verificarRastreio().then(() => {
+      console.log('rastreio', rastreioTransparenteHabilitado);
+    });
   }, [rastreioTransparenteHabilitado]);
 
   const dropdown = React.createRef();
@@ -59,26 +65,26 @@ export default function FormularioInfoPessoal({ navigation }) {
     }
   };
 
-  const {
-    register, setValue, trigger, errors, getValues
-  } = useContext(
+  const { register, setValue, trigger, errors, getValues } = useContext(
     FormContext
   );
   useEffect(() => {
     // eslint-disable-next-line no-undef
-    NetInfo.addEventListener((state) => {
+    NetInfo.addEventListener(state => {
       estaConectado = state.isConnected;
     });
     if (!estaConectado) {
       Alert.alert(
         'Sem conexão com a internet',
         'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
-        [{
-          text: 'OK',
-          onPress: () => {
-            navigation.navigate('LOGIN');
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('LOGIN');
+            }
           }
-        }]
+        ]
       );
     }
   });
@@ -86,16 +92,17 @@ export default function FormularioInfoPessoal({ navigation }) {
   useEffect(() => {
     register('nomeCompleto', {
       required: true,
-      validate: nomeCompleto => nomeValido(nomeCompleto)
-        || 'O nome deve conter apenas letras.'
+      validate: nomeCompleto =>
+        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.'
     });
     register('email', {
       required: true,
       validate: {
-        emailValido: email => emailValido(email)
-          || textos.formularioPessoal.mensagemEmail,
-        emailCadastrado: async email => await emailNaoCadastrado(email)
-          || textos.formularioPessoal.mensagemEmailExistente
+        emailValido: email =>
+          emailValido(email) || textos.formularioPessoal.mensagemEmail,
+        emailCadastrado: async email =>
+          (await emailNaoCadastrado(email)) ||
+          textos.formularioPessoal.mensagemEmailExistente
       }
     });
     register('telefone', {
@@ -113,10 +120,11 @@ export default function FormularioInfoPessoal({ navigation }) {
         message: textos.formularioPessoal.mensagemCPF
       },
       validate: {
-        cpfValido: cpf => cpfValido(cpf)
-          || textos.formularioPessoal.mensagemCPFValidacao,
-        cpfCadastrado: async cpf => await cpfNaoCadastrado(cpf)
-          || textos.formularioPessoal.mensagemCPFExistente
+        cpfValido: cpf =>
+          cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
+        cpfCadastrado: async cpf =>
+          (await cpfNaoCadastrado(cpf)) ||
+          textos.formularioPessoal.mensagemCPFExistente
       },
       maxLength: 14
     });
@@ -131,7 +139,10 @@ export default function FormularioInfoPessoal({ navigation }) {
     cor: 'branco'
   };
 
-  useLayoutEffect(() => (layout ? cabecalhoVoltar(layout) : cabecalhoSemBotao(layout)));
+  useLayoutEffect(
+    () => (layout ? cabecalhoVoltar(layout) : cabecalhoSemBotao(layout)),
+    []
+  );
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
@@ -161,53 +172,58 @@ export default function FormularioInfoPessoal({ navigation }) {
   return (
     <>
       <Scroll>
-        <BarraDeStatus
-          barStyle="dark-content"
-          backgroundColor="#FFF"
-        />
+        <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
         <Titulo>{textos.formularioPessoal.introducao}</Titulo>
-        <TituloDoFormulario>{textos.formularioPessoal.titulo}</TituloDoFormulario>
+        <TituloDoFormulario>
+          {textos.formularioPessoal.titulo}
+        </TituloDoFormulario>
         <CampoDeTexto
           label="Nome Completo"
           name="nomeCompleto"
           underlineColor="#BDBDBD"
           defaultValue=""
-          onChangeText={(text) => {
+          onChangeText={text => {
             alteraValor('nomeCompleto', text);
           }}
           mode="outlined"
-          theme={(getValues().nomeCompleto === undefined) || (getValues().nomeCompleto === ''
-            ? theme : errors.nomeCompleto) ? themeError : theme}
+          theme={
+            getValues().nomeCompleto === undefined ||
+            (getValues().nomeCompleto === '' ? theme : errors.nomeCompleto)
+              ? themeError
+              : theme
+          }
         />
         {errors.nomeCompleto && (
-          <TextoDeErro>
-            {errors.nomeCompleto.message}
-          </TextoDeErro>
+          <TextoDeErro>{errors.nomeCompleto.message}</TextoDeErro>
         )}
         <CampoDeTexto
           label="E-mail"
           name="email"
           keyboardType="email-address"
-          onChangeText={(text) => {
+          onChangeText={text => {
             alteraValor('email', text);
           }}
           mode="outlined"
-          theme={(getValues().email === undefined) || (getValues().email === ''
-            ? theme : errors.email) ? themeError : theme}
+          theme={
+            getValues().email === undefined ||
+            (getValues().email === '' ? theme : errors.email)
+              ? themeError
+              : theme
+          }
         />
-        {errors.email && (
-          <TextoDeErro>
-            {errors.email.message}
-          </TextoDeErro>
-        )}
+        {errors.email && <TextoDeErro>{errors.email.message}</TextoDeErro>}
         <CampoDeTexto
           label="Telefone"
           name="telefone"
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={(getValues().telefone === undefined) || (getValues().telefone === ''
-            ? theme : errors.telefone) ? themeError : theme}
+          theme={
+            getValues().telefone === undefined ||
+            (getValues().telefone === '' ? theme : errors.telefone)
+              ? themeError
+              : theme
+          }
           maxLength={15}
           render={props => (
             <TextInputMask
@@ -221,9 +237,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           )}
         />
         {errors.telefone && (
-          <TextoDeErro>
-            {errors.telefone.message}
-          </TextoDeErro>
+          <TextoDeErro>{errors.telefone.message}</TextoDeErro>
         )}
         <CampoDeTexto
           label="CPF"
@@ -231,8 +245,12 @@ export default function FormularioInfoPessoal({ navigation }) {
           keyboardType="number-pad"
           onChangeText={text => text}
           mode="outlined"
-          theme={(getValues().cpf === undefined)
-          || (getValues().cpf === '' ? theme : errors.cpf) ? themeError : theme}
+          theme={
+            getValues().cpf === undefined ||
+            (getValues().cpf === '' ? theme : errors.cpf)
+              ? themeError
+              : theme
+          }
           maxLength={14}
           render={props => (
             <TextInputMask
@@ -245,11 +263,7 @@ export default function FormularioInfoPessoal({ navigation }) {
             />
           )}
         />
-        {errors.cpf && (
-          <TextoDeErro>
-            {errors.cpf.message}
-          </TextoDeErro>
-        )}
+        {errors.cpf && <TextoDeErro>{errors.cpf.message}</TextoDeErro>}
         <ConteudoDropdown>
           <Dropdown
             ref={dropdown}
@@ -257,14 +271,11 @@ export default function FormularioInfoPessoal({ navigation }) {
             data={nomeCidades}
             labelExtractor={cidade => cidade}
             valueExtractor={cidade => cidade}
-            onChangeText={(cidade) => {
-              alteraValor(
-                'cidade',
-                {
-                  id: cidades.find(e => e.nome === cidade)?.id,
-                  nome: cidade
-                }
-              );
+            onChangeText={cidade => {
+              alteraValor('cidade', {
+                id: cidades.find(e => e.nome === cidade)?.id,
+                nome: cidade
+              });
             }}
           />
           <IconeDropdown
@@ -278,7 +289,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           label="Próximo"
           labelStyle={{ color: '#fff' }}
           mode="contained"
-          onPress={() => (navigation.navigate('FormularioInfoProfissional'))}
+          onPress={() => navigation.navigate('FormularioInfoProfissional')}
         >
           Próximo
         </Botao>

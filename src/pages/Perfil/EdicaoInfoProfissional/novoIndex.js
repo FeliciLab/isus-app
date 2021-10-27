@@ -98,7 +98,7 @@ function EdicaoInfoProfissional({ route }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   useEffect(() => {
     const aoIniciar = async () => {

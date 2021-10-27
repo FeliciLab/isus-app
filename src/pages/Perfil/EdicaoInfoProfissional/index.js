@@ -35,7 +35,7 @@ function EdicaoInfoProfissional() {
       titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.CABECALHO,
       cor: 'brancoPreto'
     });
-  });
+  }, []);
 
   const mostrarAlerta = mensagem => {
     setExibicaoDoAlerta(true);

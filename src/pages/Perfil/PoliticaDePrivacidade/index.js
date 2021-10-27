@@ -41,7 +41,7 @@ export default function PoliticaDePrivacidadeScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <View>

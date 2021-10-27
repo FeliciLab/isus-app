@@ -1,27 +1,27 @@
-import React, { useLayoutEffect, useCallback, useContext } from 'react';
-import { View, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import CabecalhoPerfil from './cabecalhoPerfil';
-import MenuPerfil from './Menus/menuPerfil';
-import MenuPerfilItem from './Menus/menuPerfilItem';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useContext, useLayoutEffect } from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { perfilUsuario } from '../../apis/apiCadastro';
 import { logout } from '../../apis/apiKeycloak';
+import BarraDeStatus from '../../components/barraDeStatus';
+import features from '../../constantes/features';
+import rotas from '../../constantes/rotas';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
+import useAnalytics from '../../hooks/Analytics';
+import { salvarDados } from '../../services/armazenamento';
 import {
-  pegarTokenDoUsuarioNoStorage,
+  armazenarEstadoLogado,
   excluirTokenDoUsuarioNoStorage,
   pegarEstadoLogadoArmazenado,
-  armazenarEstadoLogado
+  pegarTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
+import CabecalhoPerfil from './cabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import BarraDeStatus from '../../components/barraDeStatus';
-import { salvarDados } from '../../services/armazenamento';
-import features from '../../constantes/features';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import rotas from '../../constantes/rotas';
-import useAnalytics from '../../hooks/Analytics';
+import MenuPerfil from './Menus/menuPerfil';
+import MenuPerfilItem from './Menus/menuPerfilItem';
 
 export default function PerfilScreen() {
   const { analyticsData } = useAnalytics();
@@ -144,7 +144,7 @@ export default function PerfilScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <>

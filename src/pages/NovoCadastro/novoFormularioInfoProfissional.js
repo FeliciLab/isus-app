@@ -146,7 +146,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   const verificarCategoria = () => {
     const { categoriaProfissional } = getValues();

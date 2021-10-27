@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
@@ -20,7 +21,6 @@ import {
   TituloDoFormulario
 } from './styles';
 import textos from './textos.json';
-import { uniqueId } from 'lodash';
 
 function FormularioInfoProfissional({ navigation }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
@@ -116,7 +116,7 @@ function FormularioInfoProfissional({ navigation }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   const verificarCategoria = () => {
     const { categoriaProfissional } = getValues();
