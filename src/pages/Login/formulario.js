@@ -81,7 +81,7 @@ const FormularioLogin = ({ route }) => {
       setTimeout(() => {
         setVisivel(false);
         resolve();
-      }, 2000);
+      }, 5000);
     });
   }, []);
 
@@ -132,13 +132,13 @@ const FormularioLogin = ({ route }) => {
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401) {
-          // Alert.alert('Título', 'Email e/ou senha incorretos', [
+          // Alert.alert('Título', 'Email e/ou senha incorreto(s)', [
           //   {
           //     text: 'Cancel',
           //     style: 'default'
           //   },
           // ]);
-          mostrarAlerta('Falha a executar o login');
+          mostrarAlerta('Email e/ou senha incorreto(s)');
         }
       }
       return;
