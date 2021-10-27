@@ -1,43 +1,55 @@
+import { useNavigation } from '@react-navigation/native';
 import React, {
-  useState, useContext, useRef
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
 } from 'react';
 import { Controller } from 'react-hook-form';
-import { View, Text } from 'react-native';
-import { Config } from 'react-native-config';
-import { useNavigation } from '@react-navigation/native';
-import { DefaultTheme, TextInput } from 'react-native-paper';
-
-import Alerta from '../../components/alerta';
 import {
-  autenticarComIdSaude,
-  salvarTokenDoUsuarioNoStorage,
-  armazenarEstadoLogado
-} from '../../services/autenticacao';
-import { Botao } from './styles';
+  // Alert,
+  Text,
+  View
+} from 'react-native';
+import { Config } from 'react-native-config';
+import { DefaultTheme, TextInput } from 'react-native-paper';
+import { perfilUsuario } from '../../apis/apiCadastro';
+import Alerta from '../../components/alerta';
+import rotas from '../../constantes/rotas';
 import { TESTIDS } from '../../constantes/testIDs';
+import FormContext from '../../context/FormContext';
 import useAnalytics from '../../hooks/Analytics';
+import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
+import useDialogAppTrack from '../../hooks/DialogAppTrack';
+import useAutenticacao from '../../hooks/useAutenticacao';
+import {
+  armazenarEstadoLogado,
+  autenticarComIdSaude,
+  salvarTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
 import { emailValido, senhaValido } from '../../utils/validadores';
 import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import rotas from '../../constantes/rotas';
-import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
-import FormContext from '../../context/FormContext';
-import useDialogAppTrack from '../../hooks/DialogAppTrack';
+import { Botao } from './styles';
 
 const FormularioLogin = ({ route }) => {
-  const { exibirDialog } = useDialogAppTrack();
-  const { analyticsData } = useAnalytics();
-  const refSubmit = useRef();
-  const caixaDialogo = useCaixaDialogo();
   const navigation = useNavigation();
+
+  const { exibirDialog } = useDialogAppTrack();
+
+  const { analyticsData } = useAnalytics();
+
+  const refSubmit = useRef();
+
+  const caixaDialogo = useCaixaDialogo();
+
   const {
     control,
     handleSubmit,
     errors,
     getValues,
     setValue,
-    trigger,
+    trigger
   } = useContext(FormContext);
 
   const {
@@ -45,11 +57,11 @@ const FormularioLogin = ({ route }) => {
     alterarDadosUsuario,
     alterarEstaLogado,
     alterarPessoa
-  } = useContext(AutenticacaoContext);
+  } = useAutenticacao();
 
-  const [carregando, alterarCarregando] = useState(false);
-  const [textoDoAlerta, alterarTextoDoAlerta] = useState('');
-  const [visivel, alterarVisibilidade] = useState(false);
+  const [carregando, setCarregando] = useState(false);
+  const [textoDoAlerta, setTextoDoAlerta] = useState('');
+  const [visivel, setVisivel] = useState(false);
 
   const theme = {
     ...DefaultTheme,
@@ -62,16 +74,16 @@ const FormularioLogin = ({ route }) => {
     }
   };
 
-  const mostrarAlerta = async (texto) => {
-    alterarTextoDoAlerta(texto);
-    alterarVisibilidade(true);
-    return new Promise((resolve) => {
+  const mostrarAlerta = useCallback(async texto => {
+    setTextoDoAlerta(texto);
+    setVisivel(true);
+    return new Promise(resolve => {
       setTimeout(() => {
-        alterarVisibilidade(false);
+        setVisivel(false);
         resolve();
       }, 2000);
     });
-  };
+  }, []);
 
   const submitForm = async (data, options) => {
     if (exibirDialog('o Login')) {
@@ -81,7 +93,7 @@ const FormularioLogin = ({ route }) => {
     const tentativa = options?.tentativa || 1;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
-    alterarCarregando(true);
+    setCarregando(true);
     trigger();
 
     if (Object.keys(errors).length > 0) {
@@ -103,21 +115,35 @@ const FormularioLogin = ({ route }) => {
         caixaDialogo.SemConexao(
           {
             acaoConcluir: tentarLoginNovamente
-          }, tentativa
+          },
+          tentativa
         );
       }
     }
   };
 
-  const tentarLoginNovamente = tentativa => submitForm(getValues(), { tentativa: tentativa + 1 });
+  const tentarLoginNovamente = tentativa =>
+    submitForm(getValues(), { tentativa: tentativa + 1 });
 
   const fazerLogin = async ({ email, senha }) => {
     let response;
     try {
       response = await autenticarComIdSaude(email, senha);
-    } catch (e) {
-      mostrarAlerta('Falha a executar o login');
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          // Alert.alert('Título', 'Email e/ou senha incorretos', [
+          //   {
+          //     text: 'Cancel',
+          //     style: 'default'
+          //   },
+          // ]);
+          mostrarAlerta('Falha a executar o login');
+        }
+      }
       return;
+    } finally {
+      setCarregando(false);
     }
 
     await salvarTokenDoUsuarioNoStorage(response.mensagem);
@@ -154,92 +180,104 @@ const FormularioLogin = ({ route }) => {
     });
   };
 
+  useEffect(() => {
+    return () => {
+      setValue('email', '');
+      setValue('senha', '');
+      setCarregando(false);
+    };
+  }, []);
+
   return (
     <IDSaudeLoginTemplate route={route}>
-      <>
-        <View style={{ marginHorizontal: 16 }}>
-          <Controller
-            control={control}
-            name="email"
-            rules={{ required: true, validate: { emailValido: value => emailValido(value) } }}
-            defaultValue=""
-            render={({ onChange, onBlur, value }) => (
-              <TextInput
-                testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
-                label="E-mail"
-                mode="outlined"
-                placeholder="E-mail"
-                selectionColor="#0000AB"
-                onChangeText={v => onChange(v)}
-                onBlur={(e) => {
-                  onBlur(e);
-                  trigger('email');
-                }}
-                value={value}
-                theme={theme}
-              />
-            )}
-          />
-          {errors?.email && (
-            <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text>
-          )}
-          <Controller
-            control={control}
-            name="senha"
-            rules={{ required: true, validate: { senhaValida: value => senhaValido(value) } }}
-            defaultValue=""
-            render={({ onChange, onBlur, value }) => (
-              <TextInput
-                testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
-                style={{ marginTop: 18 }}
-                onChangeText={txt => onChange(txt)}
-                onBlur={(e) => {
-                  onBlur(e);
-                  trigger('senha');
-                }}
-                value={value}
-                theme={theme}
-                label="Senha"
-                selectionColor="#0000AB"
-                placeholder="Senha"
-                mode="outlined"
-                secureTextEntry
-              />
-            )}
-          />
-
-          {errors?.senha && (
-            <Text style={{ color: '#ffffff' }}> O campo de senha deve ser preenchido. </Text>
-          )}
-
-          <View style={{ marginTop: 18 }}>
-            <Botao
-              ref={refSubmit}
-              disabled={errors?.email || errors?.senha}
-              testID={TESTIDS.BUTTON_FAZER_LOGIN}
-              mode="contained"
-              loading={carregando}
-              onPress={handleSubmit(submitForm)}
-            >
-              Fazer Login
-            </Botao>
-            <Botao
-              testID={TESTIDS.BUTTON_ESQUECI_SENHA}
-              onPress={() => {
-                abrirWebViewEsqueciMinhaSenha();
+      <View style={{ marginHorizontal: 16 }}>
+        <Controller
+          control={control}
+          name="email"
+          rules={{
+            required: true,
+            validate: { emailValido: value => emailValido(value) }
+          }}
+          defaultValue=""
+          render={({ onChange, onBlur, value }) => (
+            <TextInput
+              testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
+              label="E-mail"
+              mode="outlined"
+              placeholder="E-mail"
+              selectionColor="#0000AB"
+              onChangeText={v => onChange(v)}
+              onBlur={e => {
+                onBlur(e);
+                trigger('email');
               }}
-              mode="text"
-              color="#ffffff"
-            >
-              Esqueci minha senha
-            </Botao>
-          </View>
-        </View>
-        <Alerta
-          textoDoAlerta={textoDoAlerta}
-          visivel={visivel}
+              autoCapitalize="none"
+              value={value}
+              theme={theme}
+            />
+          )}
         />
-      </>
+        {errors?.email && (
+          <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text>
+        )}
+        <Controller
+          control={control}
+          name="senha"
+          rules={{
+            required: true,
+            validate: { senhaValida: value => senhaValido(value) }
+          }}
+          defaultValue=""
+          render={({ onChange, onBlur, value }) => (
+            <TextInput
+              testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
+              style={{ marginTop: 18 }}
+              onChangeText={txt => onChange(txt)}
+              onBlur={e => {
+                onBlur(e);
+                trigger('senha');
+              }}
+              value={value}
+              theme={theme}
+              label="Senha"
+              selectionColor="#0000AB"
+              placeholder="Senha"
+              mode="outlined"
+              secureTextEntry
+            />
+          )}
+        />
+
+        {errors?.senha && (
+          <Text style={{ color: '#ffffff' }}>
+            O campo de senha deve ser preenchido.
+          </Text>
+        )}
+
+        <View style={{ marginTop: 18 }}>
+          <Botao
+            ref={refSubmit}
+            disabled={errors?.email || errors?.senha || carregando}
+            testID={TESTIDS.BUTTON_FAZER_LOGIN}
+            mode="contained"
+            loading={carregando}
+            onPress={handleSubmit(submitForm)}
+          >
+            Fazer Login
+          </Botao>
+          <Botao
+            testID={TESTIDS.BUTTON_ESQUECI_SENHA}
+            onPress={() => {
+              abrirWebViewEsqueciMinhaSenha();
+            }}
+            mode="text"
+            color="#ffffff"
+          >
+            Esqueci minha senha
+          </Botao>
+        </View>
+      </View>
+      <Alerta textoDoAlerta={textoDoAlerta} visivel={visivel} />
     </IDSaudeLoginTemplate>
   );
 };
