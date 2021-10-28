@@ -11,10 +11,15 @@ import { Container, ScrollView, SvgView, Texto, Titulo } from './styles';
 
 export default function MaternoInfantil({ route }) {
   const { analyticsData } = useAnalytics();
+
   const { params } = route;
+
   const { expanded } = params;
+
   const navigation = useNavigation();
+
   const { MATERNO_INFANTIL } = labelsAnalytics;
+
   const [_expanded, setExpanded] = useState(expanded);
 
   const handlePress = () => {
