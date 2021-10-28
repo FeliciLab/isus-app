@@ -24,7 +24,7 @@ function App() {
 
     OneSignal.promptForPushNotificationsWithUserResponse(n => console.log(n));
 
-    OneSignal.setNotificationOpenedHandler((openResult) => {
+    OneSignal.setNotificationOpenedHandler(openResult => {
       const urlManejo = 'isusapp://manejoclinico';
       if (openResult.notification.payload.launchURL) {
         const launchUrl = openResult.notification.payload.launchURL;
@@ -36,8 +36,9 @@ function App() {
       return navigate('App');
     });
 
-    OneSignal.setInAppMessageClickHandler((result) => {
-      const açãoDoBotãoClicado = Platform.OS === 'ios' ? result.clickName : result.click_name;
+    OneSignal.setInAppMessageClickHandler(result => {
+      const açãoDoBotãoClicado =
+        Platform.OS === 'ios' ? result.clickName : result.click_name;
       if (açãoDoBotãoClicado === OneSignalActions.FEEDBACK_SIM) {
         navigate('App', { screen: 'FEEDBACK' });
         OneSignal.sendTag('acessou_feedback', 'sim');
@@ -50,8 +51,11 @@ function App() {
   }, []);
 
   const redirecionaManejo = () => navigate('clinical management');
-  const redirecionaWebView = (openResult) => {
-    const urlWebview = openResult.notification.payload.launchURL.replace('isusapp', 'https');
+  const redirecionaWebView = openResult => {
+    const urlWebview = openResult.notification.payload.launchURL.replace(
+      'isusapp',
+      'https'
+    );
     return navigate('webview', {
       title: openResult.notification.payload.title,
       url: urlWebview

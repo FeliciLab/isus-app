@@ -3,13 +3,24 @@ import Pessoa from '../models/pessoa';
 
 const AutenticacaoContext = createContext();
 
-const AutenticacaoProvider = ({ valoresIniciais, pessoaAutenticada, children }) => {
+const AutenticacaoProvider = ({
+  valoresIniciais,
+  pessoaAutenticada,
+  children
+}) => {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
-  const [pessoa, definirPessoa] = useState(pessoaAutenticada || {});
-  const [tokenUsuario, alterarTokenUsuario] = useState(valoresIniciais?.tokenAutenticacao || false);
-  const [estaLogado, alterarEstaLogado] = useState(valoresIniciais?.estaLogade || false);
 
-  const alterarPessoa = (dados) => {
+  const [pessoa, definirPessoa] = useState(pessoaAutenticada || {});
+
+  const [tokenUsuario, alterarTokenUsuario] = useState(
+    valoresIniciais?.tokenAutenticacao || false
+  );
+
+  const [estaLogado, alterarEstaLogado] = useState(
+    valoresIniciais?.estaLogade || false
+  );
+
+  const alterarPessoa = dados => {
     definirPessoa({
       ...Pessoa.criar(dados)
     });
@@ -33,7 +44,4 @@ const AutenticacaoProvider = ({ valoresIniciais, pessoaAutenticada, children }) 
   );
 };
 
-export {
-  AutenticacaoContext,
-  AutenticacaoProvider
-};
+export { AutenticacaoContext, AutenticacaoProvider };

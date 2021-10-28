@@ -82,6 +82,7 @@ function SearchesStackScreen() {
 }
 
 const AppTab = createMaterialBottomTabNavigator();
+
 export default function AppTabScreen() {
   const { analyticsData } = useAnalytics();
   return (
