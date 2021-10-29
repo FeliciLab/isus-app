@@ -51,7 +51,7 @@ function conteudoDoDrawer(props) {
         />
       ),
       labelDoAnalytics: 'home',
-      rota: rotas.HOME
+      rota: 'Home'
     },
     {
       testID: testIDs.DRAWER.ITEM_PERFIL,
