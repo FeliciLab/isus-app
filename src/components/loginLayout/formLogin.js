@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Controller } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { perfilUsuario } from '../../apis/apiCadastro';
@@ -37,11 +38,11 @@ const formLogin = ({ rotaAposLogin }) => {
 
   const textInputSenha = useRef(null);
 
-  const [carregando, atribuirCarregando] = useState(false);
+  const [carregando, setCarregando] = useState(false);
 
-  const [exibirErroSenha, atribuirExibirErroSenha] = useState(false);
+  const [exibirErroSenha, setExibirErroSenha] = useState(false);
 
-  const { register, setValue, trigger, errors } = useContext(FormContext);
+  const { register, trigger, errors, control } = useContext(FormContext);
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext
@@ -84,35 +85,38 @@ const formLogin = ({ rotaAposLogin }) => {
   };
 
   const efetuarLogin = async data => {
-    trigger();
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-
-    atribuirCarregando(true);
-    const invalido = await emailNaoCadastrado(data.email);
-    if (invalido) {
-      exibirNovoCadastro();
-      return;
-    }
-
-    const result = await efetuarAcesso({
-      email: data.email,
-      senha: data.senha
-    });
-    atribuirExibirErroSenha(false);
-    if (result.error) {
-      atribuirExibirErroSenha(true);
-      return;
-    }
-
     try {
-      const { token } = result;
-      if (!token) {
-        alterarEstaLogado(false);
-        atribuirCarregando(false);
+      trigger();
+
+      setCarregando(true);
+
+      const invalido = await emailNaoCadastrado(data.email);
+
+      if (invalido) {
+        exibirNovoCadastro();
         return;
       }
+
+      const result = await efetuarAcesso({
+        email: data.email,
+        senha: data.senha
+      });
+
+      setExibirErroSenha(false);
+
+      if (result.error) {
+        setExibirErroSenha(true);
+        return;
+      }
+
+      const { token } = result;
+
+      if (!token) {
+        alterarEstaLogado(false);
+        setCarregando(false);
+        return;
+      }
+
       alterarTokenUsuario(token);
       salvarTokenDoUsuarioNoStorage(token);
 
@@ -122,15 +126,19 @@ const formLogin = ({ rotaAposLogin }) => {
       alterarPessoa(perfil.data);
 
       alterarEstaLogado(true);
-      atribuirCarregando(false);
+      setCarregando(false);
 
       navigator.navigate(rotaAposLogin);
       return;
     } catch (err) {
       alterarEstaLogado(false);
       console.log('ERRO', err);
+      if (err.response.status === 401) {
+        setExibirErroSenha(true);
+        return;
+      }
     } finally {
-      atribuirCarregando(false);
+      setCarregando(false);
     }
   };
 
@@ -145,27 +153,55 @@ const formLogin = ({ rotaAposLogin }) => {
       }}
     >
       <Text style={style.titulo}>Conecte-se com seu ID Saúde</Text>
-      <TextInput
-        ref={textInputEmail}
-        style={style.campoTexto}
-        mode="outlined"
-        label="E-mail"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        onChangeText={text => setValue('email', text)}
+      <Controller
+        control={control}
+        name="email"
+        rules={{
+          required: true,
+          validate: { emailValido: value => emailValido(value) }
+        }}
+        defaultValue=""
+        render={({ onChange, value }) => (
+          <TextInput
+            ref={textInputEmail}
+            mode="outlined"
+            label="E-mail"
+            style={style.campoTexto}
+            placeholder="E-mail"
+            textContentType="emailAddress"
+            autoCapitalize="none"
+            onChangeText={onChange}
+            error={errors?.email}
+            value={value}
+          />
+        )}
       />
       <MsgErroFormCampo campo="email" />
-      <TextInput
-        ref={textInputSenha}
-        style={style.campoTexto}
-        label="Senha"
-        mode="outlined"
-        textContentType="password"
-        secureTextEntry
-        onChangeText={text => setValue('senha', text)}
+
+      <Controller
+        control={control}
+        name="senha"
+        rules={{
+          required: true
+        }}
+        defaultValue=""
+        render={({ onChange, value }) => (
+          <TextInput
+            ref={textInputSenha}
+            label="Senha"
+            style={style.campoTexto}
+            selectionColor="#0000AB"
+            placeholder="Senha"
+            mode="outlined"
+            onChangeText={onChange}
+            secureTextEntry
+            value={value}
+            error={errors?.senha}
+          />
+        )}
       />
       <MsgErroFormCampo campo="senha" />
+
       {exibirErroSenha && !carregando && (
         <Text style={{ color: CORES.LARANJA }}>
           Senha, incorreta. Tente novamente ou clique em &ldquo;Esqueci a
@@ -176,6 +212,7 @@ const formLogin = ({ rotaAposLogin }) => {
         style={{ marginTop: 40 }}
         acao={efetuarLogin}
         carregando={carregando}
+        disable={carregando}
       />
     </View>
   );

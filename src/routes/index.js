@@ -216,6 +216,7 @@ export default function App({ navigationRef }) {
 }
 
 const searchStack = createStackNavigator();
+
 function searchStackScreen() {
   return (
     <searchStack.Navigator>

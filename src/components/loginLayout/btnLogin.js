@@ -3,8 +3,11 @@ import { Button } from 'react-native-paper';
 import FormContext from '../../context/FormContext';
 import { CORES } from '../../constantes/estiloBase';
 
-const BtnLogin = ({ acao, style, carregando }) => {
+const BtnLogin = props => {
+  const { acao, style, carregando, ...rest } = props;
+
   const { handleSubmit } = useContext(FormContext);
+
   return (
     <Button
       dark
@@ -19,6 +22,7 @@ const BtnLogin = ({ acao, style, carregando }) => {
         paddingBottom: 5,
         ...style
       }}
+      {...rest}
     >
       Fazer Login
     </Button>
