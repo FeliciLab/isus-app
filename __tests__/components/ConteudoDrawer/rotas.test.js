@@ -86,7 +86,7 @@ describe('Dado que abro o menu lateral', () => {
       );
       const item = getByTestId(testIDs.DRAWER.ITEM_HOME);
       fireEvent.press(item);
-      expect(mockedNavigate).toHaveBeenCalledWith('Home');
+      expect(mockedNavigate).toHaveBeenCalledWith('HOME_SCREEN_HOME');
     });
   });
   describe('Independente de autenticação', () => {
