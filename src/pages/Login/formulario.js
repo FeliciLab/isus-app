@@ -17,7 +17,6 @@ import { TESTIDS } from '../../constantes/testIDs';
 import FormContext from '../../context/FormContext';
 import useAnalytics from '../../hooks/Analytics';
 import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
-import useDialogAppTrack from '../../hooks/DialogAppTrack';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
@@ -31,7 +30,6 @@ import { Botao } from './styles';
 const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
 
-  const { exibirDialog } = useDialogAppTrack();
 
   const { analyticsData } = useAnalytics();
 
@@ -45,7 +43,6 @@ const FormularioLogin = ({ route }) => {
     errors,
     getValues,
     setValue,
-    trigger
   } = useContext(FormContext);
 
   const {
@@ -56,7 +53,9 @@ const FormularioLogin = ({ route }) => {
   } = useAutenticacao();
 
   const [carregando, setCarregando] = useState(false);
+
   const [textoDoAlerta, setTextoDoAlerta] = useState('');
+
   const [visivel, setVisivel] = useState(false);
 
   const theme = {
@@ -76,32 +75,57 @@ const FormularioLogin = ({ route }) => {
   }, []);
 
   const submitForm = async (data, options) => {
-    if (exibirDialog('o Login')) {
-      return;
-    }
+    const { email, senha } = data;
 
     const tentativa = options?.tentativa || 1;
 
-    analyticsData('fazer_login', 'Click', 'Perfil');
-    setCarregando(true);
-    trigger();
-
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-
     try {
-      await fazerLogin(data);
-    } catch (erro) {
-      const err = JSON.parse(erro.message);
+      setCarregando(true);
+
+      const response = await autenticarComIdSaude(email, senha);
+
+
+      analyticsData('fazer_login', 'Click', 'Perfil');
+
+      await salvarTokenDoUsuarioNoStorage(response.mensagem);
+
+      alterarTokenUsuario(response.mensagem);
+
+      const perfil = await perfilUsuario(response.mensagem);
+
+      alterarDadosUsuario(perfil.data);
+
+      alterarPessoa(perfil.data);
+
+      if (!perfil.cadastrado) {
+        navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
+        return;
+      }
+
+      await armazenarEstadoLogado(true);
+
+      alterarEstaLogado(true);
+
+      setValue('email', '');
+      setValue('senha', '');
+
+      navigation.navigate('HOME');
+    } catch (error) {
+      if (error.response.status === 401) {
+        mostrarAlerta('Email e/ou senha incorreto(s)');
+        return;
+      }
+
+      const err = JSON.parse(error.message);
+
       if (!err.semConexao) {
         mostrarAlerta(err.mensagem);
         return;
       }
+
       if (tentativa > 3) {
         navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
-      }
-      if (tentativa <= 3) {
+      } else {
         caixaDialogo.SemConexao(
           {
             acaoConcluir: tentarLoginNovamente
@@ -109,61 +133,22 @@ const FormularioLogin = ({ route }) => {
           tentativa
         );
       }
+    } finally {
+      setCarregando(false);
     }
   };
 
   const tentarLoginNovamente = tentativa =>
     submitForm(getValues(), { tentativa: tentativa + 1 });
 
-  const fazerLogin = async ({ email, senha }) => {
-    let response;
-    try {
-      response = await autenticarComIdSaude(email, senha);
-    } catch (error) {
-      if (error.response) {
-        // 401 => Não autorizado
-        if (error.response.status === 401) {
-          mostrarAlerta('Email e/ou senha incorreto(s)');
-        }
-      }
-      return;
-    } finally {
-      setCarregando(false);
-    }
-
-    await salvarTokenDoUsuarioNoStorage(response.mensagem);
-    alterarTokenUsuario(response.mensagem);
-
-    try {
-      const perfil = await perfilUsuario(response.mensagem);
-      alterarDadosUsuario(perfil.data);
-      alterarPessoa(perfil.data);
-      if (!perfil.cadastrado) {
-        navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
-        return;
-      }
-
-      await armazenarEstadoLogado(true);
-      alterarEstaLogado(true);
-
-      setValue('email', '');
-      setValue('senha', '');
-
-      navigation.navigate('HOME');
-    } catch (e) {
-      await armazenarEstadoLogado(false);
-      alterarEstaLogado(false);
-    }
-  };
-
-  const abrirWebViewEsqueciMinhaSenha = () => {
+  const abrirWebViewEsqueciMinhaSenha = useCallback(() => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
     navigation.navigate('webview', {
       title: 'Esqueci minha senha',
       url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
       idSaude: true
     });
-  };
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -184,18 +169,15 @@ const FormularioLogin = ({ route }) => {
             validate: { emailValido: value => emailValido(value) }
           }}
           defaultValue=""
-          render={({ onChange, onBlur, value }) => (
+          render={({ onChange, value }) => (
             <TextInput
               testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
               label="E-mail"
               mode="outlined"
               placeholder="E-mail"
               selectionColor="#0000AB"
-              onChangeText={v => onChange(v)}
-              onBlur={e => {
-                onBlur(e);
-                trigger('email');
-              }}
+              onChangeText={onChange}
+              error={errors?.email}
               autoCapitalize="none"
               value={value}
               theme={theme}
@@ -203,7 +185,7 @@ const FormularioLogin = ({ route }) => {
           )}
         />
         {errors?.email && (
-          <Text style={{ color: '#ffffff' }}> Insira um e-mail válido. </Text>
+          <Text style={{ color: '#ffffff' }}>Insira um e-mail válido.</Text>
         )}
         <Controller
           control={control}
@@ -213,15 +195,12 @@ const FormularioLogin = ({ route }) => {
             validate: { senhaValida: value => senhaValido(value) }
           }}
           defaultValue=""
-          render={({ onChange, onBlur, value }) => (
+          render={({ onChange, value }) => (
             <TextInput
               testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
               style={{ marginTop: 18 }}
-              onChangeText={txt => onChange(txt)}
-              onBlur={e => {
-                onBlur(e);
-                trigger('senha');
-              }}
+              onChangeText={onChange}
+              error={errors?.senha}
               value={value}
               theme={theme}
               label="Senha"

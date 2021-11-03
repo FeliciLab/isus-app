@@ -130,10 +130,10 @@ const formLogin = ({ rotaAposLogin }) => {
 
       navigator.navigate(rotaAposLogin);
       return;
-    } catch (err) {
+    } catch (error) {
       alterarEstaLogado(false);
-      console.log('ERRO', err);
-      if (err.response.status === 401) {
+      console.log('ERRO', error);
+      if (error.response.status === 401) {
         setExibirErroSenha(true);
         return;
       }

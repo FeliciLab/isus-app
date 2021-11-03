@@ -1,6 +1,5 @@
 import { salvarDados, pegarDados, removerDados } from './armazenamento';
 import { autenticar, pegarTokenDeAcesso } from '../apis/apiKeycloak';
-import { navigate } from '../routes/rootNavigation';
 
 export const efetuarAcesso = async ({ email, senha }) => {
   const response = await autenticarComIdSaude(email, senha).then();
@@ -51,7 +50,6 @@ async function atualizarTokenDeAcessoDoUsuario() {
     const resultado = await pegarTokenDeAcesso(token.refresh_token);
     if (!resultado.sucesso) {
       await excluirTokenDoUsuarioNoStorage();
-      navigate('LOGIN');
     }
     const { mensagem } = resultado;
     await salvarTokenDoUsuarioNoStorage(mensagem);
