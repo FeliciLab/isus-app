@@ -130,7 +130,7 @@ export default function AppTabScreen() {
         }}
       />
       <AppTab.Screen
-        name="Search"
+        name="HOME_SCREEN_SEARCH"
         component={SearchesStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',
