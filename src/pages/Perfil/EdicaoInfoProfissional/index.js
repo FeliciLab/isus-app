@@ -66,7 +66,7 @@ function EdicaoInfoProfissional() {
             if (result) {
               navigation.navigate('TelaDeSucesso',
                 {
-                  textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+                  textoApresentacao: CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_SUCESSO,
                   telaDeRedirecionamento: ROTAS.PERFIL,
                   telaDeBackground: CORES.VERDE
                 });
