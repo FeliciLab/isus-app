@@ -30,20 +30,15 @@ import { Botao } from './styles';
 const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
 
-
   const { analyticsData } = useAnalytics();
 
   const refSubmit = useRef();
 
   const caixaDialogo = useCaixaDialogo();
 
-  const {
-    control,
-    handleSubmit,
-    errors,
-    getValues,
-    setValue,
-  } = useContext(FormContext);
+  const { control, handleSubmit, errors, getValues, setValue } = useContext(
+    FormContext
+  );
 
   const {
     alterarTokenUsuario,
@@ -79,13 +74,12 @@ const FormularioLogin = ({ route }) => {
 
     const tentativa = options?.tentativa || 1;
 
+    analyticsData('fazer_login', 'Click', 'Perfil');
+
     try {
       setCarregando(true);
 
       const response = await autenticarComIdSaude(email, senha);
-
-
-      analyticsData('fazer_login', 'Click', 'Perfil');
 
       await salvarTokenDoUsuarioNoStorage(response.mensagem);
 
@@ -114,24 +108,22 @@ const FormularioLogin = ({ route }) => {
       if (error.response.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
         return;
-      }
+      } else if (error.message) {
+        if (!error.message.semConexao) {
+          mostrarAlerta(error.mensagem);
+          return;
+        }
 
-      const err = JSON.parse(error.message);
-
-      if (!err.semConexao) {
-        mostrarAlerta(err.mensagem);
-        return;
-      }
-
-      if (tentativa > 3) {
-        navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
-      } else {
-        caixaDialogo.SemConexao(
-          {
-            acaoConcluir: tentarLoginNovamente
-          },
-          tentativa
-        );
+        if (tentativa > 3) {
+          navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
+        } else {
+          caixaDialogo.SemConexao(
+            {
+              acaoConcluir: tentarLoginNovamente
+            },
+            tentativa
+          );
+        }
       }
     } finally {
       setCarregando(false);
