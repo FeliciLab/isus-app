@@ -103,7 +103,7 @@ const FormularioLogin = ({ route }) => {
       setValue('email', '');
       setValue('senha', '');
 
-      navigation.navigate('HOME');
+      navigation.navigate(rotas.HOME_SCREEN_HOME);
     } catch (error) {
       if (error.response.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
