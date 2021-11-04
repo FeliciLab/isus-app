@@ -10,17 +10,6 @@ const estilos = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
     textAlign: 'justify'
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#4CAF50',
-    padding: 10,
-    marginBottom: 28,
-    marginHorizontal: 16
-  },
-  texto_button: {
-    color: '#FFFFFF',
-    fontSize: 14
   }
 });
 
