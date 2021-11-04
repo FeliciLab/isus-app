@@ -23,7 +23,7 @@ const Buscar = (props) => {
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
 
   const [busca, setBusca] = useState({ atual: '', antiga: '' });
   const [nadaEncontrado, setNadaEncontrado] = useState(false);
@@ -63,7 +63,7 @@ const Buscar = (props) => {
   const loadRepositories = async () => {
     await analyticsData('Home', 'Pesquisa', busca.atual);
     try {
-      const response = await pegarBusca(busca.atual, page);
+      const response = await pegarBusca(busca.atual, 1);
       if (response.data.data.length === 0) {
         setLoading(false);
         setNadaEncontrado(true);
@@ -73,7 +73,7 @@ const Buscar = (props) => {
 
       setNadaEncontrado(false);
       setData([...data, ...response.data.data]);
-      setPage(page + 1);
+      // setPage((old) => old + 1);
     } catch (e) {
       console.log('Falha ao buscar', e);
     } finally {
