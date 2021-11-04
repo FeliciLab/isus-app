@@ -1,9 +1,11 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 import politicaPrivacidade from './politica-privacidade.json';
 import { uniqueId } from 'lodash';
+import estilos from './styles';
+
 
 export default function PoliticaDePrivacidadeScreen() {
   const navigation = useNavigation();
@@ -18,18 +20,6 @@ export default function PoliticaDePrivacidadeScreen() {
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'Política de Privacidade',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -39,7 +29,7 @@ export default function PoliticaDePrivacidadeScreen() {
             navigation.goBack();
           }}
         >
-          <Icon name="keyboard-backspace" size={28} color="#FFF" />
+          <SetaEsquerda />
         </TouchableOpacity>
       )
     });
@@ -75,19 +65,38 @@ export default function PoliticaDePrivacidadeScreen() {
           </View>
         ))}
       </View>
+      <TouchableOpacity
+        style={estilos.button}
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Text style={estilos.texto_button}>LI E ACEITO</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 }
 
-const estilos = StyleSheet.create({
-  titulo: { fontSize: 23, marginTop: 30, textAlign: 'center' },
-  conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
-  texto: {
-    color: '#000000',
-    opacity: 0.6,
-    fontSize: 14,
-    marginBottom: 8,
-    marginTop: 8,
-    textAlign: 'justify'
-  }
-});
+// const estilos = StyleSheet.create({
+//   titulo: { fontSize: 23, marginTop: 30, textAlign: 'center' },
+//   conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
+//   texto: {
+//     color: '#000000',
+//     opacity: 0.6,
+//     fontSize: 14,
+//     marginBottom: 8,
+//     marginTop: 8,
+//     textAlign: 'justify'
+//   },
+//   button: {
+//     alignItems: 'center',
+//     backgroundColor: '#4CAF50',
+//     padding: 10,
+//     marginBottom: 28,
+//     marginHorizontal: 16
+//   },
+//   texto_button: {
+//     color: '#FFFFFF',
+//     fontSize: 14
+//   }
+// });
