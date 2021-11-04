@@ -128,6 +128,13 @@ describe('Dado que abro o menu lateral', () => {
         expect(mockedNavigate).toHaveBeenCalledWith('TERMOS_DE_USO');
       });
     });
+    describe('Quando clico em Politica de Privacidade', () => {
+      test('então sou redirecionado para a página Politica de Privacidade', () => {
+        const item = renderedObject.getByTestId(testIDs.DRAWER.ITEM_POLITA_DE_PRIVACIDADE);
+        fireEvent.press(item);
+        expect(mockedNavigate).toHaveBeenCalledWith('POLITICA_DE_PRIVACIDADE');
+      });
+    });
     describe('Quando clico em Compartilhar', () => {
       test('então exibo o pop-up de compartilhamento do celular', () => {
         const item = renderedObject.getByTestId(testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS);
