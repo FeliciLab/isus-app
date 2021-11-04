@@ -56,8 +56,8 @@ const itemInferior = () => {
         />
       ),
       nome: 'Política de Privacidade',
-      testID: testIDs.DRAWER.ITEM_POLITICA_DE_PRIVACIDADE,
-      labelDoAnalytics: 'PolItica_de_Privacidade',
+      testID: testIDs.DRAWER.ITEM_POLITA_DE_PRIVACIDADE,
+      labelDoAnalytics: 'Politica_de_Privacidade',
       aoPressionar: () => navigationTermos.navigate(rotas.POLITICA_DE_PRIVACIDADE)
     },
     {
