@@ -24,7 +24,15 @@ const Termos = () => {
         >
           Termos de Uso
         </TextoLink>
-        .
+        {' '} e {' '}
+        <TextoLink
+          onPress={() => {
+            analyticsData('politica_de_privacidade', 'Click', 'Perfil');
+            navigation.navigate(rotas.POLITICA_DE_PRIVACIDADE);
+          }}
+        >
+          Política de privacidade
+        </TextoLink>
       </TextoTermo>
     </ConteudoTermo>
   );

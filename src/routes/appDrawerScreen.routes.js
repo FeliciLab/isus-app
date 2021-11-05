@@ -21,6 +21,7 @@ import ContaExcluida from '../pages/Perfil/contaExcluida';
 import Denunciar from '../pages/Denunciar';
 import QualiQuizScreen from '../pages/QualiQuiz';
 import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
+import PoliticaDePrivacidadeScreen from '../pages/Perfil/PoliticaDePrivacidade/index';
 
 import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import rotas from '../constantes/rotas';
@@ -46,6 +47,7 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
+      <Drawer.Screen name="POLITICA_DE_PRIVACIDADE" component={PoliticaDePrivacidadeStackScreen} />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen
         name={rotas.DUVIDAS_ELMO}
@@ -147,6 +149,16 @@ function TermosDeUsoStackScreen() {
     <TermosDeUsoStack.Navigator>
       <TermosDeUsoStack.Screen name="TERMOS_DE_USO" component={TermoDeUsoScreen} options={{ headerShown: true }} />
     </TermosDeUsoStack.Navigator>
+  );
+}
+
+const PoliticaDePrivacidadeStack = createStackNavigator();
+function PoliticaDePrivacidadeStackScreen() {
+  return (
+    <PoliticaDePrivacidadeStack.Navigator>
+      <PoliticaDePrivacidadeStack.Screen name="POLITICA_DE_PRIVACIDADE" component={PoliticaDePrivacidadeScreen} options={{ headerShown: true }}
+      />
+    </PoliticaDePrivacidadeStack.Navigator>
   );
 }
 
