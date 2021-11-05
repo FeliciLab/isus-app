@@ -24,6 +24,7 @@ import QualiQuizScreen from '../pages/QualiQuiz';
 import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
 import SusNoCearaScreen from '../pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
+import PoliticaDePrivacidadeScreen from '../pages/Perfil/PoliticaDePrivacidade/index';
 
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
@@ -47,6 +48,10 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
+      <Drawer.Screen
+        name="POLITICA_DE_PRIVACIDADE"
+        component={PoliticaDePrivacidadeStackScreen}
+      />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen
         name={rotas.DUVIDAS_ELMO}
@@ -181,6 +186,19 @@ function TermosDeUsoStackScreen() {
         options={{ headerShown: true }}
       />
     </TermosDeUsoStack.Navigator>
+  );
+}
+
+const PoliticaDePrivacidadeStack = createStackNavigator();
+function PoliticaDePrivacidadeStackScreen() {
+  return (
+    <PoliticaDePrivacidadeStack.Navigator>
+      <PoliticaDePrivacidadeStack.Screen
+        name="POLITICA_DE_PRIVACIDADE"
+        component={PoliticaDePrivacidadeScreen}
+        options={{ headerShown: true }}
+      />
+    </PoliticaDePrivacidadeStack.Navigator>
   );
 }
 
