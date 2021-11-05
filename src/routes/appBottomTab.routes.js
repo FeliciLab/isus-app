@@ -82,6 +82,7 @@ function SearchesStackScreen() {
 }
 
 const AppTab = createMaterialBottomTabNavigator();
+
 export default function AppTabScreen() {
   const { analyticsData } = useAnalytics();
   return (
@@ -93,7 +94,7 @@ export default function AppTabScreen() {
       barStyle={{ backgroundColor: '#fff' }}
     >
       <AppTab.Screen
-        name="Home"
+        name="HOME_SCREEN_HOME"
         component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
@@ -110,7 +111,7 @@ export default function AppTabScreen() {
 
       {
         <AppTab.Screen
-          name="Health"
+          name="HOME_SCREEN_HEALTH"
           component={MinhaSaudeStackScreen} // Teste
           options={{
             tabBarLabel: 'Minha Saúde',
@@ -122,7 +123,7 @@ export default function AppTabScreen() {
       }
 
       <AppTab.Screen
-        name="Education"
+        name="HOME_SCREEN_EDUCATION"
         component={EducationStackScreen}
         options={{
           tabBarLabel: 'Educação',
@@ -130,7 +131,7 @@ export default function AppTabScreen() {
         }}
       />
       <AppTab.Screen
-        name="Search"
+        name="HOME_SCREEN_SEARCH"
         component={SearchesStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',

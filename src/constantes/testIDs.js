@@ -49,7 +49,8 @@ export const TESTIDS = {
     ITEM_SUSNOCEARA: 'drawer-item-susnoceara',
     ITEM_SOBRE_O_ISUS: 'drawer-item-sobre-o-isus',
     ITEM_TERMOS_DE_USO: 'drawer-item-termos-de-uso',
-    ITEM_COMPARTILHE_O_ISUS: 'drawer-item-compartilhe-o-isus'
+    ITEM_COMPARTILHE_O_ISUS: 'drawer-item-compartilhe-o-isus',
+    ITEM_POLITA_DE_PRIVACIDADE: 'drawer-item-politica-de-privacidade'
   },
   ICONS: {
     ICON_HOME: 'icon-drawer-home',

@@ -1,31 +1,30 @@
-import * as React from 'react';
-import {
-  createDrawerNavigator
-} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
-import {
-  Dimensions
-} from 'react-native';
+import * as React from 'react';
+import { Dimensions } from 'react-native';
+import ConteudoDrawer from '../components/ConteudoDrawer';
 import { CORES } from '../constantes/estiloBase';
+import rotas from '../constantes/rotas';
+import { FormProvider } from '../context/FormContext';
+import { SemConexaoProvider } from '../context/SemConexaoContext';
 import AboutScreen from '../pages/About';
+import Denunciar from '../pages/Denunciar';
+import FaleConoscoScreen from '../pages/FaleConoscoScreen';
+import {
+  DUVIDAS_ELMO,
+  RELATAR_SUGESTAO
+} from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
 import Login from '../pages/Login';
 import FormLogin from '../pages/Login/formulario';
+import ContaExcluida from '../pages/Perfil/contaExcluida';
+import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
 import PerfilScreen from '../pages/Perfil/index';
 import TermoDeUsoScreen from '../pages/Perfil/TermosDeUso/index';
-import AppTab from './appBottomTab.routes';
-import ConteudoDrawer from '../components/ConteudoDrawer';
-import FaleConoscoScreen from '../pages/FaleConoscoScreen';
-import SusNoCearaScreen from '../pages/SusNoCeara';
-import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
-import ContaExcluida from '../pages/Perfil/contaExcluida';
-import Denunciar from '../pages/Denunciar';
 import QualiQuizScreen from '../pages/QualiQuiz';
 import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
-
-import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
-import rotas from '../constantes/rotas';
-import { SemConexaoProvider } from '../context/SemConexaoContext';
-import { FormProvider } from '../context/FormContext';
+import SusNoCearaScreen from '../pages/SusNoCeara';
+import AppTab from './appBottomTab.routes';
+import PoliticaDePrivacidadeScreen from '../pages/Perfil/PoliticaDePrivacidade/index';
 
 const Drawer = createDrawerNavigator();
 export default function appDrawerScreen() {
@@ -38,7 +37,10 @@ export default function appDrawerScreen() {
         width: Dimensions.get('screen').width / 1.5
       }}
       drawerContent={props => (
-        <ConteudoDrawer {...props} routeName={props.state.routeNames[props.state.index]} />
+        <ConteudoDrawer
+          {...props}
+          routeName={props.state.routeNames[props.state.index]}
+        />
       )}
     >
       <Drawer.Screen name={rotas.HOME} component={AppTab} />
@@ -46,6 +48,10 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
       <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
       <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
+      <Drawer.Screen
+        name="POLITICA_DE_PRIVACIDADE"
+        component={PoliticaDePrivacidadeStackScreen}
+      />
       <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
       <Drawer.Screen
         name={rotas.DUVIDAS_ELMO}
@@ -60,7 +66,10 @@ export default function appDrawerScreen() {
       <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />
       <Drawer.Screen name="DENUNCIAR" component={DenunciarAccountScreen} />
       <Drawer.Screen name="QUALIQUIZ" component={QualiQuizStackScreen} />
-      <Drawer.Screen name="QUALIQUIZ_LOGIN" component={QualiQuizLoginStackScreen} />
+      <Drawer.Screen
+        name="QUALIQUIZ_LOGIN"
+        component={QualiQuizLoginStackScreen}
+      />
     </Drawer.Navigator>
   );
 }
@@ -69,7 +78,11 @@ const DenunciarAccountStack = createStackNavigator();
 function DenunciarAccountScreen() {
   return (
     <DenunciarAccountStack.Navigator>
-      <DenunciarAccountStack.Screen name="DENUNCIAR" component={Denunciar} options={{ headerShown: true }} />
+      <DenunciarAccountStack.Screen
+        name="DENUNCIAR"
+        component={Denunciar}
+        options={{ headerShown: true }}
+      />
     </DenunciarAccountStack.Navigator>
   );
 }
@@ -78,7 +91,11 @@ const DeleteAccountStack = createStackNavigator();
 function DeleteAccountScreen() {
   return (
     <DeleteAccountStack.Navigator>
-      <DeleteAccountStack.Screen name="CONTA_EXCLUIDA" component={ContaExcluida} options={{ headerShown: true }} />
+      <DeleteAccountStack.Screen
+        name="CONTA_EXCLUIDA"
+        component={ContaExcluida}
+        options={{ headerShown: true }}
+      />
     </DeleteAccountStack.Navigator>
   );
 }
@@ -87,7 +104,11 @@ const DeleteProfileStack = createStackNavigator();
 function DeleteProfileScreen() {
   return (
     <DeleteProfileStack.Navigator>
-      <DeleteProfileStack.Screen name="EXCLUIR_PERFIL" component={ExcluirPerfil} options={{ headerShown: true }} />
+      <DeleteProfileStack.Screen
+        name="EXCLUIR_PERFIL"
+        component={ExcluirPerfil}
+        options={{ headerShown: true }}
+      />
     </DeleteProfileStack.Navigator>
   );
 }
@@ -95,7 +116,11 @@ const AboutStack = createStackNavigator();
 function AboutStackScreen() {
   return (
     <AboutStack.Navigator>
-      <AboutStack.Screen name="SOBRE" component={AboutScreen} options={{ headerShown: true }} />
+      <AboutStack.Screen
+        name="SOBRE"
+        component={AboutScreen}
+        options={{ headerShown: true }}
+      />
     </AboutStack.Navigator>
   );
 }
@@ -104,8 +129,18 @@ const LoginStack = createStackNavigator();
 function LoginStackScreen() {
   return (
     <LoginStack.Navigator>
-      <LoginStack.Screen name="ID SAÚDE" component={Login} initialParams={{ possuiIDSaude: false }} options={{ headerShown: false }} />
-      <LoginStack.Screen name="LOGIN" component={Login} initialParams={{ possuiIDSaude: true }} options={{ headerShown: true }} />
+      <LoginStack.Screen
+        name="ID SAÚDE"
+        component={Login}
+        initialParams={{ possuiIDSaude: false }}
+        options={{ headerShown: false }}
+      />
+      <LoginStack.Screen
+        name="LOGIN"
+        component={Login}
+        initialParams={{ possuiIDSaude: true }}
+        options={{ headerShown: true }}
+      />
     </LoginStack.Navigator>
   );
 }
@@ -145,8 +180,25 @@ const TermosDeUsoStack = createStackNavigator();
 function TermosDeUsoStackScreen() {
   return (
     <TermosDeUsoStack.Navigator>
-      <TermosDeUsoStack.Screen name="TERMOS_DE_USO" component={TermoDeUsoScreen} options={{ headerShown: true }} />
+      <TermosDeUsoStack.Screen
+        name="TERMOS_DE_USO"
+        component={TermoDeUsoScreen}
+        options={{ headerShown: true }}
+      />
     </TermosDeUsoStack.Navigator>
+  );
+}
+
+const PoliticaDePrivacidadeStack = createStackNavigator();
+function PoliticaDePrivacidadeStackScreen() {
+  return (
+    <PoliticaDePrivacidadeStack.Navigator>
+      <PoliticaDePrivacidadeStack.Screen
+        name="POLITICA_DE_PRIVACIDADE"
+        component={PoliticaDePrivacidadeScreen}
+        options={{ headerShown: true }}
+      />
+    </PoliticaDePrivacidadeStack.Navigator>
   );
 }
 

@@ -1,26 +1,28 @@
-import React, {
-  useLayoutEffect, useContext, useEffect, useState
-} from 'react';
-import { Linking } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
-
-import { cabecalhoVoltar, cabecalhoVoltarHome }
-  from '../../components/layoutEffect/cabecalhoLayout';
-import { CORES } from '../../constantes/estiloBase';
-import {
-  ScrollView,
-  View,
-  Botao,
-  TextoCentralizado,
-  TituloH6,
-  CentralizarItensView
-} from '../../components/style';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { Linking } from 'react-native';
 import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
 import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg';
-import { SemConexaoContext, SemConexaoProvider } from '../../context/SemConexaoContext';
+import {
+  cabecalhoVoltar,
+  cabecalhoVoltarHome
+} from '../../components/layoutEffect/cabecalhoLayout';
+import {
+  Botao,
+  CentralizarItensView,
+  ScrollView,
+  TextoCentralizado,
+  TituloH6,
+  View
+} from '../../components/style';
+import { CORES } from '../../constantes/estiloBase';
 import rotas from '../../constantes/rotas';
 import { TESTIDS } from '../../constantes/testIDs';
+import {
+  SemConexaoContext,
+  SemConexaoProvider
+} from '../../context/SemConexaoContext';
 
 function SemConexao(props) {
   const { route } = props;
@@ -69,7 +71,8 @@ function SemConexao(props) {
     }, 1500);
   };
 
-  const onPressVoltar = () => navigation.navigate(rotas.HOME, { screen: 'Home' });
+  const onPressVoltar = () =>
+    navigation.navigate(rotas.HOME, { screen: 'Home' });
 
   useLayoutEffect(() => {
     if (!params?.goHome) {
@@ -85,19 +88,22 @@ function SemConexao(props) {
         cor: corFundo
       });
     }
-  });
+  }, []);
 
   return (
     <>
       <ScrollView>
         <CentralizarItensView marginTop="59px">
-          {(indice < 3)
-            ? <IconeSemConexaoLaranja testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_LARANJA} />
-            : <IconeSemConexaoVermelho testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_VERMELHO} />
-          }
-          <TituloH6>
-            Sem conexão com a internet
-          </TituloH6>
+          {indice < 3 ? (
+            <IconeSemConexaoLaranja
+              testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_LARANJA}
+            />
+          ) : (
+            <IconeSemConexaoVermelho
+              testID={TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_VERMELHO}
+            />
+          )}
+          <TituloH6>Sem conexão com a internet</TituloH6>
         </CentralizarItensView>
         <View>
           <TextoCentralizado>
@@ -105,28 +111,8 @@ function SemConexao(props) {
           </TextoCentralizado>
         </View>
         <View>
-          {(indice < 3)
-            ? (
-              <>
-                <Botao
-                  testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
-                  labelStyle={{ color: CORES.LARANJA }}
-                  onPress={onPressVoltar}
-                >
-                  VOLTAR
-                </Botao>
-                <Botao
-                  loading={carregando}
-                  testID={TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}
-                  labelStyle={{ color: CORES.BRANCO }}
-                  backgroundColor={CORES.LARANJA}
-                  onPress={onPressTentarNovamente}
-                >
-                  TENTAR NOVAMENTE
-                </Botao>
-              </>
-            )
-            : (
+          {indice < 3 ? (
+            <>
               <Botao
                 testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
                 labelStyle={{ color: CORES.LARANJA }}
@@ -134,8 +120,25 @@ function SemConexao(props) {
               >
                 VOLTAR
               </Botao>
-            )
-          }
+              <Botao
+                loading={carregando}
+                testID={TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}
+                labelStyle={{ color: CORES.BRANCO }}
+                backgroundColor={CORES.LARANJA}
+                onPress={onPressTentarNovamente}
+              >
+                TENTAR NOVAMENTE
+              </Botao>
+            </>
+          ) : (
+            <Botao
+              testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
+              labelStyle={{ color: CORES.LARANJA }}
+              onPress={onPressVoltar}
+            >
+              VOLTAR
+            </Botao>
+          )}
         </View>
       </ScrollView>
     </>

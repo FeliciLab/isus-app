@@ -1,20 +1,19 @@
-import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ConteudoTermo, TextoTermo, TextoLink } from './styles';
-import useAnalytics from '../../../hooks/Analytics';
-import { TESTIDS } from '../../../constantes/testIDs';
+import React from 'react';
 import rotas from '../../../constantes/rotas';
+import { TESTIDS } from '../../../constantes/testIDs';
+import useAnalytics from '../../../hooks/Analytics';
+import { ConteudoTermo, TextoLink, TextoTermo } from './styles';
 
 const Termos = () => {
-  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
+
+  const { analyticsData } = useAnalytics();
 
   return (
     <ConteudoTermo>
       <TextoTermo>
-        Ao continuar,
-        você concorda com nossos
-        {' '}
+        Ao continuar, você concorda com nossos{' '}
         <TextoLink
           testID={TESTIDS.HYPERLINK_TERMOS_USO}
           onPress={() => {
@@ -24,7 +23,15 @@ const Termos = () => {
         >
           Termos de Uso
         </TextoLink>
-        .
+        {' '} e {' '}
+        <TextoLink
+          onPress={() => {
+            analyticsData('politica_de_privacidade', 'Click', 'Perfil');
+            navigation.navigate(rotas.POLITICA_DE_PRIVACIDADE);
+          }}
+        >
+          Política de privacidade
+        </TextoLink>
       </TextoTermo>
     </ConteudoTermo>
   );

@@ -32,12 +32,12 @@ if (featuresAtivas.includes(feature.EXCLUSAO_USUARIO)) {
     });
 
     test('verificar se o nome do botão existe', () => {
-      const element = renderedObject.getByText('EXCLUIR CONTA');
+      const element = renderedObject.getByText('EXCLUIR');
       expect(element).not.toBeNull();
     });
 
     test('verifica o click do botao excluir conta', async () => {
-      const toClick = await renderedObject.findByText('EXCLUIR CONTA');
+      const toClick = await renderedObject.findByText('EXCLUIR');
       fireEvent.press(toClick);
     });
   });

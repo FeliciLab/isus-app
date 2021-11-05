@@ -13,8 +13,7 @@ function CaixaDialogoProvider({ children }) {
   const [aoCancelar, alterarAoCancelar] = useState(() => true);
   const [aoConcluir, alterarAoConcluir] = useState(() => true);
 
-
-  const mostrarCaixaDialogo = (obj) => {
+  const mostrarCaixaDialogo = obj => {
     alterarVisibilidade(false);
     alterarTitulo(obj.titulo);
     alterarCor(obj.cor);

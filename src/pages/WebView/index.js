@@ -1,19 +1,20 @@
-import React, { useLayoutEffect } from 'react';
-import {
-  TouchableOpacity, Dimensions
-} from 'react-native';
-import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
+import React, { useLayoutEffect } from 'react';
+import { Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { WebView } from 'react-native-webview';
 import BarraDeStatus from '../../components/barraDeStatus';
 
 export default function WebViewPage({
-  navigation, route, mostrarEsqueletoDeCarregamento, esqueletoDeCarregamento
+  navigation,
+  route,
+  mostrarEsqueletoDeCarregamento,
+  esqueletoDeCarregamento
 }) {
   const navigator = useNavigation();
   const widthView = Dimensions.get('window').width;
 
-  const definirTituloWebView = (title) => {
+  const definirTituloWebView = title => {
     if (title.length <= 35) {
       return title;
     }
@@ -25,7 +26,9 @@ export default function WebViewPage({
     return `${title.substring(0, 35).trim()}...`;
   };
 
-  const alterarBackground = () => (route.params.idSaude ? '#304FFE' : '#4CAF50');
+  const alterarBackground = () =>
+    route.params.idSaude ? '#304FFE' : '#4CAF50';
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -40,7 +43,6 @@ export default function WebViewPage({
             marginHorizontal: 19
           }}
           onPress={() => {
-            // console.log(route.params?.rota);
             if (route.params.rota) {
               navigator.navigate(route.params.rota);
               return;
@@ -52,21 +54,19 @@ export default function WebViewPage({
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <>
       <BarraDeStatus backgroundColor={alterarBackground()} />
-      { mostrarEsqueletoDeCarregamento ? (
+      {mostrarEsqueletoDeCarregamento ? (
         <WebView
           source={{ uri: route.params.url }}
           startInLoadingState={mostrarEsqueletoDeCarregamento}
           renderLoading={() => esqueletoDeCarregamento}
         />
       ) : (
-        <WebView
-          source={{ uri: route.params.url }}
-        />
+        <WebView source={{ uri: route.params.url }} />
       )}
     </>
   );

@@ -69,7 +69,7 @@ export default function ({ navigation }) {
       titulo,
       cor: 'verde'
     });
-  });
+  }, []);
 
   if (categorias.length === 0) {
     return <></>;

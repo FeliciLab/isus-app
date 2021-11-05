@@ -18,7 +18,7 @@ export default function QualiQuiz({ navigation }) {
       } else {
         navigator.navigate('webview', {
           title: 'QualiQuiz',
-          url: `${Config.QUALIQUIZ_URL}/isus/login/${tokenUsuario.access_token}`,
+          url: `${Config.QUALIQUIZ_URL}/isus/login/1/${tokenUsuario.access_token}`,
           rota: 'HOME'
         });
       }
@@ -43,12 +43,14 @@ export default function QualiQuiz({ navigation }) {
     handleEffect();
   });
 
-  useLayoutEffect(() =>
-    cabecalhoVoltar({
-      title: 'QualiQuiz',
-      navegador: navigation,
-      cor: 'verde'
-    })
+  useLayoutEffect(
+    () =>
+      cabecalhoVoltar({
+        title: 'QualiQuiz',
+        navegador: navigation,
+        cor: 'verde'
+      }),
+    []
   );
 
   return (

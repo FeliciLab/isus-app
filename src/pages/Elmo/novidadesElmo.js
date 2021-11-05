@@ -1,19 +1,14 @@
-import React, { useLayoutEffect } from 'react';
-import {
-  FlatList,
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {
-  TextoCentralizado,
-  CardSemConteudo
-} from './styles';
+import React, { useLayoutEffect } from 'react';
+import { FlatList } from 'react-native';
 import BarraDeStatus from '../../components/barraDeStatus';
-import { CORES } from '../../constantes/estiloBase';
-import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
+import { CORES } from '../../constantes/estiloBase';
 import randomKey from '../../utils/randomKey';
+import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
+import { CardSemConteudo, TextoCentralizado } from './styles';
 
-export default function (props) {
+export default function(props) {
   const { route } = props;
   const { params } = route;
   const { conteudos } = params;
@@ -25,7 +20,7 @@ export default function (props) {
       titulo: 'Novidades Elmo',
       cor: 'indigo'
     });
-  });
+  }, []);
 
   const ListaDeConteudo = () => {
     if (conteudos && conteudos.length > 0) {

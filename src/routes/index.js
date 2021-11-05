@@ -1,37 +1,36 @@
 /* eslint-disable max-len */
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
-import Description from '../pages/Content/Description';
-import BemVindo from '../pages/BemVindo';
-import AppDrawerScreen from './appDrawerScreen.routes';
-import Buscar from '../pages/Buscar';
-import BuscarDescription from '../pages/Buscar/Description';
-import WebViewPage from '../pages/WebView';
-import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
-import TelaDeCadastro from '../pages/Cadastro';
-import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional';
-import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
 import SemConexao from '../components/semConexao';
-import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
-import { FormProvider } from '../context/FormContext';
-import TelaDeSucesso from '../pages/TelaDeSucesso';
-import MeusConteudos from '../pages/MeusConteudos';
-import CadastroRoutes from './cadastro.routes';
-import PreCadastroRoutes from './preCadastro.routes';
 import features from '../constantes/features';
 import rotas from '../constantes/rotas';
-import estaAtiva from '../utils/estaAtiva';
+import { FormProvider } from '../context/FormContext';
+import BemVindo from '../pages/BemVindo';
+import Buscar from '../pages/Buscar';
+import BuscarDescription from '../pages/Buscar/Description';
+import TelaDeCadastro from '../pages/Cadastro';
+import Descricao from '../pages/Content/Descricao';
+import Description from '../pages/Content/Description';
 import Elmo from '../pages/Elmo';
-import SobreElmo from '../pages/Elmo/sobreElmo';
 import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/novidadesElmo';
-import NovoSemConexao from '../pages/SemConexao';
-
+import SobreElmo from '../pages/Elmo/sobreElmo';
+import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
+import MeusConteudos from '../pages/MeusConteudos';
+import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal';
+import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional';
 import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
-import Descricao from '../pages/Content/Descricao';
+import NovoSemConexao from '../pages/SemConexao';
+import TelaDeSucesso from '../pages/TelaDeSucesso';
+import WebViewPage from '../pages/WebView';
+import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
+import estaAtiva from '../utils/estaAtiva';
+import AppDrawerScreen from './appDrawerScreen.routes';
+import CadastroRoutes from './cadastro.routes';
+import PreCadastroRoutes from './preCadastro.routes';
 
 const RootStack = createStackNavigator();
 
@@ -77,6 +76,7 @@ const PreCadastro = () => (
     activeComponent={PreCadastroRoutes}
   />
 );
+
 const PreCadastroIntro = () => (
   <Feature
     name="453"
@@ -217,6 +217,7 @@ export default function App({ navigationRef }) {
 }
 
 const searchStack = createStackNavigator();
+
 function searchStackScreen() {
   return (
     <searchStack.Navigator>

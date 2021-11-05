@@ -12,7 +12,9 @@ const PERFIL = {
   },
   EDICAO_INFO_PROFISSIONAL: {
     CABECALHO: 'Informações Profissionais',
-    MSG_ERRO_SALVAR: 'Houve um problema ao salvar os dados.'
+    MSG_ERRO_SALVAR: 'Houve um problema ao salvar os dados.',
+    MSG_SUCESSO: 'Parabéns! Você atualizou suas informações profissionais. '
+    + 'Você será redirecionado para sua página de Perfil.'
   }
 };
 

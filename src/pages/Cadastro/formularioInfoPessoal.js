@@ -1,21 +1,21 @@
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, {
-  useLayoutEffect,
-  useContext,
   useCallback,
-  useEffect
+  useContext,
+  useEffect,
+  useLayoutEffect
 } from 'react';
-import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TextInput, DefaultTheme, Button } from 'react-native-paper';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
-import IconDropdown from 'react-native-vector-icons/MaterialIcons';
+import { Button, DefaultTheme, TextInput } from 'react-native-paper';
 import TextInputMask from 'react-native-text-input-mask';
-import FormContext from '../../context/FormContext';
-import Regex from '../../utils/regex';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
-import { salvarDados } from '../../services/armazenamento';
+import FormContext from '../../context/FormContext';
 import WizardContext from '../../context/WizardContext';
+import { salvarDados } from '../../services/armazenamento';
+import Regex from '../../utils/regex';
 import FormularioInfoProfissional from './formularioInfoProfissional';
 
 export default function FormularioInfoPessoal() {
@@ -125,7 +125,7 @@ export default function FormularioInfoPessoal() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <>

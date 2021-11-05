@@ -23,7 +23,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
+<<<<<<< HEAD
 	<string>3.20.2</string>
+=======
+	<string>3.20.3</string>
+>>>>>>> 6529cda20bda5844864c18105609175756587305
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -40,7 +44,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
 	<string>28</string>
+=======
+	<string>27</string>
+>>>>>>> 6529cda20bda5844864c18105609175756587305
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
 	<key>LSApplicationQueriesSchemes</key>
