@@ -1,21 +1,21 @@
-/* eslint-disable max-len */
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
-import {
-  View,
-  Platform
-} from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {
-  ALERTA_FALTA_EPI, RELATAR_SUGESTAO, RELATAR_PROBLEMA, DEMANDA_EDUCACAO, DUVIDAS_ELMO
-} from './tiposDeOcorrencia';
-import DropdownSimples from './dropdown';
-import FeedbackScreen from './feedback';
+import { cabecalhoMenuBusca } from '../../components/layoutEffect/cabecalhoLayout';
+import { FormProvider } from '../../context/FormContext';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 import DemandaEducacao from './demandaEducacao';
+import DropdownSimples from './dropdown';
 import DuvidasElmo from './duvidasElmo';
-import { FormProvider } from '../../context/FormContext';
-import { cabecalhoMenuBusca } from '../../components/layoutEffect/cabecalhoLayout';
+import FeedbackScreen from './feedback';
+import {
+  ALERTA_FALTA_EPI,
+  DEMANDA_EDUCACAO,
+  DUVIDAS_ELMO,
+  RELATAR_PROBLEMA,
+  RELATAR_SUGESTAO
+} from './tiposDeOcorrencia';
 
 export default function FaleConoscoScreen({ route }) {
   const navigation = useNavigation();
@@ -61,7 +61,7 @@ export default function FaleConoscoScreen({ route }) {
       titulo: ocorrenciaAtual.header,
       cor: 'verde'
     });
-  });
+  }, []);
 
   return (
     <KeyboardAwareScrollView

@@ -8,8 +8,7 @@ const SafeArea = styled.SafeAreaView`
   background-color: ${CORES.AZUL};
 `;
 
-const Scroll = styled(ScrollView)`
-`;
+const Scroll = styled(ScrollView)``;
 
 export const ChildrenView = styled.View`
   flex: 1;
@@ -24,12 +23,8 @@ const ConteudoImagem = styled.View`
 const Botao = styled(Button)`
   border-radius: 200px;
   margin: 10px 16px;
-  background-color: ${props => (props.mode === 'text' ? CORES.AZUL : CORES.BRANCO)};
+  background-color: ${props =>
+    props.mode === 'text' ? CORES.AZUL : CORES.BRANCO};
 `;
 
-export {
-  SafeArea,
-  Scroll,
-  ConteudoImagem,
-  Botao
-};
+export { SafeArea, Scroll, ConteudoImagem, Botao };

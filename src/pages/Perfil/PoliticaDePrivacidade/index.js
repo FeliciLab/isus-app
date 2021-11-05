@@ -1,7 +1,11 @@
 import React, { useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
+import politicaPrivacidade from './politica-privacidade.json';
+import { uniqueId } from 'lodash';
+import estilos from './styles';
+
 
 export default function PoliticaDePrivacidadeScreen() {
   const navigation = useNavigation();
@@ -16,18 +20,6 @@ export default function PoliticaDePrivacidadeScreen() {
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
       headerTitle: 'Política de Privacidade',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19
-          }}
-          onPress={() => {
-            navigation.navigate('Buscar');
-          }}
-        >
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -37,15 +29,40 @@ export default function PoliticaDePrivacidadeScreen() {
             navigation.goBack();
           }}
         >
-          <Icon name="keyboard-backspace" size={28} color="#FFF" />
+          <SetaEsquerda />
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
-    <View>
-      <Text>Política de Privacidade</Text>
-    </View>
+    <ScrollView style={{ backgroundColor: '#fff' }}>
+      <View style={estilos.conteudoTexto}>
+        {politicaPrivacidade.paragrafos.map(paragrafo => (
+          <Text key={uniqueId('paragrafo')} style={estilos.texto}>
+            {paragrafo}
+          </Text>
+        ))}
+        {politicaPrivacidade.secoes.map(secao => (
+          <View key={uniqueId('secao')}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 18,
+                textAlign: 'center'
+              }}
+            >
+              {secao.titulo}
+            </Text>
+            {secao.paragrafos.map(paragrafo => (
+              <Text key={uniqueId('paragrafo')} style={estilos.texto}>
+                {paragrafo}
+              </Text>
+            ))}
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
+

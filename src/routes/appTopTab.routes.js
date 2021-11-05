@@ -1,18 +1,11 @@
-import React,
-{
-  useLayoutEffect,
-  useEffect,
-  useState
-} from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-// import { useFocusEffect } from '@react-navigation/native';
-// import useApiHooks from '../hooks/apiHooks';
 import { pegarCategoriasArquitetura } from '../apis/apiHome';
 import { CORES } from '../constantes/estiloBase';
-import { salvarDados, pegarDados } from '../services/armazenamento';
 import rotas from '../constantes/rotas';
+import { pegarDados, salvarDados } from '../services/armazenamento';
 
 const Tab = createMaterialTopTabNavigator();
 const indexComponent = 0;
@@ -45,9 +38,7 @@ export default function appTopTabScreen({ route, navigation }) {
       }
 
       setCategorias(resposta.data[route.name]);
-      salvarDados(
-        `@categorias_${route.name}`, resposta.data[route.name]
-      );
+      salvarDados(`@categorias_${route.name}`, resposta.data[route.name]);
     } catch (err) {
       if (err.message === 'Network Error') {
         try {
@@ -56,7 +47,7 @@ export default function appTopTabScreen({ route, navigation }) {
         } catch (err2) {
           navigation.navigate(rotas.SEM_CONEXAO, {
             goHome: true,
-            componente: route.name,
+            componente: route.name
           });
         }
       }
@@ -98,7 +89,7 @@ export default function appTopTabScreen({ route, navigation }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   function addTitle(item) {
     item.title_description = title;
@@ -106,7 +97,7 @@ export default function appTopTabScreen({ route, navigation }) {
   }
   return (
     <>
-      {(categorias !== null) && (
+      {categorias !== null && (
         <Tab.Navigator
           tabBarOptions={{
             scrollEnabled: true,

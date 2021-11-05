@@ -123,7 +123,7 @@ export default function Home() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   const { width } = Dimensions.get('screen');
 

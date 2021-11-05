@@ -1,25 +1,24 @@
-import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import BarraDeStatus from '../../components/barraDeStatus';
+import React, { useLayoutEffect } from 'react';
 import IDSaudeBranco from '../../assets/icons/idsaude-branco.svg';
-import { CORES } from '../../constantes/estiloBase';
+import BarraDeStatus from '../../components/barraDeStatus';
 import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
+import { CORES } from '../../constantes/estiloBase';
+import { ChildrenView, ConteudoImagem, SafeArea, Scroll } from './styles';
 import Termos from './Termos';
-import {
-  ConteudoImagem,
-  SafeArea,
-  Scroll,
-  ChildrenView
-} from './styles';
 
 function IDSaudeLoginTemplate({ children }) {
   const navigation = useNavigation();
 
-  useLayoutEffect(() => cabecalhoVoltar({
-    title: '',
-    navegador: navigation,
-    cor: 'azul'
-  }));
+  useLayoutEffect(
+    () =>
+      cabecalhoVoltar({
+        title: '',
+        navegador: navigation,
+        cor: 'azul'
+      }),
+    []
+  );
 
   return (
     <>
@@ -29,9 +28,7 @@ function IDSaudeLoginTemplate({ children }) {
           <IDSaudeBranco />
         </ConteudoImagem>
         <Scroll>
-          <ChildrenView>
-            {children}
-          </ChildrenView>
+          <ChildrenView>{children}</ChildrenView>
           <Termos />
         </Scroll>
       </SafeArea>

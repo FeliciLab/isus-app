@@ -4,7 +4,10 @@ import FormularioInfoPessoal from '../pages/Cadastro/formularioInfoPessoal';
 const WizardContext = createContext();
 
 export function WizardProvider({ children }) {
-  const [TelaAtual, alterarTelaAtual] = useState({ indice: 0, tela: <FormularioInfoPessoal /> });
+  const [TelaAtual, alterarTelaAtual] = useState({
+    indice: 0,
+    tela: <FormularioInfoPessoal />
+  });
 
   return (
     <WizardContext.Provider
@@ -19,7 +22,7 @@ export function WizardProvider({ children }) {
 }
 
 WizardProvider.defaultProps = {
-  initValues: {},
+  initValues: {}
 };
 
 export default WizardContext;

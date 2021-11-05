@@ -1,32 +1,29 @@
-import React, { useLayoutEffect } from 'react';
-import {
-  TouchableOpacity, View
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React, { useLayoutEffect } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import jpgEsmaltec from '../../assets/icons/logo/logo-esmaltec.jpg';
+import jpgESP from '../../assets/icons/logo/logo-esp.jpg';
+import jpgFIEC from '../../assets/icons/logo/logo-fiec.jpg';
+import jpgFUNCAP from '../../assets/icons/logo/logo-funcap.jpg';
+import jpgGovCe from '../../assets/icons/logo/logo-gov-ce.jpg';
+import jpgISGH from '../../assets/icons/logo/logo-isgh.jpg';
+import jpgSENAI from '../../assets/icons/logo/logo-senai.jpg';
+import jpgUFC from '../../assets/icons/logo/logo-ufc.jpg';
+import jpgUNIFOR from '../../assets/icons/logo/logo-unifor.jpg';
+import ImageElmo from '../../assets/images/fig-elmo.jpg';
 import BarraDeStatus from '../../components/barraDeStatus';
+import { CORES } from '../../constantes/estiloBase';
 import {
+  ConteudoLogo,
+  Imagem,
+  LinhaHorizontal,
   ScrollView,
   Texto,
   TextoCentralizado,
   Titulo,
-  Imagem,
-  LinhaHorizontal,
-  ConteudoLogo,
   ViewLogo
 } from './styles';
-import { CORES } from '../../constantes/estiloBase';
-import ImageElmo from '../../assets/images/fig-elmo.jpg';
-import jpgGovCe from '../../assets/icons/logo/logo-gov-ce.jpg';
-import jpgESP from '../../assets/icons/logo/logo-esp.jpg';
-import jpgUFC from '../../assets/icons/logo/logo-ufc.jpg';
-import jpgUNIFOR from '../../assets/icons/logo/logo-unifor.jpg';
-import jpgFIEC from '../../assets/icons/logo/logo-fiec.jpg';
-import jpgSENAI from '../../assets/icons/logo/logo-senai.jpg';
-import jpgFUNCAP from '../../assets/icons/logo/logo-funcap.jpg';
-import jpgISGH from '../../assets/icons/logo/logo-isgh.jpg';
-import jpgEsmaltec from '../../assets/icons/logo/logo-esmaltec.jpg';
 
 export default function sobreElmo() {
   const navigation = useNavigation();
@@ -54,7 +51,7 @@ export default function sobreElmo() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <>
@@ -68,13 +65,21 @@ export default function sobreElmo() {
 
         <View style={{ marginHorizontal: 16, marginTop: 18 }}>
           <Texto>
-            {'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes.'}
+            {
+              'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes.'
+            }
             {'\n\n'}
-            {'Criado em abril de 2020 em uma força-tarefa que envolve uma parceria público-privada, o equipamento inovador surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica por Covid-19.'}
+            {
+              'Criado em abril de 2020 em uma força-tarefa que envolve uma parceria público-privada, o equipamento inovador surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica por Covid-19.'
+            }
             {'\n\n'}
             <Texto fontWeight="bold">{'Como funciona\n'}</Texto>
-            {'O Elmo envolve toda a cabeça do paciente. Ele é fixado no pescoço com uma base que veda a passagem do ar.\n'}
-            {'Aplica-se um fluxo de gases medicinais com oxigênio (O2) e ar comprimido capaz de gerar uma pressão positiva (acima da pressão atmosférica). Essa pressão ajuda em situações em que o pulmão está com dificuldade de oxigenação.'}
+            {
+              'O Elmo envolve toda a cabeça do paciente. Ele é fixado no pescoço com uma base que veda a passagem do ar.\n'
+            }
+            {
+              'Aplica-se um fluxo de gases medicinais com oxigênio (O2) e ar comprimido capaz de gerar uma pressão positiva (acima da pressão atmosférica). Essa pressão ajuda em situações em que o pulmão está com dificuldade de oxigenação.'
+            }
           </Texto>
           <TextoCentralizado color={CORES.PRETO54} marginTop="35px">
             Realização

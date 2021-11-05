@@ -1,22 +1,25 @@
-import React, { useLayoutEffect, useState } from 'react';
-import { TouchableOpacity, Linking, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { List, Divider } from 'react-native-paper';
+import React, { useLayoutEffect, useState } from 'react';
+import { Linking, TouchableOpacity, View } from 'react-native';
+import { Divider, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconSvgMaterno from '../../../../assets/icons/linhasDeCuidado/maternoInfantilBanner.svg';
-import {
-  ScrollView, Texto, Titulo, Container, SvgView
-} from './styles';
-import useAnalytics from '../../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../../../constantes/testIDs';
+import useAnalytics from '../../../../hooks/Analytics';
+import { Container, ScrollView, SvgView, Texto, Titulo } from './styles';
 
 export default function MaternoInfantil({ route }) {
   const { analyticsData } = useAnalytics();
+
   const { params } = route;
+
   const { expanded } = params;
+
   const navigation = useNavigation();
+
   const { MATERNO_INFANTIL } = labelsAnalytics;
+
   const [_expanded, setExpanded] = useState(expanded);
 
   const handlePress = () => {
@@ -31,9 +34,14 @@ export default function MaternoInfantil({ route }) {
   };
 
   const onPressEstratificacaoRisco = () => {
-    analyticsData(MATERNO_INFANTIL.ESTRATIFICACAO_DE_RISCO, 'Click', 'Materno Infantil');
-    return Linking
-      .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_1.pdf');
+    analyticsData(
+      MATERNO_INFANTIL.ESTRATIFICACAO_DE_RISCO,
+      'Click',
+      'Materno Infantil'
+    );
+    return Linking.openURL(
+      'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_1.pdf'
+    );
   };
 
   useLayoutEffect(() => {
@@ -59,28 +67,43 @@ export default function MaternoInfantil({ route }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   const textoNascerNoCeara = () => (
     <>
       <Texto>
-        {'A redução da mortalidade materna faz parte das metas dos Objetivos de  Desenvolvimento'}
-        {' do Milênio e do Ceará Saudável, e seu monitoramento tem grande importância para fortalecer'}
+        {
+          'A redução da mortalidade materna faz parte das metas dos Objetivos de  Desenvolvimento'
+        }
+        {
+          ' do Milênio e do Ceará Saudável, e seu monitoramento tem grande importância para fortalecer'
+        }
         {' ou redirecionar as políticas de saúde.'}
         {'\n\n'}
-        {'O Nascer no Ceará objetiva reduzir a morbimortalidade materna e perinatal reestruturando a'}
-        {' Linha de Cuidado Materno-Infantil, qualificando a assistência às mulheres e crianças'}
-        {' no estado através de um conjunto de ações para o fortalecimento da atenção em rede,'}
-        {' como a elaboração e implantação de protocolos e condutas assistenciais, baseadas'}
+        {
+          'O Nascer no Ceará objetiva reduzir a morbimortalidade materna e perinatal reestruturando a'
+        }
+        {
+          ' Linha de Cuidado Materno-Infantil, qualificando a assistência às mulheres e crianças'
+        }
+        {
+          ' no estado através de um conjunto de ações para o fortalecimento da atenção em rede,'
+        }
+        {
+          ' como a elaboração e implantação de protocolos e condutas assistenciais, baseadas'
+        }
         {' em evidências científicas.'}
         {'\n\n'}
-        {'As orientações visam ao manejo clínico, diagnóstico ou tratamento e à organização da'}
-        {' assistência baseando-se na estratificação de risco, na parametrização da assistência,'}
+        {
+          'As orientações visam ao manejo clínico, diagnóstico ou tratamento e à organização da'
+        }
+        {
+          ' assistência baseando-se na estratificação de risco, na parametrização da assistência,'
+        }
         {' nas competências e atribuições de serviços e nos profissionais.'}
       </Texto>
     </>
   );
-
 
   return (
     <>
@@ -92,16 +115,30 @@ export default function MaternoInfantil({ route }) {
         </Container>
         <View style={{ marginHorizontal: 16, marginTop: 18 }}>
           <Texto>
-            {'A Linha de Cuidado Materno-Infantil expressa os fluxos assistenciais'}
-            {' de atendimento às necessidades de saúde de mulheres e crianças, através de'}
-            {' ações e serviços desenvolvidos nos diferentes pontos da Rede de Atenção à Saúde, '}
+            {
+              'A Linha de Cuidado Materno-Infantil expressa os fluxos assistenciais'
+            }
+            {
+              ' de atendimento às necessidades de saúde de mulheres e crianças, através de'
+            }
+            {
+              ' ações e serviços desenvolvidos nos diferentes pontos da Rede de Atenção à Saúde, '
+            }
             {'nos 184 municípios do Ceará.'}
             {'\n\n'}
-            {'Todos os materiais aqui apresentados são elaborados e implantados pela Secretaria '}
-            {'da Saúde do Ceará. Eles organizam e orientam a atenção à saúde da gestante, a '}
-            {'qualificação dos profissionais médicos e enfermeiros, a oferta de exames específicos, entre outras ações.'}
+            {
+              'Todos os materiais aqui apresentados são elaborados e implantados pela Secretaria '
+            }
+            {
+              'da Saúde do Ceará. Eles organizam e orientam a atenção à saúde da gestante, a '
+            }
+            {
+              'qualificação dos profissionais médicos e enfermeiros, a oferta de exames específicos, entre outras ações.'
+            }
             {'\n\n'}
-            {'A Sesa também acompanha e monitora todas as ações dessa Linha de Cuidado através de sistemas de informação'}
+            {
+              'A Sesa também acompanha e monitora todas as ações dessa Linha de Cuidado através de sistemas de informação'
+            }
             {' e aplicativos desenvolvidos para esse fim.'}
           </Texto>
         </View>
@@ -111,13 +148,8 @@ export default function MaternoInfantil({ route }) {
           testID={TESTIDS.MATERNO_INFANTIL.NASCER_CEARA}
           onPress={handlePress}
         >
-          <List.Item
-            titleNumberOfLines={80}
-            title={textoNascerNoCeara()}
-          />
-          <List.Item
-            title={<Titulo>Guias assistenciais</Titulo>}
-          />
+          <List.Item titleNumberOfLines={80} title={textoNascerNoCeara()} />
+          <List.Item title={<Titulo>Guias assistenciais</Titulo>} />
           <List.Item
             left={() => <List.Icon icon="file-document" color="#808080" />}
             title="Estratificação de risco"
@@ -132,11 +164,15 @@ export default function MaternoInfantil({ route }) {
             testID={TESTIDS.MATERNO_INFANTIL.PRE_NATAL_RISCO_HABITUAL}
             right={() => <List.Icon icon="chevron-right" />}
             onPress={() => {
-              analyticsData(MATERNO_INFANTIL.PRE_NATAL_RISCO_HABITUAL, 'Click', 'Materno Infantil');
-              return Linking
-                .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_2.pdf');
-            }
-            }
+              analyticsData(
+                MATERNO_INFANTIL.PRE_NATAL_RISCO_HABITUAL,
+                'Click',
+                'Materno Infantil'
+              );
+              return Linking.openURL(
+                'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_2.pdf'
+              );
+            }}
           />
           <Divider />
           <List.Item
@@ -145,11 +181,15 @@ export default function MaternoInfantil({ route }) {
             testID={TESTIDS.MATERNO_INFANTIL.PRE_NATAL_ALTO_RISCO}
             right={() => <List.Icon icon="chevron-right" />}
             onPress={() => {
-              analyticsData(MATERNO_INFANTIL.PRE_NATAL_ALTO_RISCO, 'Click', 'Materno Infantil');
-              return Linking
-                .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_3.pdf');
-            }
-            }
+              analyticsData(
+                MATERNO_INFANTIL.PRE_NATAL_ALTO_RISCO,
+                'Click',
+                'Materno Infantil'
+              );
+              return Linking.openURL(
+                'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_3.pdf'
+              );
+            }}
           />
           <Divider />
           <List.Item
@@ -158,11 +198,15 @@ export default function MaternoInfantil({ route }) {
             testID={TESTIDS.MATERNO_INFANTIL.SINDROMES_HIPERTENSIVAS_GESTACAO}
             right={() => <List.Icon icon="chevron-right" />}
             onPress={() => {
-              analyticsData(MATERNO_INFANTIL.SINDROMES_HIPERTENSIVAS_GESTACAO, 'Click', 'Materno Infantil');
-              return Linking
-                .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_4.pdf');
-            }
-            }
+              analyticsData(
+                MATERNO_INFANTIL.SINDROMES_HIPERTENSIVAS_GESTACAO,
+                'Click',
+                'Materno Infantil'
+              );
+              return Linking.openURL(
+                'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_4.pdf'
+              );
+            }}
           />
           <Divider />
           <List.Item
@@ -171,11 +215,15 @@ export default function MaternoInfantil({ route }) {
             testID={TESTIDS.MATERNO_INFANTIL.HEMORRAGIA_GESTACAO}
             right={() => <List.Icon icon="chevron-right" />}
             onPress={() => {
-              analyticsData(MATERNO_INFANTIL.GUIA_HEMORRAGIA_GESTACAO, 'Click', 'Materno Infantil');
-              return Linking
-                .openURL('https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_5.pdf');
-            }
-            }
+              analyticsData(
+                MATERNO_INFANTIL.GUIA_HEMORRAGIA_GESTACAO,
+                'Click',
+                'Materno Infantil'
+              );
+              return Linking.openURL(
+                'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/11/Nascer_Ceara_5.pdf'
+              );
+            }}
           />
         </List.Accordion>
       </ScrollView>

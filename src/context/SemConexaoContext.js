@@ -18,10 +18,7 @@ const SemConexaoProvider = ({ children }) => {
 };
 
 SemConexaoProvider.defaultProps = {
-  initValues: {},
+  initValues: {}
 };
 
-export {
-  SemConexaoContext,
-  SemConexaoProvider
-};
+export { SemConexaoContext, SemConexaoProvider };

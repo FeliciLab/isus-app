@@ -1,31 +1,39 @@
-import React, {
-  useState, useCallback, useLayoutEffect, useEffect
-} from 'react';
-
-import {
-  View, Text, Dimensions, StyleSheet, Platform,
-  ScrollView, Share, TouchableOpacity, SafeAreaView, Alert
-}
-  from 'react-native';
-import {
-  Title, Snackbar
-} from 'react-native-paper';
-import HTML from 'react-native-render-html';
-import 'moment/locale/pt-br';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNetInfo } from '@react-native-community/netinfo';
-
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import 'moment/locale/pt-br';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState
+} from 'react';
 import {
-  salvarDados, pegarDados, removerDados, converterImagemParaBase64
-} from '../../services/armazenamento';
+  Alert,
+  Dimensions,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { Snackbar, Title } from 'react-native-paper';
+import HTML from 'react-native-render-html';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorId } from '../../apis/apiHome';
-import BarraInferior from '../../components/barraInferior';
-import ImagemDePostagem from './ImagemDePostagem';
-import formatarDataPorExtenso from '../../utils/dateUtils';
 import BarraDeStatus from '../../components/barraDeStatus';
+import BarraInferior from '../../components/barraInferior';
 import rotas from '../../constantes/rotas';
-
+import {
+  converterImagemParaBase64,
+  pegarDados,
+  removerDados,
+  salvarDados
+} from '../../services/armazenamento';
+import formatarDataPorExtenso from '../../utils/dateUtils';
+import ImagemDePostagem from './ImagemDePostagem';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -34,7 +42,9 @@ export default function DescriptionScreen(props) {
   const [postagem, alterarPostagem] = useState({});
   const [visivel, alterarVisibilidade] = useState(false);
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(!!params.object.offline);
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(
+    !!params.object.offline
+  );
   const dataDePostagem = postagem.post_date;
   const estaConectado = useNetInfo().isConnected;
 
@@ -46,15 +56,15 @@ export default function DescriptionScreen(props) {
 
   useFocusEffect(
     useCallback(() => {
-      pegarConteudoDoStorage()
-        .catch(() => pegarConteudoDaApi());
+      pegarConteudoDoStorage().catch(() => pegarConteudoDaApi());
     }, [])
   );
 
-
   const pegarConteudoDoStorage = async () => {
     try {
-      const resposta = await pegarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      const resposta = await pegarDados(
+        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`
+      );
       alterarPostagem(resposta);
     } catch (err) {
       console.log(`Erro ao pegar conteudo do storage: ${err.message}`);
@@ -72,7 +82,9 @@ export default function DescriptionScreen(props) {
 
   const aoCompartilhar = async () => {
     const messagTitle = postagem.post_title;
-    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(postagem.slug);
+    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(
+      postagem.slug
+    );
     try {
       await Share.share({
         message: messagTitle + messagLink
@@ -92,9 +104,7 @@ export default function DescriptionScreen(props) {
 
   const informacaoLateral = () => (
     <>
-      <Text style={styles.informacaoLateral}>
-        postado em
-      </Text>
+      <Text style={styles.informacaoLateral}>postado em</Text>
       <Text style={styles.informacaoLateral}>
         {formatarDataPorExtenso(dataDePostagem)}
       </Text>
@@ -107,9 +117,15 @@ export default function DescriptionScreen(props) {
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
       const postagemOffline = {
-        ...postagem, image: imagembase64, categoria_id: params.object.categoria_id, offline: true
+        ...postagem,
+        image: imagembase64,
+        categoria_id: params.object.categoria_id,
+        offline: true
       };
-      await salvarDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`, postagemOffline);
+      await salvarDados(
+        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`,
+        postagemOffline
+      );
       alterarConteudoBaixado(true);
       alterarPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
@@ -118,15 +134,19 @@ export default function DescriptionScreen(props) {
       if (e.message.includes('SQLITE_FULL')) {
         Alert.alert(
           'Não foi possível baixar o conteúdo',
-          'Já estamos trabalhando para que você possa ter mais leituras off-line. '
-          + 'Acompanhe as próximas versões do iSUS.',
-          [{
-            text: 'OK',
-            onPress: () => { }
-          }]
+          'Já estamos trabalhando para que você possa ter mais leituras off-line. ' +
+            'Acompanhe as próximas versões do iSUS.',
+          [
+            {
+              text: 'OK',
+              onPress: () => {}
+            }
+          ]
         );
       } else {
-        mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+        mostrarFeedback(
+          'Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.'
+        );
       }
     }
   };
@@ -135,13 +155,17 @@ export default function DescriptionScreen(props) {
     try {
       alterarConteudoBaixado(false);
       mostrarFeedback('A página foi excluida da leitura offline');
-      await removerDados(`@categoria_${params.object.categoria_id}_postagem_${params.object.id}`);
+      await removerDados(
+        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`
+      );
     } catch (e) {
-      mostrarFeedback('Não foi possível realizar a ação, Por favor, tente mais tarde.');
+      mostrarFeedback(
+        'Não foi possível realizar a ação, Por favor, tente mais tarde.'
+      );
     }
   };
 
-  const mostrarFeedback = (texto) => {
+  const mostrarFeedback = texto => {
     alterarTextoDoFeedback(texto);
     alterarVisibilidade(true);
     setTimeout(() => {
@@ -184,11 +208,14 @@ export default function DescriptionScreen(props) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeiOS}>
-      <BarraDeStatus backgroundColor={params.cor} barStyle={params.estiloBarra} />
+      <BarraDeStatus
+        backgroundColor={params.cor}
+        barStyle={params.estiloBarra}
+      />
       <ScrollView>
         <View style={styles.titulo}>
           <View>
@@ -207,18 +234,12 @@ export default function DescriptionScreen(props) {
             }}
           >
             <View style={styles.viewHTML}>
-              <HTML
-                html={postagem.post_content}
-                onLinkPress={baixarPDF}
-              />
+              <HTML html={postagem.post_content} onLinkPress={baixarPDF} />
             </View>
           </View>
         </View>
       </ScrollView>
-      <Snackbar
-        style={styles.feedbackMargin}
-        visible={visivel}
-      >
+      <Snackbar style={styles.feedbackMargin} visible={visivel}>
         {textoDoFeedback}
       </Snackbar>
       <BarraInferior
@@ -235,7 +256,7 @@ export default function DescriptionScreen(props) {
 
 const styles = StyleSheet.create({
   feedbackMargin: {
-    marginBottom: Dimensions.get('window').height / 9,
+    marginBottom: Dimensions.get('window').height / 9
   },
   searchHeaderBack: {
     marginHorizontal: 19
@@ -246,7 +267,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     fontSize: 10,
     lineHeight: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   titulo: { flex: 1, backgroundColor: '#fff' },
   textTitleDetail: {
@@ -257,13 +278,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 28,
     color: '#00000099',
-    fontStyle: 'normal',
+    fontStyle: 'normal'
   },
   sub: {
     flexDirection: 'row',
     margin: 1,
     justifyContent: 'space-between',
-    marginTop: 12,
+    marginTop: 12
   },
   textData: {
     marginLeft: 16,
@@ -278,7 +299,7 @@ const styles = StyleSheet.create({
   },
   contentText: {
     marginLeft: 16,
-    backgroundColor: 'red',
+    backgroundColor: 'red'
   },
   subShare: {
     marginRight: 20,

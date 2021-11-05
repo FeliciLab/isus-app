@@ -49,6 +49,20 @@ const itemInferior = () => {
     {
       icone: (
         <Icon
+          testID="icon-drawer-lock"
+          name="lock"
+          size={22}
+          color={CORES.PRETO54}
+        />
+      ),
+      nome: 'Política de Privacidade',
+      testID: testIDs.DRAWER.ITEM_POLITA_DE_PRIVACIDADE,
+      labelDoAnalytics: 'Politica_de_Privacidade',
+      aoPressionar: () => navigationTermos.navigate(rotas.POLITICA_DE_PRIVACIDADE)
+    },
+    {
+      icone: (
+        <Icon
           testID="icon-drawer-share-variant"
           name="share-variant"
           size={22}
