@@ -13,19 +13,17 @@ export const FormProvider = ({ initValues, children }) => {
     getValues,
     control,
     unregister,
-    formState,
+    formState
   } = useForm({
     defaultValues: initValues,
     mode: 'onBlur',
-    reValidateMode: 'onChange',
+    reValidateMode: 'onChange'
   });
 
-  // React.useEffect(() => {
-  //   console.log(initValues);
-  // }, []);
-
-  const setValues = obj => Object.keys(obj).forEach(key => setValue(key, obj[key]));
-  const fieldsEmpty = list => list.filter(item => getValues(item) === '').length > 0;
+  const setValues = obj =>
+    Object.keys(obj).forEach(key => setValue(key, obj[key]));
+  const fieldsEmpty = list =>
+    list.filter(item => getValues(item) === '').length > 0;
 
   return (
     <FormContext.Provider
@@ -49,8 +47,7 @@ export const FormProvider = ({ initValues, children }) => {
 };
 
 FormProvider.defaultProps = {
-  initValues: {},
+  initValues: {}
 };
-
 
 export default FormContext;

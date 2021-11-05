@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
 import useAnalytics from '../../hooks/Analytics';
-
 import InfoPreview from './InfoPreview';
-import LegendaPesquisando from './LegendaPesquisando';
 import ItemConteudo from './ItemConteudo';
 import LegendaNaoEncontrada from './LegendaNaoEncontrada';
+import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
-
 import {
   TextSearch,
   TouchableLeft,
   TouchableRight,
-  ViewColumn,
+  ViewColumn
 } from './styles';
 
-const Buscar = (props) => {
+const Buscar = props => {
+  const { navigation } = props;
+
   const { analyticsData } = useAnalytics();
 
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState([]);
+
   const [page, setPage] = useState(1);
 
   const [busca, setBusca] = useState({ atual: '', antiga: '' });
+
   const [nadaEncontrado, setNadaEncontrado] = useState(false);
 
-  const { navigation } = props;
   navigation.setOptions({
     headerTintColor: '#FFF',
     headerStyle: {
@@ -54,13 +55,17 @@ const Buscar = (props) => {
     ),
 
     headerLeft: () => (
-      <TouchableLeft onPress={() => { navigation.goBack(); }}>
+      <TouchableLeft
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
         <Icon name="arrow-left" size={28} color="#FFF" />
       </TouchableLeft>
     )
   });
 
-  const loadRepositories = async () => {
+  const loadRepositories = useCallback(async () => {
     await analyticsData('Home', 'Pesquisa', busca.atual);
     try {
       const response = await pegarBusca(busca.atual, page);
@@ -79,9 +84,9 @@ const Buscar = (props) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const executarBusca = (txt) => {
+  const executarBusca = txt => {
     setLoading(true);
     setBusca({
       atual: txt,
@@ -93,13 +98,17 @@ const Buscar = (props) => {
   return (
     <ViewColumn>
       {busca.atual.length === 0 && <InfoPreview />}
-      {busca.atual.length > 0 && loading && <LegendaPesquisando palavra={busca.atual} />}
+      {busca.atual.length > 0 && loading && (
+        <LegendaPesquisando palavra={busca.atual} />
+      )}
       {busca.atual.length > 0 && !loading && (
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           data={data}
-          renderItem={({ item }) => <ItemConteudo item={item} navigation={navigation} />}
-          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <ItemConteudo item={item} navigation={navigation} />
+          )}
+          keyExtractor={item => String(item.id)}
           onEndReached={loadRepositories}
           onEndReachedThreshold={0.2}
           ListFooterComponent={(!loading && <RodapeBusca />) || <></>}

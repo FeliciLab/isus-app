@@ -14,7 +14,7 @@ const SvgView = styled.View`
 
 const Titulo = styled.Text`
   font-size: 18px;
-  color: rgba(0, 0, 0, 1);  
+  color: rgba(0, 0, 0, 1);
 `;
 
 const Texto = styled.Text`
@@ -22,10 +22,4 @@ const Texto = styled.Text`
   color: rgba(0, 0, 0, 0.6);
 `;
 
-export {
-  Container,
-  ScrollView,
-  SvgView,
-  Titulo,
-  Texto
-};
+export { Container, ScrollView, SvgView, Titulo, Texto };

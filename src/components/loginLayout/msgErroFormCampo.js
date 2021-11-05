@@ -10,11 +10,7 @@ const msgErroFormCampo = ({ campo }) => {
     return <></>;
   }
 
-  return (
-    <Text style={{ color: CORES.LARANJA }}>
-      {errors[campo].message}
-    </Text>
-  );
+  return <Text style={{ color: CORES.LARANJA }}>{errors[campo].message}</Text>;
 };
 
 export default msgErroFormCampo;

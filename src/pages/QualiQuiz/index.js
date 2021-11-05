@@ -43,12 +43,14 @@ export default function QualiQuiz({ navigation }) {
     handleEffect();
   });
 
-  useLayoutEffect(() =>
-    cabecalhoVoltar({
-      title: 'QualiQuiz',
-      navegador: navigation,
-      cor: 'verde'
-    })
+  useLayoutEffect(
+    () =>
+      cabecalhoVoltar({
+        title: 'QualiQuiz',
+        navegador: navigation,
+        cor: 'verde'
+      }),
+    []
   );
 
   return (

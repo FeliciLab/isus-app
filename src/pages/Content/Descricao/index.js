@@ -38,7 +38,7 @@ export default function ({ route, navigation }) {
       titulo: 'Descrição',
       navegador: navigation
     });
-  });
+  }, []);
 
 
   useEffect(() => {

@@ -33,7 +33,7 @@ export default function PoliticaDePrivacidadeScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <ScrollView style={{ backgroundColor: '#fff' }}>

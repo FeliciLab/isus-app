@@ -1,16 +1,16 @@
+import { useNavigation } from '@react-navigation/native';
+import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import {
-  TouchableOpacity,
-  View,
+  ScrollView,
   StyleSheet,
   Text,
-  ScrollView
+  TouchableOpacity,
+  View
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 import CartaoDeConteudo from './CartaoDeConteudo';
-import { uniqueId } from 'lodash';
 
 function MeusConteudos({ route }) {
   const navigation = useNavigation();
@@ -39,7 +39,7 @@ function MeusConteudos({ route }) {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <>

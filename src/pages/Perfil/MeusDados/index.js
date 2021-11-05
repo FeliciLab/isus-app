@@ -41,7 +41,7 @@ export default function MeusDadosScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <View>

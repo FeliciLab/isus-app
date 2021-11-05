@@ -99,7 +99,7 @@ function Servicos({ navigation }) {
 
   if (estaAtiva(features.QUALIQUIZ)) {
     listaServicos.unshift({
-      ordem: 99,
+      ordem: 0,
       id: 'qualiquiz',
       titulo: 'QualiQuiz',
       ativo: true,

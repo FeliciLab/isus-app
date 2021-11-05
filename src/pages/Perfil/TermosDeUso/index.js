@@ -1,15 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
+import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import {
-  View,
+  ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  ScrollView
+  View
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 import termoDeUso from './termo-de-uso.json';
-import { uniqueId } from 'lodash';
 
 export default function TermosDeUsoScreen() {
   const navigation = useNavigation();
@@ -37,7 +37,7 @@ export default function TermosDeUsoScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <ScrollView style={{ backgroundColor: '#fff' }}>

@@ -1,18 +1,20 @@
-import React, {
-  useEffect, useContext, useState, useRef
-} from 'react';
-import { Text, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Controller } from 'react-hook-form';
+import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import FormContext from '../../context/FormContext';
-import BtnLogin from './btnLogin';
-import { efetuarAcesso, salvarTokenDoUsuarioNoStorage } from '../../services/autenticacao';
 import { perfilUsuario } from '../../apis/apiCadastro';
-import { emailNaoCadastrado } from '../../utils/validadores';
 import { CORES } from '../../constantes/estiloBase';
+import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
+import FormContext from '../../context/FormContext';
+import useAutenticacao from '../../hooks/useAutenticacao';
+import {
+  efetuarAcesso,
+  salvarTokenDoUsuarioNoStorage
+} from '../../services/autenticacao';
 import Regex from '../../utils/regex';
+import { emailNaoCadastrado } from '../../utils/validadores';
+import BtnLogin from './btnLogin';
 import MsgErroFormCampo from './msgErroFormCampo';
 
 const style = StyleSheet.create({
@@ -31,30 +33,32 @@ const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
 const formLogin = ({ rotaAposLogin }) => {
   const navigator = useNavigation();
+
   const textInputEmail = useRef(null);
+
   const textInputSenha = useRef(null);
-  const [carregando, atribuirCarregando] = useState(false);
-  const [exibirErroSenha, atribuirExibirErroSenha] = useState(false);
-  const {
-    register,
-    setValue,
-    trigger,
-    errors
-  } = useContext(FormContext);
-  const {
-    mostrarCaixaDialogo,
-    fecharCaixaDialogo
-  } = useContext(CaixaDialogoContext);
+
+  const [carregando, setCarregando] = useState(false);
+
+  const [exibirErroSenha, setExibirErroSenha] = useState(false);
+
+  const { register, trigger, errors, control } = useContext(FormContext);
+
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
+    CaixaDialogoContext
+  );
+
   const {
     alterarDadosUsuario,
     alterarTokenUsuario,
     alterarEstaLogado,
     alterarPessoa
-  } = useContext(AutenticacaoContext);
+  } = useAutenticacao();
 
   useEffect(() => {
     register('email', {
-      validate: email => emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+      validate: email =>
+        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
     });
 
     register('senha', {
@@ -65,7 +69,8 @@ const formLogin = ({ rotaAposLogin }) => {
   const exibirNovoCadastro = () => {
     mostrarCaixaDialogo({
       titulo: 'E-mail não cadastrado',
-      texto: 'E-mail informado não está no ID Saúde. Verifique seus dados ou cadastre-se para acessar nossos conteúdos personalizados.',
+      texto:
+        'E-mail informado não está no ID Saúde. Verifique seus dados ou cadastre-se para acessar nossos conteúdos personalizados.',
       cor: CORES.LARANJA,
       textoConclusao: 'CRIAR CONTA',
       textoCancelamento: 'VOLTAR',
@@ -79,33 +84,39 @@ const formLogin = ({ rotaAposLogin }) => {
     });
   };
 
-  const efetuarLogin = async (data) => {
-    trigger();
-    if (Object.keys(errors).length > 0) {
-      return;
-    }
-
-    atribuirCarregando(true);
-    const invalido = await emailNaoCadastrado(data.email);
-    if (invalido) {
-      exibirNovoCadastro();
-      return;
-    }
-
-    const result = await efetuarAcesso({ email: data.email, senha: data.senha });
-    atribuirExibirErroSenha(false);
-    if (result.error) {
-      atribuirExibirErroSenha(true);
-      return;
-    }
-
+  const efetuarLogin = async data => {
     try {
-      const { token } = result;
-      if (!token) {
-        alterarEstaLogado(false);
-        atribuirCarregando(false);
+      trigger();
+
+      setCarregando(true);
+
+      const invalido = await emailNaoCadastrado(data.email);
+
+      if (invalido) {
+        exibirNovoCadastro();
         return;
       }
+
+      const result = await efetuarAcesso({
+        email: data.email,
+        senha: data.senha
+      });
+
+      setExibirErroSenha(false);
+
+      if (result.error) {
+        setExibirErroSenha(true);
+        return;
+      }
+
+      const { token } = result;
+
+      if (!token) {
+        alterarEstaLogado(false);
+        setCarregando(false);
+        return;
+      }
+
       alterarTokenUsuario(token);
       salvarTokenDoUsuarioNoStorage(token);
 
@@ -115,15 +126,19 @@ const formLogin = ({ rotaAposLogin }) => {
       alterarPessoa(perfil.data);
 
       alterarEstaLogado(true);
-      atribuirCarregando(false);
+      setCarregando(false);
 
       navigator.navigate(rotaAposLogin);
       return;
-    } catch (err) {
+    } catch (error) {
       alterarEstaLogado(false);
-      console.log('ERRO', err);
+      console.log('ERRO', error);
+      if (error.response.status === 401) {
+        setExibirErroSenha(true);
+        return;
+      }
     } finally {
-      atribuirCarregando(false);
+      setCarregando(false);
     }
   };
 
@@ -138,37 +153,66 @@ const formLogin = ({ rotaAposLogin }) => {
       }}
     >
       <Text style={style.titulo}>Conecte-se com seu ID Saúde</Text>
-      <TextInput
-        ref={textInputEmail}
-        style={style.campoTexto}
-        mode="outlined"
-        label="E-mail"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        onChangeText={text => setValue('email', text)}
+      <Controller
+        control={control}
+        name="email"
+        rules={{
+          required: true,
+          validate: { emailValido: value => emailValido(value) }
+        }}
+        defaultValue=""
+        render={({ onChange, value }) => (
+          <TextInput
+            ref={textInputEmail}
+            mode="outlined"
+            label="E-mail"
+            style={style.campoTexto}
+            placeholder="E-mail"
+            textContentType="emailAddress"
+            autoCapitalize="none"
+            onChangeText={onChange}
+            error={errors?.email}
+            value={value}
+          />
+        )}
       />
       <MsgErroFormCampo campo="email" />
-      <TextInput
-        ref={textInputSenha}
-        style={style.campoTexto}
-        label="Senha"
-        mode="outlined"
-        textContentType="password"
-        secureTextEntry
-        onChangeText={text => setValue('senha', text)}
+
+      <Controller
+        control={control}
+        name="senha"
+        rules={{
+          required: true
+        }}
+        defaultValue=""
+        render={({ onChange, value }) => (
+          <TextInput
+            ref={textInputSenha}
+            label="Senha"
+            style={style.campoTexto}
+            selectionColor="#0000AB"
+            placeholder="Senha"
+            mode="outlined"
+            onChangeText={onChange}
+            secureTextEntry
+            value={value}
+            error={errors?.senha}
+          />
+        )}
       />
       <MsgErroFormCampo campo="senha" />
+
       {exibirErroSenha && !carregando && (
         <Text style={{ color: CORES.LARANJA }}>
-          Senha, incorreta. Tente novamente ou clique em
-          &ldquo;Esqueci a senha&rdquo; para redefini-la.
+          Senha, incorreta. Tente novamente ou clique em &ldquo;Esqueci a
+          senha&rdquo; para redefini-la.
         </Text>
       )}
       <BtnLogin
         style={{ marginTop: 40 }}
         acao={efetuarLogin}
         carregando={carregando}
+        disable={carregando}
       />
     </View>
   );
