@@ -1,26 +1,32 @@
 import * as React from 'react';
 import {
-  View, Image, Dimensions, StyleSheet,
-  ScrollView, Text, Share, TouchableOpacity
+  View,
+  Image,
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Share,
+  TouchableOpacity
 } from 'react-native';
 import { Title } from 'react-native-paper';
 import Moment from 'moment/locale/pt-br';
-
-// import { WebView } from 'react-native-webview';
 import HTML from 'react-native-render-html';
 import { useNavigation } from '@react-navigation/native';
 import ShareIcon from '../../assets/icons/share.svg';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
-  // console.tron.log(props);
+
   const { route } = props;
+
   const { item } = route.params;
-  // console.tron.log(item);
 
   const onShare = async () => {
     const messagTitle = item.post_title;
-    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(item.slug);
+    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(
+      item.slug
+    );
     try {
       await Share.share({
         message: messagTitle + messagLink
@@ -47,7 +53,9 @@ export default function DescriptionScreen(props) {
 
   function formateDate(date) {
     Moment.locale('pt-br');
-    return `Postado em ${Moment(date).format('D')} de ${Capitalize(Moment(date).format('MMMM'))} de ${Moment(date).format('YYYY')}`;
+    return `Postado em ${Moment(date).format('D')} de ${Capitalize(
+      Moment(date).format('MMMM')
+    )} de ${Moment(date).format('YYYY')}`;
   }
 
   return (
@@ -76,14 +84,14 @@ export default function DescriptionScreen(props) {
         />
         <View
           style={{
-            // height: Dimensions.get('window').width / 1.5,
             width: Dimensions.get('window').width
           }}
         >
-          <View style={{
-            padding: 10,
-            alignContent: 'center'
-          }}
+          <View
+            style={{
+              padding: 10,
+              alignContent: 'center'
+            }}
           >
             <HTML html={item.content} />
           </View>

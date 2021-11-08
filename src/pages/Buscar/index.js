@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,6 +6,8 @@ import useAnalytics from '../../hooks/Analytics';
 import useDebounce from '../../hooks/useDebounce';
 import InfoPreview from './InfoPreview';
 import ItemConteudo from './ItemConteudo';
+import LegendaNaoEncontrada from './LegendaNaoEncontrada';
+import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
 import {
   TextSearch,
@@ -26,11 +27,13 @@ const Buscar = props => {
 
   const [page, setPage] = useState(1);
 
-  const [lastPage, setLastPage] = useState(0);
+  const [lastPage, setLastPage] = useState(Number.POSITIVE_INFINITY);
 
   const [termoBusca, setTermoBusca] = useState('');
 
-  const termoBuscaDebounced = useDebounce(termoBusca, 500);
+  const [termoBuscaAnterior, setTermoBuscaAnterior] = useState('');
+
+  const termoBuscaDebounced = useDebounce(termoBusca, 1000);
 
   navigation.setOptions({
     headerTintColor: '#FFF',
@@ -44,7 +47,6 @@ const Buscar = props => {
         autoFocus
         placeholder="Buscar"
         placeholderTextColor="#FFFFFF"
-        value={termoBusca}
         onChangeText={value => setTermoBusca(value)}
       />
     ),
@@ -69,33 +71,49 @@ const Buscar = props => {
       loadProjetos();
     } else {
       setData([]);
+      setPage(1);
+      setLastPage(Number.POSITIVE_INFINITY);
     }
-  }, [termoBuscaDebounced]);
+  }, [termoBuscaDebounced, page]);
 
   const loadProjetos = async () => {
-    await analyticsData('Home', 'Pesquisa', termoBuscaDebounced);
-    try {
-      setLoading(true);
+    if (page <= lastPage) {
+      await analyticsData('Home', 'Pesquisa', termoBuscaDebounced);
+      try {
+        setLoading(true);
 
-      const {
-        data: { data, last_page }
-      } = await pegarBusca(termoBuscaDebounced, page);
+        if (termoBuscaDebounced !== termoBuscaAnterior) {
+          setPage(1);
+          setLastPage(Number.POSITIVE_INFINITY);
+        }
 
-      setData(old => [...old, ...data]);
+        const {
+          data: { data, last_page }
+        } = await pegarBusca(termoBuscaDebounced, page);
 
-      setLastPage(last_page);
-    } catch (e) {
-      console.log('Falha ao buscar', e);
-    } finally {
-      setLoading(false);
+        if (termoBuscaDebounced !== termoBuscaAnterior) {
+          setData(data);
+        } else {
+          setData(old => [...old, ...data]);
+        }
+
+        setLastPage(last_page);
+
+        setTermoBuscaAnterior(termoBuscaDebounced);
+      } catch (e) {
+        console.log('Falha ao buscar', e);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   // Load more
-  // const onEndReached = () => {
-  //   console.log('onEndReached');
-  //   setPage(old => old + 1);
-  // };
+  const onEndReached = () => {
+    if (page <= lastPage && termoBuscaDebounced === termoBuscaAnterior) {
+      setPage(old => old + 1);
+    }
+  };
 
   const renderListFooter = () => {
     if (!loading) return null;
@@ -104,33 +122,17 @@ const Buscar = props => {
   };
 
   const renderListEmpty = () => {
-    if (termoBusca === '') return null;
+    if (termoBuscaDebounced === '') return null;
 
-    return <InfoPreview />;
+    return !loading ? <LegendaNaoEncontrada /> : null;
   };
 
   return (
     <ViewColumn>
-      {/* {termoBusca === '' && <InfoPreview />} */}
-      {/* {termoBusca.length === 0 && <InfoPreview />}
-      {termoBusca.length > 0 && loading && (
-        <LegendaPesquisando palavra={termoBusca} />
+      {termoBuscaDebounced !== '' && loading && (
+        <LegendaPesquisando palavra={termoBuscaDebounced} />
       )}
-      {termoBusca.length > 0 && !loading && (
-        <FlatList
-          contentContainerStyle={{ flexGrow: 1 }}
-          data={data}
-          renderItem={({ item }) => (
-            <ItemConteudo item={item} navigation={navigation} />
-          )}
-          keyExtractor={item => item.id}
-          onEndReached={loadProjetos}
-          onEndReachedThreshold={0.2}
-          ListFooterComponent={(!loading && <RodapeBusca />) || <></>}
-          ListEmptyComponent={nadaEncontrado && <LegendaNaoEncontrada />}
-        />
-      )} */}
-
+      {termoBuscaDebounced === '' && !loading && <InfoPreview />}
       <FlatList
         contentContainerStyle={{ flexGrow: 1 }}
         data={data}
@@ -138,12 +140,11 @@ const Buscar = props => {
           <ItemConteudo item={item} navigation={navigation} />
         )}
         keyExtractor={item => String(item.id)}
-        // onEndReached={onEndReached}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.2}
         ListEmptyComponent={renderListEmpty}
         ListFooterComponent={renderListFooter}
       />
-
     </ViewColumn>
   );
 };
