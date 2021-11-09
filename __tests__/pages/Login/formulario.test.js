@@ -59,7 +59,7 @@ describe('Login>Formulario', () => {
 
   describe('Testes de Analytics da tela Login', () => {
     let botaoFazerLogin;
-    let botaoEsqueciSenha;
+    // let botaoEsqueciSenha;
 
     beforeEach(() => {
       const { getByTestId } = render(
@@ -70,7 +70,7 @@ describe('Login>Formulario', () => {
         </AppTrackTransparencyProvider>
       );
       botaoFazerLogin = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
-      botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
+      // botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
     });
 
     test('deve chamar o analytics data ao clicar em "Fazer Login"', () => {
