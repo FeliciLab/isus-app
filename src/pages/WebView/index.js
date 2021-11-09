@@ -52,7 +52,8 @@ export default function WebViewPage({
         >
           <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableOpacity>
-      )
+      ),
+      ...route.params.navigationOptions
     });
   }, []);
 
