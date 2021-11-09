@@ -84,14 +84,14 @@ describe('Login>Formulario', () => {
         .toHaveBeenCalledWith('fazer_login', 'Click', 'Perfil');
     });
 
-    test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha"', () => {
-      fireEvent.press(botaoEsqueciSenha);
-      expect(analyticsData).toHaveBeenCalled();
-    });
+    // test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha"', () => {
+    //   fireEvent.press(botaoEsqueciSenha);
+    //   expect(analyticsData).toHaveBeenCalled();
+    // });
 
-    test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha" com os parâmetros corretamente', () => {
-      fireEvent.press(botaoEsqueciSenha);
-      expect(analyticsData).toHaveBeenCalledWith('esqueci_minha_senha', 'Click', 'Perfil');
-    });
+    // test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha" com os parâmetros corretamente', () => {
+    //   fireEvent.press(botaoEsqueciSenha);
+    //   expect(analyticsData).toHaveBeenCalledWith('esqueci_minha_senha', 'Click', 'Perfil');
+    // });
   });
 });
