@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
+import { FlatList, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
 import useAnalytics from '../../hooks/Analytics';
@@ -9,11 +9,7 @@ import ItemConteudo from './ItemConteudo';
 import LegendaNaoEncontrada from './LegendaNaoEncontrada';
 import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
-import {
-  TextSearch,
-  TouchableLeft,
-  ViewColumn
-} from './styles';
+import { TextSearch, TouchableLeft, ViewColumn } from './styles';
 
 const Buscar = props => {
   const { navigation } = props;
@@ -34,30 +30,33 @@ const Buscar = props => {
 
   const termoBuscaDebounced = useDebounce(termoBusca, 1000);
 
-  navigation.setOptions({
-    headerTintColor: '#FFF',
-    headerStyle: {
-      backgroundColor: '#4CAF50',
-      elevation: 0,
-      shadowOpacity: 0
-    },
-    headerTitle: () => (
-      <TextSearch
-        autoFocus
-        placeholder="Buscar"
-        placeholderTextColor="#FFFFFF"
-        onChangeText={value => setTermoBusca(value)}
-      />
-    ),
-    headerLeft: () => (
-      <TouchableLeft
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Icon name="arrow-left" size={28} color="#FFF" />
-      </TouchableLeft>
-    )
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: '#FFF',
+      headerStyle: {
+        backgroundColor: '#4CAF50',
+        elevation: 0,
+        shadowOpacity: 0
+      },
+      headerTitle: () => (
+        <TextSearch
+          autoFocus
+          placeholder="Buscar"
+          placeholderTextColor="#FFFFFF"
+          onChangeText={value => setTermoBusca(value)}
+          onEndEditing={Keyboard.dismiss}
+        />
+      ),
+      headerLeft: () => (
+        <TouchableLeft
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Icon name="arrow-left" size={28} color="#FFF" />
+        </TouchableLeft>
+      )
+    });
   });
 
   useEffect(() => {
