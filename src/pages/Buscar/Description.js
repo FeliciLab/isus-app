@@ -1,18 +1,18 @@
-import * as React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import Moment from 'moment/locale/pt-br';
+import React, { useLayoutEffect } from 'react';
 import {
-  View,
-  Image,
   Dimensions,
-  StyleSheet,
+  Image,
   ScrollView,
-  Text,
   Share,
-  TouchableOpacity
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import { Title } from 'react-native-paper';
-import Moment from 'moment/locale/pt-br';
 import HTML from 'react-native-render-html';
-import { useNavigation } from '@react-navigation/native';
 import ShareIcon from '../../assets/icons/share.svg';
 
 export default function DescriptionScreen(props) {
@@ -36,7 +36,7 @@ export default function DescriptionScreen(props) {
     }
   };
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerTintColor: '#FFF',
       headerStyle: {
