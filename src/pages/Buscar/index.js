@@ -85,6 +85,7 @@ const Buscar = props => {
         if (termoBuscaDebounced !== termoBuscaAnterior) {
           setPage(1);
           setLastPage(Number.POSITIVE_INFINITY);
+          setData([]);
         }
 
         const {
@@ -108,9 +109,8 @@ const Buscar = props => {
     }
   };
 
-  // Load more
   const onEndReached = () => {
-    if (page <= lastPage && termoBuscaDebounced === termoBuscaAnterior) {
+    if (page < lastPage && termoBuscaDebounced === termoBuscaAnterior) {
       setPage(old => old + 1);
     }
   };
