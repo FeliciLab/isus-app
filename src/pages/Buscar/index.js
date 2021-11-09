@@ -12,7 +12,6 @@ import RodapeBusca from './RodapeBusca';
 import {
   TextSearch,
   TouchableLeft,
-  TouchableRight,
   ViewColumn
 } from './styles';
 
@@ -49,11 +48,6 @@ const Buscar = props => {
         placeholderTextColor="#FFFFFF"
         onChangeText={value => setTermoBusca(value)}
       />
-    ),
-    headerRight: () => (
-      <TouchableRight mode="contained" onPress={() => loadProjetos()}>
-        <></>
-      </TouchableRight>
     ),
     headerLeft: () => (
       <TouchableLeft
