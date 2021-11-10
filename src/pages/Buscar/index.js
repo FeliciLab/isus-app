@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { FlatList, Keyboard } from 'react-native';
+import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
 import useAnalytics from '../../hooks/Analytics';
@@ -28,7 +28,7 @@ const Buscar = props => {
 
   const [termoBuscaAnterior, setTermoBuscaAnterior] = useState('');
 
-  const termoBuscaDebounced = useDebounce(termoBusca, 1000);
+  const termoBuscaDebounced = useDebounce(termoBusca, 300);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -44,7 +44,6 @@ const Buscar = props => {
           placeholder="Buscar"
           placeholderTextColor="#FFFFFF"
           onChangeText={value => setTermoBusca(value)}
-          onEndEditing={Keyboard.dismiss}
         />
       ),
       headerLeft: () => (
@@ -121,24 +120,26 @@ const Buscar = props => {
   };
 
   return (
-    <ViewColumn>
-      {termoBuscaDebounced !== '' && loading && (
-        <LegendaPesquisando palavra={termoBuscaDebounced} />
-      )}
-      {termoBuscaDebounced === '' && !loading && <InfoPreview />}
-      <FlatList
-        contentContainerStyle={{ flexGrow: 1 }}
-        data={data}
-        renderItem={({ item }) => (
-          <ItemConteudo item={item} navigation={navigation} />
+    <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
+      <ViewColumn>
+        {termoBuscaDebounced !== '' && loading && (
+          <LegendaPesquisando palavra={termoBuscaDebounced} />
         )}
-        keyExtractor={item => String(item.id)}
-        onEndReached={onEndReached}
-        onEndReachedThreshold={0.2}
-        ListEmptyComponent={renderListEmpty}
-        ListFooterComponent={renderListFooter}
-      />
-    </ViewColumn>
+        {termoBuscaDebounced === '' && !loading && <InfoPreview />}
+        <FlatList
+          contentContainerStyle={{ flexGrow: 1 }}
+          data={data}
+          renderItem={({ item }) => (
+            <ItemConteudo item={item} navigation={navigation} />
+          )}
+          keyExtractor={item => String(item.id)}
+          onEndReached={onEndReached}
+          onEndReachedThreshold={0.2}
+          ListEmptyComponent={renderListEmpty}
+          ListFooterComponent={renderListFooter}
+        />
+      </ViewColumn>
+    </TouchableWithoutFeedback>
   );
 };
 
