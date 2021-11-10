@@ -105,7 +105,7 @@ const FormularioLogin = ({ route }) => {
 
       navigation.navigate(rotas.HOME_SCREEN_HOME);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
         return;
       } else if (error.message) {
