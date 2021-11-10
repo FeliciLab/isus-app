@@ -1,19 +1,27 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import {
-  Text, TouchableOpacity, StyleSheet, Linking, Platform, Image, View
+  Image,
+  Linking,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
-import { List, Divider } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  TextoSobreSUS, TextoSobreSUSCeara, TextoSobreSESA, TextoSobreESP
-} from './textos';
-// import { navigate } from '../../routes/rootNavigation';
+import { Divider, List } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconeSus30Anos from '../../assets/images/sus_30_anos.png';
-import useAnalytics from '../../hooks/Analytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../constantes/testIDs';
+import useAnalytics from '../../hooks/Analytics';
+import {
+  TextoSobreESP,
+  TextoSobreSESA,
+  TextoSobreSUS,
+  TextoSobreSUSCeara
+} from './textos';
 
 const informacoes = {
   InstagramESP: {
@@ -62,7 +70,8 @@ const informacoes = {
   },
   Plano: {
     tituloCompleto: 'Plano de Modernização da Saúde',
-    url: 'https://www.saude.ce.gov.br/wp-content/uploads/sites/9/2019/09/plataforma_de_modernizacao_da_saude_13_08_2019.pdf'
+    url:
+      'https://www.saude.ce.gov.br/wp-content/uploads/sites/9/2019/09/plataforma_de_modernizacao_da_saude_13_08_2019.pdf'
   }
 };
 
@@ -105,14 +114,24 @@ export default function SusNoCearaScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
-    <ScrollView style={{
-      backgroundColor: '#ffffff', flex: 1, padding: 15, marginBottom: 20
-    }}
+    <ScrollView
+      style={{
+        backgroundColor: '#ffffff',
+        flex: 1,
+        padding: 15,
+        marginBottom: 20
+      }}
     >
-      <View style={{ justifyContent: 'center', display: 'flex', flexDirection: 'row' }}>
+      <View
+        style={{
+          justifyContent: 'center',
+          display: 'flex',
+          flexDirection: 'row'
+        }}
+      >
         <Image
           source={IconeSus30Anos}
           style={{
@@ -125,14 +144,13 @@ export default function SusNoCearaScreen() {
       <TextoSobreSUS />
       <List.Accordion
         testID={TESTIDS.ACORDEON_SUS_NO_CEARA}
-        onPress={() => analyticsData(labelsAnalytics.SUS_NO_CEARA, 'Click', 'SUS no Ceará')}
+        onPress={() =>
+          analyticsData(labelsAnalytics.SUS_NO_CEARA, 'Click', 'SUS no Ceará')
+        }
         titleStyle={{ color: 'black' }}
         title={<Text style={estilos.titulo}>SUS no Ceará</Text>}
       >
-        <List.Item
-          titleNumberOfLines={80}
-          title={<TextoSobreSUSCeara />}
-        />
+        <List.Item titleNumberOfLines={80} title={<TextoSobreSUSCeara />} />
         <List.Item
           left={() => <List.Icon icon="file-document" color="#808080" />}
           title="Plano de Modernização da Saúde"
@@ -142,15 +160,13 @@ export default function SusNoCearaScreen() {
       </List.Accordion>
       <List.Accordion
         testID={TESTIDS.ACORDEON_ISUS_ESP}
-        onPress={() => analyticsData(labelsAnalytics.ISUS_ESP, 'Click', 'SUS no Ceará')}
+        onPress={() =>
+          analyticsData(labelsAnalytics.ISUS_ESP, 'Click', 'SUS no Ceará')
+        }
         titleStyle={{ color: 'black' }}
         title={<Text style={estilos.titulo}>O iSUS é ESP</Text>}
       >
-
-        <List.Item
-          titleNumberOfLines={80}
-          title={<TextoSobreSESA />}
-        />
+        <List.Item titleNumberOfLines={80} title={<TextoSobreSESA />} />
         <List.Item
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
@@ -189,14 +205,13 @@ export default function SusNoCearaScreen() {
       </List.Accordion>
       <List.Accordion
         testID={TESTIDS.ACORDEON_ESP_SESA}
-        onPress={() => analyticsData(labelsAnalytics.ESP_SESA, 'Click', 'SUS no Ceará')}
+        onPress={() =>
+          analyticsData(labelsAnalytics.ESP_SESA, 'Click', 'SUS no Ceará')
+        }
         titleStyle={{ color: 'black' }}
         title={<Text style={estilos.titulo}>A ESP é SESA</Text>}
       >
-        <List.Item
-          titleNumberOfLines={80}
-          title={<TextoSobreESP />}
-        />
+        <List.Item titleNumberOfLines={80} title={<TextoSobreESP />} />
         <List.Item
           left={() => <List.Icon icon="instagram" color="#808080" />}
           title="Instagram"
@@ -215,7 +230,9 @@ export default function SusNoCearaScreen() {
           left={() => <List.Icon icon="whatsapp" color="#808080" />}
           title="WhatsApp"
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => Linking.openURL('http://api.whatsapp.com/send?phone=5585984394810')}
+          onPress={() =>
+            Linking.openURL('http://api.whatsapp.com/send?phone=5585984394810')
+          }
         />
         <Divider style={estilos.borda} />
         <List.Item
@@ -251,13 +268,14 @@ const linkingURLouApp = (titulo, tipo) => {
     }
 
     Linking.canOpenURL(pegarUrlouApp)
-      .then((suportado) => {
+      .then(suportado => {
         if (!suportado) {
           Linking.openURL(`${informacoes[titulo].url}`);
           return;
         }
         Linking.openURL(pegarUrlouApp);
-      }).catch((err) => {
+      })
+      .catch(err => {
         console.error('Ocorreu um erro', err);
         Linking.openURL(`${informacoes[titulo].url}`);
       });

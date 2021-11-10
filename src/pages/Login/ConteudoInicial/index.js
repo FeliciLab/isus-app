@@ -1,28 +1,26 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
-
 import { TESTIDS } from '../../../constantes/testIDs';
-import {
-  ConteudoDoTexto,
-  Texto
-} from './styles';
+import { ConteudoDoTexto, Texto } from './styles';
 import { Botao } from '../styles';
 import useAnalytics from '../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 import useDialogAppTrack from '../../../hooks/DialogAppTrack';
 
 const ConteudoInicial = () => {
-  const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
+
+  const { analyticsData } = useAnalytics();
+
   const { exibirDialog } = useDialogAppTrack();
 
   return (
     <>
       <ConteudoDoTexto>
         <Texto>
-          O seu passaporte de acesso a todas as soluções digitais da
-          Escola de Sáúde Pública do Ceará
+          O seu passaporte de acesso a todas as soluções digitais da Escola de
+          Sáúde Pública do Ceará
         </Texto>
       </ConteudoDoTexto>
       <View>
@@ -38,8 +36,7 @@ const ConteudoInicial = () => {
             if (!exibirDialog('o Cadastro')) {
               navigation.navigate('CADASTRO');
             }
-          }
-          }
+          }}
         >
           Realizar meu cadastro
         </Botao>

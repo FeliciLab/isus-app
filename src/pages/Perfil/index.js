@@ -1,31 +1,27 @@
-import React, {
-  useLayoutEffect, useCallback, useContext
-} from 'react';
-import {
-  View, TouchableOpacity, StyleSheet, ScrollView,
-} from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import CabecalhoPerfil from './cabecalhoPerfil';
-import MenuPerfil from './Menus/menuPerfil';
-import MenuPerfilItem from './Menus/menuPerfilItem';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useContext, useLayoutEffect } from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { perfilUsuario } from '../../apis/apiCadastro';
 import { logout } from '../../apis/apiKeycloak';
+import BarraDeStatus from '../../components/barraDeStatus';
+import features from '../../constantes/features';
+import rotas from '../../constantes/rotas';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
+import useAnalytics from '../../hooks/Analytics';
+import { salvarDados } from '../../services/armazenamento';
 import {
-  pegarTokenDoUsuarioNoStorage,
+  armazenarEstadoLogado,
   excluirTokenDoUsuarioNoStorage,
   pegarEstadoLogadoArmazenado,
-  armazenarEstadoLogado
+  pegarTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
+import CabecalhoPerfil from './cabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import BarraDeStatus from '../../components/barraDeStatus';
-import { salvarDados } from '../../services/armazenamento';
-import features from '../../constantes/features';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import rotas from '../../constantes/rotas';
-import useAnalytics from '../../hooks/Analytics';
+import MenuPerfil from './Menus/menuPerfil';
+import MenuPerfilItem from './Menus/menuPerfilItem';
 
 export default function PerfilScreen() {
   const { analyticsData } = useAnalytics();
@@ -39,7 +35,9 @@ export default function PerfilScreen() {
     alterarPessoa
   } = useContext(AutenticacaoContext);
 
-  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
+    CaixaDialogoContext
+  );
   const navigation = useNavigation();
 
   useFocusEffect(
@@ -80,13 +78,19 @@ export default function PerfilScreen() {
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {
       titulo: '',
-      texto: 'Tem certeza que deseja excluir a sua conta? Ao removê-la, os seus dados serão apagados e você perderá o acesso ao iSUS e a todos os serviços vinculados ao ID Saúde.',
+      texto:
+        'Tem certeza que deseja excluir a sua conta? Ao removê-la, os seus dados serão apagados e você perderá o acesso ao iSUS e a todos os serviços vinculados ao ID Saúde.',
       cor: '#FF9800',
       textoConclusao: 'Excluir',
       textoCancelamento: 'Voltar',
       aoConcluir: () => {
-        fecharCaixaDialogo(); navigation.navigate('EXCLUIR_PERFIL');
-        analyticsData('solicitar_confirmacao_exclusao_conta', 'Click', 'Perfil');
+        fecharCaixaDialogo();
+        navigation.navigate('EXCLUIR_PERFIL');
+        analyticsData(
+          'solicitar_confirmacao_exclusao_conta',
+          'Click',
+          'Perfil'
+        );
       },
       aoCancelar: () => {
         fecharCaixaDialogo();
@@ -100,14 +104,18 @@ export default function PerfilScreen() {
   const abrirCaixaDialogoSair = async () => {
     const atributosCaixaDialogo = {
       titulo: 'Deseja realmente sair?',
-      texto: 'Será necessário efetuar login novamente para acessar serviços e conteúdos personalizados.',
+      texto:
+        'Será necessário efetuar login novamente para acessar serviços e conteúdos personalizados.',
       cor: '#FF9800',
       textoConclusao: 'SIM',
       textoCancelamento: 'NÃO',
       aoConcluir: () => {
-        fecharCaixaDialogo(); realizarLogout();
+        fecharCaixaDialogo();
+        realizarLogout();
       },
-      aoCancelar: () => { fecharCaixaDialogo(); }
+      aoCancelar: () => {
+        fecharCaixaDialogo();
+      }
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
@@ -136,7 +144,7 @@ export default function PerfilScreen() {
         </TouchableOpacity>
       )
     });
-  });
+  }, []);
 
   return (
     <>
@@ -151,13 +159,29 @@ export default function PerfilScreen() {
             <DadosUsuarioProfissional dados={dadosUsuario} />
           </MenuPerfil>
           <MenuPerfil titulo="Privacidade">
-            <MenuPerfilItem icone="clipboard-text" titulo="Termos de uso" onPress={() => navigation.navigate(rotas.TERMOS_DE_USO)} />
+            <MenuPerfilItem
+              icone="clipboard-text"
+              titulo="Termos de uso"
+              onPress={() => navigation.navigate(rotas.TERMOS_DE_USO)}
+            />
           </MenuPerfil>
           <MenuPerfil titulo="Preferências">
             <Feature
               name={features.CONFIRMACAO_AO_SAIR}
-              activeComponent={() => (<MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => abrirCaixaDialogoSair()} />)}
-              inactiveComponent={() => (<MenuPerfilItem icone="exit-to-app" titulo="Sair" onPress={() => realizarLogout()} />)}
+              activeComponent={() => (
+                <MenuPerfilItem
+                  icone="exit-to-app"
+                  titulo="Sair"
+                  onPress={() => abrirCaixaDialogoSair()}
+                />
+              )}
+              inactiveComponent={() => (
+                <MenuPerfilItem
+                  icone="exit-to-app"
+                  titulo="Sair"
+                  onPress={() => realizarLogout()}
+                />
+              )}
             />
             <Feature
               name={features.EXCLUSAO_USUARIO}
@@ -165,7 +189,9 @@ export default function PerfilScreen() {
                 <MenuPerfilItem
                   icone="delete-forever"
                   titulo="Excluir Conta"
-                  onPress={() => { abrirCaixaDialogo(); }}
+                  onPress={() => {
+                    abrirCaixaDialogo();
+                  }}
                 />
               )}
             />

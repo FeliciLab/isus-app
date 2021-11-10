@@ -86,7 +86,7 @@ describe('Dado que abro o menu lateral', () => {
       );
       const item = getByTestId(testIDs.DRAWER.ITEM_HOME);
       fireEvent.press(item);
-      expect(mockedNavigate).toHaveBeenCalledWith('HOME');
+      expect(mockedNavigate).toHaveBeenCalledWith('HOME_SCREEN_HOME');
     });
   });
   describe('Independente de autenticação', () => {
@@ -126,6 +126,13 @@ describe('Dado que abro o menu lateral', () => {
         const item = renderedObject.getByTestId(testIDs.DRAWER.ITEM_TERMOS_DE_USO);
         fireEvent.press(item);
         expect(mockedNavigate).toHaveBeenCalledWith('TERMOS_DE_USO');
+      });
+    });
+    describe('Quando clico em Politica de Privacidade', () => {
+      test('então sou redirecionado para a página Politica de Privacidade', () => {
+        const item = renderedObject.getByTestId(testIDs.DRAWER.ITEM_POLITA_DE_PRIVACIDADE);
+        fireEvent.press(item);
+        expect(mockedNavigate).toHaveBeenCalledWith('POLITICA_DE_PRIVACIDADE');
       });
     });
     describe('Quando clico em Compartilhar', () => {
