@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
 import useAnalytics from '../../hooks/Analytics';
 import useDebounce from '../../hooks/useDebounce';
-import InfoPreview from './InfoPreview';
 import ItemConteudo from './ItemConteudo';
 import LegendaNaoEncontrada from './LegendaNaoEncontrada';
 import LegendaPesquisando from './LegendaPesquisando';
@@ -125,7 +124,6 @@ const Buscar = props => {
         {termoBuscaDebounced !== '' && loading && (
           <LegendaPesquisando palavra={termoBuscaDebounced} />
         )}
-        {termoBuscaDebounced === '' && !loading && <InfoPreview />}
         <FlatList
           contentContainerStyle={{ flexGrow: 1 }}
           data={data}
