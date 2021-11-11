@@ -13,14 +13,14 @@ import {
 const ItemConteudo = ({ item, navigation }) => (
   <ViewWhite>
     <WhiteTouchable
-      onPress={() => navigation.navigate(
-        rotas.DESCRICAO, {
+      onPress={() =>
+        navigation.navigate(rotas.DESCRICAO, {
           parametros: {
             ...item
           },
           title: item.post_title
-        }
-      )}
+        })
+      }
     >
       <ViewRowCentering>
         {item.image && (
