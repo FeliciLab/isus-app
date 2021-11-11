@@ -20,10 +20,10 @@ export const SubCabecalhoVazio = styled(Subheading)`
 
 export const Legenda = styled(Caption)`
   flex: 1;
-  align-Content: center;
-  flex-Direction: row;
+  align-content: center;
+  flex-direction: row;
   padding: 10px;
-  font-Size: 15px;
+  font-size: 15px;
   color: #00000099;
   font-style: normal;
   font-weight: normal;
@@ -71,12 +71,12 @@ export const TouchableRight = styled.TouchableOpacity`
 
 export const TextSearch = styled.TextInput`
   background-color: transparent;
-  width: 200;
+  width: 200px;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 28px;
   letter-spacing: 0.5px;
-  color: #F2F2F2;
+  color: #f2f2f2;
   opacity: 0.87;
 `;
