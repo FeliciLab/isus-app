@@ -10,12 +10,17 @@ import { CORES } from '../../constantes/estiloBase';
 import testIDs from '../../constantes/testIDs';
 import rotas from '../../constantes/rotas';
 import aoCompartilhar from './aoCompartilhar';
+import useLogoutApplication from '../../hooks/useLogoutApplication';
+import useAutenticacao from '../../hooks/useAutenticacao';
 
 const itemInferior = () => {
   const navigationTermos = useNavigation();
   const { analyticsData } = useAnalytics();
 
   const versaoSistema = packageJson.version;
+
+  const { abrirCaixaDialogoSair } = useLogoutApplication();
+  const { estaLogado } = useAutenticacao();
 
   const conteudoItem = [
     {
@@ -73,7 +78,21 @@ const itemInferior = () => {
       testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
       labelDoAnalytics: 'compartilhe_o_isus',
       aoPressionar: () => aoCompartilhar()
-    }
+    },
+    ...(estaLogado ? [{
+      icone: (
+        <Icon
+          testID="icon-drawer-exit-to-app"
+          name="exit-to-app"
+          size={22}
+          color={CORES.PRETO54}
+        />
+      ),
+      nome: 'Sair',
+      testID: testIDs.DRAWER.ITEM_SAIR,
+      labelDoAnalytics: 'sair',
+      aoPressionar: () => abrirCaixaDialogoSair()
+    }]: [])
   ];
 
   return (
