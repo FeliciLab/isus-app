@@ -17,9 +17,15 @@ export default function QualiQuiz({ navigation }) {
         navigation.navigate('QUALIQUIZ_LOGIN');
       } else {
         navigator.navigate('webview', {
-          title: 'QualiQuiz',
+          title: 'Voltar ao iSUS',
           url: `${Config.QUALIQUIZ_URL}/isus/login/1/${tokenUsuario.access_token}`,
-          rota: 'HOME'
+          rota: 'HOME',
+          navigationOptions: {
+            headerStyle: {
+              backgroundColor: '#4E377C'
+            },
+            headerTitleAlign: 'left',
+          }
         });
       }
     }, 1500);

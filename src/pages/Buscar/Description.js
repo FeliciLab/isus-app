@@ -84,7 +84,6 @@ export default function DescriptionScreen(props) {
         />
         <View
           style={{
-            // height: Dimensions.get('window').width / 1.5,
             width: Dimensions.get('window').width
           }}
         >
