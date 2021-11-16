@@ -169,7 +169,6 @@ const FormularioLogin = ({ route }) => {
               placeholder="E-mail"
               selectionColor="#0000AB"
               onChangeText={onChange}
-              error={errors?.email}
               autoCapitalize="none"
               value={value}
               theme={theme}
@@ -192,7 +191,6 @@ const FormularioLogin = ({ route }) => {
               testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
               style={{ marginTop: 18 }}
               onChangeText={onChange}
-              error={errors?.senha}
               value={value}
               theme={theme}
               label="Senha"

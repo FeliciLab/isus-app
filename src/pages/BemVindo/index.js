@@ -1,28 +1,34 @@
-import React from 'react';
-import {
-  ImageBackground, View, StatusBar
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Entypo from 'react-native-vector-icons/Entypo';
+import React from 'react';
+import { ImageBackground, StatusBar, View } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Entypo from 'react-native-vector-icons/Entypo';
+import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 import bemVindo from '../../assets/icons/apresentacao/bemVindo.svg';
 import cadastroProfissional from '../../assets/icons/apresentacao/cadastroProfissional.svg';
-import educacao from '../../assets/icons/apresentacao/educacao.svg';
-import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
 import diagnostico from '../../assets/icons/apresentacao/diagnostico.svg';
+import educacao from '../../assets/icons/apresentacao/educacao.svg';
 import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.svg';
-import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
-import { salvarDados } from '../../services/armazenamento';
-import {
-  Conteudo, ConteudoTopo, ConteudoCentral, ConteudoDescricao, SafeArea,
-  TituloDescricao, BotaoCadastro, ConteudoImagem, TextoDescricao, PularTutorial,
-  ConteudoPularTutorial
-} from './styles';
+import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
+import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../constantes/testIDs';
 import useAnalytics from '../../hooks/Analytics';
 import useDialogAppTrack from '../../hooks/DialogAppTrack';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import { salvarDados } from '../../services/armazenamento';
+import {
+  BotaoCadastro,
+  Conteudo,
+  ConteudoCentral,
+  ConteudoDescricao,
+  ConteudoImagem,
+  ConteudoPularTutorial,
+  ConteudoTopo,
+  PularTutorial,
+  SafeArea,
+  TextoDescricao,
+  TituloDescricao
+} from './styles';
 
 export default function BemVindo() {
   const { exibirDialog } = useDialogAppTrack();
@@ -33,39 +39,45 @@ export default function BemVindo() {
     {
       key: 'slide-1',
       title: 'Bem-vindo ao iSUS',
-      description: 'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões.',
+      description:
+        'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões.',
       img: bemVindo
     },
     {
       key: 'slide-2',
       title: 'Educação',
-      description: 'Guias, palestras, webconferências e outros conteúdos de educação em saúde.',
+      description:
+        'Guias, palestras, webconferências e outros conteúdos de educação em saúde.',
       img: educacao
     },
     {
       key: 'slide-3',
       title: 'Pesquisa',
-      description: 'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento.',
+      description:
+        'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento.',
       img: pesquisa
     },
     {
       key: 'slide-4',
       title: 'Manejo Clínico',
-      description: 'Conheça as diversas etapas e instrumentos de avaliação no tratamento dos pacientes com Covid-19.',
+      description:
+        'Conheça as diversas etapas e instrumentos de avaliação no tratamento dos pacientes com Covid-19.',
       img: manejoClinico
     },
     {
       key: 'slide-5',
       title: 'Apoio ao Diagnóstico',
-      description: 'Ferramentas e canais para apoio ao diagnóstico de pacientes.',
+      description:
+        'Ferramentas e canais para apoio ao diagnóstico de pacientes.',
       img: diagnostico
     },
     {
       key: 'slide-6',
       title: 'Cadastro de profissional',
-      description: 'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde.',
+      description:
+        'Crie seu cadastro para ter uma experiência personalizada para seu perfil de profissional da saúde.',
       img: cadastroProfissional,
-      botao:
+      botao: (
         <BotaoCadastro
           labelStyle={{ color: '#4CAF50', fontWeight: '600' }}
           onPress={() => {
@@ -74,13 +86,13 @@ export default function BemVindo() {
             }
             salvarDados('@show-tutorial', false);
             navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
-          }
-          }
+          }}
           mode="contained"
         >
           {' '}
           Realizar meu cadastro
         </BotaoCadastro>
+      )
     }
   ];
 
@@ -90,10 +102,11 @@ export default function BemVindo() {
       <ConteudoCentral>
         <ConteudoDescricao>
           <ConteudoImagem>
-            <item.img style={{
-              alignSelf: 'center',
-              alignItems: 'flex-end',
-            }}
+            <item.img
+              style={{
+                alignSelf: 'center',
+                alignItems: 'flex-end'
+              }}
             />
           </ConteudoImagem>
           <View>
@@ -138,13 +151,18 @@ export default function BemVindo() {
       source={tutorialbackground}
       style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
     >
-      <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
       <SafeArea>
         <ConteudoPularTutorial>
-          <TouchableOpacity testID={TESTIDS.BOTAO_TUTORIAL_PULAR} onPress={moveToHome}>
-            <PularTutorial>
-              Pular Tutorial
-            </PularTutorial>
+          <TouchableOpacity
+            testID={TESTIDS.BOTAO_TUTORIAL_PULAR}
+            onPress={moveToHome}
+          >
+            <PularTutorial>Pular Tutorial</PularTutorial>
           </TouchableOpacity>
         </ConteudoPularTutorial>
         <AppIntroSlider

@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 import IDSaudeBranco from '../../assets/icons/idsaude-branco.svg';
 import BarraDeStatus from '../../components/barraDeStatus';
 import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
 import { CORES } from '../../constantes/estiloBase';
-import { ChildrenView, ConteudoImagem, SafeArea, Scroll } from './styles';
+import { ChildrenView, Container, ConteudoImagem } from './styles';
 import Termos from './Termos';
 
 function IDSaudeLoginTemplate({ children }) {
@@ -21,18 +22,18 @@ function IDSaudeLoginTemplate({ children }) {
   );
 
   return (
-    <>
-      <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
-      <SafeArea>
+    <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
+      <Container>
+        <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
         <ConteudoImagem>
           <IDSaudeBranco />
         </ConteudoImagem>
-        <Scroll>
-          <ChildrenView>{children}</ChildrenView>
+        <ChildrenView>
+          {children}
           <Termos />
-        </Scroll>
-      </SafeArea>
-    </>
+        </ChildrenView>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }
 
