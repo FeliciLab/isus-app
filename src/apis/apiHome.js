@@ -11,7 +11,12 @@ export function pegarProjetosPorCategoria(id) {
 }
 
 export function pegarBusca(item, page) {
-  return request.get(`/buscaPorProjetos?search=${item}&page=${page}`);
+  return request.get('/buscaPorProjetos', {
+    params: {
+      search: item || '',
+      page: page || 1
+    }
+  });
 }
 
 export function pegarProjetosPorId(item) {
@@ -44,18 +49,29 @@ export function postFeedback(tipoDeFeedback, texto, email, imagem) {
 
 export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
   return request.post('alertaDeEpi', {
-    descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
+    descricao,
+    unidadeDeSaude,
+    email,
+    versaoAplicativo: pegarVersao(),
+    plataforma: pegarSO()
   });
 }
 
 export function postDemandaEducacao(descricao, unidadeDeSaude, email) {
   return request.post('demanda-educacao', {
-    descricao, unidadeDeSaude, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
+    descricao,
+    unidadeDeSaude,
+    email,
+    versaoAplicativo: pegarVersao(),
+    plataforma: pegarSO()
   });
 }
 export function postDuvidasElmo(duvida, email) {
   return request.post('duvidas-elmo', {
-    duvida, email, versaoAplicativo: pegarVersao(), plataforma: pegarSO()
+    duvida,
+    email,
+    versaoAplicativo: pegarVersao(),
+    plataforma: pegarSO()
   });
 }
 

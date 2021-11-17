@@ -105,7 +105,7 @@ const FormularioLogin = ({ route }) => {
 
       navigation.navigate(rotas.HOME_SCREEN_HOME);
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
         return;
       } else if (error.message) {
@@ -169,7 +169,6 @@ const FormularioLogin = ({ route }) => {
               placeholder="E-mail"
               selectionColor="#0000AB"
               onChangeText={onChange}
-              error={errors?.email}
               autoCapitalize="none"
               value={value}
               theme={theme}
@@ -192,7 +191,6 @@ const FormularioLogin = ({ route }) => {
               testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
               style={{ marginTop: 18 }}
               onChangeText={onChange}
-              error={errors?.senha}
               value={value}
               theme={theme}
               label="Senha"

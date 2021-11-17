@@ -4,17 +4,14 @@ import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
-import { logout } from '../../apis/apiKeycloak';
 import BarraDeStatus from '../../components/barraDeStatus';
 import features from '../../constantes/features';
 import rotas from '../../constantes/rotas';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
 import useAnalytics from '../../hooks/Analytics';
+import useAutenticacao from '../../hooks/useAutenticacao';
 import { salvarDados } from '../../services/armazenamento';
 import {
-  armazenarEstadoLogado,
-  excluirTokenDoUsuarioNoStorage,
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
@@ -22,6 +19,7 @@ import CabecalhoPerfil from './cabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
+import useLogoutApplication from '../../hooks/useLogoutApplication';
 
 export default function PerfilScreen() {
   const { analyticsData } = useAnalytics();
@@ -29,16 +27,15 @@ export default function PerfilScreen() {
   const {
     dadosUsuario,
     alterarDadosUsuario,
-    tokenUsuario,
     alterarTokenUsuario,
-    alterarEstaLogado,
     alterarPessoa
-  } = useContext(AutenticacaoContext);
+  } = useAutenticacao();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext
   );
   const navigation = useNavigation();
+  const { abrirCaixaDialogoSair, realizarLogout } = useLogoutApplication();
 
   useFocusEffect(
     useCallback(() => {
@@ -61,20 +58,6 @@ export default function PerfilScreen() {
     }, [])
   );
 
-  const realizarLogout = async () => {
-    try {
-      await logout(tokenUsuario);
-    } catch (err) {
-      console.log('erro', err);
-    }
-
-    await alterarPessoa({});
-    await alterarEstaLogado(false);
-    await excluirTokenDoUsuarioNoStorage();
-    await armazenarEstadoLogado(false);
-    navigation.navigate('HOME');
-  };
-
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {
       titulo: '',
@@ -95,26 +78,6 @@ export default function PerfilScreen() {
       aoCancelar: () => {
         fecharCaixaDialogo();
         analyticsData('cancelar_exclusao_conta', 'Click', 'Perfil');
-      }
-    };
-
-    mostrarCaixaDialogo(atributosCaixaDialogo);
-  };
-
-  const abrirCaixaDialogoSair = async () => {
-    const atributosCaixaDialogo = {
-      titulo: 'Deseja realmente sair?',
-      texto:
-        'Será necessário efetuar login novamente para acessar serviços e conteúdos personalizados.',
-      cor: '#FF9800',
-      textoConclusao: 'SIM',
-      textoCancelamento: 'NÃO',
-      aoConcluir: () => {
-        fecharCaixaDialogo();
-        realizarLogout();
-      },
-      aoCancelar: () => {
-        fecharCaixaDialogo();
       }
     };
 

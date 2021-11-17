@@ -47,7 +47,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      ordem: 4,
+      ordem: 7,
       id: 'Fale_Conosco',
       titulo: 'Fale Conosco',
       ativo: true,
@@ -57,7 +57,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      ordem: 5,
+      ordem: 4,
       id: 'Acoes_do_governo',
       titulo: 'Ações do governo',
       ativo: true,
@@ -70,9 +70,9 @@ function Servicos({ navigation }) {
       }
     },
     {
-      ordem: 6,
+      ordem: 5,
       id: 'ESP',
-      titulo: 'ESP',
+      titulo: 'Escola de Saúde Pública - ESP/CE',
       icone: Servico5,
       ativo: true,
       navegacao: {
@@ -83,7 +83,7 @@ function Servicos({ navigation }) {
       }
     },
     {
-      ordem: 7,
+      ordem: 6,
       id: 'ESP_Virtual',
       titulo: 'ESP Virtual',
       ativo: true,
@@ -150,7 +150,7 @@ function Servicos({ navigation }) {
 
   return (
     <View>
-      <Titulo>Serviços</Titulo>
+      <Titulo>Serviços SUS Ceará</Titulo>
       <Carrossel
         dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
         aoRenderizarItem={({ item }) => (
