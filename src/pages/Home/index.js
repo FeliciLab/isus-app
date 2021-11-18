@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import features from '../../constantes/features';
-import useAnalytics from '../../hooks/Analytics';
+// import useAnalytics from '../../hooks/Analytics';
 import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
@@ -26,7 +26,7 @@ import Servicos from './Servicos';
 export default function Home() {
   const navigation = useNavigation();
 
-  const { analyticsData } = useAnalytics();
+  // const { analyticsData } = useAnalytics();
 
   const { verificarRastreio } = useAppTrackTransparency();
 
@@ -99,7 +99,7 @@ export default function Home() {
             marginHorizontal: 19
           }}
           onPress={async () => {
-            await analyticsData('Home', 'Click', 'lupa pesquisa');
+            // await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate('Buscar');
           }}
         >

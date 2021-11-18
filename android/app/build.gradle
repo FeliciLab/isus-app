@@ -1,6 +1,17 @@
 apply plugin: "com.android.application"
+apply plugin: "com.google.gms.google-services"
+apply plugin: 'com.google.firebase.crashlytics'
 
 import com.android.build.OutputFile
+
+project.ext.envConfigFiles = [
+    debug: ".env.dev",
+    release: ".env",
+    anothercustombuild: ".env",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+googleServices { disableVersionCheck = true }
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets

@@ -21,30 +21,39 @@ function App() {
     SimpleLineIcons.loadFont();
 
     OneSignal.setLogLevel(6, 0);
+
     OneSignal.setAppId('917766a7-c01e-4655-89a1-86f648be2fc8');
 
     OneSignal.promptForPushNotificationsWithUserResponse(n => console.log(n));
 
     OneSignal.setNotificationOpenedHandler(openResult => {
-      const urlManejo = 'isusapp://manejoclinico';
-      if (openResult.notification.payload.launchURL) {
-        const launchUrl = openResult.notification.payload.launchURL;
-        if (launchUrl === urlManejo) {
-          return redirecionaManejo();
+      try {
+        const urlManejo = 'isusapp://manejoclinico';
+        if (openResult.notification.payload.launchURL) {
+          const launchUrl = openResult.notification.payload.launchURL;
+          if (launchUrl === urlManejo) {
+            return redirecionaManejo();
+          }
+          return redirecionaWebView(openResult);
         }
-        return redirecionaWebView(openResult);
+        return navigate('App');
+      } catch (error) {
+        console.log(error);
       }
-      return navigate('App');
     });
 
     OneSignal.setInAppMessageClickHandler(result => {
-      const açãoDoBotãoClicado =
-        Platform.OS === 'ios' ? result.clickName : result.click_name;
-      if (açãoDoBotãoClicado === OneSignalActions.FEEDBACK_SIM) {
-        navigate('App', {screen: 'FEEDBACK'});
-        OneSignal.sendTag('acessou_feedback', 'sim');
-      } else {
-        OneSignal.sendTag('acessou_feedback', 'nao');
+      try {
+        const actionButtonClick =
+          Platform.OS === 'ios' ? result.clickName : result.click_name;
+        if (actionButtonClick === OneSignalActions.FEEDBACK_SIM) {
+          navigate('App', { screen: 'FEEDBACK' });
+          OneSignal.sendTag('acessou_feedback', 'sim');
+        } else {
+          OneSignal.sendTag('acessou_feedback', 'nao');
+        }
+      } catch (error) {
+        console.log(error);
       }
     });
 
@@ -52,6 +61,7 @@ function App() {
   }, []);
 
   const redirecionaManejo = () => navigate('clinical management');
+
   const redirecionaWebView = openResult => {
     const urlWebview = openResult.notification.payload.launchURL.replace(
       'isusapp',

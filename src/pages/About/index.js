@@ -1,10 +1,14 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import {
-  Dimensions, Image,
-  Linking, ScrollView,
-  StyleSheet, Text, TouchableOpacity, View
+  Dimensions,
+  Image,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -26,7 +30,7 @@ export default function AboutScreen() {
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
@@ -34,27 +38,25 @@ export default function AboutScreen() {
       headerRight: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.navigate('Buscar');
-          }}
-        >
+          }}>
           <Icon name="magnify" size={28} color="#FFF" />
         </TouchableOpacity>
       ),
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.toggleDrawer();
-          }}
-        >
+          }}>
           <Icon name="menu" size={28} color="#FFF" />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -64,10 +66,9 @@ export default function AboutScreen() {
         style={{
           marginHorizontal: 20,
           color: '#4CAF50',
-          textDecorationLine: 'underline'
+          textDecorationLine: 'underline',
         }}
-        onPress={() => Linking.openURL(linkTo)}
-      >
+        onPress={() => Linking.openURL(linkTo)}>
         {text}
       </Text>
     );
@@ -118,24 +119,25 @@ export default function AboutScreen() {
             apoio da{' '}
             {link(
               'Fundação Cearense de Apoio ao Desenvolvimento Científico e Tecnológico (Funcap)',
-              'https://www.funcap.ce.gov.br/'
+              'https://www.funcap.ce.gov.br/',
             )}
-            , por meio do projeto "SMART Health", desenvolvido em parceria com o{' '}
+            , por meio do projeto {'"SMART Health"'}, desenvolvido em parceria
+            com o{' '}
             {link(
               'Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD)',
-              'https://http://www.uece.br/gesad/'
+              'https://http://www.uece.br/gesad/',
             )}{' '}
             da{' '}
             {link(
               'Universidade Estadual do Ceará (UECE)',
-              'http://www.uece.br/'
+              'http://www.uece.br/',
             )}
           </Text>
           <Text style={styles.spaceRight}>
             A criação do aplicativo compõe as ações da{' '}
             {link(
               'Força Tarefa Digital de Combate ao Coronavírus',
-              'http://bit.ly/ForcaTarefaAntiCorona'
+              'http://bit.ly/ForcaTarefaAntiCorona',
             )}
             , que estão sendo realizadas de forma aberta para promover a
             inovação e viabilizar a colaboração em rede.
@@ -153,12 +155,12 @@ export default function AboutScreen() {
             Faça parte do time do iSUS acessando o{' '}
             {link(
               'repositório no github',
-              'https://github.com/EscolaDeSaudePublica/isus-app'
+              'https://github.com/EscolaDeSaudePublica/isus-app',
             )}{' '}
             para ver os códigos fonte, o{' '}
             {link(
               'painel de atividades',
-              'https://github.com/orgs/EscolaDeSaudePublica/projects/20'
+              'https://github.com/orgs/EscolaDeSaudePublica/projects/20',
             )}{' '}
             para acompanhar o processo de desenvolvimento ou fale com a gente
             através do{' '}
@@ -171,23 +173,20 @@ export default function AboutScreen() {
           </Text>
           <Text
             onPress={() => Linking.openURL('http://www.uece.br/')}
-            style={{ marginTop: -10 }}
-          >
+            style={{ marginTop: -10 }}>
             <Image source={Uece} />
           </Text>
         </View>
         <View style={styles.viewFooterBottom}>
           <Text
-            onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}
-          >
+            onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}>
             <Funcapsvg />
           </Text>
           <Text
             onPress={() =>
               Linking.openURL('https://www.thoughtworks.com/locations/brasil')
             }
-            style={{ marginTop: 20, marginRight: -20 }}
-          >
+            style={{ marginTop: 20, marginRight: -20 }}>
             <Thoughtworkssvg />
           </Text>
         </View>
@@ -195,25 +194,22 @@ export default function AboutScreen() {
           <Text
             onPress={() =>
               Linking.openURL(
-                'https://escoladesaudepublica.github.io/#FeliciLab'
+                'https://escoladesaudepublica.github.io/#FeliciLab',
               )
             }
-            style={{ height: 130, alignItems: 'center' }}
-          >
+            style={{ height: 130, alignItems: 'center' }}>
             <Felicilabsvg />
           </Text>
           <Text
             onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
-            style={{ height: 120 }}
-          >
+            style={{ height: 120 }}>
             <Espsvg />
           </Text>
         </View>
         <View style={styles.viewEstado}>
           <Text
             onPress={() => Linking.openURL('https://www.saude.ce.gov.br/')}
-            style={{ height: 60 }}
-          >
+            style={{ height: 60 }}>
             <Sesasvg />
           </Text>
         </View>
@@ -226,8 +222,7 @@ export default function AboutScreen() {
           <View style={{ marginTop: 26 }}>
             <Text
               onPress={() => Linking.openURL('https://www.ceara.gov.br/')}
-              style={{ height: 150 }}
-            >
+              style={{ height: 150 }}>
               <Governosvg />
             </Text>
           </View>
@@ -248,14 +243,14 @@ const styles = StyleSheet.create({
     width: widthView,
     paddingRight: 16,
     paddingLeft: 16,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   viewLogos: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
     marginTop: 27,
-    marginBottom: 30
+    marginBottom: 30,
   },
   spaceRight: {
     marginTop: 16,
@@ -265,19 +260,19 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     letterSpacing: 0.25,
     color: 'rgba(0, 0, 0, 0.6)',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   styleTextDefault: {
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 23,
-    letterSpacing: 0.15
+    letterSpacing: 0.15,
   },
   Titleisus: {
     marginTop: 25,
     fontWeight: 'bold',
     color: 'rgba(0, 0, 0, 0.6)',
-    fontSize: 20
+    fontSize: 20,
   },
   tituloSuper: {
     fontSize: 20,
@@ -288,36 +283,36 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 23,
     textAlign: 'center',
-    letterSpacing: 0.15
+    letterSpacing: 0.15,
   },
   viewFooterTop: {
     height: 80,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 50
+    marginTop: 50,
   },
   viewFooterBottom: {
     height: 80,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 20
+    marginBottom: 20,
   },
   viewFeliciEsp: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingTop: 20,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.12)'
+    borderTopColor: 'rgba(0,0,0,0.12)',
   },
   viewEstado: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   viewHr: {
     flexDirection: 'row',
     marginTop: 32,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   hrLateral: { width: '25%', height: 5 },
   hrCentro: {
@@ -327,11 +322,11 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: 'rgba(0, 0, 0, 0.12)',
     height: 5,
-    borderWidth: 1
+    borderWidth: 1,
   },
   viewEstado2: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around'
-  }
+    justifyContent: 'space-around',
+  },
 });

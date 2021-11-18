@@ -9627,10 +9627,10 @@ react-native-material-ripple@^0.8.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-onesignal@^4.1.1:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.2.0.tgz#0e98ab83f7d9d9b2d64c53c90266646d69097a17"
-  integrity sha512-UFPBfjgfGOdUH796B/Fv84g322l5ApWtOMwsFtPi856yu4b23St7r/SzT3OqbGJeglk4ADpfka0+981zQbfblg==
+react-native-onesignal@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.3.3.tgz#c2249b69787065cb8d361e273d4ff4fac3bbf5ae"
+  integrity sha512-aJdgp32HsW1PEXgwMNXAaSbr037VdZmO70NPIQHWgCsIAGG4SD/MW9Kj197z1wdn/CRcfz/YNsZwhlmwUIgDMA==
   dependencies:
     invariant "^2.2.2"
 
