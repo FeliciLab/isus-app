@@ -1,19 +1,20 @@
+import { FeatureToggles } from '@paralleldrive/react-feature-toggles';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
-import { StatusBar, Platform } from 'react-native';
 import React, { useEffect } from 'react';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import { Platform, StatusBar } from 'react-native';
+// import codePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
-import codePush from 'react-native-code-push';
-import { FeatureToggles } from '@paralleldrive/react-feature-toggles';
-import Routes from './routes';
-import { navigationRef, navigate } from './routes/rootNavigation';
-import OneSignalActions from './utils/oneSignalActions';
-import featuresAtivas from './featureAtivas';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import CaixaDialogo from './components/caixaDialogo';
+import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
 import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
-import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
-import CaixaDialogo from './components/caixaDialogo';
+import featuresAtivas from './featureAtivas';
+import Routes from './routes';
+import { navigate, navigationRef } from './routes/rootNavigation';
+import OneSignalActions from './utils/oneSignalActions';
 
 function App() {
   useEffect(() => {
@@ -40,7 +41,7 @@ function App() {
       const açãoDoBotãoClicado =
         Platform.OS === 'ios' ? result.clickName : result.click_name;
       if (açãoDoBotãoClicado === OneSignalActions.FEEDBACK_SIM) {
-        navigate('App', { screen: 'FEEDBACK' });
+        navigate('App', {screen: 'FEEDBACK'});
         OneSignal.sendTag('acessou_feedback', 'sim');
       } else {
         OneSignal.sendTag('acessou_feedback', 'nao');
@@ -54,11 +55,11 @@ function App() {
   const redirecionaWebView = openResult => {
     const urlWebview = openResult.notification.payload.launchURL.replace(
       'isusapp',
-      'https'
+      'https',
     );
     return navigate('webview', {
       title: openResult.notification.payload.title,
-      url: urlWebview
+      url: urlWebview,
     });
   };
 
@@ -69,8 +70,10 @@ function App() {
         <AutenticacaoProvider>
           <AppTrackTransparencyProvider>
             <CaixaDialogoProvider>
-              <Routes navigationRef={navigationRef} />
-              <CaixaDialogo />
+              <SafeAreaProvider>
+                <Routes navigationRef={navigationRef} />
+                <CaixaDialogo />
+              </SafeAreaProvider>
             </CaixaDialogoProvider>
           </AppTrackTransparencyProvider>
         </AutenticacaoProvider>
@@ -78,7 +81,10 @@ function App() {
     </>
   );
 }
-export default codePush({
-  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.ON_NEXT_RESUME
-})(App);
+
+export default App;
+
+// export default codePush({
+//   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+//   installMode: codePush.InstallMode.ON_NEXT_RESUME,
+// })(App);
