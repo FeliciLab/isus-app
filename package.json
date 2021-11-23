@@ -12,7 +12,7 @@
     "test": "jest",
     "silent-test": "jest --silent",
     "lint": "eslint .",
-    "post-version": "react-native-version",
+    "post-version": "react-native-version -V",
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."
   },
   "dependencies": {
