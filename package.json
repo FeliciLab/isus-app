@@ -1,6 +1,6 @@
 {
   "name": "isusapp",
-  "version": "3.20.5",
+  "version": "3.20.6",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -12,7 +12,7 @@
     "test": "jest",
     "silent-test": "jest --silent",
     "lint": "eslint .",
-    "post-version": "react-native-version -V",
+    "post-version": "react-native-version --never-amend",
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."
   },
   "dependencies": {
