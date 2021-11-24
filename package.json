@@ -35,7 +35,7 @@
     "appcenter": "^4.1.0",
     "appcenter-analytics": "^4.1.0",
     "appcenter-crashes": "^4.1.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "intl": "^1.2.5",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.21",
