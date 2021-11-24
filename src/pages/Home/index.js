@@ -12,7 +12,7 @@ import {
   armazenarEstadoLogado,
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
-  salvarTokenDoUsuarioNoStorage
+  salvarTokenDoUsuarioNoStorage,
 } from '../../services/autenticacao';
 import Banners from './Banners';
 import ExibirUsuario from './exibirUsuario';
@@ -33,7 +33,7 @@ export default function Home() {
     alterarDadosUsuario,
     alterarTokenUsuario,
     alterarEstaLogado,
-    alterarPessoa
+    alterarPessoa,
   } = useAutenticacao();
 
   async function redirectToWelcome() {
@@ -42,7 +42,7 @@ export default function Home() {
     if (resp !== false) {
       return navigation.reset({
         index: 0,
-        routes: [{ name: 'BemVindo' }]
+        routes: [{ name: 'BemVindo' }],
       });
     }
     return null;
@@ -86,7 +86,7 @@ export default function Home() {
       headerStyle: {
         backgroundColor: estaLogado ? '#FFF' : '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: estaLogado ? '#000' : '#FFF',
       headerTitleAlign: 'center',
@@ -94,13 +94,12 @@ export default function Home() {
       headerRight: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={async () => {
             await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate('Buscar');
-          }}
-        >
+          }}>
           <Icon
             name="magnify"
             size={28}
@@ -111,15 +110,14 @@ export default function Home() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.toggleDrawer();
-          }}
-        >
+          }}>
           <Icon name="menu" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
