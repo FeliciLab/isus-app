@@ -6,7 +6,6 @@
 #import <React/RCTRootView.h>
 #import <React/RCTLinkingManager.h>
 
-
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
@@ -15,7 +14,7 @@
 #import <AppCenterReactNativeCrashes.h>
 #import <CodePush/CodePush.h>
 
-#if DEBUG
+#ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
 #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
 #import <FlipperKitUserDefaultsPlugin/FKUserDefaultsPlugin.h>
@@ -51,12 +50,12 @@ if ([FIRApp defaultApp] == nil) {
     NSLog(@"[FIREBASE] Production mode.");
     filePath = [[NSBundle mainBundle] pathForResource:@"GoogleService-Info" ofType:@"plist" ];
   #endif
-    
+
   FIROptions *options = [[FIROptions alloc] initWithContentsOfFile:filePath];
   [FIRApp configureWithOptions:options];
 }
 
-#if DEBUG
+#ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
 
@@ -66,7 +65,11 @@ if ([FIRApp defaultApp] == nil) {
                                                    moduleName:@"isusapp"
                                             initialProperties:nil];
 
-  rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  if (@available(iOS 13.0, *)) {
+      rootView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+      rootView.backgroundColor = [UIColor whiteColor];
+  }
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];

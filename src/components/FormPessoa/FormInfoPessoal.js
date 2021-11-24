@@ -1,28 +1,32 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { emailValido, cpfValido, cpfNaoCadastrado } from '../../utils/validadores';
+import { formularioPessoal } from '../../constantes/erroFormMsg';
 import { INPUT_THEMES } from '../../constantes/estiloBase';
+import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import FormContext from '../../context/FormContext';
+import PessoaModel from '../../models/pessoa';
+import {
+  cpfNaoCadastrado,
+  cpfValido,
+  emailValido,
+} from '../../utils/validadores';
+import { BotaoLaranja } from '../Botoes/BotoesCirculares';
+import FormError from '../FormLayoutContexts/FormError';
 import FormTextInput from '../FormLayoutContexts/FormTextInput';
 import FormTextInputMask from '../FormLayoutContexts/FormTextInputMask';
-import FormError from '../FormLayoutContexts/FormError';
 import InputMunicipios from './InputMunicipios';
-import { BotaoLaranja } from '../Botoes/BotoesCirculares';
 import {
   ContainerBody,
   ContainerForm,
   RowButton,
   RowInput,
-  Title
+  Title,
 } from './styles';
-import FormContext from '../../context/FormContext';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import { formularioPessoal } from '../../constantes/erroFormMsg';
-import PessoaModel from '../../models/pessoa';
 
 export default function FormInfoPessoal({
   actionPress,
   labelButton,
-  hiddenActionButton
+  hiddenActionButton,
 }) {
   const [carregando, definirCarregando] = useState(false);
   const [emailSomenteLeitura, definirEmailSomenteLeitura] = useState(false);
@@ -30,11 +34,7 @@ export default function FormInfoPessoal({
   const { pessoa } = useContext(AutenticacaoContext);
   const theme = INPUT_THEMES.LARANJA;
 
-  const {
-    errors,
-    setValues,
-    trigger
-  } = useContext(FormContext);
+  const { errors, setValues, trigger } = useContext(FormContext);
 
   useEffect(() => {
     if (pessoa?.email) {
@@ -44,22 +44,17 @@ export default function FormInfoPessoal({
     definirCpfAntigo(pessoa?.cpf);
     setValues(PessoaModel.criar(pessoa));
 
-    trigger([
-      'nomeCompleto',
-      'email',
-      'telefone',
-      'cpf',
-      'cidadeId'
-    ]);
+    trigger(['nomeCompleto', 'email', 'telefone', 'cpf', 'cidadeId']);
   }, [pessoa]);
 
-  const hasErrors = errors.nomeCompleto
-  || errors.email
-  || errors.telefone
-  || errors.cpf
-  || errors.cidadeId;
+  const hasErrors =
+    errors.nomeCompleto ||
+    errors.email ||
+    errors.telefone ||
+    errors.cpf ||
+    errors.cidadeId;
 
-  const validarCpfCadastrado = async (cpf) => {
+  const validarCpfCadastrado = async cpf => {
     if (cpfAntigo === false || (cpfAntigo && cpfAntigo === cpf)) {
       return true;
     }
@@ -94,8 +89,9 @@ export default function FormInfoPessoal({
                 rules={{
                   required: true,
                   validate: {
-                    emailValido: value => emailValido(value) || formularioPessoal.emailValido
-                  }
+                    emailValido: value =>
+                      emailValido(value) || formularioPessoal.emailValido,
+                  },
                 }}
               />
               <FormError
@@ -125,9 +121,12 @@ export default function FormInfoPessoal({
                 rules={{
                   required: true,
                   validate: {
-                    cpfValido: value => cpfValido(value) || formularioPessoal.cpfInvalido,
-                    cpfCadastrado: async cpf => await validarCpfCadastrado(cpf.replace(/\D/g, '')) || formularioPessoal.cpfCadastrado
-                  }
+                    cpfValido: value =>
+                      cpfValido(value) || formularioPessoal.cpfInvalido,
+                    cpfCadastrado: async cpf =>
+                      (await validarCpfCadastrado(cpf.replace(/\D/g, ''))) ||
+                      formularioPessoal.cpfCadastrado,
+                  },
                 }}
                 mask="###.###.###-##"
                 numero
@@ -139,35 +138,35 @@ export default function FormInfoPessoal({
             </RowInput>
             <RowInput>
               <InputMunicipios />
-              <FormError
-                name="cidadeId"
-                msg="Escolha o município"
-              />
+              <FormError name="cidadeId" msg="Escolha o município" />
             </RowInput>
           </ContainerForm>
-          {
-            !hiddenActionButton && (
-              <RowButton>
-                <BotaoLaranja
-                  loading={carregando}
-                  disabled={hasErrors || carregando}
-                  onPress={async () => {
-                    await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
-                    if (hasErrors) return;
-                    definirCarregando(true);
+          {!hiddenActionButton && (
+            <RowButton>
+              <BotaoLaranja
+                loading={carregando}
+                disabled={hasErrors || carregando}
+                onPress={async () => {
+                  await trigger([
+                    'nome',
+                    'email',
+                    'telefone',
+                    'cpf',
+                    'cidadeId',
+                  ]);
+                  if (hasErrors) return;
+                  definirCarregando(true);
 
-                    try {
-                      await actionPress();
-                    } finally {
-                      definirCarregando(false);
-                    }
-                  }}
-                >
-                  {labelButton || 'Continuar'}
-                </BotaoLaranja>
-              </RowButton>
-            )
-          }
+                  try {
+                    await actionPress();
+                  } finally {
+                    definirCarregando(false);
+                  }
+                }}>
+                {labelButton || 'Continuar'}
+              </BotaoLaranja>
+            </RowButton>
+          )}
         </ScrollView>
       </ContainerBody>
     </>
