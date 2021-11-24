@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
@@ -25,11 +25,11 @@ export default function DescriptionScreen(props) {
   const onShare = async () => {
     const messagTitle = item.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(
-      item.slug
+      item.slug,
     );
     try {
       await Share.share({
-        message: messagTitle + messagLink
+        message: messagTitle + messagLink,
       });
     } catch (error) {
       console.log(error.message);
@@ -42,8 +42,8 @@ export default function DescriptionScreen(props) {
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
-      }
+        shadowOpacity: 0,
+      },
     });
   }, []);
 
@@ -54,7 +54,7 @@ export default function DescriptionScreen(props) {
   function formateDate(date) {
     Moment.locale('pt-br');
     return `Postado em ${Moment(date).format('D')} de ${Capitalize(
-      Moment(date).format('MMMM')
+      Moment(date).format('MMMM'),
     )} de ${Moment(date).format('YYYY')}`;
   }
 
@@ -78,21 +78,19 @@ export default function DescriptionScreen(props) {
           resizeMode="contain"
           style={{
             height: Dimensions.get('window').width / 1.5,
-            width: Dimensions.get('window').width
+            width: Dimensions.get('window').width,
           }}
           source={{ uri: `${item.image}` }}
         />
         <View
           style={{
-            width: Dimensions.get('window').width
-          }}
-        >
+            width: Dimensions.get('window').width,
+          }}>
           <View
             style={{
               padding: 10,
-              alignContent: 'center'
-            }}
-          >
+              alignContent: 'center',
+            }}>
             <HTML html={item.content} />
           </View>
         </View>
@@ -103,7 +101,7 @@ export default function DescriptionScreen(props) {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#333333'
+    color: '#333333',
   },
   titleDetail: {
     marginTop: 20,
@@ -111,13 +109,13 @@ const styles = StyleSheet.create({
     marginRight: 16,
     fontWeight: 'normal',
     lineHeight: 28,
-    color: '#666666'
+    color: '#666666',
   },
   sub: {
     flexDirection: 'row',
     margin: 1,
     justifyContent: 'space-between',
-    marginTop: 12
+    marginTop: 12,
   },
   subText: {
     marginLeft: 18,
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.4,
-    color: '#666666'
+    color: '#666666',
   },
   subShare: {
     marginRight: 20,
@@ -139,6 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.4,
-    color: '#EEEEEE'
-  }
+    color: '#EEEEEE',
+  },
 });

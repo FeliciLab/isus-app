@@ -27,12 +27,14 @@ import {
   PularTutorial,
   SafeArea,
   TextoDescricao,
-  TituloDescricao
+  TituloDescricao,
 } from './styles';
 
 export default function BemVindo() {
-  const { exibirDialog } = useDialogAppTrack();
   const navigation = useNavigation();
+
+  const { exibirDialog } = useDialogAppTrack();
+
   const { analyticsData } = useAnalytics();
 
   const dataComPerfil = [
@@ -41,35 +43,35 @@ export default function BemVindo() {
       title: 'Bem-vindo ao iSUS',
       description:
         'Encontre informações, serviços e oportunidades para otimizar seu tempo e apoiar suas decisões.',
-      img: bemVindo
+      img: bemVindo,
     },
     {
       key: 'slide-2',
       title: 'Educação',
       description:
         'Guias, palestras, webconferências e outros conteúdos de educação em saúde.',
-      img: educacao
+      img: educacao,
     },
     {
       key: 'slide-3',
       title: 'Pesquisa',
       description:
         'Artigos, ensaios clínicos e outras atualizações no campo da pesquisa e produção de conhecimento.',
-      img: pesquisa
+      img: pesquisa,
     },
     {
       key: 'slide-4',
       title: 'Manejo Clínico',
       description:
         'Conheça as diversas etapas e instrumentos de avaliação no tratamento dos pacientes com Covid-19.',
-      img: manejoClinico
+      img: manejoClinico,
     },
     {
       key: 'slide-5',
       title: 'Apoio ao Diagnóstico',
       description:
         'Ferramentas e canais para apoio ao diagnóstico de pacientes.',
-      img: diagnostico
+      img: diagnostico,
     },
     {
       key: 'slide-6',
@@ -87,13 +89,12 @@ export default function BemVindo() {
             salvarDados('@show-tutorial', false);
             navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
           }}
-          mode="contained"
-        >
+          mode="contained">
           {' '}
           Realizar meu cadastro
         </BotaoCadastro>
-      )
-    }
+      ),
+    },
   ];
 
   const renderItem = ({ item }) => (
@@ -105,7 +106,7 @@ export default function BemVindo() {
             <item.img
               style={{
                 alignSelf: 'center',
-                alignItems: 'flex-end'
+                alignItems: 'flex-end',
               }}
             />
           </ConteudoImagem>
@@ -138,7 +139,7 @@ export default function BemVindo() {
       await salvarDados('@show-tutorial', false);
       return navigation.reset({
         index: 0,
-        routes: [{ name: 'App' }]
+        routes: [{ name: 'App' }],
       });
     } catch (e) {
       console.log(e);
@@ -149,8 +150,7 @@ export default function BemVindo() {
   return (
     <ImageBackground
       source={tutorialbackground}
-      style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}
-    >
+      style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
       <StatusBar
         translucent
         backgroundColor="transparent"
@@ -160,8 +160,7 @@ export default function BemVindo() {
         <ConteudoPularTutorial>
           <TouchableOpacity
             testID={TESTIDS.BOTAO_TUTORIAL_PULAR}
-            onPress={moveToHome}
-          >
+            onPress={moveToHome}>
             <PularTutorial>Pular Tutorial</PularTutorial>
           </TouchableOpacity>
         </ConteudoPularTutorial>
