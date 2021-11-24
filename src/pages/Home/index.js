@@ -1,4 +1,3 @@
-import { Feature } from '@paralleldrive/react-feature-toggles';
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
@@ -6,7 +5,6 @@ import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
-import features from '../../constantes/features';
 import useAnalytics from '../../hooks/Analytics';
 import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
@@ -14,7 +12,7 @@ import {
   armazenarEstadoLogado,
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
-  salvarTokenDoUsuarioNoStorage
+  salvarTokenDoUsuarioNoStorage,
 } from '../../services/autenticacao';
 import Banners from './Banners';
 import ExibirUsuario from './exibirUsuario';
@@ -35,7 +33,7 @@ export default function Home() {
     alterarDadosUsuario,
     alterarTokenUsuario,
     alterarEstaLogado,
-    alterarPessoa
+    alterarPessoa,
   } = useAutenticacao();
 
   async function redirectToWelcome() {
@@ -44,7 +42,7 @@ export default function Home() {
     if (resp !== false) {
       return navigation.reset({
         index: 0,
-        routes: [{ name: 'BemVindo' }]
+        routes: [{ name: 'BemVindo' }],
       });
     }
     return null;
@@ -88,7 +86,7 @@ export default function Home() {
       headerStyle: {
         backgroundColor: estaLogado ? '#FFF' : '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: estaLogado ? '#000' : '#FFF',
       headerTitleAlign: 'center',
@@ -96,13 +94,12 @@ export default function Home() {
       headerRight: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={async () => {
             await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate('Buscar');
-          }}
-        >
+          }}>
           <Icon
             name="magnify"
             size={28}
@@ -113,15 +110,14 @@ export default function Home() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.toggleDrawer();
-          }}
-        >
+          }}>
           <Icon name="menu" size={28} color={estaLogado ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -140,10 +136,7 @@ export default function Home() {
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
         {estaLogado && <MeusConteudos />}
-        <Feature
-          name={features.LINHAS_DE_CUIDADO}
-          activeComponent={() => <LinhasDeCuidado navigation={navigation} />}
-        />
+        <LinhasDeCuidado navigation={navigation} />
         <ForcaTarefa navigation={navigation} />
       </ScrollView>
     </>

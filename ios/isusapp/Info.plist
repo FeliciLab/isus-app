@@ -2,16 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key> LSSupportsOpeningDocumentsInPlace </key>
-	<true />
-	<key> UIFileSharingEnabled </key>
-	<true />
-	<key> UISupportsDocumentBrowser </key>
-	<true />
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>RnDiffApp</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,23 +17,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
+<<<<<<< HEAD
 	<string>3.20.2</string>
+=======
+	<string>1.0</string>
+>>>>>>> c427891f0e88898f1c9ef85cb2c14e43df1affed
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>isusapp</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>isusapp</string>
-			</array>
-		</dict>
-	</array>
 	<key>CFBundleVersion</key>
+<<<<<<< HEAD
 	<string>28</string>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
@@ -59,46 +45,24 @@
 		<string>vnd.youtube</string>
 		<string>instagram</string>
 	</array>
+=======
+	<string>1</string>
+>>>>>>> c427891f0e88898f1c9ef85cb2c14e43df1affed
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true />
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) requer acesso à sua localização.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) requer acesso à biblioteca de imagens.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>MaterialIcons.ttf</string>
-		<string>FontAwesome.ttf</string>
-		<string>Feather.ttf</string>
-		<string>Fontisto.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
-		<string>EvilIcons.ttf</string>
-		<string>AntDesign.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Entypo.ttf</string>
-		<string>MaterialCommunityIcons.ttf</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -108,10 +72,10 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
-	<key>NSUserTrackingUsageDescription</key>
-	<string>$(PRODUCT_NAME) requisita sua permissão para rastrear alguns dados afim de promover uma melhor experiência no aplicativo.</string>
+	<false/>
 </dict>
 </plist>
