@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Card, Paragraph, ActivityIndicator } from 'react-native-paper';
 import { pegarProjetosPorProfissional } from '../../../apis/apiHome';
 import CartaoDeConteudo from './CartaoDeConteudo';
-import { Titulo } from '../styles';
 import Carrossel from '../../../components/Carrossel';
 
 function MeusConteudos() {
@@ -56,7 +55,7 @@ function MeusConteudos() {
   return (
     <>
       <View style={estilos.conteudoTitulo}>
-        <Titulo>Meus Conteúdos</Titulo>
+        <Text style={estilos.fontText}>Meus Conteúdos</Text>
         {conteudos && conteudos.length > 0 && (
           <TouchableOpacity
             style={estilos.conteudoVerMais}
@@ -82,6 +81,11 @@ const estilos = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  fontText:{
+    fontWeight: '500',
+    fontSize: 20,
+    color: 'rgba(0, 0, 0, 0.6)'
   },
   conteudoVerMais: {
     alignSelf: 'center',
