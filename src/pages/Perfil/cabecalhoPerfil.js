@@ -16,7 +16,8 @@ export default function CabecalhoPerfil({ nome }) {
 const estilos = StyleSheet.create({
   nome: {
     fontSize: 24,
-    fontWeight: 'normal'
+    fontWeight: 'normal',
+    color: '#000'
   },
   espacamento: {
     marginVertical: 10

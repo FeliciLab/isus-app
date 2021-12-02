@@ -8,6 +8,7 @@ const style = StyleSheet.create({
   },
   perfil: {
     backgroundColor: '#fff',
+    color: '#000',
     paddingTop: 15,
     paddingLeft: 16,
     fontSize: 34

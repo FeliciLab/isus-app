@@ -16,6 +16,7 @@ const estilos = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 20,
     marginTop: 15,
+    color: '#000'
   },
   menuContainer: {
     flexDirection: 'column',
