@@ -49,7 +49,8 @@ export default function PoliticaDePrivacidadeScreen() {
               style={{
                 fontWeight: 'bold',
                 fontSize: 18,
-                textAlign: 'center'
+                textAlign: 'center',
+                color: '#000000'
               }}
             >
               {secao.titulo}

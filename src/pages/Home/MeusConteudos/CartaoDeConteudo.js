@@ -40,7 +40,7 @@ const estilos = StyleSheet.create({
     height: 100,
     width: 140,
     borderRadius: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 8,
   },
   data: {
     fontWeight: '500',

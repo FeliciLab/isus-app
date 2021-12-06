@@ -36,7 +36,8 @@ const estilos = StyleSheet.create({
   titulo: {
     fontSize: 16,
     fontWeight: 'normal',
-    marginBottom: 10
+    marginBottom: 10,
+    color: '#000'
   },
   itemContainer: {
     flexDirection: 'row',
