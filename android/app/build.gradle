@@ -146,8 +146,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 <<<<<<< HEAD
-        versionCode 242
-        versionName "3.20.2"
+        versionCode 243
+        versionName "3.20.6"
 =======
         versionCode 243
         versionName "3.20.6"
