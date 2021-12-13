@@ -11,11 +11,19 @@ export default function CartaoDeConteudo(props) {
   const navigation = useNavigation();
   return (
     <Surface>
-      <TouchableOpacity style={estilos.cartao} onPress={() => navigation.navigate('Descrição', { object: { ...conteudo, categoria_id: 700 }, title: conteudo.post_title })}>
-        <Image resizeMode="cover" style={estilos.imagem} source={{ uri: conteudo.image }} />
+      <TouchableOpacity
+        style={estilos.cartao}
+        onPress={() => navigation.navigate(
+          conteudo.tipo_conteudo,
+          {
+            title: conteudo.title,
+            url: conteudo.link,
+          }
+        )}>
+        <Image resizeMode="cover" style={estilos.imagem} source={{ uri: conteudo.imagem }} />
         <View style={estilos.textos}>
-          <Text numberOfLines={2} style={estilos.titulo}>{conteudo.post_title}</Text>
-          <Text style={estilos.data}>{moment(conteudo.post_date).format('DD/MM/YYYY')}</Text>
+          <Text numberOfLines={2} style={estilos.titulo}>{conteudo.title}</Text>
+          <Text style={estilos.data}>{moment(conteudo.data).format('DD/MM/YYYY')}</Text>
         </View>
       </TouchableOpacity>
     </Surface>
