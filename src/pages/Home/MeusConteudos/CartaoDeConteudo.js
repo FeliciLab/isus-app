@@ -15,7 +15,7 @@ function CartaoDeConteudo(props) {
       onPress={() => navigation.navigate(
         item.tipo_conteudo,
         {
-          title: item.title,
+          title: 'Meus Conteúdos',
           url: item.link,
         }
       )}
@@ -33,7 +33,8 @@ const estilos = StyleSheet.create({
     height: 100,
     width: 140,
     borderRadius: 8,
-    marginHorizontal: 8,
+    marginEnd: 8,
+    marginStart: 8
   },
   data: {
     fontWeight: '500',
@@ -43,7 +44,6 @@ const estilos = StyleSheet.create({
     textTransform: 'uppercase',
     color: '#4CAF50',
     marginHorizontal: 16,
-
   },
   texto: {
     fontSize: 14,

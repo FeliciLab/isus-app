@@ -16,7 +16,7 @@ export default function CartaoDeConteudo(props) {
         onPress={() => navigation.navigate(
           conteudo.tipo_conteudo,
           {
-            title: conteudo.title,
+            title: 'Meus Conteúdos',
             url: conteudo.link,
           }
         )}>
