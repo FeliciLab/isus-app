@@ -33,12 +33,14 @@ function MeusConteudos() {
   const ListaDeConteudo = () => {
     if (conteudos && conteudos.length > 0) {
       return (
-        <Carrossel
-          dados={conteudos.slice(0, 4)}
-          aoRenderizarItem={conteudo => (
-            <CartaoDeConteudo conteudo={conteudo} />
-          )}
-        />
+        <View style={estilos.carrossel}>
+          <Carrossel
+            dados={conteudos.slice(0, 4)}
+            aoRenderizarItem={conteudo => (
+              <CartaoDeConteudo conteudo={conteudo} />
+            )}
+          />
+        </View>
       );
     }
     return (
@@ -115,6 +117,11 @@ const estilos = StyleSheet.create({
   link: {
     fontWeight: 'bold',
     textDecorationLine: 'underline',
+  },
+  carrossel: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 });
 

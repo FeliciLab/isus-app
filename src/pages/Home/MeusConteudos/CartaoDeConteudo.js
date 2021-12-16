@@ -4,8 +4,6 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
-import rotas from '../../../constantes/rotas';
-import { CORES } from '../../../constantes/estiloBase';
 
 function CartaoDeConteudo(props) {
   const { conteudo } = props;
@@ -15,22 +13,17 @@ function CartaoDeConteudo(props) {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate(
-        rotas.DESCRICAO,
+        item.tipo_conteudo,
         {
-          parametros: {
-            ...item,
-            categoria_id: 700,
-            cor: 'indigo',
-            barraStatus: CORES.INDIGO_DYE
-          },
-          title: item.post_title,
+          title: 'Meus Conteúdos',
+          url: item.link,
         }
       )}
     >
       <View style={{ marginBottom: 20 }}>
-        <Image resizeMode="cover" style={estilos.imagem} source={{ uri: item.image }} />
-        <Text style={estilos.data}>{moment(item.post_date).format('DD/MM/YYYY')}</Text>
-        <Text numberOfLines={3} style={estilos.texto}>{item.post_title}</Text>
+        <Image resizeMode="cover" style={estilos.imagem} source={{ uri: item.imagem }} />
+        <Text style={estilos.data}>{moment(item.data).format('DD/MM/YYYY')}</Text>
+        <Text numberOfLines={3} style={estilos.texto}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -40,7 +33,8 @@ const estilos = StyleSheet.create({
     height: 100,
     width: 140,
     borderRadius: 8,
-    marginHorizontal: 8,
+    marginEnd: 8,
+    marginStart: 8
   },
   data: {
     fontWeight: '500',
@@ -50,7 +44,6 @@ const estilos = StyleSheet.create({
     textTransform: 'uppercase',
     color: '#4CAF50',
     marginHorizontal: 16,
-
   },
   texto: {
     fontSize: 14,
