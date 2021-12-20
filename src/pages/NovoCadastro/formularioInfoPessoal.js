@@ -201,7 +201,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           name="email"
           keyboardType="email-address"
           onChangeText={text => {
-            alteraValor('email', text);
+            alteraValor('email', text.trim());
           }}
           mode="outlined"
           theme={
