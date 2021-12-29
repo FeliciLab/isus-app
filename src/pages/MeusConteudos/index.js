@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 import CartaoDeConteudo from './CartaoDeConteudo';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function MeusConteudos({ route }) {
   const navigation = useNavigation();
@@ -35,7 +37,8 @@ function MeusConteudos({ route }) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
       )
     });

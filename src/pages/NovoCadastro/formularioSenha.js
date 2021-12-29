@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cadastrarUsuario } from '../../apis/apiCadastro';
 import Alerta from '../../components/alerta';
 import BarraDeStatus from '../../components/barraDeStatus';
@@ -28,6 +28,8 @@ import {
   TituloDoFormulario
 } from './styles';
 import textos from './textos.json';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function FormularioSenha({ navigation }) {
   const { analyticsData } = useAnalytics();
@@ -65,7 +67,8 @@ export default function FormularioSenha({ navigation }) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#304FFE" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
         </TouchableOpacity>
       )
     });

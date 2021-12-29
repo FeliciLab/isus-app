@@ -2,7 +2,7 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import features from '../../constantes/features';
@@ -20,6 +20,8 @@ import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
 import useLogoutApplication from '../../hooks/useLogoutApplication';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function PerfilScreen() {
   const { analyticsData } = useAnalytics();
@@ -103,7 +105,8 @@ export default function PerfilScreen() {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
       )
     });

@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import elmoPatternBG from '../../assets/backgrounds/elmo_pattern.png';
 import SvgCapacitacao from '../../assets/icons/elmo/icon_capacitacao.svg';
@@ -35,6 +35,8 @@ import {
   Texto,
   TituloH6
 } from './styles';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function Elmo() {
   const navigation = useNavigation();
@@ -99,7 +101,8 @@ function Elmo() {
             navigation.popToTop();
           }}
         >
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
       )
     });

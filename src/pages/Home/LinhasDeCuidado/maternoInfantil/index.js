@@ -2,12 +2,14 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconSvgMaterno from '../../../../assets/icons/linhasDeCuidado/maternoInfantilBanner.svg';
 import { labelsAnalytics } from '../../../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../../../constantes/testIDs';
 import useAnalytics from '../../../../hooks/Analytics';
 import { Container, ScrollView, SvgView, Texto, Titulo } from './styles';
+
+import SetaEsquerda from '../../../../assets/icons/seta_esquerda.svg';
 
 export default function MaternoInfantil({ route }) {
   const { analyticsData } = useAnalytics();
@@ -63,7 +65,8 @@ export default function MaternoInfantil({ route }) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableOpacity>
       )
     });
