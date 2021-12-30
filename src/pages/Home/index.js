@@ -136,8 +136,8 @@ export default function Home() {
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
         {estaLogado && <MeusConteudos />}
-        <LinhasDeCuidado navigation={navigation} />
         <ForcaTarefa navigation={navigation} />
+        <LinhasDeCuidado navigation={navigation} />
       </ScrollView>
     </>
   );
