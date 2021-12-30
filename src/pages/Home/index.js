@@ -18,7 +18,7 @@ import Banners from './Banners';
 import ExibirUsuario from './exibirUsuario';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
-import MeusConteudos from './MeusConteudos';
+// import MeusConteudos from './MeusConteudos';
 import Servicos from './Servicos';
 
 export default function Home() {
@@ -135,7 +135,7 @@ export default function Home() {
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
-        {estaLogado && <MeusConteudos />}
+        {/* {estaLogado && <MeusConteudos />} */}
         <ForcaTarefa navigation={navigation} />
         <LinhasDeCuidado navigation={navigation} />
       </ScrollView>

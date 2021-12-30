@@ -1,6 +1,7 @@
 import Boletins from '../../../assets/icons/forcaTarefa/boletins.svg';
 import NotificacaoDeCasos from '../../../assets/icons/forcaTarefa/notificacaoDeCasos.svg';
 import FarmacoVigilancia from '../../../assets/icons/forcaTarefa/farmacoVigilancia.svg';
+import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
 import Denuncias from '../../../assets/icons/forcaTarefa/denuncias.svg';
 import VacinaCOVID19 from '../../../assets/icons/forcaTarefa/vacinaCovid19.svg';
 import PlanoContigencia from '../../../assets/icons/forcaTarefa/planoDeContigencia.svg';
@@ -9,6 +10,18 @@ import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 import { urls } from '../../../constantes/urls';
 
 const listForcaTarefa = [
+  {
+    id: 'acao-notas-tecnicas',
+    titulo: 'Notas Técnicas',
+    ativo: true,
+    labelDoAnalytics: 'notas_tecnicas',
+    icone: NotasTecnicas,
+    navegacao: {
+      componente: 'webview',
+      titulo: 'Notas Técnicas',
+      url: urls.NOTAS_TECNICAS
+    }
+  },
   {
     id: 'acao-boletins',
     titulo: 'Boletins',
@@ -23,13 +36,13 @@ const listForcaTarefa = [
   },
   {
     id: 'acao-plano-contigencia',
-    titulo: 'Plano de Contigência',
+    titulo: 'Plano de Contingência',
     labelDoAnalytics: labelsAnalytics.CARTAO_PLANO_CONTIGENCIA,
     ativo: true,
     icone: PlanoContigencia,
     navegacao: {
       componente: 'webview',
-      titulo: 'Plano de Contigência',
+      titulo: 'Plano de Contingência',
       url: urls.PLANO_CONTIGENCIA
     }
   },
