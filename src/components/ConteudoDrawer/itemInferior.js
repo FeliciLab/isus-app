@@ -1,17 +1,23 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ItemDrawer from './itemDrawer';
 import useAnalytics from '../../hooks/Analytics';
 import packageJson from '../../../package.json';
 import { ItensInferior, ConteudoVersao, TextoVersao } from './styles';
-import { CORES } from '../../constantes/estiloBase';
+// import { CORES } from '../../constantes/estiloBase';
 import testIDs from '../../constantes/testIDs';
 import rotas from '../../constantes/rotas';
 import aoCompartilhar from './aoCompartilhar';
 import useLogoutApplication from '../../hooks/useLogoutApplication';
 import useAutenticacao from '../../hooks/useAutenticacao';
+
+import SobreIsusMenuLateral from '../../assets/icons/provisorios/SobreIsusMenuLateral.svg';
+import TermosUsoMenuLateral from '../../assets/icons/provisorios/TermosUsoMenuLateral.svg';
+import CompartilharMenuLateral from '../../assets/icons/provisorios/CompartilharMenuLateral.svg';
+import SairMenuLateral from '../../assets/icons/provisorios/SairMenuLateral.svg';
+import PoliticaPrivMenuLateral from '../../assets/icons/provisorios/PoliticaPrivMenuLateral.svg';
 
 const itemInferior = () => {
   const navigationTermos = useNavigation();
@@ -25,12 +31,13 @@ const itemInferior = () => {
   const conteudoItem = [
     {
       icone: (
-        <Icon
-          testID="icon-drawer-information"
-          name="information"
-          size={22}
-          color={CORES.PRETO54}
-        />
+        <SobreIsusMenuLateral />
+        // <Icon
+        //   testID="icon-drawer-information"
+        //   name="information"
+        //   size={22}
+        //   color={CORES.PRETO54}
+        // />
       ),
       nome: 'Sobre o iSUS',
       testID: testIDs.DRAWER.ITEM_SOBRE_O_ISUS,
@@ -39,12 +46,13 @@ const itemInferior = () => {
     },
     {
       icone: (
-        <Icon
-          testID="icon-drawer-clipboard-text"
-          name="clipboard-text"
-          size={22}
-          color={CORES.PRETO54}
-        />
+        <TermosUsoMenuLateral />
+        // <Icon
+        //   testID="icon-drawer-clipboard-text"
+        //   name="clipboard-text"
+        //   size={22}
+        //   color={CORES.PRETO54}
+        // />
       ),
       nome: 'Termos de Uso',
       testID: testIDs.DRAWER.ITEM_TERMOS_DE_USO,
@@ -53,12 +61,13 @@ const itemInferior = () => {
     },
     {
       icone: (
-        <Icon
-          testID="icon-drawer-lock"
-          name="lock"
-          size={22}
-          color={CORES.PRETO54}
-        />
+        <PoliticaPrivMenuLateral />
+        // <Icon
+        //   testID="icon-drawer-lock"
+        //   name="lock"
+        //   size={22}
+        //   color={CORES.PRETO54}
+        // />
       ),
       nome: 'Política de Privacidade',
       testID: testIDs.DRAWER.ITEM_POLITA_DE_PRIVACIDADE,
@@ -67,12 +76,13 @@ const itemInferior = () => {
     },
     {
       icone: (
-        <Icon
-          testID="icon-drawer-share-variant"
-          name="share-variant"
-          size={22}
-          color={CORES.PRETO54}
-        />
+        <CompartilharMenuLateral />
+        // <Icon
+        //   testID="icon-drawer-share-variant"
+        //   name="share-variant"
+        //   size={22}
+        //   color={CORES.PRETO54}
+        // />
       ),
       nome: 'Compartilhar',
       testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
@@ -81,12 +91,13 @@ const itemInferior = () => {
     },
     ...(estaLogado ? [{
       icone: (
-        <Icon
-          testID="icon-drawer-exit-to-app"
-          name="exit-to-app"
-          size={22}
-          color={CORES.PRETO54}
-        />
+        <SairMenuLateral />
+        // <Icon
+        //   testID="icon-drawer-exit-to-app"
+        //   name="exit-to-app"
+        //   size={22}
+        //   color={CORES.PRETO54}
+        // />
       ),
       nome: 'Sair',
       testID: testIDs.DRAWER.ITEM_SAIR,

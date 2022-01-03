@@ -3,7 +3,7 @@ import { Title } from 'react-native-paper';
 
 const Titulo = styled(Title)`
   margin: 0 16px 0 16px;
-  font-size: 20px;
+  font-size: 19px;
   color: rgba(0, 0, 0, 0.6);
 `;
 

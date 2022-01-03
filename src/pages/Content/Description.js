@@ -21,7 +21,7 @@ import {
 } from 'react-native';
 import { Snackbar, Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorId } from '../../apis/apiHome';
 import BarraDeStatus from '../../components/barraDeStatus';
 import BarraInferior from '../../components/barraInferior';
@@ -34,6 +34,8 @@ import {
 } from '../../services/armazenamento';
 import formatarDataPorExtenso from '../../utils/dateUtils';
 import ImagemDePostagem from './ImagemDePostagem';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
@@ -204,7 +206,8 @@ export default function DescriptionScreen(props) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableOpacity>
       )
     });
