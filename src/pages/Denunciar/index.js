@@ -3,7 +3,7 @@ import {
   TouchableOpacity, Text, Linking
 } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import BarraDeStatus from '../../components/barraDeStatus';
 import {
@@ -13,6 +13,8 @@ import {
   BotaoLigarSus, Termos, TermosLink
 } from './styles';
 import rotas from '../../constantes/rotas';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function Denunciar() {
   const navigation = useNavigation();
@@ -56,7 +58,8 @@ export default function Denunciar() {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
       )
     });

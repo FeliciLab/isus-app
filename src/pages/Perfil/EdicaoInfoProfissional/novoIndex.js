@@ -3,7 +3,7 @@ import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
 import {
   pegarListaDeCategoriasProfissionais,
@@ -30,6 +30,8 @@ import {
   Titulo,
   TituloPrincipal
 } from './styles';
+
+import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 
 function EdicaoInfoProfissional({ route }) {
   const { getValues, setValue, register, unregister } = useContext(FormContext);
@@ -94,7 +96,8 @@ function EdicaoInfoProfissional({ route }) {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
       )
     });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
 import useAnalytics from '../../hooks/Analytics';
 import useDebounce from '../../hooks/useDebounce';
@@ -9,6 +9,8 @@ import LegendaNaoEncontrada from './LegendaNaoEncontrada';
 import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
 import { TextSearch, TouchableLeft, ViewColumn } from './styles';
+
+import  SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 const Buscar = props => {
   const { navigation } = props;
@@ -51,7 +53,8 @@ const Buscar = props => {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <SetaEsquerda/>
+          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableLeft>
       )
     });
