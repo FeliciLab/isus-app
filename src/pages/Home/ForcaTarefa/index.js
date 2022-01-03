@@ -11,12 +11,11 @@ import { uniqueId } from 'lodash';
 
 function ForcaTarefa({ navigation }) {
   const { analyticsData } = useAnalytics();
-
   const netInfo = useNetInfo();
 
   return (
     <View>
-      <Titulo>Força-tarefa Anticorona</Titulo>
+      <Titulo>Enfrentamento às Pandemias e Epidemias</Titulo>
       <Carrossel
         dados={listaForcaTarefaAntiCorona}
         aoRenderizarItem={({ item }) => (

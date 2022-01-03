@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '../../components/barraDeStatus';
 import { CORES } from '../../constantes/estiloBase';
 import { Botao, Container, ScrollView, Texto, Titulo } from './styles';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function capacitacaoElmo() {
   const navigation = useNavigation();
@@ -28,7 +30,8 @@ export default function capacitacaoElmo() {
             navigation.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
       )
     });

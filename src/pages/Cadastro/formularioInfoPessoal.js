@@ -9,7 +9,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
 import TextInputMask from 'react-native-text-input-mask';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import FormContext from '../../context/FormContext';
@@ -17,6 +17,8 @@ import WizardContext from '../../context/WizardContext';
 import { salvarDados } from '../../services/armazenamento';
 import Regex from '../../utils/regex';
 import FormularioInfoProfissional from './formularioInfoProfissional';
+
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function FormularioInfoPessoal() {
   const dropdown = React.createRef();
@@ -121,7 +123,8 @@ export default function FormularioInfoPessoal() {
             navigator.goBack();
           }}
         >
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <SetaEsquerda />
+          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableOpacity>
       )
     });

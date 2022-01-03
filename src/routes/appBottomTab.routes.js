@@ -1,8 +1,10 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Educacao from '../assets/icons/educacao.svg';
+import HomeIcon from '../assets/icons/provisorios/Home.svg';
+import HeartIcon from '../assets/icons/provisorios/HeartIcon.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 import rotas from '../constantes/rotas';
 import { ConteudoProvider } from '../context/ConteudoContext';
@@ -98,9 +100,10 @@ export default function AppTabScreen() {
         component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => (
-            <Icon name="home" color={color} size={20} />
-          )
+          tabBarIcon: ({ color }) => <HomeIcon color={color} size={20} />
+          // tabBarIcon: ({ color }) => (
+          //   <Icon name="home" color={color} size={20} />
+          // )
         }}
         listeners={() => ({
           tabPress: () => {
@@ -115,9 +118,10 @@ export default function AppTabScreen() {
           component={MinhaSaudeStackScreen} // Teste
           options={{
             tabBarLabel: 'Minha Saúde',
-            tabBarIcon: ({ color }) => (
-              <Icon name="heart" color={color} size={20} />
-            )
+            tabBarIcon: ({ color }) => <HeartIcon color={color} size={20} />
+            // tabBarIcon: ({ color }) => (
+            //   <Icon name="heart" color={color} size={20} />
+            // )
           }}
         />
       }
