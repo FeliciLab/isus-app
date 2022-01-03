@@ -15,6 +15,10 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		948A700B46780CFF88204E0B /* libPods-isusapp-isusappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F66CECD6FF7AC97D4302E52 /* libPods-isusapp-isusappTests.a */; };
 		96A36F9F275E8BDF00C5892D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36F9E275E8BDF00C5892D /* NotificationService.swift */; };
+		96D04C61278375BA00F95510 /* GoogleService-Info-debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D04C60278375B900F95510 /* GoogleService-Info-debug.plist */; };
+		96D04C6327837A4600F95510 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D04C6227837A4600F95510 /* GoogleService-Info.plist */; };
+		96D04C6427837A4600F95510 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D04C6227837A4600F95510 /* GoogleService-Info.plist */; };
+		96D04C6527837A4600F95510 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96D04C6227837A4600F95510 /* GoogleService-Info.plist */; };
 		B1B2E5295B10250E02F7BE93 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87BEBFA4F9CBC5EFFE4F2680 /* libPods-OneSignalNotificationServiceExtension.a */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +64,8 @@
 		96A36F9C275E8BDF00C5892D /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		96A36F9E275E8BDF00C5892D /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		96A36FA0275E8BDF00C5892D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96D04C60278375B900F95510 /* GoogleService-Info-debug.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-debug.plist"; sourceTree = "<group>"; };
+		96D04C6227837A4600F95510 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A5463A421E2C67B1F01987EA /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		E8989F8337B4BEA6112069C3 /* Pods-isusapp-isusappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp-isusappTests.release.xcconfig"; path = "Target Support Files/Pods-isusapp-isusappTests/Pods-isusapp-isusappTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -160,6 +166,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				96D04C6227837A4600F95510 /* GoogleService-Info.plist */,
+				96D04C60278375B900F95510 /* GoogleService-Info-debug.plist */,
 				13B07FAE1A68108700A75B9A /* isusapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* isusappTests */,
@@ -309,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96D04C6427837A4600F95510 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +326,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				96D04C6327837A4600F95510 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				96D04C61278375BA00F95510 /* GoogleService-Info-debug.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +336,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96D04C6527837A4600F95510 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +693,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.20.8;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -711,6 +724,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 3.20.8;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
