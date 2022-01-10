@@ -37,19 +37,19 @@ import {
 import textos from './textos.json';
 
 import FormContext from '../../context/FormContext';
-// import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
 
 export default function FormularioInfoPessoal({ navigation }) {
-  // const {
-  //   rastreioTransparenteHabilitado,
-  //   verificarRastreio
-  // } = React.useContext(AppTrackTransparencyContext);
+  const {
+    rastreioTransparenteHabilitado,
+    verificarRastreio
+  } = useContext(AppTrackTransparencyContext);
 
-  // React.useEffect(() => {
-  //   verificarRastreio().then(() => {
-  //     console.log('rastreio', rastreioTransparenteHabilitado);
-  //   });
-  // }, [rastreioTransparenteHabilitado]);
+  useEffect(() => {
+    verificarRastreio().then(() => {
+      console.log('rastreio', rastreioTransparenteHabilitado);
+    });
+  }, [rastreioTransparenteHabilitado]);
 
   const dropdown = useRef();
 
