@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import useAnalytics from '../../hooks/Analytics';
-import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
+// import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
@@ -26,7 +26,7 @@ export default function Home() {
 
   const { analyticsData } = useAnalytics();
 
-  const { verificarRastreio } = useAppTrackTransparency();
+  // const { verificarRastreio } = useAppTrackTransparency();
 
   const {
     estaLogado,
@@ -74,7 +74,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    verificarRastreio();
+    // verificarRastreio();
 
     redirectToWelcome();
 
