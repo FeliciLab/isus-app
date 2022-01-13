@@ -12,7 +12,7 @@ import {
   armazenarEstadoLogado,
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
-  salvarTokenDoUsuarioNoStorage
+  salvarTokenDoUsuarioNoStorage,
 } from '../../services/autenticacao';
 import Banners from './Banners';
 import ExibirUsuario from './exibirUsuario';
