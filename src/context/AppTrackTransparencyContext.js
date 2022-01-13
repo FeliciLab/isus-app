@@ -4,8 +4,6 @@ import {
   requestTrackingPermission,
 } from 'react-native-tracking-transparency';
 
-export const AppTrackTransparencyContext = createContext();
-
 // App Tracking Status:
 // unavailable => não está disponível no dispositivo atual.
 //    Esse é o caso em dispositivos Android e iPhones abaixo do iOS 14
@@ -14,6 +12,8 @@ export const AppTrackTransparencyContext = createContext();
 // restricted => O alerta de permissão de rastreamento não pode ser exibido porque o dispositivo está restrito.
 // not-determined => O usuário ainda não foi solicitado a conceder permissões de rastreamento.
 //    Chame requestTrackingPermission()
+
+export const AppTrackTransparencyContext = createContext();
 
 export const AppTrackTransparencyProvider = ({ children }) => {
   const [trackingStatus, setTrackingStatus] = useState('');
@@ -34,16 +34,14 @@ export const AppTrackTransparencyProvider = ({ children }) => {
     return trackingStatus === 'not-determined';
   };
 
-  const requestPermission = React.useCallback(async () => {
+  const requestPermission = async () => {
     try {
-      if (trackingStatus === 'not-determined') {
-        const status = await requestTrackingPermission();
-        setTrackingStatus(status);
-      }
+      const status = await requestTrackingPermission();
+      setTrackingStatus(status);
     } catch (e) {
       console.log('Error', e?.toString?.() ?? e);
     }
-  }, []);
+  };
 
   const values = {
     trackingStatus,
