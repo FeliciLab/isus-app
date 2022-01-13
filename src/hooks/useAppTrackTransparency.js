@@ -6,14 +6,14 @@ function useAppTrackTransparency() {
     trackingStatus,
     isTrackingAuthorized,
     isTrackingNotDetermined,
-    requestTrackingPermission,
+    requestPermission,
   } = useContext(AppTrackTransparencyContext);
 
   return {
     trackingStatus,
     isTrackingAuthorized,
     isTrackingNotDetermined,
-    requestTrackingPermission,
+    requestPermission,
   };
 }
 

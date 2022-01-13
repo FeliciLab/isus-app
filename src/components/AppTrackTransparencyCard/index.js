@@ -6,7 +6,7 @@ const AppTrackTransparencyCard = () => {
   const {
     isTrackingAuthorized,
     isTrackingNotDetermined,
-    requestTrackingPermission,
+    requestPermission,
   } = useAppTrackTransparency();
 
   if (isTrackingAuthorized()) return null;
@@ -23,7 +23,7 @@ const AppTrackTransparencyCard = () => {
 
       {isTrackingNotDetermined() && (
         <Card.Actions>
-          <Button onPress={requestTrackingPermission}>
+          <Button onPress={() => requestPermission()}>
             Habilitar rastreio
           </Button>
         </Card.Actions>
