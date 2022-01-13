@@ -1,44 +1,39 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
-import {
-  Alert,
-  Dimensions,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
 import useAnalytics from '../../hooks/Analytics';
-// import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
+import useDialogAppTrack from '../../hooks/DialogAppTrack';
+import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
-  salvarTokenDoUsuarioNoStorage,
+  salvarTokenDoUsuarioNoStorage
 } from '../../services/autenticacao';
 import Banners from './Banners';
 import ExibirUsuario from './exibirUsuario';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
-// import MeusConteudos from './MeusConteudos';
 import Servicos from './Servicos';
-import {
-  getTrackingStatus,
-  requestTrackingPermission,
-} from 'react-native-tracking-transparency';
-import { Button, Text } from 'react-native-paper';
+// import MeusConteudos from './MeusConteudos';
 
 export default function Home() {
   const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
 
-  // const { verificarRastreio } = useAppTrackTransparency();
+  const {
+    isTrackingAuthorized,
+    isTrackingNotDetermined,
+  } = useAppTrackTransparency();
 
-  const [trackingStatus, setTrackingStatus] = React.useState('(loading)');
+  const { exibirDialog } = useDialogAppTrack();
 
   const {
     estaLogado,
@@ -86,19 +81,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // verificarRastreio();
-
     redirectToWelcome();
 
     pegarTokenUsuario();
-  }, []);
-
-  useEffect(() => {
-    getTrackingStatus()
-      .then((status) => {
-        setTrackingStatus(status);
-      })
-      .catch((e) => Alert.alert('Error', e?.toString?.() ?? e));
   }, []);
 
   useLayoutEffect(() => {
@@ -143,15 +128,6 @@ export default function Home() {
 
   const { width } = Dimensions.get('screen');
 
-  const request = useCallback(async () => {
-    try {
-      const status = await requestTrackingPermission();
-      setTrackingStatus(status);
-    } catch (e) {
-      Alert.alert('Error', e?.toString?.() ?? e);
-    }
-  }, []);
-
   return (
     <>
       <BarraDeStatus
@@ -163,8 +139,15 @@ export default function Home() {
 
       {/* TODO: remover depois */}
 
-      <Text>Tracking Status: {trackingStatus}</Text>
-      <Button onPress={request}>Request Tracking Permission</Button>
+      <Text>
+        Tracking Status:
+        {isTrackingAuthorized() ? 'autorizado' : 'não autorizado'}
+      </Text>
+
+      {isTrackingNotDetermined() && (
+        <Button onPress={() => exibirDialog()}>Autorizar rastreio</Button>
+      )}
+
       {/* TODO: fim do remover depois */}
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>

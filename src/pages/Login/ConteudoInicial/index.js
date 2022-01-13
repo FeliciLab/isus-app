@@ -7,6 +7,7 @@ import { Botao } from '../styles';
 import useAnalytics from '../../../hooks/Analytics';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 import useDialogAppTrack from '../../../hooks/DialogAppTrack';
+import useAppTrackTransparency from '../../../hooks/useAppTrackTransparency';
 
 const ConteudoInicial = () => {
   const navigation = useNavigation();
@@ -14,6 +15,10 @@ const ConteudoInicial = () => {
   const { analyticsData } = useAnalytics();
 
   const { exibirDialog } = useDialogAppTrack();
+
+  const {
+    isTrackingAuthorized,
+  } = useAppTrackTransparency();
 
   return (
     <>
@@ -37,6 +42,7 @@ const ConteudoInicial = () => {
               navigation.navigate('CADASTRO');
             }
           }}
+          disable={!isTrackingAuthorized()}
         >
           Realizar meu cadastro
         </Botao>
@@ -48,6 +54,7 @@ const ConteudoInicial = () => {
             analyticsData('ja_possuo_id_saude', 'Click', 'Perfil');
             navigation.navigate('FORM_LOGIN');
           }}
+          disable={!isTrackingAuthorized()}
         >
           Já possuo ID Saúde
         </Botao>

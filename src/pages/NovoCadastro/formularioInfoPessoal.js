@@ -36,20 +36,8 @@ import {
 } from '../../components/layoutEffect/cabecalhoLayout';
 import textos from './textos.json';
 import FormContext from '../../context/FormContext';
-import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 
 export default function FormularioInfoPessoal({ navigation }) {
-  const {
-    rastreioTransparenteHabilitado,
-    verificarRastreio,
-  } = useAppTrackTransparency();
-
-  useEffect(() => {
-    verificarRastreio().then(() => {
-      console.log('rastreio', rastreioTransparenteHabilitado);
-    });
-  }, [rastreioTransparenteHabilitado]);
-
   const dropdown = useRef();
 
   const [botaoAtivo, setBotaoAtivo] = useState(false);
