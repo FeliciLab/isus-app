@@ -1,37 +1,29 @@
 import React, { createContext, useState } from 'react';
 import {
   getTrackingStatus,
-  requestTrackingPermission
+  requestTrackingPermission,
 } from 'react-native-tracking-transparency';
 
 export const AppTrackTransparencyContext = createContext();
 
-export const AppTrackTransparencyProvider = ({
-  mock,
-  mockDialog,
-  children
-}) => {
+export const AppTrackTransparencyProvider = ({ children }) => {
   const [
     rastreioTransparenteHabilitado,
-    atribuirRastreioTransparenteHabilitado
-  ] = useState(mock || false);
+    setRastreioTransparenteHabilitado,
+  ] = useState(false);
 
   const [
     exibirDialogAlertaRastreio,
-    atribuirExibirDialogAlertaRastreio
-  ] = useState(mockDialog || false);
+    atribuirExibirDialogAlertaRastreio,
+  ] = useState(false);
 
   const definirSeRastreioHabilitado = permissao => {
-    if (mock) return true;
-
     const habilitar = ['authorized', 'unavailable'];
 
     return habilitar.includes(permissao);
   };
 
   const definirSeDeveExibirDialog = permissao => {
-    if (mockDialog) return true;
-
     const exibir = ['denied', 'restrict'];
 
     return exibir.includes(permissao);
@@ -44,16 +36,14 @@ export const AppTrackTransparencyProvider = ({
     }
 
     atribuirExibirDialogAlertaRastreio(definirSeDeveExibirDialog(permissao));
-    atribuirRastreioTransparenteHabilitado(
-      definirSeRastreioHabilitado(permissao)
-    );
+    setRastreioTransparenteHabilitado(definirSeRastreioHabilitado(permissao));
   };
 
   const values = {
     rastreioTransparenteHabilitado,
-    atribuirRastreioTransparenteHabilitado,
+    setRastreioTransparenteHabilitado,
     verificarRastreio,
-    exibirDialogAlertaRastreio
+    exibirDialogAlertaRastreio,
   };
 
   return (
