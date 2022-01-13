@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
-import { Alert, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { Alert, AppState, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
@@ -89,11 +89,20 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    getTrackingStatus()
-      .then(status => {
-        setTrackingStatus(status);
-      })
-      .catch(e => Alert.alert('Error', e?.toString?.() ?? e));
+    const listener = AppState.addEventListener('change', status => {
+      if (status === 'active') {
+        (async () => {
+          const trackingStatus = await getTrackingStatus();
+          if (trackingStatus === 'not-determined') {
+            requestTrackingPermission();
+          }
+        })();
+      }
+    });
+
+    return () => {
+      listener && listener.remove();
+    };
   }, []);
 
   useLayoutEffect(() => {
