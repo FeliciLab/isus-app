@@ -9,7 +9,7 @@ const AppTrackTransparencyCard = () => {
     requestTrackingPermission,
   } = useAppTrackTransparency();
 
-  if (isTrackingAuthorized) return null;
+  if (isTrackingAuthorized()) return null;
 
   return (
     <Card>

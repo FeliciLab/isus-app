@@ -1,5 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getTrackingStatus } from 'react-native-tracking-transparency';
+import {
+  getTrackingStatus,
+  requestTrackingPermission,
+} from 'react-native-tracking-transparency';
 
 export const AppTrackTransparencyContext = createContext();
 
@@ -31,7 +34,7 @@ export const AppTrackTransparencyProvider = ({ children }) => {
     return trackingStatus === 'not-determined';
   };
 
-  const requestTrackingPermission = React.useCallback(async () => {
+  const requestPermission = React.useCallback(async () => {
     try {
       if (trackingStatus === 'not-determined') {
         const status = await requestTrackingPermission();
@@ -46,7 +49,7 @@ export const AppTrackTransparencyProvider = ({ children }) => {
     trackingStatus,
     isTrackingAuthorized,
     isTrackingNotDetermined,
-    requestTrackingPermission,
+    requestPermission,
   };
 
   return (
