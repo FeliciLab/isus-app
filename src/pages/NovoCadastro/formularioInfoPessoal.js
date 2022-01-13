@@ -36,19 +36,19 @@ import {
 } from '../../components/layoutEffect/cabecalhoLayout';
 import textos from './textos.json';
 import FormContext from '../../context/FormContext';
-// import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
+import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 
 export default function FormularioInfoPessoal({ navigation }) {
-  // const {
-  //   rastreioTransparenteHabilitado,
-  //   verificarRastreio
-  // } = useContext(AppTrackTransparencyContext);
+  const {
+    rastreioTransparenteHabilitado,
+    verificarRastreio,
+  } = useAppTrackTransparency();
 
-  // useEffect(() => {
-  //   verificarRastreio().then(() => {
-  //     console.log('rastreio', rastreioTransparenteHabilitado);
-  //   });
-  // }, [rastreioTransparenteHabilitado]);
+  useEffect(() => {
+    verificarRastreio().then(() => {
+      console.log('rastreio', rastreioTransparenteHabilitado);
+    });
+  }, [rastreioTransparenteHabilitado]);
 
   const dropdown = useRef();
 

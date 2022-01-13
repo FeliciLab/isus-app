@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
-import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { Alert, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import BarraDeStatus from '../../components/barraDeStatus';
@@ -20,6 +20,11 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 import Servicos from './Servicos';
+import {
+  getTrackingStatus,
+  requestTrackingPermission,
+} from 'react-native-tracking-transparency';
+import { Button, Text } from 'react-native-paper';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -27,6 +32,8 @@ export default function Home() {
   const { analyticsData } = useAnalytics();
 
   // const { verificarRastreio } = useAppTrackTransparency();
+
+  const [trackingStatus, setTrackingStatus] = React.useState('(loading)');
 
   const {
     estaLogado,
@@ -81,6 +88,14 @@ export default function Home() {
     pegarTokenUsuario();
   }, []);
 
+  useEffect(() => {
+    getTrackingStatus()
+      .then(status => {
+        setTrackingStatus(status);
+      })
+      .catch(e => Alert.alert('Error', e?.toString?.() ?? e));
+  }, []);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
@@ -123,6 +138,15 @@ export default function Home() {
 
   const { width } = Dimensions.get('screen');
 
+  const request = React.useCallback(async () => {
+    try {
+      const status = await requestTrackingPermission();
+      setTrackingStatus(status);
+    } catch (e) {
+      Alert.alert('Error', e?.toString?.() ?? e);
+    }
+  }, []);
+
   return (
     <>
       <BarraDeStatus
@@ -131,6 +155,12 @@ export default function Home() {
       />
 
       {estaLogado && <ExibirUsuario />}
+
+      {/* TODO: remover depois */}
+
+      <Text>Tracking Status: {trackingStatus}</Text>
+      <Button onPress={request}>Request Tracking Permission</Button>
+      {/* TODO: fim do remover depois */}
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
