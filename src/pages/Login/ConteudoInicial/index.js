@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
-import { TESTIDS } from '../../../constantes/testIDs';
-import { ConteudoDoTexto, Texto } from './styles';
-import { Botao } from '../styles';
-import useAnalytics from '../../../hooks/Analytics';
+import AppTrackTransparencyCard from '../../../components/AppTrackTransparencyCard';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
+import { TESTIDS } from '../../../constantes/testIDs';
+import useAnalytics from '../../../hooks/Analytics';
 import useDialogAppTrack from '../../../hooks/DialogAppTrack';
 import useAppTrackTransparency from '../../../hooks/useAppTrackTransparency';
+import { Botao } from '../styles';
+import { ConteudoDoTexto, Texto } from './styles';
 
 const ConteudoInicial = () => {
   const navigation = useNavigation();
@@ -16,9 +17,7 @@ const ConteudoInicial = () => {
 
   const { exibirDialog } = useDialogAppTrack();
 
-  const {
-    isTrackingAuthorized,
-  } = useAppTrackTransparency();
+  const { isTrackingAuthorized } = useAppTrackTransparency();
 
   return (
     <>
@@ -28,6 +27,7 @@ const ConteudoInicial = () => {
           Sáúde Pública do Ceará
         </Texto>
       </ConteudoDoTexto>
+      <AppTrackTransparencyCard />
       <View>
         <Botao
           testID={TESTIDS.BUTTON_REALIZAR_CADASTRO}
@@ -36,14 +36,13 @@ const ConteudoInicial = () => {
             analyticsData(
               labelsAnalytics.INICIAR_MEU_CADASTRO,
               'Click',
-              'Perfil'
+              'Perfil',
             );
             if (!exibirDialog('o Cadastro')) {
               navigation.navigate('CADASTRO');
             }
           }}
-          disable={!isTrackingAuthorized()}
-        >
+          disabled={!isTrackingAuthorized()}>
           Realizar meu cadastro
         </Botao>
         <Botao
@@ -54,8 +53,7 @@ const ConteudoInicial = () => {
             analyticsData('ja_possuo_id_saude', 'Click', 'Perfil');
             navigation.navigate('FORM_LOGIN');
           }}
-          disable={!isTrackingAuthorized()}
-        >
+          disabled={!isTrackingAuthorized()}>
           Já possuo ID Saúde
         </Botao>
       </View>

@@ -2,13 +2,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
-import { Button, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
+import AppTrackTransparencyCard from '../../components/AppTrackTransparencyCard';
 import BarraDeStatus from '../../components/barraDeStatus';
 import useAnalytics from '../../hooks/Analytics';
-import useDialogAppTrack from '../../hooks/DialogAppTrack';
-import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
@@ -27,13 +25,6 @@ export default function Home() {
   const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
-
-  const {
-    isTrackingAuthorized,
-    isTrackingNotDetermined,
-  } = useAppTrackTransparency();
-
-  const { exibirDialog } = useDialogAppTrack();
 
   const {
     estaLogado,
@@ -137,18 +128,7 @@ export default function Home() {
 
       {estaLogado && <ExibirUsuario />}
 
-      {/* TODO: remover depois */}
-
-      <Text>
-        Tracking Status:
-        {isTrackingAuthorized() ? 'autorizado' : 'não autorizado'}
-      </Text>
-
-      {isTrackingNotDetermined() && (
-        <Button onPress={() => exibirDialog()}>Autorizar rastreio</Button>
-      )}
-
-      {/* TODO: fim do remover depois */}
+      <AppTrackTransparencyCard />
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
