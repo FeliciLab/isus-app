@@ -3,17 +3,17 @@ import { AppTrackTransparencyContext } from '../context/AppTrackTransparencyCont
 
 function useAppTrackTransparency() {
   const {
-    rastreioTransparenteHabilitado,
-    atribuirRastreioTransparenteHabilitado,
-    verificarRastreio,
-    exibirDialogAlertaRastreio
+    trackingStatus,
+    isTrackingAuthorized,
+    isTrackingNotDetermined,
+    requestPermission,
   } = useContext(AppTrackTransparencyContext);
 
   return {
-    rastreioTransparenteHabilitado,
-    atribuirRastreioTransparenteHabilitado,
-    verificarRastreio,
-    exibirDialogAlertaRastreio
+    trackingStatus,
+    isTrackingAuthorized,
+    isTrackingNotDetermined,
+    requestPermission,
   };
 }
 

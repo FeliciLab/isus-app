@@ -4,9 +4,9 @@ import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
+import AppTrackTransparencyCard from '../../components/AppTrackTransparencyCard';
 import BarraDeStatus from '../../components/barraDeStatus';
 import useAnalytics from '../../hooks/Analytics';
-import useAppTrackTransparency from '../../hooks/useAppTrackTransparency';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
@@ -18,15 +18,13 @@ import Banners from './Banners';
 import ExibirUsuario from './exibirUsuario';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
-// import MeusConteudos from './MeusConteudos';
 import Servicos from './Servicos';
+// import MeusConteudos from './MeusConteudos';
 
 export default function Home() {
   const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
-
-  const { verificarRastreio } = useAppTrackTransparency();
 
   const {
     estaLogado,
@@ -74,8 +72,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    verificarRastreio();
-
     redirectToWelcome();
 
     pegarTokenUsuario();
@@ -131,6 +127,8 @@ export default function Home() {
       />
 
       {estaLogado && <ExibirUsuario />}
+
+      <AppTrackTransparencyCard />
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />

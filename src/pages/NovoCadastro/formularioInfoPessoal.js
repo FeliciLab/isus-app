@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { DefaultTheme } from 'react-native-paper';
 import { Alert } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
@@ -9,7 +15,7 @@ import {
   cpfValido,
   nomeValido,
   emailNaoCadastrado,
-  cpfNaoCadastrado
+  cpfNaoCadastrado,
 } from '../../utils/validadores';
 import { getMunicipiosCeara } from '../../apis/apiCadastro';
 import { salvarDados } from '../../services/armazenamento';
@@ -21,53 +27,45 @@ import {
   TextoDeErro,
   Botao,
   ConteudoDropdown,
-  IconeDropdown
+  IconeDropdown,
 } from './styles';
 import BarraDeStatus from '../../components/barraDeStatus';
 import {
   cabecalhoSemBotao,
-  cabecalhoVoltar
+  cabecalhoVoltar,
 } from '../../components/layoutEffect/cabecalhoLayout';
 import textos from './textos.json';
-
 import FormContext from '../../context/FormContext';
-import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
 
 export default function FormularioInfoPessoal({ navigation }) {
-  const {
-    rastreioTransparenteHabilitado,
-    verificarRastreio
-  } = React.useContext(AppTrackTransparencyContext);
-  React.useEffect(() => {
-    verificarRastreio().then(() => {
-      console.log('rastreio', rastreioTransparenteHabilitado);
-    });
-  }, [rastreioTransparenteHabilitado]);
+  const dropdown = useRef();
 
-  const dropdown = React.createRef();
-  const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
-  const [cidades, pegaCidades] = React.useState([]);
+  const [botaoAtivo, setBotaoAtivo] = useState(false);
+
+  const [nomeCidades, setNomeCidades] = useState(() => []);
+
+  const [cidades, setCidades] = useState([]);
 
   let estaConectado = false;
 
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#304FFE'
-    }
+      primary: '#304FFE',
+    },
   };
 
   const themeError = {
     ...DefaultTheme,
     colors: {
-      primary: 'red'
-    }
+      primary: 'red',
+    },
   };
 
   const { register, setValue, trigger, errors, getValues } = useContext(
-    FormContext
+    FormContext,
   );
+
   useEffect(() => {
     // eslint-disable-next-line no-undef
     NetInfo.addEventListener(state => {
@@ -82,9 +80,9 @@ export default function FormularioInfoPessoal({ navigation }) {
             text: 'OK',
             onPress: () => {
               navigation.navigate('LOGIN');
-            }
-          }
-        ]
+            },
+          },
+        ],
       );
     }
   });
@@ -93,7 +91,7 @@ export default function FormularioInfoPessoal({ navigation }) {
     register('nomeCompleto', {
       required: true,
       validate: nomeCompleto =>
-        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.'
+        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.',
     });
     register('email', {
       required: true,
@@ -102,59 +100,59 @@ export default function FormularioInfoPessoal({ navigation }) {
           emailValido(email) || textos.formularioPessoal.mensagemEmail,
         emailCadastrado: async email =>
           (await emailNaoCadastrado(email)) ||
-          textos.formularioPessoal.mensagemEmailExistente
-      }
+          textos.formularioPessoal.mensagemEmailExistente,
+      },
     });
     register('telefone', {
       required: true,
       minLength: {
         value: 11,
-        message: textos.formularioPessoal.mensagemTelefone
+        message: textos.formularioPessoal.mensagemTelefone,
       },
-      maxLength: 14
+      maxLength: 14,
     });
     register('cpf', {
       required: true,
       minLength: {
         value: 11,
-        message: textos.formularioPessoal.mensagemCPF
+        message: textos.formularioPessoal.mensagemCPF,
       },
       validate: {
         cpfValido: cpf =>
           cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
         cpfCadastrado: async cpf =>
           (await cpfNaoCadastrado(cpf)) ||
-          textos.formularioPessoal.mensagemCPFExistente
+          textos.formularioPessoal.mensagemCPFExistente,
       },
-      maxLength: 14
+      maxLength: 14,
     });
     register('cidade', {
-      required: true
+      required: true,
     });
   }, [register]);
 
   const layout = {
     titulo: 'Cadastro',
     navegador: navigation,
-    cor: 'branco'
+    cor: 'branco',
   };
 
   useLayoutEffect(
     () => (layout ? cabecalhoVoltar(layout) : cabecalhoSemBotao(layout)),
-    []
+    [],
   );
 
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
-    alteraBotaoAtivo(Object.entries(errors).length === 0);
+    setBotaoAtivo(Object.entries(errors).length === 0);
   };
 
   useEffect(() => {
     async function pegarCidades() {
       const response = await getMunicipiosCeara();
-      alteraNomeCidades(response.data.map(item => item.nome));
-      pegaCidades(response.data.map(item => item));
+      setNomeCidades(response.data.map(item => item.nome));
+      setCidades(response.data.map(item => item));
     }
 
     pegarCidades();
@@ -274,7 +272,7 @@ export default function FormularioInfoPessoal({ navigation }) {
             onChangeText={cidade => {
               alteraValor('cidade', {
                 id: cidades.find(e => e.nome === cidade)?.id,
-                nome: cidade
+                nome: cidade,
               });
             }}
           />
@@ -289,8 +287,7 @@ export default function FormularioInfoPessoal({ navigation }) {
           label="Próximo"
           labelStyle={{ color: '#fff' }}
           mode="contained"
-          onPress={() => navigation.navigate('FormularioInfoProfissional')}
-        >
+          onPress={() => navigation.navigate('FormularioInfoProfissional')}>
           Próximo
         </Botao>
       </Scroll>
