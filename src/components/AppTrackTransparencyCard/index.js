@@ -19,20 +19,20 @@ const AppTrackTransparencyCard = () => {
       <Card.Title
         title="Rastreio desabilitado"
         left={props => (
-          <Icon {...props} name="alert-circle" color={CORES.LARANJA} />
+          <Icon {...props} name="alert" color={CORES.LARANJA} />
         )}
       />
 
       <Card.Content>
         <Paragraph>
-          Algumas funcionalidades necessitam do rasteio do dispositivo. Ative o
-          rastreio para ter todas as funionalidades.
+          Algumas funcionalidades necessitam do rastreio do dispositivo. Habilite para acessar
+          todas as funcionalidades.
         </Paragraph>
       </Card.Content>
 
       <Card.Actions>
         {isTrackingNotDetermined() && (
-          <Button onPress={requestPermission}>Habilitar rastreio</Button>
+          <Button onPress={requestPermission}>Habilitar</Button>
         )}
       </Card.Actions>
     </Card>
