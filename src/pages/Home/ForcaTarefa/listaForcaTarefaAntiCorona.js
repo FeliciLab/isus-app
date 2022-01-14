@@ -12,14 +12,14 @@ import { urls } from '../../../constantes/urls';
 const listForcaTarefa = [
   {
     id: 'acao-notas-tecnicas',
-    titulo: 'Notas Técnicas',
+    titulo: 'Documentos Oficiais',
     ativo: true,
-    labelDoAnalytics: 'notas_tecnicas',
+    labelDoAnalytics: 'documentos_oficiais',
     icone: NotasTecnicas,
     navegacao: {
       componente: 'webview',
-      titulo: 'Notas Técnicas',
-      url: urls.NOTAS_TECNICAS
+      titulo: 'Documentos Oficiais',
+      url: urls.DOCUMENTOS_OFICIAIS
     }
   },
   {
