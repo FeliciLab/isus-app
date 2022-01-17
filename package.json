@@ -1,6 +1,6 @@
 {
   "name": "isusapp",
-  "version": "3.20.10",
+  "version": "3.20.11",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -56,7 +56,7 @@
     "react-native-paper": "^3.10.1",
     "react-native-password-eye": "^1.0.2",
     "react-native-picker-select": "^8.0.4",
-    "react-native-reanimated": "^2.2.4",
+    "react-native-reanimated": "^2.3.1",
     "react-native-render-html": "^4.2.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^2.4.0",

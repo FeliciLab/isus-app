@@ -4,20 +4,20 @@ import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
 import listaBanners from './listaDeBanners';
 
 const Banners = ({ sliderWidth, itemWidth }) => {
-  const [banners, alterarBanners] = useState([]);
+  const [banners, setBanners] = useState([]);
   const { estaLogado } = useContext(AutenticacaoContext);
 
-  const aoIniciar = async () => {
+  const carregarBaners = async () => {
     try {
       const mostrarBanners = await listaBanners(estaLogado);
-      alterarBanners(mostrarBanners);
+      setBanners(mostrarBanners);
     } catch (error) {
       console.log(`erro ao listar Banners. ${error}`);
     }
   };
 
   useEffect(() => {
-    aoIniciar();
+    carregarBaners();
   }, [estaLogado]);
 
   return (
