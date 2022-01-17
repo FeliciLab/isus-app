@@ -17,7 +17,6 @@ import WizardContext from '../../context/WizardContext';
 import { salvarDados } from '../../services/armazenamento';
 import Regex from '../../utils/regex';
 import FormularioInfoProfissional from './formularioInfoProfissional';
-
 import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function FormularioInfoPessoal() {
