@@ -173,7 +173,8 @@ PODS:
     - nanopb/encode (= 2.30907.0)
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
-  - OneSignalXCFramework (3.9.1)
+  - OneSignal (3.10.0)
+  - OneSignalXCFramework (3.10.0)
   - OpenSSL-Universal (1.1.180)
   - PromisesObjC (1.2.12)
   - RCT-Folly (2021.06.28.00-v2):
@@ -382,8 +383,8 @@ PODS:
     - React-Core
   - react-native-netinfo (6.2.1):
     - React-Core
-  - react-native-onesignal (4.3.3):
-    - OneSignalXCFramework (= 3.9.1)
+  - react-native-onesignal (4.3.4):
+    - OneSignalXCFramework (= 3.10.0)
     - React (< 1.0.0, >= 0.13.0)
   - react-native-safe-area-context (3.3.2):
     - React-Core
@@ -391,9 +392,9 @@ PODS:
     - InputMask (~> 6.1.0)
     - React-Core
     - React-RCTText
-  - react-native-tracking-transparency (0.1.0):
+  - react-native-tracking-transparency (0.1.1):
     - React
-  - react-native-webview (11.15.0):
+  - react-native-webview (11.16.0):
     - React-Core
   - React-perflogger (0.66.3)
   - React-RCTActionSheet (0.66.3):
@@ -553,7 +554,7 @@ DEPENDENCIES:
   - FlipperKit/FlipperKitUserDefaultsPlugin (= 0.99.0)
   - FlipperKit/SKIOSNetworkPlugin (= 0.99.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - OneSignalXCFramework (< 4.0, >= 3.0)
+  - OneSignal
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -632,6 +633,7 @@ SPEC REPOS:
     - JWT
     - libevent
     - nanopb
+    - OneSignal
     - OneSignalXCFramework
     - OpenSSL-Universal
     - PromisesObjC
@@ -787,7 +789,8 @@ SPEC CHECKSUMS:
   JWT: ef71dfb03e1f842081e64dc42eef0e164f35d251
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
-  OneSignalXCFramework: 27159b0a150cdfe528c85325215c9d78b2f973c7
+  OneSignal: 198da4de73fb7bd6e45bc04221a7f16efca057ad
+  OneSignalXCFramework: 10648e60ff3d335fbffa62d9b44b700b56d49b51
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
@@ -805,11 +808,11 @@ SPEC CHECKSUMS:
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
   react-native-image-picker: 4b090b73077c3a71b91fddc739a594feebd00184
   react-native-netinfo: 3d3769f0d65de15c83a9bf1346f8be71de5a24bf
-  react-native-onesignal: 9a543af01c2359b7567919cd3b1490051c553e21
+  react-native-onesignal: 9e10487bcba41ebcb4655b45d9bdd0b63f5e220f
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-text-input-mask: 36a546b378fadd2efe1b7484a859d34bc2c80395
-  react-native-tracking-transparency: c1c4b412fcdcb0a02e23bb42b123def5a6d86a56
-  react-native-webview: e89bf2dba26a04cda967814df3ed1be99f291233
+  react-native-tracking-transparency: b2029ff756f1128b1f2c7c7c7f3003bc3c950f9f
+  react-native-webview: 28a8636d97ee641f2ee8f20492d7a6c269c1d703
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
   React-RCTAnimation: 8940cfd3a8640bd6f6372150dbdb83a79bcbae6c
@@ -839,6 +842,6 @@ SPEC CHECKSUMS:
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 72049e60287483d71e9f1b6cf0a92d98686435c7
+PODFILE CHECKSUM: 534b74da72c4be489f79c5c846299f0a8bd2db99
 
 COCOAPODS: 1.11.2

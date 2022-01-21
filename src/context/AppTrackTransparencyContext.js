@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { AppState } from 'react-native';
 import {
   getTrackingStatus,
   requestTrackingPermission,
@@ -19,11 +20,20 @@ export const AppTrackTransparencyProvider = ({ children }) => {
   const [trackingStatus, setTrackingStatus] = useState('');
 
   useEffect(() => {
-    getTrackingStatus()
-      .then(status => {
-        setTrackingStatus(status);
-      })
-      .catch(e => console.log('Error', e?.toString?.() ?? e));
+    const listener = AppState.addEventListener('change', status => {
+      if (status === 'active') {
+        (async () => {
+          const trackingStatus = await getTrackingStatus();
+          if (trackingStatus === 'not-determined') {
+            requestTrackingPermission();
+          }
+        })();
+      }
+    });
+
+    return () => {
+      listener && listener.remove();
+    };
   }, []);
 
   const isTrackingAuthorized = () => {
