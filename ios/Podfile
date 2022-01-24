@@ -41,5 +41,5 @@ target 'OneSignalNotificationServiceExtension' do
   config = use_native_modules!
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'OneSignalXCFramework', '>= 3.0', '< 4.0'
+  pod 'OneSignal'
 end

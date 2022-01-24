@@ -5,7 +5,7 @@
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
     "ios": "cross-env ENVFILE=.env.dev react-native-fix-image && react-native run-ios",
-    "android-prod": "cross-env ENVFILE=.env react-native run-android",
+    "android-prod": "cross-env ENVFILE=.env react-native run-android --variant=release",
     "ios-prod": "cross-env ENVFILE=.env react-native-fix-image && react-native run-ios --configuration Release",
     "start": "react-native start",
     "fix": "yarn lint --fix",
@@ -64,7 +64,7 @@
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.14.0",
     "react-native-text-input-mask": "^3.1.4",
-    "react-native-tracking-transparency": "0.1.0",
+    "react-native-tracking-transparency": "^0.1.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^11.6.2",
     "rn-fetch-blob": "^0.12.0",
