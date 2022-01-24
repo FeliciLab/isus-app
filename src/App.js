@@ -3,7 +3,7 @@ import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import React, { useEffect } from 'react';
 import { Platform, StatusBar } from 'react-native';
-// import codePush from 'react-native-code-push';
+import codePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -92,9 +92,7 @@ function App() {
   );
 }
 
-export default App;
-
-// export default codePush({
-//   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-//   installMode: codePush.InstallMode.ON_NEXT_RESUME,
-// })(App);
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME,
+})(App);

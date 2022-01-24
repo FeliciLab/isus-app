@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>isusapp</string>
+	<string>iSUS</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,11 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.20.11</string>
+	<string>3.20.12</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>4</string>
+	<key>CodePushDeploymentKey</key>
+	<string>LEhS6e0yKxo2bNfoh-1sXOJD4the1Ycn93jFW</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true />
 	<key>NSAppTransportSecurity</key>
@@ -47,7 +49,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Precisamos de acesso à biblioteca de fotos para seu uso</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>Precisamos de acesso para entregar anúncios personalizados</string>
+	<string>$(PRODUCT_NAME) requisita sua permissão para rastrear alguns dados a fim de promover uma melhor experiência no aplicativo.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
