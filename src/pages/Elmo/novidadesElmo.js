@@ -5,8 +5,9 @@ import BarraDeStatus from '../../components/barraDeStatus';
 import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
 import { CORES } from '../../constantes/estiloBase';
 import randomKey from '../../utils/randomKey';
-import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
+// import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import { CardSemConteudo, TextoCentralizado } from './styles';
+import CardNewsElmo from './CardNewsElmo';
 
 export default function(props) {
   const { route } = props;
@@ -18,7 +19,7 @@ export default function(props) {
     cabecalhoVoltar({
       navegador: navigation,
       titulo: 'Novidades Elmo',
-      cor: 'indigo'
+      cor: 'indigo',
     });
   }, []);
 
@@ -34,16 +35,9 @@ export default function(props) {
             marginTop: 20,
             marginBottom: 12,
             flex: 1,
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
-          renderItem={conteudo => (
-            <CartaoDeConteudo
-              key={randomKey()}
-              conteudo={conteudo}
-              cor={CORES.INDIGO_DYE}
-              estiloBarra="dark-white"
-            />
-          )}
+          renderItem={({ item }) => <CardNewsElmo post={item} />}
         />
       );
     }

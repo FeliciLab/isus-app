@@ -6,7 +6,7 @@ import {
   FlatList,
   Linking,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,7 +22,7 @@ import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
 import estaAtiva from '../../utils/estaAtiva';
 import CartaoHome from '../Home/cartaoHome';
-import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
+// import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
 import ListaCardsElmo from './listaCardsElmo';
 import {
   BackgroundImage,
@@ -33,34 +33,40 @@ import {
   ScrollView,
   SvgView,
   Texto,
-  TituloH6
+  TituloH6,
 } from './styles';
+import CardNewsElmo from './CardNewsElmo';
 
 import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function Elmo() {
   const navigation = useNavigation();
+
   const netInfo = useNetInfo();
-  const [conteudos, alterarConteudos] = useState([]);
-  const [carregados, alterarCarregamento] = useState(false);
+
+  const [conteudos, setConteudos] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const aoIniciar = async () => {
-    alterarCarregamento(true);
+    setIsLoading(true);
     let vetorTemp = [];
     try {
       const resposta = await pegarProjetosPorCategoria(100744);
 
-      alterarConteudos(resposta.data.data);
+      console.log(JSON.stringify(resposta.data.data, undefined, 2));
+
+      setConteudos(resposta.data.data);
       vetorTemp = resposta.data.data;
-      alterarCarregamento(false);
+      setIsLoading(false);
 
       const categoriasProjetos = await pegarProjetosPorCategoria(2004);
 
-      alterarConteudos([...vetorTemp, ...categoriasProjetos.data.data]);
+      setConteudos([...vetorTemp, ...categoriasProjetos.data.data]);
     } catch (err) {
       console.log(err);
     } finally {
-      alterarCarregamento(false);
+      setIsLoading(false);
     }
   };
 
@@ -75,7 +81,7 @@ function Elmo() {
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
     return () => {
       backHandler.remove();
@@ -86,7 +92,7 @@ function Elmo() {
     navigation.setOptions({
       headerStyle: {
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTransparent: true,
       headerTintColor: CORES.BRANCO,
@@ -95,16 +101,15 @@ function Elmo() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.popToTop();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -117,8 +122,8 @@ function Elmo() {
       navegacao: {
         componente: ROTAS.CAPACITACAO_ELMO,
         titulo: 'Elmo',
-        background: CORES.INDIGO_DYE
-      }
+        background: CORES.INDIGO_DYE,
+      },
     },
     {
       id: 'elmo-manual-uso',
@@ -128,8 +133,8 @@ function Elmo() {
       navegacao: {
         componente: 'browser',
         url:
-          'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf'
-      }
+          'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
+      },
     },
     {
       id: 'elmo-fale-conosco',
@@ -137,9 +142,9 @@ function Elmo() {
       ativo: true,
       icone: SvgFaleConosco,
       navegacao: {
-        componente: ROTAS.DUVIDAS_ELMO
-      }
-    }
+        componente: ROTAS.DUVIDAS_ELMO,
+      },
+    },
   ];
 
   const ListaDeConteudo = () => {
@@ -148,19 +153,31 @@ function Elmo() {
         <FlatList
           horizontal
           data={conteudos.slice(0, 4)}
-          keyExtractor={(items, index) => `${index}`}
+          keyExtractor={(items, index) => `ListaDeConteudo-${index}`}
           style={{
             flexDirection: 'row',
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
           showsHorizontalScrollIndicator={false}
-          renderItem={conteudo => (
-            <CartaoDeConteudo
-              conteudo={conteudo}
-              cor={CORES.INDIGO_DYE}
-              estiloBarra="dark-white"
-            />
-          )}
+          // renderItem={({ item }) => {
+          //   console.log(item);
+
+          //   return (
+          //     <CartaoDeConteudo
+          //       conteudo={{
+          //         item: {
+          //           link: item.post_link,
+          //           data: item.data,
+          //           imagem: item.image,
+          //           tipo_conteudo: 'webview',
+          //         },
+          //       }}
+          //       cor={CORES.INDIGO_DYE}
+          //       estiloBarra="dark-white"
+          //     />
+          //   );
+          // }}
+          renderItem={({ item }) => <CardNewsElmo post={item} />}
         />
       );
     }
@@ -193,8 +210,8 @@ function Elmo() {
       title: item.navegacao.titulo,
       url: item.navegacao.url,
       headerStyle: {
-        backgroundColor: item.navegacao.background
-      }
+        backgroundColor: item.navegacao.background,
+      },
     });
   };
 
@@ -220,8 +237,7 @@ function Elmo() {
         <BotaoLink
           color={CORES.LARANJA}
           marginTop={12}
-          onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}
-        >
+          onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}>
           Saiba Mais
         </BotaoLink>
         {estaAtiva(features.LISTA_CARDS) ? (
@@ -233,7 +249,7 @@ function Elmo() {
             keyExtractor={(items, index) => `${index}`}
             style={{
               flexDirection: 'row',
-              alignSelf: 'center'
+              alignSelf: 'center',
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
@@ -255,13 +271,12 @@ function Elmo() {
             marginTop={20}
             onPress={() =>
               navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
-            }
-          >
+            }>
             Veja Mais
           </BotaoLink>
         </View>
         <View style={{ marginTop: 20, marginBottom: 12 }}>
-          {!carregados ? <ListaDeConteudo /> : <ActivityIndicator />}
+          {!isLoading ? <ListaDeConteudo /> : <ActivityIndicator />}
         </View>
       </ScrollView>
     </>
