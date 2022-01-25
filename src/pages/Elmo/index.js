@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import elmoPatternBG from '../../assets/backgrounds/elmo_pattern.png';
 import SvgCapacitacao from '../../assets/icons/elmo/icon_capacitacao.svg';
@@ -22,8 +22,7 @@ import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
 import estaAtiva from '../../utils/estaAtiva';
 import CartaoHome from '../Home/cartaoHome';
-// import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
-import ListaCardsElmo from './listaCardsElmo';
+import ListaCardsElmo from './ListaCardsElmo';
 import {
   BackgroundImage,
   BotaoLink,
@@ -34,10 +33,9 @@ import {
   SvgView,
   Texto,
   TituloH6,
+  NovidadesTitle,
 } from './styles';
 import CardNewsElmo from './CardNewsElmo';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function Elmo() {
   const navigation = useNavigation();
@@ -51,13 +49,14 @@ function Elmo() {
   const aoIniciar = async () => {
     setIsLoading(true);
     let vetorTemp = [];
+
     try {
       const resposta = await pegarProjetosPorCategoria(100744);
 
-      console.log(JSON.stringify(resposta.data.data, undefined, 2));
-
       setConteudos(resposta.data.data);
+
       vetorTemp = resposta.data.data;
+
       setIsLoading(false);
 
       const categoriasProjetos = await pegarProjetosPorCategoria(2004);
@@ -106,8 +105,8 @@ function Elmo() {
           onPress={() => {
             navigation.popToTop();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
+          {/* <SetaEsquerda /> */}
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
@@ -159,24 +158,6 @@ function Elmo() {
             alignSelf: 'center',
           }}
           showsHorizontalScrollIndicator={false}
-          // renderItem={({ item }) => {
-          //   console.log(item);
-
-          //   return (
-          //     <CartaoDeConteudo
-          //       conteudo={{
-          //         item: {
-          //           link: item.post_link,
-          //           data: item.data,
-          //           imagem: item.image,
-          //           tipo_conteudo: 'webview',
-          //         },
-          //       }}
-          //       cor={CORES.INDIGO_DYE}
-          //       estiloBarra="dark-white"
-          //     />
-          //   );
-          // }}
           renderItem={({ item }) => <CardNewsElmo post={item} />}
         />
       );
@@ -194,7 +175,7 @@ function Elmo() {
     );
   };
 
-  const onPress = item => {
+  const handleOnPressCartoHome = item => {
     // analyticsData(item.id, 'Click', 'Elmo');
     if (item.navegacao.net && !netInfo.isConnected) {
       navigation.navigate(ROTAS.SEM_CONEXAO);
@@ -229,14 +210,15 @@ function Elmo() {
         </BackgroundImage>
         <Container>
           <Texto>
-            {
-              'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'
-            }
+            O Elmo é um capacete de respiração assistida genuinamente cearense,
+            não-invasivo e mais seguro para profissionais de saúde e pacientes.
+            Criado em abril de 2020, o equipamento surgiu como um novo passo
+            para o tratamento de pacientes com insuficiência respiratória aguda
+            hipoxêmica, um dos efeitos da Covid-19.
           </Texto>
         </Container>
         <BotaoLink
           color={CORES.LARANJA}
-          marginTop={12}
           onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}>
           Saiba Mais
         </BotaoLink>
@@ -259,21 +241,23 @@ function Elmo() {
                 ativo={item.ativo}
                 titulo={item.titulo}
                 Icone={item.icone}
-                onPress={() => onPress(item)}
+                onPress={() => handleOnPressCartoHome(item)}
               />
             )}
           />
         )}
         <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <TituloH6> Novidades </TituloH6>
-          <BotaoLink
-            color={CORES.LARANJA}
-            marginTop={20}
-            onPress={() =>
-              navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
-            }>
-            Veja Mais
-          </BotaoLink>
+          <NovidadesTitle>
+            <TituloH6>Novidades</TituloH6>
+            <BotaoLink
+              color={CORES.LARANJA}
+              marginTop={20}
+              onPress={() =>
+                navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
+              }>
+              Veja Mais
+            </BotaoLink>
+          </NovidadesTitle>
         </View>
         <View style={{ marginTop: 20, marginBottom: 12 }}>
           {!isLoading ? <ListaDeConteudo /> : <ActivityIndicator />}

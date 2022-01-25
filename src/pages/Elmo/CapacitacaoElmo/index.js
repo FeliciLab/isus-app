@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
+import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import BarraDeStatus from '../../components/barraDeStatus';
-import { CORES } from '../../constantes/estiloBase';
-import { Botao, Container, ScrollView, Texto, Titulo } from './styles';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '../../../components/barraDeStatus';
+import { CORES } from '../../../constantes/estiloBase';
+import { Botao, Container, ScrollView, Texto, Titulo } from '../styles';
 
 export default function capacitacaoElmo() {
   const navigation = useNavigation();
@@ -16,7 +15,7 @@ export default function capacitacaoElmo() {
       headerStyle: {
         backgroundColor: CORES.INDIGO_DYE,
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
@@ -24,16 +23,15 @@ export default function capacitacaoElmo() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -65,8 +63,9 @@ export default function capacitacaoElmo() {
           alignItems="center"
           marginTop={22}
           color={CORES.BRANCO}
-          onPress={() => Linking.openURL('https://forms.gle/41wzW4KkczuDH35H8')}
-        >
+          onPress={() =>
+            Linking.openURL('https://forms.gle/41wzW4KkczuDH35H8')
+          }>
           Realizar Pré-Inscrição
         </Botao>
       </ScrollView>
