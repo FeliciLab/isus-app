@@ -16,7 +16,7 @@ import Description from '../pages/Content/Description';
 import Elmo from '../pages/Elmo';
 import CapacitacaoElmo from '../pages/Elmo/CapacitacaoElmo';
 import NovidadesElmo from '../pages/Elmo/NovidadesElmo';
-import SobreElmo from '../pages/Elmo/sobreElmo';
+import SobreElmo from '../pages/Elmo/SobreElmo';
 import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
 import MeusConteudos from '../pages/MeusConteudos';
 import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal';
