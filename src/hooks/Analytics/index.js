@@ -1,5 +1,5 @@
+import { analyticsData as analytics } from '../../utils/analytics';
 import useAppTrackTransparency from '../useAppTrackTransparency';
-import analytics from '@react-native-firebase/analytics';
 
 const useAnalytics = () => {
   const { isTrackingAuthorized } = useAppTrackTransparency();
@@ -12,16 +12,10 @@ const useAnalytics = () => {
    */
   const analyticsData = async (name, event, category) => {
     if (!isTrackingAuthorized) {
-      return false;
+      return;
     }
-
     try {
-      const result = await analytics().logEvent(name, {
-        event,
-        category,
-      });
-      console.log(`FireBase Analytics LogEvent - ${name}`);
-      return result;
+      await analytics(name, event, category);
     } catch (e) {
       console.log(e);
     }
