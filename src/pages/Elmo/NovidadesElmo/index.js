@@ -1,24 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { FlatList } from 'react-native';
-import BarraDeStatus from '../../components/barraDeStatus';
-import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
-import { CORES } from '../../constantes/estiloBase';
-import randomKey from '../../utils/randomKey';
-import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
-import { CardSemConteudo, TextoCentralizado } from './styles';
+import BarraDeStatus from '../../../components/barraDeStatus';
+import { cabecalhoVoltar } from '../../../components/layoutEffect/cabecalhoLayout';
+import { CORES } from '../../../constantes/estiloBase';
+import randomKey from '../../../utils/randomKey';
+import { CardSemConteudo, TextoCentralizado } from '../styles';
+import CardNewsElmo from '../CardNewsElmo';
 
-export default function(props) {
+export default function NovidadesElmo(props) {
   const { route } = props;
+
   const { params } = route;
+
   const { conteudos } = params;
+
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
       navegador: navigation,
       titulo: 'Novidades Elmo',
-      cor: 'indigo'
+      cor: 'indigo',
     });
   }, []);
 
@@ -34,16 +37,9 @@ export default function(props) {
             marginTop: 20,
             marginBottom: 12,
             flex: 1,
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
-          renderItem={conteudo => (
-            <CartaoDeConteudo
-              key={randomKey()}
-              conteudo={conteudo}
-              cor={CORES.INDIGO_DYE}
-              estiloBarra="dark-white"
-            />
-          )}
+          renderItem={({ item }) => <CardNewsElmo post={item} />}
         />
       );
     }

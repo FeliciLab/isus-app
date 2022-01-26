@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
-import AppTrackTransparencyCard from '../../components/AppTrackTransparencyCard';
 import BarraDeStatus from '../../components/barraDeStatus';
 import useAnalytics from '../../hooks/Analytics';
 import useAutenticacao from '../../hooks/useAutenticacao';
@@ -127,9 +126,7 @@ export default function Home() {
       />
 
       {estaLogado && <ExibirUsuario />}
-
-      <AppTrackTransparencyCard />
-
+      
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />

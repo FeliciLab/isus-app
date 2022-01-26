@@ -7,7 +7,7 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
-import com.microsoft.codepush.react.CodePush;
+import com.microsoft.codepush.react.CodePush; // <- https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md
 import com.imagepicker.ImagePickerPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
@@ -51,7 +51,7 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected String getJSBundleFile() {
-          return CodePush.getJSBundleFile();
+          return CodePush.getJSBundleFile(); // <- add https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md
         }
       };
 

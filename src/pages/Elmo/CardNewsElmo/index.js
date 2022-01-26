@@ -1,44 +1,39 @@
+import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import moment from 'moment';
-import { useNavigation } from '@react-navigation/native';
 
-// Formato do item { link: string, data: string, imagem: string, tipo_conteudo: string }
+// post { data: string, post_link: string, image: string }
 
-function CartaoDeConteudo(props) {
-  const { conteudo } = props;
-
-  const { item } = conteudo;
-
+function CardNewsElmo({ post }) {
   const navigation = useNavigation();
-
-  console.log(JSON.stringify(conteudo, undefined, 2));
 
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate(item.tipo_conteudo, {
-          title: 'Meus Conteúdos',
-          url: item.link,
+        navigation.navigate('webview', {
+          title: 'Novidades Elmo',
+          url: post.post_link,
         })
       }>
       <View style={{ marginBottom: 20 }}>
         <Image
           resizeMode="cover"
-          style={estilos.imagem}
-          source={{ uri: item.imagem }}
+          style={styles.imagem}
+          source={{ uri: post.image }}
         />
-        <Text style={estilos.data}>
-          {moment(item.data).format('DD/MM/YYYY')}
+        <Text style={styles.data}>
+          {moment(post.data).format('DD/MM/YYYY')}
         </Text>
-        <Text numberOfLines={3} style={estilos.texto}>
-          {item.title}
+        <Text numberOfLines={3} style={styles.texto}>
+          {post.post_title}
         </Text>
       </View>
     </TouchableOpacity>
   );
 }
-const estilos = StyleSheet.create({
+
+const styles = StyleSheet.create({
   imagem: {
     height: 100,
     width: 140,
@@ -65,4 +60,4 @@ const estilos = StyleSheet.create({
   },
 });
 
-export default CartaoDeConteudo;
+export default CardNewsElmo;

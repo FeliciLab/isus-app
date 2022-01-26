@@ -1,75 +1,74 @@
 import styled from 'styled-components/native';
 import {
-  ImageBackground, TouchableOpacity, Dimensions, Image
+  ImageBackground,
+  TouchableOpacity,
+  Dimensions,
+  Image,
 } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 import { CORES } from '../../constantes/estiloBase';
 import ImagemDePostagem from '../Content/ImagemDePostagem';
 
-const Container = styled.View`
+export const Container = styled.View`
   background-color: #fff;
   margin: 0 16px;
   margin-top: 18px;
 `;
 
-const ScrollView = styled.ScrollView`
+export const ScrollView = styled.ScrollView`
   background-color: #fff;
 `;
 
-const ViewLogo = styled.View`
+export const ViewLogo = styled.View`
   flex-direction: column;
   margin-bottom: ${props => (props.maginBottom ? props.marginBottom : '10px')};
   margin-top: ${props => (props.maginTop ? props.marginTop : '0px')};
 `;
 
-const ConteudoLogo = styled.View`
+export const ConteudoLogo = styled.View`
   flex-direction: row;
   margin-top: ${props => (props.marginTop ? props.marginTop : '0px')};
   justify-content: ${props => (props.centralizado ? 'center' : 'space-around')};
 `;
 
-const LinhaHorizontal = styled.View`
+export const LinhaHorizontal = styled.View`
   border-bottom-color: ${CORES.CINZA};
   border-bottom-width: 1px;
   margin-top: 2px;
 `;
 
-const CentralizarItensView = styled.View`
+export const CentralizarItensView = styled.View`
   justify-content: center;
   width: 100%;
 `;
 
-const SvgView = styled.View`
+export const SvgView = styled.View`
   margin-top: 80px;
   margin-bottom: 70px;
 `;
 
-const Lista = styled.View`
+export const Lista = styled.View`
   margin-top: 24px;
 `;
 
-const CardSemConteudo = styled(Card)`
+export const CardSemConteudo = styled(Card)`
   margin: 16px;
   padding: 16px;
 `;
 
-
-const Hyperlink = styled.Text`
-   font-weight: bold;
-   text-decoration-line: underline;
+export const Hyperlink = styled.Text`
+  font-weight: bold;
+  text-decoration-line: underline;
 `;
 
-const TituloH6 = styled.Text`
+export const TituloH6 = styled.Text`
   /* styleName: H6; */
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
   line-height: 23px;
-  text-align: left;
-  margin-top: 28px;
-  margin-left: 8px;
 `;
-const Titulo = styled.Text`
+export const Titulo = styled.Text`
   /* styleName: H5; */
   font-size: 24px;
   font-style: normal;
@@ -81,7 +80,7 @@ const Titulo = styled.Text`
   margin-top: 24px;
 `;
 
-const TextoCentralizado = styled.Text`
+export const TextoCentralizado = styled.Text`
   text-align: center;
   align-items: center;
   margin-top: ${props => (props.marginTop ? props.marginTop : '0px')};
@@ -89,7 +88,7 @@ const TextoCentralizado = styled.Text`
   color: ${props => (props.color ? props.color : 'black')};
 `;
 
-const Texto = styled.Text`
+export const Texto = styled.Text`
   /* styleName: Body 2; */
   font-size: 14px;
   font-style: ${props => (props.fontStyle ? props.fontStyle : 'normal')};
@@ -100,60 +99,47 @@ const Texto = styled.Text`
   color: ${CORES.AZUL_ESCURO_ROYAL};
 `;
 
-const Imagem = styled(Image)`
+export const Imagem = styled(Image)`
   margin-top: 18px;
   width: ${props => (props.width ? props.width : '100%')};
 `;
 
-const ImagemPost = styled(ImagemDePostagem)`
+export const ImagemPost = styled(ImagemDePostagem)`
   height: 110px;
   width: ${Dimensions.get('window').width / 2.2}px;
 `;
 
-const Conteudo = styled(TouchableOpacity)`
+export const Conteudo = styled(TouchableOpacity)`
   height: 200px;
   width: ${Dimensions.get('window').width / 2.2}px;
   align-items: center;
   margin: 5px;
 `;
 
-const BackgroundImage = styled(ImageBackground)`
+export const BackgroundImage = styled(ImageBackground)`
   flex: 1;
   align-items: center;
 `;
 
-const Botao = styled(Button)`
+export const Botao = styled(Button)`
   justify-content: flex-start;
   align-items: ${props => (props.alignItems ? props.alignItems : 'flex-start')};
   margin: 0 16px;
   margin-top: 40px;
-  background-color: ${props => (props.backgroundColor ? props.backgroundColor : CORES.BRANCO)};
- `;
+  background-color: ${props =>
+    props.backgroundColor ? props.backgroundColor : CORES.BRANCO};
+`;
 
-const BotaoLink = styled(Button)`
+export const BotaoLink = styled(Button)`
   justify-content: flex-start;
   align-items: flex-start;
- `;
+  margin: 12px 0 0 12px;
+`;
 
-export {
-  BackgroundImage,
-  Container,
-  ScrollView,
-  ViewLogo,
-  ConteudoLogo,
-  LinhaHorizontal,
-  CentralizarItensView,
-  SvgView,
-  Titulo,
-  TituloH6,
-  TextoCentralizado,
-  Texto,
-  Botao,
-  BotaoLink,
-  Lista,
-  CardSemConteudo,
-  Conteudo,
-  Hyperlink,
-  ImagemPost,
-  Imagem
-};
+export const NovidadesTitle = styled.View`
+  width: 100%;
+  padding: 0 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
