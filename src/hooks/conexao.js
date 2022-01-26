@@ -5,28 +5,31 @@ import { CORES } from '../constantes/estiloBase';
 
 export default function useConexao() {
   let estaConectado = false;
-  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(CaixaDialogoContext);
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
+    CaixaDialogoContext,
+  );
 
-  const escutar = (aoConcluir) => {
-    NetInfo.addEventListener((state) => {
+  const escutar = aoConcluir => {
+    NetInfo.addEventListener(state => {
       estaConectado = state.isConnected;
     });
     if (!estaConectado) {
       const dialogo = {
         titulo: 'Sem conexão com a internet',
-        texto: 'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
+        texto:
+          'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
         cor: CORES.LARANJA,
         textoConclusao: 'ok',
         aoConcluir: () => {
           aoConcluir();
           fecharCaixaDialogo();
-        }
+        },
       };
       mostrarCaixaDialogo(dialogo);
     }
   };
 
   return {
-    escutar
+    escutar,
   };
 }

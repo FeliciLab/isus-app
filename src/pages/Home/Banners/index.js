@@ -5,11 +5,15 @@ import listaBanners from './listaDeBanners';
 
 const Banners = ({ sliderWidth, itemWidth }) => {
   const [banners, setBanners] = useState([]);
+
   const { estaLogado } = useContext(AutenticacaoContext);
 
   const carregarBaners = async () => {
     try {
       const mostrarBanners = await listaBanners(estaLogado);
+
+      console.log(mostrarBanners);
+
       setBanners(mostrarBanners);
     } catch (error) {
       console.log(`erro ao listar Banners. ${error}`);

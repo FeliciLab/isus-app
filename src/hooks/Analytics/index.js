@@ -1,12 +1,11 @@
-import { useContext } from 'react';
-import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
-import { analyticsData as analytics } from '../../utils/analytics';
+import useAppTrackTransparency from '../useAppTrackTransparency';
+import analytics from '@react-native-firebase/analytics';
 
 const useAnalytics = () => {
-  const { rastreioTransparenteHabilitado } = useContext(
-    AppTrackTransparencyContext,
-  );
+  const { isTrackingAuthorized } = useAppTrackTransparency();
 
+  // console.log(isTrackingAuthorized);
+  // console.log(trackingStatus);
   /**
    * Função para registrar evento no Google Analytics
    * @param {string} name É a label que irá aparecer no analytics.
@@ -14,13 +13,22 @@ const useAnalytics = () => {
    * @param {*} category É a categoria na qual o evento será inserido.
    */
   const analyticsData = async (name, event, category) => {
-    if (!rastreioTransparenteHabilitado) {
+    console.log({ isTrackingAuthorized });
+
+    if (!isTrackingAuthorized) {
       return false;
     }
 
-    const result = await analytics(name, event, category);
-
-    return result;
+    try {
+      const result = await analytics().logEvent(name, {
+        event,
+        category,
+      });
+      console.log(`FireBase Analytics LogEvent - ${name}`);
+      return result;
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return {

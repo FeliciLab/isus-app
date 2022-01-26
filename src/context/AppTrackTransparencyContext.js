@@ -17,15 +17,26 @@ import {
 export const AppTrackTransparencyContext = createContext();
 
 export const AppTrackTransparencyProvider = ({ children }) => {
-  const [trackingStatus, setTrackingStatus] = useState('');
+  const [trackingStatus, setTrackingStatus] = useState('loading');
+
+  const [isTrackingAuthorized, setIsTrackingAuthorized] = useState(false);
 
   useEffect(() => {
     const listener = AppState.addEventListener('change', status => {
-      if (status === 'active') {
+      if (status === 'active') { // issue da lib para iOS 15
         (async () => {
-          const trackingStatus = await getTrackingStatus();
-          if (trackingStatus === 'not-determined') {
-            requestTrackingPermission();
+          const status = await getTrackingStatus(); // pega o status do ATT
+
+          if (status === 'unavailable' || status === 'authorized') {
+            setIsTrackingAuthorized(true);
+          } else {
+            setIsTrackingAuthorized(false);
+          }
+
+          setTrackingStatus(status);
+
+          if (status === 'not-determined') {
+            await requestTrackingPermission();
           }
         })();
       }
@@ -36,28 +47,9 @@ export const AppTrackTransparencyProvider = ({ children }) => {
     };
   }, []);
 
-  const isTrackingAuthorized = () => {
-    return ['unavailable', 'authorized'].includes(trackingStatus);
-  };
-
-  const isTrackingNotDetermined = () => {
-    return trackingStatus === 'not-determined';
-  };
-
-  const requestPermission = async () => {
-    try {
-      const status = await requestTrackingPermission();
-      setTrackingStatus(status);
-    } catch (e) {
-      console.log('Error', e?.toString?.() ?? e);
-    }
-  };
-
   const values = {
     trackingStatus,
     isTrackingAuthorized,
-    isTrackingNotDetermined,
-    requestPermission,
   };
 
   return (

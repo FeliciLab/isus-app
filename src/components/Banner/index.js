@@ -9,6 +9,7 @@ import useAnalytics from '../../hooks/Analytics';
 import { Cartao, ConteudoImagem, Imagem } from './styles';
 
 const { width } = Dimensions.get('screen');
+
 const imageWidth = width * 0.8;
 
 export default function Banner({
@@ -51,7 +52,13 @@ export default function Banner({
   const exibirImg = () => {
     if (imagem.svg) {
       return (
-        <SvgCssUri width="100%" height="100%" uri={imagem.svg} cache="reload" />
+        <SvgCssUri
+          width="100%"
+          height="100%"
+          uri={imagem.svg}
+          cache="reload"
+          // viewBox={`${imageWidth}`}
+        />
       );
     }
 
