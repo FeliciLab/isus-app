@@ -3,7 +3,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { CORES } from '../../../constantes/estiloBase';
 
 export default function BannerCarrossel({ sliderWidth, itemWidth, banners }) {
-  const [indiceAtivo, alterarIndiceAtivo] = useState(0);
+  const [indiceAtivo, setIndiceAtivo] = useState(0);
 
   function cardItem({ item }) {
     return item.banner;
@@ -20,11 +20,11 @@ export default function BannerCarrossel({ sliderWidth, itemWidth, banners }) {
           height: 12,
           width: 12,
           marginHorizontal: -3,
-          borderRadius: 100
+          borderRadius: 100,
         }}
         inactiveDotScale={1}
         containerStyle={{
-          marginTop: -35
+          marginTop: -35,
         }}
         animatedDuration={10}
         animatedTension={100}
@@ -40,12 +40,12 @@ export default function BannerCarrossel({ sliderWidth, itemWidth, banners }) {
         renderItem={cardItem}
         sliderWidth={sliderWidth}
         itemWidth={itemWidth}
-        onSnapToItem={indice => alterarIndiceAtivo(indice)}
+        onSnapToItem={indice => setIndiceAtivo(indice)}
         autoplay
         autoplayInterval={5000}
         hasParallaxImages
       />
-      { paginacao()}
+      {paginacao()}
     </>
   );
 }

@@ -2,18 +2,13 @@ import { useContext } from 'react';
 import { AppTrackTransparencyContext } from '../context/AppTrackTransparencyContext';
 
 function useAppTrackTransparency() {
-  const {
-    trackingStatus,
-    isTrackingAuthorized,
-    isTrackingNotDetermined,
-    requestPermission,
-  } = useContext(AppTrackTransparencyContext);
+  const { trackingStatus, isTrackingAuthorized } = useContext(
+    AppTrackTransparencyContext,
+  );
 
   return {
     trackingStatus,
     isTrackingAuthorized,
-    isTrackingNotDetermined,
-    requestPermission,
   };
 }
 

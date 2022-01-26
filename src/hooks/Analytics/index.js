@@ -1,11 +1,8 @@
-import { useContext } from 'react';
-import { AppTrackTransparencyContext } from '../../context/AppTrackTransparencyContext';
 import { analyticsData as analytics } from '../../utils/analytics';
+import useAppTrackTransparency from '../useAppTrackTransparency';
 
 const useAnalytics = () => {
-  const { rastreioTransparenteHabilitado } = useContext(
-    AppTrackTransparencyContext,
-  );
+  const { isTrackingAuthorized } = useAppTrackTransparency();
 
   /**
    * Função para registrar evento no Google Analytics
@@ -14,13 +11,14 @@ const useAnalytics = () => {
    * @param {*} category É a categoria na qual o evento será inserido.
    */
   const analyticsData = async (name, event, category) => {
-    if (!rastreioTransparenteHabilitado) {
-      return false;
+    if (!isTrackingAuthorized) {
+      return;
     }
-
-    const result = await analytics(name, event, category);
-
-    return result;
+    try {
+      await analytics(name, event, category);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return {
