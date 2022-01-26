@@ -12,8 +12,6 @@ const Banners = ({ sliderWidth, itemWidth }) => {
     try {
       const mostrarBanners = await listaBanners(estaLogado);
 
-      console.log(mostrarBanners);
-
       setBanners(mostrarBanners);
     } catch (error) {
       console.log(`erro ao listar Banners. ${error}`);

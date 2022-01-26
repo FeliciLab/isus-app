@@ -4,8 +4,6 @@ import analytics from '@react-native-firebase/analytics';
 const useAnalytics = () => {
   const { isTrackingAuthorized } = useAppTrackTransparency();
 
-  // console.log(isTrackingAuthorized);
-  // console.log(trackingStatus);
   /**
    * Função para registrar evento no Google Analytics
    * @param {string} name É a label que irá aparecer no analytics.
@@ -13,8 +11,6 @@ const useAnalytics = () => {
    * @param {*} category É a categoria na qual o evento será inserido.
    */
   const analyticsData = async (name, event, category) => {
-    console.log({ isTrackingAuthorized });
-
     if (!isTrackingAuthorized) {
       return false;
     }
