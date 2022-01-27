@@ -30,7 +30,7 @@ de enviar seu bug é importante fazer as seguintes verificações:
 Se o bug realmente não foi resolvido ou acolhido então está na hora de
 [criar uma nova issue](https://github.com/EscolaDeSaudePublica/isus-app/issues/new?assignees=&labels=bug&template=reportar-bug.md&title=%3CTela+de+login+n%C3%A3o+aparece+ao+clicar+em+%27J%C3%A1+possuo+Id+Sa%C3%BAde%27%3E+...). No
 título da issue tente resumir da melhor forma o problema evitando títulos
-genéricos como *"Falha no sistema"* ou *"Problemas na instalação"*. No corpo da
+genéricos como _"Falha no sistema"_ ou _"Problemas na instalação"_. No corpo da
 issue, tente seguir o seguinte formato:
 
 ```
@@ -130,7 +130,6 @@ Antes de abrir seu PR (pull request) certique-se que:
   [squash](https://git-scm.com/book/pt-br/v1/Ferramentas-do-Git-Reescrevendo-o-Hist%C3%B3rico#Achatando-um-Commit)
   antes de abrir seu PR;
 
-
 Caso seu PR não atenda a uma destas demandas ele poderá ser fechado. Isto inclui
 PRs que tentam resolver problemas reais mas que contém código cheio de erros ou
 soluções incompletas. Para que a nossa lista de PRs não fique poluída,
@@ -167,9 +166,10 @@ para `nit@esp.ce.gov.br` e conte sua história.
 
 Este documento foi escrito com o auxílio de outros documentos similares
 utilizados em outras comunidades. Destacamos:
+
 - [i-Educar](https://github.com/portabilis/i/blob/2.5/contributing.md)
 - [Metabase](https://github.com/metabase/metabase/blob/master/docs/contributing.md)
 - [Ghost](https://docs.ghost.org/v1/docs/contributing)
 - [Ember.js](https://github.com/emberjs/ember.js/blob/master/CONTRIBUTING.md)
 - [Ruby on Rails](https://github.com/rails/rails/blob/master/CONTRIBUTING.md)
-... dentre outros!
+  ... dentre outros!
