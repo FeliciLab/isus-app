@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormProvider } from '../../context/FormContext';
-import FormLogin from './formLogin';
-import EsqueceuSenhaBtn from './esqueceuSenhaBtn';
 import CadastrarNovoBtn from './cadastrarNovoBtn';
+import EsqueceuSenhaBtn from './esqueceuSenhaBtn';
+import FormLogin from './formLogin';
 
 const DefaultLogin = ({ rotaAposLogin }) => (
   <>

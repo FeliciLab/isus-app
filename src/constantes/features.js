@@ -13,5 +13,5 @@ export default {
   PLANO_CONTIGENCIA: '440',
   PRE_CADASTRO: '453',
   TELA_SEM_CONEXAO: '384',
-  LISTA_CARDS: '508'
+  LISTA_CARDS: '508',
 };

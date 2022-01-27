@@ -25,22 +25,23 @@ export const TESTIDS = {
     DUVIDAS: {
       SOBRE_ELMO: 'elmo-duvidas-sobreelmo',
       EMAIL: 'elmo-duvidas-email',
-      BOTAO_ENVIAR: 'elmo-duvidas-botao-enviar'
-    }
+      BOTAO_ENVIAR: 'elmo-duvidas-botao-enviar',
+    },
   },
   MATERNO_INFANTIL: {
     NASCER_CEARA: 'materno-infantil-nascer-ceara',
     ESTRATIFICACAO_RISCO: 'materno-infantil-estratificacao-de-risco',
     PRE_NATAL_RISCO_HABITUAL: 'materno-infantil-pre-natal-de-risco-habitual',
     PRE_NATAL_ALTO_RISCO: 'materno-infantil-pre-natal-de-alto-risco',
-    SINDROMES_HIPERTENSIVAS_GESTACAO: 'materno-infantil-sindromes-hipertensivas-em-gestacao',
-    HEMORRAGIA_GESTACAO: 'materno-infantil-hemorragia-em-gestacao'
+    SINDROMES_HIPERTENSIVAS_GESTACAO:
+      'materno-infantil-sindromes-hipertensivas-em-gestacao',
+    HEMORRAGIA_GESTACAO: 'materno-infantil-hemorragia-em-gestacao',
   },
   SEM_CONEXAO: {
     BOTAO_VOLTAR: 'botao-semconexao-voltar',
     BOTAO_TENTAR_NOVAMENTE: 'botao_semconexao_tentar_novamente',
     ICONE_SEM_CONEXAO_VERMELHO: 'icone-semconexao-vermelho',
-    ICONE_SEM_CONEXAO_LARANJA: 'icone-semconexao-laranja'
+    ICONE_SEM_CONEXAO_LARANJA: 'icone-semconexao-laranja',
   },
   DRAWER: {
     ITEM_HOME: 'drawer-item-home',
@@ -51,7 +52,7 @@ export const TESTIDS = {
     ITEM_TERMOS_DE_USO: 'drawer-item-termos-de-uso',
     ITEM_COMPARTILHE_O_ISUS: 'drawer-item-compartilhe-o-isus',
     ITEM_POLITA_DE_PRIVACIDADE: 'drawer-item-politica-de-privacidade',
-    ITEM_SAIR: 'drawer-item-sair'
+    ITEM_SAIR: 'drawer-item-sair',
   },
   ICONS: {
     ICON_HOME: 'icon-drawer-home',
@@ -60,8 +61,8 @@ export const TESTIDS = {
     ICON_SUSNOCEARA: 'icon-drawer-susnoceara',
     ICON_SOBRE_O_ISUS: 'icon-drawer-information',
     ICON_TERMOS_DE_USO: 'icon-drawer-clipboard-text',
-    ICON_COMPARTILHAR: 'icon-drawer-share-variant'
-  }
+    ICON_COMPARTILHAR: 'icon-drawer-share-variant',
+  },
 };
 
 export default { ...TESTIDS };
