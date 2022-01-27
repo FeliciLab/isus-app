@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
-import ShareIcon from '../../assets/icons/share.svg';
+import ShareIcon from '~/assets/icons/share.svg';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();

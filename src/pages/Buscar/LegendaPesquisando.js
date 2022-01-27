@@ -3,11 +3,7 @@ import { Legenda, Negrito } from './styles';
 
 const LegendaPesquisando = ({ palavra }) => (
   <Legenda>
-    Pesquisando por:
-    {' '}
-    <Negrito>
-      {palavra}
-    </Negrito>
+    Pesquisando por: <Negrito>{palavra}</Negrito>
   </Legenda>
 );
 

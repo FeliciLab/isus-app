@@ -1,27 +1,31 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { DefaultTheme, TextInput, Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import FormContext from '../../context/FormContext';
-import { cadastrarUsuario } from '../../apis/apiCadastro';
-import Alerta from '../../components/alerta';
+import FormContext from '~/context/FormContext';
+import { cadastrarUsuario } from '~/apis/apiCadastro';
+import Alerta from '~/components/alerta';
 
 export default function FormularioSenha() {
   const navigator = useNavigation();
-  const [carregando, alterarCarregando] = React.useState(false);
-  const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [mensagemDoAlerta, alterarMensagemDoAlerta] = React.useState('');
-  const [cadastroRealizado, alterarCadastroRealizado] = React.useState(false);
 
-  const mostrarAlerta = (mensagem) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [botaoAtivo, alteraBotaoAtivo] = useState(false);
+
+  const [mensagemDoAlerta, alterarMensagemDoAlerta] = useState('');
+
+  const [cadastroRealizado, alterarCadastroRealizado] = useState(false);
+
+  const mostrarAlerta = mensagem => {
     alterarMensagemDoAlerta(mensagem);
     alterarCadastroRealizado(true);
     setTimeout(() => alterarCadastroRealizado(false), 4000);
   };
 
-  const {
-    register, setValue, trigger, errors, getValues
-  } = useContext(FormContext);
+  const { register, setValue, trigger, errors, getValues } = useContext(
+    FormContext,
+  );
 
   const theme = {
     ...DefaultTheme,
@@ -39,7 +43,7 @@ export default function FormularioSenha() {
     alteraBotaoAtivo(Object.entries(errors).length === 0);
   };
 
-  const tratarDadosCadastro = (dadosCadastro) => {
+  const tratarDadosCadastro = dadosCadastro => {
     const { cidade, cpf, telefone } = dadosCadastro;
     return {
       ...dadosCadastro,
@@ -47,7 +51,7 @@ export default function FormularioSenha() {
       cidade: cidade.nome,
       cpf,
       telefone,
-      termos: true
+      termos: true,
     };
   };
 
@@ -57,9 +61,14 @@ export default function FormularioSenha() {
     return resposta.data;
   };
 
-  const aposCadastro = (resultado) => {
+  const aposCadastro = resultado => {
     if (resultado.sucesso) {
-      navigator.navigate('TelaDeSucesso', { textoApresentacao: 'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.', telaDeRedirecionamento: 'LOGIN', telaDeBackground: '#304FFE' });
+      navigator.navigate('TelaDeSucesso', {
+        textoApresentacao:
+          'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+        telaDeRedirecionamento: 'LOGIN',
+        telaDeBackground: '#304FFE',
+      });
       return;
     }
     let mensagemErro;
@@ -82,8 +91,18 @@ export default function FormularioSenha() {
   };
 
   useEffect(() => {
-    register('senha', { required: true, minLength: { value: 8, message: 'A sua senha deve ter pelo menos 8 caracteres.' } });
-    register('repetirsenha', { required: true, validate: repetirsenha => repetirsenha === getValues('senha') || 'Não confere com a senha.' });
+    register('senha', {
+      required: true,
+      minLength: {
+        value: 8,
+        message: 'A sua senha deve ter pelo menos 8 caracteres.',
+      },
+    });
+    register('repetirsenha', {
+      required: true,
+      validate: repetirsenha =>
+        repetirsenha === getValues('senha') || 'Não confere com a senha.',
+    });
   }, [register]);
 
   return (
@@ -102,11 +121,7 @@ export default function FormularioSenha() {
             theme={theme}
           />
           {errors.senha && (
-            <Text style={{ color: '#000000' }}>
-              {' '}
-              { errors.senha.message}
-              {' '}
-            </Text>
+            <Text style={{ color: '#000000' }}> {errors.senha.message} </Text>
           )}
         </View>
         <View>
@@ -123,8 +138,7 @@ export default function FormularioSenha() {
           {errors.repetirsenha && (
             <Text style={{ color: '#000000' }}>
               {' '}
-              {errors.repetirsenha.message}
-              {' '}
+              {errors.repetirsenha.message}{' '}
             </Text>
           )}
         </View>
@@ -134,19 +148,18 @@ export default function FormularioSenha() {
         style={botaoAtivo ? estilos.botaoHabilitado : estilos.botao}
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        loading={carregando}
+        loading={isLoading}
         onPress={async () => {
-          alterarCarregando(true);
+          setIsLoading(true);
           try {
             const resultado = await realizarCadastroDoUsuario();
             aposCadastro(resultado);
-            alterarCarregando(false);
+            setIsLoading(false);
           } catch (err) {
             console.log(err);
-            alterarCarregando(false);
+            setIsLoading(false);
           }
-        }}
-      >
+        }}>
         Finalizar
       </Button>
       <Alerta visivel={cadastroRealizado} textoDoAlerta={mensagemDoAlerta} />
@@ -157,13 +170,13 @@ export default function FormularioSenha() {
 const estilos = StyleSheet.create({
   tituloDestaque: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   containerCampoDeTexto: {
-    paddingBottom: 15
+    paddingBottom: 15,
   },
   campoDeTexto: {
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
   },
   botao: {
     borderRadius: 50,
@@ -172,7 +185,7 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#BDBDBD'
+    backgroundColor: '#BDBDBD',
   },
   botaoHabilitado: {
     borderRadius: 50,
@@ -181,6 +194,6 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#304FFE'
-  }
+    backgroundColor: '#304FFE',
+  },
 });

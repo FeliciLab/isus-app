@@ -1,6 +1,9 @@
 const especialidade = { id: '', nome: '' };
+
 const categoriaProfissional = { id: '', nome: '' };
+
 const unidadeServico = { id: '', nome: '' };
+
 const pessoaModelo = {
   termos: true,
   nomeCompleto: '',
@@ -11,15 +14,14 @@ const pessoaModelo = {
   cidade: '',
   especialidades: [],
   categoriaProfissional: {},
-  unidadeServico: []
+  unidadeServico: [],
 };
 
-const cidadeMunicipioId = dados => dados?.cidadeId
-  || dados?.municipio_id
-  || dados?.municipio?.id
-  || false;
+const cidadeMunicipioId = dados =>
+  dados?.cidadeId || dados?.municipio_id || dados?.municipio?.id || false;
 
 const cidadeNome = dados => dados?.cidade || dados?.municipio?.nome || '';
+
 const nomeCompletoName = dados => dados?.nomeCompleto || dados?.name || '';
 
 const infoPessoal = dados => ({
@@ -28,35 +30,37 @@ const infoPessoal = dados => ({
   telefone: dados?.telefone || '',
   cpf: dados?.cpf || '',
   cidadeId: parseInt(cidadeMunicipioId(dados), 10) || '',
-  cidade: cidadeNome(dados)
+  cidade: cidadeNome(dados),
 });
 
-const mapDadosProfissionaisKeycloakToModel = (dados) => {
+const mapDadosProfissionaisKeycloakToModel = dados => {
   const result = {
     especialidades: [],
     categoriaProfissional: {
       id: dados?.profissional?.categoria_profissional?.id || '',
-      nome: dados?.profissional?.categoria_profissional?.nome || ''
+      nome: dados?.profissional?.categoria_profissional?.nome || '',
     },
-    unidadeServico: []
+    unidadeServico: [],
   };
 
   if (dados?.profissional?.especialidades) {
-    result.especialidades = dados.profissional.especialidades
-      .map(dadoEspecialidade => ({
+    result.especialidades = dados.profissional.especialidades.map(
+      dadoEspecialidade => ({
         ...especialidade,
         id: dadoEspecialidade.id || '',
-        nome: dadoEspecialidade.nome || ''
-      }));
+        nome: dadoEspecialidade.nome || '',
+      }),
+    );
   }
 
   if (dados?.profissional?.unidades_servicos) {
-    result.unidadeServico = dados?.profissional?.unidades_servicos
-      .map(item => ({
+    result.unidadeServico = dados?.profissional?.unidades_servicos.map(
+      item => ({
         ...unidadeServico,
         id: item.id || '',
-        nome: item.nome || ''
-      }));
+        nome: item.nome || '',
+      }),
+    );
   }
 
   return result;
@@ -66,7 +70,7 @@ const definirFormCategoriaProfissional = (dados, formProfissional) => {
   if (formProfissional) {
     return JSON.stringify({
       id: dados?.categoriaProfissional?.id || '',
-      nome: dados?.categoriaProfissional?.nome || ''
+      nome: dados?.categoriaProfissional?.nome || '',
     });
   }
 
@@ -94,7 +98,10 @@ const definirFormUnidadesServicos = (dados, formProfissional) => {
   }
 
   return dados?.unidadeServico?.reduce((acc, curr) => {
-    const chave = JSON.stringify({ id: curr?.id || '', nome: curr?.nome || '' });
+    const chave = JSON.stringify({
+      id: curr?.id || '',
+      nome: curr?.nome || '',
+    });
     if (!acc[chave]) {
       acc[chave] = true;
     }
@@ -108,23 +115,26 @@ const infoProfissional = (dados, formProfissional) => {
     return mapDadosProfissionaisKeycloakToModel(dados, formProfissional);
   }
 
-  return ({
-    categoriaProfissional: definirFormCategoriaProfissional(dados, formProfissional),
+  return {
+    categoriaProfissional: definirFormCategoriaProfissional(
+      dados,
+      formProfissional,
+    ),
     especialidades: definirFormEspecialidades(dados, formProfissional) || [],
-    unidadeServico: definirFormUnidadesServicos(dados, formProfissional) || []
-  });
+    unidadeServico: definirFormUnidadesServicos(dados, formProfissional) || [],
+  };
 };
 
 export const infoSenha = () => ({
   senha: '',
-  confirmarSenha: ''
+  confirmarSenha: '',
 });
 
 const createModel = (dados, option) => ({
   idKeycloak: dados?.id_keycloak || dados?.idKeycloak || null,
   ...infoPessoal(dados),
   ...infoProfissional(dados, option?.formProfissional),
-  ...infoSenha()
+  ...infoSenha(),
 });
 
 export default {
@@ -133,8 +143,8 @@ export default {
   subModel: {
     especialidade,
     categoriaProfissional,
-    unidadeServico
+    unidadeServico,
   },
   mapInfoPessoal: infoPessoal,
-  mapInfoProfissional: infoProfissional
+  mapInfoProfissional: infoProfissional,
 };

@@ -1,39 +1,38 @@
 import styled from 'styled-components/native';
 import { Button } from 'react-native-paper';
 
-
-const SafeArea = styled.SafeAreaView`
+export const SafeArea = styled.SafeAreaView`
   flex: 1;
 `;
-const ConteudoTopo = styled.View`
+export const ConteudoTopo = styled.View`
   background-color: #000;
 `;
 
-const ConteudoCentral = styled.View`
+export const ConteudoCentral = styled.View`
   flex: 3;
   align-items: center;
   justify-content: space-between;
 `;
 
 // Footer and View Content
-const Conteudo = styled.View`
+export const Conteudo = styled.View`
   flex: 1;
 `;
 
-const ConteudoImagem = styled.View`
+export const ConteudoImagem = styled.View`
   flex: 2;
   align-items: flex-end;
   flex-direction: column-reverse;
   margin-bottom: 5px;
 `;
 
-const ConteudoPularTutorial = styled.View`
+export const ConteudoPularTutorial = styled.View`
   margin-top: 60px;
   right: 40px;
   flex-direction: row-reverse;
 `;
 
-const PularTutorial = styled.Text`
+export const PularTutorial = styled.Text`
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -41,22 +40,22 @@ const PularTutorial = styled.Text`
   text-align: center;
   letter-spacing: 0.75px;
   text-transform: uppercase;
-  color: #F2F2F2;
+  color: #f2f2f2;
 `;
 
-const ConteudoDescricao = styled.View`
+export const ConteudoDescricao = styled.View`
   flex: 1;
   flex-direction: column;
   justify-content: center;
 `;
 
-const TituloDescricao = styled.Text`
-  color: #F2F2F2;
+export const TituloDescricao = styled.Text`
+  color: #f2f2f2;
   text-align: center;
   font-size: 34px;
 `;
 
-const TextoDescricao = styled.Text`
+export const TextoDescricao = styled.Text`
   align-self: center;
   max-width: 278px;
   font-style: normal;
@@ -65,31 +64,15 @@ const TextoDescricao = styled.Text`
   line-height: 28px;
   text-align: center;
   letter-spacing: 0.5px;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 
-const Botao = styled(Button)`
+export const Botao = styled(Button)`
   border-radius: 200px;
   margin: 10px 16px;
   padding: 5px 22px;
 `;
 
-const BotaoCadastro = styled(Botao)`
-  background-color: #ffffff
+export const BotaoCadastro = styled(Botao)`
+  background-color: #ffffff;
 `;
-
-
-export {
-  ConteudoTopo,
-  Botao,
-  TextoDescricao,
-  TituloDescricao,
-  ConteudoDescricao,
-  PularTutorial,
-  ConteudoImagem,
-  Conteudo,
-  ConteudoCentral,
-  SafeArea,
-  BotaoCadastro,
-  ConteudoPularTutorial
-};
