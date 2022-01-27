@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useLayoutEffect, useState } from 'react';
+import useAnalytics from '~/hooks/useAnalytics';
 import Alerta from '../../../components/alerta';
 import BarraDeStatus from '../../../components/barraDeStatus';
 import FormInfoPessoal from '../../../components/FormPessoa/FormInfoPessoal';
@@ -10,13 +11,12 @@ import ROTAS from '../../../constantes/rotas';
 import CONST_TEXT from '../../../constantes/textos';
 import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
 import FormContext from '../../../context/FormContext';
-import useAnalytics from '../../../hooks/Analytics';
 import { atualizarUsuario } from '../../../services/usuarioService';
 import {
   ConteudoFormulario,
   SafeArea,
   Scroll,
-  TituloPrincipal
+  TituloPrincipal,
 } from './styles';
 
 function EdicaoInfoPessoal() {
@@ -37,7 +37,7 @@ function EdicaoInfoPessoal() {
       navegador: navigation,
       titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.CABECALHO,
       cor: 'brancoPreto',
-      rota: ROTAS.PERFIL
+      rota: ROTAS.PERFIL,
     });
   }, []);
 
@@ -62,27 +62,27 @@ function EdicaoInfoPessoal() {
               const result = await atualizarUsuario(
                 {
                   ...pessoa,
-                  ...getValues()
+                  ...getValues(),
                 },
-                { somentePessoais: true }
+                { somentePessoais: true },
               );
               if (result) {
                 analyticsData(
                   labelsAnalytics.EDITAR_INFORMACOES_PESSOAL,
                   'Click',
-                  'atualizar informacao pessoal'
+                  'atualizar informacao pessoal',
                 );
                 navigation.navigate('TelaDeSucesso', {
                   textoApresentacao:
                     CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
                   telaDeRedirecionamento: ROTAS.PERFIL,
-                  telaDeBackground: CORES.VERDE
+                  telaDeBackground: CORES.VERDE,
                 });
               }
             } catch (e) {
               console.log(e);
               mostrarAlerta(
-                'Encontramos erros no formulário. Verifique antes de prosseguir'
+                'Encontramos erros no formulário. Verifique antes de prosseguir',
               );
             }
           })}

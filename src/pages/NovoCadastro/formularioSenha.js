@@ -7,7 +7,7 @@ import Alerta from '../../components/alerta';
 import BarraDeStatus from '../../components/barraDeStatus';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import FormContext from '../../context/FormContext';
-import useAnalytics from '../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,

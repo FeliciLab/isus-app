@@ -3,7 +3,7 @@ import React, {
   useCallback,
   useRef,
   useContext,
-  useEffect
+  useEffect,
 } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
@@ -13,15 +13,9 @@ import BarraDeStatus from '../../components/barraDeStatus';
 import Regex from '../../utils/regex';
 import FormContext from '../../context/FormContext';
 import MsgErroFormCampo from '../../components/loginLayout/msgErroFormCampo';
-import {
-  View,
-  BotaoForm,
-  AlertaBar,
-  EntradaTexto
-} from './sytles';
+import { View, BotaoForm, AlertaBar, EntradaTexto } from './sytles';
 import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
-
+import useAnalytics from '~/hooks/useAnalytics';
 
 export default function DuvidasElmoScreen() {
   const { analyticsData } = useAnalytics();
@@ -36,14 +30,9 @@ export default function DuvidasElmoScreen() {
 
   const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
-  const {
-    register,
-    setValue,
-    trigger,
-    errors,
-    getValues
-  } = useContext(FormContext);
-
+  const { register, setValue, trigger, errors, getValues } = useContext(
+    FormContext,
+  );
 
   const limparCampos = () => {
     duvidaInput.current.clear();
@@ -56,8 +45,12 @@ export default function DuvidasElmoScreen() {
     trigger(campo);
     let duvida = getValues('duvida');
     let email = getValues('email');
-    if (duvida === undefined) { duvida = ''; }
-    if (email === undefined) { email = ''; }
+    if (duvida === undefined) {
+      duvida = '';
+    }
+    if (email === undefined) {
+      email = '';
+    }
     if (duvida.length > 0 && email.length > 0) {
       if (emailValido(email)) {
         setBotaoDesabilitado(false);
@@ -78,41 +71,40 @@ export default function DuvidasElmoScreen() {
       return;
     }
     await postDuvidasElmo(getValues('duvida'), getValues('email'))
-      .then(async (response) => {
+      .then(async response => {
         console.log(`Sucesso ao enviar duvidas ${response.sucesso}`);
         limparCampos();
         setCarregando(false);
         setSucessoAoEnviar(true);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.status);
         setErroAoEnviar(true);
         setCarregando(false);
         if (err.message === 'Network Error') {
           setMensagemDeErro(
-            'Erro na conexão com o servidor. Tente novamente mais tarde.'
+            'Erro na conexão com o servidor. Tente novamente mais tarde.',
           );
         } else {
           setMensagemDeErro(
-            'Ocorreu um erro inesperado. Tente novamente mais tarde.'
+            'Ocorreu um erro inesperado. Tente novamente mais tarde.',
           );
         }
       });
   };
 
-  useFocusEffect(
-    useCallback(() => limparCampos(), [])
-  );
+  useFocusEffect(useCallback(() => limparCampos(), []));
 
   useEffect(() => {
     register('email', {
       required: 'O campo e-mail é obrigatório',
-      validate: email => emailValido(email)
-        || 'O e-mail deve ser no formato exemplo@exemplo.com'
+      validate: email =>
+        emailValido(email) ||
+        'O e-mail deve ser no formato exemplo@exemplo.com',
     });
 
     register('duvida', {
-      required: 'O campo dúvidas é obrigatório'
+      required: 'O campo dúvidas é obrigatório',
     });
   }, [register]);
 
@@ -150,11 +142,14 @@ export default function DuvidasElmoScreen() {
           labelStyle={{ color: CORES.BRANCO }}
           loading={carregando}
           onPress={() => {
-            analyticsData(labelsAnalytics.ENVIAR_DUVIDAS_ELMO, 'Click', 'Fale Conosco');
+            analyticsData(
+              labelsAnalytics.ENVIAR_DUVIDAS_ELMO,
+              'Click',
+              'Fale Conosco',
+            );
             setCarregando(true);
             onSubmit();
-          }}
-        >
+          }}>
           Enviar
         </BotaoForm>
         <AlertaBar
@@ -162,9 +157,8 @@ export default function DuvidasElmoScreen() {
           onDismiss={() => setSucessoAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setSucessoAoEnviar(false)
-          }}
-        >
+            onPress: () => setSucessoAoEnviar(false),
+          }}>
           Sua demanda foi enviada!
         </AlertaBar>
         <AlertaBar
@@ -172,9 +166,8 @@ export default function DuvidasElmoScreen() {
           onDismiss={() => setErroAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setErroAoEnviar(false)
-          }}
-        >
+            onPress: () => setErroAoEnviar(false),
+          }}>
           {mensagemDeErro}
         </AlertaBar>
       </View>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '../../apis/apiHome';
-import useAnalytics from '../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import useDebounce from '../../hooks/useDebounce';
 import ItemConteudo from './ItemConteudo';
 import LegendaNaoEncontrada from './LegendaNaoEncontrada';

@@ -4,24 +4,24 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { Controller } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme, TextInput } from 'react-native-paper';
+import useAnalytics from '~/hooks/useAnalytics';
+import useCaixaDialogo from '~/hooks/useCaixaDialogo';
 import { perfilUsuario } from '../../apis/apiCadastro';
 import Alerta from '../../components/alerta';
 import rotas from '../../constantes/rotas';
 import { TESTIDS } from '../../constantes/testIDs';
 import FormContext from '../../context/FormContext';
-import useAnalytics from '../../hooks/Analytics';
-import useCaixaDialogo from '../../hooks/CaixaDialogo/CaixaDialogoSemConexao';
 import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
   autenticarComIdSaude,
-  salvarTokenDoUsuarioNoStorage
+  salvarTokenDoUsuarioNoStorage,
 } from '../../services/autenticacao';
 import { emailValido, senhaValido } from '../../utils/validadores';
 import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
@@ -37,14 +37,14 @@ const FormularioLogin = ({ route }) => {
   const caixaDialogo = useCaixaDialogo();
 
   const { control, handleSubmit, errors, getValues, setValue } = useContext(
-    FormContext
+    FormContext,
   );
 
   const {
     alterarTokenUsuario,
     alterarDadosUsuario,
     alterarEstaLogado,
-    alterarPessoa
+    alterarPessoa,
   } = useAutenticacao();
 
   const [carregando, setCarregando] = useState(false);
@@ -60,8 +60,8 @@ const FormularioLogin = ({ route }) => {
       accent: '#fff',
       text: '#fff',
       background: '#304FFE',
-      placeholder: '#fff'
-    }
+      placeholder: '#fff',
+    },
   };
 
   const mostrarAlerta = useCallback(texto => {
@@ -119,9 +119,9 @@ const FormularioLogin = ({ route }) => {
         } else {
           caixaDialogo.SemConexao(
             {
-              acaoConcluir: tentarLoginNovamente
+              acaoConcluir: tentarLoginNovamente,
             },
-            tentativa
+            tentativa,
           );
         }
       }
@@ -138,7 +138,7 @@ const FormularioLogin = ({ route }) => {
     navigation.navigate('webview', {
       title: 'Esqueci minha senha',
       url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
-      idSaude: true
+      idSaude: true,
     });
   }, []);
 
@@ -158,7 +158,7 @@ const FormularioLogin = ({ route }) => {
           name="email"
           rules={{
             required: true,
-            validate: { emailValido: value => emailValido(value) }
+            validate: { emailValido: value => emailValido(value) },
           }}
           defaultValue=""
           render={({ onChange, value }) => (
@@ -183,7 +183,7 @@ const FormularioLogin = ({ route }) => {
           name="senha"
           rules={{
             required: true,
-            validate: { senhaValida: value => senhaValido(value) }
+            validate: { senhaValida: value => senhaValido(value) },
           }}
           defaultValue=""
           render={({ onChange, value }) => (
@@ -215,8 +215,7 @@ const FormularioLogin = ({ route }) => {
             testID={TESTIDS.BUTTON_FAZER_LOGIN}
             mode="contained"
             loading={carregando}
-            onPress={handleSubmit(submitForm)}
-          >
+            onPress={handleSubmit(submitForm)}>
             Fazer Login
           </Botao>
           <Botao
@@ -225,8 +224,7 @@ const FormularioLogin = ({ route }) => {
               abrirWebViewEsqueciMinhaSenha();
             }}
             mode="text"
-            color="#ffffff"
-          >
+            color="#ffffff">
             Esqueci minha senha
           </Botao>
         </View>

@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Carrossel from '../../../components/Carrossel';
 import rotas from '../../../constantes/rotas';
-import useAnalytics from '../../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import CartaoHome from '../cartaoHome';
 import { Titulo } from '../styles';
 import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';

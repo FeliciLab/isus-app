@@ -2,26 +2,25 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import useAnalytics from '~/hooks/useAnalytics';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '../../apis/apiCadastro';
+import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '../../components/barraDeStatus';
 import features from '../../constantes/features';
 import rotas from '../../constantes/rotas';
 import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import useAnalytics from '../../hooks/Analytics';
 import useAutenticacao from '../../hooks/useAutenticacao';
+import useLogoutApplication from '../../hooks/useLogoutApplication';
 import { salvarDados } from '../../services/armazenamento';
 import {
   pegarEstadoLogadoArmazenado,
-  pegarTokenDoUsuarioNoStorage
+  pegarTokenDoUsuarioNoStorage,
 } from '../../services/autenticacao';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
-import useLogoutApplication from '../../hooks/useLogoutApplication';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function PerfilScreen() {
   const { analyticsData } = useAnalytics();
@@ -30,11 +29,11 @@ export default function PerfilScreen() {
     dadosUsuario,
     alterarDadosUsuario,
     alterarTokenUsuario,
-    alterarPessoa
+    alterarPessoa,
   } = useAutenticacao();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
-    CaixaDialogoContext
+    CaixaDialogoContext,
   );
   const navigation = useNavigation();
   const { abrirCaixaDialogoSair, realizarLogout } = useLogoutApplication();
@@ -57,7 +56,7 @@ export default function PerfilScreen() {
         }
       }
       pegarTokenUsuario();
-    }, [])
+    }, []),
   );
 
   const abrirCaixaDialogo = async () => {
@@ -74,13 +73,13 @@ export default function PerfilScreen() {
         analyticsData(
           'solicitar_confirmacao_exclusao_conta',
           'Click',
-          'Perfil'
+          'Perfil',
         );
       },
       aoCancelar: () => {
         fecharCaixaDialogo();
         analyticsData('cancelar_exclusao_conta', 'Click', 'Perfil');
-      }
+      },
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
@@ -91,7 +90,7 @@ export default function PerfilScreen() {
       headerStyle: {
         backgroundColor: '#FFF',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#000',
       headerTitleAlign: 'center',
@@ -99,16 +98,15 @@ export default function PerfilScreen() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -172,13 +170,13 @@ const estilos = StyleSheet.create({
   margem: {
     padding: 15,
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   espacamento: {
     marginLeft: 20,
-    marginBottom: 10
+    marginBottom: 10,
   },
   espaco_voltar: {
-    marginRight: 15
-  }
+    marginRight: 15,
+  },
 });

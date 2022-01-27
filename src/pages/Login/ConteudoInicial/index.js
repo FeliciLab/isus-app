@@ -3,10 +3,10 @@ import React from 'react';
 import { View } from 'react-native';
 import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../../constantes/testIDs';
-import useAnalytics from '../../../hooks/Analytics';
-import useDialogAppTrack from '../../../hooks/DialogAppTrack';
+import useAnalytics from '~/hooks/useAnalytics';
 import { Botao } from '../styles';
 import { ConteudoDoTexto, Texto } from './styles';
+import useDialogAppTrack from '~/hooks/useDialogAppTrack';
 
 const ConteudoInicial = () => {
   const navigation = useNavigation();
@@ -14,7 +14,7 @@ const ConteudoInicial = () => {
   const { analyticsData } = useAnalytics();
 
   const { exibirDialog } = useDialogAppTrack();
-  
+
   return (
     <>
       <ConteudoDoTexto>

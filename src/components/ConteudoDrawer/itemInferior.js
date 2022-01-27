@@ -8,7 +8,7 @@ import TermosUsoMenuLateral from '~/assets/icons/provisorios/TermosUsoMenuLatera
 import rotas from '~/constantes/rotas';
 // import { CORES } from '~/constantes/estiloBase';
 import testIDs from '~/constantes/testIDs';
-import useAnalytics from '~/hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
 import packageJson from '../../../package.json';

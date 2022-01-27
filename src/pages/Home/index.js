@@ -5,7 +5,7 @@ import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
-import useAnalytics from '~/hooks/Analytics/index';
+import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,

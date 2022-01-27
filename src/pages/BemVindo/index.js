@@ -4,6 +4,8 @@ import { ImageBackground, StatusBar, View } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
+import useAnalytics from '~/hooks/useAnalytics';
+import useDialogAppTrack from '~/hooks/useDialogAppTrack';
 import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
 import bemVindo from '../../assets/icons/apresentacao/bemVindo.svg';
 import cadastroProfissional from '../../assets/icons/apresentacao/cadastroProfissional.svg';
@@ -13,8 +15,6 @@ import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.svg';
 import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
-import useDialogAppTrack from '../../hooks/DialogAppTrack';
 import { salvarDados } from '../../services/armazenamento';
 import {
   BotaoCadastro,
@@ -27,7 +27,7 @@ import {
   PularTutorial,
   SafeArea,
   TextoDescricao,
-  TituloDescricao,
+  TituloDescricao
 } from './styles';
 
 export default function BemVindo() {

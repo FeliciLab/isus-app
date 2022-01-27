@@ -13,7 +13,7 @@ import SusCearaMenuLateral from '~/assets/icons/provisorios/SusCearaMenuLateral.
 import rotas from '~/constantes/rotas';
 import testIDs from '~/constantes/testIDs';
 import { AutenticacaoContext } from '~/context/AutenticacaoContext';
-import useAnalytics from '~/hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import {
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,

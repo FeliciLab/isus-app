@@ -11,7 +11,7 @@ import {
 } from 'react-native-paper';
 import { postAlertaFaltaDeEpi } from '../../apis/apiHome';
 import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import { descricaoValida, unidadeDeSaudeValida } from '../../utils/validadores';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 

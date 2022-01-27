@@ -1,20 +1,24 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import {
-  View, Dimensions, StyleSheet
-} from 'react-native';
+import { View, Dimensions, StyleSheet } from 'react-native';
 import { Caption } from 'react-native-paper';
 import { useFocusEffect } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
 
 import { pegarProjetosPorCategoria } from '../../../apis/apiHome';
-import { pegarDadosDeChavesCom, pegarDados } from '../../../services/armazenamento';
+import {
+  pegarDadosDeChavesCom,
+  pegarDados,
+} from '../../../services/armazenamento';
 import ImagemDePostagem from '../ImagemDePostagem';
-import useAnalytics from '../../../hooks/Analytics';
-import { normalizeEspacoTextoAnalytics, adicionaMascaraAnalytics } from '../../../utils/mascaras';
+import useAnalytics from '~/hooks/useAnalytics';
+import {
+  normalizeEspacoTextoAnalytics,
+  adicionaMascaraAnalytics,
+} from '../../../utils/mascaras';
 import rotas from '../../../constantes/rotas';
 import { ListaPostagens, ListaPostagemVazia, Postagem } from './style';
 
-export default function ({ route, navigation }) {
+export default function({ route, navigation }) {
   const { categoria } = route.params;
   const { analyticsData } = useAnalytics();
 
@@ -43,11 +47,7 @@ export default function ({ route, navigation }) {
         analytics = `${title}_${slug}`;
       }
 
-      analyticsData(
-        analytics,
-        'click',
-        categoria.title_description
-      );
+      analyticsData(analytics, 'click', categoria.title_description);
 
       async function pegarConteudo() {
         try {
@@ -61,26 +61,33 @@ export default function ({ route, navigation }) {
       }
 
       pegarConteudo();
-    }, [])
+    }, []),
   );
 
   const pegarConteudoDoStorage = async () => {
-    const resposta = await pegarDadosDeChavesCom(`@categoria_${categoria.term_id}`);
+    const resposta = await pegarDadosDeChavesCom(
+      `@categoria_${categoria.term_id}`,
+    );
     alterarPostagens(resposta);
   };
 
   const pegarConteudoDaApi = async () => {
     const resposta = await pegarProjetosPorCategoria(categoria.term_id);
     const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
-    const postagensAtualizadas = marcarPostagensBaixadas(resposta.data.data, postagensBaixadas);
+    const postagensAtualizadas = marcarPostagensBaixadas(
+      resposta.data.data,
+      postagensBaixadas,
+    );
     alterarPostagens(postagensAtualizadas);
     alterarSemConexao(false);
   };
 
-  const pegarPostagensBaixadas = async (posts) => {
-    const postagensBuscadas = posts.map(postagem => pegarDados(`@categoria_${categoria.term_id}_postagem_${postagem.id}`));
+  const pegarPostagensBaixadas = async posts => {
+    const postagensBuscadas = posts.map(postagem =>
+      pegarDados(`@categoria_${categoria.term_id}_postagem_${postagem.id}`),
+    );
     const postagensEncontradas = await Promise.all(postagensBuscadas);
-    return postagensEncontradas.filter(postagem => (!!postagem));
+    return postagensEncontradas.filter(postagem => !!postagem);
   };
 
   const marcarPostagensBaixadas = (posts, postsBaixados) => {
@@ -103,17 +110,15 @@ export default function ({ route, navigation }) {
       ListEmptyComponent={ListaPostagemVazia}
       renderItem={({ item }) => (
         <Postagem
-          onPress={() => navigation.navigate(
-            rotas.DESCRICAO,
-            {
+          onPress={() =>
+            navigation.navigate(rotas.DESCRICAO, {
               parametros: {
                 ...item,
-                categoria_id: categoria.term_id
+                categoria_id: categoria.term_id,
               },
-              title: categoria.title_description
-            }
-          )}
-        >
+              title: categoria.title_description,
+            })
+          }>
           <ImagemDePostagem
             conteudoBaixado={semConexao}
             imagem={item.image}
@@ -130,6 +135,7 @@ export default function ({ route, navigation }) {
 
 const estilos = StyleSheet.create({
   imagemPostagem: {
-    height: 110, width: Dimensions.get('window').width / 2.2
-  }
+    height: 110,
+    width: Dimensions.get('window').width / 2.2,
+  },
 });

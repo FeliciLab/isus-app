@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import rotas from '../../../constantes/rotas';
 import { TESTIDS } from '../../../constantes/testIDs';
-import useAnalytics from '../../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import { ConteudoTermo, TextoLink, TextoTermo } from './styles';
 
 const Termos = () => {

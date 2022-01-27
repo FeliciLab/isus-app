@@ -5,7 +5,7 @@ import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfant
 import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
 import Carrossel from '../../../components/Carrossel';
 import rotas from '../../../constantes/rotas';
-import useAnalytics from '../../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import CartaoHome from '../cartaoHome';
 import { Titulo } from '../styles';
 

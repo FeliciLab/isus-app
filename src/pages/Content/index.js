@@ -9,7 +9,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { pegarProjetosPorCategoria } from '../../apis/apiHome';
 import { pegarDadosDeChavesCom, pegarDados } from '../../services/armazenamento';
 import ImagemDePostagem from './ImagemDePostagem';
-import useAnalytics from '../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import { normalizeEspacoTextoAnalytics, adicionaMascaraAnalytics } from '../../utils/mascaras';
 import rotas from '../../constantes/rotas';
 

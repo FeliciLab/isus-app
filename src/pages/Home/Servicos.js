@@ -1,7 +1,7 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import React from 'react';
 import { Linking, View } from 'react-native';
-import useAnalytics from '~/hooks/Analytics/index';
+import useAnalytics from '~/hooks/useAnalytics';
 import QualiQuizIcon from '../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../assets/icons/servicos/servico_1.svg';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';

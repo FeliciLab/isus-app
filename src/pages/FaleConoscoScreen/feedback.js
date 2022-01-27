@@ -15,7 +15,7 @@ import Tag from './Tag';
 import { feedbackValido, emailValido } from '../../utils/validadores';
 import { vazio } from '../../utils/objectUtils';
 import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {

@@ -12,7 +12,7 @@ import {
 import { descricaoValida, unidadeDeSaudeValida } from '../../utils/validadores';
 import { postDemandaEducacao } from '../../apis/apiHome';
 import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function DemandaEducacaoScreen() {

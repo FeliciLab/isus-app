@@ -8,7 +8,7 @@ import HeartIcon from '../assets/icons/provisorios/HeartIcon.svg';
 import Pesquisa from '../assets/icons/pesquisa.svg';
 import rotas from '../constantes/rotas';
 import { ConteudoProvider } from '../context/ConteudoContext';
-import useAnalytics from '../hooks/Analytics';
+import useAnalytics from '~/hooks/useAnalytics';
 import EstruturaConteudo from '../pages/Content/EstruturaConteudo';
 import Home from '../pages/Home';
 
