@@ -1,17 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useLayoutEffect, useState } from 'react';
+import Alerta from '~/components/alerta';
+import BarraDeStatus from '~/components/barraDeStatus';
+import FormInfoPessoal from '~/components/FormPessoa/FormInfoPessoal';
+import { cabecalhoVoltarRota } from '~/components/layoutEffect/cabecalhoLayout';
+import { CORES } from '~/constantes/estiloBase';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import ROTAS from '~/constantes/rotas';
+import CONST_TEXT from '~/constantes/textos';
+import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
-import Alerta from '../../../components/alerta';
-import BarraDeStatus from '../../../components/barraDeStatus';
-import FormInfoPessoal from '../../../components/FormPessoa/FormInfoPessoal';
-import { cabecalhoVoltarRota } from '../../../components/layoutEffect/cabecalhoLayout';
-import { CORES } from '../../../constantes/estiloBase';
-import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
-import ROTAS from '../../../constantes/rotas';
-import CONST_TEXT from '../../../constantes/textos';
-import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
-import FormContext from '../../../context/FormContext';
-import { atualizarUsuario } from '../../../services/usuarioService';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import { atualizarUsuario } from '~/services/usuarioService';
 import {
   ConteudoFormulario,
   SafeArea,
@@ -26,7 +26,7 @@ function EdicaoInfoPessoal() {
 
   const { handleSubmit, getValues } = useContext(FormContext);
 
-  const { pessoa } = useContext(AutenticacaoContext);
+  const { pessoa } = useAutenticacao();
 
   const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
 

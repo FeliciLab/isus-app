@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function MenuPerfil({ titulo, children }) {
   return (
@@ -16,10 +16,10 @@ const estilos = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 20,
     marginTop: 15,
-    color: '#000'
+    color: '#000',
   },
   menuContainer: {
     flexDirection: 'column',
-    marginBottom: -10
-  }
+    marginBottom: -10,
+  },
 });

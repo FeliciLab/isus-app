@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import BarraDeStatus from '../../components/barraDeStatus';
+import BarraDeStatus from '~/components/barraDeStatus';
 
 function TelaDeCadastro() {
   return (
@@ -19,7 +19,5 @@ function TelaDeCadastro() {
 }
 
 export default function ConteudoTelaDeCadastro() {
-  return (
-    <TelaDeCadastro />
-  );
+  return <TelaDeCadastro />;
 }

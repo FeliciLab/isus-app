@@ -6,11 +6,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import DeletarConta from '../../assets/images/deletar_conta.svg';
-import BarraDeStatus from '../../components/barraDeStatus';
+import DeletarConta from '~/assets/images/deletar_conta.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
 
 export default function ExcluirPerfil() {
   const navigation = useNavigation();
@@ -23,7 +23,7 @@ export default function ExcluirPerfil() {
 
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
@@ -34,11 +34,11 @@ export default function ExcluirPerfil() {
       headerStyle: {
         backgroundColor: '#4054B2',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#4054B2',
       headerTitleAlign: 'center',
-      headerTitle: ''
+      headerTitle: '',
     });
   }, []);
 
@@ -60,8 +60,7 @@ export default function ExcluirPerfil() {
               color="#fff"
               mode="contained"
               style={estilos.botaoOk}
-              onPress={() => navigation.navigate('ID SAÚDE')}
-            >
+              onPress={() => navigation.navigate('ID SAÚDE')}>
               OK
             </Button>
           </View>
@@ -80,17 +79,17 @@ const estilos = StyleSheet.create({
     alignItems: 'stretch',
     width: widthView,
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
   parteCenter: {
     alignSelf: 'center',
     height: heightView,
     backgroundColor: '#4054B2',
-    flex: 1
+    flex: 1,
   },
   imagemUser: {
     alignSelf: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   textoInfo: {
     width: widthView - widthView * 0.05,
@@ -99,7 +98,7 @@ const estilos = StyleSheet.create({
     marginTop: 32,
     fontSize: 24,
     fontWeight: '400',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   botaoOk: {
     width: 145,
@@ -107,6 +106,6 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: heightViewAux,
     height: 48,
-    marginTop: 37
-  }
+    marginTop: 37,
+  },
 });

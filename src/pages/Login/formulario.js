@@ -10,20 +10,20 @@ import { Controller } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme, TextInput } from 'react-native-paper';
+import { perfilUsuario } from '~/apis/apiCadastro';
+import Alerta from '~/components/alerta';
+import rotas from '~/constantes/rotas';
+import { TESTIDS } from '~/constantes/testIDs';
+import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import useCaixaDialogo from '~/hooks/useCaixaDialogo';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import Alerta from '../../components/alerta';
-import rotas from '../../constantes/rotas';
-import { TESTIDS } from '../../constantes/testIDs';
-import FormContext from '../../context/FormContext';
-import useAutenticacao from '../../hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
-} from '../../services/autenticacao';
-import { emailValido, senhaValido } from '../../utils/validadores';
+} from '~/services/autenticacao';
+import { emailValido, senhaValido } from '~/utils/validadores';
 import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
 import { Botao } from './styles';
 

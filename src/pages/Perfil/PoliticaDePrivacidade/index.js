@@ -1,11 +1,10 @@
-import React, { useLayoutEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
-import politicaPrivacidade from './politica-privacidade.json';
 import { uniqueId } from 'lodash';
+import React, { useLayoutEffect } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import politicaPrivacidade from './politica-privacidade.json';
 import estilos from './styles';
-
 
 export default function PoliticaDePrivacidadeScreen() {
   const navigation = useNavigation();
@@ -15,7 +14,7 @@ export default function PoliticaDePrivacidadeScreen() {
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
@@ -23,15 +22,14 @@ export default function PoliticaDePrivacidadeScreen() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -50,9 +48,8 @@ export default function PoliticaDePrivacidadeScreen() {
                 fontWeight: 'bold',
                 fontSize: 18,
                 textAlign: 'center',
-                color: '#000000'
-              }}
-            >
+                color: '#000000',
+              }}>
               {secao.titulo}
             </Text>
             {secao.paragrafos.map(paragrafo => (
@@ -66,4 +63,3 @@ export default function PoliticaDePrivacidadeScreen() {
     </ScrollView>
   );
 }
-

@@ -2,27 +2,29 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import useAnalytics from '~/hooks/useAnalytics';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
-import BarraDeStatus from '../../components/barraDeStatus';
-import features from '../../constantes/features';
-import rotas from '../../constantes/rotas';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import useAutenticacao from '../../hooks/useAutenticacao';
-import useLogoutApplication from '../../hooks/useLogoutApplication';
-import { salvarDados } from '../../services/armazenamento';
+import { perfilUsuario } from '~/apis/apiCadastro';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import features from '~/constantes/features';
+import rotas from '~/constantes/rotas';
+import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
+import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import useLogoutApplication from '~/hooks/useLogoutApplication';
+import { salvarDados } from '~/services/armazenamento';
 import {
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
-} from '../../services/autenticacao';
+} from '~/services/autenticacao';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
 
 export default function PerfilScreen() {
+  const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
 
   const {
@@ -35,7 +37,6 @@ export default function PerfilScreen() {
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext,
   );
-  const navigation = useNavigation();
   const { abrirCaixaDialogoSair, realizarLogout } = useLogoutApplication();
 
   useFocusEffect(

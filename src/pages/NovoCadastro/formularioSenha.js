@@ -2,34 +2,33 @@ import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { cadastrarUsuario } from '../../apis/apiCadastro';
-import Alerta from '../../components/alerta';
-import BarraDeStatus from '../../components/barraDeStatus';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import FormContext from '../../context/FormContext';
+import { cadastrarUsuario } from '~/apis/apiCadastro';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import Alerta from '~/components/alerta';
+import BarraDeStatus from '~/components/barraDeStatus';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
-import useAutenticacao from '../../hooks/useAutenticacao';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
   autenticarComIdSaude,
   pegarTokenDoUsuarioNoStorage,
-  salvarTokenDoUsuarioNoStorage
-} from '../../services/autenticacao';
+  salvarTokenDoUsuarioNoStorage,
+} from '~/services/autenticacao';
 import {
   analyticsCategoria,
-  analyticsUnidadeServico
-} from '../../utils/funcoesAnalytics';
+  analyticsUnidadeServico,
+} from '~/utils/funcoesAnalytics';
 import {
   Botao,
   CampoDeTexto,
   Scroll,
   TextoDeErro,
   Titulo,
-  TituloDoFormulario
+  TituloDoFormulario,
 } from './styles';
 import textos from './textos.json';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function FormularioSenha({ navigation }) {
   const { analyticsData } = useAnalytics();
@@ -45,7 +44,7 @@ export default function FormularioSenha({ navigation }) {
   const { alterarDadosUsuario, alterarEstaLogado } = useAutenticacao();
 
   const { register, setValue, trigger, errors, getValues } = useContext(
-    FormContext
+    FormContext,
   );
 
   const valores = getValues();
@@ -61,16 +60,15 @@ export default function FormularioSenha({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -82,8 +80,8 @@ export default function FormularioSenha({ navigation }) {
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#304FFE'
-    }
+      primary: '#304FFE',
+    },
   };
 
   const alteraValor = async (campo, valor) => {
@@ -100,7 +98,7 @@ export default function FormularioSenha({ navigation }) {
       cidade: cidade.nome,
       cpf,
       telefone,
-      termos: true
+      termos: true,
     };
   };
 
@@ -110,13 +108,13 @@ export default function FormularioSenha({ navigation }) {
       ...dados,
       unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
       especialidades: JSON.parse(dados?.especialidades || '[]'),
-      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}')
+      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}'),
     });
     const resposta = await cadastrarUsuario({
       ...dados,
       unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
       especialidades: JSON.parse(dados?.especialidades || '[]'),
-      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}')
+      categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}'),
     });
     return resposta.data;
   };
@@ -138,7 +136,7 @@ export default function FormularioSenha({ navigation }) {
         textoApresentacao:
           'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
         telaDeRedirecionamento: 'HOME',
-        telaDeBackground: '#304FFE'
+        telaDeBackground: '#304FFE',
       });
       return;
     }
@@ -165,12 +163,13 @@ export default function FormularioSenha({ navigation }) {
   useEffect(() => {
     register('senha', {
       required: true,
-      minLength: { value: 8, message: textos.formularioSenha.erroTamanho }
+      minLength: { value: 8, message: textos.formularioSenha.erroTamanho },
     });
     register('repetirsenha', {
       required: true,
       validate: repetirsenha =>
-        repetirsenha === getValues('senha') || textos.formularioSenha.erroIguais
+        repetirsenha === getValues('senha') ||
+        textos.formularioSenha.erroIguais,
     });
   }, [register]);
 
@@ -215,7 +214,7 @@ export default function FormularioSenha({ navigation }) {
             analyticsData(
               labelsAnalytics.FINALIZAR_MEU_CADASTRO,
               'Click',
-              'Perfil'
+              'Perfil',
             );
             analyticsCategoria(categoriaProfissional, now, 'Cadastro');
             analyticsUnidadeServico(uniServ, now, 'Cadastro');
@@ -223,8 +222,7 @@ export default function FormularioSenha({ navigation }) {
             console.log(err);
             setCarregando(false);
           }
-        }}
-      >
+        }}>
         Finalizar
       </Botao>
       <Alerta

@@ -4,11 +4,11 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import features from '~/constantes/features';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import features from '../../constantes/features';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import rotas from '../../constantes/rotas';
-import { aplicaMascaraNumerica } from '../../utils/mascaras';
+import { aplicaMascaraNumerica } from '~/utils/mascaras';
 
 function DadosUsuario({ dados }) {
   return (

@@ -3,18 +3,18 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { alteraDadosDoUsuario } from '../../apis/apiCadastro';
+import { alteraDadosDoUsuario } from '~/apis/apiCadastro';
 import {
   pegarListaDeCategoriasProfissionais,
   pegarListaDeEspecialidades,
-  pegarListaDeServicos
-} from '../../apis/apiKeycloak';
-import Alerta from '../../components/alerta';
-import BarraDeStatus from '../../components/barraDeStatus';
-import DropDown from '../../components/dropdown';
-import rotas from '../../constantes/rotas';
-import FormContext from '../../context/FormContext';
-import { pegarDados } from '../../services/armazenamento';
+  pegarListaDeServicos,
+} from '~/apis/apiKeycloak';
+import Alerta from '~/components/alerta';
+import BarraDeStatus from '~/components/barraDeStatus';
+import DropDown from '~/components/dropdown';
+import rotas from '~/constantes/rotas';
+import FormContext from '~/context/FormContext';
+import { pegarDados } from '~/services/armazenamento';
 import {
   Acordeon,
   Botao,
@@ -22,7 +22,7 @@ import {
   PlaceholderAcordeon,
   Scroll,
   Titulo,
-  TituloDoFormulario
+  TituloDoFormulario,
 } from './styles';
 import textos from './textos.json';
 
@@ -39,7 +39,7 @@ function FormularioInfoProfissional({ navigation, route }) {
 
   const [
     tratarCategoriaProfissional,
-    setTratarCategoriaProfissional
+    setTratarCategoriaProfissional,
   ] = useState(0);
 
   const [listaDeEspecialidades, setListaDeEspecialidades] = useState([]);
@@ -62,8 +62,8 @@ function FormularioInfoProfissional({ navigation, route }) {
     colors: {
       ...DefaultTheme.colors,
       primary: 'rgba(0, 0, 0, 0.6);',
-      accent: '#f1c40f'
-    }
+      accent: '#f1c40f',
+    },
   };
 
   const pegarValoresUnidadesServicos = () => {
@@ -81,7 +81,7 @@ function FormularioInfoProfissional({ navigation, route }) {
     if (especialidadesSalva) {
       const especialidadesFiltrada = filtrarEspecialidades(
         especialidadesSalva,
-        especialidadesLista
+        especialidadesLista,
       );
       if (especialidadesFiltrada && especialidadesFiltrada.length > 0) {
         mudarValoresEspecialidades(especialidadesFiltrada);
@@ -92,7 +92,7 @@ function FormularioInfoProfissional({ navigation, route }) {
   const filtrarEspecialidades = (especialidadesSalva, especialidadesLista) =>
     especialidadesSalva.map(especialidade => {
       const especialidadeFiltrada = especialidadesLista.filter(
-        esp => especialidade.id === esp.id
+        esp => especialidade.id === esp.id,
       );
       return especialidadeFiltrada[0];
     });
@@ -114,7 +114,7 @@ function FormularioInfoProfissional({ navigation, route }) {
       pegarValoresCategoriaProfissional();
 
       const especialidades = await pegarListaDeEspecialidades(
-        tratarCategoriaProfissional
+        tratarCategoriaProfissional,
       );
       setListaDeEspecialidades(especialidades);
 
@@ -132,19 +132,18 @@ function FormularioInfoProfissional({ navigation, route }) {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <Icon
             name="arrow-left"
             size={28}
             color={veioDoPerfil ? '#4CAF50' : '#304FFE'}
           />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -178,7 +177,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         nome: servico.nome,
         foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`]
           ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado
-          : true
+          : true,
       };
     });
     setUnidadesServico(unidadesServicoCheckBoxes);
@@ -191,7 +190,7 @@ function FormularioInfoProfissional({ navigation, route }) {
       nome: especialidade.nome,
       foiMarcado: check[`${especialidade.nome}`]
         ? !check[`${especialidade.nome}`].foiMarcado
-        : true
+        : true,
     };
     setUnidadesEspecialidades(check);
   };
@@ -204,7 +203,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         nome: servico.nome,
         foiMarcado: especialidadesCheckBoxes[`${servico.nome}`]
           ? !especialidadesCheckBoxes[`${servico.nome}`].foiMarcado
-          : true
+          : true,
       };
     });
     setUnidadesEspecialidades(especialidadesCheckBoxes);
@@ -217,17 +216,17 @@ function FormularioInfoProfissional({ navigation, route }) {
       nome: servico.nome,
       foiMarcado: check[`${servico.nome}`]
         ? !check[`${servico.nome}`].foiMarcado
-        : true
+        : true,
     };
     setUnidadesServico(check);
   };
 
   const tratarUnidadesDeServico = () => {
     const ServicosMarcados = Object.values(unidadesServico).filter(
-      servico => servico.foiMarcado
+      servico => servico.foiMarcado,
     );
     return JSON.stringify(
-      ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
+      ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome })),
     );
   };
 
@@ -246,12 +245,12 @@ function FormularioInfoProfissional({ navigation, route }) {
 
   const tratarUnidadesDeEspecialidades = () => {
     const EspecialidadesMarcados = Object.values(unidadesEspecialidades).filter(
-      especialidade => especialidade.foiMarcado
+      especialidade => especialidade.foiMarcado,
     );
     return JSON.stringify(
       EspecialidadesMarcados.map(especialidade => ({
-        id: especialidade.id
-      }))
+        id: especialidade.id,
+      })),
     );
   };
 
@@ -273,7 +272,7 @@ function FormularioInfoProfissional({ navigation, route }) {
       municipio,
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     } = campos;
     return {
       email,
@@ -285,7 +284,7 @@ function FormularioInfoProfissional({ navigation, route }) {
       termos: true,
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     };
   };
 
@@ -305,20 +304,20 @@ function FormularioInfoProfissional({ navigation, route }) {
     const {
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     } = getValues();
     const usuarioTratado = tratarCamposDeUsuario({
       ...perfildoUsuario,
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     });
     setPerfilDoUsuario({
       ...perfildoUsuario,
       categoria_profissional: categoriaProfissional,
       // eslint-disable-next-line object-shorthand
       especialidades: especialidades,
-      unidade_servico: unidadeServico
+      unidade_servico: unidadeServico,
     });
     try {
       console.log('perfil atualizado', usuarioTratado);
@@ -327,7 +326,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         textoApresentacao:
           'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.',
         telaDeRedirecionamento: 'PERFIL',
-        telaDeBackground: '#4CAF50'
+        telaDeBackground: '#4CAF50',
       });
       console.log(resposta.data);
       setCarregando(false);
@@ -371,8 +370,7 @@ function FormularioInfoProfissional({ navigation, route }) {
                 titleStyle={{ color: 'black' }}
                 title={
                   <PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>
-                }
-              >
+                }>
                 <View>
                   {unidadesEspecialidades &&
                   listaDeEspecialidades.length !== 0 &&
@@ -405,8 +403,9 @@ function FormularioInfoProfissional({ navigation, route }) {
         </TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
-          title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
-        >
+          title={
+            <PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>
+          }>
           <View>
             {unidadesServico &&
               listaDeServicos.length !== 0 &&
@@ -444,8 +443,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           }
           return alterarTelaDoCadastro();
         }}
-        mode="contained"
-      >
+        mode="contained">
         {veioDoPerfil ? 'salvar' : 'Próximo'}
       </Botao>
       <Alerta

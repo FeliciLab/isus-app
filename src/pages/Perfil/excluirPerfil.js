@@ -11,28 +11,39 @@ import {
   View,
 } from 'react-native';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
-import useAnalytics from '~/hooks/useAnalytics';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { deletarUsuario } from '../../apis/apiCadastro';
-import { logout } from '../../apis/apiKeycloak';
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
-import BarraDeStatus from '../../components/barraDeStatus';
-import useAutenticacao from '../../hooks/useAutenticacao';
+import { deletarUsuario } from '~/apis/apiCadastro';
+import { logout } from '~/apis/apiKeycloak';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   excluirTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
-} from '../../services/autenticacao';
+} from '~/services/autenticacao';
 
 export default function ExcluirPerfil() {
-  const { analyticsData } = useAnalytics();
-  const [palavra, alterarPalavra] = useState({});
-  const [isvalidator, alterarisvalidator] = useState(true);
-  const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
   const navigation = useNavigation();
+
+  const { analyticsData } = useAnalytics();
+
+  const [palavra, setPalavra] = useState({});
+
+  const [isvalidator, setIsvalidator] = useState(true);
+
+  const [corPrimariaSenha, setCorPrimariaSenha] = useState('#FF9800');
+
   const refEntradaTexto = useRef(null);
+
   const appState = useRef(AppState.currentState);
+
+  // TODO: provavelmente isso aqui deveria estar em um useState
   let estaConectado = true;
+
+  // TODO: provavelmente isso deveria estar em um useRef
   const estaFocado = true;
+
   const { alterarEstaLogado } = useAutenticacao();
 
   const realizarLogout = () => {
@@ -78,19 +89,19 @@ export default function ExcluirPerfil() {
         })
         .catch(error => {
           console.log(error);
-          alterarisvalidator(false);
-          alterarCorPrimariaSenha('#F2453D');
+          setIsvalidator(false);
+          setCorPrimariaSenha('#F2453D');
           setTimeout(() => {
-            alterarisvalidator(true);
-            alterarCorPrimariaSenha('#FF9800');
+            setIsvalidator(true);
+            setCorPrimariaSenha('#FF9800');
           }, 4000);
         });
     } else {
-      alterarisvalidator(false);
-      alterarCorPrimariaSenha('#F2453D');
+      setIsvalidator(false);
+      setCorPrimariaSenha('#F2453D');
       setTimeout(() => {
-        alterarCorPrimariaSenha('#FF9800');
-        alterarisvalidator(true);
+        setCorPrimariaSenha('#FF9800');
+        setIsvalidator(true);
       }, 4000);
     }
   };
@@ -107,14 +118,13 @@ export default function ExcluirPerfil() {
   };
 
   const onChange = text => {
-    alterarPalavra(text);
+    setPalavra(text);
   };
 
-  // eslint-disable-next-line consistent-return
   const mostrarMensagemErro = validar => {
     if (validar === false) {
       return (
-        <Text style={estilos.infoErro}>
+        <Text style={styles.infoErro}>
           Por favor, digite exatamente o texto EXCLUIR para confirmar a exclusão
           dos seus dados.
         </Text>
@@ -181,15 +191,15 @@ export default function ExcluirPerfil() {
   return (
     <>
       <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
-      <View style={estilos.margem}>
-        <Text style={estilos.tituloDestaque}>
+      <View style={styles.margem}>
+        <Text style={styles.tituloDestaque}>
           Para confirmar a exclusão da sua conta no ID Saúde, digite EXCLUIR.
         </Text>
         <TextInput
           label="Confirmação de exclusão"
           autoFocus={estaFocado}
           onChangeText={text => onChange(text)}
-          style={estilos.campoDeTexto}
+          style={styles.campoDeTexto}
           mode="outlined"
           theme={theme}
           ref={refEntradaTexto}
@@ -199,9 +209,9 @@ export default function ExcluirPerfil() {
           : mostrarMensagemErro(true)}
         <Button
           testID="botao-excluir-perfil"
-          style={estilos.botaoHabilitado}
+          style={styles.botaoHabilitado}
           mode="contained"
-          labelStyle={estilos.botaoExcluirConta}
+          labelStyle={styles.botaoExcluirConta}
           onPress={() => {
             excluirUsuario();
           }}>
@@ -212,7 +222,7 @@ export default function ExcluirPerfil() {
   );
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   margem: {
     flex: 1,
     flexDirection: 'column',
