@@ -41,16 +41,16 @@ if (estaAtiva(features.PLANO_CONTIGENCIA)) {
     expect(navigation.navigate).toHaveBeenCalled();
   });
 
-  test('deve retornar o Plano de Contigencia na segunda posição do vetor listaForcaTarefa', () => {
-    expect(listaForcaTarefa[1].id).toBe('acao-plano-contigencia');
-    expect(listaForcaTarefa[1].titulo).toBe('Plano de Contigência');
-    expect(listaForcaTarefa[1].ativo).toBe(true);
+  test('deve retornar o Plano de Contigencia na terceira posição do vetor listaForcaTarefa', () => {
+    expect(listaForcaTarefa[2].id).toBe('acao-plano-contigencia');
+    expect(listaForcaTarefa[2].titulo).toBe('Plano de Contingência');
+    expect(listaForcaTarefa[2].ativo).toBe(true);
   });
 
   test(`deve chamar a função navigate contendo a url ${urls.PLANO_CONTIGENCIA} quando clicar em Plano de Contigencia`, () => {
     fireEvent.press(item);
     expect(navigation.navigate).toHaveBeenCalledWith('webview', {
-      title: 'Plano de Contigência',
+      title: 'Plano de Contingência',
       url: urls.PLANO_CONTIGENCIA
     });
   });
