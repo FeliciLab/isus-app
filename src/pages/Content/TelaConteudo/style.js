@@ -19,6 +19,6 @@ export const ListaPostagemVazia = styled.View`
 `;
 
 export const TextoSemPostagem = styled.Text`
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
   margin-top: 20px;
 `;

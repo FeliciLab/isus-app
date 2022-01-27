@@ -1,29 +1,28 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Dimensions, StyleSheet } from 'react-native';
-import { Caption } from 'react-native-paper';
-import { useFocusEffect } from '@react-navigation/native';
 import { useNetInfo } from '@react-native-community/netinfo';
-
-import { pegarProjetosPorCategoria } from '../../../apis/apiHome';
-import {
-  pegarDadosDeChavesCom,
-  pegarDados,
-} from '../../../services/armazenamento';
-import ImagemDePostagem from '../ImagemDePostagem';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { Caption } from 'react-native-paper';
 import useAnalytics from '~/hooks/useAnalytics';
+import { pegarProjetosPorCategoria } from '~/apis/apiHome';
+import rotas from '~/constantes/rotas';
+import { pegarDados, pegarDadosDeChavesCom } from '~/services/armazenamento';
 import {
-  normalizeEspacoTextoAnalytics,
   adicionaMascaraAnalytics,
-} from '../../../utils/mascaras';
-import rotas from '../../../constantes/rotas';
-import { ListaPostagens, ListaPostagemVazia, Postagem } from './style';
+  normalizeEspacoTextoAnalytics,
+} from '~/utils/mascaras';
+import ImagemDePostagem from '../ImagemDePostagem';
+import { ListaPostagemVazia, ListaPostagens, Postagem } from './style';
 
 export default function({ route, navigation }) {
   const { categoria } = route.params;
+
   const { analyticsData } = useAnalytics();
 
   const [postagens, alterarPostagens] = useState([]);
+
   const [semConexao, alterarSemConexao] = useState(false);
+
   const estaConectado = useNetInfo().isConnected;
 
   useEffect(() => {

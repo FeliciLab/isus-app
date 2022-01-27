@@ -2,18 +2,19 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import jpgEsmaltec from '../../../assets/icons/logo/logo-esmaltec.jpg';
-import jpgESP from '../../../assets/icons/logo/logo-esp.jpg';
-import jpgFIEC from '../../../assets/icons/logo/logo-fiec.jpg';
-import jpgFUNCAP from '../../../assets/icons/logo/logo-funcap.jpg';
-import jpgGovCe from '../../../assets/icons/logo/logo-gov-ce.jpg';
-import jpgISGH from '../../../assets/icons/logo/logo-isgh.jpg';
-import jpgSENAI from '../../../assets/icons/logo/logo-senai.jpg';
-import jpgUFC from '../../../assets/icons/logo/logo-ufc.jpg';
-import jpgUNIFOR from '../../../assets/icons/logo/logo-unifor.jpg';
-import ImageElmo from '../../../assets/images/fig-elmo.jpg';
-import BarraDeStatus from '../../../components/barraDeStatus';
-import { CORES } from '../../../constantes/estiloBase';
+import jpgEsmaltec from '~/assets/icons/logo/logo-esmaltec.jpg';
+import jpgESP from '~/assets/icons/logo/logo-esp.jpg';
+import jpgFIEC from '~/assets/icons/logo/logo-fiec.jpg';
+import jpgFUNCAP from '~/assets/icons/logo/logo-funcap.jpg';
+import jpgGovCe from '~/assets/icons/logo/logo-gov-ce.jpg';
+import jpgISGH from '~/assets/icons/logo/logo-isgh.jpg';
+import jpgSENAI from '~/assets/icons/logo/logo-senai.jpg';
+import jpgUFC from '~/assets/icons/logo/logo-ufc.jpg';
+import jpgUNIFOR from '~/assets/icons/logo/logo-unifor.jpg';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import ImageElmo from '~/assets/images/fig-elmo.jpg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
 import {
   ConteudoLogo,
   Imagem,
@@ -22,10 +23,8 @@ import {
   Texto,
   TextoCentralizado,
   Titulo,
-  ViewLogo
+  ViewLogo,
 } from '../styles';
-
-import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 
 export default function SobreElmo() {
   const navigation = useNavigation();
@@ -35,7 +34,7 @@ export default function SobreElmo() {
       headerStyle: {
         backgroundColor: CORES.INDIGO_DYE,
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
@@ -43,16 +42,15 @@ export default function SobreElmo() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 

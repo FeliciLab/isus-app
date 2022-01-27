@@ -1,31 +1,39 @@
+import { useFocusEffect } from '@react-navigation/native';
 import React, {
-  useState,
   useCallback,
-  useRef,
   useContext,
   useEffect,
+  useRef,
+  useState,
 } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import { postDuvidasElmo } from '../../apis/apiHome';
-import { CORES } from '../../constantes/estiloBase';
-import BarraDeStatus from '../../components/barraDeStatus';
-import Regex from '../../utils/regex';
-import FormContext from '../../context/FormContext';
-import MsgErroFormCampo from '../../components/loginLayout/msgErroFormCampo';
-import { View, BotaoForm, AlertaBar, EntradaTexto } from './sytles';
-import { TESTIDS } from '../../constantes/testIDs';
+import { postDuvidasElmo } from '~/apis/apiHome';
+import BarraDeStatus from '~/components/barraDeStatus';
+import MsgErroFormCampo from '~/components/loginLayout/msgErroFormCampo';
+import { CORES } from '~/constantes/estiloBase';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
+import Regex from '~/utils/regex';
+import { AlertaBar, BotaoForm, EntradaTexto, View } from './sytles';
 
 export default function DuvidasElmoScreen() {
   const { analyticsData } = useAnalytics();
+
   const [sucessoAoEnviar, setSucessoAoEnviar] = useState(false);
+
   const [erroAoEnviar, setErroAoEnviar] = useState(false);
+
   const [mensagemDeErro, setMensagemDeErro] = useState('');
+
   const [carregando, setCarregando] = useState(false);
+
   const [botaoDesabilitado, setBotaoDesabilitado] = useState(false);
+
   const botaoRef = useRef(null);
+
   const duvidaInput = useRef(null);
+
   const emailInput = useRef(null);
 
   const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());

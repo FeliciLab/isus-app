@@ -1,28 +1,20 @@
-import React,
-{
-  useLayoutEffect,
-  useEffect,
-  useContext
-} from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { CORES } from '../../../constantes/estiloBase';
-import { salvarDados, pegarDados } from '../../../services/armazenamento';
-import rotas from '../../../constantes/rotas';
+import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import { pegarCategoriasArquitetura } from '~/apis/apiHome';
+import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
+import { ConteudoContext } from '~/context/ConteudoContext';
+import { pegarDados, salvarDados } from '~/services/armazenamento';
+import randomKey from '~/utils/randomKey';
 import TelaConteudo from '../TelaConteudo';
-import { ConteudoContext } from '../../../context/ConteudoContext';
-import { cabecalhoMenuBusca } from '../../../components/layoutEffect/cabecalhoLayout';
-import { pegarCategoriasArquitetura } from '../../../apis/apiHome';
-import randomKey from '../../../utils/randomKey';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ({ navigation }) {
-  const {
-    titulo,
-    categoria,
-    categorias,
-    alterarCategorias
-  } = useContext(ConteudoContext);
+export default function({ navigation }) {
+  const { titulo, categoria, categorias, alterarCategorias } = useContext(
+    ConteudoContext,
+  );
 
   useEffect(() => {
     pegarCategorias();
@@ -42,11 +34,12 @@ export default function ({ navigation }) {
       }
 
       await alterarCategorias(
-        resposta.data[categoria].map(item => ({ ...item, title_description: titulo }))
+        resposta.data[categoria].map(item => ({
+          ...item,
+          title_description: titulo,
+        })),
       );
-      salvarDados(
-        `@categorias_${categoria}`, resposta.data[categoria]
-      );
+      salvarDados(`@categorias_${categoria}`, resposta.data[categoria]);
     } catch (err) {
       if (err.message === 'Network Error') {
         try {
@@ -67,7 +60,7 @@ export default function ({ navigation }) {
     cabecalhoMenuBusca({
       navegador: navigation,
       titulo,
-      cor: 'verde'
+      cor: 'verde',
     });
   }, []);
 
@@ -80,16 +73,15 @@ export default function ({ navigation }) {
       tabBarOptions={{
         scrollEnabled: true,
         labelStyle: {
-          fontSize: 14
+          fontSize: 14,
         },
         indicatorStyle: { backgroundColor: CORES.BRANCO },
         inactiveTintColor: CORES.PRETO54,
         activeTintColor: CORES.BRANCO,
         style: {
-          backgroundColor: CORES.VERDE
-        }
-      }}
-    >
+          backgroundColor: CORES.VERDE,
+        },
+      }}>
       {categorias.map(item => (
         <Tab.Screen
           options={{ title: item.name }}

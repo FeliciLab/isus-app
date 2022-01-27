@@ -1,45 +1,47 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { Share, Alert } from 'react-native';
-import 'moment/locale/pt-br';
 import { useNetInfo } from '@react-native-community/netinfo';
-
+import 'moment/locale/pt-br';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Alert, Share } from 'react-native';
+import { pegarProjetosPorId } from '~/apis/apiHome';
+import BarraDeStatus from '~/components/barraDeStatus';
+import BarraInferior from '~/components/barraInferior';
+import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import WebView from '~/components/WebView';
+import rotas from '~/constantes/rotas';
 import {
-  salvarDados,
+  converterImagemParaBase64,
   pegarDados,
   removerDados,
-  converterImagemParaBase64
-} from '../../../services/armazenamento';
-import { pegarProjetosPorId } from '../../../apis/apiHome';
-import BarraInferior from '../../../components/barraInferior';
-import formatarDataPorExtenso from '../../../utils/dateUtils';
-import BarraDeStatus from '../../../components/barraDeStatus';
-import rotas from '../../../constantes/rotas';
-import { cabecalhoVoltar } from '../../../components/layoutEffect/cabecalhoLayout';
-import WebView from '../../../components/WebView';
-import wordpress from '../../../services/wordpress';
-import {
-  AreaConteudo,
-  Barra,
-  TextoLateral
-} from './style';
+  salvarDados,
+} from '~/services/armazenamento';
+import wordpress from '~/services/wordpress';
+import formatarDataPorExtenso from '~/utils/dateUtils';
+import { AreaConteudo, Barra, TextoLateral } from './style';
 
-export default function ({ route, navigation }) {
+export default function({ route, navigation }) {
   const { parametros, title } = route.params;
+
   const estaConectado = useNetInfo().isConnected;
+
   const [postagem, alterarPostagem] = useState();
+
   const [visivel, alterarVisibilidade] = useState(false);
+
   const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(!!parametros.offline);
+
+  const [conteudoBaixado, alterarConteudoBaixado] = useState(
+    !!parametros.offline,
+  );
+
   const dataDePostagem = postagem?.post_date || '';
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
       cor: parametros.cor || 'verde',
       titulo: 'Descrição',
-      navegador: navigation
+      navegador: navigation,
     });
   }, []);
-
 
   useEffect(() => {
     if (!estaConectado && estaConectado !== null) {
@@ -56,7 +58,9 @@ export default function ({ route, navigation }) {
 
   const pegarConteudoDoStorage = async () => {
     try {
-      const resposta = await pegarDados(`@categoria_${parametros.categoria_id}_postagem_${parametros.id}`);
+      const resposta = await pegarDados(
+        `@categoria_${parametros.categoria_id}_postagem_${parametros.id}`,
+      );
       alterarPostagem(resposta);
     } catch (err) {
       console.log(`Erro ao pegar conteudo do storage: ${err.message}`);
@@ -74,10 +78,12 @@ export default function ({ route, navigation }) {
 
   const aoCompartilhar = async () => {
     const messagTitle = postagem.post_title;
-    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(postagem.slug);
+    const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(
+      postagem.slug,
+    );
     try {
       await Share.share({
-        message: messagTitle + messagLink
+        message: messagTitle + messagLink,
       });
     } catch (error) {
       console.log(`Erro ao compartilhar: ${error.message}`);
@@ -94,12 +100,8 @@ export default function ({ route, navigation }) {
 
   const informacaoLateral = () => (
     <>
-      <TextoLateral>
-        postado em
-      </TextoLateral>
-      <TextoLateral>
-        {formatarDataPorExtenso(dataDePostagem)}
-      </TextoLateral>
+      <TextoLateral>postado em</TextoLateral>
+      <TextoLateral>{formatarDataPorExtenso(dataDePostagem)}</TextoLateral>
     </>
   );
 
@@ -107,9 +109,15 @@ export default function ({ route, navigation }) {
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
       const postagemOffline = {
-        ...postagem, image: imagembase64, categoria_id: parametros.categoria_id, offline: true
+        ...postagem,
+        image: imagembase64,
+        categoria_id: parametros.categoria_id,
+        offline: true,
       };
-      await salvarDados(`@categoria_${parametros.categoria_id}_postagem_${parametros.id}`, postagemOffline);
+      await salvarDados(
+        `@categoria_${parametros.categoria_id}_postagem_${parametros.id}`,
+        postagemOffline,
+      );
       alterarConteudoBaixado(true);
       alterarPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${title}"`);
@@ -118,15 +126,19 @@ export default function ({ route, navigation }) {
       if (e.message.includes('SQLITE_FULL')) {
         Alert.alert(
           'Não foi possível baixar o conteúdo',
-          'Já estamos trabalhando para que você possa ter mais leituras off-line. '
-          + 'Acompanhe as próximas versões do iSUS.',
-          [{
-            text: 'OK',
-            onPress: () => { }
-          }]
+          'Já estamos trabalhando para que você possa ter mais leituras off-line. ' +
+            'Acompanhe as próximas versões do iSUS.',
+          [
+            {
+              text: 'OK',
+              onPress: () => {},
+            },
+          ],
         );
       } else {
-        mostrarFeedback('Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.');
+        mostrarFeedback(
+          'Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.',
+        );
       }
     }
   };
@@ -135,13 +147,17 @@ export default function ({ route, navigation }) {
     try {
       alterarConteudoBaixado(false);
       mostrarFeedback('A página foi excluida da leitura offline');
-      await removerDados(`@categoria_${parametros.categoria_id}_postagem_${parametros.id}`);
+      await removerDados(
+        `@categoria_${parametros.categoria_id}_postagem_${parametros.id}`,
+      );
     } catch (e) {
-      mostrarFeedback('Não foi possível realizar a ação, Por favor, tente mais tarde.');
+      mostrarFeedback(
+        'Não foi possível realizar a ação, Por favor, tente mais tarde.',
+      );
     }
   };
 
-  const mostrarFeedback = (texto) => {
+  const mostrarFeedback = texto => {
     alterarTextoDoFeedback(texto);
     alterarVisibilidade(true);
     setTimeout(() => {
@@ -153,20 +169,14 @@ export default function ({ route, navigation }) {
     return <></>;
   }
 
-
   return (
     <AreaConteudo>
       <WebView url={wordpress.urlPostagem(postagem.id)} />
-
       <BarraDeStatus
         backgroundColor={parametros.barraStatus}
         barStyle={route.params.estiloBarra}
       />
-
-      <Barra visible={visivel}>
-        {textoDoFeedback}
-      </Barra>
-
+      <Barra visible={visivel}>{textoDoFeedback}</Barra>
       <BarraInferior
         telaDeOrigem="descricao"
         barraVisivel
