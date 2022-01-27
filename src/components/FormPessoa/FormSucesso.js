@@ -1,17 +1,16 @@
-import React, { useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { CORES } from '~/constantes/estiloBase';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import { armazenarEstadoLogado } from '~/services/autenticacao';
 import TelaDeSucesso from '../TelaDeSucesso';
-import { CORES } from '../../constantes/estiloBase';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import { armazenarEstadoLogado } from '../../services/autenticacao';
 
 const FormSucesso = ({ route }) => {
   const navigation = useNavigation();
+
   const { usuario } = route.params;
-  const {
-    alterarDadosUsuario,
-    alterarEstaLogado
-  } = useContext(AutenticacaoContext);
+
+  const { alterarDadosUsuario, alterarEstaLogado } = useAutenticacao();
 
   useEffect(() => {
     alterarDadosUsuario(usuario);

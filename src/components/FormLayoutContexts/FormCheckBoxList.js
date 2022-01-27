@@ -1,30 +1,22 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useCallback
-} from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { List } from 'react-native-paper';
-import FormContext from '../../context/FormContext';
+import FormContext from '~/context/FormContext';
+import randomKey from '~/utils/randomKey';
 import FormCheckboxListItem from './FormCheckboxListItem';
-import randomKey from '../../utils/randomKey';
 
 const TitleText = ({ label }) => (
   <Text
     style={{
       marginTop: 10,
       fontSize: 18,
-      fontWeight: 'bold'
-    }}
-  >
+      fontWeight: 'bold',
+    }}>
     {label || 'Selecione as opções'}
   </Text>
 );
 
-const FormCheckBoxList = ({
-  name, label, data, rules, defaultValue
-}) => {
+const FormCheckBoxList = ({ name, label, data, rules, defaultValue }) => {
   const { register, setValue, getValues } = useContext(FormContext);
   const [placeholder, setPlaceholder] = useState('Selecione as opções');
   const [quantidadeSelecionados, definirQuantidadeSelecionados] = useState(0);
@@ -47,7 +39,7 @@ const FormCheckBoxList = ({
   useEffect(() => {
     if (!data || data.length === 0) return;
     let quantidade = 0;
-    data.forEach((item) => {
+    data.forEach(item => {
       const field = `${name}.${item.value}`;
       register(field, rules);
       setValue(field, defaultValue?.[item.value] || getValues(field) || false);
@@ -60,8 +52,10 @@ const FormCheckBoxList = ({
     definirPlaceholder({ valor: quantidade });
   }, [data]);
 
-  const updateItems = useCallback((check) => {
-    const quantidade = (check ? quantidadeSelecionados + 1 : quantidadeSelecionados - 1);
+  const updateItems = useCallback(check => {
+    const quantidade = check
+      ? quantidadeSelecionados + 1
+      : quantidadeSelecionados - 1;
     definirQuantidadeSelecionados(quantidade);
     definirPlaceholder({ valor: quantidade });
   });
@@ -73,9 +67,7 @@ const FormCheckBoxList = ({
   return (
     <>
       <TitleText label={label} />
-      <List.Accordion
-        title={placeholder}
-      >
+      <List.Accordion title={placeholder}>
         <View>
           {data.map(item => (
             <FormCheckboxListItem

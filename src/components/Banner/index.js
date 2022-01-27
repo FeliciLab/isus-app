@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
-import rotas from '../../constantes/rotas';
-import useAnalytics from '../../hooks/Analytics';
+import rotas from '~/constantes/rotas';
+import useAnalytics from '~/hooks/Analytics';
 import { Cartao, ConteudoImagem, Imagem } from './styles';
 
 const { width } = Dimensions.get('screen');

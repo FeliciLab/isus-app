@@ -1,6 +1,7 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import React from 'react';
 import { Linking, View } from 'react-native';
-import { useNetInfo } from '@react-native-community/netinfo';
+import useAnalytics from '~/hooks/Analytics/index';
 import QualiQuizIcon from '../../assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '../../assets/icons/servicos/servico_1.svg';
 import Servico2 from '../../assets/icons/servicos/servico_2.svg';
@@ -9,13 +10,12 @@ import Servico4 from '../../assets/icons/servicos/servico_4.svg';
 import Servico5 from '../../assets/icons/servicos/servico_5.svg';
 import Servico6 from '../../assets/icons/servicos/servico_6.svg';
 import Servico7 from '../../assets/icons/servicos/servico_7.svg';
-import CartaoHome from './cartaoHome';
-import useAnalytics from '../../hooks/Analytics';
-import estaAtiva from '../../utils/estaAtiva';
+import Carrossel from '../../components/Carrossel';
 import features from '../../constantes/features';
 import ROTAS from '../../constantes/rotas';
+import estaAtiva from '../../utils/estaAtiva';
+import CartaoHome from './cartaoHome';
 import { Titulo } from './styles';
-import Carrossel from '../../components/Carrossel';
 
 function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();

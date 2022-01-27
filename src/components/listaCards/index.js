@@ -2,14 +2,15 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, Linking } from 'react-native';
-import ROTAS from '../../constantes/rotas';
+import ROTAS from '~/constantes/rotas';
 import ItemCard from './itemCard';
 
 export default function ListaCards({ lista }) {
   const navigation = useNavigation();
+
   const netInfo = useNetInfo();
 
-  const onPress = (item) => {
+  const onPress = item => {
     // analyticsData(item.id, 'Click', 'Elmo');
     if (!netInfo.isConnected) {
       if (item.tipo === 'webview') {
@@ -38,7 +39,7 @@ export default function ListaCards({ lista }) {
     if (item.tipo === 'webview') {
       navigation.navigate('webview', {
         title: item.titulo,
-        url: item.valor
+        url: item.valor,
       });
       return;
     }
@@ -60,7 +61,7 @@ export default function ListaCards({ lista }) {
       keyExtractor={(items, index) => `${index}`}
       style={{
         flexDirection: 'row',
-        alignSelf: 'center'
+        alignSelf: 'center',
       }}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => (
