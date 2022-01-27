@@ -3,13 +3,13 @@ import React, { useLayoutEffect } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { WebView } from 'react-native-webview';
-import BarraDeStatus from '../../components/barraDeStatus';
+import BarraDeStatus from '~/components/barraDeStatus';
 
 export default function WebViewPage({
   navigation,
   route,
   mostrarEsqueletoDeCarregamento,
-  esqueletoDeCarregamento
+  esqueletoDeCarregamento,
 }) {
   const navigator = useNavigation();
   const widthView = Dimensions.get('window').width;
@@ -32,7 +32,7 @@ export default function WebViewPage({
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: alterarBackground()
+        backgroundColor: alterarBackground(),
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
@@ -40,7 +40,7 @@ export default function WebViewPage({
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             if (route.params.rota) {
@@ -48,12 +48,11 @@ export default function WebViewPage({
               return;
             }
             navigator.popToTop();
-          }}
-        >
+          }}>
           <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableOpacity>
       ),
-      ...route.params.navigationOptions
+      ...route.params.navigationOptions,
     });
   }, []);
 

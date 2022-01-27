@@ -7,20 +7,20 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, List } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useAnalytics from '~/hooks/useAnalytics';
-import IconeSus30Anos from '../../assets/images/sus_30_anos.png';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import { TESTIDS } from '../../constantes/testIDs';
+import IconeSus30Anos from '~/assets/images/sus_30_anos.png';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
 import {
   TextoSobreESP,
   TextoSobreSESA,
   TextoSobreSUS,
-  TextoSobreSUSCeara,
+  TextoSobreSUSCeara
 } from './textos';
 
 const informacoes = {

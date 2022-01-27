@@ -1,24 +1,27 @@
-import { atualizarUsuarioApi } from '../apis/apiCadastro';
+import { atualizarUsuarioApi } from '~/apis/apiCadastro';
 
 const tratarDadosPessoais = form => ({
   ...form,
   cpf: form.cpf.replace(/\D/g, ''),
   telefone: form.telefone.replace(/\D/g, ''),
-  cidade: form._hidden?.municipios?.find(municipio => municipio.id === form.cidadeId)?.nome,
-  termos: true
+  cidade: form._hidden?.municipios?.find(
+    municipio => municipio.id === form.cidadeId,
+  )?.nome,
+  termos: true,
 });
 
 const tratarDadosProfissionais = form => ({
-  especialidades: Object.keys(form?.especialidades || {})
-    .filter(key => form.especialidades[key])
-    .map(item => JSON.parse(item)) || [],
-  unidadeServico: Object.keys(form?.unidadeServico || {})
-    .filter(key => form.unidadeServico[key])
-    .map(item => JSON.parse(item)) || [],
+  especialidades:
+    Object.keys(form?.especialidades || {})
+      .filter(key => form.especialidades[key])
+      .map(item => JSON.parse(item)) || [],
+  unidadeServico:
+    Object.keys(form?.unidadeServico || {})
+      .filter(key => form.unidadeServico[key])
+      .map(item => JSON.parse(item)) || [],
   categoriaProfissional: JSON.parse(form.categoriaProfissional) || {},
-  termos: true
+  termos: true,
 });
-
 
 const tratarDadosUsuario = (form, options) => {
   if (options?.somentePessoais) {
@@ -29,20 +32,17 @@ const tratarDadosUsuario = (form, options) => {
     return tratarDadosProfissionais(form);
   }
 
-  return ({
+  return {
     ...tratarDadosPessoais(form),
     ...tratarDadosProfissionais(form),
-    termos: true
-  });
+    termos: true,
+  };
 };
 
 export const atualizarUsuario = async (dados, options) => {
   const usuario = {
     ...dados,
-    ...tratarDadosUsuario(
-      dados,
-      options
-    )
+    ...tratarDadosUsuario(dados, options),
   };
 
   delete usuario._hidden;
@@ -56,9 +56,7 @@ export const atualizarUsuario = async (dados, options) => {
 };
 
 export default {
-  atualizarUsuario
+  atualizarUsuario,
 };
 
-export {
-  tratarDadosPessoais
-};
+export { tratarDadosPessoais };
