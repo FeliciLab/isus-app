@@ -10,6 +10,7 @@ import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTrans
 jest.mock('../../../src/utils/analytics', () => ({
   analyticsData: jest.fn()
 }));
+analyticsData();
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
@@ -42,6 +43,7 @@ describe('testes de interface para o menu lateral do app', () => {
 
   test('deve chamar o analytics data ao clicar no item Home no menu lateral', () => {
     const item = fetchByTestId(TESTIDS.DRAWER.ITEM_HOME);
+    console.log(item);
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();
   });
