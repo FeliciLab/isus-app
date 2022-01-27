@@ -1,10 +1,10 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import React from 'react';
-import ManejoClinico from '../../../assets/icons/linhasDeCuidado/manejoClinico.svg';
-import MaternoInfantil from '../../../assets/icons/linhasDeCuidado/maternoInfantil.svg';
-import Protocolos from '../../../assets/icons/linhasDeCuidado/protocolos.svg';
-import Carrossel from '../../../components/Carrossel';
-import rotas from '../../../constantes/rotas';
+import ManejoClinico from '~/assets/icons/linhasDeCuidado/manejoClinico.svg';
+import MaternoInfantil from '~/assets/icons/linhasDeCuidado/maternoInfantil.svg';
+import Protocolos from '~/assets/icons/linhasDeCuidado/protocolos.svg';
+import Carrossel from '~/components/Carrossel';
+import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import CartaoHome from '../cartaoHome';
 import { Titulo } from '../styles';
@@ -24,8 +24,8 @@ export default function LinhasDeCuidado({ navigation }) {
       navegacao: {
         componente: 'webview',
         titulo: 'Manejo Clínico',
-        url: 'https://coronavirus.ceara.gov.br/profissional/manejoclinico/'
-      }
+        url: 'https://coronavirus.ceara.gov.br/profissional/manejoclinico/',
+      },
     },
     {
       id: 'maternoInfantil',
@@ -34,8 +34,8 @@ export default function LinhasDeCuidado({ navigation }) {
       icone: MaternoInfantil,
       labelDoAnalytics: 'materno_infantil',
       navegacao: {
-        componente: rotas.MATERNO_INFANTIL
-      }
+        componente: rotas.MATERNO_INFANTIL,
+      },
     },
     {
       id: 'protocolos',
@@ -46,9 +46,9 @@ export default function LinhasDeCuidado({ navigation }) {
       navegacao: {
         componente: 'webview',
         titulo: 'Protocolos',
-        url: 'https://coronavirus.ceara.gov.br/isus/protocolos/'
-      }
-    }
+        url: 'https://coronavirus.ceara.gov.br/isus/protocolos/',
+      },
+    },
   ];
 
   return (
@@ -69,14 +69,14 @@ export default function LinhasDeCuidado({ navigation }) {
                 return navigation.navigate(item.navegacao.componente, {
                   title: item.navegacao.titulo,
                   url: item.navegacao.url,
-                  expanded: true
+                  expanded: true,
                 });
               }
               return navigation.navigate(rotas.SEM_CONEXAO, {
                 componente: item.navegacao.componente,
                 title: item.navegacao.titulo,
                 url: item.navegacao.url,
-                expanded: true
+                expanded: true,
               });
             }}
           />

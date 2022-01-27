@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import {
-  TouchableOpacity, View, Text, StyleSheet
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Card, Paragraph, ActivityIndicator } from 'react-native-paper';
-import { pegarProjetosPorProfissional } from '../../../apis/apiHome';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Card, Paragraph } from 'react-native-paper';
+import { pegarProjetosPorProfissional } from '~/apis/apiHome';
+import Carrossel from '~/components/Carrossel';
 import CartaoDeConteudo from './CartaoDeConteudo';
-import Carrossel from '../../../components/Carrossel';
 
 function MeusConteudos() {
   const navigation = useNavigation();
-  const [conteudos, alterarConteudos] = useState([]);
-  const [carregados, alterarCarregamento] = useState(false);
+
+  const [conteudos, setConteudos] = useState([]);
+
+  const [isLoading, setIsloading] = useState(false);
 
   const aoIniciar = async () => {
     try {
-      alterarCarregamento(true);
+      setIsloading(true);
       const resposta = await pegarProjetosPorProfissional();
       console.log('resposta', resposta.data);
-      alterarConteudos(resposta.data.projetosDoProfissional);
-      alterarCarregamento(false);
+      setConteudos(resposta.data.projetosDoProfissional);
     } catch (err) {
       console.log(err);
-      alterarCarregamento(false);
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -46,9 +46,13 @@ function MeusConteudos() {
     return (
       <Card elevation={4} style={estilos.cardSemConteudo}>
         <Paragraph style={estilos.paragrafoSemConteudo}>
-          Ainda não temos conteúdo específico para sua área, mas se você acha que isso é importante,
-          {' '}
-          <Text style={estilos.link} onPress={() => navigation.navigate('FEEDBACK')}>Fale Conosco.</Text>
+          Ainda não temos conteúdo específico para sua área, mas se você acha
+          que isso é importante,{' '}
+          <Text
+            style={estilos.link}
+            onPress={() => navigation.navigate('FEEDBACK')}>
+            Fale Conosco.
+          </Text>
         </Paragraph>
       </Card>
     );
@@ -61,16 +65,13 @@ function MeusConteudos() {
         {conteudos && conteudos.length > 0 && (
           <TouchableOpacity
             style={estilos.conteudoVerMais}
-            onPress={() => navigation.navigate('MeusConteudos', { conteudos })}
-          >
-            <Text style={estilos.verMais}>
-              Ver mais
-            </Text>
+            onPress={() => navigation.navigate('MeusConteudos', { conteudos })}>
+            <Text style={estilos.verMais}>Ver mais</Text>
           </TouchableOpacity>
         )}
       </View>
       <View style={estilos.listaDeConteudo}>
-        {!carregados ? <ListaDeConteudo /> : <ActivityIndicator />}
+        {isLoading ? <ActivityIndicator /> : <ListaDeConteudo />}
       </View>
     </>
   );
@@ -82,12 +83,12 @@ const estilos = StyleSheet.create({
     marginTop: 24,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
-  fontText:{
+  fontText: {
     fontWeight: '500',
     fontSize: 20,
-    color: 'rgba(0, 0, 0, 0.6)'
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   conteudoVerMais: {
     alignSelf: 'center',
@@ -100,7 +101,6 @@ const estilos = StyleSheet.create({
     letterSpacing: 0.75,
     textTransform: 'uppercase',
     color: '#FF9800',
-
   },
   cardSemConteudo: {
     margin: 16,
@@ -109,10 +109,10 @@ const estilos = StyleSheet.create({
   paragrafoSemConteudo: {
     textAlign: 'center',
     fontSize: 14,
-    color: 'rgba(0, 0, 0, 0.6)'
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   listaDeConteudo: {
-    marginBottom: 24
+    marginBottom: 24,
   },
   link: {
     fontWeight: 'bold',
@@ -121,8 +121,8 @@ const estilos = StyleSheet.create({
   carrossel: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+  },
 });
 
 export default MeusConteudos;

@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import BannerCarrossel from './BannerCarrossel';
-import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
+import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 import listaBanners from './listaDeBanners';
 import { ActivityIndicator } from 'react-native';
-import { CORES } from '../../../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
 
 const Banners = ({ sliderWidth, itemWidth }) => {
   const [banners, setBanners] = useState([]);

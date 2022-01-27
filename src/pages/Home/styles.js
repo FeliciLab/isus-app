@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { Title } from 'react-native-paper';
+import styled from 'styled-components/native';
 
 export const Titulo = styled(Title)`
   margin: 0 16px 0 16px;
