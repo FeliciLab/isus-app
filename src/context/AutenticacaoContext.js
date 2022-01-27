@@ -1,28 +1,28 @@
 import React, { createContext, useState } from 'react';
-import Pessoa from '../models/pessoa';
+import Pessoa from '~/models/pessoa';
 
 const AutenticacaoContext = createContext();
 
 const AutenticacaoProvider = ({
   valoresIniciais,
   pessoaAutenticada,
-  children
+  children,
 }) => {
   const [dadosUsuario, alterarDadosUsuario] = useState({});
 
   const [pessoa, definirPessoa] = useState(pessoaAutenticada || {});
 
   const [tokenUsuario, alterarTokenUsuario] = useState(
-    valoresIniciais?.tokenAutenticacao || false
+    valoresIniciais?.tokenAutenticacao || false,
   );
 
   const [estaLogado, alterarEstaLogado] = useState(
-    valoresIniciais?.estaLogade || false
+    valoresIniciais?.estaLogade || false,
   );
 
   const alterarPessoa = dados => {
     definirPessoa({
-      ...Pessoa.criar(dados)
+      ...Pessoa.criar(dados),
     });
   };
 
@@ -36,9 +36,8 @@ const AutenticacaoProvider = ({
         estaLogado,
         alterarEstaLogado,
         pessoa,
-        alterarPessoa
-      }}
-    >
+        alterarPessoa,
+      }}>
       {children}
     </AutenticacaoContext.Provider>
   );
