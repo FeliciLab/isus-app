@@ -1,39 +1,39 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CORES } from '../../constantes/estiloBase';
-import rotas from '../../constantes/rotas';
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 
 const estiloCores = {
   verde: {
     corFundo: CORES.VERDE,
-    corTexto: CORES.BRANCO
+    corTexto: CORES.BRANCO,
   },
   roxo: {
     corFundo: CORES.ROXO,
-    corTexto: CORES.BRANCO
+    corTexto: CORES.BRANCO,
   },
   branco: {
     corFundo: CORES.BRANCO,
-    corTexto: CORES.VERDE
+    corTexto: CORES.VERDE,
   },
   brancoPreto: {
     corFundo: CORES.BRANCO,
-    corTexto: CORES.PRETO
+    corTexto: CORES.PRETO,
   },
   pretoBranco: {
     corFundo: CORES.PRETO,
-    corTexto: CORES.BRANCO
+    corTexto: CORES.BRANCO,
   },
   azul: {
     corFundo: CORES.AZUL,
-    corTexto: CORES.BRANCO
+    corTexto: CORES.BRANCO,
   },
   indigo: {
     corFundo: CORES.INDIGO_DYE,
-    corTexto: CORES.BRANCO
-  }
+    corTexto: CORES.BRANCO,
+  },
 };
 
 const TouchableSearch = ({ navegador, cor }) => (
@@ -41,8 +41,7 @@ const TouchableSearch = ({ navegador, cor }) => (
     style={{ marginHorizontal: 19 }}
     onPress={() => {
       navegador.navigate('Buscar');
-    }}
-  >
+    }}>
     <Icon name="magnify" size={28} color={cor} />
   </TouchableOpacity>
 );
@@ -52,8 +51,7 @@ const TouchableMenu = ({ navegador, cor }) => (
     style={{ marginHorizontal: 19 }}
     onPress={() => {
       navegador.toggleDrawer();
-    }}
-  >
+    }}>
     <Icon name="menu" size={28} color={cor} />
   </TouchableOpacity>
 );
@@ -63,8 +61,7 @@ const TouchableGoBack = ({ navegador, cor }) => (
     style={{ marginHorizontal: 19 }}
     onPress={() => {
       navegador.goBack();
-    }}
-  >
+    }}>
     <SetaEsquerda />
     <Icon color={cor} />
   </TouchableOpacity>
@@ -75,10 +72,9 @@ const TouchableGoHome = ({ navegador, cor }) => (
     style={{ marginHorizontal: 19 }}
     onPress={() => {
       navegador.navigate(rotas.HOME, { screen: 'Home' });
-    }}
-  >
+    }}>
     <SetaEsquerda />
-    <Icon  color={cor} />
+    <Icon color={cor} />
   </TouchableOpacity>
 );
 
@@ -87,10 +83,9 @@ const TouchableGoRoute = ({ navegador, cor, rota }) => (
     style={{ marginHorizontal: 19 }}
     onPress={() => {
       navegador.navigate(rota);
-    }}
-  >
+    }}>
     <SetaEsquerda />
-    <Icon  color={cor} />
+    <Icon color={cor} />
   </TouchableOpacity>
 );
 
@@ -98,11 +93,11 @@ export const getOptions = ({ titulo, cor }) => ({
   headerStyle: {
     backgroundColor: estiloCores[cor].corFundo,
     elevation: 0,
-    shadowOpacity: 0
+    shadowOpacity: 0,
   },
   headerTintColor: estiloCores[cor].corTexto,
   headerTitleAlign: 'center',
-  headerTitle: titulo
+  headerTitle: titulo,
 });
 
 export const cabecalhoMenuBusca = ({ navegador, titulo, cor }) =>
@@ -113,7 +108,7 @@ export const cabecalhoMenuBusca = ({ navegador, titulo, cor }) =>
     ),
     headerLeft: () => (
       <TouchableMenu navegador={navegador} cor={estiloCores[cor].corTexto} />
-    )
+    ),
   });
 
 export const cabecalhoMenu = ({ navegador, titulo, cor }) =>
@@ -121,7 +116,7 @@ export const cabecalhoMenu = ({ navegador, titulo, cor }) =>
     ...getOptions({ titulo, cor }),
     headerLeft: () => (
       <TouchableMenu navegador={navegador} cor={estiloCores[cor].corTexto} />
-    )
+    ),
   });
 
 export const cabecalhoVoltar = ({ navegador, titulo, cor }) =>
@@ -129,7 +124,7 @@ export const cabecalhoVoltar = ({ navegador, titulo, cor }) =>
     ...getOptions({ titulo, cor }),
     headerLeft: () => (
       <TouchableGoBack navegador={navegador} cor={estiloCores[cor].corTexto} />
-    )
+    ),
   });
 
 export const cabecalhoVoltarHome = ({ navegador, titulo, cor }) =>
@@ -137,7 +132,7 @@ export const cabecalhoVoltarHome = ({ navegador, titulo, cor }) =>
     ...getOptions({ titulo, cor }),
     headerLeft: () => (
       <TouchableGoHome navegador={navegador} cor={estiloCores[cor].corTexto} />
-    )
+    ),
   });
 
 export const cabecalhoVoltarRota = ({ navegador, titulo, cor, rota }) =>
@@ -149,18 +144,18 @@ export const cabecalhoVoltarRota = ({ navegador, titulo, cor, rota }) =>
         cor={estiloCores[cor].corTexto}
         rota={rota}
       />
-    )
+    ),
   });
 
 export const getOptionsCabecalhoSemBotao = ({ titulo, cor }) => ({
   ...getOptions({ titulo, cor }),
   headerLeft: () => {},
-  headerRight: () => {}
+  headerRight: () => {},
 });
 
 export const cabecalhoSemBotao = ({ navegador, titulo, cor }) =>
   navegador.setOptions({
     ...getOptions({ titulo, cor }),
     headerLeft: () => {},
-    headerRight: () => {}
+    headerRight: () => {},
   });

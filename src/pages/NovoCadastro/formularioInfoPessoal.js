@@ -1,3 +1,4 @@
+import NetInfo from '@react-native-community/netinfo';
 import React, {
   useContext,
   useEffect,
@@ -5,37 +6,36 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { DefaultTheme } from 'react-native-paper';
 import { Alert } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
+import { DefaultTheme } from 'react-native-paper';
 import TextInputMask from 'react-native-text-input-mask';
-import NetInfo from '@react-native-community/netinfo';
-import {
-  emailValido,
-  cpfValido,
-  nomeValido,
-  emailNaoCadastrado,
-  cpfNaoCadastrado,
-} from '../../utils/validadores';
-import { getMunicipiosCeara } from '../../apis/apiCadastro';
-import { salvarDados } from '../../services/armazenamento';
-import {
-  Titulo,
-  Scroll,
-  TituloDoFormulario,
-  CampoDeTexto,
-  TextoDeErro,
-  Botao,
-  ConteudoDropdown,
-  IconeDropdown,
-} from './styles';
-import BarraDeStatus from '../../components/barraDeStatus';
+import { getMunicipiosCeara } from '~/apis/apiCadastro';
+import BarraDeStatus from '~/components/barraDeStatus';
 import {
   cabecalhoSemBotao,
   cabecalhoVoltar,
-} from '../../components/layoutEffect/cabecalhoLayout';
+} from '~/components/layoutEffect/cabecalhoLayout';
+import FormContext from '~/context/FormContext';
+import { salvarDados } from '~/services/armazenamento';
+import {
+  cpfNaoCadastrado,
+  cpfValido,
+  emailNaoCadastrado,
+  emailValido,
+  nomeValido,
+} from '~/utils/validadores';
+import {
+  Botao,
+  CampoDeTexto,
+  ConteudoDropdown,
+  IconeDropdown,
+  Scroll,
+  TextoDeErro,
+  Titulo,
+  TituloDoFormulario,
+} from './styles';
 import textos from './textos.json';
-import FormContext from '../../context/FormContext';
 
 export default function FormularioInfoPessoal({ navigation }) {
   const dropdown = useRef();

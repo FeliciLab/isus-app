@@ -6,61 +6,66 @@ import {
   FlatList,
   Linking,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { pegarProjetosPorCategoria } from '../../apis/apiHome';
-import elmoPatternBG from '../../assets/backgrounds/elmo_pattern.png';
-import SvgCapacitacao from '../../assets/icons/elmo/icon_capacitacao.svg';
-import SvgFaleConosco from '../../assets/icons/elmo/icon_fale_conosco.svg';
-import SvgManualUso from '../../assets/icons/elmo/icon_manual_uso.svg';
-import SvgElmoLogo from '../../assets/icons/logo/logo-elmo-h1.svg';
-import BarraDeStatus from '../../components/barraDeStatus';
-import { CORES } from '../../constantes/estiloBase';
-import features from '../../constantes/features';
-import ROTAS from '../../constantes/rotas';
-import estaAtiva from '../../utils/estaAtiva';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { pegarProjetosPorCategoria } from '~/apis/apiHome';
+import elmoPatternBG from '~/assets/backgrounds/elmo_pattern.png';
+import SvgCapacitacao from '~/assets/icons/elmo/icon_capacitacao.svg';
+import SvgFaleConosco from '~/assets/icons/elmo/icon_fale_conosco.svg';
+import SvgManualUso from '~/assets/icons/elmo/icon_manual_uso.svg';
+import SvgElmoLogo from '~/assets/icons/logo/logo-elmo-h1.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
+import features from '~/constantes/features';
+import ROTAS from '~/constantes/rotas';
+import estaAtiva from '~/utils/estaAtiva';
 import CartaoHome from '../Home/cartaoHome';
-import CartaoDeConteudo from '../Home/MeusConteudos/CartaoDeConteudo';
-import ListaCardsElmo from './listaCardsElmo';
+import CardNewsElmo from './CardNewsElmo';
+import ListaCardsElmo from './ListaCardsElmo';
 import {
   BackgroundImage,
   BotaoLink,
   CardSemConteudo,
   Container,
   Hyperlink,
+  NovidadesTitle,
   ScrollView,
   SvgView,
   Texto,
-  TituloH6
+  TituloH6,
 } from './styles';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function Elmo() {
   const navigation = useNavigation();
+
   const netInfo = useNetInfo();
-  const [conteudos, alterarConteudos] = useState([]);
-  const [carregados, alterarCarregamento] = useState(false);
+
+  const [conteudos, setConteudos] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const aoIniciar = async () => {
-    alterarCarregamento(true);
+    setIsLoading(true);
     let vetorTemp = [];
+
     try {
       const resposta = await pegarProjetosPorCategoria(100744);
 
-      alterarConteudos(resposta.data.data);
+      setConteudos(resposta.data.data);
+
       vetorTemp = resposta.data.data;
-      alterarCarregamento(false);
+
+      setIsLoading(false);
 
       const categoriasProjetos = await pegarProjetosPorCategoria(2004);
 
-      alterarConteudos([...vetorTemp, ...categoriasProjetos.data.data]);
+      setConteudos([...vetorTemp, ...categoriasProjetos.data.data]);
     } catch (err) {
       console.log(err);
     } finally {
-      alterarCarregamento(false);
+      setIsLoading(false);
     }
   };
 
@@ -75,7 +80,7 @@ function Elmo() {
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
     return () => {
       backHandler.remove();
@@ -86,7 +91,7 @@ function Elmo() {
     navigation.setOptions({
       headerStyle: {
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTransparent: true,
       headerTintColor: CORES.BRANCO,
@@ -95,16 +100,15 @@ function Elmo() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.popToTop();
-          }}
-        >
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
+          }}>
+          {/* <SetaEsquerda /> */}
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -117,8 +121,8 @@ function Elmo() {
       navegacao: {
         componente: ROTAS.CAPACITACAO_ELMO,
         titulo: 'Elmo',
-        background: CORES.INDIGO_DYE
-      }
+        background: CORES.INDIGO_DYE,
+      },
     },
     {
       id: 'elmo-manual-uso',
@@ -128,8 +132,8 @@ function Elmo() {
       navegacao: {
         componente: 'browser',
         url:
-          'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf'
-      }
+          'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
+      },
     },
     {
       id: 'elmo-fale-conosco',
@@ -137,9 +141,9 @@ function Elmo() {
       ativo: true,
       icone: SvgFaleConosco,
       navegacao: {
-        componente: ROTAS.DUVIDAS_ELMO
-      }
-    }
+        componente: ROTAS.DUVIDAS_ELMO,
+      },
+    },
   ];
 
   const ListaDeConteudo = () => {
@@ -148,19 +152,13 @@ function Elmo() {
         <FlatList
           horizontal
           data={conteudos.slice(0, 4)}
-          keyExtractor={(items, index) => `${index}`}
+          keyExtractor={(items, index) => `ListaDeConteudo-${index}`}
           style={{
             flexDirection: 'row',
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
           showsHorizontalScrollIndicator={false}
-          renderItem={conteudo => (
-            <CartaoDeConteudo
-              conteudo={conteudo}
-              cor={CORES.INDIGO_DYE}
-              estiloBarra="dark-white"
-            />
-          )}
+          renderItem={({ item }) => <CardNewsElmo post={item} />}
         />
       );
     }
@@ -177,7 +175,7 @@ function Elmo() {
     );
   };
 
-  const onPress = item => {
+  const handleOnPressCartoHome = item => {
     // analyticsData(item.id, 'Click', 'Elmo');
     if (item.navegacao.net && !netInfo.isConnected) {
       navigation.navigate(ROTAS.SEM_CONEXAO);
@@ -193,8 +191,8 @@ function Elmo() {
       title: item.navegacao.titulo,
       url: item.navegacao.url,
       headerStyle: {
-        backgroundColor: item.navegacao.background
-      }
+        backgroundColor: item.navegacao.background,
+      },
     });
   };
 
@@ -212,16 +210,16 @@ function Elmo() {
         </BackgroundImage>
         <Container>
           <Texto>
-            {
-              'O Elmo é um capacete de respiração assistida genuinamente cearense, não-invasivo e mais seguro para profissionais de saúde e pacientes. Criado em abril de 2020, o equipamento surgiu como um novo passo para o tratamento de pacientes com insuficiência respiratória aguda hipoxêmica, um dos efeitos da Covid-19.'
-            }
+            O Elmo é um capacete de respiração assistida genuinamente cearense,
+            não-invasivo e mais seguro para profissionais de saúde e pacientes.
+            Criado em abril de 2020, o equipamento surgiu como um novo passo
+            para o tratamento de pacientes com insuficiência respiratória aguda
+            hipoxêmica, um dos efeitos da Covid-19.
           </Texto>
         </Container>
         <BotaoLink
           color={CORES.LARANJA}
-          marginTop={12}
-          onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}
-        >
+          onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}>
           Saiba Mais
         </BotaoLink>
         {estaAtiva(features.LISTA_CARDS) ? (
@@ -233,7 +231,7 @@ function Elmo() {
             keyExtractor={(items, index) => `${index}`}
             style={{
               flexDirection: 'row',
-              alignSelf: 'center'
+              alignSelf: 'center',
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
@@ -243,25 +241,26 @@ function Elmo() {
                 ativo={item.ativo}
                 titulo={item.titulo}
                 Icone={item.icone}
-                onPress={() => onPress(item)}
+                onPress={() => handleOnPressCartoHome(item)}
               />
             )}
           />
         )}
         <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <TituloH6> Novidades </TituloH6>
-          <BotaoLink
-            color={CORES.LARANJA}
-            marginTop={20}
-            onPress={() =>
-              navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
-            }
-          >
-            Veja Mais
-          </BotaoLink>
+          <NovidadesTitle>
+            <TituloH6>Novidades</TituloH6>
+            <BotaoLink
+              color={CORES.LARANJA}
+              marginTop={20}
+              onPress={() =>
+                navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
+              }>
+              Veja Mais
+            </BotaoLink>
+          </NovidadesTitle>
         </View>
         <View style={{ marginTop: 20, marginBottom: 12 }}>
-          {!carregados ? <ListaDeConteudo /> : <ActivityIndicator />}
+          {!isLoading ? <ListaDeConteudo /> : <ActivityIndicator />}
         </View>
       </ScrollView>
     </>

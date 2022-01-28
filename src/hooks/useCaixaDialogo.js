@@ -1,13 +1,13 @@
-import { useContext } from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import { CORES } from '../../constantes/estiloBase';
+import { useContext } from 'react';
+import { CORES } from '~/constantes/estiloBase';
+import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 
 const useCaixaDialogo = () => {
   const netInfo = useNetInfo();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
-    CaixaDialogoContext
+    CaixaDialogoContext,
   );
 
   const SemConexao = ({ acaoConcluir }, tentativa) => {
@@ -27,7 +27,7 @@ const useCaixaDialogo = () => {
         },
         aoCancelar: () => {
           fecharCaixaDialogo();
-        }
+        },
       });
     }
     return tentativa;

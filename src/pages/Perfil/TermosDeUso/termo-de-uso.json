@@ -8,140 +8,139 @@
     "A sua relação com o iSUS inclui estes Termos, a nossa Política de Privacidade, que pode ser encontrada no iSUS, e quaisquer outros termos adicionais que regulamentem ou venham a regulamentar os serviços ofertados pela plataforma.",
     "Ao baixar o aplicativo iSUS Você garante, de forma expressa, que é maior de 16 anos e é plenamente capaz (capacidade civil plena se inicia aos 18 anos) ou, sendo menor de 16 anos, que está devidamente autorizado por seus pais ou representantes legais, nos termos da legislação vigente, para exercer e gozar de todos os serviços ofertados.",
     "Ao utilizar o iSUS você declara estar ciente e de acordo, de maneira inequívoca, com todo o conteúdo destes Termos e Condições de Uso."
-    ],
-    "secoes": [
-
-      {
-        "titulo": "DEFINIÇÕES",
-        "paragrafos": [
-          "\"iSUS\": é uma iniciativa da Escola de Saúde Pública do Ceará (ESP).",
-          "\"Você\": é o usuário do iSUS.",
-          "\"Dados\": o conjunto de Dados Anonimizados e Dados Pessoais.",
-          "\"Dados Anonimizados\": são informações que, isoladamente ou em conjunto com outros Dados Anonimizados, não permitem a identificação de uma pessoa, considerando a utilização de meios técnicos razoáveis e disponíveis na ocasião de seu tratamento. Podem incluir gênero, idade e geolocalização generalizada (como a cidade em que se encontra) e dados estatísticos.",
-          "\"Dados Pessoais\": são informações relacionadas à pessoa natural identificada ou identificável. Podem incluir nome, endereço, e-mail, telefone, número de cartão de débito/crédito, endereço IP e dados de geolocalização.",
-          "\"Dados do(s) Usuário(s)\" significa todos e quaisquer dados e informações tratados pelo iSUS, incluindo, sem limitação, os dados pessoais dos Usuários necessários para melhor funcionamento da plataforma.",
-          "\"Usuário\": significa a pessoa física ou representante, preposto ou funcionário autorizado de pessoa jurídica que efetivamente utiliza o iSUS.",
-          "\"Serviços Ofertados\" ou \"Serviços\": significa todos os serviços ofertados pelo iSUS."
-        ]
-      },
-      {
-        "titulo": "ACEITAÇÃO DOS TERMOS E CONDIÇÕES DE USO",
-        "paragrafos": [
-          "O iSUS fornece ao Usuário, sujeito aos Termos de uso aqui descritos, diversos serviços. O iSUS nasceu no contexto da pandemia de covid-19, que nos convocou a produzir soluções rápidas e eficazes de apoio aos trabalhadores e gestores da saúde.",
-          "Os Serviços Ofertados somente estarão disponíveis aos Usuários que aderirem aos Termos e Condições de Uso aqui descritos e na Política de Privacidade do iSUS. Ao acessar e utilizar o iSUS Você manifesta concordância integral com as disposições destes Termos, de forma expressa, livre, voluntária, irrevogável e irretratável, declarando estar ciente de todo o seu conteúdo, tendo lido, entendido e aceitado todas as regras, condições e obrigações aqui estabelecidas.",
-          "O Usuário deverá ler, entender e concordar expressamente (ou manifestar ciência, quando for o caso) a todos os manuais, regras, políticas e contratos em vigor aplicáveis ao Serviço antes de efetivamente utilizá-lo. Fica reservado ao iSUS o direito de instituir novas diretrizes em tais instrumentos, visando ao aprimoramento, a melhoria dos Serviços Ofertados, ou a incrementação de novas funções e recursos para assegurar a operacionalidade ou a segurança dos Serviços Ofertados, que serão devidamente divulgadas ao Usuário.",
-          "Qualquer nova versão dos Termos entrará em vigor a partir do momento em que for publicada. Os Usuários serão informados com antecedência acerca da nova versão dos Termos, por meio de notificação e/ou e-mail, sendo que a continuidade de utilização dos Serviços Ofertados implica na aceitação, por parte do Usuário, das novas disposições."
-        ]
-      },
-      {
-        "titulo": "SOBRE OS SERVIÇOS DO iSUS",
-        "paragrafos": [
-          "Os Serviços prestados consistem na disponibilização do iSUS aos Usuários que aderiram ao presente Termos e Condições de Uso e Política de Privacidade.",
-          "Os Serviços Ofertados não incluem acesso à Internet. Desta forma, será de integral e exclusiva responsabilidade do Usuário obter, de forma independente e às suas custas, o equipamento, softwares e os serviços necessários para garantir sua conexão à Internet e ao iSUS.",
-          "Os Serviços Ofertados poderão incluir links que remetem à página de Internet, conteúdos ou recursos de terceiros, que não estão sob o controle do iSUS. Em razão disto, o Usuário reconhece e concorda expressamente que o iSUS não terá qualquer responsabilidade sobre referidas páginas, conteúdos ou recursos de terceiros."
-        ]
-      },
-      {
-        "titulo": "SUPORTE TÉCNICO REFERENTE AO SERVIÇO",
-        "paragrafos": [
-          "O Usuário entende e expressamente concorda que o objeto deste Contrato não dá ao Usuário direito à suporte, assistência, atendimento ou qualquer outra forma de auxílio técnico com relação aos Serviços Ofertados. A utilização do Serviço será de inteiro risco do Usuário, sendo que o iSUS apenas concorda em fornecê-lo. O único suporte técnico a que o Usuário terá acesso será as instruções sobre como utilizar o Serviço, contidas no iSUS, sem que isso gere qualquer ônus ao iSUS."
-        ]
-      },
-      {
-        "titulo": "OBRIGAÇÕES E RESPONSABILIDADES DO USUÁRIO",
-        "paragrafos": [
-          "O Usuário assume integralmente todos os ônus e responsabilidades decorrentes de seus atos no iSUS, respondendo, ainda, pelos atos praticados por terceiros que se valerem do uso seu aplicativo.",
-          "O Usuário deverá indenizar o iSUS ou terceiros por quaisquer ações ou omissões que causem prejuízos advindos do descumprimento das regras estabelecidas nestes Termos, nas demais diretrizes e políticas do iSUS ou constantes da lei vigente.",
-          "O Usuário concorda em indenizar o iSUS por todo e qualquer dano ou perda que possa eventualmente surgir decorrente do seu acesso e uso do Aplicativo ou por qualquer demanda promovida por outros Usuários ou terceiros decorrentes da violação de qualquer cláusula destes Termos, de outras políticas e regras estabelecidas pelo iSUS, ou da legislação vigente.",
-          "Ao usufruir os Serviços Ofertados, o Usuário compromete-se a:",
-          "Manter os Dados Cadastrais atualizados e verídicos;",
-          "Manter sob proteção o acesso ao Aplicativo;",
-          "Não veicular conteúdos considerados ofensivos, abusivos, difamatórios, pornográficos, ameaçadores, obscenos, ilegais, ou que se destinem a promover ou cometer ato ilegal de qualquer natureza, que incluam conteúdo malicioso, tais como vírus, cavalos de Troia ou malwares, ou que de qualquer forma interfiram no acesso de qualquer Usuário aos Serviços Ofertados;",
-          "Não agredir, caluniar, injuriar ou difamar outros Usuários;",
-          "É maior de 18 anos, e gozando de plena capacidade nos termos da lei, caso seja pessoa física, ou, sendo menor de 16 anos, que está devidamente autorizado por seus pais ou representantes legais, nos termos da legislação vigente, para exercer e gozar (gozo se refere a uso de sua propriedade) de todos os serviços ofertados;",
-          "Possui poderes para assumir compromissos e obrigações em nome da empresa, na forma de seu contrato social, e que a adesão aos Serviços não viola qualquer obrigação a qual tenha assumido anteriormente, caso seja representante de pessoa jurídica;",
-          "Não utilizará os Serviços para fins ilegais, ilegítimos ou que contrariem a moral e a boa-fé objetiva;",
-          "Não utilizará os Serviços para se engajar em atividade comercial, o que inclui, mas não se limita, a oferecer qualquer tipo de produto para venda, procurar anunciantes e patrocinadores e inserir banners de qualquer tipo;",
-          "Não veiculará informação sobre atividades ilegais e de incitação ao crime ou que ponham em risco a saúde ou integridade física do Usuário ou de terceiros;",
-          "Não divulgará mensagens, páginas criptografadas ou protegidas por senhas;",
-          "Não veiculará informação relativa à pirataria de software;",
-          "Não divulgará material protegido por direitos autorais ou por sigilo confidencial sem a autorização dos seus titulares, incluindo fotos, textos e programas de computador, além de outros;",
-          "Não se fará passar por outra pessoa, empresa ou instituição;",
-          "Não tratará dados pessoais de demais Usuários da plataforma;",
-          "Não veiculará páginas ou imagens ocultas;",
-          "Não modificará, adaptará, traduzirá ou fará engenharia reversa, no todo ou em parte, de Software utilizado pelo iSUS ou por parceiro na prestação dos Serviços;",
-          "Não transmitirá qualquer material que viole direitos de terceiro, incluindo direitos de propriedade intelectual;",
-          "Não enviará mensagens não solicitadas, reconhecidas como “spam”, “junk mail” ou correntes de correspondência (“chain letters”);",
-          "Não utilizará tais Serviços para, diretamente, enviar vírus ou, de maneira indireta, enviar arquivos contendo vírus (“Cavalos de Tróia”), ou outros, de qualquer natureza, ou, de modo geral, enviar conteúdo que possa causar danos ao destinatário e/ou a terceiros;",
-          "Não praticará atos que violem a lei, seja no âmbito local, estadual, nacional ou internacional, aplicável ao caso concreto;",
-          "Não obterá ou tentará obter acesso não autorizado a outros sistemas ou redes de computadores conectados ao Serviço;",
-          "Será o único responsável pelo conteúdo que transmitir ou retransmitir, bem como pelo conteúdo e informações que disponibilizar no site relacionado ao Serviço;",
-          "Não interferirá ou interromperá os Serviços, os servidores ou as redes a eles conectados;",
-          "Cumprirá todos os requerimentos, procedimentos, políticas, e regulamentos de redes conectadas aos Serviços;",
-          "Reconhece que o presente contrato se formaliza, vinculando as partes, através da assinatura eletrônica do usuário, que se dará pelo clique no checkbox com o texto “Eu estou de acordo com os termos de uso”;",
-          "Leu e está ciente e de pleno acordo com todos os termos e condições deste instrumento;",
-          "Os pais ou os representantes legais do menor de idade responderão pelos atos por ele praticados caso porventura venha a utilizar, irregularmente, os Serviços objeto deste instrumento, dentre os quais eventuais danos causados a terceiros e pela prática de atos vedados por lei ou pelas disposições deste contrato; e",
-          "Não poderá usar o Serviço como local de armazenamento para download remoto de arquivos por múltiplos usuários.",
-          "O Usuário reconhece que o Serviço é fornecido na forma como está disponibilizado e que o iSUS não é (e nem será) responsável pela exclusão, não entrega ou falha no arquivamento de qualquer dado ou informação cadastrada pelo Usuário.",
-          "O Usuário reconhece que o Serviço é fornecido da forma em que estiver disponível, sem garantias de performance ou alcance de resultados específicos. O iSUS envidará os melhores esforços para que o Serviço funcione da melhor maneira possível. No entanto, considerando a própria natureza do Serviço, as garantias fornecidas pelo iSUS são limitadas.",
-          "O Usuário expressamente declara e compromete-se a não levar a cabo atividades que interfiram, interrompam ou danifiquem o Serviço (ou os servidores, equipamentos e as redes que estejam relacionados com o Serviço, sejam do iSUS ou de terceiros) ou os documentos, arquivos e toda classe de conteúdo armazenados nos equipamentos informáticos (“hacking”).",
-          "O Usuário compromete-se a utilizar os Serviços em conformidade com a lei, a moral e os bons costumes, observando, ainda, todos os termos e condições contidos no presente Termo de Uso e nos demais documentos a que aderiu ou manifestou ciência. O Usuário compromete-se, ainda, a abster-se de utilizá-lo com objetivos ou efeitos ilícitos, lesivos aos direitos e interesses de terceiros.",
-          "A ESP/CE não garante, declara, nem assegura que este aplicativo esteja livre de perda, interrupção, ataque, vírus, interferência, pirataria ou outra invasão de segurança e isenta-se de qualquer responsabilidade em relação a essas questões. O Usuário é responsável pelo backup do seu próprio dispositivo.",
-          "Em hipótese alguma a ESP/CE responsabilizar-se-á por perdas ou danos causados pelo uso do aplicativo."
-        ]
-      },
-      {
-        "titulo": "SANÇÕES",
-        "paragrafos": [
-          "Sem prejuízo de outras medidas cabíveis, o iSUS poderá advertir, suspender e/ou cancelar, temporária ou definitivamente, a conta de um Usuário, bem como excluir ou censurar conteúdos veiculados por este no Aplicativo, iniciando as ações legais cabíveis e/ou cancelando a prestação dos Serviços Ofertados se:",
-          "O Usuário descumprir as cláusulas destes Termos, as demais políticas do iSUS ou a legislação vigente;",
-          "O Usuário descumprir quaisquer de seus deveres e responsabilidades;",
-          "O Usuário praticar atos fraudulentos ou dolosos;",
-          "Não puder ser verificada a identidade do Usuário ou se qualquer informação fornecida por ele estiver incorreta, incompleta ou falsa; e/ou",
-          "O iSUS entender que a atitude do Usuário possa ou tenha causado algum dano a ela ou a terceiros."
-        ]
-      },
-      {
-        "titulo": "PROPRIEDADE INTELECTUAL",
-        "paragrafos": [
-          "O iSUS concede ao Usuário uma permissão limitada, não exclusiva e revogável para fazer uso pessoal e não comercial do iSUS e dos Serviços Ofertados.",
-          "O Usuário reconhece que o iSUS é o exclusivo titular dos direitos de propriedade intelectual e industrial associados com os Serviços Ofertados, seu Aplicativo, os conteúdos de suas telas, programas, base de dados, redes, códigos, software, hardware, informação, tecnologia, funcionalidades, arquivos, marcas, patentes, direitos autorais, modelos industriais, nomes comerciais, dentre outros direitos protegidos pelas leis nacionais e internacionais em vigor.",
-          "O Usuário não poderá fazer cópias não autorizadas do iSUS – no todo ou em parte – vez que todos os direitos autorais incidentes sobre o Aplicativo (código fonte, interface, layout, “look and feel” e outros) são de propriedade exclusiva do iSUS.",
-          "Não é permitido ao Usuário reconfigurar, desmontar ou praticar, de qualquer forma, engenharia reversa no iSUS.",
-          "O Usuário não poderá utilizar a marca e/ou quaisquer sinais distintivos utilizados pelo iSUS.",
-          "Todos os direitos e licenças não concedidos expressamente nestes Termos são reservados aos proprietários dos conteúdos ou serviços, vez que os presentes Termos não concedem quaisquer licenças implícitas."
-        ]
-      },
-      {
-        "titulo": "PRAZO",
-        "paragrafos": [
-          "Estes Termos permanecerão vigentes por tempo indeterminado, desde a sua adesão até a sua rescisão, podendo esta última ser realizada a qualquer tempo por Você ou pelo iSUS.",
-          "O iSUS poderá rescindir estes Termos, suspendendo ou cancelando seu acesso ao iSUS a qualquer momento: em caso de descontinuidade do aplicativo pelo Estado do Ceará ou em caso de descumprimento, pelo Usuário, dos termos e condições do presente Termo."
-        ]
-      },
-      {
-        "titulo": "CONTATO",
-        "paragrafos": [
-          "O Usuário poderá se comunicar com o iSUS sempre que necessário, a fim de esclarecer dúvidas sobre o Aplicativo, sobre estes Termos ou outras políticas do iSUS, bem como para solucionar quaisquer problemas ou para formalizar elogios, sugestões e/ou críticas.",
-          "A comunicação deverá ser direcionada exclusivamente para o e-mail nit@esp.ce.gov.br, não sendo consideradas como recebidas qualquer comunicação realizada em via diversa."
-        ]
-      },
-      {
-        "titulo": "DISPOSIÇÕES GERAIS",
-        "paragrafos": [
-          "Se qualquer cláusula destes Termos for considerada inválida ou inaplicável deverá ser excluída e as cláusulas remanescentes continuarão válidas e plenamente aplicáveis.",
-          "Estes Termos, assim como a Política de Privacidade e quaisquer outras diretrizes e regras divulgadas pelo iSUS constituem o acordo integral das Partes com relação ao objeto aqui tratado, substituindo todos os acordos anteriores, sejam escritos ou verbais.",
-          "A tolerância ou o não exercício, por qualquer das Partes, de quaisquer direitos a ela assegurados nestes Termos de Uso ou na lei em geral não importará em novação ou em renúncia a qualquer desses direitos, podendo a referida Parte exercê-los durante a vigência destes Termos de Uso.",
-          "Ao clicar em “Eu Aceito” ou ao utilizar efetivamente o Serviço o Usuário reconhece e aceita que isto significará uma concordância com o presente Termo de Uso. O Usuário declara e garante que leu e concordou com a versão mais recente do Termo de Uso, o qual vinculará automaticamente o Usuário.",
-          "O Usuário reconhece e aceita que o iSUS poderá, a seu exclusivo critério, parar (permanente ou temporariamente) de prestar o Serviço (ou qualquer parte do Serviço) a si ou à generalidade dos utilizadores, sem avisar previamente."
-        ]
-      },
-      {
-        "titulo": "FORO E SOLUÇÕES DE CONFLITOS",
-        "paragrafos": [
-          "A relação estabelecida entre Você e o iSUS será regida exclusivamente pelas Leis da República Federativa do Brasil, sendo estas as únicas aplicáveis em caso de qualquer discussão ou litígio relativo a estes Termos ou a quaisquer outras políticas/regulamentações do iSUS.",
-          "Caso seja necessário dirimir qualquer dúvida ou controvérsia decorrente destes Termos, fica eleito o foro da Comarca de Fortaleza/CE, com renúncia de todos os outros, por mais privilegiados que sejam."
-        ]
-      }
-    ]
-  }
+  ],
+  "secoes": [
+    {
+      "titulo": "DEFINIÇÕES",
+      "paragrafos": [
+        "\"iSUS\": é uma iniciativa da Escola de Saúde Pública do Ceará (ESP).",
+        "\"Você\": é o usuário do iSUS.",
+        "\"Dados\": o conjunto de Dados Anonimizados e Dados Pessoais.",
+        "\"Dados Anonimizados\": são informações que, isoladamente ou em conjunto com outros Dados Anonimizados, não permitem a identificação de uma pessoa, considerando a utilização de meios técnicos razoáveis e disponíveis na ocasião de seu tratamento. Podem incluir gênero, idade e geolocalização generalizada (como a cidade em que se encontra) e dados estatísticos.",
+        "\"Dados Pessoais\": são informações relacionadas à pessoa natural identificada ou identificável. Podem incluir nome, endereço, e-mail, telefone, número de cartão de débito/crédito, endereço IP e dados de geolocalização.",
+        "\"Dados do(s) Usuário(s)\" significa todos e quaisquer dados e informações tratados pelo iSUS, incluindo, sem limitação, os dados pessoais dos Usuários necessários para melhor funcionamento da plataforma.",
+        "\"Usuário\": significa a pessoa física ou representante, preposto ou funcionário autorizado de pessoa jurídica que efetivamente utiliza o iSUS.",
+        "\"Serviços Ofertados\" ou \"Serviços\": significa todos os serviços ofertados pelo iSUS."
+      ]
+    },
+    {
+      "titulo": "ACEITAÇÃO DOS TERMOS E CONDIÇÕES DE USO",
+      "paragrafos": [
+        "O iSUS fornece ao Usuário, sujeito aos Termos de uso aqui descritos, diversos serviços. O iSUS nasceu no contexto da pandemia de covid-19, que nos convocou a produzir soluções rápidas e eficazes de apoio aos trabalhadores e gestores da saúde.",
+        "Os Serviços Ofertados somente estarão disponíveis aos Usuários que aderirem aos Termos e Condições de Uso aqui descritos e na Política de Privacidade do iSUS. Ao acessar e utilizar o iSUS Você manifesta concordância integral com as disposições destes Termos, de forma expressa, livre, voluntária, irrevogável e irretratável, declarando estar ciente de todo o seu conteúdo, tendo lido, entendido e aceitado todas as regras, condições e obrigações aqui estabelecidas.",
+        "O Usuário deverá ler, entender e concordar expressamente (ou manifestar ciência, quando for o caso) a todos os manuais, regras, políticas e contratos em vigor aplicáveis ao Serviço antes de efetivamente utilizá-lo. Fica reservado ao iSUS o direito de instituir novas diretrizes em tais instrumentos, visando ao aprimoramento, a melhoria dos Serviços Ofertados, ou a incrementação de novas funções e recursos para assegurar a operacionalidade ou a segurança dos Serviços Ofertados, que serão devidamente divulgadas ao Usuário.",
+        "Qualquer nova versão dos Termos entrará em vigor a partir do momento em que for publicada. Os Usuários serão informados com antecedência acerca da nova versão dos Termos, por meio de notificação e/ou e-mail, sendo que a continuidade de utilização dos Serviços Ofertados implica na aceitação, por parte do Usuário, das novas disposições."
+      ]
+    },
+    {
+      "titulo": "SOBRE OS SERVIÇOS DO iSUS",
+      "paragrafos": [
+        "Os Serviços prestados consistem na disponibilização do iSUS aos Usuários que aderiram ao presente Termos e Condições de Uso e Política de Privacidade.",
+        "Os Serviços Ofertados não incluem acesso à Internet. Desta forma, será de integral e exclusiva responsabilidade do Usuário obter, de forma independente e às suas custas, o equipamento, softwares e os serviços necessários para garantir sua conexão à Internet e ao iSUS.",
+        "Os Serviços Ofertados poderão incluir links que remetem à página de Internet, conteúdos ou recursos de terceiros, que não estão sob o controle do iSUS. Em razão disto, o Usuário reconhece e concorda expressamente que o iSUS não terá qualquer responsabilidade sobre referidas páginas, conteúdos ou recursos de terceiros."
+      ]
+    },
+    {
+      "titulo": "SUPORTE TÉCNICO REFERENTE AO SERVIÇO",
+      "paragrafos": [
+        "O Usuário entende e expressamente concorda que o objeto deste Contrato não dá ao Usuário direito à suporte, assistência, atendimento ou qualquer outra forma de auxílio técnico com relação aos Serviços Ofertados. A utilização do Serviço será de inteiro risco do Usuário, sendo que o iSUS apenas concorda em fornecê-lo. O único suporte técnico a que o Usuário terá acesso será as instruções sobre como utilizar o Serviço, contidas no iSUS, sem que isso gere qualquer ônus ao iSUS."
+      ]
+    },
+    {
+      "titulo": "OBRIGAÇÕES E RESPONSABILIDADES DO USUÁRIO",
+      "paragrafos": [
+        "O Usuário assume integralmente todos os ônus e responsabilidades decorrentes de seus atos no iSUS, respondendo, ainda, pelos atos praticados por terceiros que se valerem do uso seu aplicativo.",
+        "O Usuário deverá indenizar o iSUS ou terceiros por quaisquer ações ou omissões que causem prejuízos advindos do descumprimento das regras estabelecidas nestes Termos, nas demais diretrizes e políticas do iSUS ou constantes da lei vigente.",
+        "O Usuário concorda em indenizar o iSUS por todo e qualquer dano ou perda que possa eventualmente surgir decorrente do seu acesso e uso do Aplicativo ou por qualquer demanda promovida por outros Usuários ou terceiros decorrentes da violação de qualquer cláusula destes Termos, de outras políticas e regras estabelecidas pelo iSUS, ou da legislação vigente.",
+        "Ao usufruir os Serviços Ofertados, o Usuário compromete-se a:",
+        "Manter os Dados Cadastrais atualizados e verídicos;",
+        "Manter sob proteção o acesso ao Aplicativo;",
+        "Não veicular conteúdos considerados ofensivos, abusivos, difamatórios, pornográficos, ameaçadores, obscenos, ilegais, ou que se destinem a promover ou cometer ato ilegal de qualquer natureza, que incluam conteúdo malicioso, tais como vírus, cavalos de Troia ou malwares, ou que de qualquer forma interfiram no acesso de qualquer Usuário aos Serviços Ofertados;",
+        "Não agredir, caluniar, injuriar ou difamar outros Usuários;",
+        "É maior de 18 anos, e gozando de plena capacidade nos termos da lei, caso seja pessoa física, ou, sendo menor de 16 anos, que está devidamente autorizado por seus pais ou representantes legais, nos termos da legislação vigente, para exercer e gozar (gozo se refere a uso de sua propriedade) de todos os serviços ofertados;",
+        "Possui poderes para assumir compromissos e obrigações em nome da empresa, na forma de seu contrato social, e que a adesão aos Serviços não viola qualquer obrigação a qual tenha assumido anteriormente, caso seja representante de pessoa jurídica;",
+        "Não utilizará os Serviços para fins ilegais, ilegítimos ou que contrariem a moral e a boa-fé objetiva;",
+        "Não utilizará os Serviços para se engajar em atividade comercial, o que inclui, mas não se limita, a oferecer qualquer tipo de produto para venda, procurar anunciantes e patrocinadores e inserir banners de qualquer tipo;",
+        "Não veiculará informação sobre atividades ilegais e de incitação ao crime ou que ponham em risco a saúde ou integridade física do Usuário ou de terceiros;",
+        "Não divulgará mensagens, páginas criptografadas ou protegidas por senhas;",
+        "Não veiculará informação relativa à pirataria de software;",
+        "Não divulgará material protegido por direitos autorais ou por sigilo confidencial sem a autorização dos seus titulares, incluindo fotos, textos e programas de computador, além de outros;",
+        "Não se fará passar por outra pessoa, empresa ou instituição;",
+        "Não tratará dados pessoais de demais Usuários da plataforma;",
+        "Não veiculará páginas ou imagens ocultas;",
+        "Não modificará, adaptará, traduzirá ou fará engenharia reversa, no todo ou em parte, de Software utilizado pelo iSUS ou por parceiro na prestação dos Serviços;",
+        "Não transmitirá qualquer material que viole direitos de terceiro, incluindo direitos de propriedade intelectual;",
+        "Não enviará mensagens não solicitadas, reconhecidas como “spam”, “junk mail” ou correntes de correspondência (“chain letters”);",
+        "Não utilizará tais Serviços para, diretamente, enviar vírus ou, de maneira indireta, enviar arquivos contendo vírus (“Cavalos de Tróia”), ou outros, de qualquer natureza, ou, de modo geral, enviar conteúdo que possa causar danos ao destinatário e/ou a terceiros;",
+        "Não praticará atos que violem a lei, seja no âmbito local, estadual, nacional ou internacional, aplicável ao caso concreto;",
+        "Não obterá ou tentará obter acesso não autorizado a outros sistemas ou redes de computadores conectados ao Serviço;",
+        "Será o único responsável pelo conteúdo que transmitir ou retransmitir, bem como pelo conteúdo e informações que disponibilizar no site relacionado ao Serviço;",
+        "Não interferirá ou interromperá os Serviços, os servidores ou as redes a eles conectados;",
+        "Cumprirá todos os requerimentos, procedimentos, políticas, e regulamentos de redes conectadas aos Serviços;",
+        "Reconhece que o presente contrato se formaliza, vinculando as partes, através da assinatura eletrônica do usuário, que se dará pelo clique no checkbox com o texto “Eu estou de acordo com os termos de uso”;",
+        "Leu e está ciente e de pleno acordo com todos os termos e condições deste instrumento;",
+        "Os pais ou os representantes legais do menor de idade responderão pelos atos por ele praticados caso porventura venha a utilizar, irregularmente, os Serviços objeto deste instrumento, dentre os quais eventuais danos causados a terceiros e pela prática de atos vedados por lei ou pelas disposições deste contrato; e",
+        "Não poderá usar o Serviço como local de armazenamento para download remoto de arquivos por múltiplos usuários.",
+        "O Usuário reconhece que o Serviço é fornecido na forma como está disponibilizado e que o iSUS não é (e nem será) responsável pela exclusão, não entrega ou falha no arquivamento de qualquer dado ou informação cadastrada pelo Usuário.",
+        "O Usuário reconhece que o Serviço é fornecido da forma em que estiver disponível, sem garantias de performance ou alcance de resultados específicos. O iSUS envidará os melhores esforços para que o Serviço funcione da melhor maneira possível. No entanto, considerando a própria natureza do Serviço, as garantias fornecidas pelo iSUS são limitadas.",
+        "O Usuário expressamente declara e compromete-se a não levar a cabo atividades que interfiram, interrompam ou danifiquem o Serviço (ou os servidores, equipamentos e as redes que estejam relacionados com o Serviço, sejam do iSUS ou de terceiros) ou os documentos, arquivos e toda classe de conteúdo armazenados nos equipamentos informáticos (“hacking”).",
+        "O Usuário compromete-se a utilizar os Serviços em conformidade com a lei, a moral e os bons costumes, observando, ainda, todos os termos e condições contidos no presente Termo de Uso e nos demais documentos a que aderiu ou manifestou ciência. O Usuário compromete-se, ainda, a abster-se de utilizá-lo com objetivos ou efeitos ilícitos, lesivos aos direitos e interesses de terceiros.",
+        "A ESP/CE não garante, declara, nem assegura que este aplicativo esteja livre de perda, interrupção, ataque, vírus, interferência, pirataria ou outra invasão de segurança e isenta-se de qualquer responsabilidade em relação a essas questões. O Usuário é responsável pelo backup do seu próprio dispositivo.",
+        "Em hipótese alguma a ESP/CE responsabilizar-se-á por perdas ou danos causados pelo uso do aplicativo."
+      ]
+    },
+    {
+      "titulo": "SANÇÕES",
+      "paragrafos": [
+        "Sem prejuízo de outras medidas cabíveis, o iSUS poderá advertir, suspender e/ou cancelar, temporária ou definitivamente, a conta de um Usuário, bem como excluir ou censurar conteúdos veiculados por este no Aplicativo, iniciando as ações legais cabíveis e/ou cancelando a prestação dos Serviços Ofertados se:",
+        "O Usuário descumprir as cláusulas destes Termos, as demais políticas do iSUS ou a legislação vigente;",
+        "O Usuário descumprir quaisquer de seus deveres e responsabilidades;",
+        "O Usuário praticar atos fraudulentos ou dolosos;",
+        "Não puder ser verificada a identidade do Usuário ou se qualquer informação fornecida por ele estiver incorreta, incompleta ou falsa; e/ou",
+        "O iSUS entender que a atitude do Usuário possa ou tenha causado algum dano a ela ou a terceiros."
+      ]
+    },
+    {
+      "titulo": "PROPRIEDADE INTELECTUAL",
+      "paragrafos": [
+        "O iSUS concede ao Usuário uma permissão limitada, não exclusiva e revogável para fazer uso pessoal e não comercial do iSUS e dos Serviços Ofertados.",
+        "O Usuário reconhece que o iSUS é o exclusivo titular dos direitos de propriedade intelectual e industrial associados com os Serviços Ofertados, seu Aplicativo, os conteúdos de suas telas, programas, base de dados, redes, códigos, software, hardware, informação, tecnologia, funcionalidades, arquivos, marcas, patentes, direitos autorais, modelos industriais, nomes comerciais, dentre outros direitos protegidos pelas leis nacionais e internacionais em vigor.",
+        "O Usuário não poderá fazer cópias não autorizadas do iSUS – no todo ou em parte – vez que todos os direitos autorais incidentes sobre o Aplicativo (código fonte, interface, layout, “look and feel” e outros) são de propriedade exclusiva do iSUS.",
+        "Não é permitido ao Usuário reconfigurar, desmontar ou praticar, de qualquer forma, engenharia reversa no iSUS.",
+        "O Usuário não poderá utilizar a marca e/ou quaisquer sinais distintivos utilizados pelo iSUS.",
+        "Todos os direitos e licenças não concedidos expressamente nestes Termos são reservados aos proprietários dos conteúdos ou serviços, vez que os presentes Termos não concedem quaisquer licenças implícitas."
+      ]
+    },
+    {
+      "titulo": "PRAZO",
+      "paragrafos": [
+        "Estes Termos permanecerão vigentes por tempo indeterminado, desde a sua adesão até a sua rescisão, podendo esta última ser realizada a qualquer tempo por Você ou pelo iSUS.",
+        "O iSUS poderá rescindir estes Termos, suspendendo ou cancelando seu acesso ao iSUS a qualquer momento: em caso de descontinuidade do aplicativo pelo Estado do Ceará ou em caso de descumprimento, pelo Usuário, dos termos e condições do presente Termo."
+      ]
+    },
+    {
+      "titulo": "CONTATO",
+      "paragrafos": [
+        "O Usuário poderá se comunicar com o iSUS sempre que necessário, a fim de esclarecer dúvidas sobre o Aplicativo, sobre estes Termos ou outras políticas do iSUS, bem como para solucionar quaisquer problemas ou para formalizar elogios, sugestões e/ou críticas.",
+        "A comunicação deverá ser direcionada exclusivamente para o e-mail nit@esp.ce.gov.br, não sendo consideradas como recebidas qualquer comunicação realizada em via diversa."
+      ]
+    },
+    {
+      "titulo": "DISPOSIÇÕES GERAIS",
+      "paragrafos": [
+        "Se qualquer cláusula destes Termos for considerada inválida ou inaplicável deverá ser excluída e as cláusulas remanescentes continuarão válidas e plenamente aplicáveis.",
+        "Estes Termos, assim como a Política de Privacidade e quaisquer outras diretrizes e regras divulgadas pelo iSUS constituem o acordo integral das Partes com relação ao objeto aqui tratado, substituindo todos os acordos anteriores, sejam escritos ou verbais.",
+        "A tolerância ou o não exercício, por qualquer das Partes, de quaisquer direitos a ela assegurados nestes Termos de Uso ou na lei em geral não importará em novação ou em renúncia a qualquer desses direitos, podendo a referida Parte exercê-los durante a vigência destes Termos de Uso.",
+        "Ao clicar em “Eu Aceito” ou ao utilizar efetivamente o Serviço o Usuário reconhece e aceita que isto significará uma concordância com o presente Termo de Uso. O Usuário declara e garante que leu e concordou com a versão mais recente do Termo de Uso, o qual vinculará automaticamente o Usuário.",
+        "O Usuário reconhece e aceita que o iSUS poderá, a seu exclusivo critério, parar (permanente ou temporariamente) de prestar o Serviço (ou qualquer parte do Serviço) a si ou à generalidade dos utilizadores, sem avisar previamente."
+      ]
+    },
+    {
+      "titulo": "FORO E SOLUÇÕES DE CONFLITOS",
+      "paragrafos": [
+        "A relação estabelecida entre Você e o iSUS será regida exclusivamente pelas Leis da República Federativa do Brasil, sendo estas as únicas aplicáveis em caso de qualquer discussão ou litígio relativo a estes Termos ou a quaisquer outras políticas/regulamentações do iSUS.",
+        "Caso seja necessário dirimir qualquer dúvida ou controvérsia decorrente destes Termos, fica eleito o foro da Comarca de Fortaleza/CE, com renúncia de todos os outros, por mais privilegiados que sejam."
+      ]
+    }
+  ]
+}

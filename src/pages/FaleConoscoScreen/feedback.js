@@ -1,42 +1,49 @@
-import React, { useCallback, useEffect } from 'react';
-import {
-  View,
-  Text,
-  Platform,
-  StyleSheet,
-} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import {
-  TextInput, Button, Snackbar
-} from 'react-native-paper';
+import React, { useCallback, useEffect } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { postFeedback } from '../../apis/apiHome';
+import { Button, Snackbar, TextInput } from 'react-native-paper';
+import { postFeedback } from '~/apis/apiHome';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
+import { vazio } from '~/utils/objectUtils';
+import { emailValido, feedbackValido } from '~/utils/validadores';
 import Tag from './Tag';
-import { feedbackValido, emailValido } from '../../utils/validadores';
-import { vazio } from '../../utils/objectUtils';
-import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const { analyticsData } = useAnalytics();
+
   const feedbackInput = React.createRef();
+
   const emailInput = React.createRef();
+
   const [feedback, setFeedback] = React.useState('');
+
   const [imagem, setImagem] = React.useState({});
+
   const [nomeImagem, setNomeImagem] = React.useState('');
+
   const [email, setEmail] = React.useState('');
+
   const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
+
   const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
+
   const [mensagemDeErro, setMensagemDeErro] = React.useState('');
+
   const [carregando, setCarregando] = React.useState(false);
+
   const [responseDaBiblioteca, setResponseDaBiblioteca] = React.useState({});
 
   useFocusEffect(
-    useCallback(() => () => {
-      limparCampos();
-      limparCampoEmail();
-    }, [])
+    useCallback(
+      () => () => {
+        limparCampos();
+        limparCampoEmail();
+      },
+      [],
+    ),
   );
 
   useEffect(() => {
@@ -49,7 +56,12 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
 
   const onSubmit = async () => {
     try {
-      const { data } = await postFeedback(tipoDeFeedback.textoDoDropdown, feedback, email, imagem);
+      const { data } = await postFeedback(
+        tipoDeFeedback.textoDoDropdown,
+        feedback,
+        email,
+        imagem,
+      );
       if (data.errors) {
         setMensagemDeErro(extrairMensagemDeErro(data));
         setErroAoEnviar(true);
@@ -62,9 +74,13 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
       }
     } catch (err) {
       if (err.message === 'Network Error') {
-        setMensagemDeErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
+        setMensagemDeErro(
+          'Erro na conexão com o servidor. Tente novamente mais tarde.',
+        );
       } else {
-        setMensagemDeErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+        setMensagemDeErro(
+          'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+        );
       }
 
       setErroAoEnviar(true);
@@ -85,32 +101,37 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     setImagem({});
   };
 
-  const extrairCaminhoDoArquivo = path => `~${path.substring(path.indexOf('/Documents'))}`;
+  const extrairCaminhoDoArquivo = path =>
+    `~${path.substring(path.indexOf('/Documents'))}`;
   const extrairNomeDoArquivo = path => path.split('/').pop();
 
   const parsearResponse = response => ({
     nome: nomeImagem,
     tipo: response.type,
     tamanho: response.fileSize,
-    dados: response.base64
+    dados: response.base64,
   });
 
-  const extrairMensagemDeErro = (response) => {
+  const extrairMensagemDeErro = response => {
     if (response.errors['imagem.dados']) {
       return 'Falha no envio da imagem. Entre em contato com o suporte técnico para verificar o problema.';
     }
 
-    if (response.errors['imagem.tipo']) return response.errors['imagem.tipo'][0];
+    if (response.errors['imagem.tipo'])
+      return response.errors['imagem.tipo'][0];
 
-    if (response.errors['imagem.tamanho']) return response.errors['imagem.tamanho'][0];
+    if (response.errors['imagem.tamanho'])
+      return response.errors['imagem.tamanho'][0];
 
     return '';
   };
 
-  const verificaErroDePermissao = erro => (erro === 'Permissions weren\'t granted' ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
-    : erro);
+  const verificaErroDePermissao = erro =>
+    erro === 'Permissions weren\'t granted'
+      ? 'Para anexar uma imagem, você deve permitir o acesso ao armazenamento.'
+      : erro;
 
-  const definirNomeDaImagem = (response) => {
+  const definirNomeDaImagem = response => {
     if (response.didCancel) return;
     if (response.error) {
       const erro = verificaErroDePermissao(response.error);
@@ -145,11 +166,10 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             fontSize: 14,
             lineHeight: 20,
             color: '#828282',
-            marginBottom: 18
-          }}
-        >
-          Reporte erros, inconsistências e melhorias que encontrar para nos ajudar a resolver
-          problemas e melhorar o app rapidamente.
+            marginBottom: 18,
+          }}>
+          Reporte erros, inconsistências e melhorias que encontrar para nos
+          ajudar a resolver problemas e melhorar o app rapidamente.
         </Text>
 
         <TextInput
@@ -169,9 +189,8 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             fontSize: 12,
             lineHeight: 20,
             color: '#828282',
-            marginVertical: 10
-          }}
-        >
+            marginVertical: 10,
+          }}>
           Lembre-se de especificar a seção do app a que você se refere
         </Text>
 
@@ -180,18 +199,15 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             mode="text"
             color="#FF9800"
             compact
-            onPress={
-              () => {
-                launchImageLibrary(
-                  {
-                    mediaType: 'photo',
-                    includeBase64: true
-                  },
-                  response => definirNomeDaImagem(response)
-                );
-              }
-            }
-          >
+            onPress={() => {
+              launchImageLibrary(
+                {
+                  mediaType: 'photo',
+                  includeBase64: true,
+                },
+                response => definirNomeDaImagem(response),
+              );
+            }}>
             ANEXAR IMAGEM
           </Button>
           <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} />
@@ -210,17 +226,23 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
         <Button
           testID={TESTIDS.BOTAO_FEEDBACK_ENVIAR}
           disabled={!!(!feedbackValido(feedback) || !emailValido(email))}
-          style={feedbackValido(feedback) && emailValido(email)
-            ? styles.button : styles.buttonDisabled}
+          style={
+            feedbackValido(feedback) && emailValido(email)
+              ? styles.button
+              : styles.buttonDisabled
+          }
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}
           onPress={() => {
-            analyticsData(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
+            analyticsData(
+              labelsAnalytics.ENVIAR_FEEDBACK,
+              'Click',
+              'Fale Conosco',
+            );
             setCarregando(true);
             onSubmit();
-          }}
-        >
+          }}>
           Enviar
         </Button>
 
@@ -230,9 +252,8 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
           onDismiss={() => setSucessoAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setSucessoAoEnviar(false)
-          }}
-        >
+            onPress: () => setSucessoAoEnviar(false),
+          }}>
           {`${tipoDeFeedback.feedback}, obrigado!`}
         </Snackbar>
         <Snackbar
@@ -241,9 +262,8 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
           onDismiss={() => setErroAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setErroAoEnviar(false)
-          }}
-        >
+            onPress: () => setErroAoEnviar(false),
+          }}>
           {mensagemDeErro}
         </Snackbar>
       </View>
@@ -259,7 +279,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#FF9800'
+    backgroundColor: '#FF9800',
   },
   buttonDisabled: {
     borderRadius: 50,
@@ -267,6 +287,6 @@ const styles = StyleSheet.create({
     height: 45,
     alignSelf: 'flex-end',
     margin: 20,
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

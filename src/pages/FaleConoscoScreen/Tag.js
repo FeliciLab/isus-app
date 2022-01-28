@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  View, Text, StyleSheet, TouchableOpacity
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
 
 export default function Tag({ text, onClose }) {
   if (!text) return <View />;
@@ -11,7 +8,9 @@ export default function Tag({ text, onClose }) {
   return (
     <View style={styles.tagContainer}>
       <View style={styles.textContainer}>
-        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tagText}>{text}</Text>
+        <Text numberOfLines={1} ellipsizeMode="tail" style={styles.tagText}>
+          {text}
+        </Text>
       </View>
       <TouchableOpacity style={styles.closeIcon} onPress={onClose}>
         <Icon name="close-circle" size={20} />
@@ -33,13 +32,13 @@ const styles = StyleSheet.create({
     borderRadius: 26,
   },
   textContainer: {
-    width: 80
+    width: 80,
   },
   tagText: {
     color: '#000000',
   },
   closeIcon: {
     marginLeft: 'auto',
-    marginRight: 8
-  }
+    marginRight: 8,
+  },
 });

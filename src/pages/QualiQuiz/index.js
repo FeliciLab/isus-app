@@ -2,9 +2,9 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { BackHandler, Text, View } from 'react-native';
 import { Config } from 'react-native-config';
-import IsusSvg from '../../assets/icons/isus_hor.svg';
-import { cabecalhoVoltar } from '../../components/layoutEffect/cabecalhoLayout';
-import useAutenticacao from '../../hooks/useAutenticacao';
+import IsusSvg from '~/assets/icons/isus_hor.svg';
+import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import useAutenticacao from '~/hooks/useAutenticacao';
 
 export default function QualiQuiz({ navigation }) {
   const navigator = useNavigation();
@@ -22,10 +22,10 @@ export default function QualiQuiz({ navigation }) {
           rota: 'HOME',
           navigationOptions: {
             headerStyle: {
-              backgroundColor: '#4E377C'
+              backgroundColor: '#4E377C',
             },
             headerTitleAlign: 'left',
-          }
+          },
         });
       }
     }, 1500);
@@ -38,7 +38,7 @@ export default function QualiQuiz({ navigation }) {
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
     return () => {
       backHandler.remove();
@@ -54,23 +54,20 @@ export default function QualiQuiz({ navigation }) {
       cabecalhoVoltar({
         title: 'QualiQuiz',
         navegador: navigation,
-        cor: 'verde'
+        cor: 'verde',
       }),
-    []
+    [],
   );
 
   return (
-    <>
-      <View
-        style={{
-          flexDirection: 'column',
-          paddingTop: '20%',
-          alignItems: 'center'
-        }}
-      >
-        <IsusSvg height={250} width={250} />
-        <Text>{estaLogado}</Text>
-      </View>
-    </>
+    <View
+      style={{
+        flexDirection: 'column',
+        paddingTop: '20%',
+        alignItems: 'center',
+      }}>
+      <IsusSvg height={250} width={250} />
+      <Text>{estaLogado}</Text>
+    </View>
   );
 }

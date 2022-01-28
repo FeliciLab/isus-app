@@ -1,7 +1,7 @@
-import React, { useLayoutEffect, useEffect } from 'react';
-import { View, BackHandler } from 'react-native';
-import { cabecalhoVoltarHome } from '../../../components/layoutEffect/cabecalhoLayout';
-import DefaultLogin from '../../../components/loginLayout/DefaultLogin';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { BackHandler, View } from 'react-native';
+import { cabecalhoVoltarHome } from '~/components/layoutEffect/cabecalhoLayout';
+import DefaultLogin from '~/components/loginLayout/DefaultLogin';
 
 const LoginQualiQuiz = ({ navigation }) => {
   useEffect(() => {
@@ -11,7 +11,7 @@ const LoginQualiQuiz = ({ navigation }) => {
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
     return () => {
       backHandler.remove();
@@ -22,10 +22,10 @@ const LoginQualiQuiz = ({ navigation }) => {
       {
         navegador: navigation,
         cor: 'verde',
-        titulo: 'QualiQuiz'
+        titulo: 'QualiQuiz',
       },
-      []
-    )
+      [],
+    ),
   );
 
   return (

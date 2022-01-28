@@ -7,16 +7,12 @@ export function analyticsCategoria(cat, codigo, operacao) {
     analyticsData(
       `cadastro_cp_${JSON.parse(cat).id}_${codigo}`,
       `${operacao}`,
-      'Perfil'
+      'Perfil',
     );
   }
 }
 export function analyticsUnidadeServico(serv, codigo, operacao) {
-  serv.forEach((i) => {
-    analyticsData(
-      `cadastro_us_${i.id}_${codigo}`,
-      `${operacao}`,
-      'Perfil'
-    );
+  serv.forEach(i => {
+    analyticsData(`cadastro_us_${i.id}_${codigo}`, `${operacao}`, 'Perfil');
   });
 }

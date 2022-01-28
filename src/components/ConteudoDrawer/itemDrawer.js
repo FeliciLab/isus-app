@@ -1,13 +1,18 @@
-import React from 'react';
-import { DrawerItem } from '@react-navigation/drawer';
 import { useFeatures } from '@paralleldrive/react-feature-toggles';
+import { DrawerItem } from '@react-navigation/drawer';
+import React from 'react';
 
 export default function ItemDrawer({
-  nome, icone, feature, isFocado, onPress, testID
+  nome,
+  icone,
+  feature,
+  isFocado,
+  onPress,
+  testID,
 }) {
   const features = useFeatures();
-  const featureEstaAtiva = () => (!!(feature && features.includes(feature)));
-  const featureExiste = () => (!!feature);
+  const featureEstaAtiva = () => !!(feature && features.includes(feature));
+  const featureExiste = () => !!feature;
 
   const visibilidade = () => {
     if (featureEstaAtiva()) {

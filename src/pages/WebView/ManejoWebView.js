@@ -1,6 +1,6 @@
 import React from 'react';
 import EsqueletoDeCarregamento from './EsqueletoDeCarregamento';
-import WebViewPage from '.';
+import WebViewPage from './index';
 
 export default function ManejoWebViewPage({ navigation, route }) {
   return (

@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useEffect,
   useLayoutEffect,
-  useState
+  useState,
 } from 'react';
 import {
   Alert,
@@ -17,37 +17,44 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { Snackbar, Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { pegarProjetosPorId } from '../../apis/apiHome';
-import BarraDeStatus from '../../components/barraDeStatus';
-import BarraInferior from '../../components/barraInferior';
-import rotas from '../../constantes/rotas';
+import { pegarProjetosPorId } from '~/apis/apiHome';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import BarraInferior from '~/components/barraInferior';
+import rotas from '~/constantes/rotas';
 import {
   converterImagemParaBase64,
   pegarDados,
   removerDados,
-  salvarDados
-} from '../../services/armazenamento';
-import formatarDataPorExtenso from '../../utils/dateUtils';
+  salvarDados,
+} from '~/services/armazenamento';
+import formatarDataPorExtenso from '~/utils/dateUtils';
 import ImagemDePostagem from './ImagemDePostagem';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function DescriptionScreen(props) {
   const navigation = useNavigation();
+
   const { route } = props;
+
   const { params } = route;
-  const [postagem, alterarPostagem] = useState({});
-  const [visivel, alterarVisibilidade] = useState(false);
-  const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(
-    !!params.object.offline
+
+  const [postagem, setPostagem] = useState({});
+
+  const [visivel, setVisibilidade] = useState(false);
+
+  const [textoDoFeedback, setTextoDoFeedback] = useState('');
+
+  const [conteudoBaixado, setConteudoBaixado] = useState(
+    !!params.object.offline,
   );
+
   const dataDePostagem = postagem.post_date;
+
   const estaConectado = useNetInfo().isConnected;
 
   useEffect(() => {
@@ -59,15 +66,15 @@ export default function DescriptionScreen(props) {
   useFocusEffect(
     useCallback(() => {
       pegarConteudoDoStorage().catch(() => pegarConteudoDaApi());
-    }, [])
+    }, []),
   );
 
   const pegarConteudoDoStorage = async () => {
     try {
       const resposta = await pegarDados(
-        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`
+        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`,
       );
-      alterarPostagem(resposta);
+      setPostagem(resposta);
     } catch (err) {
       console.log(`Erro ao pegar conteudo do storage: ${err.message}`);
     }
@@ -76,7 +83,7 @@ export default function DescriptionScreen(props) {
   const pegarConteudoDaApi = async () => {
     try {
       const resposta = await pegarProjetosPorId(params.object.id);
-      alterarPostagem(resposta.data);
+      setPostagem(resposta.data);
     } catch (err) {
       console.log(`Erro ao pegar conteudo da API: ${err.message}`);
     }
@@ -85,11 +92,11 @@ export default function DescriptionScreen(props) {
   const aoCompartilhar = async () => {
     const messagTitle = postagem.post_title;
     const messagLink = ' -iSUS: https://coronavirus.ceara.gov.br/project/'.concat(
-      postagem.slug
+      postagem.slug,
     );
     try {
       await Share.share({
-        message: messagTitle + messagLink
+        message: messagTitle + messagLink,
       });
     } catch (error) {
       console.log(`Erro ao compartilhar: ${error.message}`);
@@ -122,14 +129,14 @@ export default function DescriptionScreen(props) {
         ...postagem,
         image: imagembase64,
         categoria_id: params.object.categoria_id,
-        offline: true
+        offline: true,
       };
       await salvarDados(
         `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`,
-        postagemOffline
+        postagemOffline,
       );
-      alterarConteudoBaixado(true);
-      alterarPostagem(postagemOffline);
+      setConteudoBaixado(true);
+      setPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${params.title}"`);
     } catch (e) {
       console.log('Erro de armazenamento:', e.message);
@@ -141,13 +148,13 @@ export default function DescriptionScreen(props) {
           [
             {
               text: 'OK',
-              onPress: () => {}
-            }
-          ]
+              onPress: () => {},
+            },
+          ],
         );
       } else {
         mostrarFeedback(
-          'Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.'
+          'Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.',
         );
       }
     }
@@ -155,23 +162,23 @@ export default function DescriptionScreen(props) {
 
   const removerConteudo = async () => {
     try {
-      alterarConteudoBaixado(false);
+      setConteudoBaixado(false);
       mostrarFeedback('A página foi excluida da leitura offline');
       await removerDados(
-        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`
+        `@categoria_${params.object.categoria_id}_postagem_${params.object.id}`,
       );
     } catch (e) {
       mostrarFeedback(
-        'Não foi possível realizar a ação, Por favor, tente mais tarde.'
+        'Não foi possível realizar a ação, Por favor, tente mais tarde.',
       );
     }
   };
 
   const mostrarFeedback = texto => {
-    alterarTextoDoFeedback(texto);
-    alterarVisibilidade(true);
+    setTextoDoFeedback(texto);
+    setVisibilidade(true);
     setTimeout(() => {
-      alterarVisibilidade(false);
+      setVisibilidade(false);
     }, 3000);
   };
 
@@ -180,12 +187,12 @@ export default function DescriptionScreen(props) {
     estaConectado
       ? navigation.navigate('webview', {
         title: 'Acesso ao conteúdo',
-        url: href
+        url: href,
       })
       : navigation.navigate(rotas.SEM_CONEXAO, {
         componente: 'webview',
         title: 'Acesso ao conteúdo',
-        url: href
+        url: href,
       });
   };
 
@@ -196,7 +203,7 @@ export default function DescriptionScreen(props) {
       headerStyle: {
         backgroundColor: params.cor || '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTitleAlign: 'center',
       headerLeft: () => (
@@ -204,12 +211,11 @@ export default function DescriptionScreen(props) {
           style={styles.searchHeaderBack}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -233,9 +239,8 @@ export default function DescriptionScreen(props) {
           <View
             style={{
               // height: Dimensions.get('window').width / 1.5,
-              width: Dimensions.get('window').width
-            }}
-          >
+              width: Dimensions.get('window').width,
+            }}>
             <View style={styles.viewHTML}>
               <HTML html={postagem.post_content} onLinkPress={baixarPDF} />
             </View>
@@ -259,10 +264,10 @@ export default function DescriptionScreen(props) {
 
 const styles = StyleSheet.create({
   feedbackMargin: {
-    marginBottom: Dimensions.get('window').height / 9
+    marginBottom: Dimensions.get('window').height / 9,
   },
   searchHeaderBack: {
-    marginHorizontal: 19
+    marginHorizontal: 19,
   },
   informacaoLateral: {
     color: 'rgba(0, 0, 0, 0.6)',
@@ -270,7 +275,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     fontSize: 10,
     lineHeight: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   titulo: { flex: 1, backgroundColor: '#fff' },
   textTitleDetail: {
@@ -281,13 +286,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     lineHeight: 28,
     color: '#00000099',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   },
   sub: {
     flexDirection: 'row',
     margin: 1,
     justifyContent: 'space-between',
-    marginTop: 12
+    marginTop: 12,
   },
   textData: {
     marginLeft: 16,
@@ -298,11 +303,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.4,
-    color: '#0000008A'
+    color: '#0000008A',
   },
   contentText: {
     marginLeft: 16,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   subShare: {
     marginRight: 20,
@@ -313,19 +318,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     letterSpacing: 0.4,
-    color: '#EEEEEE'
+    color: '#EEEEEE',
   },
   safeiOS: {
     flex: 1,
     backgroundColor: '#ffffff',
-    paddingTop: Platform.OS === 'android' ? 25 : 0
+    paddingTop: Platform.OS === 'android' ? 25 : 0,
   },
   imagemDePostagem: {
     height: Dimensions.get('window').width / 1.5,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width,
   },
   viewHTML: {
     padding: 10,
-    alignContent: 'center'
-  }
+    alignContent: 'center',
+  },
 });

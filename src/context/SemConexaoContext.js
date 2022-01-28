@@ -9,16 +9,15 @@ const SemConexaoProvider = ({ children }) => {
     <SemConexaoContext.Provider
       value={{
         indice,
-        mudarIndice
-      }}
-    >
+        mudarIndice,
+      }}>
       {children}
     </SemConexaoContext.Provider>
   );
 };
 
 SemConexaoProvider.defaultProps = {
-  initValues: {}
+  initValues: {},
 };
 
 export { SemConexaoContext, SemConexaoProvider };

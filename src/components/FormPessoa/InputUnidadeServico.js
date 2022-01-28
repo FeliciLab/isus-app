@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { pegarListaDeServicos } from '../../apis/apiKeycloak';
+import { pegarListaDeServicos } from '~/apis/apiKeycloak';
 import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
 
 const InputUnidadeServico = ({ defaultValue }) => {
   const [data, setData] = useState([]);
 
   const handleEffect = () => {
-    pegarListaDeServicos()
-      .then((result) => {
-        setData(result.map(item => ({
+    pegarListaDeServicos().then(result => {
+      setData(
+        result.map(item => ({
           label: item.nome,
           value: JSON.stringify({
             id: item.id,
-            nome: item.nome
-          })
-        })));
-      });
+            nome: item.nome,
+          }),
+        })),
+      );
+    });
   };
 
   useEffect(() => {

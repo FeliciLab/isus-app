@@ -1,33 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  ContainerBody,
-  ContainerForm,
-  RowButton,
-  RowInput
-} from './styles';
+import FormContext from '~/context/FormContext';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import PessoaModel from '~/models/pessoa';
 import { BotaoLaranja } from '../Botoes/BotoesCirculares';
 import InputCategoria from './InputCategoria';
 import InputEspecialidades from './InputEspecialidades';
 import InputUnidadeServico from './InputUnidadeServico';
-import FormContext from '../../context/FormContext';
-import PessoaModel from '../../models/pessoa';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
+import { ContainerBody, ContainerForm, RowButton, RowInput } from './styles';
 
-const FormProfissional = ({
-  actionPress,
-  labelButton,
-  hiddenActionButton
-}) => {
-  const [carregando, definirCarregando] = useState(false);
-  const [infoProfissional, definirInfoProfissional] = useState('{}');
+const FormProfissional = ({ actionPress, labelButton, hiddenActionButton }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [infoProfissional, setInfoProfissional] = useState('{}');
+
   const { control, setValue } = useContext(FormContext);
-  const { pessoa } = useContext(AutenticacaoContext);
+
+  const { pessoa } = useAutenticacao();
 
   useEffect(() => {
     const infoProf = { ...PessoaModel.mapInfoProfissional(pessoa, true) };
-    definirInfoProfissional({ ...infoProf });
+    setInfoProfissional({ ...infoProf });
     setValue('_hidden.categoriaProfissional', infoProf.categoriaProfissional);
   }, []);
 
@@ -37,7 +31,9 @@ const FormProfissional = ({
         <ScrollView>
           <ContainerForm>
             <RowInput>
-              <InputCategoria defaultValue={infoProfissional.categoriaProfissional} />
+              <InputCategoria
+                defaultValue={infoProfissional.categoriaProfissional}
+              />
             </RowInput>
             <RowInput>
               <Controller
@@ -60,26 +56,23 @@ const FormProfissional = ({
               />
             </RowInput>
           </ContainerForm>
-          {
-            !hiddenActionButton && (
-              <RowButton>
-                <BotaoLaranja
-                  loading={carregando}
-                  disabled={carregando}
-                  onPress={async () => {
-                    definirCarregando(true);
-                    try {
-                      await actionPress();
-                    } finally {
-                      definirCarregando(false);
-                    }
-                  }}
-                >
-                  {labelButton || 'Continuar'}
-                </BotaoLaranja>
-              </RowButton>
-            )
-          }
+          {!hiddenActionButton && (
+            <RowButton>
+              <BotaoLaranja
+                loading={isLoading}
+                disabled={isLoading}
+                onPress={async () => {
+                  setIsLoading(true);
+                  try {
+                    await actionPress();
+                  } finally {
+                    setIsLoading(false);
+                  }
+                }}>
+                {labelButton || 'Continuar'}
+              </BotaoLaranja>
+            </RowButton>
+          )}
         </ScrollView>
       </ContainerBody>
     </>

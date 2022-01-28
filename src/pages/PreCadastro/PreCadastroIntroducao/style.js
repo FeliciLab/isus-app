@@ -1,6 +1,6 @@
-import styled from 'styled-components/native';
 import { Dimensions, ImageBackground } from 'react-native';
 import { Paragraph } from 'react-native-paper';
+import styled from 'styled-components/native';
 
 export const ContainerPage = styled(ImageBackground)`
   flex: 1;
@@ -26,7 +26,7 @@ export const RowButton = styled.View`
 export const TextTitle = styled(Paragraph)`
   font-weight: 500;
   font-size: 20px;
-  margin-bottom: 10px
+  margin-bottom: 10px;
 `;
 
 export const TextBody = styled(Paragraph)`
@@ -35,5 +35,5 @@ export const TextBody = styled(Paragraph)`
 `;
 
 export default {
-  ContainerPage
+  ContainerPage,
 };

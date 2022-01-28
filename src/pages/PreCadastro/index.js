@@ -7,5 +7,5 @@ export default {
   PreCadastroInfoPessoal,
   PreCadastroProfissional,
   PreCadastroSenha,
-  PreCadastroIntroducao
+  PreCadastroIntroducao,
 };

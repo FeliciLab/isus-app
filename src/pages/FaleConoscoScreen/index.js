@@ -2,8 +2,8 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { cabecalhoMenuBusca } from '../../components/layoutEffect/cabecalhoLayout';
-import { FormProvider } from '../../context/FormContext';
+import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
+import { FormProvider } from '~/context/FormContext';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 import DemandaEducacao from './demandaEducacao';
 import DropdownSimples from './dropdown';
@@ -19,6 +19,7 @@ import {
 
 export default function FaleConoscoScreen({ route }) {
   const navigation = useNavigation();
+
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = useState(
     route.params.ocorrencia
   );

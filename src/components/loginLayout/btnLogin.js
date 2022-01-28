@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from 'react-native-paper';
-import FormContext from '../../context/FormContext';
-import { CORES } from '../../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
+import FormContext from '~/context/FormContext';
 
 const BtnLogin = props => {
   const { acao, style, carregando, ...rest } = props;
@@ -20,10 +20,9 @@ const BtnLogin = props => {
         borderRadius: 30,
         paddingTop: 5,
         paddingBottom: 5,
-        ...style
+        ...style,
       }}
-      {...rest}
-    >
+      {...rest}>
       Fazer Login
     </Button>
   );

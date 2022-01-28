@@ -1,6 +1,6 @@
-import styled from 'styled-components/native';
 import { Button } from 'react-native-paper';
-import { CORES } from '../../constantes/estiloBase';
+import styled from 'styled-components/native';
+import { CORES } from '~/constantes/estiloBase';
 
 export const Container = styled.View`
   flex: 1;

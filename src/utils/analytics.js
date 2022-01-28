@@ -6,11 +6,7 @@ import analytics from '@react-native-firebase/analytics';
  * @param {string} event Corresponde à ação que gerou esse evento (Click, swipe, scroll...)
  * @param {*} category É a categoria na qual o evento será inserido.
  */
-const analyticsData = async (
-  name,
-  event,
-  category
-) => {
+export const analyticsData = async (name, event, category) => {
   try {
     await analytics().logEvent(name, {
       event,
@@ -22,13 +18,3 @@ const analyticsData = async (
   }
   return null;
 };
-
-const Analytics = {
-  analyticsData
-};
-
-export {
-  analyticsData
-};
-
-export default Analytics;

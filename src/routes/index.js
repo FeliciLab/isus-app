@@ -1,33 +1,32 @@
-/* eslint-disable max-len */
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import SemConexao from '../components/semConexao';
-import features from '../constantes/features';
-import rotas from '../constantes/rotas';
-import { FormProvider } from '../context/FormContext';
-import BemVindo from '../pages/BemVindo';
-import Buscar from '../pages/Buscar';
-import BuscarDescription from '../pages/Buscar/Description';
-import TelaDeCadastro from '../pages/Cadastro';
-import Descricao from '../pages/Content/Descricao';
-import Description from '../pages/Content/Description';
-import Elmo from '../pages/Elmo';
-import CapacitacaoElmo from '../pages/Elmo/capacitacaoElmo';
-import NovidadesElmo from '../pages/Elmo/novidadesElmo';
-import SobreElmo from '../pages/Elmo/sobreElmo';
-import MaternoInfantil from '../pages/Home/LinhasDeCuidado/maternoInfantil';
-import MeusConteudos from '../pages/MeusConteudos';
-import EdicaoInfoPessoal from '../pages/Perfil/EdicaoInfoPessoal';
-import EdicaoInfoProfissional from '../pages/Perfil/EdicaoInfoProfissional';
-import PreCadastroIntroducao from '../pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
-import NovoSemConexao from '../pages/SemConexao';
-import TelaDeSucesso from '../pages/TelaDeSucesso';
-import WebViewPage from '../pages/WebView';
-import ManejoWebViewPage from '../pages/WebView/ManejoWebView';
-import estaAtiva from '../utils/estaAtiva';
+import SemConexao from '~/components/semConexao';
+import features from '~/constantes/features';
+import rotas from '~/constantes/rotas';
+import { FormProvider } from '~/context/FormContext';
+import BemVindo from '~/pages/BemVindo';
+import Buscar from '~/pages/Buscar';
+import BuscarDescription from '~/pages/Buscar/Description';
+import TelaDeCadastro from '~/pages/Cadastro';
+import Descricao from '~/pages/Content/Descricao';
+import Description from '~/pages/Content/Description';
+import Elmo from '~/pages/Elmo';
+import CapacitacaoElmo from '~/pages/Elmo/CapacitacaoElmo';
+import NovidadesElmo from '~/pages/Elmo/NovidadesElmo';
+import SobreElmo from '~/pages/Elmo/SobreElmo';
+import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
+import MeusConteudos from '~/pages/MeusConteudos';
+import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
+import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
+import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
+import NovoSemConexao from '~/pages/SemConexao';
+import TelaDeSucesso from '~/pages/TelaDeSucesso';
+import WebViewPage from '~/pages/WebView';
+import ManejoWebViewPage from '~/pages/WebView/ManejoWebView';
+import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import PreCadastroRoutes from './preCadastro.routes';
@@ -110,12 +109,11 @@ export default function App({ navigationRef }) {
         if (previousRouteName !== currentRouteName) {
           analytics().logScreenView({
             screen_name: currentRouteName,
-            screen_class: currentRouteName
+            screen_class: currentRouteName,
           });
         }
         routeNameRef.current = currentRouteName;
-      }}
-    >
+      }}>
       <RootStack.Navigator>
         <RootStack.Screen
           name="App"
@@ -126,8 +124,8 @@ export default function App({ navigationRef }) {
           name="CADASTRO"
           options={{
             headerShown: !estaAtiva(
-              features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO
-            )
+              features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO,
+            ),
           }}
           component={Cadastro}
         />
@@ -179,7 +177,7 @@ export default function App({ navigationRef }) {
           component={TelaDeSucesso}
           initialParams={{
             textoApresentacao: 'Sucesso!',
-            telaDeRedirecionamento: 'HOME'
+            telaDeRedirecionamento: 'HOME',
           }}
           options={{ headerShown: false }}
         />

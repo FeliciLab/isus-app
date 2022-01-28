@@ -1,13 +1,13 @@
 import React from 'react';
 import { Divider } from 'react-native-paper';
-import rotas from '../../constantes/rotas';
+import rotas from '~/constantes/rotas';
 import {
   ImagePost,
   Legenda,
   ViewImg,
   ViewRowCentering,
   ViewWhite,
-  WhiteTouchable
+  WhiteTouchable,
 } from './styles';
 
 const ItemConteudo = ({ item, navigation }) => (
@@ -16,12 +16,11 @@ const ItemConteudo = ({ item, navigation }) => (
       onPress={() =>
         navigation.navigate(rotas.DESCRICAO, {
           parametros: {
-            ...item
+            ...item,
           },
-          title: item.post_title
+          title: item.post_title,
         })
-      }
-    >
+      }>
       <ViewRowCentering>
         {item.image && (
           <ImagePost resizeMode="contain" source={{ uri: `${item.image}` }} />

@@ -1,30 +1,32 @@
 /* eslint-disable no-undef */
 import React, { useState, useEffect, useRef } from 'react';
 import { Appbar } from 'react-native-paper';
-import {
-  StyleSheet, View, Animated
-} from 'react-native';
+import { StyleSheet, View, Animated } from 'react-native';
 
 function BarraInferior({
-  telaDeOrigem, aoClicarEmBaixar, aoCompartilhar, conteudoBaixado, informacaoLateral, barraVisivel
+  telaDeOrigem,
+  aoClicarEmBaixar,
+  aoCompartilhar,
+  conteudoBaixado,
+  informacaoLateral,
+  barraVisivel,
 }) {
-  const [iconeDownload, alterarIconeDownload] = useState();
+  const [iconeDownload, setIconeDownload] = useState();
 
   const telas = {
     descricao: 'descricao',
-    manejo: 'manejo'
+    manejo: 'manejo',
   };
 
   useEffect(() => {
     if (telaDeOrigem === telas.descricao) {
       if (conteudoBaixado) {
-        return alterarIconeDownload('cloud-check');
+        return setIconeDownload('cloud-check');
       }
-      return alterarIconeDownload('cloud-download');
+      return setIconeDownload('cloud-download');
     }
-    return alterarIconeDownload('download');
+    return setIconeDownload('download');
   }, [conteudoBaixado]);
-
 
   const valorVisibilidade = useRef(new Animated.Value(0)).current;
 
@@ -32,7 +34,7 @@ function BarraInferior({
     Animated.timing(valorVisibilidade, {
       toValue: 60,
       useNativeDriver: false,
-      duration: 300
+      duration: 300,
     }).start();
   };
 
@@ -40,7 +42,7 @@ function BarraInferior({
     Animated.timing(valorVisibilidade, {
       toValue: 0,
       useNativeDriver: false,
-      duration: 500
+      duration: 500,
     }).start();
   };
 
@@ -51,23 +53,25 @@ function BarraInferior({
   }
 
   return (
-    <>
-      {
-        <Animated.View style={{ opacity: valorVisibilidade, height: valorVisibilidade }}>
-          <Appbar style={{ ...estilos.inferior }}>
-            <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-              <View style={{ marginVertical: 11 }}>
-                { informacaoLateral() }
-              </View>
-              <View style={{ flexDirection: 'row' }}>
-                { aoCompartilhar && <Appbar.Action icon="share-variant" onPress={aoCompartilhar} /> }
-                <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
-              </View>
-            </View>
-          </Appbar>
-        </Animated.View>
-      }
-    </>
+    <Animated.View
+      style={{ opacity: valorVisibilidade, height: valorVisibilidade }}>
+      <Appbar style={{ ...estilos.inferior }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{ marginVertical: 11 }}>{informacaoLateral()}</View>
+          <View style={{ flexDirection: 'row' }}>
+            {aoCompartilhar && (
+              <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
+            )}
+            <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
+          </View>
+        </View>
+      </Appbar>
+    </Animated.View>
   );
 }
 
@@ -83,7 +87,7 @@ const estilos = StyleSheet.create({
     shadowOpacity: 0,
     shadowRadius: 0,
     elevation: 0,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   texto: {
     color: 'rgba(0, 0, 0, 0.6)',
@@ -92,7 +96,7 @@ const estilos = StyleSheet.create({
     fontSize: 10,
     lineHeight: 16,
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default BarraInferior;

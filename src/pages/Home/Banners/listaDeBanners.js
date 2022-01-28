@@ -1,7 +1,7 @@
 import React from 'react';
-import Banner from '../../../components/Banner';
-import { pegarBanners } from '../../../apis/apiHome';
-import { listaDeImagens } from '../../../constantes/imagens';
+import { pegarBanners } from '~/apis/apiHome';
+import Banner from '~/components/Banner';
+import { listaDeImagens } from '~/constantes/imagens';
 
 const buscarImagem = ({ imagem, localImagem }) => {
   if (localImagem !== 'web' || !localImagem) {
@@ -14,14 +14,7 @@ const buscarImagem = ({ imagem, localImagem }) => {
   return { uri: imagem };
 };
 
-const definirBanner = ({
-  titulo,
-  imagem,
-  valor,
-  tipo,
-  ordem,
-  options
-}) => {
+const definirBanner = ({ titulo, imagem, valor, tipo, ordem, options }) => {
   if (tipo === 'webview') {
     return (
       <Banner
@@ -60,15 +53,14 @@ const verificarLogin = (item, estaLogado) => {
   return false;
 };
 
-export const gerarListaBanners = (banners, estaLogado) => (
+export const gerarListaBanners = (banners, estaLogado) =>
   banners
     .filter(item => verificarLogin(item, estaLogado))
     .map(item => ({
-      banner: definirBanner(item)
-    }))
-);
+      banner: definirBanner(item),
+    }));
 
-const listaDeBanners = async (estaLogado) => {
+const listaDeBanners = async estaLogado => {
   const bannerAPI = await pegarBanners();
   return gerarListaBanners(bannerAPI.data, estaLogado);
 };

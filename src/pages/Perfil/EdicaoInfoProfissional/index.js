@@ -1,19 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useLayoutEffect, useState } from 'react';
-import Alerta from '../../../components/alerta';
-import BarraDeStatus from '../../../components/barraDeStatus';
-import FormProfissional from '../../../components/FormPessoa/FormProfissional';
-import { cabecalhoVoltar } from '../../../components/layoutEffect/cabecalhoLayout';
-import { CORES } from '../../../constantes/estiloBase';
-import ROTAS from '../../../constantes/rotas';
-import CONST_TEXT from '../../../constantes/textos';
-import FormContext from '../../../context/FormContext';
-import useAutenticacao from '../../../hooks/useAutenticacao';
-import { atualizarUsuario } from '../../../services/usuarioService';
+import Alerta from '~/components/alerta';
+import BarraDeStatus from '~/components/barraDeStatus';
+import FormProfissional from '~/components/FormPessoa/FormProfissional';
+import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import { CORES } from '~/constantes/estiloBase';
+import ROTAS from '~/constantes/rotas';
+import CONST_TEXT from '~/constantes/textos';
+import FormContext from '~/context/FormContext';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import { atualizarUsuario } from '~/services/usuarioService';
 import {
   analyticsCategoria,
-  analyticsUnidadeServico
-} from '../../../utils/funcoesAnalytics';
+  analyticsUnidadeServico,
+} from '~/utils/funcoesAnalytics';
 import { ConteudoFormulario, SafeArea, TituloPrincipal } from './styles';
 
 function EdicaoInfoProfissional() {
@@ -33,7 +33,7 @@ function EdicaoInfoProfissional() {
     cabecalhoVoltar({
       navegador: navigation,
       titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.CABECALHO,
-      cor: 'brancoPreto'
+      cor: 'brancoPreto',
     });
   }, []);
 
@@ -58,32 +58,32 @@ function EdicaoInfoProfissional() {
             const result = await atualizarUsuario(
               {
                 ...pessoa,
-                ...getValues()
+                ...getValues(),
               },
-              { somenteProfissionais: true }
+              { somenteProfissionais: true },
             );
             if (result) {
               navigation.navigate('TelaDeSucesso', {
                 textoApresentacao:
                   CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
                 telaDeRedirecionamento: ROTAS.PERFIL,
-                telaDeBackground: CORES.VERDE
+                telaDeBackground: CORES.VERDE,
               });
               const categoriaProfissional = JSON.stringify(
-                result.categoriaProfissional
+                result.categoriaProfissional,
               );
               const uniServ = result.unidadeServico;
               analyticsCategoria(
                 categoriaProfissional,
                 now,
-                'Atualização Cadastro'
+                'Atualização Cadastro',
               );
               analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
             }
           } catch (e) {
             console.log(e);
             mostrarAlerta(
-              CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR
+              CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR,
             );
           }
         })}

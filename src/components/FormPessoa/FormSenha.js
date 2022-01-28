@@ -1,5 +1,5 @@
 import React from 'react';
 
-const FormSenha = () => (<></>);
+const FormSenha = () => <></>;
 
 export default FormSenha;

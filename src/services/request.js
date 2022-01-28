@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Config } from 'react-native-config';
 import {
   pegarTokenDoUsuarioNoStorage,
-  atualizarTokenDeAcessoDoUsuario
+  atualizarTokenDeAcessoDoUsuario,
 } from './autenticacao';
 
 const request = axios.create({
@@ -10,8 +10,8 @@ const request = axios.create({
   baseURL: Config.API_URL,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });
 
 request.interceptors.request.use(async req => {
@@ -40,7 +40,7 @@ request.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default request;

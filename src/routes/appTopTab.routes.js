@@ -2,16 +2,17 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { pegarCategoriasArquitetura } from '../apis/apiHome';
-import { CORES } from '../constantes/estiloBase';
-import rotas from '../constantes/rotas';
-import { pegarDados, salvarDados } from '../services/armazenamento';
-
-import SetaEsquerda from '../assets/icons/seta_esquerda.svg';
-import Lupa from '../assets/icons/provisorios/Lupa.svg';
+import { pegarCategoriasArquitetura } from '~/apis/apiHome';
+import Lupa from '~/assets/icons/provisorios/Lupa.svg';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
+import { pegarDados, salvarDados } from '~/services/armazenamento';
 
 const Tab = createMaterialTopTabNavigator();
+
 const indexComponent = 0;
+
 const indexTitle = 1;
 
 export default function appTopTabScreen({ route, navigation }) {
@@ -22,8 +23,8 @@ export default function appTopTabScreen({ route, navigation }) {
       name: ' ',
       slug: ' ',
       term_group: 0,
-      term_id: 0
-    }
+      term_id: 0,
+    },
   ]);
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function appTopTabScreen({ route, navigation }) {
         } catch (err2) {
           navigation.navigate(rotas.SEM_CONEXAO, {
             goHome: true,
-            componente: route.name
+            componente: route.name,
           });
         }
       }
@@ -62,7 +63,7 @@ export default function appTopTabScreen({ route, navigation }) {
       headerStyle: {
         backgroundColor: CORES.VERDE_AMARELO,
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
@@ -70,12 +71,11 @@ export default function appTopTabScreen({ route, navigation }) {
       headerRight: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.navigate('Buscar');
-          }}
-        >
+          }}>
           <Lupa />
           {/* <Icon name="magnify" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
@@ -83,16 +83,15 @@ export default function appTopTabScreen({ route, navigation }) {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -107,16 +106,15 @@ export default function appTopTabScreen({ route, navigation }) {
           tabBarOptions={{
             scrollEnabled: true,
             labelStyle: {
-              fontSize: 14
+              fontSize: 14,
             },
             indicatorStyle: { backgroundColor: CORES.BRANCO },
             inactiveTintColor: CORES.PRETO54,
             activeTintColor: CORES.BRANCO,
             style: {
-              backgroundColor: CORES.VERDE
-            }
-          }}
-        >
+              backgroundColor: CORES.VERDE,
+            },
+          }}>
           {categorias.map(item => (
             <Tab.Screen
               key={item.term_id}

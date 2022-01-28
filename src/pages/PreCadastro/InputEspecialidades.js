@@ -1,18 +1,18 @@
-import React, { useContext, useState, useEffect } from 'react';
-import FormCheckBoxList from '../../components/FormLayoutContexts/FormCheckBoxList';
-import { pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
-import FormContext from '../../context/FormContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { pegarListaDeEspecialidades } from '~/apis/apiKeycloak';
+import FormCheckBoxList from '~/components/FormLayoutContexts/FormCheckBoxList';
+import FormContext from '~/context/FormContext';
 
 const InputEspecialidades = ({ categoria }) => {
   const [data, setData] = useState([]);
+
   const [show, setShow] = useState(false);
+
   const { setValue, register } = useContext(FormContext);
 
-  const handleEffect = () => pegarListaDeEspecialidades(categoria)
-    .then((result) => {
-      setData(
-        result.map(item => ({ label: item.nome, value: item.nome }))
-      );
+  const handleEffect = () =>
+    pegarListaDeEspecialidades(categoria).then(result => {
+      setData(result.map(item => ({ label: item.nome, value: item.nome })));
 
       setValue('_hidden.especialidades', result);
     });
@@ -27,7 +27,9 @@ const InputEspecialidades = ({ categoria }) => {
       return;
     }
 
-    handleEffect().then(() => setShow(true)).finally(() => console.log(data));
+    handleEffect()
+      .then(() => setShow(true))
+      .finally(() => console.log(data));
   }, [categoria]);
 
   return (
@@ -39,8 +41,7 @@ const InputEspecialidades = ({ categoria }) => {
           data={data}
           rules={{}}
         />
-      )
-      }
+      )}
     </>
   );
 };

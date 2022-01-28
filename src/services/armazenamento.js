@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import RNFetchBlob from 'rn-fetch-blob';
+// import RNFetchBlob from 'rn-fetch-blob'; // Causando warning
+import { NativeModules } from 'react-native';
+const RNFetchBlob = NativeModules.RNFetchBlob;
+
+// Solução para remover o warning
+// https://stackoverflow.com/questions/67400711/react-native-error-on-react-native-run-android
 
 /**
  * Salva os dados no AsyncStorage
@@ -47,7 +52,7 @@ const pegarChavesCom = async parteDaChave => {
   try {
     const chaves = await pegarTodasAsChaves();
     const chavesEncontradas = chaves.filter(chave =>
-      chave.includes(parteDaChave)
+      chave.includes(parteDaChave),
     );
     return chavesEncontradas;
   } catch (e) {
@@ -86,7 +91,7 @@ const removerDados = async chave => {
 const converterImagemParaBase64 = async urlImagem => {
   const response = await RNFetchBlob.config({ fileCache: true }).fetch(
     'GET',
-    encodeURI(urlImagem)
+    encodeURI(urlImagem),
   );
   const file = await response.readFile('base64');
   return file;
@@ -99,7 +104,7 @@ const Armazenamento = {
   pegarChavesCom,
   pegarDadosDeChavesCom,
   removerDados,
-  converterImagemParaBase64
+  converterImagemParaBase64,
 };
 
 export {
@@ -109,7 +114,7 @@ export {
   pegarChavesCom,
   pegarDadosDeChavesCom,
   removerDados,
-  converterImagemParaBase64
+  converterImagemParaBase64,
 };
 
 export default Armazenamento;

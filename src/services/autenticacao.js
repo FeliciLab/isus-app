@@ -1,12 +1,12 @@
 import { salvarDados, pegarDados, removerDados } from './armazenamento';
-import { autenticar, pegarTokenDeAcesso } from '../apis/apiKeycloak';
+import { autenticar, pegarTokenDeAcesso } from '~/apis/apiKeycloak';
 
 export const efetuarAcesso = async ({ email, senha }) => {
   const response = await autenticarComIdSaude(email, senha).then();
   if (!response.sucesso) {
     return {
       erro: true,
-      msg: response.erros ? response.erros : response.mensagem
+      msg: response.erros ? response.erros : response.mensagem,
     };
   }
   await salvarTokenDoUsuarioNoStorage(response.mensagem);
@@ -65,5 +65,5 @@ export {
   excluirTokenDoUsuarioNoStorage,
   salvarDadosDeCadastro,
   pegarDadosDeCadastro,
-  atualizarTokenDeAcessoDoUsuario
+  atualizarTokenDeAcessoDoUsuario,
 };

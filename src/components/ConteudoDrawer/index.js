@@ -1,35 +1,34 @@
-import React, { useEffect, useContext } from 'react';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { uniqueId } from 'lodash';
+import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import ItemDrawer from './itemDrawer';
-import Heart from '../../assets/icons/isus_hor.svg';
+import Heart from '~/assets/icons/isus_hor.svg';
+import FaleConoscoMenuLateral from '~/assets/icons/provisorios/FaleConoscoMenuLateral.svg';
+import HomeIcon from '~/assets/icons/provisorios/HomeMenuLateral.svg';
+import MeuPerfilMenuLateral from '~/assets/icons/provisorios/MeuPerfilMenuLateral.svg';
+import SusCearaMenuLateral from '~/assets/icons/provisorios/SusCearaMenuLateral.svg';
+import rotas from '~/constantes/rotas';
+import testIDs from '~/constantes/testIDs';
+import { AutenticacaoContext } from '~/context/AutenticacaoContext';
+import useAnalytics from '~/hooks/useAnalytics';
 import {
+  pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
-  pegarEstadoLogadoArmazenado
-} from '../../services/autenticacao';
-import { DroidSafeArea } from './styles';
-// import { CORES } from '../../constantes/estiloBase';
+} from '~/services/autenticacao';
+import ItemDrawer from './itemDrawer';
+// import { CORES } from '~/constantes/estiloBase';
 import ItemInferior from './itemInferior';
-import useAnalytics from '../../hooks/Analytics';
-import rotas from '../../constantes/rotas';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import testIDs from '../../constantes/testIDs';
-import { uniqueId } from 'lodash';
-
-import HomeIcon from '../../assets/icons/provisorios/HomeMenuLateral.svg';
-import MeuPerfilMenuLateral from '../../assets/icons/provisorios/MeuPerfilMenuLateral.svg';
-import FaleConoscoMenuLateral from '../../assets/icons/provisorios/FaleConoscoMenuLateral.svg';
-import SusCearaMenuLateral from '../../assets/icons/provisorios/SusCearaMenuLateral.svg';
+import { DroidSafeArea } from './styles';
 
 function conteudoDoDrawer(props) {
   const {
     estaLogado,
     tokenUsuario,
     alterarTokenUsuario,
-    alterarEstaLogado
+    alterarEstaLogado,
   } = useContext(AutenticacaoContext);
 
   const { analyticsData } = useAnalytics();
@@ -39,7 +38,7 @@ function conteudoDoDrawer(props) {
   useEffect(() => {
     Promise.all([
       pegarTokenDoUsuarioNoStorage().then(token => alterarTokenUsuario(token)),
-      pegarEstadoLogadoArmazenado().then(estado => alterarEstaLogado(estado))
+      pegarEstadoLogadoArmazenado().then(estado => alterarEstaLogado(estado)),
     ]);
   }, [alterarTokenUsuario, alterarEstaLogado]);
 
@@ -57,7 +56,7 @@ function conteudoDoDrawer(props) {
         // />
       ),
       labelDoAnalytics: 'home',
-      rota: rotas.HOME_SCREEN_HOME
+      rota: rotas.HOME_SCREEN_HOME,
     },
     {
       testID: testIDs.DRAWER.ITEM_PERFIL,
@@ -72,13 +71,13 @@ function conteudoDoDrawer(props) {
         // />
       ),
       labelDoAnalytics: 'meu_perfil',
-      rota: tokenUsuario && estaLogado ? rotas.PERFIL : rotas.LOGIN
+      rota: tokenUsuario && estaLogado ? rotas.PERFIL : rotas.LOGIN,
     },
     {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
       nome: 'Fale conosco',
       icone: (
-        <FaleConoscoMenuLateral/>
+        <FaleConoscoMenuLateral />
         // <MaterialIcon
         //   testID="icon-drawer-feedback"
         //   name="feedback"
@@ -87,7 +86,7 @@ function conteudoDoDrawer(props) {
         // />
       ),
       labelDoAnalytics: 'fale_conosco',
-      rota: rotas.FALE_CONOSCO
+      rota: rotas.FALE_CONOSCO,
     },
     {
       testID: testIDs.DRAWER.ITEM_SUSNOCEARA,
@@ -102,8 +101,8 @@ function conteudoDoDrawer(props) {
         // />
       ),
       labelDoAnalytics: 'sus_no_ceara',
-      rota: rotas.SUS_NO_CEARA
-    }
+      rota: rotas.SUS_NO_CEARA,
+    },
   ];
 
   const RenderizaItensDoDrawer = () =>
@@ -131,9 +130,8 @@ function conteudoDoDrawer(props) {
           style={{
             height: '100%',
             flexDirection: 'column',
-            justifyContent: 'space-around'
-          }}
-        >
+            justifyContent: 'space-around',
+          }}>
           <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
           <ItemInferior />
         </View>

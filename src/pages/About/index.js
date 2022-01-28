@@ -12,15 +12,15 @@ import {
 } from 'react-native';
 import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Espsvg from '../../assets/images/sobreOiSUS/esp.svg';
-import Uece from '../../assets/images/sobreOiSUS/euce2.png';
-import Felicilabsvg from '../../assets/images/sobreOiSUS/felicilab.svg';
-import Funcapsvg from '../../assets/images/sobreOiSUS/funcap.svg';
-import Gesadsvg from '../../assets/images/sobreOiSUS/gesad.svg';
-import Governosvg from '../../assets/images/sobreOiSUS/governo_ceara.svg';
-import Isus from '../../assets/images/sobreOiSUS/isus.svg';
-import Sesasvg from '../../assets/images/sobreOiSUS/secretaria_saude.svg';
-import Thoughtworkssvg from '../../assets/images/sobreOiSUS/thoughtworks.svg';
+import Espsvg from '~/assets/images/sobreOiSUS/esp.svg';
+import Uece from '~/assets/images/sobreOiSUS/euce2.png';
+import Felicilabsvg from '~/assets/images/sobreOiSUS/felicilab.svg';
+import Funcapsvg from '~/assets/images/sobreOiSUS/funcap.svg';
+import Gesadsvg from '~/assets/images/sobreOiSUS/gesad.svg';
+import Governosvg from '~/assets/images/sobreOiSUS/governo_ceara.svg';
+import Isus from '~/assets/images/sobreOiSUS/isus.svg';
+import Sesasvg from '~/assets/images/sobreOiSUS/secretaria_saude.svg';
+import Thoughtworkssvg from '~/assets/images/sobreOiSUS/thoughtworks.svg';
 
 export default function AboutScreen() {
   const navigation = useNavigation();

@@ -1,15 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
-import { formularioPessoal } from '../../constantes/erroFormMsg';
-import { INPUT_THEMES } from '../../constantes/estiloBase';
-import { AutenticacaoContext } from '../../context/AutenticacaoContext';
-import FormContext from '../../context/FormContext';
-import PessoaModel from '../../models/pessoa';
-import {
-  cpfNaoCadastrado,
-  cpfValido,
-  emailValido,
-} from '../../utils/validadores';
+import { formularioPessoal } from '~/constantes/erroFormMsg';
+import { INPUT_THEMES } from '~/constantes/estiloBase';
+import FormContext from '~/context/FormContext';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import PessoaModel from '~/models/pessoa';
+import { cpfNaoCadastrado, cpfValido, emailValido } from '~/utils/validadores';
 import { BotaoLaranja } from '../Botoes/BotoesCirculares';
 import FormError from '../FormLayoutContexts/FormError';
 import FormTextInput from '../FormLayoutContexts/FormTextInput';
@@ -28,20 +24,24 @@ export default function FormInfoPessoal({
   labelButton,
   hiddenActionButton,
 }) {
-  const [carregando, definirCarregando] = useState(false);
-  const [emailSomenteLeitura, definirEmailSomenteLeitura] = useState(false);
-  const [cpfAntigo, definirCpfAntigo] = useState(false);
-  const { pessoa } = useContext(AutenticacaoContext);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [emailSomenteLeitura, setEmailSomenteLeitura] = useState(false);
+
+  const [cpfAntigo, setCpfAntigo] = useState(false);
+
+  const { pessoa } = useAutenticacao();
+
   const theme = INPUT_THEMES.LARANJA;
 
   const { errors, setValues, trigger } = useContext(FormContext);
 
   useEffect(() => {
     if (pessoa?.email) {
-      definirEmailSomenteLeitura(true);
+      setEmailSomenteLeitura(true);
     }
 
-    definirCpfAntigo(pessoa?.cpf);
+    setCpfAntigo(pessoa?.cpf);
     setValues(PessoaModel.criar(pessoa));
 
     trigger(['nomeCompleto', 'email', 'telefone', 'cpf', 'cidadeId']);
@@ -144,8 +144,8 @@ export default function FormInfoPessoal({
           {!hiddenActionButton && (
             <RowButton>
               <BotaoLaranja
-                loading={carregando}
-                disabled={hasErrors || carregando}
+                loading={isLoading}
+                disabled={hasErrors || isLoading}
                 onPress={async () => {
                   await trigger([
                     'nome',
@@ -155,12 +155,12 @@ export default function FormInfoPessoal({
                     'cidadeId',
                   ]);
                   if (hasErrors) return;
-                  definirCarregando(true);
+                  setIsLoading(true);
 
                   try {
                     await actionPress();
                   } finally {
-                    definirCarregando(false);
+                    setIsLoading(false);
                   }
                 }}>
                 {labelButton || 'Continuar'}

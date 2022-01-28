@@ -1,6 +1,6 @@
 {
   "name": "isusapp",
-  "version": "3.20.12",
+  "version": "3.20.13",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -80,6 +80,8 @@
     "babel-jest": "^26.6.3",
     "cross-env": "^7.0.2",
     "editorconfig": "^0.15.3",
+    "babel-plugin-root-import": "^6.6.0",
+    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "eslint": "^7.14.0",
     "eslint-config-airbnb": "17.1.1",
     "eslint-config-prettier": "^6.0.0",

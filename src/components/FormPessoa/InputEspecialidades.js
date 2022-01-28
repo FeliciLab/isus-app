@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { pegarListaDeEspecialidades } from '~/apis/apiKeycloak';
 import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
-import { pegarListaDeEspecialidades } from '../../apis/apiKeycloak';
 
 const InputEspecialidades = ({ categoria, defaultValue }) => {
   const [data, setData] = useState([]);
+
   const [show, setShow] = useState(false);
 
-  const handleEffect = idCategoria => pegarListaDeEspecialidades(idCategoria)
-    .then((result) => {
+  const handleEffect = idCategoria =>
+    pegarListaDeEspecialidades(idCategoria).then(result => {
       setData(
         result.map(item => ({
           label: item.nome,
-          value: JSON.stringify({ id: item.id, nome: item.nome })
-        }))
+          value: JSON.stringify({ id: item.id, nome: item.nome }),
+        })),
       );
     });
 
@@ -39,8 +40,7 @@ const InputEspecialidades = ({ categoria, defaultValue }) => {
           rules={{}}
           defaultValue={defaultValue}
         />
-      )
-      }
+      )}
     </>
   );
 };

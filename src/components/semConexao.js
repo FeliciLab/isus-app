@@ -25,13 +25,13 @@ export default function SemConexao(props) {
       cabecalhoVoltar({
         navegador: navigation,
         titulo: tituloCabecalho,
-        cor: corFundo
+        cor: corFundo,
       });
     } else {
       cabecalhoVoltarHome({
         navegador: navigation,
         titulo: tituloCabecalho,
-        cor: corFundo
+        cor: corFundo,
       });
     }
   }, []);
