@@ -1,7 +1,9 @@
 const ObjectUtils = {
-  vazio
+  vazio,
 };
 
-export function vazio(obj) { return Object.keys(obj).length === 0; }
+export function vazio(obj) {
+  return Object.keys(obj).length === 0;
+}
 
 export default ObjectUtils;

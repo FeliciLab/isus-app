@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 
 function BarraDeStatus(props) {
   const estaFocado = useIsFocused();
+
   return estaFocado ? <StatusBar {...props} /> : null;
 }
 

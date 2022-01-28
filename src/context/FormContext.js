@@ -13,11 +13,11 @@ export const FormProvider = ({ initValues, children }) => {
     getValues,
     control,
     unregister,
-    formState
+    formState,
   } = useForm({
     defaultValues: initValues,
     mode: 'onBlur',
-    reValidateMode: 'onChange'
+    reValidateMode: 'onChange',
   });
 
   const setValues = obj =>
@@ -38,16 +38,15 @@ export const FormProvider = ({ initValues, children }) => {
         control,
         unregister,
         formState,
-        fieldsEmpty
-      }}
-    >
+        fieldsEmpty,
+      }}>
       {children}
     </FormContext.Provider>
   );
 };
 
 FormProvider.defaultProps = {
-  initValues: {}
+  initValues: {},
 };
 
 export default FormContext;

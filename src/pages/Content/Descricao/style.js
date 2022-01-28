@@ -9,8 +9,8 @@ export const AreaConteudo = styled.SafeAreaView`
 `;
 
 export const CorpoPrincipal = styled.View`
-   flex: 1;
-   background-color: #fff;
+  flex: 1;
+  background-color: #fff;
 `;
 
 export const Titulo = styled(Title)`

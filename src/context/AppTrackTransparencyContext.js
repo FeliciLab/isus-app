@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { AppState } from 'react-native';
 import {
   getTrackingStatus,
@@ -23,7 +23,8 @@ export const AppTrackTransparencyProvider = ({ children }) => {
 
   useEffect(() => {
     const listener = AppState.addEventListener('change', status => {
-      if (status === 'active') { // issue da lib para iOS 15
+      if (status === 'active') {
+        // issue da lib para iOS 15
         (async () => {
           const status = await getTrackingStatus(); // pega o status do ATT
 

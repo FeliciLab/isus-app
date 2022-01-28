@@ -2,31 +2,32 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import { Dimensions } from 'react-native';
-import ConteudoDrawer from '../components/ConteudoDrawer';
-import { CORES } from '../constantes/estiloBase';
-import rotas from '../constantes/rotas';
-import { FormProvider } from '../context/FormContext';
-import { SemConexaoProvider } from '../context/SemConexaoContext';
-import AboutScreen from '../pages/About';
-import Denunciar from '../pages/Denunciar';
-import FaleConoscoScreen from '../pages/FaleConoscoScreen';
+import ConteudoDrawer from '~/components/ConteudoDrawer';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
+import { FormProvider } from '~/context/FormContext';
+import { SemConexaoProvider } from '~/context/SemConexaoContext';
+import AboutScreen from '~/pages/About';
+import Denunciar from '~/pages/Denunciar';
+import FaleConoscoScreen from '~/pages/FaleConoscoScreen';
 import {
   DUVIDAS_ELMO,
-  RELATAR_SUGESTAO
-} from '../pages/FaleConoscoScreen/tiposDeOcorrencia';
-import Login from '../pages/Login';
-import FormLogin from '../pages/Login/formulario';
-import ContaExcluida from '../pages/Perfil/contaExcluida';
-import ExcluirPerfil from '../pages/Perfil/excluirPerfil';
-import PerfilScreen from '../pages/Perfil/index';
-import TermoDeUsoScreen from '../pages/Perfil/TermosDeUso/index';
-import QualiQuizScreen from '../pages/QualiQuiz';
-import LoginQualiQuizScreen from '../pages/QualiQuiz/Login/LoginQualiQuiz';
-import SusNoCearaScreen from '../pages/SusNoCeara';
+  RELATAR_SUGESTAO,
+} from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
+import Login from '~/pages/Login';
+import FormLogin from '~/pages/Login/formulario';
+import ContaExcluida from '~/pages/Perfil/contaExcluida';
+import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
+import PerfilScreen from '~/pages/Perfil/index';
+import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade/index';
+import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso/index';
+import QualiQuizScreen from '~/pages/QualiQuiz';
+import LoginQualiQuizScreen from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
+import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
-import PoliticaDePrivacidadeScreen from '../pages/Perfil/PoliticaDePrivacidade/index';
 
 const Drawer = createDrawerNavigator();
+
 export default function appDrawerScreen() {
   return (
     <Drawer.Navigator
@@ -34,15 +35,14 @@ export default function appDrawerScreen() {
       drawerPosition="left"
       drawerStyle={{
         backgroundColor: '#fff',
-        width: Dimensions.get('screen').width / 1.5
+        width: Dimensions.get('screen').width / 1.5,
       }}
       drawerContent={props => (
         <ConteudoDrawer
           {...props}
           routeName={props.state.routeNames[props.state.index]}
         />
-      )}
-    >
+      )}>
       <Drawer.Screen name={rotas.HOME} component={AppTab} />
       <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
       <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
@@ -248,9 +248,8 @@ function QualiQuizStackScreen() {
   return (
     <QualiQuizStack.Navigator
       screenOptions={{
-        cardStyle: { backgroundColor: CORES.BRANCO }
-      }}
-    >
+        cardStyle: { backgroundColor: CORES.BRANCO },
+      }}>
       <QualiQuizStack.Screen
         name="QUALIQUIZ"
         component={QualiQuizScreen}
@@ -264,9 +263,8 @@ function QualiQuizLoginStackScreen() {
   return (
     <QualiQuizLoginStack.Navigator
       screenOptions={{
-        cardStyle: { backgroundColor: CORES.BRANCO }
-      }}
-    >
+        cardStyle: { backgroundColor: CORES.BRANCO },
+      }}>
       <QualiQuizStack.Screen
         name="QUALIQUIZ_LOGIN"
         component={LoginQualiQuizScreen}

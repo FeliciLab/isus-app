@@ -4,22 +4,23 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { alteraDadosDoUsuario } from '../../../apis/apiCadastro';
+import { alteraDadosDoUsuario } from '~/apis/apiCadastro';
 import {
   pegarListaDeCategoriasProfissionais,
   pegarListaDeEspecialidades,
-  pegarListaDeServicos
-} from '../../../apis/apiKeycloak';
-import Alerta from '../../../components/alerta';
-import BarraDeStatus from '../../../components/barraDeStatus';
-import DropDown from '../../../components/dropdown';
-import FormContext from '../../../context/FormContext';
-import { pegarDados } from '../../../services/armazenamento';
+  pegarListaDeServicos,
+} from '~/apis/apiKeycloak';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import Alerta from '~/components/alerta';
+import BarraDeStatus from '~/components/barraDeStatus';
+import DropDown from '~/components/dropdown';
+import FormContext from '~/context/FormContext';
+import { pegarDados } from '~/services/armazenamento';
 import {
   analyticsCategoria,
-  analyticsUnidadeServico
-} from '../../../utils/funcoesAnalytics';
-import { vazio } from '../../../utils/objectUtils';
+  analyticsUnidadeServico,
+} from '~/utils/funcoesAnalytics';
+import { vazio } from '~/utils/objectUtils';
 import {
   Acordeon,
   BotaoSalvar,
@@ -28,10 +29,8 @@ import {
   SafeArea,
   Scroll,
   Titulo,
-  TituloPrincipal
+  TituloPrincipal,
 } from './styles';
-
-import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
 
 function EdicaoInfoProfissional({ route }) {
   const { getValues, setValue, register, unregister } = useContext(FormContext);
@@ -44,20 +43,20 @@ function EdicaoInfoProfissional({ route }) {
 
   const [perfildoUsuario, setPerfilDoUsuario] = useState({});
 
-  const [listaDeServicos, ListaDeServicos] = useState([]);
+  const [listaDeServicos, setListaDeServicos] = useState([]);
 
-  const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
+  const [listaDeCategorias, setListaDeCategorias] = useState([]);
 
   const [
     tratarCategoriaProfissional,
-    setTratarCategoriaProfissional
+    setTratarCategoriaProfissional,
   ] = useState(0);
 
-  const [unidadesServico, alterarUnidadesServico] = useState({});
+  const [unidadesServico, setUnidadesServico] = useState({});
 
-  const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
+  const [listaDeEspecialidades, setListaDeEspecialidades] = useState([]);
 
-  const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
+  const [unidadesEspecialidades, setUnidadesEspecialidades] = useState({});
 
   const [categoriaAnalitycs, setCategoriaAnalitycs] = useState('');
 
@@ -69,8 +68,8 @@ function EdicaoInfoProfissional({ route }) {
     colors: {
       ...DefaultTheme.colors,
       primary: 'rgba(0, 0, 0, 0.6)',
-      accent: '#FF9800'
-    }
+      accent: '#FF9800',
+    },
   };
 
   const EstaEditavel = route.params.modo === 'edicao';
@@ -82,7 +81,7 @@ function EdicaoInfoProfissional({ route }) {
       headerStyle: {
         backgroundColor: '#FFF',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#000',
       headerTitleAlign: 'center',
@@ -90,31 +89,30 @@ function EdicaoInfoProfissional({ route }) {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
   useEffect(() => {
     const aoIniciar = async () => {
       const servicos = await pegarListaDeServicos();
-      ListaDeServicos(servicos);
+      setListaDeServicos(servicos);
 
       const categorias = await pegarListaDeCategoriasProfissionais();
-      alterarListaDeCategorias(categorias);
+      setListaDeCategorias(categorias);
 
       const especialidades = await pegarListaDeEspecialidades(
-        tratarCategoriaProfissional
+        tratarCategoriaProfissional,
       );
-      alterarListaDeEspecialidades(especialidades);
+      setListaDeEspecialidades(especialidades);
       especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
 
       const perfil = await pegarDados('perfil');
@@ -127,10 +125,10 @@ function EdicaoInfoProfissional({ route }) {
   const alterarCamposPreenchidos = dadosProfissionais => {
     if (dadosProfissionais.categoria_profissional) {
       setTratarCategoriaProfissional(
-        dadosProfissionais.categoria_profissional.id
+        dadosProfissionais.categoria_profissional.id,
       );
       registrarCategoriaProfissional(
-        JSON.stringify(dadosProfissionais.categoria_profissional)
+        JSON.stringify(dadosProfissionais.categoria_profissional),
       );
       verificarCategoriaEspecialidades();
       unregister('especialidades');
@@ -148,7 +146,7 @@ function EdicaoInfoProfissional({ route }) {
     if (dadosProfissionais.unidades_servicos) {
       mudarValoresUnidadesServicos(dadosProfissionais.unidades_servicos);
       registrarUnidadesServicosPreenchidas(
-        dadosProfissionais.unidades_servicos
+        dadosProfissionais.unidades_servicos,
       );
     }
   };
@@ -176,7 +174,7 @@ function EdicaoInfoProfissional({ route }) {
         setTratarCategoriaProfissional(value);
         const aoEspecialidades = async () => {
           const especialidades = await pegarListaDeEspecialidades(value);
-          alterarListaDeEspecialidades(especialidades);
+          setListaDeEspecialidades(especialidades);
           especialidades.map(pegarValorPadrãoDoCheckboxEspecilidades);
         };
         aoEspecialidades();
@@ -191,11 +189,11 @@ function EdicaoInfoProfissional({ route }) {
 
   const tratarUnidadesDeServico = unidadesDeServico => {
     const ServicosMarcados = Object.values(unidadesDeServico).filter(
-      servico => servico.foiMarcado
+      servico => servico.foiMarcado,
     );
     return ServicosMarcados.map(servico => ({
       id: servico.id,
-      nome: servico.nome
+      nome: servico.nome,
     }));
   };
 
@@ -216,9 +214,9 @@ function EdicaoInfoProfissional({ route }) {
       nome: servico.nome,
       foiMarcado: check[`${servico.nome}`]
         ? !check[`${servico.nome}`].foiMarcado
-        : true
+        : true,
     };
-    alterarUnidadesServico(check);
+    setUnidadesServico(check);
     registrarUnidadesDeServico(check);
   };
 
@@ -230,10 +228,10 @@ function EdicaoInfoProfissional({ route }) {
         nome: servico.nome,
         foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`]
           ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado
-          : true
+          : true,
       };
     });
-    alterarUnidadesServico(unidadesServicoCheckBoxes);
+    setUnidadesServico(unidadesServicoCheckBoxes);
   };
 
   const mudarValoresEspecialidades = especialidades => {
@@ -244,10 +242,10 @@ function EdicaoInfoProfissional({ route }) {
         nome: especialidade.nome,
         foiMarcado: especialidadesCheckBoxes[`${especialidade.nome}`]
           ? !especialidadesCheckBoxes[`${especialidade.nome}`].foiMarcado
-          : true
+          : true,
       };
     });
-    alterarUnidadesEspecialidades(especialidadesCheckBoxes);
+    setUnidadesEspecialidades(especialidadesCheckBoxes);
   };
 
   const registrarCategoriaProfissional = categoria => {
@@ -263,7 +261,7 @@ function EdicaoInfoProfissional({ route }) {
     return {
       id: especialidade.id,
       nome: especialidade.nome,
-      foiMarcado: false
+      foiMarcado: false,
     };
   };
 
@@ -274,18 +272,18 @@ function EdicaoInfoProfissional({ route }) {
       nome: especialidade.nome,
       foiMarcado: check[`${especialidade.nome}`]
         ? !check[`${especialidade.nome}`].foiMarcado
-        : true
+        : true,
     };
-    alterarUnidadesEspecialidades(check);
+    setUnidadesEspecialidades(check);
     registrarUnidadesDeEspecialidades(check);
   };
 
   const tratarUnidadesDeEspecialidades = unidadesDeEspecialidades => {
     const EspecialidadesMarcados = Object.values(
-      unidadesDeEspecialidades
+      unidadesDeEspecialidades,
     ).filter(especialidade => especialidade.foiMarcado);
     return EspecialidadesMarcados.map(especialidade => ({
-      id: especialidade.id
+      id: especialidade.id,
     }));
   };
 
@@ -293,7 +291,7 @@ function EdicaoInfoProfissional({ route }) {
     listaDeEspecialidades.map(especialidade => unregister(especialidade.nome));
     unregister('especialidades');
     const especialidadesTratados = tratarUnidadesDeEspecialidades(
-      unidadesDeEspecialidades
+      unidadesDeEspecialidades,
     );
     if (especialidadesTratados.length !== 0) {
       register({ name: 'especialidades' });
@@ -310,7 +308,7 @@ function EdicaoInfoProfissional({ route }) {
       municipio,
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     } = campos;
     return {
       email,
@@ -322,7 +320,7 @@ function EdicaoInfoProfissional({ route }) {
       termos: true,
       categoriaProfissional,
       especialidades: especialidades || '[]',
-      unidadeServico: unidadeServico || '[]'
+      unidadeServico: unidadeServico || '[]',
     };
   };
 
@@ -331,21 +329,21 @@ function EdicaoInfoProfissional({ route }) {
     const {
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     } = getValues();
 
     const usuarioTratado = tratarCamposDeUsuario({
       ...perfildoUsuario,
       categoriaProfissional,
       especialidades,
-      unidadeServico
+      unidadeServico,
     });
     setPerfilDoUsuario({
       ...perfildoUsuario,
       categoria_profissional: categoriaProfissional,
       // eslint-disable-next-line object-shorthand
       especialidades: especialidades,
-      unidade_servico: unidadeServico
+      unidade_servico: unidadeServico,
     });
     const uniServ = JSON.parse(usuarioTratado.unidadeServico);
     try {
@@ -355,7 +353,7 @@ function EdicaoInfoProfissional({ route }) {
         textoApresentacao:
           'Parabéns! Você atualizou suas informações profissionais. Você será redirecionado para sua página de Perfil.',
         telaDeRedirecionamento: 'PERFIL',
-        telaDeBackground: '#4CAF50'
+        telaDeBackground: '#4CAF50',
       });
       console.log(resposta.data);
       setCarregando(false);
@@ -395,7 +393,7 @@ function EdicaoInfoProfissional({ route }) {
               valor={
                 !vazio(perfildoUsuario) &&
                 JSON.stringify(
-                  perfildoUsuario.profissional.categoria_profissional
+                  perfildoUsuario.profissional.categoria_profissional,
                 )
               }
               definirValor={item => JSON.stringify(item)}
@@ -413,8 +411,7 @@ function EdicaoInfoProfissional({ route }) {
                 <Destaque>Qual é sua especialidade?</Destaque>
                 <Acordeon
                   titleStyle={{ color: 'black' }}
-                  title={<Titulo>Especialidades</Titulo>}
-                >
+                  title={<Titulo>Especialidades</Titulo>}>
                   <View>
                     {unidadesEspecialidades &&
                     listaDeEspecialidades.length !== 0 &&
@@ -443,8 +440,7 @@ function EdicaoInfoProfissional({ route }) {
             <Destaque>Em que setor você está atuando?</Destaque>
             <Acordeon
               titleStyle={{ color: 'black' }}
-              title={<Titulo>Setor de Atuação</Titulo>}
-            >
+              title={<Titulo>Setor de Atuação</Titulo>}>
               <View>
                 {listaDeServicos.length !== 0 &&
                   listaDeServicos.map(servico => (
@@ -479,8 +475,7 @@ function EdicaoInfoProfissional({ route }) {
           onPress={() => {
             salvarInformaçõesProfissionais();
           }}
-          mode="contained"
-        >
+          mode="contained">
           Salvar
         </BotaoSalvar>
       </Scroll>

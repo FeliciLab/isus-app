@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { Paragraph } from 'react-native-paper';
 import { CORES } from '../../constantes/estiloBase';
 
-
 export const Title = styled(Paragraph)`
   font-weight: 500;
   font-size: 20px;
@@ -28,5 +27,3 @@ export const RowButton = styled.View`
   align-self: flex-end;
   margin-bottom: 20px;
 `;
-
-export default Title;

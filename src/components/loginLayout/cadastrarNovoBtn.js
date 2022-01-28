@@ -1,12 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { CORES } from '../../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
+import ROTAS from '~/constantes/rotas';
 
 const cadastrarNovoBtn = ({ style }) => {
   const navigator = useNavigation();
   const navegarCadastro = () => {
-    navigator.navigate('CADASTRO');
+    navigator.navigate(ROTAS.CADASTRO);
   };
 
   return (
@@ -14,9 +15,8 @@ const cadastrarNovoBtn = ({ style }) => {
       <Text
         style={{
           textAlign: 'center',
-          letterSpacing: 1
-        }}
-      >
+          letterSpacing: 1,
+        }}>
         Ainda não tem o ID Saúde?
       </Text>
       <Text
@@ -25,9 +25,8 @@ const cadastrarNovoBtn = ({ style }) => {
           textAlign: 'center',
           letterSpacing: 1,
           color: CORES.LARANJA,
-          fontWeight: 'bold'
-        }}
-      >
+          fontWeight: 'bold',
+        }}>
         Cadastre-se agora
       </Text>
     </View>

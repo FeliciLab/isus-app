@@ -1,5 +1,5 @@
 import React from 'react';
 
-const PreCadastroSenha = () => (<></>);
+const PreCadastroSenha = () => <></>;
 
 export default PreCadastroSenha;

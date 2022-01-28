@@ -1,11 +1,10 @@
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Text } from 'react-native';
 import { Config } from 'react-native-config';
-import { useNavigation } from '@react-navigation/native';
-import { useNetInfo } from '@react-native-community/netinfo';
-
-import { CORES } from '../../constantes/estiloBase';
-import rotas from '../../constantes/rotas';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 
 const esqueceuSenhaBtn = ({ style }) => {
   const netInfo = useNetInfo();
@@ -17,13 +16,13 @@ const esqueceuSenhaBtn = ({ style }) => {
       ? navigation.navigate('webview', {
         title: 'Esqueci minha senha',
         url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
-        idSaude: true
+        idSaude: true,
       })
       : navigation.navigate(rotas.SEM_CONEXAO, {
         componente: 'webview',
         title: 'Esqueci minha senha',
         url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
-        idSaude: true
+        idSaude: true,
       });
   };
 
@@ -36,9 +35,8 @@ const esqueceuSenhaBtn = ({ style }) => {
           letterSpacing: 1,
           textAlign: 'center',
           fontWeight: 'bold',
-          ...style
-        }}
-      >
+          ...style,
+        }}>
         Esqueci minha senha
       </Text>
     </>

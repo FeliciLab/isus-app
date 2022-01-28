@@ -1,36 +1,43 @@
-import React from 'react';
-import {
-  Image, View, StyleSheet, TouchableOpacity
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Text, Surface } from 'react-native-paper';
 import moment from 'moment';
+import React from 'react';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Surface, Text } from 'react-native-paper';
 
 export default function CartaoDeConteudo(props) {
-  const { conteudo } = props;
   const navigation = useNavigation();
+
+  const { conteudo } = props;
+
   return (
     <Surface>
       <TouchableOpacity
-        style={estilos.cartao}
-        onPress={() => navigation.navigate(
-          conteudo.tipo_conteudo,
-          {
+        style={styles.cartao}
+        onPress={() =>
+          navigation.navigate(conteudo.tipo_conteudo, {
             title: 'Meus Conteúdos',
             url: conteudo.link,
-          }
-        )}>
-        <Image resizeMode="cover" style={estilos.imagem} source={{ uri: conteudo.imagem }} />
-        <View style={estilos.textos}>
-          <Text numberOfLines={2} style={estilos.titulo}>{conteudo.title}</Text>
-          <Text style={estilos.data}>{moment(conteudo.data).format('DD/MM/YYYY')}</Text>
+          })
+        }>
+        <Image
+          resizeMode="cover"
+          style={styles.imagem}
+          source={{ uri: conteudo.imagem }}
+        />
+        <View style={styles.textos}>
+          <Text numberOfLines={2} style={styles.titulo}>
+            {conteudo.title}
+          </Text>
+          <Text style={styles.data}>
+            {moment(conteudo.data).format('DD/MM/YYYY')}
+          </Text>
         </View>
       </TouchableOpacity>
     </Surface>
   );
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   imagem: {
     height: 100,
     width: 140,
@@ -41,7 +48,7 @@ const estilos = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 4,
     elevation: 4,
-    backgroundColor: '#FAFAFA'
+    backgroundColor: '#FAFAFA',
   },
   titulo: {
     fontSize: 14,
@@ -54,12 +61,12 @@ const estilos = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 1.5,
     color: '#4CAF50',
-    marginTop: 10
+    marginTop: 10,
   },
   textos: {
     flex: 1,
     marginHorizontal: 16,
     maxWidth: 207,
     alignSelf: 'center',
-  }
+  },
 });

@@ -43,9 +43,8 @@ function CaixaDialogoProvider({ children }) {
         aoCancelar,
         aoConcluir,
         indice,
-        mudarIndice
-      }}
-    >
+        mudarIndice,
+      }}>
       {children}
     </CaixaDialogoContext.Provider>
   );

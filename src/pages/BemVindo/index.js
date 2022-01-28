@@ -4,18 +4,18 @@ import { ImageBackground, StatusBar, View } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
-import tutorialbackground from '../../assets/backgrounds/tutorialbackground.png';
-import bemVindo from '../../assets/icons/apresentacao/bemVindo.svg';
-import cadastroProfissional from '../../assets/icons/apresentacao/cadastroProfissional.svg';
-import diagnostico from '../../assets/icons/apresentacao/diagnostico.svg';
-import educacao from '../../assets/icons/apresentacao/educacao.svg';
-import manejoClinico from '../../assets/icons/apresentacao/manejoClinico.svg';
-import pesquisa from '../../assets/icons/apresentacao/pesquisa.svg';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
-import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
-import useDialogAppTrack from '../../hooks/DialogAppTrack';
-import { salvarDados } from '../../services/armazenamento';
+import useAnalytics from '~/hooks/useAnalytics';
+import useDialogAppTrack from '~/hooks/useDialogAppTrack';
+import tutorialbackground from '~assets/backgrounds/tutorialbackground.png';
+import bemVindo from '~/assets/icons/apresentacao/bemVindo.svg';
+import cadastroProfissional from '~/assets/icons/apresentacao/cadastroProfissional.svg';
+import diagnostico from '~/assets/icons/apresentacao/diagnostico.svg';
+import educacao from '~/assets/icons/apresentacao/educacao.svg';
+import manejoClinico from '~/assets/icons/apresentacao/manejoClinico.svg';
+import pesquisa from '~/assets/icons/apresentacao/pesquisa.svg';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import { salvarDados } from '~/services/armazenamento';
 import {
   BotaoCadastro,
   Conteudo,

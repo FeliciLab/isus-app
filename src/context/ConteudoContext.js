@@ -4,15 +4,15 @@ export const ConteudoContext = createContext();
 
 export const ConteudoProvider = ({ categoria, titulo, children }) => {
   const [categorias, alterarCategorias] = useState([]);
+
   return (
     <ConteudoContext.Provider
       value={{
         categoria,
         titulo,
         categorias,
-        alterarCategorias
-      }}
-    >
+        alterarCategorias,
+      }}>
       {children}
     </ConteudoContext.Provider>
   );

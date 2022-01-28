@@ -1,14 +1,14 @@
-import GuiaAssistenciaFarmaceutica from '../assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
-import IDSaude from '../assets/images/banners/IDSaude.png';
-import VacinaCovid19 from '../assets/images/banners/vacinaCovid19.png';
-import SvgElmoLogo from '../assets/icons/logo/logo-elmo-h1.svg';
-import SvgCapacitacao from '../assets/icons/elmo/icon_capacitacao.svg';
-import SvgManualUso from '../assets/icons/elmo/icon_manual_uso.svg';
-import SvgFaleConosco from '../assets/icons/elmo/icon_fale_conosco.svg';
-import SvgBiblioteca from '../assets/icons/elmo/icon-elmo-biblioteca.svg';
-import SvgDepoimentos from '../assets/icons/elmo/icon-elmo-depoimentos.svg';
-import SvgDoacoes from '../assets/icons/elmo/icon-elmo-doacoes.svg';
-import SvgMateriais from '../assets/icons/elmo/icon-elmo-materiais.svg';
+import SvgBiblioteca from '~/assets/icons/elmo/icon-elmo-biblioteca.svg';
+import SvgDepoimentos from '~/assets/icons/elmo/icon-elmo-depoimentos.svg';
+import SvgDoacoes from '~/assets/icons/elmo/icon-elmo-doacoes.svg';
+import SvgMateriais from '~/assets/icons/elmo/icon-elmo-materiais.svg';
+import SvgCapacitacao from '~/assets/icons/elmo/icon_capacitacao.svg';
+import SvgFaleConosco from '~/assets/icons/elmo/icon_fale_conosco.svg';
+import SvgManualUso from '~/assets/icons/elmo/icon_manual_uso.svg';
+import SvgElmoLogo from '~/assets/icons/logo/logo-elmo-h1.svg';
+import GuiaAssistenciaFarmaceutica from '~/assets/images/banners/guiaAssistenciaFarmaceutica.jpg';
+import IDSaude from '~/assets/images/banners/IDSaude.png';
+import VacinaCovid19 from '~/assets/images/banners/vacinaCovid19.png';
 
 export const listaDeImagens = {
   'images/banners/guiaAssistenciaFarmaceutica.jpg': GuiaAssistenciaFarmaceutica,
@@ -24,7 +24,7 @@ export const listaImagensElmo = {
   SvgBiblioteca,
   SvgDepoimentos,
   SvgDoacoes,
-  SvgMateriais
+  SvgMateriais,
 };
 
 export default { listaDeImagens, listaImagensElmo };

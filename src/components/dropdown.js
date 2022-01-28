@@ -4,7 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Dropdown } from 'react-native-material-dropdown-v2';
 
 export default function DropdownSimples({
-  aoMudarValor, dados, label, valor, definirValor, definirRotulo
+  aoMudarValor,
+  dados,
+  label,
+  valor,
+  definirValor,
+  definirRotulo,
 }) {
   const dropdownRef = React.createRef();
 
@@ -24,14 +29,17 @@ export default function DropdownSimples({
         containerStyle={{ marginBottom: 2 }}
         valueExtractor={definirValor}
         labelExtractor={definirRotulo}
-        onChangeText={(proximoValor) => {
+        onChangeText={proximoValor => {
           aoMudarValor(proximoValor);
         }}
       />
 
       <Icon
         style={{
-          position: 'absolute', right: 8, top: 30, fontSize: 25
+          position: 'absolute',
+          right: 8,
+          top: 30,
+          fontSize: 25,
         }}
         name="arrow-drop-down"
         onPress={() => dropdownRef.current.focus()}

@@ -1,36 +1,78 @@
 [
-  {"nome": "pronto-socorro", "valor": "Pronto-socorro"},
-  {"nome": "ambulatorio", "valor": "Ambulatório"},
-  {"nome": "centro-cirurgico", "valor": "Centro cirúrgico"},
-  {"nome": "centro-obstetrico", "valor": "Centro obstétrico"},
-  {"nome": "internacao", "valor": "Internação"},
-  {"nome": "uti", "valor": "UTI"},
-  {"nome": "assistencia-direta", "valor": "Outro setor ou serviço de assistência direta ao paciente"},
-  {"nome": "laboratorio-clinico", "valor": "Laboratório clínico"},
-  {"nome": "diagnostico-por-imagem", "valor": "Diagnóstico por imagem"},
-  {"nome": "hemodinamica-intervencional", "valor": "Hemodinâmica ou cardiologia intervencionista"},
-  {"nome": "nefrologia-terapia-renal", "valor": "Nefrologia ou terapia renal substitutiva"},
-  {"nome": "outro-setor-diagnostico", "valor": "Outro setor ou serviço de apoio diagnóstico e terapêutico"},
-  {"nome": "triagem-acolhimento", "valor": "Triagem e acolhimento"},
-  {"nome": "acolhimento-psicossocial", "valor": "Acolhimento psicossocial"},
-  {"nome": "alimentacao-nutricional", "valor": "Alimentação e assistência nutricional e dietética"},
-  {"nome": "farmacia-assistencia", "valor": "Farmácia e assistência farmacêutica"},
-  {"nome": "fisioterapia-fonoaudiologia", "valor": "Fisioterapia, fonoaudiologia e terapia ocupacional"},
-  {"nome": "esterilizacao-materiais", "valor": "Esterilização de materiais"},
-  {"nome": "arquivo-medio", "valor": "Arquivo médico e estatística"},
-  {"nome": "epidemiologia-vigilancia", "valor": "Epidemiologia, vigilância epidemiológica e registro de óbito"},
-  {"nome": "outro-setor-apoio-tecnico", "valor": "Outro setor ou serviço de apoio técnico"},
-  {"nome": "gestao-estrategica", "valor": "Gestão estratégica"},
-  {"nome": "regulacao-contas-hospitalares-gestao-de-riscos", "valor": "Regulação, contas hospitalares e gestão de riscos"},
-  {"nome": "gestao-de-pessoas", "valor": "Gestão de pessoas"},
-  {"nome": "formacao-ou-qualificacao-profissional", "valor": "Formação ou qualificação profissional"},
-  {"nome": "estagio-profissional", "valor": "Estágio profissional"},
-  {"nome": "residencia-medica-ou-multiprofissional", "valor": "Residência médica ou multiprofissional"},
-  {"nome": "saude-e-seguranca-do-trabalho", "valor": "Saúde e segurança do trabalho"},
-  {"nome": "apoio-administrativo", "valor": "Apoio administrativo"},
-  {"nome": "higiene-limpeza", "valor": "Higiene e limpeza"},
-  {"nome": "transporte-e-seguranca", "valor": "Transporte e segurança"},
-  {"nome": "materiais-e-suprimentos", "valor": "Materiais e suprimentos"},
-  {"nome": "manutencao-e-reparos", "valor": "Manutenção e reparos"},
-  {"nome": "outro-setor-ou-servico-de-apoio-administrativo", "valor": "Outro setor ou serviço de apoio administrativo"}
+  { "nome": "pronto-socorro", "valor": "Pronto-socorro" },
+  { "nome": "ambulatorio", "valor": "Ambulatório" },
+  { "nome": "centro-cirurgico", "valor": "Centro cirúrgico" },
+  { "nome": "centro-obstetrico", "valor": "Centro obstétrico" },
+  { "nome": "internacao", "valor": "Internação" },
+  { "nome": "uti", "valor": "UTI" },
+  {
+    "nome": "assistencia-direta",
+    "valor": "Outro setor ou serviço de assistência direta ao paciente"
+  },
+  { "nome": "laboratorio-clinico", "valor": "Laboratório clínico" },
+  { "nome": "diagnostico-por-imagem", "valor": "Diagnóstico por imagem" },
+  {
+    "nome": "hemodinamica-intervencional",
+    "valor": "Hemodinâmica ou cardiologia intervencionista"
+  },
+  {
+    "nome": "nefrologia-terapia-renal",
+    "valor": "Nefrologia ou terapia renal substitutiva"
+  },
+  {
+    "nome": "outro-setor-diagnostico",
+    "valor": "Outro setor ou serviço de apoio diagnóstico e terapêutico"
+  },
+  { "nome": "triagem-acolhimento", "valor": "Triagem e acolhimento" },
+  { "nome": "acolhimento-psicossocial", "valor": "Acolhimento psicossocial" },
+  {
+    "nome": "alimentacao-nutricional",
+    "valor": "Alimentação e assistência nutricional e dietética"
+  },
+  {
+    "nome": "farmacia-assistencia",
+    "valor": "Farmácia e assistência farmacêutica"
+  },
+  {
+    "nome": "fisioterapia-fonoaudiologia",
+    "valor": "Fisioterapia, fonoaudiologia e terapia ocupacional"
+  },
+  { "nome": "esterilizacao-materiais", "valor": "Esterilização de materiais" },
+  { "nome": "arquivo-medio", "valor": "Arquivo médico e estatística" },
+  {
+    "nome": "epidemiologia-vigilancia",
+    "valor": "Epidemiologia, vigilância epidemiológica e registro de óbito"
+  },
+  {
+    "nome": "outro-setor-apoio-tecnico",
+    "valor": "Outro setor ou serviço de apoio técnico"
+  },
+  { "nome": "gestao-estrategica", "valor": "Gestão estratégica" },
+  {
+    "nome": "regulacao-contas-hospitalares-gestao-de-riscos",
+    "valor": "Regulação, contas hospitalares e gestão de riscos"
+  },
+  { "nome": "gestao-de-pessoas", "valor": "Gestão de pessoas" },
+  {
+    "nome": "formacao-ou-qualificacao-profissional",
+    "valor": "Formação ou qualificação profissional"
+  },
+  { "nome": "estagio-profissional", "valor": "Estágio profissional" },
+  {
+    "nome": "residencia-medica-ou-multiprofissional",
+    "valor": "Residência médica ou multiprofissional"
+  },
+  {
+    "nome": "saude-e-seguranca-do-trabalho",
+    "valor": "Saúde e segurança do trabalho"
+  },
+  { "nome": "apoio-administrativo", "valor": "Apoio administrativo" },
+  { "nome": "higiene-limpeza", "valor": "Higiene e limpeza" },
+  { "nome": "transporte-e-seguranca", "valor": "Transporte e segurança" },
+  { "nome": "materiais-e-suprimentos", "valor": "Materiais e suprimentos" },
+  { "nome": "manutencao-e-reparos", "valor": "Manutenção e reparos" },
+  {
+    "nome": "outro-setor-ou-servico-de-apoio-administrativo",
+    "valor": "Outro setor ou serviço de apoio administrativo"
+  }
 ]

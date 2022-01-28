@@ -8,32 +8,42 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { deletarUsuario } from '../../apis/apiCadastro';
-import { logout } from '../../apis/apiKeycloak';
-import BarraDeStatus from '../../components/barraDeStatus';
-import useAnalytics from '../../hooks/Analytics';
-import useAutenticacao from '../../hooks/useAutenticacao';
+import { deletarUsuario } from '~/apis/apiCadastro';
+import { logout } from '~/apis/apiKeycloak';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   excluirTokenDoUsuarioNoStorage,
-  pegarTokenDoUsuarioNoStorage
-} from '../../services/autenticacao';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
+  pegarTokenDoUsuarioNoStorage,
+} from '~/services/autenticacao';
 
 export default function ExcluirPerfil() {
-  const { analyticsData } = useAnalytics();
-  const [palavra, alterarPalavra] = useState({});
-  const [isvalidator, alterarisvalidator] = useState(true);
-  const [corPrimariaSenha, alterarCorPrimariaSenha] = useState('#FF9800');
   const navigation = useNavigation();
+
+  const { analyticsData } = useAnalytics();
+
+  const [palavra, setPalavra] = useState({});
+
+  const [isvalidator, setIsvalidator] = useState(true);
+
+  const [corPrimariaSenha, setCorPrimariaSenha] = useState('#FF9800');
+
   const refEntradaTexto = useRef(null);
+
   const appState = useRef(AppState.currentState);
+
+  // TODO: provavelmente isso aqui deveria estar em um useState
   let estaConectado = true;
+
+  // TODO: provavelmente isso deveria estar em um useRef
   const estaFocado = true;
+
   const { alterarEstaLogado } = useAutenticacao();
 
   const realizarLogout = () => {
@@ -62,9 +72,9 @@ export default function ExcluirPerfil() {
             text: 'OK',
             onPress: () => {
               navigation.navigate('HOME');
-            }
-          }
-        ]
+            },
+          },
+        ],
       );
     }
 
@@ -79,19 +89,19 @@ export default function ExcluirPerfil() {
         })
         .catch(error => {
           console.log(error);
-          alterarisvalidator(false);
-          alterarCorPrimariaSenha('#F2453D');
+          setIsvalidator(false);
+          setCorPrimariaSenha('#F2453D');
           setTimeout(() => {
-            alterarisvalidator(true);
-            alterarCorPrimariaSenha('#FF9800');
+            setIsvalidator(true);
+            setCorPrimariaSenha('#FF9800');
           }, 4000);
         });
     } else {
-      alterarisvalidator(false);
-      alterarCorPrimariaSenha('#F2453D');
+      setIsvalidator(false);
+      setCorPrimariaSenha('#F2453D');
       setTimeout(() => {
-        alterarCorPrimariaSenha('#FF9800');
-        alterarisvalidator(true);
+        setCorPrimariaSenha('#FF9800');
+        setIsvalidator(true);
       }, 4000);
     }
   };
@@ -103,19 +113,18 @@ export default function ExcluirPerfil() {
       accent: '#f1c40f',
       text: '#000000',
       background: '#fff',
-      placeholder: '#000000'
-    }
+      placeholder: '#000000',
+    },
   };
 
   const onChange = text => {
-    alterarPalavra(text);
+    setPalavra(text);
   };
 
-  // eslint-disable-next-line consistent-return
   const mostrarMensagemErro = validar => {
     if (validar === false) {
       return (
-        <Text style={estilos.infoErro}>
+        <Text style={styles.infoErro}>
           Por favor, digite exatamente o texto EXCLUIR para confirmar a exclusão
           dos seus dados.
         </Text>
@@ -144,7 +153,7 @@ export default function ExcluirPerfil() {
 
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction
+      backAction,
     );
 
     return () => {
@@ -158,7 +167,7 @@ export default function ExcluirPerfil() {
       headerStyle: {
         backgroundColor: '#FFF',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#000',
       headerTitleAlign: 'center',
@@ -166,32 +175,31 @@ export default function ExcluirPerfil() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             refEntradaTexto.current.clear();
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
   return (
     <>
       <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
-      <View style={estilos.margem}>
-        <Text style={estilos.tituloDestaque}>
+      <View style={styles.margem}>
+        <Text style={styles.tituloDestaque}>
           Para confirmar a exclusão da sua conta no ID Saúde, digite EXCLUIR.
         </Text>
         <TextInput
           label="Confirmação de exclusão"
           autoFocus={estaFocado}
           onChangeText={text => onChange(text)}
-          style={estilos.campoDeTexto}
+          style={styles.campoDeTexto}
           mode="outlined"
           theme={theme}
           ref={refEntradaTexto}
@@ -201,13 +209,12 @@ export default function ExcluirPerfil() {
           : mostrarMensagemErro(true)}
         <Button
           testID="botao-excluir-perfil"
-          style={estilos.botaoHabilitado}
+          style={styles.botaoHabilitado}
           mode="contained"
-          labelStyle={estilos.botaoExcluirConta}
+          labelStyle={styles.botaoExcluirConta}
           onPress={() => {
             excluirUsuario();
-          }}
-        >
+          }}>
           EXCLUIR
         </Button>
       </View>
@@ -215,24 +222,24 @@ export default function ExcluirPerfil() {
   );
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   margem: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
   },
   tituloDestaque: {
     fontWeight: 'normal',
     fontSize: 20,
     paddingTop: 24,
     marginLeft: 16,
-    marginRight: 16
+    marginRight: 16,
   },
   campoDeTexto: {
     marginLeft: 16,
     marginRight: 16,
     borderColor: '#FF9800',
-    paddingTop: 29
+    paddingTop: 29,
   },
   botaoHabilitado: {
     borderRadius: 50,
@@ -242,13 +249,13 @@ const estilos = StyleSheet.create({
     marginTop: 16,
     alignSelf: 'flex-end',
     justifyContent: 'center',
-    backgroundColor: '#F2453D'
+    backgroundColor: '#F2453D',
   },
   botaoExcluirConta: {
     color: '#FFFFFF',
     fontSize: 13,
     lineHeight: 16,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   infoErro: {
     marginLeft: 16,
@@ -256,6 +263,6 @@ const estilos = StyleSheet.create({
     color: '#FF0C3E',
     width: 342,
     height: 46,
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });

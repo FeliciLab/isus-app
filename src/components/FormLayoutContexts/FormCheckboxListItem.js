@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
-import randomKey from '../../utils/randomKey';
-import { CORES } from '../../constantes/estiloBase';
-import FormContext from '../../context/FormContext';
+import { CORES } from '~/constantes/estiloBase';
+import FormContext from '~/context/FormContext';
+import randomKey from '~/utils/randomKey';
 
 const theme = {
   ...DefaultTheme,
@@ -10,16 +10,11 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: 'rgba(0, 0, 0, 0.6);',
-    accent: CORES.LARANJA
-  }
+    accent: CORES.LARANJA,
+  },
 };
 
-const FormCheckboxListItem = ({
-  name,
-  label,
-  value,
-  updateItems
-}) => {
+const FormCheckboxListItem = ({ name, label, value, updateItems }) => {
   const [checked, setChecked] = useState('unchecked');
 
   const { setValue, getValues } = useContext(FormContext);

@@ -1,13 +1,13 @@
-import Boletins from '../../../assets/icons/forcaTarefa/boletins.svg';
-import NotificacaoDeCasos from '../../../assets/icons/forcaTarefa/notificacaoDeCasos.svg';
-import FarmacoVigilancia from '../../../assets/icons/forcaTarefa/farmacoVigilancia.svg';
-import NotasTecnicas from '../../../assets/icons/forcaTarefa/notasTecnicas.svg';
-import Denuncias from '../../../assets/icons/forcaTarefa/denuncias.svg';
-import VacinaCOVID19 from '../../../assets/icons/forcaTarefa/vacinaCovid19.svg';
-import PlanoContigencia from '../../../assets/icons/forcaTarefa/planoDeContigencia.svg';
-import rotas from '../../../constantes/rotas';
-import { labelsAnalytics } from '../../../constantes/labelsAnalytics';
-import { urls } from '../../../constantes/urls';
+import Boletins from '~/assets/icons/forcaTarefa/boletins.svg';
+import Denuncias from '~/assets/icons/forcaTarefa/denuncias.svg';
+import FarmacoVigilancia from '~/assets/icons/forcaTarefa/farmacoVigilancia.svg';
+import NotasTecnicas from '~/assets/icons/forcaTarefa/notasTecnicas.svg';
+import NotificacaoDeCasos from '~/assets/icons/forcaTarefa/notificacaoDeCasos.svg';
+import PlanoContigencia from '~/assets/icons/forcaTarefa/planoDeContigencia.svg';
+import VacinaCOVID19 from '~/assets/icons/forcaTarefa/vacinaCovid19.svg';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import rotas from '~/constantes/rotas';
+import { urls } from '~/constantes/urls';
 
 const listForcaTarefa = [
   {
@@ -19,8 +19,8 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Documentos Oficiais',
-      url: urls.DOCUMENTOS_OFICIAIS
-    }
+      url: urls.DOCUMENTOS_OFICIAIS,
+    },
   },
   {
     id: 'acao-boletins',
@@ -31,8 +31,8 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Boletins',
-      url: urls.BOLETINS
-    }
+      url: urls.BOLETINS,
+    },
   },
   {
     id: 'acao-plano-contigencia',
@@ -43,8 +43,8 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Plano de Contingência',
-      url: urls.PLANO_CONTIGENCIA
-    }
+      url: urls.PLANO_CONTIGENCIA,
+    },
   },
   {
     id: 'acao-vacinaCOVID19',
@@ -55,8 +55,8 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Vacinação',
-      url: urls.VACINA_COVID19
-    }
+      url: urls.VACINA_COVID19,
+    },
   },
   {
     id: 'acao-notificacao',
@@ -67,8 +67,8 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Notificações de casos',
-      url: urls.NOTIFICACAO_DE_CASOS
-    }
+      url: urls.NOTIFICACAO_DE_CASOS,
+    },
   },
   {
     id: 'acao-farmaco-viligancia',
@@ -79,8 +79,8 @@ const listForcaTarefa = [
     navegacao: {
       componente: 'webview',
       titulo: 'Farmaco-vigilância',
-      url: urls.FARMACO_VIGILANCIA
-    }
+      url: urls.FARMACO_VIGILANCIA,
+    },
   },
   {
     id: 'acao-denuncias',
@@ -90,10 +90,9 @@ const listForcaTarefa = [
     icone: Denuncias,
     navegacao: {
       componente: rotas.DENUNCIAR,
-      titulo: 'Denunciar'
-    }
-  }
+      titulo: 'Denunciar',
+    },
+  },
 ];
-
 
 export default listForcaTarefa;

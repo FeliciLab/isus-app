@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import ListaCards from '../../../components/listaCards';
-import { pegarCardsElmo } from '../../../apis/apiHome';
-import { listaImagensElmo } from '../../../constantes/imagens';
-import { Imagem } from '../../../components/listaCards/styles';
+import { pegarCardsElmo } from '~/apis/apiHome';
+import ListaCards from '~/components/listaCards';
+import { Imagem } from '~/components/listaCards/styles';
+import { listaImagensElmo } from '~/constantes/imagens';
 
 function ListaCardsElmo() {
   const [cardsElmo, setCardsElmo] = useState([]);

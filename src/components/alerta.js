@@ -8,8 +8,7 @@ function Alerta(props) {
       visible={visivel}
       wrapperStyle={{ position: 'relative', zIndex: 500 }}
       duration={duration}
-      {...rest}
-    >
+      {...rest}>
       {textoDoAlerta}
     </Snackbar>
   );

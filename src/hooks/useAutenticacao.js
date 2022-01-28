@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AutenticacaoContext } from '../context/AutenticacaoContext';
+import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 
 function useAutenticacao() {
   const {
@@ -10,7 +10,7 @@ function useAutenticacao() {
     estaLogado,
     alterarEstaLogado,
     pessoa,
-    alterarPessoa
+    alterarPessoa,
   } = useContext(AutenticacaoContext);
 
   return {
@@ -21,7 +21,7 @@ function useAutenticacao() {
     estaLogado,
     alterarEstaLogado,
     pessoa,
-    alterarPessoa
+    alterarPessoa,
   };
 }
 

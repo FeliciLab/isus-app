@@ -1,40 +1,45 @@
-import React, { useState, useCallback } from 'react';
-
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import {
-  TextInput, Button, Snackbar
-} from 'react-native-paper';
-import { descricaoValida, unidadeDeSaudeValida } from '../../utils/validadores';
-import { postDemandaEducacao } from '../../apis/apiHome';
-import { TESTIDS } from '../../constantes/testIDs';
-import useAnalytics from '../../hooks/Analytics';
-import { labelsAnalytics } from '../../constantes/labelsAnalytics';
+import React, { createRef, useCallback, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button, Snackbar, TextInput } from 'react-native-paper';
+import { postDemandaEducacao } from '~/apis/apiHome';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
+import { descricaoValida, unidadeDeSaudeValida } from '~/utils/validadores';
 
 export default function DemandaEducacaoScreen() {
   const { analyticsData } = useAnalytics();
-  const descricaoInput = React.createRef();
-  const unidadeDeSaudeInput = React.createRef();
-  const emailInput = React.createRef();
-  const [descricao, alterarDescricao] = useState('');
-  const [unidadeDeSaude, alterarUnidadeDeSaude] = useState('');
-  const [email, setEmail] = React.useState('');
-  const [sucessoAoEnviar, setSucessoAoEnviar] = React.useState(false);
-  const [erroAoEnviar, setErroAoEnviar] = React.useState(false);
-  const [mensagemDeErro, setMensagemDeErro] = React.useState('');
-  const [carregando, setCarregando] = React.useState(false);
 
-  useFocusEffect(
-    useCallback(() => () => limparCampos(), [])
-  );
+  const descricaoInput = createRef();
+
+  const unidadeDeSaudeInput = createRef();
+
+  const emailInput = createRef();
+
+  const [descricao, alterarDescricao] = useState('');
+
+  const [unidadeDeSaude, alterarUnidadeDeSaude] = useState('');
+
+  const [email, setEmail] = useState('');
+
+  const [sucessoAoEnviar, setSucessoAoEnviar] = useState(false);
+
+  const [erroAoEnviar, setErroAoEnviar] = useState(false);
+
+  const [mensagemDeErro, setMensagemDeErro] = useState('');
+
+  const [carregando, setCarregando] = useState(false);
+
+  useFocusEffect(useCallback(() => () => limparCampos(), []));
 
   const onSubmit = async () => {
     try {
-      const { data } = await postDemandaEducacao(descricao, unidadeDeSaude, email);
+      const { data } = await postDemandaEducacao(
+        descricao,
+        unidadeDeSaude,
+        email,
+      );
       if (data.errors) {
         setMensagemDeErro(extrairMensagemDeErro(data));
         setErroAoEnviar(true);
@@ -45,8 +50,14 @@ export default function DemandaEducacaoScreen() {
         setSucessoAoEnviar(true);
       }
     } catch (err) {
-      if (err.message === 'Network Error') setMensagemDeErro('Erro na conexão com o servidor. Tente novamente mais tarde.');
-      else setMensagemDeErro('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      if (err.message === 'Network Error')
+        setMensagemDeErro(
+          'Erro na conexão com o servidor. Tente novamente mais tarde.',
+        );
+      else
+        setMensagemDeErro(
+          'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+        );
       setErroAoEnviar(true);
       setCarregando(false);
     }
@@ -58,9 +69,10 @@ export default function DemandaEducacaoScreen() {
     setEmail('');
   };
 
-  const extrairMensagemDeErro = (response) => {
+  const extrairMensagemDeErro = response => {
     if (response.errors.descricao) return response.errors.descricao[0];
-    if (response.errors.unidadeDeSaude) return response.errors.unidadeDeSaude[0];
+    if (response.errors.unidadeDeSaude)
+      return response.errors.unidadeDeSaude[0];
     return '';
   };
 
@@ -102,27 +114,37 @@ export default function DemandaEducacaoScreen() {
             fontSize: 14,
             lineHeight: 20,
             color: '#828282',
-            marginBottom: 18
-          }}
-        >
+            marginBottom: 18,
+          }}>
           Campo Email não obrigatório
         </Text>
       </View>
       <View>
         <Button
           testID={TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR}
-          disabled={!!(!descricaoValida(descricao) || !unidadeDeSaudeValida(unidadeDeSaude))}
-          style={descricaoValida(descricao) && unidadeDeSaudeValida(unidadeDeSaude)
-            ? styles.button : styles.buttonDisabled}
+          disabled={
+            !!(
+              !descricaoValida(descricao) ||
+              !unidadeDeSaudeValida(unidadeDeSaude)
+            )
+          }
+          style={
+            descricaoValida(descricao) && unidadeDeSaudeValida(unidadeDeSaude)
+              ? styles.button
+              : styles.buttonDisabled
+          }
           labelStyle={{ color: '#fff' }}
           mode="contained"
           loading={carregando}
           onPress={() => {
-            analyticsData(labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO, 'Click', 'Fale Conosco');
+            analyticsData(
+              labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
+              'Click',
+              'Fale Conosco',
+            );
             setCarregando(true);
             onSubmit();
-          }}
-        >
+          }}>
           Enviar
         </Button>
 
@@ -132,9 +154,8 @@ export default function DemandaEducacaoScreen() {
           onDismiss={() => setSucessoAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setSucessoAoEnviar(false)
-          }}
-        >
+            onPress: () => setSucessoAoEnviar(false),
+          }}>
           Sua demanda foi enviado, obrigado!
         </Snackbar>
         <Snackbar
@@ -143,9 +164,8 @@ export default function DemandaEducacaoScreen() {
           onDismiss={() => setErroAoEnviar(false)}
           action={{
             label: 'ok',
-            onPress: () => setErroAoEnviar(false)
-          }}
-        >
+            onPress: () => setErroAoEnviar(false),
+          }}>
           {mensagemDeErro}
         </Snackbar>
       </View>
@@ -161,7 +181,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#FF9800'
+    backgroundColor: '#FF9800',
   },
   buttonDisabled: {
     borderRadius: 50,
@@ -169,6 +189,6 @@ const styles = StyleSheet.create({
     height: 45,
     alignSelf: 'flex-end',
     margin: 20,
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

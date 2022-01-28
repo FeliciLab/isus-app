@@ -6,16 +6,16 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import BarraDeStatus from '../../components/barraDeStatus';
+import BarraDeStatus from '~/components/barraDeStatus';
 import CartaoDeConteudo from './CartaoDeConteudo';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function MeusConteudos({ route }) {
   const navigation = useNavigation();
+
   const { conteudos } = route.params;
 
   useLayoutEffect(() => {
@@ -23,7 +23,7 @@ function MeusConteudos({ route }) {
       headerStyle: {
         backgroundColor: '#FFF',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#000',
       headerTitleAlign: 'center',
@@ -31,16 +31,15 @@ function MeusConteudos({ route }) {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -48,7 +47,7 @@ function MeusConteudos({ route }) {
     <>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <ScrollView style={{ backgroundColor: '#ffffff', height: '100%' }}>
-        <Text style={estilos.titulo}>Meus Conteúdos</Text>
+        <Text style={styles.titulo}>Meus Conteúdos</Text>
         <View>
           {conteudos.map(item => (
             <CartaoDeConteudo key={uniqueId('card-conteudo')} conteudo={item} />
@@ -59,14 +58,14 @@ function MeusConteudos({ route }) {
   );
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   titulo: {
     color: '#000',
     fontSize: 24,
     marginLeft: 16,
     marginTop: 24,
-    marginBottom: 16
-  }
+    marginBottom: 16,
+  },
 });
 
 export default MeusConteudos;
