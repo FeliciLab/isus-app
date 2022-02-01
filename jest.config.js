@@ -12,7 +12,7 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native'
+    'node_modules/(?!(react-native|@react-native'
     + '|react-navigation-tabs'
     + '|react-native-snap-carousel'
     + '|react-native-splash-screen'
