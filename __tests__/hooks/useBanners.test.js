@@ -7,8 +7,6 @@ jest.mock('../../src/hooks/useAutenticacao', () => {
   });
 });
 
-const listaDeBanners = jest.fn();
-
 describe('useBanners', () => {
   it('Deve iniciar com valores padrões', () => {
     const { result } = renderHook(() => useBanners());
@@ -16,15 +14,5 @@ describe('useBanners', () => {
     expect(result.current.error).toEqual(false);
     expect(result.current.isLoading).toEqual(false);
     expect(typeof result.current.featchBanners).toEqual('function');
-  });
-
-  it('Ao chamar featchBanners deve executar o listaDeBanners', async () => {
-    const { result, waitFor } = renderHook(() => useBanners());
-
-    waitFor(() => {
-      result.current.featchBanners();
-    });
-
-    expect(listaDeBanners).toHaveBeenCalled();
   });
 });
