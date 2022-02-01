@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useCallback } from 'react';
 import listaDeBanners from '~/pages/Home/Banners/listaDeBanners';
 import useAutenticacao from './useAutenticacao';
 
@@ -11,7 +11,7 @@ export function useBanners() {
 
   const { estaLogado } = useAutenticacao();
 
-  const featchBanners = async () => {
+  const featchBanners = useCallback(async () => {
     try {
       setIsLoading(true);
       const data = await listaDeBanners(estaLogado);
@@ -22,11 +22,7 @@ export function useBanners() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => {
-    featchBanners();
-  },[]);
-
-  return { banners, error, isLoading };
+  return { banners, error, isLoading, featchBanners };
 }
