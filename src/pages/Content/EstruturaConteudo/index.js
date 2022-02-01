@@ -64,7 +64,11 @@ export default function({ navigation }) {
     });
   }, []);
 
-  if (categorias.length === 0) {
+  if(!categoria) {
+    return null;
+  }
+
+  if (categorias?.length === 0) {
     return <></>;
   }
 
@@ -82,7 +86,7 @@ export default function({ navigation }) {
           backgroundColor: CORES.VERDE,
         },
       }}>
-      {categorias.map(item => (
+      {categorias && categorias.map(item => (
         <Tab.Screen
           options={{ title: item.name }}
           name={`${categoria}_${item.slug.replace('-', '_')}`}
