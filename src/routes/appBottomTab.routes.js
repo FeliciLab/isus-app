@@ -3,14 +3,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import Educacao from '~/assets/icons/educacao.svg';
 import Pesquisa from '~/assets/icons/pesquisa.svg';
-import HeartIcon from '~/assets/icons/provisorios/HeartIcon.svg';
-import HomeIcon from '~/assets/icons/provisorios/Home.svg';
 import rotas from '~/constantes/rotas';
 import { ConteudoProvider } from '~/context/ConteudoContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import EstruturaConteudo from '~/pages/Content/EstruturaConteudo';
 import Home from '~/pages/Home';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeStack = createStackNavigator();
 
@@ -99,10 +97,9 @@ export default function AppTabScreen() {
         component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => <HomeIcon color={color} size={20} />,
-          // tabBarIcon: ({ color }) => (
-          //   <Icon name="home" color={color} size={20} />
-          // )
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={20} />
+          )
         }}
         listeners={() => ({
           tabPress: () => {
@@ -117,10 +114,9 @@ export default function AppTabScreen() {
           component={MinhaSaudeStackScreen} // Teste
           options={{
             tabBarLabel: 'Minha Saúde',
-            tabBarIcon: ({ color }) => <HeartIcon color={color} size={20} />,
-            // tabBarIcon: ({ color }) => (
-            //   <Icon name="heart" color={color} size={20} />
-            // )
+            tabBarIcon: ({ color }) => (
+              <Icon name="heart" color={color} size={20} />
+            )
           }}
         />
       }
