@@ -7,12 +7,12 @@ function CartaoHome({ Icone, ativo, titulo, onPress, testID }) {
     return (
       <Card
         elevation={4}
-        style={estilos.espacamento}
+        style={styles.espacamento}
         onPress={onPress}
         testID={testID}>
         <Icone />
         <Card.Content>
-          <Paragraph style={estilos.paragrafo}>{titulo}</Paragraph>
+          <Paragraph style={styles.paragrafo}>{titulo}</Paragraph>
         </Card.Content>
       </Card>
     );
@@ -21,7 +21,7 @@ function CartaoHome({ Icone, ativo, titulo, onPress, testID }) {
   return <></>;
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   espacamento: {
     margin: 10,
   },

@@ -6,7 +6,7 @@ import Protocolos from '~/assets/icons/linhasDeCuidado/protocolos.svg';
 import Carrossel from '~/components/Carrossel';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import CartaoHome from '../cartaoHome';
+import CartaoHome from '../CartaoHome';
 import { Titulo } from '../styles';
 
 export default function LinhasDeCuidado({ navigation }) {

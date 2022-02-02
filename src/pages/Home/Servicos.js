@@ -14,7 +14,7 @@ import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import estaAtiva from '~/utils/estaAtiva';
-import CartaoHome from './cartaoHome';
+import CartaoHome from './CartaoHome';
 import { Titulo } from './styles';
 
 function Servicos({ navigation }) {

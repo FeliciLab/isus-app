@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import Carrossel from '~/components/Carrossel';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import CartaoHome from '../cartaoHome';
+import CartaoHome from '../CartaoHome';
 import { Titulo } from '../styles';
 import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
 

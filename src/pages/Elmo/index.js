@@ -21,7 +21,7 @@ import { CORES } from '~/constantes/estiloBase';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import estaAtiva from '~/utils/estaAtiva';
-import CartaoHome from '../Home/cartaoHome';
+import CartaoHome from '../Home/CartaoHome';
 import CardNewsElmo from './CardNewsElmo';
 import ListaCardsElmo from './ListaCardsElmo';
 import {
