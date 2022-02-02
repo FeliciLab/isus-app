@@ -1,60 +1,25 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
-import { pegarCategoriasArquitetura } from '~/apis/apiHome';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
+import MessageErrorCard from '~/components/MessageErrorCard/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
-import { ConteudoContext } from '~/context/ConteudoContext';
-import { pegarDados, salvarDados } from '~/services/armazenamento';
+import useConteudo from '~/hooks/useConteudo';
 import randomKey from '~/utils/randomKey';
 import TelaConteudo from '../TelaConteudo';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function({ navigation }) {
-  const { titulo, categoria, categorias, alterarCategorias } = useContext(
-    ConteudoContext,
-  );
-
-  useEffect(() => {
-    pegarCategorias();
-  }, []);
-
-  const pegarCategorias = async () => {
-    try {
-      const resposta = await pegarCategoriasArquitetura();
-      if (categoria === undefined) {
-        console.log('Categorias undefined!');
-        return;
-      }
-
-      if (!resposta.data[categoria]) {
-        console.log('Resposta categorias sem dados');
-        return;
-      }
-
-      await alterarCategorias(
-        resposta.data[categoria].map(item => ({
-          ...item,
-          title_description: titulo,
-        })),
-      );
-      salvarDados(`@categorias_${categoria}`, resposta.data[categoria]);
-    } catch (err) {
-      if (err.message === 'Network Error') {
-        try {
-          const resp = await pegarDados(`@categorias_${categoria}`);
-          alterarCategorias(resp);
-        } catch (err2) {
-          navigation.navigate(rotas.SEM_CONEXAO, {
-            goHome: true,
-            componente: categoria,
-          });
-        }
-      }
-    }
-    console.log('categorias', categorias);
-  };
+export default function EstruturaConteudo({ navigation }) {
+  const {
+    titulo,
+    categoria,
+    categorias,
+    pegarCategorias,
+    isLoading,
+    error: erroCarregamento,
+  } = useConteudo();
 
   useLayoutEffect(() => {
     cabecalhoMenuBusca({
@@ -64,12 +29,27 @@ export default function({ navigation }) {
     });
   }, []);
 
-  if(!categoria) {
-    return null;
-  }
+  useEffect(() => {
+    pegarCategorias();
+  }, []);
+
+  if (isLoading)
+    return <ActivityIndicator size="large" style={{ marginTop: 20 }} />;
+
+  if (erroCarregamento)
+    return (
+      <MessageErrorCard
+        title="Erro"
+        subtitle="Erro ao carregar informações"
+        iconColor={CORES.LARANJA}
+        iconName="alert"
+        style={{ margin: 10 }}
+        onPressButton={() => navigation.navigate(rotas.HOME)}
+      />
+    );
 
   if (categorias?.length === 0) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -86,7 +66,7 @@ export default function({ navigation }) {
           backgroundColor: CORES.VERDE,
         },
       }}>
-      {categorias && categorias.map(item => (
+      {categorias.map(item => (
         <Tab.Screen
           options={{ title: item.name }}
           name={`${categoria}_${item.slug.replace('-', '_')}`}

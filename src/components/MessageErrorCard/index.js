@@ -3,13 +3,23 @@ import { Button, Card } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const MessageErrorCard = props => {
-  const { title, subtitle, iconColor, iconName, ...rest } = props;
+  const {
+    title,
+    subtitle,
+    iconColor,
+    iconName,
+    onPressButton,
+    ...rest
+  } = props;
 
   const [isOpen, setIsOpen] = useState(true);
 
   if (!isOpen) {
     return null;
   }
+
+  const handleOnPressButton = () =>
+    onPressButton ? onPressButton() : setIsOpen(false);
 
   return (
     <Card {...rest}>
@@ -19,7 +29,7 @@ const MessageErrorCard = props => {
         left={props => <Icon name={iconName} color={iconColor} {...props} />}
       />
       <Card.Actions>
-        <Button onPress={() => setIsOpen(false)}>Fechar</Button>
+        <Button onPress={handleOnPressButton}>Fechar</Button>
       </Card.Actions>
     </Card>
   );
