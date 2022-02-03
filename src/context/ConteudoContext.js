@@ -39,6 +39,8 @@ export const ConteudoProvider = ({ categoria, titulo, children }) => {
       );
 
       salvarDados(`@categorias_${categoria}`, resposta.data[categoria]);
+
+      setError(false); // Só para garantir
     } catch (err) {
       setError(err);
       if (err.message === 'Network Error') {
