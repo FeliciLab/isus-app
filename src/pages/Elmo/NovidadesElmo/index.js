@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { FlatList } from 'react-native';
-import BarraDeStatus from '../../../components/barraDeStatus';
-import { cabecalhoVoltar } from '../../../components/layoutEffect/cabecalhoLayout';
-import { CORES } from '../../../constantes/estiloBase';
-import randomKey from '../../../utils/randomKey';
-import { CardSemConteudo, TextoCentralizado } from '../styles';
+import BarraDeStatus from '~/components/barraDeStatus';
+import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import { CORES } from '~/constantes/estiloBase';
+import randomKey from '~/utils/randomKey';
 import CardNewsElmo from '../CardNewsElmo';
+import { CardSemConteudo, TextoCentralizado } from '../styles';
 
 export default function NovidadesElmo(props) {
   const { route } = props;

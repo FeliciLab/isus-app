@@ -2,46 +2,54 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Linking } from 'react-native';
-import IconeSemConexaoLaranja from '../../assets/icons/sem_conexao_laranja.svg';
-import IconeSemConexaoVermelho from '../../assets/icons/sem_conexao_vermelho.svg';
+import IconeSemConexaoLaranja from '~/assets/icons/sem_conexao_laranja.svg';
+import IconeSemConexaoVermelho from '~/assets/icons/sem_conexao_vermelho.svg';
 import {
   cabecalhoVoltar,
-  cabecalhoVoltarHome
-} from '../../components/layoutEffect/cabecalhoLayout';
+  cabecalhoVoltarHome,
+} from '~/components/layoutEffect/cabecalhoLayout';
 import {
   Botao,
   CentralizarItensView,
   ScrollView,
   TextoCentralizado,
   TituloH6,
-  View
-} from '../../components/style';
-import { CORES } from '../../constantes/estiloBase';
-import rotas from '../../constantes/rotas';
-import { TESTIDS } from '../../constantes/testIDs';
+  View,
+} from '~/components/style';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
+import { TESTIDS } from '~/constantes/testIDs';
 import {
   SemConexaoContext,
-  SemConexaoProvider
-} from '../../context/SemConexaoContext';
+  SemConexaoProvider,
+} from '~/context/SemConexaoContext';
 
 function SemConexao(props) {
   const { route } = props;
+
   const { params } = route;
+
   const formlogin = params?.formlogin || false;
+
   const tituloCabecalho = 'Sem Conexão';
+
   const corFundo = 'verde';
-  const { indice, mudarIndice } = useContext(SemConexaoContext);
+
+  const { indice, setIndice } = useContext(SemConexaoContext);
+
   const estaConectado = useNetInfo().isConnected;
+
   const navigation = useNavigation();
-  const [carregando, mudarCarregando] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (formlogin) mudarIndice(3);
+    if (formlogin) setIndice(3);
   }, [formlogin]);
 
   const onPressTentarNovamente = () => {
-    mudarCarregando(true);
-    mudarIndice(indice + 1);
+    setIsLoading(true);
+    setIndice(indice + 1);
     if (estaConectado) {
       if (params?.componente === 'webview') {
         navigation.replace(params?.componente, {
@@ -49,7 +57,7 @@ function SemConexao(props) {
           url: params?.url,
           rota: params?.rota,
           idSaude: params?.idSaude,
-          expanded: params?.expanded
+          expanded: params?.expanded,
         });
         return;
       }
@@ -67,7 +75,7 @@ function SemConexao(props) {
       navigation.goBack();
     }
     setTimeout(() => {
-      mudarCarregando(false);
+      setIsLoading(false);
     }, 1500);
   };
 
@@ -79,13 +87,13 @@ function SemConexao(props) {
       cabecalhoVoltar({
         navegador: navigation,
         titulo: tituloCabecalho,
-        cor: corFundo
+        cor: corFundo,
       });
     } else {
       cabecalhoVoltarHome({
         navegador: navigation,
         titulo: tituloCabecalho,
-        cor: corFundo
+        cor: corFundo,
       });
     }
   }, []);
@@ -116,17 +124,15 @@ function SemConexao(props) {
               <Botao
                 testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
                 labelStyle={{ color: CORES.LARANJA }}
-                onPress={onPressVoltar}
-              >
+                onPress={onPressVoltar}>
                 VOLTAR
               </Botao>
               <Botao
-                loading={carregando}
+                loading={isLoading}
                 testID={TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}
                 labelStyle={{ color: CORES.BRANCO }}
                 backgroundColor={CORES.LARANJA}
-                onPress={onPressTentarNovamente}
-              >
+                onPress={onPressTentarNovamente}>
                 TENTAR NOVAMENTE
               </Botao>
             </>
@@ -134,8 +140,7 @@ function SemConexao(props) {
             <Botao
               testID={TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR}
               labelStyle={{ color: CORES.LARANJA }}
-              onPress={onPressVoltar}
-            >
+              onPress={onPressVoltar}>
               VOLTAR
             </Botao>
           )}

@@ -1,5 +1,5 @@
-import { analyticsData as analytics } from '../../utils/analytics';
-import useAppTrackTransparency from '../useAppTrackTransparency';
+import { analyticsData as analytics } from '~/utils/analytics';
+import useAppTrackTransparency from './useAppTrackTransparency';
 
 const useAnalytics = () => {
   const { isTrackingAuthorized } = useAppTrackTransparency();

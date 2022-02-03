@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // Formato do item { link: string, data: string, imagem: string, tipo_conteudo: string }
 
@@ -38,6 +38,7 @@ function CartaoDeConteudo(props) {
     </TouchableOpacity>
   );
 }
+
 const estilos = StyleSheet.create({
   imagem: {
     height: 100,

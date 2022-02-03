@@ -1,25 +1,21 @@
-import { useContext } from 'react';
-import { CaixaDialogoContext } from '../context/CaixaDialogoContext';
-import { logout } from '../apis/apiKeycloak';
-import useAutenticacao from './useAutenticacao';
 import { useNavigation } from '@react-navigation/native';
+import { useContext } from 'react';
+import { logout } from '~/apis/apiKeycloak';
+import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 import {
   armazenarEstadoLogado,
   excluirTokenDoUsuarioNoStorage,
-} from '../services/autenticacao';
+} from '~/services/autenticacao';
+import useAutenticacao from './useAutenticacao';
 
-export default function useLogoutApplication () {
-  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
-    CaixaDialogoContext
-  );
-
+function useLogoutApplication() {
   const navigation = useNavigation();
 
-  const {
-    tokenUsuario,
-    alterarEstaLogado,
-    alterarPessoa
-  } = useAutenticacao();
+  const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
+    CaixaDialogoContext,
+  );
+
+  const { tokenUsuario, alterarEstaLogado, alterarPessoa } = useAutenticacao();
 
   const realizarLogout = async () => {
     try {
@@ -49,10 +45,12 @@ export default function useLogoutApplication () {
       },
       aoCancelar: () => {
         fecharCaixaDialogo();
-      }
+      },
     };
 
     mostrarCaixaDialogo(atributosCaixaDialogo);
   };
   return { abrirCaixaDialogoSair, realizarLogout };
 }
+
+export default useLogoutApplication;

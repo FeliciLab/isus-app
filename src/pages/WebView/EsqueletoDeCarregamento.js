@@ -1,24 +1,21 @@
 import React from 'react';
-import {
-  View,
-  Dimensions,
-  PixelRatio,
-  StyleSheet,
-} from 'react-native';
+import { Dimensions, PixelRatio, StyleSheet, View } from 'react-native';
 import {
   Placeholder,
-  PlaceholderLine,
-  Shine,
-  PlaceholderMedia
+  PlaceholderLine, PlaceholderMedia, Shine
 } from 'rn-placeholder';
 
 export default function EsqueletoDeCarregamento() {
-  const {
-    container, cabecalho, conteudo, titulo, imagem
-  } = styles;
+  const { container, cabecalho, conteudo, titulo, imagem } = styles;
 
   const calculaLinhasdeArtigo = () => {
-    const alturaDisponivel = (PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height) - 130 - 24 - 24 - 130) / 100;
+    const alturaDisponivel =
+      (PixelRatio.getPixelSizeForLayoutSize(Dimensions.get('window').height) -
+        130 -
+        24 -
+        24 -
+        130) /
+      100;
     const linhas = [];
     for (let i = 1; i < alturaDisponivel; i += 1) {
       linhas.push(<PlaceholderLine />);
@@ -28,9 +25,7 @@ export default function EsqueletoDeCarregamento() {
 
   return (
     <View style={container}>
-      <Placeholder
-        Animation={Shine}
-      >
+      <Placeholder Animation={Shine}>
         <PlaceholderMedia size={80} style={cabecalho} />
         <View style={conteudo}>
           <PlaceholderLine style={titulo} />
@@ -50,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     alignItems: 'flex-start',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   cabecalho: {
     width: '100%',
@@ -62,10 +57,10 @@ const styles = StyleSheet.create({
   imagem: {
     width: '100%',
     height: 150,
-    marginBottom: 50
+    marginBottom: 50,
   },
   conteudo: {
     marginLeft: 60,
-    marginRight: 60
-  }
+    marginRight: 60,
+  },
 });

@@ -1,9 +1,11 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, {
+  createRef,
   useCallback,
   useContext,
   useEffect,
-  useLayoutEffect
+  useLayoutEffect,
+  useState,
 } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
@@ -11,59 +13,65 @@ import { Button, DefaultTheme, TextInput } from 'react-native-paper';
 import TextInputMask from 'react-native-text-input-mask';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconDropdown from 'react-native-vector-icons/MaterialIcons';
-import { getMunicipiosCeara } from '../../apis/apiCadastro';
-import FormContext from '../../context/FormContext';
-import WizardContext from '../../context/WizardContext';
-import { salvarDados } from '../../services/armazenamento';
-import Regex from '../../utils/regex';
+import { getMunicipiosCeara } from '~/apis/apiCadastro';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import FormContext from '~/context/FormContext';
+import WizardContext from '~/context/WizardContext';
+import { salvarDados } from '~/services/armazenamento';
+import Regex from '~/utils/regex';
 import FormularioInfoProfissional from './formularioInfoProfissional';
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 export default function FormularioInfoPessoal() {
-  const dropdown = React.createRef();
-  const [botaoAtivo, alteraBotaoAtivo] = React.useState(false);
-  const [nomeCidades, alteraNomeCidades] = React.useState(() => []);
-  const [cidades, pegaCidades] = React.useState([]);
+  const dropdown = createRef();
+
+  const [botaoAtivo, setBotaoAtivo] = useState(false);
+
+  const [nomeCidades, setNomeCidades] = useState(() => []);
+
+  const [cidades, setCidades] = useState([]);
+
   const navigator = useNavigation();
+
   const { alterarTelaAtual } = useContext(WizardContext);
 
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#304FFE'
-    }
+      primary: '#304FFE',
+    },
   };
 
   const { register, setValue, trigger, errors } = useContext(FormContext);
+
   useEffect(() => {
     register('nomeCompleto', {
       required: true,
       validate: nomeCompleto =>
-        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.'
+        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.',
     });
     register('email', {
       required: true,
       validate: email =>
-        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com',
     });
     register('telefone', {
       required: true,
       minLength: {
         value: 11,
-        message: 'O seu telefone deve ter pelo menos 11 números.'
+        message: 'O seu telefone deve ter pelo menos 11 números.',
       },
-      maxLength: 14
+      maxLength: 14,
     });
     register('cpf', {
       required: true,
       minLength: {
         value: 11,
-        message: 'O seu CPF deve ter pelo menos 11 números.'
+        message: 'O seu CPF deve ter pelo menos 11 números.',
       },
-      maxLength: 14
+      maxLength: 14,
     });
     register('cidade', {
-      required: true
+      required: true,
     });
   }, [register]);
 
@@ -83,18 +91,18 @@ export default function FormularioInfoPessoal() {
   const alteraValor = async (campo, valor) => {
     setValue(campo, valor);
     await trigger();
-    alteraBotaoAtivo(Object.entries(errors).length === 0);
+    setBotaoAtivo(Object.entries(errors).length === 0);
   };
 
   useFocusEffect(
     useCallback(() => {
       async function pegarCidades() {
         const response = await getMunicipiosCeara();
-        alteraNomeCidades(response.data.map(item => item.nome));
-        pegaCidades(response.data.map(item => item));
+        setNomeCidades(response.data.map(item => item.nome));
+        setCidades(response.data.map(item => item));
       }
       pegarCidades();
-    }, [])
+    }, []),
   );
 
   useEffect(() => {
@@ -108,7 +116,7 @@ export default function FormularioInfoPessoal() {
   useLayoutEffect(() => {
     navigator.setOptions({
       headerStyle: {
-        backgroundColor: '#304FFE'
+        backgroundColor: '#304FFE',
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
@@ -116,16 +124,15 @@ export default function FormularioInfoPessoal() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigator.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -221,7 +228,7 @@ export default function FormularioInfoPessoal() {
             position: 'absolute',
             right: 8,
             top: 30,
-            fontSize: 25
+            fontSize: 25,
           }}
           name="arrow-drop-down"
           onPress={() => dropdown.current.focus()}
@@ -235,8 +242,7 @@ export default function FormularioInfoPessoal() {
         mode="contained"
         onPress={() =>
           alterarTelaAtual({ indice: 1, tela: <FormularioInfoProfissional /> })
-        }
-      >
+        }>
         Próximo
       </Button>
     </>
@@ -248,18 +254,18 @@ const estilos = StyleSheet.create({
     fontSize: 24,
     marginTop: 40,
     lineHeight: 28,
-    color: 'rgba(0, 0, 0, 0.87)'
+    color: 'rgba(0, 0, 0, 0.87)',
   },
   informacoesPessoais: {
     fontWeight: '500',
     marginTop: 24,
     fontSize: 20,
     lineHeight: 23,
-    letterSpacing: 0.15
+    letterSpacing: 0.15,
   },
   campoDeTexto: {
     paddingTop: 28,
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
   },
   botao: {
     borderRadius: 50,
@@ -268,7 +274,7 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#BDBDBD'
+    backgroundColor: '#BDBDBD',
   },
   botaoHabilitado: {
     borderRadius: 50,
@@ -277,6 +283,6 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#304FFE'
-  }
+    backgroundColor: '#304FFE',
+  },
 });

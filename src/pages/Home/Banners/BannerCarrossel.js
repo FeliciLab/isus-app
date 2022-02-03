@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { CORES } from '../../../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
 
 export default function BannerCarrossel({ sliderWidth, itemWidth, banners }) {
   const [indiceAtivo, setIndiceAtivo] = useState(0);

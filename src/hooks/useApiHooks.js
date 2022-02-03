@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { pegarCategoriasArquitetura } from '../apis/apiHome';
-import rotas from '../constantes/rotas';
-import { pegarDados, salvarDados } from '../services/armazenamento';
+import { pegarCategoriasArquitetura } from '~/apis/apiHome';
+import rotas from '~/constantes/rotas';
+import { pegarDados, salvarDados } from '~/services/armazenamento';
 
 // TODO: descobrir o que isso faz
 const useApiHooks = () => {

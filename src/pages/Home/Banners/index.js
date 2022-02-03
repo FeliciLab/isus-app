@@ -1,26 +1,38 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
+import MessageErrorCard from '~/components/MessageErrorCard/index';
+import { CORES } from '~/constantes/estiloBase';
+import { useBanners } from '~/hooks/useBanners';
 import BannerCarrossel from './BannerCarrossel';
-import { AutenticacaoContext } from '../../../context/AutenticacaoContext';
-import listaBanners from './listaDeBanners';
 
 const Banners = ({ sliderWidth, itemWidth }) => {
-  const [banners, setBanners] = useState([]);
-
-  const { estaLogado } = useContext(AutenticacaoContext);
-
-  const carregarBaners = async () => {
-    try {
-      const mostrarBanners = await listaBanners(estaLogado);
-
-      setBanners(mostrarBanners);
-    } catch (error) {
-      console.log(`erro ao listar Banners. ${error}`);
-    }
-  };
+  const { banners, error, isLoading, featchBanners } = useBanners();
 
   useEffect(() => {
-    carregarBaners();
-  }, [estaLogado]);
+    featchBanners();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <ActivityIndicator
+        size="large"
+        color={CORES.VERDE}
+        style={{ marginVertical: 10 }}
+      />
+    );
+  }
+
+  if (error) {
+    return (
+      <MessageErrorCard
+        title="Error"
+        subtitle="Error ao carregar os banners"
+        iconColor={CORES.LARANJA}
+        iconName="alert"
+        style={{ margin: 10 }}
+      />
+    );
+  }
 
   return (
     <BannerCarrossel

@@ -1,16 +1,18 @@
 import React, { useContext } from 'react';
-import {
-  Text, StyleSheet, View, Platform
-} from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import BarraDeStatus from '../../components/barraDeStatus';
-import WizardContext, { WizardProvider } from '../../context/WizardContext';
-import { FormProvider } from '../../context/FormContext';
+import BarraDeStatus from '~/components/barraDeStatus';
+import { FormProvider } from '~/context/FormContext';
+import WizardContext, { WizardProvider } from '~/context/WizardContext';
 
 function TelaDeCadastro() {
   const { TelaAtual } = useContext(WizardContext);
-  const textoDeApresentacao = 'Vamos realizar seu cadastro, precisamos apenas de suas informações profissionais:';
-  const textoDeTelaSenha = 'Para finalizar seu cadastro, precisamos apenas de mais uma informação:';
+
+  const textoDeApresentacao =
+    'Vamos realizar seu cadastro, precisamos apenas de suas informações profissionais:';
+
+  const textoDeTelaSenha =
+    'Para finalizar seu cadastro, precisamos apenas de mais uma informação:';
 
   return (
     <>
@@ -20,15 +22,14 @@ function TelaDeCadastro() {
         extraScrollHeight={100}
         keyboardOpeningTime={100}
         enableOnAndroid
-        enableAutomaticScroll={Platform.OS === 'ios'}
-      >
+        enableAutomaticScroll={Platform.OS === 'ios'}>
         <View style={{ marginHorizontal: 16 }}>
-          {
-            TelaAtual.indice === 2
-              ? <Text style={estilos.apresentacao}>{textoDeTelaSenha}</Text>
-              : <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
-          }
-          { TelaAtual.tela }
+          {TelaAtual.indice === 2 ? (
+            <Text style={estilos.apresentacao}>{textoDeTelaSenha}</Text>
+          ) : (
+            <Text style={estilos.apresentacao}>{textoDeApresentacao}</Text>
+          )}
+          {TelaAtual.tela}
         </View>
       </KeyboardAwareScrollView>
     </>
@@ -50,11 +51,11 @@ const estilos = StyleSheet.create({
     fontSize: 24,
     marginTop: 40,
     lineHeight: 28,
-    color: 'rgba(0, 0, 0, 0.87)'
+    color: 'rgba(0, 0, 0, 0.87)',
   },
   campoDeTexto: {
     paddingBottom: 28,
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
   },
   botao: {
     borderRadius: 50,
@@ -63,7 +64,6 @@ const estilos = StyleSheet.create({
     alignSelf: 'flex-end',
     margin: 20,
     justifyContent: 'center',
-    backgroundColor: '#BDBDBD'
+    backgroundColor: '#BDBDBD',
   },
-
 });

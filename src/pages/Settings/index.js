@@ -1,15 +1,12 @@
-import * as React from 'react';
-import {
-  StyleSheet, View, TouchableOpacity, ScrollView
-} from 'react-native';
-import {
-  Title, Card, Caption, Headline, Paragraph
-} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Caption, Card, Headline, Paragraph, Title } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
+
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <View style={styles.headerTop}>
@@ -31,8 +28,7 @@ export default function HomeScreen() {
             style={{ marginHorizontal: 19 }}
             onPress={() => {
               navigation.toggleDrawer();
-            }}
-          >
+            }}>
             <Icon name="menu" size={28} color="#111" />
           </TouchableOpacity>
         </View>
@@ -41,10 +37,14 @@ export default function HomeScreen() {
       <ScrollView style={{ flex: 1 }}>
         <Card style={{ margin: 30 }}>
           <View style={{ flexDirection: 'row' }}>
-            <View style={{ height: 120, width: 120, backgroundColor: '#cccccc' }} />
+            <View
+              style={{ height: 120, width: 120, backgroundColor: '#cccccc' }}
+            />
             <View style={{ marginHorizontal: 15 }}>
               <Headline>COVID-19</Headline>
-              <Caption style={{ maxWidth: 200 }}>Encontre informações do COVID-19 aqui!</Caption>
+              <Caption style={{ maxWidth: 200 }}>
+                Encontre informações do COVID-19 aqui!
+              </Caption>
             </View>
           </View>
         </Card>
@@ -87,6 +87,6 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

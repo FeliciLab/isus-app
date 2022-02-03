@@ -3,21 +3,22 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import BarraDeStatus from '../../components/barraDeStatus';
-import useAnalytics from '../../hooks/Analytics';
-import useAutenticacao from '../../hooks/useAutenticacao';
+import { perfilUsuario } from '~/apis/apiCadastro';
+import BarraDeStatus from '~/components/barraDeStatus';
+import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   armazenarEstadoLogado,
   pegarEstadoLogadoArmazenado,
   pegarTokenDoUsuarioNoStorage,
   salvarTokenDoUsuarioNoStorage,
-} from '../../services/autenticacao';
+} from '~/services/autenticacao';
 import Banners from './Banners';
-import ExibirUsuario from './exibirUsuario';
 import ForcaTarefa from './ForcaTarefa';
-import LinhasDeCuidado from './LinhasDeCuidado';
+import LinhasDeCuidado from './LinhasDeCuidado/index';
+// import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
+import UserInfo from './UserInfo/index';
 // import MeusConteudos from './MeusConteudos';
 
 export default function Home() {
@@ -125,8 +126,8 @@ export default function Home() {
         barStyle={estaLogado ? 'dark-content' : 'light-content'}
       />
 
-      {estaLogado && <ExibirUsuario />}
-      
+      {estaLogado && <UserInfo />}
+
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />

@@ -1,12 +1,12 @@
 PODS:
-  - appcenter-analytics (4.3.0):
+  - appcenter-analytics (4.4.3):
     - AppCenter/Analytics (~> 4.0)
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
-  - appcenter-core (4.3.0):
+  - appcenter-core (4.4.3):
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
-  - appcenter-crashes (4.3.0):
+  - appcenter-crashes (4.4.3):
     - AppCenter/Crashes (~> 4.0)
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
@@ -379,7 +379,7 @@ PODS:
     - react-native-config/App (= 1.4.5)
   - react-native-config/App (1.4.5):
     - React-Core
-  - react-native-image-picker (4.7.1):
+  - react-native-image-picker (4.7.3):
     - React-Core
   - react-native-netinfo (6.2.1):
     - React-Core
@@ -394,7 +394,7 @@ PODS:
     - React-RCTText
   - react-native-tracking-transparency (0.1.1):
     - React
-  - react-native-webview (11.17.0):
+  - react-native-webview (11.17.1):
     - React-Core
   - React-perflogger (0.66.3)
   - React-RCTActionSheet (0.66.3):
@@ -754,9 +754,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppCenter: 883369ab78427b0561c688158d689dfe1f993ea9
-  appcenter-analytics: 2a8a55d2feba193c3c8a51b9902ef4757386414e
-  appcenter-core: 0293b8aeee457a25b44323a311de49c29d9defa7
-  appcenter-crashes: ad135405e148a9ed1c8bd169a9d2ea7bbaecd34c
+  appcenter-analytics: 1b32062da2e250c5e1396c678df8c6011ccbcf5a
+  appcenter-core: 6ea4754df4a3d8917a5803e2681a58179d7f7a21
+  appcenter-crashes: b079913ac0f0059e6cf39b7a805135223e508666
   AppCenterReactNativeShared: a821c7287a296486889ef6339317b701febb0695
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: a7c83b31436843459a1961bfd74b96033dc77234
@@ -806,13 +806,13 @@ SPEC CHECKSUMS:
   React-jsinspector: d9c8eb0b53f0da206fed56612b289fec84991157
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
-  react-native-image-picker: 5fe0a96bef4935bbdfb02f59b910bf40d5526109
+  react-native-image-picker: 4e6008ad8c2321622affa2c85432a5ebd02d480c
   react-native-netinfo: 3d3769f0d65de15c83a9bf1346f8be71de5a24bf
   react-native-onesignal: 6ce91b6cb91e6e2b9caf051da82a27573bf9950c
   react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
   react-native-text-input-mask: 36a546b378fadd2efe1b7484a859d34bc2c80395
   react-native-tracking-transparency: b2029ff756f1128b1f2c7c7c7f3003bc3c950f9f
-  react-native-webview: 10996be8bcc5e37a30dbc139fc544bb651dc8612
+  react-native-webview: 162b6453d074e0b1c7025242bb7a939b6f72b9e7
   React-perflogger: 73732888d37d4f5065198727b167846743232882
   React-RCTActionSheet: 96c6d774fa89b1f7c59fc460adc3245ba2d7fd79
   React-RCTAnimation: 8940cfd3a8640bd6f6372150dbdb83a79bcbae6c

@@ -1,16 +1,15 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { pegarBusca } from '../../apis/apiHome';
-import useAnalytics from '../../hooks/Analytics';
-import useDebounce from '../../hooks/useDebounce';
+import { pegarBusca } from '~/apis/apiHome';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import useAnalytics from '~/hooks/useAnalytics';
+import useDebounce from '~/hooks/useDebounce';
 import ItemConteudo from './ItemConteudo';
 import LegendaNaoEncontrada from './LegendaNaoEncontrada';
 import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
 import { TextSearch, TouchableLeft, ViewColumn } from './styles';
-
-import  SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 const Buscar = props => {
   const { navigation } = props;
@@ -37,7 +36,7 @@ const Buscar = props => {
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTitle: () => (
         <TextSearch
@@ -51,12 +50,11 @@ const Buscar = props => {
         <TouchableLeft
           onPress={() => {
             navigation.goBack();
-          }}
-        >
-          <SetaEsquerda/>
+          }}>
+          <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
         </TouchableLeft>
-      )
+      ),
     });
   });
 
@@ -83,7 +81,7 @@ const Buscar = props => {
         }
 
         const {
-          data: { data, last_page }
+          data: { data, last_page },
         } = await pegarBusca(termoBuscaDebounced, page);
 
         if (termoBuscaDebounced !== termoBuscaAnterior) {

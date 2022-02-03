@@ -6,9 +6,9 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import SetaEsquerda from '../../../assets/icons/seta_esquerda.svg';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import termoDeUso from './termo-de-uso.json';
 
 export default function TermosDeUsoScreen() {
@@ -19,7 +19,7 @@ export default function TermosDeUsoScreen() {
       headerStyle: {
         backgroundColor: '#4CAF50',
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
       },
       headerTintColor: '#FFF',
       headerTitleAlign: 'center',
@@ -27,15 +27,14 @@ export default function TermosDeUsoScreen() {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -57,9 +56,8 @@ export default function TermosDeUsoScreen() {
                 fontWeight: 'bold',
                 fontSize: 18,
                 textAlign: 'center',
-                color: '#000000'
-              }}
-            >
+                color: '#000000',
+              }}>
               {secao.titulo}
             </Text>
             {secao.paragrafos.map(paragrafo => (
@@ -75,7 +73,12 @@ export default function TermosDeUsoScreen() {
 }
 
 const estilos = StyleSheet.create({
-  titulo: { fontSize: 23, marginTop: 30, textAlign: 'center', color: '#000000' },
+  titulo: {
+    fontSize: 23,
+    marginTop: 30,
+    textAlign: 'center',
+    color: '#000000',
+  },
   conteudoTexto: { marginHorizontal: 16, marginBottom: 50 },
   texto: {
     color: '#000000',
@@ -83,6 +86,6 @@ const estilos = StyleSheet.create({
     fontSize: 14,
     marginBottom: 8,
     marginTop: 8,
-    textAlign: 'justify'
-  }
+    textAlign: 'justify',
+  },
 });

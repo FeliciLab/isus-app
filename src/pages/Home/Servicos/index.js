@@ -1,26 +1,26 @@
-import React from 'react';
-import { Linking, View } from 'react-native';
 import { useNetInfo } from '@react-native-community/netinfo';
-import QualiQuizIcon from '../../assets/icons/servicos/qualiquiz.svg';
-import Servico1 from '../../assets/icons/servicos/servico_1.svg';
-import Servico2 from '../../assets/icons/servicos/servico_2.svg';
-import Servico3 from '../../assets/icons/servicos/servico_3.svg';
-import Servico4 from '../../assets/icons/servicos/servico_4.svg';
-import Servico5 from '../../assets/icons/servicos/servico_5.svg';
-import Servico6 from '../../assets/icons/servicos/servico_6.svg';
-import Servico7 from '../../assets/icons/servicos/servico_7.svg';
-import CartaoHome from './cartaoHome';
-import useAnalytics from '../../hooks/Analytics';
-import estaAtiva from '../../utils/estaAtiva';
-import features from '../../constantes/features';
-import ROTAS from '../../constantes/rotas';
-import { Titulo } from './styles';
-import Carrossel from '../../components/Carrossel';
+import React, { useCallback } from 'react';
+import { Linking, View } from 'react-native';
+import QualiQuizIcon from '~/assets/icons/servicos/qualiquiz.svg';
+import Servico1 from '~/assets/icons/servicos/servico_1.svg';
+import Servico2 from '~/assets/icons/servicos/servico_2.svg';
+import Servico3 from '~/assets/icons/servicos/servico_3.svg';
+import Servico4 from '~/assets/icons/servicos/servico_4.svg';
+import Servico5 from '~/assets/icons/servicos/servico_5.svg';
+import Servico6 from '~/assets/icons/servicos/servico_6.svg';
+import Servico7 from '~/assets/icons/servicos/servico_7.svg';
+import ListServices from '~/components/ListServices/index';
+import ServiceButton from '~/components/ServiceButton/index';
+import features from '~/constantes/features';
+import ROTAS from '~/constantes/rotas';
+import useAnalytics from '~/hooks/useAnalytics';
+import estaAtiva from '~/utils/estaAtiva';
+import { Titulo } from '../styles';
 
 function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();
 
-  const netInfo = useNetInfo();
+  const { isConnected } = useNetInfo();
 
   const listaServicos = [
     {
@@ -33,8 +33,8 @@ function Servicos({ navigation }) {
         net: true,
         componente: 'webview',
         titulo: 'IntegraSUS',
-        url: 'https://integrasus.saude.ce.gov.br'
-      }
+        url: 'https://integrasus.saude.ce.gov.br',
+      },
     },
     {
       ordem: 3,
@@ -43,8 +43,8 @@ function Servicos({ navigation }) {
       ativo: true,
       icone: Servico2,
       navegacao: {
-        componente: ROTAS.SUS_NO_CEARA
-      }
+        componente: ROTAS.SUS_NO_CEARA,
+      },
     },
     {
       ordem: 7,
@@ -53,8 +53,8 @@ function Servicos({ navigation }) {
       ativo: true,
       icone: Servico3,
       navegacao: {
-        componente: ROTAS.FALE_CONOSCO
-      }
+        componente: ROTAS.FALE_CONOSCO,
+      },
     },
     {
       ordem: 4,
@@ -66,8 +66,8 @@ function Servicos({ navigation }) {
         net: true,
         componente: 'webview',
         titulo: 'Ações do governo',
-        url: 'https://coronavirus.ceara.gov.br/isus/governo/'
-      }
+        url: 'https://coronavirus.ceara.gov.br/isus/governo/',
+      },
     },
     {
       ordem: 5,
@@ -79,8 +79,8 @@ function Servicos({ navigation }) {
         net: true,
         componente: 'webview',
         titulo: 'ESP',
-        url: 'https://www.esp.ce.gov.br/'
-      }
+        url: 'https://www.esp.ce.gov.br/',
+      },
     },
     {
       ordem: 6,
@@ -92,9 +92,9 @@ function Servicos({ navigation }) {
         net: true,
         componente: 'browser',
         titulo: 'ESP Virtual',
-        url: 'http://espvirtual.esp.ce.gov.br/'
-      }
-    }
+        url: 'http://espvirtual.esp.ce.gov.br/',
+      },
+    },
   ];
 
   if (estaAtiva(features.QUALIQUIZ)) {
@@ -106,8 +106,8 @@ function Servicos({ navigation }) {
       icone: QualiQuizIcon,
       navegacao: {
         net: true,
-        componente: 'QUALIQUIZ'
-      }
+        componente: 'QUALIQUIZ',
+      },
     });
   }
 
@@ -121,45 +121,49 @@ function Servicos({ navigation }) {
       navegacao: {
         net: true,
         componente: ROTAS.ELMO,
-        titulo: 'Elmo'
-      }
+        titulo: 'Elmo',
+      },
     });
   }
 
-  const onPress = item => {
-    analyticsData(item.id, 'Click', 'Home');
-    if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO, {
-        componente: item.navegacao.componente,
+  const handleOnPressServiceButton = useCallback(
+    item => {
+      analyticsData(item.id, 'Click', 'Home');
+
+      if (item.navegacao.net && !isConnected) {
+        navigation.navigate(ROTAS.SEM_CONEXAO, {
+          componente: item.navegacao.componente,
+          title: item.navegacao.titulo,
+          url: item.navegacao.url,
+        });
+        return;
+      }
+
+      if (item.navegacao.componente === 'browser') {
+        Linking.openURL(item.navegacao.url);
+        return;
+      }
+
+      navigation.navigate(item.navegacao.componente, {
         title: item.navegacao.titulo,
-        url: item.navegacao.url
+        url: item.navegacao.url,
       });
-      return;
-    }
-
-    if (item.navegacao.componente === 'browser') {
-      Linking.openURL(item.navegacao.url);
-      return;
-    }
-
-    navigation.navigate(item.navegacao.componente, {
-      title: item.navegacao.titulo,
-      url: item.navegacao.url
-    });
-  };
+    },
+    [isConnected, analyticsData],
+  );
 
   return (
     <View>
       <Titulo>Serviços SUS Ceará</Titulo>
-      <Carrossel
+      <ListServices
         dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
-        aoRenderizarItem={({ item }) => (
-          <CartaoHome
+        renderItem={({ item }) => (
+          <ServiceButton
             ativo={item.ativo}
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => onPress(item)}
+            onPress={() => handleOnPressServiceButton(item)}
           />
         )}
       />

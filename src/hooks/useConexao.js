@@ -1,9 +1,9 @@
-import { useContext } from 'react';
 import NetInfo from '@react-native-community/netinfo';
-import { CaixaDialogoContext } from '../context/CaixaDialogoContext';
-import { CORES } from '../constantes/estiloBase';
+import { useContext } from 'react';
+import { CORES } from '~/constantes/estiloBase';
+import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 
-export default function useConexao() {
+function useConexao() {
   let estaConectado = false;
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext,
@@ -33,3 +33,5 @@ export default function useConexao() {
     escutar,
   };
 }
+
+export default useConexao;

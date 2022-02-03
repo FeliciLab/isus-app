@@ -1,24 +1,16 @@
 import React from 'react';
 import { View } from 'react-native';
-import { SafeArea, Text } from './style';
+import Check from '~/assets/icons/check.svg';
 import BarraDeStatus from '../barraDeStatus';
-import Check from '../../assets/icons/check.svg';
+import { SafeArea, Text } from './style';
 
-const TelaDeSucesso = ({
-  texto,
-  corBackground
-}) => (
+const TelaDeSucesso = ({ texto, corBackground }) => (
   <>
-    <BarraDeStatus
-      backgroundColor={corBackground}
-      barStyle="light-content"
-    />
+    <BarraDeStatus backgroundColor={corBackground} barStyle="light-content" />
     <View style={{ backgroundColor: corBackground }}>
       <SafeArea>
         <Check />
-        <Text>
-          { texto }
-        </Text>
+        <Text>{texto}</Text>
       </SafeArea>
     </View>
   </>

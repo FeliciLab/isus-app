@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // post { data: string, post_link: string, image: string }
 

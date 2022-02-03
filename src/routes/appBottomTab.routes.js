@@ -1,16 +1,14 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Educacao from '../assets/icons/educacao.svg';
-import HomeIcon from '../assets/icons/provisorios/Home.svg';
-import HeartIcon from '../assets/icons/provisorios/HeartIcon.svg';
-import Pesquisa from '../assets/icons/pesquisa.svg';
-import rotas from '../constantes/rotas';
-import { ConteudoProvider } from '../context/ConteudoContext';
-import useAnalytics from '../hooks/Analytics';
-import EstruturaConteudo from '../pages/Content/EstruturaConteudo';
-import Home from '../pages/Home';
+import Educacao from '~/assets/icons/educacao.svg';
+import Pesquisa from '~/assets/icons/pesquisa.svg';
+import rotas from '~/constantes/rotas';
+import { ConteudoProvider } from '~/context/ConteudoContext';
+import useAnalytics from '~/hooks/useAnalytics';
+import EstruturaConteudo from '~/pages/Content/EstruturaConteudo';
+import Home from '~/pages/Home';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeStack = createStackNavigator();
 
@@ -93,22 +91,20 @@ export default function AppTabScreen() {
       initialRouteName={rotas.HOME}
       activeColor="#4CAF50"
       inactiveColor="#828282"
-      barStyle={{ backgroundColor: '#fff' }}
-    >
+      barStyle={{ backgroundColor: '#fff' }}>
       <AppTab.Screen
         name="HOME_SCREEN_HOME"
         component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color }) => <HomeIcon color={color} size={20} />
-          // tabBarIcon: ({ color }) => (
-          //   <Icon name="home" color={color} size={20} />
-          // )
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={20} />
+          )
         }}
         listeners={() => ({
           tabPress: () => {
             analyticsData('Home', 'Click', 'Home');
-          }
+          },
         })}
       />
 
@@ -118,10 +114,9 @@ export default function AppTabScreen() {
           component={MinhaSaudeStackScreen} // Teste
           options={{
             tabBarLabel: 'Minha Saúde',
-            tabBarIcon: ({ color }) => <HeartIcon color={color} size={20} />
-            // tabBarIcon: ({ color }) => (
-            //   <Icon name="heart" color={color} size={20} />
-            // )
+            tabBarIcon: ({ color }) => (
+              <Icon name="heart" color={color} size={20} />
+            )
           }}
         />
       }
@@ -131,7 +126,7 @@ export default function AppTabScreen() {
         component={EducationStackScreen}
         options={{
           tabBarLabel: 'Educação',
-          tabBarIcon: ({ color }) => <Educacao color={color} size={20} />
+          tabBarIcon: ({ color }) => <Educacao color={color} size={20} />,
         }}
       />
       <AppTab.Screen
@@ -139,7 +134,7 @@ export default function AppTabScreen() {
         component={SearchesStackScreen}
         options={{
           tabBarLabel: 'Pesquisa',
-          tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />
+          tabBarIcon: ({ color }) => <Pesquisa color={color} size={20} />,
         }}
       />
     </AppTab.Navigator>

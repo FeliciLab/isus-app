@@ -1,78 +1,56 @@
-import React,
-{
-  useLayoutEffect,
-  useEffect,
-  useContext
-} from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { CORES } from '../../../constantes/estiloBase';
-import { salvarDados, pegarDados } from '../../../services/armazenamento';
-import rotas from '../../../constantes/rotas';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
+import MessageErrorCard from '~/components/MessageErrorCard/index';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
+import useConteudo from '~/hooks/useConteudo';
+import randomKey from '~/utils/randomKey';
 import TelaConteudo from '../TelaConteudo';
-import { ConteudoContext } from '../../../context/ConteudoContext';
-import { cabecalhoMenuBusca } from '../../../components/layoutEffect/cabecalhoLayout';
-import { pegarCategoriasArquitetura } from '../../../apis/apiHome';
-import randomKey from '../../../utils/randomKey';
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function ({ navigation }) {
+export default function EstruturaConteudo({ navigation }) {
   const {
     titulo,
     categoria,
     categorias,
-    alterarCategorias
-  } = useContext(ConteudoContext);
-
-  useEffect(() => {
-    pegarCategorias();
-  }, []);
-
-  const pegarCategorias = async () => {
-    try {
-      const resposta = await pegarCategoriasArquitetura();
-      if (categoria === undefined) {
-        console.log('Categorias undefined!');
-        return;
-      }
-
-      if (!resposta.data[categoria]) {
-        console.log('Resposta categorias sem dados');
-        return;
-      }
-
-      await alterarCategorias(
-        resposta.data[categoria].map(item => ({ ...item, title_description: titulo }))
-      );
-      salvarDados(
-        `@categorias_${categoria}`, resposta.data[categoria]
-      );
-    } catch (err) {
-      if (err.message === 'Network Error') {
-        try {
-          const resp = await pegarDados(`@categorias_${categoria}`);
-          alterarCategorias(resp);
-        } catch (err2) {
-          navigation.navigate(rotas.SEM_CONEXAO, {
-            goHome: true,
-            componente: categoria,
-          });
-        }
-      }
-    }
-    console.log('categorias', categorias);
-  };
+    pegarCategorias,
+    isLoading,
+    error: erroCarregamento,
+  } = useConteudo();
 
   useLayoutEffect(() => {
     cabecalhoMenuBusca({
       navegador: navigation,
       titulo,
-      cor: 'verde'
+      cor: 'verde',
     });
   }, []);
 
-  if (categorias.length === 0) {
-    return <></>;
+  useEffect(() => {
+    pegarCategorias();
+  }, []);
+
+  if (isLoading)
+    return <ActivityIndicator size="large" style={{ marginTop: 20 }} />;
+
+  if (erroCarregamento)
+    return (
+      <MessageErrorCard
+        title="Serviço indisponível"
+        subtitle={erroCarregamento.message}
+        iconColor={CORES.LARANJA}
+        iconName="alert"
+        textButton="Voltar"
+        style={{ margin: 10 }}
+        onPressButton={() => navigation.navigate(rotas.HOME_SCREEN_HOME)}
+      />
+    );
+
+  if (categorias?.length === 0) {
+    return null;
   }
 
   return (
@@ -80,16 +58,15 @@ export default function ({ navigation }) {
       tabBarOptions={{
         scrollEnabled: true,
         labelStyle: {
-          fontSize: 14
+          fontSize: 14,
         },
         indicatorStyle: { backgroundColor: CORES.BRANCO },
         inactiveTintColor: CORES.PRETO54,
         activeTintColor: CORES.BRANCO,
         style: {
-          backgroundColor: CORES.VERDE
-        }
-      }}
-    >
+          backgroundColor: CORES.VERDE,
+        },
+      }}>
       {categorias.map(item => (
         <Tab.Screen
           options={{ title: item.name }}

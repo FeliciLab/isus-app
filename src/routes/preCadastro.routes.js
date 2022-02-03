@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { FormProvider } from '../context/FormContext';
-import rotas from '../constantes/rotas';
-import { getOptionsCabecalhoSemBotao } from '../components/layoutEffect/cabecalhoLayout';
-import PreCadastroInfoPessoal from '../pages/PreCadastro/PreCadastroInfoPessoal';
-import PreCadastroProfissional from '../pages/PreCadastro/PreCadastroProfissional';
-import PreCadastroSenha from '../pages/PreCadastro/PreCadastroSenha';
-import PreCadastroSucesso from '../pages/PreCadastro/PreCadastroSucesso';
-import { AutenticacaoContext } from '../context/AutenticacaoContext';
+import React from 'react';
+import { getOptionsCabecalhoSemBotao } from '~/components/layoutEffect/cabecalhoLayout';
+import rotas from '~/constantes/rotas';
+import { FormProvider } from '~/context/FormContext';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import PreCadastroInfoPessoal from '~/pages/PreCadastro/PreCadastroInfoPessoal';
+import PreCadastroProfissional from '~/pages/PreCadastro/PreCadastroProfissional';
+import PreCadastroSenha from '~/pages/PreCadastro/PreCadastroSenha';
+import PreCadastroSucesso from '~/pages/PreCadastro/PreCadastroSucesso';
 
 const PreCadastroStack = createStackNavigator();
 
 const PreCadastroRoutes = () => {
   const opcoes = getOptionsCabecalhoSemBotao({
     titulo: 'Cadastro',
-    cor: 'branco'
+    cor: 'branco',
   });
-  const { pessoa } = useContext(AutenticacaoContext);
+  const { pessoa } = useAutenticacao();
 
   return (
     <FormProvider initValues={pessoa}>

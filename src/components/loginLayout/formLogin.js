@@ -3,17 +3,17 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { perfilUsuario } from '../../apis/apiCadastro';
-import { CORES } from '../../constantes/estiloBase';
-import { CaixaDialogoContext } from '../../context/CaixaDialogoContext';
-import FormContext from '../../context/FormContext';
-import useAutenticacao from '../../hooks/useAutenticacao';
+import { perfilUsuario } from '~/apis/apiCadastro';
+import { CORES } from '~/constantes/estiloBase';
+import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
+import FormContext from '~/context/FormContext';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   efetuarAcesso,
-  salvarTokenDoUsuarioNoStorage
-} from '../../services/autenticacao';
-import Regex from '../../utils/regex';
-import { emailNaoCadastrado } from '../../utils/validadores';
+  salvarTokenDoUsuarioNoStorage,
+} from '~/services/autenticacao';
+import Regex from '~/utils/regex';
+import { emailNaoCadastrado } from '~/utils/validadores';
 import BtnLogin from './btnLogin';
 import MsgErroFormCampo from './msgErroFormCampo';
 
@@ -21,12 +21,12 @@ const style = StyleSheet.create({
   titulo: {
     fontSize: 24,
     textAlign: 'center',
-    marginBottom: 40
+    marginBottom: 40,
   },
   campoTexto: {
     marginTop: 5,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
 
 const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
@@ -45,24 +45,24 @@ const formLogin = ({ rotaAposLogin }) => {
   const { register, trigger, errors, control } = useContext(FormContext);
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
-    CaixaDialogoContext
+    CaixaDialogoContext,
   );
 
   const {
     alterarDadosUsuario,
     alterarTokenUsuario,
     alterarEstaLogado,
-    alterarPessoa
+    alterarPessoa,
   } = useAutenticacao();
 
   useEffect(() => {
     register('email', {
       validate: email =>
-        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com'
+        emailValido(email) || 'O email deve ser no formato exemplo@exemplo.com',
     });
 
     register('senha', {
-      required: 'O campo senha é obrigatório'
+      required: 'O campo senha é obrigatório',
     });
   }, [register]);
 
@@ -80,7 +80,7 @@ const formLogin = ({ rotaAposLogin }) => {
       },
       aoCancelar: () => {
         fecharCaixaDialogo();
-      }
+      },
     });
   };
 
@@ -99,7 +99,7 @@ const formLogin = ({ rotaAposLogin }) => {
 
       const result = await efetuarAcesso({
         email: data.email,
-        senha: data.senha
+        senha: data.senha,
       });
 
       setExibirErroSenha(false);
@@ -149,16 +149,15 @@ const formLogin = ({ rotaAposLogin }) => {
         paddingTop: '5%',
         paddingLeft: '5%',
         paddingRight: '5%',
-        justifyContent: 'center'
-      }}
-    >
+        justifyContent: 'center',
+      }}>
       <Text style={style.titulo}>Conecte-se com seu ID Saúde</Text>
       <Controller
         control={control}
         name="email"
         rules={{
           required: true,
-          validate: { emailValido: value => emailValido(value) }
+          validate: { emailValido: value => emailValido(value) },
         }}
         defaultValue=""
         render={({ onChange, value }) => (
@@ -182,7 +181,7 @@ const formLogin = ({ rotaAposLogin }) => {
         control={control}
         name="senha"
         rules={{
-          required: true
+          required: true,
         }}
         defaultValue=""
         render={({ onChange, value }) => (

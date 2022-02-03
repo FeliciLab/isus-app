@@ -1,4 +1,4 @@
-import request from '../services/request';
+import request from '~/services/request';
 
 const ordenarPorNome = lista =>
   lista.sort((a, b) => a.nome.localeCompare(b.nome));
@@ -21,7 +21,7 @@ export async function pegarListaDeCategoriasProfissionais() {
 export async function pegarListaDeEspecialidades(id) {
   if (id !== 0) {
     const resultado = await request.get(
-      `/categorias-profissionais/${id}/especialidades`
+      `/categorias-profissionais/${id}/especialidades`,
     );
     return ordenarPorNome(resultado.data);
   }
@@ -30,7 +30,7 @@ export async function pegarListaDeEspecialidades(id) {
 
 export async function pegarTokenDeAcesso(refreshToken) {
   const resultado = await request.post('/refresh-token', {
-    refresh_token: refreshToken
+    refresh_token: refreshToken,
   });
   return resultado.data;
 }

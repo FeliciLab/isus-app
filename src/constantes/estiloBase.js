@@ -34,8 +34,8 @@ export const INPUT_THEMES = {
       accent: '#fff',
       text: '#fff',
       background: CORES.AZUL,
-      placeholder: '#fff'
-    }
+      placeholder: '#fff',
+    },
   },
   LARANJA: {
     ...DefaultTheme,
@@ -46,11 +46,11 @@ export const INPUT_THEMES = {
       underlineColor: 'transparent',
       background: CORES.BRANCO,
       placeholder: CORES.CINZA,
-    }
-  }
+    },
+  },
 };
 
 export default {
   CORES,
-  INPUT_THEMES
+  INPUT_THEMES,
 };

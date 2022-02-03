@@ -1,6 +1,6 @@
-import request from '../services/request';
-import { vazio } from '../utils/objectUtils';
-import { pegarSO, pegarVersao } from '../utils/platform';
+import request from '~/services/request';
+import { vazio } from '~/utils/objectUtils';
+import { pegarSO, pegarVersao } from '~/utils/platform';
 
 export function pegarCategoriasArquitetura() {
   return request.get('/categoriasArquitetura?v2=true');
@@ -14,8 +14,8 @@ export function pegarBusca(item, page) {
   return request.get('/buscaPorProjetos', {
     params: {
       search: item || '',
-      page: page || 1
-    }
+      page: page || 1,
+    },
   });
 }
 
@@ -34,7 +34,7 @@ export function postFeedback(tipoDeFeedback, texto, email, imagem) {
       plataforma: pegarSO(),
       tipoDeFeedback,
       email,
-      texto
+      texto,
     });
   }
   return request.post('feedback', {
@@ -43,7 +43,7 @@ export function postFeedback(tipoDeFeedback, texto, email, imagem) {
     tipoDeFeedback,
     email,
     texto,
-    imagem
+    imagem,
   });
 }
 
@@ -53,7 +53,7 @@ export function postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email) {
     unidadeDeSaude,
     email,
     versaoAplicativo: pegarVersao(),
-    plataforma: pegarSO()
+    plataforma: pegarSO(),
   });
 }
 
@@ -63,7 +63,7 @@ export function postDemandaEducacao(descricao, unidadeDeSaude, email) {
     unidadeDeSaude,
     email,
     versaoAplicativo: pegarVersao(),
-    plataforma: pegarSO()
+    plataforma: pegarSO(),
   });
 }
 export function postDuvidasElmo(duvida, email) {
@@ -71,7 +71,7 @@ export function postDuvidasElmo(duvida, email) {
     duvida,
     email,
     versaoAplicativo: pegarVersao(),
-    plataforma: pegarSO()
+    plataforma: pegarSO(),
   });
 }
 

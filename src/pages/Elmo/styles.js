@@ -1,12 +1,12 @@
-import styled from 'styled-components/native';
 import {
-  ImageBackground,
-  TouchableOpacity,
   Dimensions,
   Image,
+  ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import { Button, Card } from 'react-native-paper';
-import { CORES } from '../../constantes/estiloBase';
+import styled from 'styled-components/native';
+import { CORES } from '~/constantes/estiloBase';
 import ImagemDePostagem from '../Content/ImagemDePostagem';
 
 export const Container = styled.View`

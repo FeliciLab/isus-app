@@ -6,11 +6,12 @@ import { Checkbox, DefaultTheme } from 'react-native-paper';
 import {
   pegarListaDeCategoriasProfissionais,
   pegarListaDeEspecialidades,
-  pegarListaDeServicos
-} from '../../apis/apiKeycloak';
-import BarraDeStatus from '../../components/barraDeStatus';
-import DropDown from '../../components/dropdown';
-import FormContext from '../../context/FormContext';
+  pegarListaDeServicos,
+} from '~/apis/apiKeycloak';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import BarraDeStatus from '~/components/barraDeStatus';
+import DropDown from '~/components/dropdown';
+import FormContext from '~/context/FormContext';
 import {
   Acordeon,
   Botao,
@@ -18,11 +19,9 @@ import {
   PlaceholderAcordeon,
   Scroll,
   Titulo,
-  TituloDoFormulario
+  TituloDoFormulario,
 } from './styles';
 import textos from './textos.json';
-
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
 
 function FormularioInfoProfissional({ navigation }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
@@ -33,7 +32,7 @@ function FormularioInfoProfissional({ navigation }) {
   const [unidadesServico, alterarUnidadesServico] = useState({});
   const [
     tratarCategoriaProfissional,
-    alterarTratarCategoriaProfissional
+    alterarTratarCategoriaProfissional,
   ] = React.useState(0);
   const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
   const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
@@ -44,8 +43,8 @@ function FormularioInfoProfissional({ navigation }) {
     colors: {
       ...DefaultTheme.colors,
       primary: 'rgba(0, 0, 0, 0.6);',
-      accent: '#f1c40f'
-    }
+      accent: '#f1c40f',
+    },
   };
 
   const pegarValoresUnidadesServicos = () => {
@@ -63,7 +62,7 @@ function FormularioInfoProfissional({ navigation }) {
     if (especialidadesSalva) {
       const especialidadesFiltrada = filtrarEspecialidades(
         especialidadesSalva,
-        especialidadesLista
+        especialidadesLista,
       );
       if (especialidadesFiltrada && especialidadesFiltrada.length > 0) {
         mudarValoresEspecialidades(especialidadesFiltrada);
@@ -74,7 +73,7 @@ function FormularioInfoProfissional({ navigation }) {
   const filtrarEspecialidades = (especialidadesSalva, especialidadesLista) =>
     especialidadesSalva.map(especialidade => {
       const especialidadeFiltrada = especialidadesLista.filter(
-        esp => especialidade.id === esp.id
+        esp => especialidade.id === esp.id,
       );
       return especialidadeFiltrada[0];
     });
@@ -96,7 +95,7 @@ function FormularioInfoProfissional({ navigation }) {
       pegarValoresCategoriaProfissional();
 
       const especialidades = await pegarListaDeEspecialidades(
-        tratarCategoriaProfissional
+        tratarCategoriaProfissional,
       );
       alterarListaDeEspecialidades(especialidades);
     };
@@ -108,16 +107,15 @@ function FormularioInfoProfissional({ navigation }) {
       headerLeft: () => (
         <TouchableOpacity
           style={{
-            marginHorizontal: 19
+            marginHorizontal: 19,
           }}
           onPress={() => {
             navigation.goBack();
-          }}
-        >
+          }}>
           <SetaEsquerda />
           {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
         </TouchableOpacity>
-      )
+      ),
     });
   }, []);
 
@@ -149,7 +147,7 @@ function FormularioInfoProfissional({ navigation }) {
         nome: servico.nome,
         foiMarcado: unidadesServicoCheckBoxes[`${servico.nome}`]
           ? !unidadesServicoCheckBoxes[`${servico.nome}`].foiMarcado
-          : true
+          : true,
       };
     });
     alterarUnidadesServico(unidadesServicoCheckBoxes);
@@ -162,7 +160,7 @@ function FormularioInfoProfissional({ navigation }) {
       nome: especialidade.nome,
       foiMarcado: check[`${especialidade.nome}`]
         ? !check[`${especialidade.nome}`].foiMarcado
-        : true
+        : true,
     };
     alterarUnidadesEspecialidades(check);
   };
@@ -175,7 +173,7 @@ function FormularioInfoProfissional({ navigation }) {
         nome: servico.nome,
         foiMarcado: especialidadesCheckBoxes[`${servico.nome}`]
           ? !especialidadesCheckBoxes[`${servico.nome}`].foiMarcado
-          : true
+          : true,
       };
     });
     alterarUnidadesEspecialidades(especialidadesCheckBoxes);
@@ -188,17 +186,17 @@ function FormularioInfoProfissional({ navigation }) {
       nome: servico.nome,
       foiMarcado: check[`${servico.nome}`]
         ? !check[`${servico.nome}`].foiMarcado
-        : true
+        : true,
     };
     alterarUnidadesServico(check);
   };
 
   const tratarUnidadesDeServico = () => {
     const ServicosMarcados = Object.values(unidadesServico).filter(
-      servico => servico.foiMarcado
+      servico => servico.foiMarcado,
     );
     return JSON.stringify(
-      ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome }))
+      ServicosMarcados.map(servico => ({ id: servico.id, nome: servico.nome })),
     );
   };
 
@@ -217,12 +215,12 @@ function FormularioInfoProfissional({ navigation }) {
 
   const tratarUnidadesDeEspecialidades = () => {
     const EspecialidadesMarcados = Object.values(unidadesEspecialidades).filter(
-      especialidade => especialidade.foiMarcado
+      especialidade => especialidade.foiMarcado,
     );
     return JSON.stringify(
       EspecialidadesMarcados.map(especialidade => ({
-        id: especialidade.id
-      }))
+        id: especialidade.id,
+      })),
     );
   };
 
@@ -264,8 +262,7 @@ function FormularioInfoProfissional({ navigation }) {
                 titleStyle={{ color: 'black' }}
                 title={
                   <PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>
-                }
-              >
+                }>
                 <View>
                   {unidadesEspecialidades &&
                   listaDeEspecialidades.length !== 0 &&
@@ -298,8 +295,9 @@ function FormularioInfoProfissional({ navigation }) {
         </TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
-          title={<PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>}
-        >
+          title={
+            <PlaceholderAcordeon>Selecione as opções</PlaceholderAcordeon>
+          }>
           <View>
             {unidadesServico &&
               listaDeServicos.length !== 0 &&
@@ -332,8 +330,7 @@ function FormularioInfoProfissional({ navigation }) {
           registrarUnidadesDeEspecialidades();
           navigation.navigate('FormularioSenha');
         }}
-        mode="contained"
-      >
+        mode="contained">
         Próximo
       </Botao>
     </Scroll>

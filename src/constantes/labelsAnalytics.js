@@ -23,7 +23,6 @@ export const labelsAnalytics = {
     PRE_NATAL_RISCO_HABITUAL: 'guias_pre_natal_risco_habitual',
     PRE_NATAL_ALTO_RISCO: 'guias_pre_natal_alto_risco',
     SINDROMES_HIPERTENSIVAS_GESTACAO: 'guias_sindromes_hipertensivas_gestacao',
-    GUIA_HEMORRAGIA_GESTACAO: 'guias_hemorragia_gestacao'
-  }
+    GUIA_HEMORRAGIA_GESTACAO: 'guias_hemorragia_gestacao',
+  },
 };
-export default { labelsAnalytics };

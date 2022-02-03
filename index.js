@@ -10,8 +10,8 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#4CAF50'
-  }
+    primary: '#4CAF50',
+  },
 };
 
 export default function Main() {

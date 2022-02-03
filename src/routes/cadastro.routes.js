@@ -1,16 +1,16 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import FormularioInfoPessoal from '../pages/NovoCadastro/formularioInfoPessoal';
-import FormularioInfoProfissional from '../pages/NovoCadastro/formularioInfoProfissional';
-import NovoFormularioInfoProfissional from '../pages/NovoCadastro/novoFormularioInfoProfissional';
-import FormularioSenha from '../pages/NovoCadastro/formularioSenha';
-import { FormProvider } from '../context/FormContext';
-import rotas from '../constantes/rotas';
-import features from '../constantes/features';
+import { useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import features from '~/constantes/features';
+import rotas from '~/constantes/rotas';
+import { FormProvider } from '~/context/FormContext';
+import FormularioInfoPessoal from '~/pages/NovoCadastro/formularioInfoPessoal';
+import FormularioInfoProfissional from '~/pages/NovoCadastro/formularioInfoProfissional';
+import FormularioSenha from '~/pages/NovoCadastro/formularioSenha';
+import NovoFormularioInfoProfissional from '~/pages/NovoCadastro/novoFormularioInfoProfissional';
 
 const CadastroStack = createStackNavigator();
 
@@ -30,7 +30,7 @@ export default function RotasCadastro() {
   const options = {
     headerStyle: {
       elevation: 0,
-      shadowOpacity: 0
+      shadowOpacity: 0,
     },
     headerTintColor: 'rgba(0, 0, 0, 0.87)',
     headerTitleAlign: 'center',
@@ -38,15 +38,14 @@ export default function RotasCadastro() {
     headerLeft: () => (
       <TouchableOpacity
         style={{
-          marginHorizontal: 19
+          marginHorizontal: 19,
         }}
         onPress={() => {
           navigation.goBack();
-        }}
-      >
+        }}>
         <Icon name="arrow-left" size={28} color="#304FFE" />
       </TouchableOpacity>
-    )
+    ),
   };
 
   return (

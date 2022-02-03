@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CORES } from '../../constantes/estiloBase';
-import rotas from '../../constantes/rotas';
-import SetaEsquerda from '../../assets/icons/seta_esquerda.svg';
+import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 
 const estiloCores = {
   verde: {

@@ -2,10 +2,8 @@ import * as React from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-// import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
-  // const navigation = useNavigation();
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
       <View style={styles.headerTop}>
@@ -38,6 +36,6 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

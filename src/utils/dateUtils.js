@@ -14,5 +14,7 @@ export default function formatarDataPorExtenso(date) {
     postData = date;
   }
   Moment.locale('pt-br');
-  return `${Moment(postData).format('D')} de ${Capitalize(Moment(postData).format('MMMM'))} de ${Moment(postData).format('YYYY')}`;
+  return `${Moment(postData).format('D')} de ${Capitalize(
+    Moment(postData).format('MMMM'),
+  )} de ${Moment(postData).format('YYYY')}`;
 }
