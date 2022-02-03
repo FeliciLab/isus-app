@@ -2,14 +2,17 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 
-function CartaoHome({ Icone, ativo, titulo, onPress, testID }) {
+const CartaoHome = props => {
+  const { Icone, ativo, titulo, onPress, testID, ...rest } = props;
+
   if (ativo) {
     return (
       <Card
         elevation={4}
         style={styles.espacamento}
         onPress={onPress}
-        testID={testID}>
+        testID={testID}
+        {...rest}>
         <Icone />
         <Card.Content>
           <Paragraph style={styles.paragrafo}>{titulo}</Paragraph>
@@ -19,7 +22,7 @@ function CartaoHome({ Icone, ativo, titulo, onPress, testID }) {
   }
 
   return <></>;
-}
+};
 
 const styles = StyleSheet.create({
   espacamento: {
