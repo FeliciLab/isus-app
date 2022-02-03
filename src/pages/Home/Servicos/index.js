@@ -10,12 +10,12 @@ import Servico5 from '~/assets/icons/servicos/servico_5.svg';
 import Servico6 from '~/assets/icons/servicos/servico_6.svg';
 import Servico7 from '~/assets/icons/servicos/servico_7.svg';
 import Carrossel from '~/components/Carrossel';
+import ServiceButton from '~/components/ServiceButton/index';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import estaAtiva from '~/utils/estaAtiva';
-import CartaoHome from './CartaoHome';
-import { Titulo } from './styles';
+import { Titulo } from '../styles';
 
 function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();
@@ -153,8 +153,8 @@ function Servicos({ navigation }) {
       <Titulo>Serviços SUS Ceará</Titulo>
       <Carrossel
         dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
-        aoRenderizarItem={({ item }) => (
-          <CartaoHome
+        renderItem={({ item }) => (
+          <ServiceButton
             ativo={item.ativo}
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}

@@ -2,7 +2,7 @@ import React from 'react';
 import { CarrosselStyle } from './styles';
 
 const Carrossel = props => {
-  const { dados, aoRenderizarItem, ...rest } = props;
+  const { dados, ...rest } = props;
 
   return (
     <CarrosselStyle
@@ -11,7 +11,6 @@ const Carrossel = props => {
       initialNumToRender={6}
       keyExtractor={item => String(item.id)}
       showsHorizontalScrollIndicator={false}
-      renderItem={aoRenderizarItem}
       {...rest}
     />
   );

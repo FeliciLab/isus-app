@@ -4,9 +4,9 @@ import ManejoClinico from '~/assets/icons/linhasDeCuidado/manejoClinico.svg';
 import MaternoInfantil from '~/assets/icons/linhasDeCuidado/maternoInfantil.svg';
 import Protocolos from '~/assets/icons/linhasDeCuidado/protocolos.svg';
 import Carrossel from '~/components/Carrossel';
+import ServiceButton from '~/components/ServiceButton/index';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import CartaoHome from '../CartaoHome';
 import { Titulo } from '../styles';
 
 export default function LinhasDeCuidado({ navigation }) {
@@ -56,8 +56,8 @@ export default function LinhasDeCuidado({ navigation }) {
       <Titulo>Linhas de Cuidado e Protocolos</Titulo>
       <Carrossel
         dados={listaLinhasDeCuidado}
-        aoRenderizarItem={({ item }) => (
-          <CartaoHome
+        renderItem={({ item }) => (
+          <ServiceButton
             ativo={item.ativo}
             testID={`cartaoHome-linhasDeCuidado-${item.id}`}
             key={item.id}

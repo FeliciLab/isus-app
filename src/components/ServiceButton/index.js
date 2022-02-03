@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 
-const CartaoHome = props => {
+const ServiceButton = props => {
   const { Icone, ativo, titulo, onPress, testID, ...rest } = props;
 
   if (ativo) {
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CartaoHome;
+export default ServiceButton;

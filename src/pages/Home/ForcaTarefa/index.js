@@ -3,9 +3,9 @@ import { uniqueId } from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
 import Carrossel from '~/components/Carrossel';
+import ServiceButton from '~/components/ServiceButton/index';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import CartaoHome from '../CartaoHome';
 import { Titulo } from '../styles';
 import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
 
@@ -19,8 +19,8 @@ function ForcaTarefa({ navigation }) {
       <Titulo>Enfrentamento às Pandemias e Epidemias</Titulo>
       <Carrossel
         dados={listaForcaTarefaAntiCorona}
-        aoRenderizarItem={({ item }) => (
-          <CartaoHome
+        renderItem={({ item }) => (
+          <ServiceButton
             testID={`cartaoHome-forcaTarefa-${item.id}`}
             key={uniqueId()}
             ativo={item.ativo}

@@ -17,11 +17,11 @@ import SvgFaleConosco from '~/assets/icons/elmo/icon_fale_conosco.svg';
 import SvgManualUso from '~/assets/icons/elmo/icon_manual_uso.svg';
 import SvgElmoLogo from '~/assets/icons/logo/logo-elmo-h1.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
+import ServiceButton from '~/components/ServiceButton/index';
 import { CORES } from '~/constantes/estiloBase';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import estaAtiva from '~/utils/estaAtiva';
-import CartaoHome from '../Home/CartaoHome';
 import CardNewsElmo from './CardNewsElmo';
 import ListaCardsElmo from './ListaCardsElmo';
 import {
@@ -235,7 +235,7 @@ function Elmo() {
             }}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
-              <CartaoHome
+              <ServiceButton
                 testID={`cards-${item.id}`}
                 key={item.id}
                 ativo={item.ativo}

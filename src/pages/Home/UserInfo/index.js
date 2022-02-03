@@ -1,23 +1,25 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { AutenticacaoContext } from '~/context/AutenticacaoContext';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import useAutenticacao from '~/hooks/useAutenticacao';
 
-const ExibirUsuario = () => {
-  const { pessoa } = useContext(AutenticacaoContext);
+// import { Container } from './styles';
+
+const UserInfo = () => {
+  const { pessoa } = useAutenticacao();
 
   return (
     <View>
-      <Text style={style.perfil}>
+      <Text style={styles.perfil}>
         Olá, {pessoa?.nomeCompleto?.split(' ')[0] || ''}
       </Text>
-      <Text style={style.atuacaoCategoria}>
+      <Text style={styles.atuacaoCategoria}>
         {pessoa?.categoriaProfissional?.nome || ''}
       </Text>
     </View>
   );
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   semPerfil: {
     backgroundColor: '#fff',
   },
@@ -39,4 +41,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default ExibirUsuario;
+export default UserInfo;
