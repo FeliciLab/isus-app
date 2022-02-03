@@ -40,11 +40,12 @@ export default function EstruturaConteudo({ navigation }) {
     return (
       <MessageErrorCard
         title="Erro"
-        subtitle="Erro ao carregar informações"
+        subtitle={erroCarregamento.message}
         iconColor={CORES.LARANJA}
         iconName="alert"
+        textButton="Volta"
         style={{ margin: 10 }}
-        onPressButton={() => navigation.navigate(rotas.HOME)}
+        onPressButton={() => navigation.navigate(rotas.HOME_SCREEN_HOME)}
       />
     );
 

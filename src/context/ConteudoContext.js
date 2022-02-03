@@ -23,12 +23,12 @@ export const ConteudoProvider = ({ categoria, titulo, children }) => {
 
       if (categoria === undefined) {
         console.log('Categorias undefined!');
-        return;
+        throw new Error('Erro ao carregar as informações');
       }
 
       if (!resposta.data[categoria]) {
         console.log('Resposta categorias sem dados');
-        return;
+        throw new Error('Erro ao carregar as informações');
       }
 
       alterarCategorias(
@@ -37,10 +37,11 @@ export const ConteudoProvider = ({ categoria, titulo, children }) => {
           title_description: titulo,
         })),
       );
+
       salvarDados(`@categorias_${categoria}`, resposta.data[categoria]);
     } catch (err) {
+      setError(err);
       if (err.message === 'Network Error') {
-        setError(err);
         try {
           const resp = await pegarDados(`@categorias_${categoria}`);
           alterarCategorias(resp);
