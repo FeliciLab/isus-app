@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import useAutenticacao from '~/hooks/useAutenticacao';
 
-// import { Container } from './styles';
-
 const UserInfo = () => {
   const { pessoa } = useAutenticacao();
 

@@ -3,9 +3,8 @@ import React, { useLayoutEffect, useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
 import useAnalytics from '~/hooks/useAnalytics';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconSvgMaterno from '~/assets/icons/linhasDeCuidado/maternoInfantilBanner.svg';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { Container, ScrollView, SvgView, Texto, Titulo } from './styles';
@@ -63,8 +62,7 @@ export default function MaternoInfantil({ route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
+          <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableOpacity>
       ),
     });

@@ -1,5 +1,5 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Linking, View } from 'react-native';
 import QualiQuizIcon from '~/assets/icons/servicos/qualiquiz.svg';
 import Servico1 from '~/assets/icons/servicos/servico_1.svg';
@@ -9,7 +9,7 @@ import Servico4 from '~/assets/icons/servicos/servico_4.svg';
 import Servico5 from '~/assets/icons/servicos/servico_5.svg';
 import Servico6 from '~/assets/icons/servicos/servico_6.svg';
 import Servico7 from '~/assets/icons/servicos/servico_7.svg';
-import Carrossel from '~/components/Carrossel';
+import ListServices from '~/components/ListServices/index';
 import ServiceButton from '~/components/ServiceButton/index';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
@@ -20,7 +20,7 @@ import { Titulo } from '../styles';
 function Servicos({ navigation }) {
   const { analyticsData } = useAnalytics();
 
-  const netInfo = useNetInfo();
+  const { isConnected } = useNetInfo();
 
   const listaServicos = [
     {
@@ -126,32 +126,36 @@ function Servicos({ navigation }) {
     });
   }
 
-  const onPress = item => {
-    analyticsData(item.id, 'Click', 'Home');
-    if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO, {
-        componente: item.navegacao.componente,
+  const handleOnPressServiceButton = useCallback(
+    item => {
+      analyticsData(item.id, 'Click', 'Home');
+
+      if (item.navegacao.net && !isConnected) {
+        navigation.navigate(ROTAS.SEM_CONEXAO, {
+          componente: item.navegacao.componente,
+          title: item.navegacao.titulo,
+          url: item.navegacao.url,
+        });
+        return;
+      }
+
+      if (item.navegacao.componente === 'browser') {
+        Linking.openURL(item.navegacao.url);
+        return;
+      }
+
+      navigation.navigate(item.navegacao.componente, {
         title: item.navegacao.titulo,
         url: item.navegacao.url,
       });
-      return;
-    }
-
-    if (item.navegacao.componente === 'browser') {
-      Linking.openURL(item.navegacao.url);
-      return;
-    }
-
-    navigation.navigate(item.navegacao.componente, {
-      title: item.navegacao.titulo,
-      url: item.navegacao.url,
-    });
-  };
+    },
+    [isConnected, analyticsData],
+  );
 
   return (
     <View>
       <Titulo>Serviços SUS Ceará</Titulo>
-      <Carrossel
+      <ListServices
         dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
         renderItem={({ item }) => (
           <ServiceButton
@@ -159,7 +163,7 @@ function Servicos({ navigation }) {
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
-            onPress={() => onPress(item)}
+            onPress={() => handleOnPressServiceButton(item)}
           />
         )}
       />

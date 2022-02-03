@@ -1,7 +1,7 @@
 import React from 'react';
 import { CarrosselStyle } from './styles';
 
-const Carrossel = props => {
+const ListServices = props => {
   const { dados, ...rest } = props;
 
   return (
@@ -16,4 +16,4 @@ const Carrossel = props => {
   );
 };
 
-export default Carrossel;
+export default ListServices;
