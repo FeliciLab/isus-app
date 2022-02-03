@@ -154,7 +154,7 @@ export default function DescriptionScreen(props) {
         );
       } else {
         mostrarFeedback(
-          'Não foi possível realizar o donwload da imagem. Por favor, tente mais tarde.',
+          'Não foi possível realizar o download da imagem. Por favor, tente mais tarde.',
         );
       }
     }

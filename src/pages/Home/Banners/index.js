@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import MessageErrorCard from '~/components/MessageErrorCard/index';
 import { CORES } from '~/constantes/estiloBase';
@@ -6,7 +6,11 @@ import { useBanners } from '~/hooks/useBanners';
 import BannerCarrossel from './BannerCarrossel';
 
 const Banners = ({ sliderWidth, itemWidth }) => {
-  const { banners, error, isLoading } = useBanners();
+  const { banners, error, isLoading, featchBanners } = useBanners();
+
+  useEffect(() => {
+    featchBanners();
+  }, []);
 
   if (isLoading) {
     return (

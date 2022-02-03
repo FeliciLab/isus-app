@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { pegarCategoriasArquitetura } from '~/apis/apiHome';
 import useAutenticacao from './useAutenticacao';
 
-export function useCategorias() {
+export function useCategoriasArquitetura() {
   const [categorias, setCategorias] = useState([]);
 
   const [error, setError] = useState(false);
@@ -11,7 +11,7 @@ export function useCategorias() {
 
   const { estaLogado } = useAutenticacao();
 
-  const featchcategorias = async () => {
+  const featchCategoriasArquitetura = useCallback(async () => {
     try {
       setIsLoading(true);
       const data = await pegarCategoriasArquitetura(estaLogado);
@@ -22,11 +22,7 @@ export function useCategorias() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => {
-    featchcategorias();
-  },[]);
-
-  return { categorias, error, isLoading };
+  return { categorias, error, isLoading, featchCategoriasArquitetura };
 }

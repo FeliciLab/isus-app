@@ -7,7 +7,7 @@ import { cabecalhoVoltarRota } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import ROTAS from '~/constantes/rotas';
-import CONST_TEXT from '~/constantes/textos';
+import { PERFIL } from '~/constantes/textos';
 import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -35,7 +35,7 @@ function EdicaoInfoPessoal() {
   useLayoutEffect(() => {
     cabecalhoVoltarRota({
       navegador: navigation,
-      titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.CABECALHO,
+      titulo: PERFIL.EDICAO_INFO_PESSOAIS.CABECALHO,
       cor: 'brancoPreto',
       rota: ROTAS.PERFIL,
     });
@@ -73,8 +73,7 @@ function EdicaoInfoPessoal() {
                   'atualizar informacao pessoal',
                 );
                 navigation.navigate('TelaDeSucesso', {
-                  textoApresentacao:
-                    CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+                  textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
                   telaDeRedirecionamento: ROTAS.PERFIL,
                   telaDeBackground: CORES.VERDE,
                 });

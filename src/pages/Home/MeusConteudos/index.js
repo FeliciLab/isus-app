@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Card, Paragraph } from 'react-native-paper';
 import { pegarProjetosPorProfissional } from '~/apis/apiHome';
-import Carrossel from '~/components/Carrossel';
+import ListServices from '~/components/ListServices/index';
 import CartaoDeConteudo from './CartaoDeConteudo';
 
 function MeusConteudos() {
@@ -33,8 +33,8 @@ function MeusConteudos() {
   const ListaDeConteudo = () => {
     if (conteudos && conteudos.length > 0) {
       return (
-        <View style={estilos.carrossel}>
-          <Carrossel
+        <View style={estilos.listServices}>
+          <ListServices
             dados={conteudos.slice(0, 4)}
             aoRenderizarItem={conteudo => (
               <CartaoDeConteudo conteudo={conteudo} />
@@ -118,7 +118,7 @@ const estilos = StyleSheet.create({
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
-  carrossel: {
+  listServices: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
