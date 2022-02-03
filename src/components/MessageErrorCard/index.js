@@ -4,12 +4,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const MessageErrorCard = props => {
   const {
-    title,
-    subtitle,
-    iconColor,
-    iconName,
-    onPressButton,
-    ...rest
+    title, // título
+    subtitle, // subtítulo
+    iconColor, // cor do ícone
+    iconName, // nome do ícone, olhar https://oblador.github.io/react-native-vector-icons/
+    onPressButton, // callback para o onClick do botão (opciona)
+    textButton, // texto do botão (opcional)
+    ...rest // Rest operator
   } = props;
 
   const [isOpen, setIsOpen] = useState(true);
@@ -29,7 +30,9 @@ const MessageErrorCard = props => {
         left={props => <Icon name={iconName} color={iconColor} {...props} />}
       />
       <Card.Actions>
-        <Button onPress={handleOnPressButton}>Fechar</Button>
+        <Button onPress={handleOnPressButton}>
+          {textButton ? textButton : 'Fechar'}
+        </Button>
       </Card.Actions>
     </Card>
   );
