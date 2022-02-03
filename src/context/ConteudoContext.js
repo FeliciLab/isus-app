@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 import { pegarCategoriasArquitetura } from '~/apis/apiHome';
 import rotas from '~/constantes/rotas';
 import { pegarDados, salvarDados } from '~/services/armazenamento';
@@ -7,15 +7,15 @@ import { useNavigation } from '@react-navigation/native';
 export const ConteudoContext = createContext();
 
 export const ConteudoProvider = ({ categoria, titulo, children }) => {
+  const navigation = useNavigation();
+
   const [categorias, alterarCategorias] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState(false);
 
-  const navigation = useNavigation();
-
-  const pegarCategorias = async () => {
+  const pegarCategorias = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -23,12 +23,12 @@ export const ConteudoProvider = ({ categoria, titulo, children }) => {
 
       if (categoria === undefined) {
         console.log('Categorias undefined!');
-        throw new Error('Erro ao carregar as informações');
+        throw new Error('Infomações não estão disponívies no momento.');
       }
 
       if (!resposta.data[categoria]) {
         console.log('Resposta categorias sem dados');
-        throw new Error('Erro ao carregar as informações');
+        throw new Error('Infomações não estão disponívies no momento.');
       }
 
       alterarCategorias(
@@ -56,7 +56,7 @@ export const ConteudoProvider = ({ categoria, titulo, children }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return (
     <ConteudoContext.Provider

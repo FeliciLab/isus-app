@@ -39,11 +39,11 @@ export default function EstruturaConteudo({ navigation }) {
   if (erroCarregamento)
     return (
       <MessageErrorCard
-        title="Erro"
+        title="Serviço indisponível"
         subtitle={erroCarregamento.message}
         iconColor={CORES.LARANJA}
         iconName="alert"
-        textButton="Volta"
+        textButton="Voltar"
         style={{ margin: 10 }}
         onPressButton={() => navigation.navigate(rotas.HOME_SCREEN_HOME)}
       />
