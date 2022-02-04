@@ -1,10 +1,8 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarCategoriasArquitetura } from '~/apis/apiHome';
-import Lupa from '~/assets/icons/provisorios/Lupa.svg';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { pegarDados, salvarDados } from '~/services/armazenamento';
@@ -76,8 +74,7 @@ export default function appTopTabScreen({ route, navigation }) {
           onPress={() => {
             navigation.navigate('Buscar');
           }}>
-          <Lupa />
-          {/* <Icon name="magnify" size={28} color={CORES.BRANCO} /> */}
+          <Icon name="magnify" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -88,8 +85,7 @@ export default function appTopTabScreen({ route, navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
