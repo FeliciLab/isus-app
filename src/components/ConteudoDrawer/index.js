@@ -1,15 +1,11 @@
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-// import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
 import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Heart from '~/assets/icons/isus_hor.svg';
-import FaleConoscoMenuLateral from '~/assets/icons/provisorios/FaleConoscoMenuLateral.svg';
-import HomeIcon from '~/assets/icons/provisorios/HomeMenuLateral.svg';
-import MeuPerfilMenuLateral from '~/assets/icons/provisorios/MeuPerfilMenuLateral.svg';
-import SusCearaMenuLateral from '~/assets/icons/provisorios/SusCearaMenuLateral.svg';
 import rotas from '~/constantes/rotas';
 import testIDs from '~/constantes/testIDs';
 import { AutenticacaoContext } from '~/context/AutenticacaoContext';
@@ -19,7 +15,7 @@ import {
   pegarTokenDoUsuarioNoStorage,
 } from '~/services/autenticacao';
 import ItemDrawer from './itemDrawer';
-// import { CORES } from '~/constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
 import ItemInferior from './itemInferior';
 import { DroidSafeArea } from './styles';
 
@@ -47,13 +43,12 @@ function conteudoDoDrawer(props) {
       testID: testIDs.DRAWER.ITEM_HOME,
       nome: 'Home',
       icone: (
-        <HomeIcon />
-        // <Icon
-        //   testID="icon-drawer-home"
-        //   name="home"
-        //   size={22}
-        //   color={CORES.PRETO54}
-        // />
+        <Icon
+          testID="icon-drawer-home"
+          name="home"
+          size={22}
+          color={CORES.PRETO54}
+        />
       ),
       labelDoAnalytics: 'home',
       rota: rotas.HOME_SCREEN_HOME,
@@ -62,13 +57,12 @@ function conteudoDoDrawer(props) {
       testID: testIDs.DRAWER.ITEM_PERFIL,
       nome: 'Meu perfil',
       icone: (
-        <MeuPerfilMenuLateral />
-        // <Icon
-        //   testID="icon-drawer-account"
-        //   name="account"
-        //   size={22}
-        //   color={CORES.PRETO54}
-        // />
+        <Icon
+          testID="icon-drawer-account"
+          name="account"
+          size={22}
+          color={CORES.PRETO54}
+        />
       ),
       labelDoAnalytics: 'meu_perfil',
       rota: tokenUsuario && estaLogado ? rotas.PERFIL : rotas.LOGIN,
@@ -77,13 +71,12 @@ function conteudoDoDrawer(props) {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
       nome: 'Fale conosco',
       icone: (
-        <FaleConoscoMenuLateral />
-        // <MaterialIcon
-        //   testID="icon-drawer-feedback"
-        //   name="feedback"
-        //   size={22}
-        //   color={CORES.PRETO54}
-        // />
+        <MaterialIcon
+          testID="icon-drawer-feedback"
+          name="feedback"
+          size={22}
+          color={CORES.PRETO54}
+        />
       ),
       labelDoAnalytics: 'fale_conosco',
       rota: rotas.FALE_CONOSCO,
@@ -92,13 +85,12 @@ function conteudoDoDrawer(props) {
       testID: testIDs.DRAWER.ITEM_SUSNOCEARA,
       nome: 'SUS no Ceará',
       icone: (
-        <SusCearaMenuLateral />
-        // <Icon
-        //   testID="icon-drawer-susnoceara"
-        //   name="help-circle"
-        //   size={22}
-        //   color={CORES.PRETO54}
-        // />
+        <Icon
+          testID="icon-drawer-susnoceara"
+          name="help-circle"
+          size={22}
+          color={CORES.PRETO54}
+        />
       ),
       labelDoAnalytics: 'sus_no_ceara',
       rota: rotas.SUS_NO_CEARA,

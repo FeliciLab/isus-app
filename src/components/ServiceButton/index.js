@@ -2,26 +2,29 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Card, Paragraph } from 'react-native-paper';
 
-function CartaoHome({ Icone, ativo, titulo, onPress, testID }) {
+const ServiceButton = props => {
+  const { Icone, ativo, titulo, onPress, testID, ...rest } = props;
+
   if (ativo) {
     return (
       <Card
         elevation={4}
-        style={estilos.espacamento}
+        style={styles.espacamento}
         onPress={onPress}
-        testID={testID}>
+        testID={testID}
+        {...rest}>
         <Icone />
         <Card.Content>
-          <Paragraph style={estilos.paragrafo}>{titulo}</Paragraph>
+          <Paragraph style={styles.paragrafo}>{titulo}</Paragraph>
         </Card.Content>
       </Card>
     );
   }
 
   return <></>;
-}
+};
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   espacamento: {
     margin: 10,
   },
@@ -34,4 +37,4 @@ const estilos = StyleSheet.create({
   },
 });
 
-export default CartaoHome;
+export default ServiceButton;

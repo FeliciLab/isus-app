@@ -6,7 +6,7 @@ import FormProfissional from '~/components/FormPessoa/FormProfissional';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
-import CONST_TEXT from '~/constantes/textos';
+import { PERFIL } from '~/constantes/textos';
 import FormContext from '~/context/FormContext';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { atualizarUsuario } from '~/services/usuarioService';
@@ -32,7 +32,7 @@ function EdicaoInfoProfissional() {
   useLayoutEffect(() => {
     cabecalhoVoltar({
       navegador: navigation,
-      titulo: CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.CABECALHO,
+      titulo: PERFIL.EDICAO_INFO_PROFISSIONAL.CABECALHO,
       cor: 'brancoPreto',
     });
   }, []);
@@ -64,8 +64,7 @@ function EdicaoInfoProfissional() {
             );
             if (result) {
               navigation.navigate('TelaDeSucesso', {
-                textoApresentacao:
-                  CONST_TEXT.PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+                textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
                 telaDeRedirecionamento: ROTAS.PERFIL,
                 telaDeBackground: CORES.VERDE,
               });
@@ -82,9 +81,7 @@ function EdicaoInfoProfissional() {
             }
           } catch (e) {
             console.log(e);
-            mostrarAlerta(
-              CONST_TEXT.PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR,
-            );
+            mostrarAlerta(PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
           }
         })}
       />

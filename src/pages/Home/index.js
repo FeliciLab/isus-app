@@ -14,11 +14,11 @@ import {
   salvarTokenDoUsuarioNoStorage,
 } from '~/services/autenticacao';
 import Banners from './Banners';
-import ExibirUsuario from './exibirUsuario';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado/index';
 // import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
+import UserInfo from './UserInfo/index';
 // import MeusConteudos from './MeusConteudos';
 
 export default function Home() {
@@ -126,7 +126,7 @@ export default function Home() {
         barStyle={estaLogado ? 'dark-content' : 'light-content'}
       />
 
-      {estaLogado && <ExibirUsuario />}
+      {estaLogado && <UserInfo />}
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
