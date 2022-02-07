@@ -43,7 +43,7 @@ const AutenticacaoProvider = ({ children }) => {
     await setUser(null);
 
     alterarPessoa({});
-  }, []);
+  }, [token]);
 
   const alterarPessoa = dados => {
     setPessoa({
