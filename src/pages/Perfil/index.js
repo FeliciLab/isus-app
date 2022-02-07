@@ -2,9 +2,8 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '~/apis/apiCadastro';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
@@ -104,8 +103,7 @@ export default function PerfilScreen() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });

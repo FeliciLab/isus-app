@@ -1,7 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 
@@ -62,7 +61,7 @@ const TouchableGoBack = ({ navegador, cor }) => (
     onPress={() => {
       navegador.goBack();
     }}>
-    <SetaEsquerda />
+    <Icon name="arrow-left" size={28} color={cor} />
     <Icon color={cor} />
   </TouchableOpacity>
 );
@@ -73,7 +72,7 @@ const TouchableGoHome = ({ navegador, cor }) => (
     onPress={() => {
       navegador.navigate(rotas.HOME, { screen: 'Home' });
     }}>
-    <SetaEsquerda />
+    <Icon name="arrow-left" size={28} color={cor} />
     <Icon color={cor} />
   </TouchableOpacity>
 );
@@ -84,7 +83,7 @@ const TouchableGoRoute = ({ navegador, cor, rota }) => (
     onPress={() => {
       navegador.navigate(rota);
     }}>
-    <SetaEsquerda />
+    <Icon name="arrow-left" size={28} color={cor} />
     <Icon color={cor} />
   </TouchableOpacity>
 );

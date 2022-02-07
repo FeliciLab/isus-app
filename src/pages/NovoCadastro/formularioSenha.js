@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
@@ -65,8 +64,7 @@ export default function FormularioSenha({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
+          <Icon name="arrow-left" size={28} color="#304FFE" />
         </TouchableOpacity>
       ),
     });
