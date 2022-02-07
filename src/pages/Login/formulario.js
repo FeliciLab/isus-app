@@ -19,7 +19,6 @@ import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useCaixaDialogo from '~/hooks/useCaixaDialogo';
 import {
-  armazenarEstadoLogado,
   autenticarComIdSaude,
   salvarTokenDoUsuarioNoStorage,
 } from '~/services/autenticacao';
@@ -40,12 +39,7 @@ const FormularioLogin = ({ route }) => {
     FormContext,
   );
 
-  const {
-    alterarTokenUsuario,
-    alterarDadosUsuario,
-    alterarEstaLogado,
-    alterarPessoa,
-  } = useAutenticacao();
+  const { setUser, setToken, alterarPessoa } = useAutenticacao();
 
   const [carregando, setCarregando] = useState(false);
 
@@ -83,11 +77,11 @@ const FormularioLogin = ({ route }) => {
 
       await salvarTokenDoUsuarioNoStorage(response.mensagem);
 
-      alterarTokenUsuario(response.mensagem);
+      setToken(response.mensagem);
 
       const perfil = await perfilUsuario(response.mensagem);
 
-      alterarDadosUsuario(perfil.data);
+      setUser(perfil.data);
 
       alterarPessoa(perfil.data);
 
@@ -95,10 +89,6 @@ const FormularioLogin = ({ route }) => {
         navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
         return;
       }
-
-      await armazenarEstadoLogado(true);
-
-      alterarEstaLogado(true);
 
       setValue('email', '');
       setValue('senha', '');

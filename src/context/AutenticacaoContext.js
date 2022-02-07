@@ -1,27 +1,18 @@
 import React, { createContext, useState } from 'react';
+import useAsyncStorage from '~/hooks/useAsyncStorage';
 import Pessoa from '~/models/pessoa';
 
 const AutenticacaoContext = createContext();
 
-const AutenticacaoProvider = ({
-  valoresIniciais,
-  pessoaAutenticada,
-  children,
-}) => {
-  const [dadosUsuario, alterarDadosUsuario] = useState({});
+const AutenticacaoProvider = ({ children }) => {
+  const [user, setUser] = useAsyncStorage('@isus:user', null);
 
-  const [pessoa, definirPessoa] = useState(pessoaAutenticada || {});
+  const [pessoa, setPessoa] = useAsyncStorage('@isus:pessoa', null);
 
-  const [tokenUsuario, alterarTokenUsuario] = useState(
-    valoresIniciais?.tokenAutenticacao || false,
-  );
-
-  const [estaLogado, alterarEstaLogado] = useState(
-    valoresIniciais?.estaLogade || false,
-  );
+  const [token, setToken] = useState('@isus:token', null);
 
   const alterarPessoa = dados => {
-    definirPessoa({
+    setPessoa({
       ...Pessoa.criar(dados),
     });
   };
@@ -29,12 +20,10 @@ const AutenticacaoProvider = ({
   return (
     <AutenticacaoContext.Provider
       value={{
-        dadosUsuario,
-        alterarDadosUsuario,
-        tokenUsuario,
-        alterarTokenUsuario,
-        estaLogado,
-        alterarEstaLogado,
+        user,
+        setUser,
+        token,
+        setToken,
         pessoa,
         alterarPessoa,
       }}>

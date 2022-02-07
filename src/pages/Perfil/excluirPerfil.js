@@ -11,17 +11,12 @@ import {
   View,
 } from 'react-native';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deletarUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import useAnalytics from '~/hooks/useAnalytics';
-import useAutenticacao from '~/hooks/useAutenticacao';
-import {
-  excluirTokenDoUsuarioNoStorage,
-  pegarTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
+import { pegarTokenDoUsuarioNoStorage } from '~/services/autenticacao';
 
 export default function ExcluirPerfil() {
   const navigation = useNavigation();
@@ -44,8 +39,6 @@ export default function ExcluirPerfil() {
   // TODO: provavelmente isso deveria estar em um useRef
   const estaFocado = true;
 
-  const { alterarEstaLogado } = useAutenticacao();
-
   const realizarLogout = () => {
     try {
       const token = pegarTokenDoUsuarioNoStorage();
@@ -53,8 +46,7 @@ export default function ExcluirPerfil() {
     } catch (err) {
       console.log('erro', err);
     }
-    excluirTokenDoUsuarioNoStorage();
-    alterarEstaLogado(false);
+    // excluirTokenDoUsuarioNoStorage();
   };
 
   const excluirUsuario = () => {
@@ -181,8 +173,7 @@ export default function ExcluirPerfil() {
             refEntradaTexto.current.clear();
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });

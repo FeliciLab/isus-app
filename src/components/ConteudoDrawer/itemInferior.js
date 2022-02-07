@@ -1,25 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import rotas from '~/constantes/rotas';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 import testIDs from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
 import packageJson from '../../../package.json';
 import aoCompartilhar from './aoCompartilhar';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ItemDrawer from './itemDrawer';
 import { ConteudoVersao, ItensInferior, TextoVersao } from './styles';
 
 const itemInferior = () => {
   const navigationTermos = useNavigation();
+
   const { analyticsData } = useAnalytics();
 
   const versaoSistema = packageJson.version;
 
   const { abrirCaixaDialogoSair } = useLogoutApplication();
-  const { estaLogado } = useAutenticacao();
+
+  const { user } = useAutenticacao();
 
   const conteudoItem = [
     {
@@ -79,7 +81,7 @@ const itemInferior = () => {
       labelDoAnalytics: 'compartilhe_o_isus',
       aoPressionar: () => aoCompartilhar(),
     },
-    ...(estaLogado
+    ...(user
       ? [
         {
           icone: (

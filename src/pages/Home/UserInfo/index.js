@@ -3,15 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import useAutenticacao from '~/hooks/useAutenticacao';
 
 const UserInfo = () => {
-  const { pessoa } = useAutenticacao();
+  const { user } = useAutenticacao();
 
   return (
     <View>
       <Text style={styles.perfil}>
-        Olá, {pessoa?.nomeCompleto?.split(' ')[0] || ''}
+        Olá, {user?.name?.split(' ')[0] || ''}
       </Text>
       <Text style={styles.atuacaoCategoria}>
-        {pessoa?.categoriaProfissional?.nome || ''}
+        {user?.profissional.categoria_profissional?.nome || ''}
       </Text>
     </View>
   );

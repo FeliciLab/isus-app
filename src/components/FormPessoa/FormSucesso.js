@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { CORES } from '~/constantes/estiloBase';
 import useAutenticacao from '~/hooks/useAutenticacao';
-import { armazenarEstadoLogado } from '~/services/autenticacao';
 import TelaDeSucesso from '../TelaDeSucesso';
 
 const FormSucesso = ({ route }) => {
@@ -10,12 +9,10 @@ const FormSucesso = ({ route }) => {
 
   const { usuario } = route.params;
 
-  const { alterarDadosUsuario, alterarEstaLogado } = useAutenticacao();
+  const { setUser } = useAutenticacao();
 
   useEffect(() => {
-    alterarDadosUsuario(usuario);
-    alterarEstaLogado(true);
-    armazenarEstadoLogado(true);
+    setUser(usuario);
 
     setTimeout(() => {
       navigation.navigate('HOME');

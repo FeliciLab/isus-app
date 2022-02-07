@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
@@ -41,7 +40,7 @@ export default function FormularioSenha({ navigation }) {
 
   const [cadastroRealizado, setCadastroRealizado] = React.useState(false);
 
-  const { alterarDadosUsuario, alterarEstaLogado } = useAutenticacao();
+  const { setUser } = useAutenticacao();
 
   const { register, setValue, trigger, errors, getValues } = useContext(
     FormContext,
@@ -65,8 +64,7 @@ export default function FormularioSenha({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
+          <Icon name="arrow-left" size={28} color="#304FFE" />
         </TouchableOpacity>
       ),
     });
@@ -128,8 +126,7 @@ export default function FormularioSenha({ navigation }) {
         await salvarTokenDoUsuarioNoStorage(response.mensagem);
         await armazenarEstadoLogado(true);
         await pegarTokenDoUsuarioNoStorage();
-        await alterarDadosUsuario(dados);
-        await alterarEstaLogado(true);
+        await setUser(dados);
       }
 
       navigation.navigate('TelaDeSucesso', {

@@ -9,12 +9,12 @@ export function useBanners() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { estaLogado } = useAutenticacao();
+  const { user } = useAutenticacao();
 
   const featchBanners = useCallback(async () => {
     try {
       setIsLoading(true);
-      const data = await listaDeBanners(estaLogado);
+      const data = await listaDeBanners(!!user); // !! => trasnforma o obj em boolean
       setBanners(data);
     } catch (e) {
       setError(e);

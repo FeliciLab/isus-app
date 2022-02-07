@@ -2,10 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useContext } from 'react';
 import { logout } from '~/apis/apiKeycloak';
 import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
-import {
-  armazenarEstadoLogado,
-  excluirTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
 import useAutenticacao from './useAutenticacao';
 
 function useLogoutApplication() {
@@ -15,19 +11,16 @@ function useLogoutApplication() {
     CaixaDialogoContext,
   );
 
-  const { tokenUsuario, alterarEstaLogado, alterarPessoa } = useAutenticacao();
+  const { token, alterarPessoa } = useAutenticacao();
 
   const realizarLogout = async () => {
     try {
-      await logout(tokenUsuario);
+      await logout(token);
     } catch (err) {
       console.log('erro', err);
     }
 
     await alterarPessoa({});
-    await alterarEstaLogado(false);
-    await excluirTokenDoUsuarioNoStorage();
-    await armazenarEstadoLogado(false);
     navigation.navigate('HOME');
   };
 
