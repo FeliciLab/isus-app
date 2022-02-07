@@ -91,6 +91,7 @@ export default function AppTabScreen() {
       initialRouteName={rotas.HOME}
       activeColor="#4CAF50"
       inactiveColor="#828282"
+      shifting={false}
       barStyle={{ backgroundColor: '#fff' }}>
       <AppTab.Screen
         name="HOME_SCREEN_HOME"
@@ -99,7 +100,7 @@ export default function AppTabScreen() {
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
             <Icon name="home" color={color} size={20} />
-          )
+          ),
         }}
         listeners={() => ({
           tabPress: () => {
@@ -108,18 +109,16 @@ export default function AppTabScreen() {
         })}
       />
 
-      {
-        <AppTab.Screen
-          name="HOME_SCREEN_HEALTH"
-          component={MinhaSaudeStackScreen} // Teste
-          options={{
-            tabBarLabel: 'Minha Saúde',
-            tabBarIcon: ({ color }) => (
-              <Icon name="heart" color={color} size={20} />
-            )
-          }}
-        />
-      }
+      <AppTab.Screen
+        name="HOME_SCREEN_HEALTH"
+        component={MinhaSaudeStackScreen}
+        options={{
+          tabBarLabel: 'Minha Saúde',
+          tabBarIcon: ({ color }) => (
+            <Icon name="heart" color={color} size={20} />
+          ),
+        }}
+      />
 
       <AppTab.Screen
         name="HOME_SCREEN_EDUCATION"
