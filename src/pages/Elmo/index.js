@@ -248,7 +248,7 @@ function Elmo() {
         )}
         <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
           <NovidadesTitle>
-            <TituloH6>Novidades</TituloH6>
+            <TituloH6 color={CORES.PRETO54}>Novidades</TituloH6>
             <BotaoLink
               color={CORES.LARANJA}
               marginTop={20}
