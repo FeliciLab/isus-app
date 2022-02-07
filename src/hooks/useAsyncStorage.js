@@ -3,7 +3,13 @@ import { useState } from 'react';
 
 function useAsyncStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(async () => {
-    await getStoredItem(key, initialValue);
+    try {
+      await getStoredItem(key, initialValue);
+    } catch (error) {
+      // If error also return initialValue
+      console.log(error);
+      return initialValue;
+    }
   });
 
   async function getStoredItem(key, initialValue) {

@@ -19,7 +19,7 @@ export default function Home() {
 
   const { analyticsData } = useAnalytics();
 
-  const { user } = useAutenticacao();
+  const { user, token } = useAutenticacao();
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
@@ -33,35 +33,8 @@ export default function Home() {
     return null;
   }
 
-  // const pegarTokenUsuario = useCallback(async () => {
-  //   const logado = await pegarEstadoLogadoArmazenado();
-  //   const token = await pegarTokenDoUsuarioNoStorage();
-
-  //   if (!logado) {
-  //     alterarTokenUsuario({});
-  //     salvarTokenDoUsuarioNoStorage(false);
-  //     alterarEstaLogado(false);
-  //     armazenarEstadoLogado(false);
-  //     return;
-  //   }
-
-  //   alterarTokenUsuario(token);
-
-  //   try {
-  //     const perfil = await perfilUsuario();
-  //     alterarDadosUsuario(perfil.data);
-  //     alterarPessoa(perfil.data);
-  //     alterarEstaLogado(true);
-  //   } catch (err) {
-  //     alterarEstaLogado(false);
-  //     console.log('ERRO', err);
-  //   }
-  // }, []);
-
   useEffect(() => {
     redirectToWelcome();
-
-    // pegarTokenUsuario();
   }, []);
 
   useLayoutEffect(() => {
@@ -114,7 +87,7 @@ export default function Home() {
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
 
-        <Text>{JSON.stringify(user, undefined, 2)}</Text>
+        <Text>{JSON.stringify({ user, token }, undefined, 2)}</Text>
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
         <ForcaTarefa navigation={navigation} />

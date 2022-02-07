@@ -11,7 +11,7 @@ function useLogoutApplication() {
     CaixaDialogoContext,
   );
 
-  const { token, alterarPessoa } = useAutenticacao();
+  const { token, alterarPessoa, setUser } = useAutenticacao();
 
   const realizarLogout = async () => {
     try {
@@ -21,6 +21,7 @@ function useLogoutApplication() {
     }
 
     await alterarPessoa({});
+    setUser(null);
     navigation.navigate('HOME');
   };
 
