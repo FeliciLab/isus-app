@@ -37,8 +37,6 @@ const AutenticacaoProvider = ({ children }) => {
     // perfil do usuário
     await setToken(response.mensagem);
 
-    console.log(response.mensagem);
-
     const perfil = await perfilUsuario(response.mensagem);
 
     await setUser(perfil.data);

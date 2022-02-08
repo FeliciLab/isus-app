@@ -19,7 +19,7 @@ export default function Home() {
 
   const { analyticsData } = useAnalytics();
 
-  const { user, token } = useAutenticacao();
+  const { user, token, pessoa } = useAutenticacao();
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
@@ -87,7 +87,7 @@ export default function Home() {
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
 
-        <Text>{JSON.stringify({ user, token }, undefined, 2)}</Text>
+        <Text>{JSON.stringify({ user, token, pessoa }, undefined, 2)}</Text>
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
         <ForcaTarefa navigation={navigation} />

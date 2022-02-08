@@ -104,6 +104,8 @@ export default function PerfilScreen() {
     });
   }, []);
 
+  if (!user) return null;
+
   return (
     <>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
