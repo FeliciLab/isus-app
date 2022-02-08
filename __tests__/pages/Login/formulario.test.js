@@ -30,29 +30,23 @@ jest.mock('@react-native-community/netinfo', () => ({
 }));
 
 describe('Login>Formulario', () => {
-  describe('Tela Login Sem Conexão', () => {
-    describe('DADO que estou na tela de login', () => {
-      const email = 'test@test.com';
-      const senha = '12345678';
-      let campoEmailID;
+  describe('DADO que estou na tela de login', () => {
+    let campoEmailID;
 
-      beforeEach(() => {
-        const { getByTestId } = render(
-          <AppTrackTransparencyProvider mock>
-            <FormProvider initValues={{ email, senha }}>
-              <FormularioLogin />
-            </FormProvider>
-          </AppTrackTransparencyProvider>
-        );
-        campoEmailID = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
-      });
-
-      describe('E renderizo a pagina', () => {
-        beforeEach(() => {
-        });
-        test('ENTÃO o campo e-mail deve estar em branco.', () => {
-          expect(campoEmailID.props.value).toEqual('');
-        });
+    beforeEach(() => {
+      const { getByTestId, debug } = render(
+        <AppTrackTransparencyProvider mock>
+          <FormProvider>
+            <FormularioLogin />
+          </FormProvider>
+        </AppTrackTransparencyProvider>
+      );
+      campoEmailID = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+      debug();
+    });
+    describe('E renderizo a pagina', () => {
+      test('ENTÃO o campo e-mail deve estar em branco.', () => {
+        expect(campoEmailID.props.value).toEqual('');
       });
     });
   });
