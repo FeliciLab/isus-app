@@ -105,7 +105,6 @@ function Elmo() {
           onPress={() => {
             navigation.popToTop();
           }}>
-          {/* <SetaEsquerda /> */}
           <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
@@ -248,7 +247,7 @@ function Elmo() {
         )}
         <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
           <NovidadesTitle>
-            <TituloH6>Novidades</TituloH6>
+            <TituloH6 color={CORES.PRETO54}>Novidades</TituloH6>
             <BotaoLink
               color={CORES.LARANJA}
               marginTop={20}

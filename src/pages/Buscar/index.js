@@ -1,8 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarBusca } from '~/apis/apiHome';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import useAnalytics from '~/hooks/useAnalytics';
 import useDebounce from '~/hooks/useDebounce';
 import ItemConteudo from './ItemConteudo';
@@ -51,8 +50,7 @@ const Buscar = props => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
+          <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableLeft>
       ),
     });

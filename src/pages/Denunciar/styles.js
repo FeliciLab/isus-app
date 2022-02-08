@@ -25,6 +25,7 @@ export const Titulo = styled.Text`
   margin-left: 16px;
   margin-right: 16px;
   text-align: center;
+  color: ${props => (props.color ? props.color : 'black')}
 `;
 
 export const TextoEmailLigacao = styled.Text`

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import jpgEsmaltec from '~/assets/icons/logo/logo-esmaltec.jpg';
 import jpgESP from '~/assets/icons/logo/logo-esp.jpg';
 import jpgFIEC from '~/assets/icons/logo/logo-fiec.jpg';
@@ -11,7 +11,6 @@ import jpgISGH from '~/assets/icons/logo/logo-isgh.jpg';
 import jpgSENAI from '~/assets/icons/logo/logo-senai.jpg';
 import jpgUFC from '~/assets/icons/logo/logo-ufc.jpg';
 import jpgUNIFOR from '~/assets/icons/logo/logo-unifor.jpg';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import ImageElmo from '~/assets/images/fig-elmo.jpg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
@@ -47,8 +46,7 @@ export default function SobreElmo() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color={CORES.BRANCO} /> */}
+          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
@@ -61,7 +59,7 @@ export default function SobreElmo() {
         barStyle="light-content"
       />
       <ScrollView style={{ flex: 1 }}>
-        <Titulo> Sobre o Elmo </Titulo>
+        <Titulo color={CORES.PRETO54}> Sobre o Elmo </Titulo>
         <Imagem source={ImageElmo} />
 
         <View style={{ marginHorizontal: 16, marginTop: 18 }}>
