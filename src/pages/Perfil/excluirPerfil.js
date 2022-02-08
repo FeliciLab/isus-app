@@ -11,10 +11,9 @@ import {
   View,
 } from 'react-native';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deletarUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -181,8 +180,7 @@ export default function ExcluirPerfil() {
             refEntradaTexto.current.clear();
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });

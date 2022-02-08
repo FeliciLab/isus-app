@@ -105,7 +105,6 @@ function Elmo() {
           onPress={() => {
             navigation.popToTop();
           }}>
-          {/* <SetaEsquerda /> */}
           <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),

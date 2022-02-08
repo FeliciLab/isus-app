@@ -2,13 +2,12 @@ import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   pegarListaDeCategoriasProfissionais,
   pegarListaDeEspecialidades,
   pegarListaDeServicos,
 } from '~/apis/apiKeycloak';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import DropDown from '~/components/dropdown';
 import FormContext from '~/context/FormContext';
@@ -112,8 +111,7 @@ function FormularioInfoProfissional({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
+          <Icon name="arrow-left" size={28} color="#304FFE" />
         </TouchableOpacity>
       ),
     });
