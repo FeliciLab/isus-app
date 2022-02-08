@@ -232,6 +232,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     marginLeft: 16,
     marginRight: 16,
+    color: 'rgba(0, 0, 0, 0.54)'
   },
   campoDeTexto: {
     marginLeft: 16,

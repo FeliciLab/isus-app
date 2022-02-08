@@ -59,7 +59,7 @@ export default function SobreElmo() {
         barStyle="light-content"
       />
       <ScrollView style={{ flex: 1 }}>
-        <Titulo> Sobre o Elmo </Titulo>
+        <Titulo color={CORES.PRETO54}> Sobre o Elmo </Titulo>
         <Imagem source={ImageElmo} />
 
         <View style={{ marginHorizontal: 16, marginTop: 18 }}>

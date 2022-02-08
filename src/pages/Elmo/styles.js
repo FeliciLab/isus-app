@@ -63,6 +63,7 @@ export const Hyperlink = styled.Text`
 
 export const TituloH6 = styled.Text`
   /* styleName: H6; */
+  color: ${props => (props.color ? props.color : 'black')};
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
@@ -70,6 +71,7 @@ export const TituloH6 = styled.Text`
 `;
 export const Titulo = styled.Text`
   /* styleName: H5; */
+  color: ${props => (props.color ? props.color : 'black')};
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
