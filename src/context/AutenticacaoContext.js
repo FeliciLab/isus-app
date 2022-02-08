@@ -7,6 +7,19 @@ import { autenticarComIdSaude } from '~/services/autenticacao';
 
 const AutenticacaoContext = createContext();
 
+/*
+interface Token = {
+  "access_token": string;
+  "expires_in": number;
+  "not-before-policy": number;
+  "refresh_expires_in": number;
+  "refresh_token": string;
+  "scope": string;
+  "session_state": string;
+  "token_type": string;
+}
+*/
+
 const AutenticacaoProvider = ({ children }) => {
   const [user, setUser] = useAsyncStorage('@isus:user', null);
 
@@ -20,11 +33,11 @@ const AutenticacaoProvider = ({ children }) => {
   const signIn = useCallback(async (email, senha) => {
     const response = await autenticarComIdSaude(email, senha);
 
-    console.log(JSON.stringify({ response }, undefined, 2));
-
     // Precisa vir antes para salvar o token do usuário para poder fazer a busca do
     // perfil do usuário
     await setToken(response.mensagem);
+
+    console.log(response.mensagem);
 
     const perfil = await perfilUsuario(response.mensagem);
 

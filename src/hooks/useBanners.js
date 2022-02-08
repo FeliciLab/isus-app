@@ -14,8 +14,9 @@ export function useBanners() {
   const featchBanners = useCallback(async () => {
     try {
       setIsLoading(true);
-      const data = await listaDeBanners(!!user); // !! => trasnforma o obj em boolean
+      const data = await listaDeBanners(user); // !! => trasnforma o obj em boolean
       setBanners(data);
+      setError(false);
     } catch (e) {
       setError(e);
       console.log(`Erro ao listar Banners. ${e}`);
