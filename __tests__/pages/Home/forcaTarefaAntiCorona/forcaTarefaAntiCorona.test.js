@@ -49,12 +49,6 @@ describe('ForcaTarefaAntiCorona', () => {
     expect(analyticsData).toHaveBeenCalled();
   });
 
-  test('deve chamar o analytics data ao clicar em central de ventiladores', () => {
-    const item = renderedObject.getByTestId('cartaoHome-forcaTarefa-acao-central');
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
-
   test('deve chamar o analytics data ao clicar em Denuncias', () => {
     const item = renderedObject.getByTestId('cartaoHome-forcaTarefa-acao-denuncias');
     fireEvent.press(item);
