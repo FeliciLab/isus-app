@@ -62,7 +62,6 @@ const TouchableGoBack = ({ navegador, cor }) => (
       navegador.goBack();
     }}>
     <Icon name="arrow-left" size={28} color={cor} />
-    <Icon color={cor} />
   </TouchableOpacity>
 );
 
@@ -73,7 +72,6 @@ const TouchableGoHome = ({ navegador, cor }) => (
       navegador.navigate(rotas.HOME, { screen: 'Home' });
     }}>
     <Icon name="arrow-left" size={28} color={cor} />
-    <Icon color={cor} />
   </TouchableOpacity>
 );
 
@@ -84,7 +82,6 @@ const TouchableGoRoute = ({ navegador, cor, rota }) => (
       navegador.navigate(rota);
     }}>
     <Icon name="arrow-left" size={28} color={cor} />
-    <Icon color={cor} />
   </TouchableOpacity>
 );
 

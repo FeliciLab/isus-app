@@ -13,6 +13,7 @@ export const perfilUsuario = async () => {
 // TODO: remover método abaixo
 export const alteraDadosDoUsuario = dadosDoUsuario =>
   request.put('/user', dadosDoUsuario);
+
 export const atualizarUsuarioApi = dadosDoUsuario =>
   request.put('/user', dadosDoUsuario);
 

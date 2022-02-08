@@ -26,12 +26,7 @@ export default function PerfilScreen() {
 
   const { analyticsData } = useAnalytics();
 
-  const {
-    dadosUsuario,
-    alterarDadosUsuario,
-    alterarTokenUsuario,
-    alterarPessoa,
-  } = useAutenticacao();
+  const { user, setUser, setToken, alterarPessoa } = useAutenticacao();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext,
@@ -45,10 +40,10 @@ export default function PerfilScreen() {
         if (!logado) return;
 
         const token = await pegarTokenDoUsuarioNoStorage();
-        alterarTokenUsuario(token);
+        setToken(token);
         try {
           const perfil = await perfilUsuario();
-          alterarDadosUsuario(perfil.data);
+          setUser(perfil.data);
           alterarPessoa(perfil.data);
           salvarDados('perfil', perfil.data);
         } catch (err) {
@@ -109,17 +104,19 @@ export default function PerfilScreen() {
     });
   }, []);
 
+  if (!user) return null;
+
   return (
     <>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <ScrollView style={{ backgroundColor: '#FFF' }}>
         <View style={estilos.margem}>
-          <CabecalhoPerfil nome={dadosUsuario.name} />
+          <CabecalhoPerfil nome={user.name} />
           <MenuPerfil titulo="Informações pessoais">
-            <DadosUsuario dados={dadosUsuario} />
+            <DadosUsuario dados={user} />
           </MenuPerfil>
           <MenuPerfil titulo="Informações profissionais">
-            <DadosUsuarioProfissional dados={dadosUsuario} />
+            <DadosUsuarioProfissional dados={user} />
           </MenuPerfil>
           <MenuPerfil titulo="Privacidade">
             <MenuPerfilItem

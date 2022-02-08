@@ -16,11 +16,7 @@ import { deletarUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import BarraDeStatus from '~/components/barraDeStatus';
 import useAnalytics from '~/hooks/useAnalytics';
-import useAutenticacao from '~/hooks/useAutenticacao';
-import {
-  excluirTokenDoUsuarioNoStorage,
-  pegarTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
+import { pegarTokenDoUsuarioNoStorage } from '~/services/autenticacao';
 
 export default function ExcluirPerfil() {
   const navigation = useNavigation();
@@ -43,8 +39,6 @@ export default function ExcluirPerfil() {
   // TODO: provavelmente isso deveria estar em um useRef
   const estaFocado = true;
 
-  const { alterarEstaLogado } = useAutenticacao();
-
   const realizarLogout = () => {
     try {
       const token = pegarTokenDoUsuarioNoStorage();
@@ -52,8 +46,7 @@ export default function ExcluirPerfil() {
     } catch (err) {
       console.log('erro', err);
     }
-    excluirTokenDoUsuarioNoStorage();
-    alterarEstaLogado(false);
+    // excluirTokenDoUsuarioNoStorage();
   };
 
   const excluirUsuario = () => {

@@ -1,42 +1,28 @@
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Heart from '~/assets/icons/isus_hor.svg';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import testIDs from '~/constantes/testIDs';
-import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 import useAnalytics from '~/hooks/useAnalytics';
-import {
-  pegarEstadoLogadoArmazenado,
-  pegarTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import ItemDrawer from './itemDrawer';
-import { CORES } from '~/constantes/estiloBase';
 import ItemInferior from './itemInferior';
 import { DroidSafeArea } from './styles';
 
 function conteudoDoDrawer(props) {
-  const {
-    estaLogado,
-    tokenUsuario,
-    alterarTokenUsuario,
-    alterarEstaLogado,
-  } = useContext(AutenticacaoContext);
-
-  const { analyticsData } = useAnalytics();
-  const { navigate } = useNavigation();
   const { routeName } = props;
 
-  useEffect(() => {
-    Promise.all([
-      pegarTokenDoUsuarioNoStorage().then(token => alterarTokenUsuario(token)),
-      pegarEstadoLogadoArmazenado().then(estado => alterarEstaLogado(estado)),
-    ]);
-  }, [alterarTokenUsuario, alterarEstaLogado]);
+  const { user } = useAutenticacao();
+
+  const { analyticsData } = useAnalytics();
+
+  const { navigate } = useNavigation();
 
   const ItensDoDrawer = [
     {
@@ -65,7 +51,7 @@ function conteudoDoDrawer(props) {
         />
       ),
       labelDoAnalytics: 'meu_perfil',
-      rota: tokenUsuario && estaLogado ? rotas.PERFIL : rotas.LOGIN,
+      rota: user ? rotas.PERFIL : rotas.LOGIN,
     },
     {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
