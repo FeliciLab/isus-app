@@ -63,112 +63,104 @@ export default function FormInfoPessoal({
   };
 
   return (
-    <>
-      <ContainerBody>
-        <ScrollView>
-          <ContainerForm>
-            <Title>Informações pessoais</Title>
-            <RowInput>
-              <FormTextInput
-                name="nomeCompleto"
-                label="Nome Completo"
-                theme={theme}
-                rules={{ required: true }}
-              />
-              <FormError
-                name="nomeCompleto"
-                msg="O nome completo é obrigatório."
-              />
-            </RowInput>
-            <RowInput>
-              <FormTextInput
-                readonly={emailSomenteLeitura}
-                name="email"
-                label="E-mail"
-                theme={theme}
-                rules={{
-                  required: true,
-                  validate: {
-                    emailValido: value =>
-                      emailValido(value) || formularioPessoal.emailValido,
-                  },
-                }}
-              />
-              <FormError
-                name="email"
-                msg={errors.email?.message || 'Insira um e-mail válido.'}
-              />
-            </RowInput>
-            <RowInput>
-              <FormTextInputMask
-                name="telefone"
-                label="Telefone"
-                theme={theme}
-                rules={{ required: true }}
-                mask="(##) #####-####"
-                numero
-              />
-              <FormError
-                name="telefone"
-                msg={formularioPessoal.telefoneObrigatorio}
-              />
-            </RowInput>
-            <RowInput>
-              <FormTextInputMask
-                name="cpf"
-                label="CPF"
-                theme={theme}
-                rules={{
-                  required: true,
-                  validate: {
-                    cpfValido: value =>
-                      cpfValido(value) || formularioPessoal.cpfInvalido,
-                    cpfCadastrado: async cpf =>
-                      (await validarCpfCadastrado(cpf.replace(/\D/g, ''))) ||
-                      formularioPessoal.cpfCadastrado,
-                  },
-                }}
-                mask="###.###.###-##"
-                numero
-              />
-              <FormError
-                name="cpf"
-                msg={errors.cpf?.message || 'Insira um CPF válido'}
-              />
-            </RowInput>
-            <RowInput>
-              <InputMunicipios />
-              <FormError name="cidadeId" msg="Escolha o município" />
-            </RowInput>
-          </ContainerForm>
-          {!hiddenActionButton && (
-            <RowButton>
-              <BotaoLaranja
-                loading={isLoading}
-                disabled={hasErrors || isLoading}
-                onPress={async () => {
-                  await trigger([
-                    'nome',
-                    'email',
-                    'telefone',
-                    'cpf',
-                    'cidadeId',
-                  ]);
-                  if (hasErrors) return;
-                  setIsLoading(true);
+    <ContainerBody>
+      <ScrollView>
+        <ContainerForm>
+          <Title>Informações pessoais</Title>
+          <RowInput>
+            <FormTextInput
+              name="nomeCompleto"
+              label="Nome Completo"
+              theme={theme}
+              rules={{ required: true }}
+            />
+            <FormError
+              name="nomeCompleto"
+              msg="O nome completo é obrigatório."
+            />
+          </RowInput>
+          <RowInput>
+            <FormTextInput
+              readonly={emailSomenteLeitura}
+              name="email"
+              label="E-mail"
+              theme={theme}
+              rules={{
+                required: true,
+                validate: {
+                  emailValido: value =>
+                    emailValido(value) || formularioPessoal.emailValido,
+                },
+              }}
+            />
+            <FormError
+              name="email"
+              msg={errors.email?.message || 'Insira um e-mail válido.'}
+            />
+          </RowInput>
+          <RowInput>
+            <FormTextInputMask
+              name="telefone"
+              label="Telefone"
+              theme={theme}
+              rules={{ required: true }}
+              mask="(##) #####-####"
+              numero
+            />
+            <FormError
+              name="telefone"
+              msg={formularioPessoal.telefoneObrigatorio}
+            />
+          </RowInput>
+          <RowInput>
+            <FormTextInputMask
+              name="cpf"
+              label="CPF"
+              theme={theme}
+              rules={{
+                required: true,
+                validate: {
+                  cpfValido: value =>
+                    cpfValido(value) || formularioPessoal.cpfInvalido,
+                  cpfCadastrado: async cpf =>
+                    (await validarCpfCadastrado(cpf.replace(/\D/g, ''))) ||
+                    formularioPessoal.cpfCadastrado,
+                },
+              }}
+              mask="###.###.###-##"
+              numero
+            />
+            <FormError
+              name="cpf"
+              msg={errors.cpf?.message || 'Insira um CPF válido'}
+            />
+          </RowInput>
+          <RowInput>
+            <InputMunicipios />
+            <FormError name="cidadeId" msg="Escolha o município" />
+          </RowInput>
+        </ContainerForm>
+        {!hiddenActionButton && (
+          <RowButton>
+            <BotaoLaranja
+              loading={isLoading}
+              disabled={hasErrors || isLoading}
+              onPress={async () => {
+                await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
+                if (hasErrors) return;
+                setIsLoading(true);
 
-                  try {
-                    await actionPress();
-                  } finally {
-                    setIsLoading(false);
-                  }
-                }}>
-                {labelButton || 'Continuar'}
-              </BotaoLaranja>
-            </RowButton>
-          )}
-        </ScrollView>
-      </ContainerBody>
-    </>
+                try {
+                  await actionPress();
+                } finally {
+                  setIsLoading(false);
+                }
+              }}>
+              {labelButton || 'Continuar'}
+            </BotaoLaranja>
+          </RowButton>
+        )}
+      </ScrollView>
+    </ContainerBody>
   );
 }
