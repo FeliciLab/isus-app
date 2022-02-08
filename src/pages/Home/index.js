@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
-import { Dimensions, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/barraDeStatus';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -9,9 +9,9 @@ import useAutenticacao from '~/hooks/useAutenticacao';
 import Banners from './Banners';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado/index';
-// import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo/index';
+// import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
   const { analyticsData } = useAnalytics();
 
-  const { user, token, pessoa } = useAutenticacao();
+  const { user } = useAutenticacao();
 
   async function redirectToWelcome() {
     const item = await AsyncStorage.getItem('@show-tutorial');
@@ -81,13 +81,9 @@ export default function Home() {
         backgroundColor={user ? '#FFF' : '#4CAF50'}
         barStyle={user ? 'dark-content' : 'light-content'}
       />
-
       <UserInfo />
-
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
-
-        <Text>{JSON.stringify({ user, token, pessoa }, undefined, 2)}</Text>
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
         <ForcaTarefa navigation={navigation} />
