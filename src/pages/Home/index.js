@@ -82,7 +82,7 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
 
-      {user && <UserInfo />}
+      <UserInfo />
 
       <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
