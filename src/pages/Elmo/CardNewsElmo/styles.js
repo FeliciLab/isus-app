@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { CORES } from '~/constantes/estiloBase';
 
 export const Container = styled.TouchableOpacity`
   width: 50%;
@@ -12,7 +13,7 @@ export const DateText = styled.Text`
   line-height: 16px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  // color: '#4CAF50';
+  color: ${CORES.VERDE};
 `;
 
 export const PostImage = styled.Image`

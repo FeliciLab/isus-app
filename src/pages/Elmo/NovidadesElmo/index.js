@@ -53,16 +53,13 @@ export default function NovidadesElmo(props) {
         backgroundColor={CORES.INDIGO_DYE}
         barStyle="light-content"
       />
-      <ListaDeConteudo style={{ with: 700, backgroundColor: '#f2f2f2' }} />
+      <ListaDeConteudo />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  listaDeConteudo: {
     flex: 1,
   },
 });
