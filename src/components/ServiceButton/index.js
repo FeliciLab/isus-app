@@ -27,6 +27,7 @@ const ServiceButton = props => {
 const styles = StyleSheet.create({
   espacamento: {
     margin: 10,
+    overflow: 'hidden',
   },
   paragrafo: {
     fontSize: 12,
