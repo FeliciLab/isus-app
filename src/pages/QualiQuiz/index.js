@@ -1,5 +1,5 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { BackHandler, View } from 'react-native';
 import { Config } from 'react-native-config';
 import IsusSvg from '~/assets/icons/isus_hor.svg';
@@ -11,8 +11,10 @@ export default function QualiQuiz({ navigation }) {
 
   const { user, token } = useAutenticacao();
 
+  const timeOutRef = useRef();
+
   const handleEffect = () => {
-    setTimeout(() => {
+    timeOutRef.current = setTimeout(() => {
       if (!user) {
         navigation.navigate('QUALIQUIZ_LOGIN');
       } else {
@@ -33,8 +35,8 @@ export default function QualiQuiz({ navigation }) {
 
   useEffect(() => {
     const backAction = () => {
+      clearTimeout(timeOutRef.current);
       navigation.navigate('HOME');
-      return true;
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',

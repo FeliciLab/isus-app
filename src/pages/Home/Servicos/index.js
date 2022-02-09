@@ -2,6 +2,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { Linking, View } from 'react-native';
 import QualiQuizIcon from '~/assets/icons/servicos/qualiquiz.svg';
+import ResidenciaMedicaIcon from '~/assets/icons/servicos/residencia_medica.svg';
 import Servico1 from '~/assets/icons/servicos/servico_1.svg';
 import Servico2 from '~/assets/icons/servicos/servico_2.svg';
 import Servico3 from '~/assets/icons/servicos/servico_3.svg';
@@ -11,10 +12,8 @@ import Servico6 from '~/assets/icons/servicos/servico_6.svg';
 import Servico7 from '~/assets/icons/servicos/servico_7.svg';
 import ListServices from '~/components/ListServices/index';
 import ServiceButton from '~/components/ServiceButton/index';
-import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import estaAtiva from '~/utils/estaAtiva';
 import { Titulo } from '../styles';
 
 function Servicos({ navigation }) {
@@ -24,7 +23,26 @@ function Servicos({ navigation }) {
 
   const listaServicos = [
     {
-      ordem: 1,
+      id: 'residencia_medica',
+      titulo: 'Residência Médica',
+      ativo: true,
+      icone: ResidenciaMedicaIcon,
+      navegacao: {
+        net: true,
+        componente: ROTAS.RESIDENCIA_MEDICA,
+      },
+    },
+    {
+      id: 'qualiquiz',
+      titulo: 'QualiQuiz',
+      ativo: true,
+      icone: QualiQuizIcon,
+      navegacao: {
+        net: true,
+        componente: 'QUALIQUIZ',
+      },
+    },
+    {
       id: 'Integra_SUS',
       titulo: 'IntegraSUS',
       ativo: true,
@@ -37,7 +55,17 @@ function Servicos({ navigation }) {
       },
     },
     {
-      ordem: 3,
+      id: 'elmo',
+      titulo: 'Elmo',
+      ativo: true,
+      icone: Servico7,
+      navegacao: {
+        net: true,
+        componente: ROTAS.ELMO,
+        titulo: 'Elmo',
+      },
+    },
+    {
       id: 'SUS_no_Ceara',
       titulo: 'SUS no Ceará',
       ativo: true,
@@ -47,17 +75,6 @@ function Servicos({ navigation }) {
       },
     },
     {
-      ordem: 7,
-      id: 'Fale_Conosco',
-      titulo: 'Fale Conosco',
-      ativo: true,
-      icone: Servico3,
-      navegacao: {
-        componente: ROTAS.FALE_CONOSCO,
-      },
-    },
-    {
-      ordem: 4,
       id: 'Acoes_do_governo',
       titulo: 'Ações do governo',
       ativo: true,
@@ -70,7 +87,6 @@ function Servicos({ navigation }) {
       },
     },
     {
-      ordem: 5,
       id: 'ESP',
       titulo: 'Escola de Saúde Pública - ESP/CE',
       icone: Servico5,
@@ -83,7 +99,6 @@ function Servicos({ navigation }) {
       },
     },
     {
-      ordem: 6,
       id: 'ESP_Virtual',
       titulo: 'ESP Virtual',
       ativo: true,
@@ -95,36 +110,16 @@ function Servicos({ navigation }) {
         url: 'http://espvirtual.esp.ce.gov.br/',
       },
     },
+    {
+      id: 'Fale_Conosco',
+      titulo: 'Fale Conosco',
+      ativo: true,
+      icone: Servico3,
+      navegacao: {
+        componente: ROTAS.FALE_CONOSCO,
+      },
+    },
   ];
-
-  if (estaAtiva(features.QUALIQUIZ)) {
-    listaServicos.unshift({
-      ordem: 0,
-      id: 'qualiquiz',
-      titulo: 'QualiQuiz',
-      ativo: true,
-      icone: QualiQuizIcon,
-      navegacao: {
-        net: true,
-        componente: 'QUALIQUIZ',
-      },
-    });
-  }
-
-  if (estaAtiva(features.ELMO)) {
-    listaServicos.unshift({
-      ordem: 2,
-      id: 'elmo',
-      titulo: 'Elmo',
-      ativo: true,
-      icone: Servico7,
-      navegacao: {
-        net: true,
-        componente: ROTAS.ELMO,
-        titulo: 'Elmo',
-      },
-    });
-  }
 
   const handleOnPressServiceButton = useCallback(
     item => {
@@ -156,7 +151,7 @@ function Servicos({ navigation }) {
     <View>
       <Titulo>Serviços SUS Ceará</Titulo>
       <ListServices
-        dados={listaServicos.sort((a, b) => a.ordem - b.ordem)}
+        dados={listaServicos}
         renderItem={({ item }) => (
           <ServiceButton
             ativo={item.ativo}
