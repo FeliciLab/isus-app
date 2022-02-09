@@ -22,7 +22,7 @@ import { CORES } from '~/constantes/estiloBase';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import estaAtiva from '~/utils/estaAtiva';
-import CardNewsElmo from './CardNewsElmo';
+import CardElmo from './CardElmo';
 import ListaCardsElmo from './ListaCardsElmo';
 import {
   BackgroundImage,
@@ -157,7 +157,7 @@ function Elmo() {
             alignSelf: 'center',
           }}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <CardNewsElmo post={item} />}
+          renderItem={({ item }) => <CardElmo post={item} />}
         />
       );
     }
