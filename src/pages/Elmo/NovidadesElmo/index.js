@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
@@ -33,12 +33,7 @@ export default function NovidadesElmo(props) {
           numColumns={2}
           data={conteudos}
           keyExtractor={() => `${randomKey()}`}
-          style={{
-            marginTop: 20,
-            marginBottom: 12,
-            flex: 1,
-            alignSelf: 'center',
-          }}
+          style={styles.listaDeConteudo}
           renderItem={({ item }) => <CardNewsElmo post={item} />}
         />
       );
@@ -53,12 +48,21 @@ export default function NovidadesElmo(props) {
   };
 
   return (
-    <>
+    <View style={styles.container}>
       <BarraDeStatus
         backgroundColor={CORES.INDIGO_DYE}
         barStyle="light-content"
       />
-      <ListaDeConteudo />
-    </>
+      <ListaDeConteudo style={{ with: 700, backgroundColor: '#f2f2f2' }} />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  listaDeConteudo: {
+    flex: 1,
+  },
+});
