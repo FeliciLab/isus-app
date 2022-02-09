@@ -22,8 +22,9 @@ import { CORES } from '~/constantes/estiloBase';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
 import estaAtiva from '~/utils/estaAtiva';
-import CardNewsElmo from './CardNewsElmo';
+import CardElmo from './CardElmo';
 import ListaCardsElmo from './ListaCardsElmo';
+import { sortBy } from 'lodash';
 import {
   BackgroundImage,
   BotaoLink,
@@ -47,21 +48,21 @@ function Elmo() {
   const [isLoading, setIsLoading] = useState(false);
 
   const aoIniciar = async () => {
-    setIsLoading(true);
-    let vetorTemp = [];
-
     try {
-      const resposta = await pegarProjetosPorCategoria(100744);
+      setIsLoading(true);
 
-      setConteudos(resposta.data.data);
+      const responseNotasTecnicas = await pegarProjetosPorCategoria(100744);
 
-      vetorTemp = resposta.data.data;
+      const responsePostagens = await pegarProjetosPorCategoria(2004);
 
-      setIsLoading(false);
+      // Ordenando por data em ordem decrescente
+      // Ordenacção necessária pois estamos unindo os conteúdos
+      const projetos = sortBy(
+        [...responseNotasTecnicas.data.data, ...responsePostagens.data.data],
+        'data',
+      ).reverse();
 
-      const categoriasProjetos = await pegarProjetosPorCategoria(2004);
-
-      setConteudos([...vetorTemp, ...categoriasProjetos.data.data]);
+      setConteudos(projetos);
     } catch (err) {
       console.log(err);
     } finally {
@@ -157,7 +158,7 @@ function Elmo() {
             alignSelf: 'center',
           }}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => <CardNewsElmo post={item} />}
+          renderItem={({ item }) => <CardElmo post={item} />}
         />
       );
     }
@@ -196,73 +197,71 @@ function Elmo() {
   };
 
   return (
-    <>
+    <ScrollView style={{ flex: 1 }}>
       <BarraDeStatus
         backgroundColor={CORES.INDIGO_DYE}
         barStyle="light-content"
       />
-      <ScrollView style={{ flex: 1 }}>
-        <BackgroundImage source={elmoPatternBG}>
-          <SvgView>
-            <SvgElmoLogo />
-          </SvgView>
-        </BackgroundImage>
-        <Container>
-          <Texto>
-            O Elmo é um capacete de respiração assistida genuinamente cearense,
-            não-invasivo e mais seguro para profissionais de saúde e pacientes.
-            Criado em abril de 2020, o equipamento surgiu como um novo passo
-            para o tratamento de pacientes com insuficiência respiratória aguda
-            hipoxêmica, um dos efeitos da Covid-19.
-          </Texto>
-        </Container>
-        <BotaoLink
-          color={CORES.LARANJA}
-          onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}>
-          Saiba Mais
-        </BotaoLink>
-        {estaAtiva(features.LISTA_CARDS) ? (
-          <ListaCardsElmo />
-        ) : (
-          <FlatList
-            horizontal
-            data={listaElmoCards}
-            keyExtractor={(items, index) => `${index}`}
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-            }}
-            showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <ServiceButton
-                testID={`cards-${item.id}`}
-                key={item.id}
-                ativo={item.ativo}
-                titulo={item.titulo}
-                Icone={item.icone}
-                onPress={() => handleOnPressCartoHome(item)}
-              />
-            )}
-          />
-        )}
-        <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-          <NovidadesTitle>
-            <TituloH6 color={CORES.PRETO54}>Novidades</TituloH6>
-            <BotaoLink
-              color={CORES.LARANJA}
-              marginTop={20}
-              onPress={() =>
-                navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
-              }>
-              Veja Mais
-            </BotaoLink>
-          </NovidadesTitle>
-        </View>
-        <View style={{ marginTop: 20, marginBottom: 12 }}>
-          {!isLoading ? <ListaDeConteudo /> : <ActivityIndicator />}
-        </View>
-      </ScrollView>
-    </>
+      <BackgroundImage source={elmoPatternBG}>
+        <SvgView>
+          <SvgElmoLogo />
+        </SvgView>
+      </BackgroundImage>
+      <Container>
+        <Texto>
+          O Elmo é um capacete de respiração assistida genuinamente cearense,
+          não-invasivo e mais seguro para profissionais de saúde e pacientes.
+          Criado em abril de 2020, o equipamento surgiu como um novo passo para
+          o tratamento de pacientes com insuficiência respiratória aguda
+          hipoxêmica, um dos efeitos da Covid-19.
+        </Texto>
+      </Container>
+      <BotaoLink
+        color={CORES.LARANJA}
+        onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}>
+        Saiba Mais
+      </BotaoLink>
+      {estaAtiva(features.LISTA_CARDS) ? (
+        <ListaCardsElmo />
+      ) : (
+        <FlatList
+          horizontal
+          data={listaElmoCards}
+          keyExtractor={(items, index) => `${index}`}
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <ServiceButton
+              testID={`cards-${item.id}`}
+              key={item.id}
+              ativo={item.ativo}
+              titulo={item.titulo}
+              Icone={item.icone}
+              onPress={() => handleOnPressCartoHome(item)}
+            />
+          )}
+        />
+      )}
+      <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
+        <NovidadesTitle>
+          <TituloH6 color={CORES.PRETO54}>Novidades</TituloH6>
+          <BotaoLink
+            color={CORES.LARANJA}
+            marginTop={20}
+            onPress={() =>
+              navigation.navigate(ROTAS.NOVIDADES_ELMO, { conteudos })
+            }>
+            Veja Mais
+          </BotaoLink>
+        </NovidadesTitle>
+      </View>
+      <View style={{ marginTop: 20, marginBottom: 12 }}>
+        {!isLoading ? <ListaDeConteudo /> : <ActivityIndicator />}
+      </View>
+    </ScrollView>
   );
 }
 
