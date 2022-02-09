@@ -5,12 +5,12 @@ import { TESTIDS } from '../../../src/constantes/testIDs';
 import Feedback from '../../../src/pages/FaleConoscoScreen/feedback';
 import { analyticsData } from '../../../src/utils/analytics';
 import { RELATAR_PROBLEMA } from '../../../src/pages/FaleConoscoScreen/tiposDeOcorrencia';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('../../../src/utils/validadores.js', () => ({
   feedbackValido: jest.fn(() => true),
-  emailValido: jest.fn(() => true)
+  emailValido: jest.fn(() => true),
 }));
 
 jest.mock('@react-navigation/native', () => ({
@@ -20,19 +20,19 @@ jest.mock('@react-navigation/native', () => ({
     setOptions: mockedNavigate,
   }),
   useFocusEffect: jest.fn(),
-  useIsFocused: jest.fn()
+  useIsFocused: jest.fn(),
 }));
 let BotaoFeedback = null;
 
 beforeEach(() => {
   const { getByTestId } = render(
-    <AppTrackTransparencyProvider mock>
+    <AppTrackTransparencyContext.Provider
+      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
       <Feedback tipoDeFeedback={RELATAR_PROBLEMA} />
-    </AppTrackTransparencyProvider>
+    </AppTrackTransparencyContext.Provider>,
   );
   BotaoFeedback = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 });
-
 
 describe('descreve os testes de Fale conosco', () => {
   test('deve renderizar o botão de enviar ao renderizar o Feedback', () => {
@@ -46,6 +46,10 @@ describe('descreve os testes de Fale conosco', () => {
 
   test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
     fireEvent.press(BotaoFeedback);
-    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.ENVIAR_FEEDBACK,
+      'Click',
+      'Fale Conosco',
+    );
   });
 });

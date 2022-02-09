@@ -3,7 +3,7 @@ import { fireEvent, render } from 'util-teste';
 import featuresAtivas from '../../../src/featureAtivas';
 import feature from '../../../src/constantes/features';
 import ExcluirPerfil from '../../../src/pages/Perfil/excluirPerfil';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -21,9 +21,10 @@ if (featuresAtivas.includes(feature.EXCLUSAO_USUARIO)) {
     let renderedObject;
     beforeEach(() => {
       renderedObject = render(
-        <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
           <ExcluirPerfil />
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>,
       );
     });
     test('verificar se botao de excluir perfil existe', () => {

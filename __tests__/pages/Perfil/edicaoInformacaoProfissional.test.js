@@ -6,7 +6,7 @@ import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
 import estaAtiva from '../../../src/utils/estaAtiva';
 import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { analyticsData } from '../../../src/utils/analytics';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -22,9 +22,10 @@ if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
     let renderedObject;
     beforeEach(() => {
       renderedObject = render(
-        <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
           <DadosUsuarioProfissional dados={dadosUsuario} />
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>
       );
     });
 

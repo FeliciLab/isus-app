@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../src/constantes/testIDs';
-import { AppTrackTransparencyProvider } from '../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../src/context/AppTrackTransparencyContext';
 import SusNoCearaScreen from '../../src/pages/SusNoCeara';
 import { analyticsData } from '../../src/utils/analytics';
 
@@ -14,7 +14,7 @@ jest.mock('@react-navigation/native', () => ({
     navigate: mockedNavigate,
     setOptions: mockedNavigate,
   }),
-  useIsFocused: jest.fn()
+  useIsFocused: jest.fn(),
 }));
 
 let EspSesa = null;
@@ -23,16 +23,16 @@ let SusCeara = null;
 
 beforeEach(() => {
   const { getByTestId } = render(
-    <AppTrackTransparencyProvider mock>
+    <AppTrackTransparencyContext.Provider
+      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
       <SusNoCearaScreen />
-    </AppTrackTransparencyProvider>
+    </AppTrackTransparencyContext.Provider>,
   );
 
   SusCeara = getByTestId(TESTIDS.ACORDEON_SUS_NO_CEARA);
   IsusEsp = getByTestId(TESTIDS.ACORDEON_ISUS_ESP);
   EspSesa = getByTestId(TESTIDS.ACORDEON_ESP_SESA);
 });
-
 
 describe('Teste do SUS no Ceará no Menu Lateral', () => {
   test('deve mostrar a aba de SUS no Ceará quando renderizar a tela de sus no Ceará', () => {
@@ -46,7 +46,11 @@ describe('Teste do SUS no Ceará no Menu Lateral', () => {
 
   test('deve chamar analyticsData quando clicar na aba de SUS no Ceará com os parâmetros corretamente', () => {
     fireEvent.press(SusCeara);
-    expect(analyticsData).toBeCalledWith(labelsAnalytics.SUS_NO_CEARA, 'Click', 'SUS no Ceará');
+    expect(analyticsData).toBeCalledWith(
+      labelsAnalytics.SUS_NO_CEARA,
+      'Click',
+      'SUS no Ceará',
+    );
   });
 
   test('deve mostrar a aba de iSUS é ESP quando renderizar a tela de sus no Ceará', () => {
@@ -60,7 +64,11 @@ describe('Teste do SUS no Ceará no Menu Lateral', () => {
 
   test('deve chamar analyticsData quando clicar na aba de iSUS é ESP com os parâmetros corretamente', () => {
     fireEvent.press(IsusEsp);
-    expect(analyticsData).toBeCalledWith(labelsAnalytics.ISUS_ESP, 'Click', 'SUS no Ceará');
+    expect(analyticsData).toBeCalledWith(
+      labelsAnalytics.ISUS_ESP,
+      'Click',
+      'SUS no Ceará',
+    );
   });
 
   test('deve mostrar a aba de ESP é SESA quando renderizar a tela de sus no Ceará', () => {
@@ -74,6 +82,10 @@ describe('Teste do SUS no Ceará no Menu Lateral', () => {
 
   test('deve chamar analyticsData quando clicar na aba de ESP é SESA com os parâmetros corretamente', () => {
     fireEvent.press(EspSesa);
-    expect(analyticsData).toBeCalledWith(labelsAnalytics.ESP_SESA, 'Click', 'SUS no Ceará');
+    expect(analyticsData).toBeCalledWith(
+      labelsAnalytics.ESP_SESA,
+      'Click',
+      'SUS no Ceará',
+    );
   });
 });

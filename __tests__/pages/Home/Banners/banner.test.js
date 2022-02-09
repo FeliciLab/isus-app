@@ -1,9 +1,13 @@
 import React from 'react';
 import { render, fireEvent } from 'util-teste';
 import BannerCarrossel from '../../../../src/pages/Home/Banners/BannerCarrossel';
-import { bannersAutenticado, bannersNaoAutenticado, bannersRota } from '../../../../__mocks__/banners/bannersMock';
+import {
+  bannersAutenticado,
+  bannersNaoAutenticado,
+  bannersRota,
+} from '../../../../__mocks__/banners/bannersMock';
 import { gerarListaBanners } from '../../../../src/pages/Home/Banners/listaDeBanners';
-import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
@@ -13,14 +17,14 @@ jest.mock('@react-navigation/native', () => ({
     setOptions: mockedNavigate,
   }),
   useFocusEffect: jest.fn(),
-  useIsFocused: jest.fn()
+  useIsFocused: jest.fn(),
 }));
 
 jest.mock('@react-native-community/netinfo', () => ({
   ...jest.requireActual('@react-native-community/netinfo'),
   useNetInfo: () => ({
     isConnected: true,
-  })
+  }),
 }));
 
 describe('Banner', () => {
@@ -28,33 +32,38 @@ describe('Banner', () => {
     describe('Quando estou na home', () => {
       const width = 400;
       describe('E há autenticação VALIDA', () => {
-        const bannersTestIds = bannersAutenticado.map(i => `home-banner-${i.ordem}`);
+        const bannersTestIds = bannersAutenticado.map(
+          i => `home-banner-${i.ordem}`,
+        );
         test('Então exibir os banners com a API.', () => {
           const { getByTestId } = render(
-            <AppTrackTransparencyProvider mock>
+            <AppTrackTransparencyContext.Provider
+              value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
               <BannerCarrossel
                 sliderWidth={width}
                 itemWidth={width}
                 banners={gerarListaBanners(bannersAutenticado, true)}
               />
-            </AppTrackTransparencyProvider>
+            </AppTrackTransparencyContext.Provider>,
           );
           bannersTestIds.forEach(id => expect(getByTestId(id)).not.toBeNull());
         });
       });
 
-
       describe('E NÃO há autenticação efetuada', () => {
-        const bannersTestIds = bannersNaoAutenticado.map(i => `home-banner-${i.ordem}`);
+        const bannersTestIds = bannersNaoAutenticado.map(
+          i => `home-banner-${i.ordem}`,
+        );
         test('Então exibir os banners com a API.', () => {
           const { getByTestId } = render(
-            <AppTrackTransparencyProvider mock>
+            <AppTrackTransparencyContext.Provider
+              value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
               <BannerCarrossel
                 sliderWidth={width}
                 itemWidth={width}
                 banners={gerarListaBanners(bannersNaoAutenticado, false)}
               />
-            </AppTrackTransparencyProvider>
+            </AppTrackTransparencyContext.Provider>,
           );
           bannersTestIds.forEach(id => expect(getByTestId(id)).not.toBeNull());
         });
@@ -69,13 +78,14 @@ describe('Banner', () => {
     let banner;
     beforeEach(() => {
       const { getByTestId } = render(
-        <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
           <BannerCarrossel
             sliderWidth={width}
             itemWidth={width}
             banners={gerarListaBanners(bannersNaoAutenticado, false)}
           />
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>,
       );
       bannerTestId = `home-banner-${ordem}`;
       banner = getByTestId(bannerTestId);
@@ -87,7 +97,7 @@ describe('Banner', () => {
           fireEvent.press(banner);
           expect(mockedNavigate).toHaveBeenCalledWith('webview', {
             title: 'Vacina\u00e7\u00e3o',
-            url: 'https://coronavirus.ceara.gov.br/vacina'
+            url: 'https://coronavirus.ceara.gov.br/vacina',
           });
         });
       });
@@ -98,7 +108,8 @@ describe('Banner', () => {
           fireEvent.press(banner);
           expect(mockedNavigate).toHaveBeenCalledWith('webview', {
             title: 'Guia de Assist\u00eancia Farmac\u00eautica',
-            url: 'https://coronavirus.ceara.gov.br/project/secretaria-de-saude-disponibiliza-guia-da-assistencia-farmaceutica-no-estado-do-ceara/'
+            url:
+              'https://coronavirus.ceara.gov.br/project/secretaria-de-saude-disponibiliza-guia-da-assistencia-farmaceutica-no-estado-do-ceara/',
           });
         });
       });
@@ -111,13 +122,14 @@ describe('Banner', () => {
       describe('E fiz login', () => {
         test('Deve chamar a rota perfil', () => {
           const { getByTestId } = render(
-            <AppTrackTransparencyProvider mock>
+            <AppTrackTransparencyContext.Provider
+              value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
               <BannerCarrossel
                 sliderWidth={width}
                 itemWidth={width}
                 banners={gerarListaBanners(bannersRota, true)}
               />
-            </AppTrackTransparencyProvider>
+            </AppTrackTransparencyContext.Provider>,
           );
           const banner = getByTestId('home-banner-3');
           fireEvent.press(banner);
@@ -127,13 +139,14 @@ describe('Banner', () => {
       describe('E não fiz login', () => {
         test('Deve chamar a rota LOGIN', () => {
           const { getByTestId } = render(
-            <AppTrackTransparencyProvider mock>
+            <AppTrackTransparencyContext.Provider
+              value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
               <BannerCarrossel
                 sliderWidth={width}
                 itemWidth={width}
                 banners={gerarListaBanners(bannersRota, false)}
               />
-            </AppTrackTransparencyProvider>
+            </AppTrackTransparencyContext.Provider>,
           );
           const banner = getByTestId('home-banner-3');
           fireEvent.press(banner);

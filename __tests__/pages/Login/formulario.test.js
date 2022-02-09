@@ -4,7 +4,7 @@ import { analyticsData } from '../../../src/utils/analytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
 import FormularioLogin from '../../../src/pages/Login/formulario';
 import { FormProvider } from '../../../src/context/FormContext';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -19,14 +19,14 @@ jest.mock('@react-navigation/native', () => ({
 
 jest.mock('../../../src/utils/validadores', () => ({
   emailValido: jest.fn(() => true),
-  senhaValido: jest.fn(() => true)
+  senhaValido: jest.fn(() => true),
 }));
 
 jest.mock('@react-native-community/netinfo', () => ({
   ...jest.requireActual('@react-native-community/netinfo'),
   useNetInfo: () => ({
     isConnected: true,
-  })
+  }),
 }));
 
 describe('Login>Formulario', () => {
@@ -34,15 +34,15 @@ describe('Login>Formulario', () => {
     let campoEmailID;
 
     beforeEach(() => {
-      const { getByTestId, debug } = render(
-        <AppTrackTransparencyProvider mock>
+      const { getByTestId } = render(
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
           <FormProvider>
             <FormularioLogin />
           </FormProvider>
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>,
       );
       campoEmailID = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
-      debug();
     });
     describe('E renderizo a pagina', () => {
       test('ENTÃO o campo e-mail deve estar em branco.', () => {
@@ -57,11 +57,12 @@ describe('Login>Formulario', () => {
 
     beforeEach(() => {
       const { getByTestId } = render(
-        <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
           <FormProvider>
             <FormularioLogin />
           </FormProvider>
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>,
       );
       botaoFazerLogin = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
       botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
@@ -74,8 +75,11 @@ describe('Login>Formulario', () => {
 
     test('deve chamar o analytics data ao clicar em "Fazer Login" com os parâmetros corretamente', () => {
       fireEvent.press(botaoFazerLogin);
-      expect(analyticsData)
-        .toHaveBeenCalledWith('fazer_login', 'Click', 'Perfil');
+      expect(analyticsData).toHaveBeenCalledWith(
+        'fazer_login',
+        'Click',
+        'Perfil',
+      );
     });
 
     test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha"', () => {
@@ -85,7 +89,11 @@ describe('Login>Formulario', () => {
 
     test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha" com os parâmetros corretamente', () => {
       fireEvent.press(botaoEsqueciSenha);
-      expect(analyticsData).toHaveBeenCalledWith('esqueci_minha_senha', 'Click', 'Perfil');
+      expect(analyticsData).toHaveBeenCalledWith(
+        'esqueci_minha_senha',
+        'Click',
+        'Perfil',
+      );
     });
   });
 });

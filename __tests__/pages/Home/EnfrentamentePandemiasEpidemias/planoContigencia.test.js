@@ -7,26 +7,27 @@ import estaAtiva from '../../../../src/utils/estaAtiva';
 import features from '../../../../src/constantes/features';
 import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
 import listaForcaTarefa from '../../../../src/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
-import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
 
 const navigation = {
-  navigate: jest.fn()
+  navigate: jest.fn(),
 };
 
 jest.mock('@react-native-community/netinfo', () => ({
   ...jest.requireActual('@react-native-community/netinfo'),
   useNetInfo: () => ({
-    isConnected: true
-  })
+    isConnected: true,
+  }),
 }));
 
 let item = null;
 
 beforeEach(() => {
   const { getByTestId } = render(
-    <AppTrackTransparencyProvider mock>
+    <AppTrackTransparencyContext.Provider
+      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
       <ForcaTarefa navigation={navigation} />
-    </AppTrackTransparencyProvider>
+    </AppTrackTransparencyContext.Provider>,
   );
   item = getByTestId('cartaoHome-forcaTarefa-acao-plano-contigencia');
 });
@@ -51,7 +52,7 @@ if (estaAtiva(features.PLANO_CONTIGENCIA)) {
     fireEvent.press(item);
     expect(navigation.navigate).toHaveBeenCalledWith('webview', {
       title: 'Plano de Contingência',
-      url: urls.PLANO_CONTIGENCIA
+      url: urls.PLANO_CONTIGENCIA,
     });
   });
 
@@ -66,7 +67,7 @@ if (estaAtiva(features.PLANO_CONTIGENCIA)) {
       expect(analyticsData).toHaveBeenCalledWith(
         labelsAnalytics.CARTAO_PLANO_CONTIGENCIA,
         'Click',
-        'Home'
+        'Home',
       );
     });
   });

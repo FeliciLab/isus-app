@@ -4,11 +4,11 @@ import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
 import { TESTIDS } from '../../../src/constantes/testIDs';
 import { analyticsData } from '../../../src/utils/analytics';
 import BemVindo from '../../../src/pages/BemVindo';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import {
+  AppTrackTransparencyContext
+} from '../../../src/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
-
-analyticsData();
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -17,7 +17,7 @@ jest.mock('@react-navigation/native', () => ({
     setOptions: mockedNavigate,
   }),
   useFocusEffect: jest.fn(),
-  useIsFocused: jest.fn()
+  useIsFocused: jest.fn(),
 }));
 
 let BotaoTutorialPular = null;
@@ -25,15 +25,15 @@ let BotaoProximoTutorial = null;
 
 beforeEach(() => {
   const { getByTestId } = render(
-    <AppTrackTransparencyProvider mock>
+    <AppTrackTransparencyContext.Provider
+      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
       <BemVindo />
-    </AppTrackTransparencyProvider>
+    </AppTrackTransparencyContext.Provider>,
   );
 
   BotaoTutorialPular = getByTestId(TESTIDS.BOTAO_TUTORIAL_PULAR);
   BotaoProximoTutorial = getByTestId(TESTIDS.BOTAO_TUTORIAL_PROXIMO);
 });
-
 
 describe('Testes no botão de pular tutorial na tela de tutorial', () => {
   test('deve renderizar o botão de pular tutorial ao renderizar o tutorial', () => {
@@ -47,7 +47,11 @@ describe('Testes no botão de pular tutorial na tela de tutorial', () => {
 
   test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no botão de pularTutorial', () => {
     fireEvent.press(BotaoTutorialPular);
-    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.PULAR_TUTORIAL, 'Click', 'Tutorial');
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.PULAR_TUTORIAL,
+      'Click',
+      'Tutorial',
+    );
   });
 });
 
@@ -63,6 +67,10 @@ describe('Testes no botão de próximo tutorial na tela de tutorial', () => {
 
   test('deve  chamar o analyticsData com os parâmetros corretos  quando clicar no botão de próximo slider', () => {
     fireEvent.press(BotaoProximoTutorial);
-    expect(analyticsData).toHaveBeenCalledWith(labelsAnalytics.PROXIMO_TUTORIAL, 'Click', 'Tutorial');
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.PROXIMO_TUTORIAL,
+      'Click',
+      'Tutorial',
+    );
   });
 });
