@@ -1,21 +1,14 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
-import {
-  armazenarEstadoLogado,
-  autenticarComIdSaude,
-  pegarTokenDoUsuarioNoStorage,
-  salvarTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
 import {
   analyticsCategoria,
   analyticsUnidadeServico,
@@ -41,7 +34,7 @@ export default function FormularioSenha({ navigation }) {
 
   const [cadastroRealizado, setCadastroRealizado] = React.useState(false);
 
-  const { alterarDadosUsuario, alterarEstaLogado } = useAutenticacao();
+  const { signIn } = useAutenticacao();
 
   const { register, setValue, trigger, errors, getValues } = useContext(
     FormContext,
@@ -65,8 +58,7 @@ export default function FormularioSenha({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#304FFE" /> */}
+          <Icon name="arrow-left" size={28} color="#304FFE" />
         </TouchableOpacity>
       ),
     });
@@ -123,14 +115,7 @@ export default function FormularioSenha({ navigation }) {
     if (resultado.sucesso) {
       const dados = tratarDadosCadastro(getValues());
 
-      const response = await autenticarComIdSaude(dados.email, dados.senha);
-      if (response.sucesso) {
-        await salvarTokenDoUsuarioNoStorage(response.mensagem);
-        await armazenarEstadoLogado(true);
-        await pegarTokenDoUsuarioNoStorage();
-        await alterarDadosUsuario(dados);
-        await alterarEstaLogado(true);
-      }
+      await signIn(dados.email, dados.senha);
 
       navigation.navigate('TelaDeSucesso', {
         textoApresentacao:

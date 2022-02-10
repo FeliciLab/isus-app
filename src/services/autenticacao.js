@@ -32,16 +32,16 @@ async function pegarDadosDeCadastro() {
 }
 
 async function pegarTokenDoUsuarioNoStorage() {
-  const token = await pegarDados('token_usuario');
+  const token = await pegarDados('@isus:token');
   return token;
 }
 
 function salvarTokenDoUsuarioNoStorage(token) {
-  return salvarDados('token_usuario', token);
+  return salvarDados('@isus:token', token);
 }
 
 async function excluirTokenDoUsuarioNoStorage() {
-  await removerDados('token_usuario');
+  await removerDados('@isus:token');
 }
 
 async function atualizarTokenDeAcessoDoUsuario() {

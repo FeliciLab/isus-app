@@ -3,25 +3,25 @@ import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 
 function useAutenticacao() {
   const {
-    dadosUsuario,
-    alterarDadosUsuario,
-    tokenUsuario,
-    alterarTokenUsuario,
-    estaLogado,
-    alterarEstaLogado,
+    user,
+    setUser,
+    token,
+    setToken,
     pessoa,
     alterarPessoa,
+    signIn,
+    signOut,
   } = useContext(AutenticacaoContext);
 
   return {
-    dadosUsuario,
-    alterarDadosUsuario,
-    tokenUsuario,
-    alterarTokenUsuario,
-    estaLogado,
-    alterarEstaLogado,
+    user,
+    setUser,
+    token,
+    setToken,
     pessoa,
     alterarPessoa,
+    signIn,
+    signOut,
   };
 }
 

@@ -5,7 +5,7 @@ import { Container, DateText, PostImage, PostTitle } from './styles';
 
 // post { data: string, post_link: string, image: string }
 
-function CardNewsElmo({ post }) {
+function CardElmo({ post }) {
   const navigation = useNavigation();
 
   return (
@@ -23,4 +23,4 @@ function CardNewsElmo({ post }) {
   );
 }
 
-export default CardNewsElmo;
+export default CardElmo;

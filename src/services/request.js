@@ -16,6 +16,7 @@ const request = axios.create({
 
 request.interceptors.request.use(async req => {
   const token = await pegarTokenDoUsuarioNoStorage();
+
   if (token) {
     req.headers.Authorization = `Bearer ${token.access_token}`;
   }

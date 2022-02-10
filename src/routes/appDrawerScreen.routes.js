@@ -24,6 +24,7 @@ import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso/index';
 import QualiQuizScreen from '~/pages/QualiQuiz';
 import LoginQualiQuizScreen from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
+import ResidenciaMedicaScreen from '~/pages/ResidenciaMedica';
 import AppTab from './appBottomTab.routes';
 
 const Drawer = createDrawerNavigator();
@@ -44,15 +45,21 @@ export default function appDrawerScreen() {
         />
       )}>
       <Drawer.Screen name={rotas.HOME} component={AppTab} />
-      <Drawer.Screen name="LOGIN" component={LoginStackScreen} />
-      <Drawer.Screen name="FORM_LOGIN" component={FormLoginStackScreen} />
-      <Drawer.Screen name="PERFIL" component={PerfilStackScreen} />
-      <Drawer.Screen name="TERMOS_DE_USO" component={TermosDeUsoStackScreen} />
+      <Drawer.Screen name={rotas.LOGIN} component={LoginStackScreen} />
+      <Drawer.Screen name={rotas.FORM_LOGIN} component={FormLoginStackScreen} />
+      <Drawer.Screen name={rotas.PERFIL} component={PerfilStackScreen} />
       <Drawer.Screen
-        name="POLITICA_DE_PRIVACIDADE"
+        name={rotas.TERMOS_DE_USO}
+        component={TermosDeUsoStackScreen}
+      />
+      <Drawer.Screen
+        name={rotas.POLITICA_DE_PRIVACIDADE}
         component={PoliticaDePrivacidadeStackScreen}
       />
-      <Drawer.Screen name="FEEDBACK" component={FeedbackStackScreen} />
+      <Drawer.Screen
+        name={rotas.FALE_CONOSCO}
+        component={FeedbackStackScreen}
+      />
       <Drawer.Screen
         name={rotas.DUVIDAS_ELMO}
         component={DuvidasElmoStackScreen}
@@ -61,13 +68,27 @@ export default function appDrawerScreen() {
         name={rotas.SUS_NO_CEARA}
         component={SusNoCearaStackScreen}
       />
-      <Drawer.Screen name="SOBRE" component={AboutStackScreen} />
-      <Drawer.Screen name="EXCLUIR_PERFIL" component={DeleteProfileScreen} />
-      <Drawer.Screen name="CONTA_EXCLUIDA" component={DeleteAccountScreen} />
-      <Drawer.Screen name="DENUNCIAR" component={DenunciarAccountScreen} />
-      <Drawer.Screen name="QUALIQUIZ" component={QualiQuizStackScreen} />
+      {/* TODO: ccirar componente de tela do residencia medica */}
       <Drawer.Screen
-        name="QUALIQUIZ_LOGIN"
+        name={rotas.RESIDENCIA_MEDICA}
+        component={ResidenciaMedicaStackScreen}
+      />
+      <Drawer.Screen name={rotas.SOBRE} component={AboutStackScreen} />
+      <Drawer.Screen
+        name={rotas.EXCLUIR_PERFIL}
+        component={DeleteProfileScreen}
+      />
+      <Drawer.Screen
+        name={rotas.CONTA_EXCLUIDA}
+        component={DeleteAccountScreen}
+      />
+      <Drawer.Screen
+        name={rotas.DENUNCIAR}
+        component={DenunciarAccountScreen}
+      />
+      <Drawer.Screen name={rotas.QUALIQUIZ} component={QualiQuizStackScreen} />
+      <Drawer.Screen
+        name={rotas.QUALIQUIZ_LOGIN}
         component={QualiQuizLoginStackScreen}
       />
     </Drawer.Navigator>
@@ -240,6 +261,22 @@ function SusNoCearaStackScreen() {
         options={{ headerShown: true }}
       />
     </SusNoCearaStack.Navigator>
+  );
+}
+
+const ResidenciaMedicaStack = createStackNavigator();
+function ResidenciaMedicaStackScreen() {
+  return (
+    <ResidenciaMedicaStack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: CORES.BRANCO },
+      }}>
+      <ResidenciaMedicaStack.Screen
+        name={rotas.RESIDENCIA_MEDICA}
+        component={ResidenciaMedicaScreen}
+        options={{ headerShown: true }}
+      />
+    </ResidenciaMedicaStack.Navigator>
   );
 }
 
