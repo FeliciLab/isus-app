@@ -24,7 +24,7 @@ function Servicos({ navigation }) {
   const listaServicos = [
     {
       id: 'residencia_medica',
-      titulo: 'Residência Médica',
+      titulo: 'Residências',
       ativo: true,
       icone: ResidenciaMedicaIcon,
       navegacao: {

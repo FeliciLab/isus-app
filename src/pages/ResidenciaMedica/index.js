@@ -1,48 +1,51 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
-import { FlatList, Image, TouchableOpacity } from 'react-native';
+import { FlatList, Image, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
+import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
+import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
+import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
+import ServiceButton from '~/components/ServiceButton/index';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import { Container, Content } from './styles';
-import ResidenciaMedicaSVG01 from '~/assets/icons/residenciaMedica/icon01.svg';
-import ResidenciaMedicaSVG02 from '~/assets/icons/residenciaMedica/icon02.svg';
-import ResidenciaMedicaSVG03 from '~/assets/icons/residenciaMedica/icon03.svg';
-import ServiceButton from '~/components/ServiceButton/index';
 
 const residenciaMedicaListCards = [
   {
-    id: 'elmo-capacitacao',
-    titulo: 'Capacitação',
+    id: 'sagu',
+    titulo: 'SAGU',
     ativo: true,
-    icone: ResidenciaMedicaSVG01,
+    icone: SaguSVG,
     navegacao: {
-      componente: ROTAS.CAPACITACAO_ELMO,
-      titulo: 'Elmo',
-      background: CORES.INDIGO_DYE,
+      componente: 'webview',
+      titulo: 'SAGU',
+      url: 'http://academico.esp.ce.gov.br/',
     },
   },
   {
-    id: 'elmo-manual-uso',
-    titulo: 'Manual de Uso',
+    id: 'esp-virtual',
+    titulo: 'ESP Virtual',
     ativo: true,
-    icone: ResidenciaMedicaSVG02,
+    icone: ESPVirtualSVG,
     navegacao: {
-      componente: 'browser',
-      url:
-        'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
+      componente: 'webview',
+      titulo: 'ESP Virtual',
+      url: 'http://espvirtual.esp.ce.gov.br/',
     },
   },
   {
-    id: 'elmo-fale-conosco',
-    titulo: 'Fale Conosco',
+    id: 'sig-residencias',
+    titulo: 'SIG Residências',
     ativo: true,
-    icone: ResidenciaMedicaSVG03,
+    icone: SIGResidenciasSVG,
     navegacao: {
-      componente: ROTAS.DUVIDAS_ELMO,
+      componente: 'webview',
+      titulo: 'SIG Residências',
+      url: 'https://sigresidencias.saude.gov.br',
     },
   },
 ];
@@ -50,8 +53,27 @@ const residenciaMedicaListCards = [
 const ResidenciaMedica = () => {
   const navigation = useNavigation();
 
+  const netInfo = useNetInfo();
+
   const handleOnPressServiceButton = item => {
-    console.log('handleOnPressCartoHome', item.id);
+    // analyticsData(item.id, 'Click', 'Elmo');
+    if (item.navegacao.net && !netInfo.isConnected) {
+      navigation.navigate(ROTAS.SEM_CONEXAO);
+      return;
+    }
+
+    if (item.navegacao.componente === 'browser') {
+      Linking.openURL(item.navegacao.url);
+      return;
+    }
+
+    navigation.navigate(item.navegacao.componente, {
+      title: item.navegacao.titulo,
+      url: item.navegacao.url,
+      headerStyle: {
+        backgroundColor: item.navegacao.background,
+      },
+    });
   };
 
   useLayoutEffect(() => {
