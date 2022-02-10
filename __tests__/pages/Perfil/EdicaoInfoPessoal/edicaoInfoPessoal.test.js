@@ -30,7 +30,7 @@ describe('EdicaoInfoPessoal', () => {
       let getByTextTest;
       let getAllByTextTest;
       let getByDisplayValueTest;
-      let queryByA11yStateTest;
+      let getByA11yRoleTest;
       let getByTestIdTest;
 
       beforeEach(async () => {
@@ -39,8 +39,8 @@ describe('EdicaoInfoPessoal', () => {
             getByText,
             getAllByText,
             getByDisplayValue,
-            queryByA11yState,
-            getByTestId
+            getByTestId,
+            getByA11yRole
           } = render(
             <AppTrackTransparencyProvider mock>
               <AutenticacaoProvider pessoaAutenticada={modeloPessoaMock}>
@@ -53,7 +53,7 @@ describe('EdicaoInfoPessoal', () => {
           getByTextTest = getByText;
           getAllByTextTest = getAllByText;
           getByDisplayValueTest = getByDisplayValue;
-          queryByA11yStateTest = queryByA11yState;
+          getByA11yRoleTest = getByA11yRole;
           getByTestIdTest = getByTestId;
         });
       });
@@ -133,7 +133,7 @@ describe('EdicaoInfoPessoal', () => {
 
       describe('QUANDO apresento o formulário com os campos preenchidos e validados', () => {
         test('ENTÃO o botão SALVAR deve está habilitado', () => {
-          const campoID = queryByA11yStateTest({ disabled: false });
+          const campoID = getByA11yRoleTest('button');
           expect(campoID).not.toBeNull();
         });
 
