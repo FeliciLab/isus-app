@@ -1,6 +1,6 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import { FlatList, Image, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,6 +13,7 @@ import ServiceButton from '~/components/ServiceButton/index';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import { urls } from '~/constantes/urls';
+import useAnalytics from '~/hooks/useAnalytics';
 import { Container, Content } from './styles';
 
 const residenciaMedicaListCards = [
@@ -54,28 +55,34 @@ const residenciaMedicaListCards = [
 const ResidenciaMedica = () => {
   const navigation = useNavigation();
 
-  const netInfo = useNetInfo();
+  const { isConnected } = useNetInfo();
 
-  const handleOnPressServiceButton = item => {
-    // analyticsData(item.id, 'Click', 'Elmo');
-    if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO);
-      return;
-    }
+  const { analyticsData } = useAnalytics();
 
-    if (item.navegacao.componente === 'browser') {
-      Linking.openURL(item.navegacao.url);
-      return;
-    }
+  const handleOnPressServiceButton = useCallback(
+    item => {
+      analyticsData(item.id, 'Click', 'ResidenciaMedica');
 
-    navigation.navigate(item.navegacao.componente, {
-      title: item.navegacao.titulo,
-      url: item.navegacao.url,
-      headerStyle: {
-        backgroundColor: item.navegacao.background,
-      },
-    });
-  };
+      if (item.navegacao.net && !isConnected) {
+        navigation.navigate(ROTAS.SEM_CONEXAO);
+        return;
+      }
+
+      if (item.navegacao.componente === 'browser') {
+        Linking.openURL(item.navegacao.url);
+        return;
+      }
+
+      navigation.navigate(item.navegacao.componente, {
+        title: item.navegacao.titulo,
+        url: item.navegacao.url,
+        headerStyle: {
+          backgroundColor: item.navegacao.background,
+        },
+      });
+    },
+    [isConnected, analyticsData],
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
