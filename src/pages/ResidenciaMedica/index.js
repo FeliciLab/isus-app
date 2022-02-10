@@ -12,6 +12,7 @@ import BarraDeStatus from '~/components/barraDeStatus';
 import ServiceButton from '~/components/ServiceButton/index';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
+import { urls } from '~/constantes/urls';
 import { Container, Content } from './styles';
 
 const residenciaMedicaListCards = [
@@ -23,7 +24,7 @@ const residenciaMedicaListCards = [
     navegacao: {
       componente: 'webview',
       titulo: 'SAGU',
-      url: 'http://academico.esp.ce.gov.br/',
+      url: urls.SAGU,
     },
   },
   {
@@ -34,7 +35,7 @@ const residenciaMedicaListCards = [
     navegacao: {
       componente: 'webview',
       titulo: 'ESP Virtual',
-      url: 'http://espvirtual.esp.ce.gov.br/',
+      url: urls.ESP_VIRTUAL,
     },
   },
   {
@@ -45,7 +46,7 @@ const residenciaMedicaListCards = [
     navegacao: {
       componente: 'webview',
       titulo: 'SIG Residências',
-      url: 'https://sigresidencias.saude.gov.br',
+      url: urls.SIG_RESIDENCIAS,
     },
   },
 ];
