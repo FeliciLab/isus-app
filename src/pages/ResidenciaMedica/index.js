@@ -1,7 +1,7 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect } from 'react';
-import { FlatList, Image, Linking, TouchableOpacity } from 'react-native';
+import { FlatList, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
@@ -14,7 +14,7 @@ import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import { urls } from '~/constantes/urls';
 import useAnalytics from '~/hooks/useAnalytics';
-import { Container, Content } from './styles';
+import { Container, Content, ResidenciasEmSaudeImage } from './styles';
 
 const residenciaMedicaListCards = [
   {
@@ -111,7 +111,7 @@ const ResidenciaMedica = () => {
   return (
     <Container>
       <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
-      <Image source={residenciaMedicaBG} />
+      <ResidenciasEmSaudeImage source={residenciaMedicaBG} />
       <Content>
         <Paragraph>
           As Residências em Saúde constituem modalidade de ensino de

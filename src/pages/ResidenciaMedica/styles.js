@@ -7,3 +7,7 @@ export const Container = styled.ScrollView`
 export const Content = styled.View`
   padding: 12px;
 `;
+
+export const ResidenciasEmSaudeImage = styled.Image`
+  width: 100%;
+`;
