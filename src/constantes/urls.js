@@ -10,4 +10,7 @@ export const urls = {
     'https://coronavirus.ceara.gov.br/isus/farmacovigilancia/',
   NOTIFICACAO_DE_CASOS: 'https://notifica.saude.gov.br/login',
   BOLETINS: 'https://coronavirus.ceara.gov.br/boletins/',
+  SAGU: 'https://academico.esp.ce.gov.br/',
+  ESP_VIRTUAL: 'https://espvirtual.esp.ce.gov.br/',
+  SIG_RESIDENCIAS: 'https://sigresidencias.saude.gov.br',
 };

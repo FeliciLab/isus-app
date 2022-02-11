@@ -48,12 +48,7 @@ const formLogin = ({ rotaAposLogin }) => {
     CaixaDialogoContext,
   );
 
-  const {
-    alterarDadosUsuario,
-    alterarTokenUsuario,
-    alterarEstaLogado,
-    alterarPessoa,
-  } = useAutenticacao();
+  const { setUser, setToken, alterarPessoa } = useAutenticacao();
 
   useEffect(() => {
     register('email', {
@@ -112,26 +107,23 @@ const formLogin = ({ rotaAposLogin }) => {
       const { token } = result;
 
       if (!token) {
-        alterarEstaLogado(false);
         setCarregando(false);
         return;
       }
 
-      alterarTokenUsuario(token);
+      setToken(token);
       salvarTokenDoUsuarioNoStorage(token);
 
       const perfil = await perfilUsuario();
 
-      alterarDadosUsuario(perfil.data);
+      setUser(perfil.data);
       alterarPessoa(perfil.data);
 
-      alterarEstaLogado(true);
       setCarregando(false);
 
       navigator.navigate(rotaAposLogin);
       return;
     } catch (error) {
-      alterarEstaLogado(false);
       console.log('ERRO', error);
       if (error.response.status === 401) {
         setExibirErroSenha(true);

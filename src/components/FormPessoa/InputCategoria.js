@@ -27,14 +27,12 @@ const InputCategoria = ({ defaultValue }) => {
   useEffect(handleEffect, [defaultValue]);
 
   return (
-    <>
-      <FormSelect
-        data={data}
-        name="categoriaProfissional"
-        rules={{ required: true }}
-        label="Categoria profissional"
-      />
-    </>
+    <FormSelect
+      data={data}
+      name="categoriaProfissional"
+      rules={{ required: true }}
+      label="Categoria profissional"
+    />
   );
 };
 

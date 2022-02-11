@@ -2,9 +2,8 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '~/apis/apiCadastro';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
@@ -27,12 +26,7 @@ export default function PerfilScreen() {
 
   const { analyticsData } = useAnalytics();
 
-  const {
-    dadosUsuario,
-    alterarDadosUsuario,
-    alterarTokenUsuario,
-    alterarPessoa,
-  } = useAutenticacao();
+  const { user, setUser, setToken, alterarPessoa } = useAutenticacao();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext,
@@ -46,10 +40,10 @@ export default function PerfilScreen() {
         if (!logado) return;
 
         const token = await pegarTokenDoUsuarioNoStorage();
-        alterarTokenUsuario(token);
+        setToken(token);
         try {
           const perfil = await perfilUsuario();
-          alterarDadosUsuario(perfil.data);
+          setUser(perfil.data);
           alterarPessoa(perfil.data);
           salvarDados('perfil', perfil.data);
         } catch (err) {
@@ -104,24 +98,25 @@ export default function PerfilScreen() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });
   }, []);
+
+  if (!user) return null;
 
   return (
     <>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
       <ScrollView style={{ backgroundColor: '#FFF' }}>
         <View style={estilos.margem}>
-          <CabecalhoPerfil nome={dadosUsuario.name} />
+          <CabecalhoPerfil nome={user.name} />
           <MenuPerfil titulo="Informações pessoais">
-            <DadosUsuario dados={dadosUsuario} />
+            <DadosUsuario dados={user} />
           </MenuPerfil>
           <MenuPerfil titulo="Informações profissionais">
-            <DadosUsuarioProfissional dados={dadosUsuario} />
+            <DadosUsuarioProfissional dados={user} />
           </MenuPerfil>
           <MenuPerfil titulo="Privacidade">
             <MenuPerfilItem

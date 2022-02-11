@@ -1,11 +1,11 @@
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Linking, Text, TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import rotas from '~/constantes/rotas';
+import { CORES } from '~/constantes/estiloBase';
 import {
   BotaoEmail,
   BotaoLigarSus,
@@ -62,8 +62,7 @@ export default function Denunciar() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#4CAF50" /> */}
+          <Icon name="arrow-left" size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });
@@ -74,7 +73,7 @@ export default function Denunciar() {
       <ScrollView>
         <Container>
           <ImagemFarol />
-          <Titulo testID="texto1">
+          <Titulo color={CORES.PRETO54} testID="texto1">
             O coronavírus continua circulando em nosso estado. Você pode ajudar
             a combater denunciando aglomerações e/ou não uso de máscaras.
           </Titulo>

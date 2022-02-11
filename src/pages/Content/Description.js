@@ -21,9 +21,8 @@ import {
 } from 'react-native';
 import { Snackbar, Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorId } from '~/apis/apiHome';
-import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import BarraInferior from '~/components/barraInferior';
 import rotas from '~/constantes/rotas';
@@ -212,8 +211,7 @@ export default function DescriptionScreen(props) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <SetaEsquerda />
-          {/* <Icon name="arrow-left" size={28} color="#FFF" /> */}
+          <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableOpacity>
       ),
     });

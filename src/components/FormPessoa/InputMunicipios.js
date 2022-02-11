@@ -19,14 +19,12 @@ const InputMunicipios = () => {
   useEffect(handleEffect, []);
 
   return (
-    <>
-      <FormSelect
-        data={municipios.map(m => ({ label: m.nome, value: m.id }))}
-        name="cidadeId"
-        rules={{ required: true }}
-        label="Município"
-      />
-    </>
+    <FormSelect
+      data={municipios.map(m => ({ label: m.nome, value: m.id }))}
+      name="cidadeId"
+      rules={{ required: true }}
+      label="Município"
+    />
   );
 };
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-mixed-operators */
 import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
@@ -148,7 +147,9 @@ function AdicionarDadosProfissionais() {
 
 const Botao = ({ children, uri, params = '', testID }) => {
   const { analyticsData } = useAnalytics();
+
   const navigation = useNavigation();
+
   return (
     <Button
       testID={testID}

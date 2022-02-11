@@ -26,56 +26,54 @@ const FormProfissional = ({ actionPress, labelButton, hiddenActionButton }) => {
   }, []);
 
   return (
-    <>
-      <ContainerBody>
-        <ScrollView>
-          <ContainerForm>
-            <RowInput>
-              <InputCategoria
-                defaultValue={infoProfissional.categoriaProfissional}
-              />
-            </RowInput>
-            <RowInput>
-              <Controller
-                control={control}
-                name="_hidden.categoriaProfissional"
-                defaultValue=""
-                render={({ value }) => (
-                  <>
-                    <InputEspecialidades
-                      categoria={value}
-                      defaultValue={infoProfissional.especialidades}
-                    />
-                  </>
-                )}
-              />
-            </RowInput>
-            <RowInput>
-              <InputUnidadeServico
-                defaultValue={infoProfissional.unidadeServico}
-              />
-            </RowInput>
-          </ContainerForm>
-          {!hiddenActionButton && (
-            <RowButton>
-              <BotaoLaranja
-                loading={isLoading}
-                disabled={isLoading}
-                onPress={async () => {
-                  setIsLoading(true);
-                  try {
-                    await actionPress();
-                  } finally {
-                    setIsLoading(false);
-                  }
-                }}>
-                {labelButton || 'Continuar'}
-              </BotaoLaranja>
-            </RowButton>
-          )}
-        </ScrollView>
-      </ContainerBody>
-    </>
+    <ContainerBody>
+      <ScrollView>
+        <ContainerForm>
+          <RowInput>
+            <InputCategoria
+              defaultValue={infoProfissional.categoriaProfissional}
+            />
+          </RowInput>
+          <RowInput>
+            <Controller
+              control={control}
+              name="_hidden.categoriaProfissional"
+              defaultValue=""
+              render={({ value }) => (
+                <>
+                  <InputEspecialidades
+                    categoria={value}
+                    defaultValue={infoProfissional.especialidades}
+                  />
+                </>
+              )}
+            />
+          </RowInput>
+          <RowInput>
+            <InputUnidadeServico
+              defaultValue={infoProfissional.unidadeServico}
+            />
+          </RowInput>
+        </ContainerForm>
+        {!hiddenActionButton && (
+          <RowButton>
+            <BotaoLaranja
+              loading={isLoading}
+              disabled={isLoading}
+              onPress={async () => {
+                setIsLoading(true);
+                try {
+                  await actionPress();
+                } finally {
+                  setIsLoading(false);
+                }
+              }}>
+              {labelButton || 'Continuar'}
+            </BotaoLaranja>
+          </RowButton>
+        )}
+      </ScrollView>
+    </ContainerBody>
   );
 };
 

@@ -1,40 +1,24 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Card, Paragraph } from 'react-native-paper';
+import { Card } from 'react-native-paper';
+import { CardTitle, Container, IconeWrapper } from './styles';
 
 const ServiceButton = props => {
   const { Icone, ativo, titulo, onPress, testID, ...rest } = props;
 
   if (ativo) {
     return (
-      <Card
-        elevation={4}
-        style={styles.espacamento}
-        onPress={onPress}
-        testID={testID}
-        {...rest}>
-        <Icone />
+      <Container elevation={4} onPress={onPress} testID={testID} {...rest}>
+        <IconeWrapper>
+          <Icone />
+        </IconeWrapper>
         <Card.Content>
-          <Paragraph style={styles.paragrafo}>{titulo}</Paragraph>
+          <CardTitle>{titulo}</CardTitle>
         </Card.Content>
-      </Card>
+      </Container>
     );
   }
 
   return <></>;
 };
-
-const styles = StyleSheet.create({
-  espacamento: {
-    margin: 10,
-  },
-  paragrafo: {
-    fontSize: 12,
-    letterSpacing: 0.25,
-    lineHeight: 16,
-    marginTop: 10,
-    maxWidth: 112,
-  },
-});
 
 export default ServiceButton;

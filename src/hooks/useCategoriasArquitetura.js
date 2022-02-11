@@ -9,12 +9,12 @@ export function useCategoriasArquitetura() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { estaLogado } = useAutenticacao();
+  const { user } = useAutenticacao();
 
   const featchCategoriasArquitetura = useCallback(async () => {
     try {
       setIsLoading(true);
-      const data = await pegarCategoriasArquitetura(estaLogado);
+      const data = await pegarCategoriasArquitetura(!!user);
       setCategorias(data);
     } catch (e) {
       setError(e);

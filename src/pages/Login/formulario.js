@@ -10,7 +10,6 @@ import { Controller } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme, TextInput } from 'react-native-paper';
-import { perfilUsuario } from '~/apis/apiCadastro';
 import Alerta from '~/components/alerta';
 import rotas from '~/constantes/rotas';
 import { TESTIDS } from '~/constantes/testIDs';
@@ -18,11 +17,6 @@ import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useCaixaDialogo from '~/hooks/useCaixaDialogo';
-import {
-  armazenarEstadoLogado,
-  autenticarComIdSaude,
-  salvarTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
 import { emailValido, senhaValido } from '~/utils/validadores';
 import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
 import { Botao } from './styles';
@@ -40,12 +34,7 @@ const FormularioLogin = ({ route }) => {
     FormContext,
   );
 
-  const {
-    alterarTokenUsuario,
-    alterarDadosUsuario,
-    alterarEstaLogado,
-    alterarPessoa,
-  } = useAutenticacao();
+  const { signIn } = useAutenticacao();
 
   const [carregando, setCarregando] = useState(false);
 
@@ -79,31 +68,14 @@ const FormularioLogin = ({ route }) => {
     try {
       setCarregando(true);
 
-      const response = await autenticarComIdSaude(email, senha);
-
-      await salvarTokenDoUsuarioNoStorage(response.mensagem);
-
-      alterarTokenUsuario(response.mensagem);
-
-      const perfil = await perfilUsuario(response.mensagem);
-
-      alterarDadosUsuario(perfil.data);
-
-      alterarPessoa(perfil.data);
-
-      if (!perfil.cadastrado) {
-        navigation.navigate(rotas.PRE_CADASTRO_INTRODUCAO);
-        return;
-      }
-
-      await armazenarEstadoLogado(true);
-
-      alterarEstaLogado(true);
+      const cadastrado = signIn(email, senha);
 
       setValue('email', '');
       setValue('senha', '');
 
-      navigation.navigate(rotas.HOME_SCREEN_HOME);
+      navigation.navigate(
+        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO_INTRODUCAO,
+      );
     } catch (error) {
       if (error.response?.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
