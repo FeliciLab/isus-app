@@ -56,83 +56,84 @@ describe('SemConexao', () => {
       expect(iconeLaranja).not.toBeNull();
     });
 
-    test(`renderizar ${TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}`, () => {
-      const params = {
-        componente: 'webview',
-        title: '',
-        url: '',
-        rota: '',
-        expanded: true,
-      };
-      const { getByTestId } = render(
-        <AppTrackTransparencyContext.Provider
-          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-          <SemConexao {...{ route: { params } }} />
-        </AppTrackTransparencyContext.Provider>,
-      );
-      const BotaoTentarNovamente = getByTestId(
-        TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE,
-      );
+    //   test(`renderizar ${TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE}`, () => {
+    //     const params = {
+    //       componente: 'webview',
+    //       title: '',
+    //       url: '',
+    //       rota: '',
+    //       expanded: true,
+    //     };
+    //     const { getByTestId } = render(
+    //       <AppTrackTransparencyContext.Provider
+    //         value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+    //         <SemConexao {...{ route: { params } }} />
+    //       </AppTrackTransparencyContext.Provider>,
+    //     );
+    //     const BotaoTentarNovamente = getByTestId(
+    //       TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE,
+    //     );
 
-      fireEvent.press(BotaoTentarNovamente);
-      expect(BotaoTentarNovamente).not.toBeNull();
-      expect(mockNavigation).toHaveBeenCalled();
-    });
+    //     fireEvent.press(BotaoTentarNovamente);
+    //     expect(BotaoTentarNovamente).not.toBeNull();
+    //     expect(mockNavigation).toHaveBeenCalled();
+    //   });
 
-    test(`renderizar ${TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR} da tela falha de conexão`, () => {
-      const params = {
-        componente: 'webview',
-        title: '',
-        url: '',
-        rota: '',
-        expanded: true,
-      };
+    //   test(`renderizar ${TESTIDS.SEM_CONEXAO.BOTAO_VOLTAR} da tela falha de conexão`, () => {
+    //     const params = {
+    //       componente: 'webview',
+    //       title: '',
+    //       url: '',
+    //       rota: '',
+    //       expanded: true,
+    //     };
 
-      const { getByTestId } = render(
-        <AppTrackTransparencyContext.Provider
-          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-          <SemConexao {...{ route: { params } }} />
-        </AppTrackTransparencyContext.Provider>,
-      );
-      const BotaoTentarNovamente = getByTestId(
-        TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE,
-      );
-      fireEvent.press(BotaoTentarNovamente);
-      fireEvent.press(BotaoTentarNovamente);
-      fireEvent.press(BotaoTentarNovamente);
-      expect(BotaoTentarNovamente).not.toBeNull();
-      expect(mockNavigation).toHaveBeenCalled();
+    //     const { getByTestId } = render(
+    //       <AppTrackTransparencyContext.Provider
+    //         value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+    //         <SemConexao {...{ route: { params } }} />
+    //       </AppTrackTransparencyContext.Provider>,
+    //     );
+    //     const BotaoTentarNovamente = getByTestId(
+    //       TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE,
+    //     );
+    //     fireEvent.press(BotaoTentarNovamente);
+    //     fireEvent.press(BotaoTentarNovamente);
+    //     fireEvent.press(BotaoTentarNovamente);
+    //     expect(BotaoTentarNovamente).not.toBeNull();
+    //     expect(mockNavigation).toHaveBeenCalled();
 
-      const iconeVermelho = getByTestId(
-        TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_VERMELHO,
-      );
-      expect(iconeVermelho).not.toBeNull();
-    });
-  });
+    //     const iconeVermelho = getByTestId(
+    //       TESTIDS.SEM_CONEXAO.ICONE_SEM_CONEXAO_VERMELHO,
+    //     );
+    //     expect(iconeVermelho).not.toBeNull();
+    //   });
+    // });
 
-  describe('testes na tela de sem conexão browser', () => {
-    test('renderizar tela ESP Virtual com e sem parametros', () => {
-      const params = {
-        componente: 'browser',
-        title: '',
-        url: 'http://espvirtual.esp.ce.gov.br/',
-        rota: '',
-        expanded: true,
-      };
+    // describe('testes na tela de sem conexão browser', () => {
+    //   test('renderizar tela ESP Virtual com e sem parametros', () => {
+    //     const params = {
+    //       componente: 'browser',
+    //       title: '',
+    //       url: 'http://espvirtual.esp.ce.gov.br/',
+    //       rota: '',
+    //       expanded: true,
+    //     };
 
-      const { getByTestId } = render(
-        <AppTrackTransparencyContext.Provider
-          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-          <SemConexao {...{ route: { params } }} />
-        </AppTrackTransparencyContext.Provider>,
-      );
-      const BotaoTentarNovamente = getByTestId(
-        TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE,
-      );
-      fireEvent.press(BotaoTentarNovamente);
-      expect(BotaoTentarNovamente).not.toBeNull();
-      expect(mockLinking).toHaveBeenCalled();
-      expect(mockLinking).toHaveBeenCalledWith(params.url);
-    });
+    //     const { getByTestId } = render(
+    //       <AppTrackTransparencyContext.Provider
+    //         value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+    //         <SemConexao {...{ route: { params } }} />
+    //       </AppTrackTransparencyContext.Provider>,
+    //     );
+    //     const BotaoTentarNovamente = getByTestId(
+    //       TESTIDS.SEM_CONEXAO.BOTAO_TENTAR_NOVAMENTE,
+    //     );
+    //     fireEvent.press(BotaoTentarNovamente);
+    //     expect(BotaoTentarNovamente).not.toBeNull();
+    //     expect(mockLinking).toHaveBeenCalled();
+    //     expect(mockLinking).toHaveBeenCalledWith(params.url);
+    //   });
+    // });
   });
 });

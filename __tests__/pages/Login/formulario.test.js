@@ -5,6 +5,7 @@ import { TESTIDS } from '../../../src/constantes/testIDs';
 import FormularioLogin from '../../../src/pages/Login/formulario';
 import { FormProvider } from '../../../src/context/FormContext';
 import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
+import modeloPessoaMock from '../../../__mocks__/valores/modeloPessoaMock';
 
 const mockedNavigate = jest.fn();
 
@@ -59,13 +60,14 @@ describe('Login>Formulario', () => {
       const { getByTestId } = render(
         <AppTrackTransparencyContext.Provider
           value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-          <FormProvider>
+          <FormProvider initValues={modeloPessoaMock}>
             <FormularioLogin />
           </FormProvider>
         </AppTrackTransparencyContext.Provider>,
       );
       botaoFazerLogin = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
       botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
+      fireEvent.press(botaoFazerLogin);
     });
 
     test('deve chamar o analytics data ao clicar em "Fazer Login"', () => {
