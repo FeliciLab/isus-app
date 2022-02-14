@@ -29,7 +29,7 @@ import AppTab from './appBottomTab.routes';
 
 const Drawer = createDrawerNavigator();
 
-export default function appDrawerScreen() {
+export default function AppDrawerScreen() {
   return (
     <Drawer.Navigator
       initialRouteName="SERVICE"

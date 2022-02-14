@@ -169,7 +169,7 @@ export default function App({ navigationRef }) {
         <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
         <RootStack.Screen
           name="Buscar"
-          component={searchStackScreen}
+          component={SearchStackScreen}
           options={{ headerShown: false }}
         />
         <RootStack.Screen
@@ -216,7 +216,7 @@ export default function App({ navigationRef }) {
 
 const searchStack = createStackNavigator();
 
-function searchStackScreen() {
+function SearchStackScreen() {
   return (
     <searchStack.Navigator>
       <searchStack.Screen

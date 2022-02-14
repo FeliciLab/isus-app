@@ -6,7 +6,7 @@ import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { Botao, Container, ScrollView, Texto, Titulo } from '../styles';
 
-export default function capacitacaoElmo() {
+export default function CapacitacaoElmo() {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
