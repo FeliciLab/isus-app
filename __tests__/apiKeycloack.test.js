@@ -1,7 +1,7 @@
 import {
   autenticar, pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades
-} from '../src/apis/apiKeycloak';
-import request from '../src/services/request';
+} from '~/apis/apiKeycloak';
+import request from '~/services/request';
 
 jest.mock('../src/services/request');
 

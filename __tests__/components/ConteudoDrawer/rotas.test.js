@@ -1,11 +1,11 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
-import testIDs from '../../../src/constantes/testIDs';
+import ConteudoDrawer from '~/components/ConteudoDrawer';
+import testIDs from '~/constantes/testIDs';
 import packageJson from '../../../package.json';
-import { AutenticacaoProvider } from '../../../src/context/AutenticacaoContext';
-import aoCompartilhar from '../../../src/components/ConteudoDrawer/aoCompartilhar';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { AutenticacaoContext, AutenticacaoProvider } from '~/context/AutenticacaoContext';
+import aoCompartilhar from '~/components/ConteudoDrawer/aoCompartilhar';
+import { AppTrackTransparencyContext, AppTrackTransparencyProvider } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({
@@ -23,11 +23,12 @@ describe('Dado que abro o menu lateral', () => {
   describe('Quando clico em Meu Perfil (E não estou autenticado - login(falso) e token(falso))', () => {
     test('então sou redirecionado para a página de login/cadastro', () => {
       const { getByTestId } = render(
-        <AppTrackTransparencyProvider mock>
-          <AutenticacaoProvider valoresIniciais={{ estaLogade: false, tokenAutenticacao: false }}>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+          <AutenticacaoContext.Provider value={{user: false}}>
             <ConteudoDrawer />
-          </AutenticacaoProvider>
-        </AppTrackTransparencyProvider>
+          </AutenticacaoContext.Provider>
+        </AppTrackTransparencyContext.Provider>
       );
       const item = getByTestId(testIDs.DRAWER.ITEM_PERFIL);
       fireEvent.press(item);
@@ -37,11 +38,12 @@ describe('Dado que abro o menu lateral', () => {
   describe('Quando clico em Meu Perfil (E não estou autenticado - login(verdadeiro) e token(falso))', () => {
     test('então sou redirecionado para a página de login/cadastro', () => {
       const { getByTestId } = render(
-        <AutenticacaoProvider valoresIniciais={{ estaLogade: true, tokenAutenticacao: false }}>
-          <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+          <AutenticacaoContext.Provider value={{user: true, token: null}}>
             <ConteudoDrawer />
-          </AppTrackTransparencyProvider>
-        </AutenticacaoProvider>
+          </AutenticacaoContext.Provider>
+        </AppTrackTransparencyContext.Provider>
       );
       const item = getByTestId(testIDs.DRAWER.ITEM_PERFIL);
       fireEvent.press(item);
@@ -52,11 +54,12 @@ describe('Dado que abro o menu lateral', () => {
   describe('Quando clico em Meu Perfil (E não estou autenticado - login(falso) e token(verdadeiro))', () => {
     test('então sou redirecionado para a página de login/cadastro', () => {
       const { getByTestId } = render(
-        <AutenticacaoProvider valoresIniciais={{ estaLogade: false, tokenAutenticacao: true }}>
-          <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+          <AutenticacaoContext.Provider value={{user: false, token: null}}>
             <ConteudoDrawer />
-          </AppTrackTransparencyProvider>
-        </AutenticacaoProvider>
+          </AutenticacaoContext.Provider>
+        </AppTrackTransparencyContext.Provider>
       );
       const item = getByTestId(testIDs.DRAWER.ITEM_PERFIL);
       fireEvent.press(item);

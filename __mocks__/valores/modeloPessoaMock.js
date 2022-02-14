@@ -18,6 +18,6 @@ export default {
       nome: 'Alimentação e assistência nutricional e dietética'
     }
   ],
-  senha: '',
-  confirmarSenha: ''
+  senha: '12345678',
+  confirmarSenha: '12345678'
 };

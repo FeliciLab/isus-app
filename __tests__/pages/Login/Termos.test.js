@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { analyticsData } from '../../../src/utils/analytics';
-import Termos from '../../../src/pages/Login/Termos';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { analyticsData } from '~/utils/analytics';
+import Termos from '~/pages/Login/Termos';
+import { TESTIDS } from '~/constantes/testIDs';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -20,9 +20,10 @@ describe('Termos', () => {
   let renderObject;
   beforeEach(() => {
     renderObject = render(
-      <AppTrackTransparencyProvider mock>
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
         <Termos alterarPossuirIDSaude={mockedNavigate} />
-      </AppTrackTransparencyProvider>
+      </AppTrackTransparencyContext.Provider>,
     );
   });
 

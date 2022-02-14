@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { analyticsData } from '../../../src/utils/analytics';
-import ConteudoInicial from '../../../src/pages/Login/ConteudoInicial';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { analyticsData } from '~/utils/analytics';
+import ConteudoInicial from '~/pages/Login/ConteudoInicial';
+import { TESTIDS } from '~/constantes/testIDs';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 
@@ -21,9 +21,10 @@ describe('ConteudoInicial', () => {
   let renderedObject;
   beforeEach(() => {
     renderedObject = render(
-      <AppTrackTransparencyProvider mock>
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
         <ConteudoInicial alterarPossuirIDSaude={mockedNavigate} />
-      </AppTrackTransparencyProvider>
+      </AppTrackTransparencyContext.Provider>,
     );
   });
 
@@ -41,7 +42,7 @@ describe('ConteudoInicial', () => {
     expect(analyticsData).toHaveBeenCalledWith(
       labelsAnalytics.INICIAR_MEU_CADASTRO,
       'Click',
-      'Perfil'
+      'Perfil',
     );
   });
 
@@ -56,6 +57,10 @@ describe('ConteudoInicial', () => {
     const item = renderedObject.getByTestId(TESTIDS.BUTTON_JA_POSSUO_ID_SAUDE);
 
     fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalledWith('ja_possuo_id_saude', 'Click', 'Perfil');
+    expect(analyticsData).toHaveBeenCalledWith(
+      'ja_possuo_id_saude',
+      'Click',
+      'Perfil',
+    );
   });
 });

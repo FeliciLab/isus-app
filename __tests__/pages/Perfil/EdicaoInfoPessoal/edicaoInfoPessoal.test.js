@@ -1,22 +1,22 @@
 import React from 'react';
-import {
-  render, waitFor, cleanup
-} from 'util-teste';
-import { FormProvider } from '../../../../src/context/FormContext';
-import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
+import { render, waitFor, cleanup } from 'util-teste';
+import { FormProvider } from '~/context/FormContext';
+import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
-import { AutenticacaoProvider } from '../../../../src/context/AutenticacaoContext';
-import { formatarMascarar } from '../../../../src/components/FormLayoutContexts/FormTextInputMask';
-import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
+import { AutenticacaoContext} from '~/context/AutenticacaoContext';
+import { formatarMascarar } from '~/components/FormLayoutContexts/FormTextInputMask';
+import {
+  AppTrackTransparencyContext,
+} from '../../../../src/context/AppTrackTransparencyContext';
 
 const mockNavigation = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: () => ({
     navigate: mockNavigation,
-    setOptions: mockNavigation
+    setOptions: mockNavigation,
   }),
-  useIsFocused: jest.fn()
+  useIsFocused: jest.fn(),
 }));
 
 // Ver documentacao da testing-library sobre fakeTimers
@@ -30,7 +30,7 @@ describe('EdicaoInfoPessoal', () => {
       let getByTextTest;
       let getAllByTextTest;
       let getByDisplayValueTest;
-      let queryByA11yStateTest;
+      let getByA11yRoleTest;
       let getByTestIdTest;
 
       beforeEach(async () => {
@@ -39,26 +39,28 @@ describe('EdicaoInfoPessoal', () => {
             getByText,
             getAllByText,
             getByDisplayValue,
-            queryByA11yState,
-            getByTestId
+            getByTestId,
+            getByA11yRole,
           } = render(
-            <AppTrackTransparencyProvider mock>
-              <AutenticacaoProvider pessoaAutenticada={modeloPessoaMock}>
+            <AppTrackTransparencyContext.Provider
+              value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+              <AutenticacaoContext.Provider value={{pessoa: modeloPessoaMock}}>
                 <FormProvider initValues={modeloPessoaMock}>
                   <EdicaoInfoPessoal />
                 </FormProvider>
-              </AutenticacaoProvider>
-            </AppTrackTransparencyProvider>
+              </AutenticacaoContext.Provider>
+            </AppTrackTransparencyContext.Provider>,
           );
           getByTextTest = getByText;
           getAllByTextTest = getAllByText;
           getByDisplayValueTest = getByDisplayValue;
-          queryByA11yStateTest = queryByA11yState;
+          getByA11yRoleTest = getByA11yRole;
           getByTestIdTest = getByTestId;
         });
       });
       test('ENTÃO devo visualizar o texto no topo', () => {
-        const textoTopo = 'Edite as informações pessoais que você deseja atualizar:';
+        const textoTopo =
+          'Edite as informações pessoais que você deseja atualizar:';
         expect(getByTextTest(textoTopo)).not.toBeNull();
       });
 
@@ -98,7 +100,7 @@ describe('EdicaoInfoPessoal', () => {
         const maskTelefone = formatarMascarar({
           antigo: '',
           valor: modeloPessoaMock.telefone,
-          mascara: '(##) #####-####'
+          mascara: '(##) #####-####',
         });
         expect(campoID.props.value).toEqual(maskTelefone);
       });
@@ -115,7 +117,7 @@ describe('EdicaoInfoPessoal', () => {
         const maskCpf = formatarMascarar({
           antigo: '',
           valor: modeloPessoaMock.cpf,
-          mascara: '###.###.###-##'
+          mascara: '###.###.###-##',
         });
         expect(campoID.props.value).toEqual(maskCpf);
       });
@@ -127,13 +129,17 @@ describe('EdicaoInfoPessoal', () => {
       });
 
       test('ENTÃO o campo município deve estar preenchido com o município da pessoa autenticada', () => {
-        const campoID = getByDisplayValueTest(modeloPessoaMock.cidadeId.toString());
-        expect(campoID.props.value).toEqual(modeloPessoaMock.cidadeId.toString());
+        const campoID = getByDisplayValueTest(
+          modeloPessoaMock.cidadeId.toString(),
+        );
+        expect(campoID.props.value).toEqual(
+          modeloPessoaMock.cidadeId.toString(),
+        );
       });
 
       describe('QUANDO apresento o formulário com os campos preenchidos e validados', () => {
         test('ENTÃO o botão SALVAR deve está habilitado', () => {
-          const campoID = queryByA11yStateTest({ disabled: false });
+          const campoID = getByA11yRoleTest('button');
           expect(campoID).not.toBeNull();
         });
 

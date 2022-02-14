@@ -1,10 +1,11 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { analyticsData } from '../../../src/utils/analytics';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import FormularioLogin from '../../../src/pages/Login/formulario';
-import { FormProvider } from '../../../src/context/FormContext';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { analyticsData } from '~/utils/analytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import FormularioLogin from '~/pages/Login/formulario';
+import { FormProvider } from '~/context/FormContext';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import modeloPessoaMock from '../../../__mocks__/valores/modeloPessoaMock';
 
 const mockedNavigate = jest.fn();
 
@@ -19,40 +20,34 @@ jest.mock('@react-navigation/native', () => ({
 
 jest.mock('../../../src/utils/validadores', () => ({
   emailValido: jest.fn(() => true),
-  senhaValido: jest.fn(() => true)
+  senhaValido: jest.fn(() => true),
 }));
 
 jest.mock('@react-native-community/netinfo', () => ({
   ...jest.requireActual('@react-native-community/netinfo'),
   useNetInfo: () => ({
     isConnected: true,
-  })
+  }),
 }));
 
 describe('Login>Formulario', () => {
-  describe('Tela Login Sem Conexão', () => {
-    describe('DADO que estou na tela de login', () => {
-      const email = 'test@test.com';
-      const senha = '12345678';
-      let campoEmailID;
+  describe('DADO que estou na tela de login', () => {
+    let campoEmailID;
 
-      beforeEach(() => {
-        const { getByTestId } = render(
-          <AppTrackTransparencyProvider mock>
-            <FormProvider initValues={{ email, senha }}>
-              <FormularioLogin />
-            </FormProvider>
-          </AppTrackTransparencyProvider>
-        );
-        campoEmailID = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
-      });
-
-      describe('E renderizo a pagina', () => {
-        beforeEach(() => {
-        });
-        test('ENTÃO o campo e-mail deve estar em branco.', () => {
-          expect(campoEmailID.props.value).toEqual('');
-        });
+    beforeEach(() => {
+      const { getByTestId } = render(
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+          <FormProvider>
+            <FormularioLogin />
+          </FormProvider>
+        </AppTrackTransparencyContext.Provider>,
+      );
+      campoEmailID = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+    });
+    describe('E renderizo a pagina', () => {
+      test('ENTÃO o campo e-mail deve estar em branco.', () => {
+        expect(campoEmailID.props.value).toEqual('');
       });
     });
   });
@@ -63,14 +58,16 @@ describe('Login>Formulario', () => {
 
     beforeEach(() => {
       const { getByTestId } = render(
-        <AppTrackTransparencyProvider mock>
-          <FormProvider>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+          <FormProvider initValues={modeloPessoaMock}>
             <FormularioLogin />
           </FormProvider>
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>,
       );
       botaoFazerLogin = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
       botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
+      fireEvent.press(botaoFazerLogin);
     });
 
     test('deve chamar o analytics data ao clicar em "Fazer Login"', () => {
@@ -80,8 +77,11 @@ describe('Login>Formulario', () => {
 
     test('deve chamar o analytics data ao clicar em "Fazer Login" com os parâmetros corretamente', () => {
       fireEvent.press(botaoFazerLogin);
-      expect(analyticsData)
-        .toHaveBeenCalledWith('fazer_login', 'Click', 'Perfil');
+      expect(analyticsData).toHaveBeenCalledWith(
+        'fazer_login',
+        'Click',
+        'Perfil',
+      );
     });
 
     test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha"', () => {
@@ -91,7 +91,11 @@ describe('Login>Formulario', () => {
 
     test('deve chamar o analytics data ao clicar em "Esqueci Minha Senha" com os parâmetros corretamente', () => {
       fireEvent.press(botaoEsqueciSenha);
-      expect(analyticsData).toHaveBeenCalledWith('esqueci_minha_senha', 'Click', 'Perfil');
+      expect(analyticsData).toHaveBeenCalledWith(
+        'esqueci_minha_senha',
+        'Click',
+        'Perfil',
+      );
     });
   });
 });

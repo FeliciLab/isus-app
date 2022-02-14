@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import feature from '../../../src/constantes/features';
-import { DadosUsuario } from '../../../src/pages/Perfil/DadosUsuario';
+import feature from '~/constantes/features';
+import { DadosUsuario } from '~/pages/Perfil/DadosUsuario';
 import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
-import estaAtiva from '../../../src/utils/estaAtiva';
+import estaAtiva from '~/utils/estaAtiva';
 
 const mockedNavigate = jest.fn();
 
