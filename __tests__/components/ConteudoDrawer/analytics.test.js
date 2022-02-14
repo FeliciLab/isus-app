@@ -1,11 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import ConteudoDrawer from '~/components/ConteudoDrawer';
-import MockedDrawerNavigator from '../../../__mocks__/navigator/mocked-drawer-navigator';
-import AppTab from '~/routes/appBottomTab.routes';
 import { analyticsData } from '~/utils/analytics';
 import testIDs, { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 
 jest.mock('../../../src/utils/analytics', () => ({
   analyticsData: jest.fn(),
@@ -28,17 +27,9 @@ describe('testes de interface para o menu lateral do app', () => {
       const { getByTestId } = render(
         <AppTrackTransparencyContext.Provider
           value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-          <MockedDrawerNavigator
-            name="home"
-            component={AppTab}
-            initialParams={{}}
-            conteudoDrawer={props => (
-              <ConteudoDrawer
-                {...props}
-                routeName={props.state.routeNames[props.state.index]}
-              />
-            )}
-          />
+          <AutenticacaoContext.Provider value={{ user: false, token: null }}>
+            <ConteudoDrawer />
+          </AutenticacaoContext.Provider>
         </AppTrackTransparencyContext.Provider>,
       );
       fetchByTestId = getByTestId;
@@ -46,7 +37,6 @@ describe('testes de interface para o menu lateral do app', () => {
 
     test('deve chamar o analytics data ao clicar no item Home no menu lateral', () => {
       const item = fetchByTestId(TESTIDS.DRAWER.ITEM_HOME);
-      console.log(item);
       fireEvent.press(item);
       expect(analyticsData).toHaveBeenCalled();
     });
