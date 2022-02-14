@@ -1,11 +1,11 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import Feedback from '../../../src/pages/FaleConoscoScreen/feedback';
-import { analyticsData } from '../../../src/utils/analytics';
-import { RELATAR_PROBLEMA } from '../../../src/pages/FaleConoscoScreen/tiposDeOcorrencia';
-import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import Feedback from '~/pages/FaleConoscoScreen/feedback';
+import { analyticsData } from '~/utils/analytics';
+import { RELATAR_PROBLEMA } from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('../../../src/utils/validadores.js', () => ({

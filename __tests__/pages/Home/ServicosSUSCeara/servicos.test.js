@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
-import Servicos from '../../../../src/pages/Home/Servicos';
-import { analyticsData } from '../../../../src/utils/analytics';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import Servicos from '~/pages/Home/Servicos';
+import { analyticsData } from '~/utils/analytics';
 
 const navigation = {
   navigate: jest.fn(),

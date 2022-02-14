@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, fireEvent } from 'util-teste';
-import feature from '../../../../../src/constantes/features';
-import estaAtiva from '../../../../../src/utils/estaAtiva';
+import feature from '~/constantes/features';
+import estaAtiva from '~/utils/estaAtiva';
 import mockElmo from '../../../../../__mocks__/cards/cardsElmoMock';
-import ROTAS from '../../../../../src/constantes/rotas';
-import { listaImagensElmo } from '../../../../../src/constantes/imagens';
-import ListaCards from '../../../../../src/components/listaCards';
-import { AppTrackTransparencyContext } from '../../../../../src/context/AppTrackTransparencyContext';
+import ROTAS from '~/constantes/rotas';
+import { listaImagensElmo } from '~/constantes/imagens';
+import ListaCards from '~/components/listaCards';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 

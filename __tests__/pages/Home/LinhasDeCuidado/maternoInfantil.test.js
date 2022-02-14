@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import MaternoInfantil from '../../../../src/pages/Home/LinhasDeCuidado/maternoInfantil/index';
-import { analyticsData } from '../../../../src/utils/analytics';
-import { TESTIDS } from '../../../../src/constantes/testIDs';
-import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
+import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil/index';
+import { analyticsData } from '~/utils/analytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 

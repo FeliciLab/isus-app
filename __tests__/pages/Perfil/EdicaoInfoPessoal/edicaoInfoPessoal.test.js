@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, waitFor, cleanup } from 'util-teste';
-import { FormProvider } from '../../../../src/context/FormContext';
-import EdicaoInfoPessoal from '../../../../src/pages/Perfil/EdicaoInfoPessoal';
+import { FormProvider } from '~/context/FormContext';
+import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
-import { AutenticacaoContext} from '../../../../src/context/AutenticacaoContext';
-import { formatarMascarar } from '../../../../src/components/FormLayoutContexts/FormTextInputMask';
+import { AutenticacaoContext} from '~/context/AutenticacaoContext';
+import { formatarMascarar } from '~/components/FormLayoutContexts/FormTextInputMask';
 import {
   AppTrackTransparencyContext,
 } from '../../../../src/context/AppTrackTransparencyContext';

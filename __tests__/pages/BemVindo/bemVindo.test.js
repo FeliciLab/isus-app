@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { labelsAnalytics } from '../../../src/constantes/labelsAnalytics';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import { analyticsData } from '../../../src/utils/analytics';
-import BemVindo from '../../../src/pages/BemVindo';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import { analyticsData } from '~/utils/analytics';
+import BemVindo from '~/pages/BemVindo';
 import {
   AppTrackTransparencyContext
 } from '../../../src/context/AppTrackTransparencyContext';

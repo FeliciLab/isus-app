@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { labelsAnalytics } from '../../src/constantes/labelsAnalytics';
-import { TESTIDS } from '../../src/constantes/testIDs';
-import { AppTrackTransparencyContext } from '../../src/context/AppTrackTransparencyContext';
-import SusNoCearaScreen from '../../src/pages/SusNoCeara';
-import { analyticsData } from '../../src/utils/analytics';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { TESTIDS } from '~/constantes/testIDs';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import SusNoCearaScreen from '~/pages/SusNoCeara';
+import { analyticsData } from '~/utils/analytics';
 
 const mockedNavigate = jest.fn();
 

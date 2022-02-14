@@ -1,12 +1,12 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import features from '../../../../src/constantes/features';
-import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
-import { urls } from '../../../../src/constantes/urls';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
-import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
-import { analyticsData } from '../../../../src/utils/analytics';
-import estaAtiva from '../../../../src/utils/estaAtiva';
+import features from '~/constantes/features';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { urls } from '~/constantes/urls';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import ForcaTarefa from '~/pages/Home/ForcaTarefa';
+import { analyticsData } from '~/utils/analytics';
+import estaAtiva from '~/utils/estaAtiva';
 
 let item = null;
 

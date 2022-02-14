@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import featuresAtivas from '../../../src/featureAtivas';
-import feature from '../../../src/constantes/features';
-import ExcluirPerfil from '../../../src/pages/Perfil/excluirPerfil';
-import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
+import featuresAtivas from '~/featureAtivas';
+import feature from '~/constantes/features';
+import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 

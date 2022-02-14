@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, fireEvent } from 'util-teste';
-import BannerCarrossel from '../../../../src/pages/Home/Banners/BannerCarrossel';
+import BannerCarrossel from '~/pages/Home/Banners/BannerCarrossel';
 import {
   bannersAutenticado,
   bannersNaoAutenticado,
   bannersRota,
 } from '../../../../__mocks__/banners/bannersMock';
-import { gerarListaBanners } from '../../../../src/pages/Home/Banners/listaDeBanners';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
+import { gerarListaBanners } from '~/pages/Home/Banners/listaDeBanners';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({

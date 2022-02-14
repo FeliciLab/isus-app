@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import feature from '../../../src/constantes/features';
-import { DadosUsuarioProfissional } from '../../../src/pages/Perfil/DadosUsuario';
+import feature from '~/constantes/features';
+import { DadosUsuarioProfissional } from '~/pages/Perfil/DadosUsuario';
 import dadosUsuarioSemInfoProfissional from '../../../__mocks__/valores/dadosUsuarioSemInfoProfisisonal';
-import estaAtiva from '../../../src/utils/estaAtiva';
-import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
+import estaAtiva from '~/utils/estaAtiva';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 

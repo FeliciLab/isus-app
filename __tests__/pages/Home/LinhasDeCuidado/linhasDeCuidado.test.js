@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
-import LinhasDeCuidado from '../../../../src/pages/Home/LinhasDeCuidado';
-import { analyticsData } from '../../../../src/utils/analytics';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import LinhasDeCuidado from '~/pages/Home/LinhasDeCuidado';
+import { analyticsData } from '~/utils/analytics';
 
 const navigation = {
   navigate: jest.fn(),

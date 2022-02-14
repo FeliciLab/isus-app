@@ -1,7 +1,7 @@
 import {
   cadastrarUsuario, alteraDadosDoUsuario, deletarUsuario, verificarEmailCadastrado, perfilUsuario
-} from '../src/apis/apiCadastro';
-import request from '../src/services/request';
+} from '~/apis/apiCadastro';
+import request from '~/services/request';
 import dadosUsuarioMock from '../__mocks__/valores/dadosUsuario';
 
 jest.mock('../src/services/request');

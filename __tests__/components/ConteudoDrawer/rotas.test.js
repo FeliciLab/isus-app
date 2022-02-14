@@ -1,11 +1,11 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
-import testIDs from '../../../src/constantes/testIDs';
+import ConteudoDrawer from '~/components/ConteudoDrawer';
+import testIDs from '~/constantes/testIDs';
 import packageJson from '../../../package.json';
-import { AutenticacaoContext, AutenticacaoProvider } from '../../../src/context/AutenticacaoContext';
-import aoCompartilhar from '../../../src/components/ConteudoDrawer/aoCompartilhar';
-import { AppTrackTransparencyContext, AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import { AutenticacaoContext, AutenticacaoProvider } from '~/context/AutenticacaoContext';
+import aoCompartilhar from '~/components/ConteudoDrawer/aoCompartilhar';
+import { AppTrackTransparencyContext, AppTrackTransparencyProvider } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({

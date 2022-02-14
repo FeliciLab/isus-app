@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'util-teste';
-import ConteudoDrawer from '../../../src/components/ConteudoDrawer';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import ConteudoDrawer from '~/components/ConteudoDrawer';
+import { TESTIDS } from '~/constantes/testIDs';
+import { AppTrackTransparencyProvider } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => ({

@@ -1,6 +1,6 @@
-import request from '../src/services/request';
-import { postAlertaFaltaDeEpi, postDemandaEducacao, postFeedback } from '../src/apis/apiHome';
-import { pegarSO, pegarVersao } from '../src/utils/platform';
+import request from '~/services/request';
+import { postAlertaFaltaDeEpi, postDemandaEducacao, postFeedback } from '~/apis/apiHome';
+import { pegarSO, pegarVersao } from '~/utils/platform';
 
 jest.mock('../src/services/request');
 jest.mock('../src/utils/platform');

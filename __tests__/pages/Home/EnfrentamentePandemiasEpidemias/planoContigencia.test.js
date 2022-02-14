@@ -1,13 +1,13 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
-import { analyticsData } from '../../../../src/utils/analytics';
-import { urls } from '../../../../src/constantes/urls';
-import estaAtiva from '../../../../src/utils/estaAtiva';
-import features from '../../../../src/constantes/features';
-import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
-import listaForcaTarefa from '../../../../src/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { analyticsData } from '~/utils/analytics';
+import { urls } from '~/constantes/urls';
+import estaAtiva from '~/utils/estaAtiva';
+import features from '~/constantes/features';
+import ForcaTarefa from '~/pages/Home/ForcaTarefa';
+import listaForcaTarefa from '~/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const navigation = {
   navigate: jest.fn(),
