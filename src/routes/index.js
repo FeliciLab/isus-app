@@ -22,6 +22,9 @@ import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
 import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
+import QualiQuiz from '~/pages/QualiQuiz/index';
+import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
+import ResidenciaMedica from '~/pages/ResidenciaMedica';
 import NovoSemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
 import WebViewPage from '~/pages/WebView';
@@ -196,6 +199,15 @@ export default function App({ navigationRef }) {
           component={EdicaoPessoal}
         />
         <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
+        <RootStack.Screen
+          name={rotas.RESIDENCIA_MEDICA}
+          component={ResidenciaMedica}
+        />
+        <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
+        <RootStack.Screen
+          name={rotas.QUALIQUIZ_LOGIN}
+          component={LoginQualiQuiz}
+        />
         <RootStack.Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
         <RootStack.Screen
           name={rotas.CAPACITACAO_ELMO}
