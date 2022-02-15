@@ -67,8 +67,8 @@
     "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^11.17.2",
     "rn-fetch-blob": "^0.12.0",
-    "rn-placeholder": "^3.0.1",
-    "styled-components": "^5.2.0"
+    "rn-placeholder": "^3.0.3",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -82,7 +82,6 @@
     "cross-env": "^7.0.2",
     "editorconfig": "^0.15.3",
     "eslint": "^7.14.0",
-    "eslint-config-airbnb": "17.1.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "eslint-plugin-import": "2.18.0",
