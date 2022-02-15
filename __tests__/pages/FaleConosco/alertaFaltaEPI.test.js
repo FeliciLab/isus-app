@@ -6,8 +6,6 @@ import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyConte
 import AlertaFaltaDeEpiScreen from '~/pages/FaleConoscoScreen/alertaFaltaDeEpi';
 import { analyticsData } from '~/utils/analytics';
 
-analyticsData();
-
 const mockedNavigate = jest.fn();
 jest.mock('../../../src/utils/validadores.js', () => ({
   descricaoValida: jest.fn(() => true),

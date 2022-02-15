@@ -1,5 +1,8 @@
 import {
-  autenticar, pegarListaDeServicos, pegarListaDeCategoriasProfissionais, pegarListaDeEspecialidades
+  autenticar,
+  pegarListaDeCategoriasProfissionais,
+  pegarListaDeEspecialidades,
+  pegarListaDeServicos,
 } from '~/apis/apiKeycloak';
 import request from '~/services/request';
 
@@ -34,7 +37,9 @@ test('deve trazer lista de categorias profissionais', () => {
 
 test('deve chamar requester com parametro get ao usar função pegarListaDeEspecialidades', () => {
   pegarListaDeEspecialidades(1);
-  expect(request.get).toHaveBeenCalledWith('/categorias-profissionais/1/especialidades');
+  expect(request.get).toHaveBeenCalledWith(
+    '/categorias-profissionais/1/especialidades',
+  );
 });
 
 test('deve trazer lista de especialidades vazia ao usar id igual a 0', async () => {

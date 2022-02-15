@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { AppTrackTransparencyContext } from '../../../../src/context/AppTrackTransparencyContext';
-import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
-import { analyticsData } from '../../../../src/utils/analytics';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import ForcaTarefa from '~/pages/Home/ForcaTarefa';
+import { analyticsData } from '~/utils/analytics';
 
 const navigation = {
   navigate: jest.fn(),
@@ -17,6 +17,7 @@ jest.mock('@react-native-community/netinfo', () => ({
 
 describe('ForcaTarefaAntiCorona', () => {
   let renderedObject;
+
   beforeEach(() => {
     renderedObject = render(
       <AppTrackTransparencyContext.Provider

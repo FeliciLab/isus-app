@@ -9,8 +9,7 @@
     "ios-prod": "cross-env ENVFILE=.env react-native-fix-image && react-native run-ios --configuration Release",
     "start": "react-native start",
     "fix": "yarn lint --fix",
-    "test": "jest",
-    "silent-test": "jest --silent",
+    "test": "jest --silent",
     "lint": "eslint .",
     "post-version": "react-native-version --never-amend",
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."

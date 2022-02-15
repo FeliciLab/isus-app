@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, fireEvent } from 'util-teste';
-import { TESTIDS } from '../../../src/constantes/testIDs';
-import { AppTrackTransparencyContext } from '../../../src/context/AppTrackTransparencyContext';
-import SemConexao from '../../../src/pages/SemConexao';
+import { fireEvent, render } from 'util-teste';
+import { TESTIDS } from '~/constantes/testIDs';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import SemConexao from '~/pages/SemConexao';
 
 const mockLinking = jest.fn(() => Promise.resolve('500'));
 jest.mock('react-native/Libraries/Linking/Linking', () => ({

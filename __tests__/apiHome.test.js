@@ -1,5 +1,9 @@
+import {
+  postAlertaFaltaDeEpi,
+  postDemandaEducacao,
+  postFeedback,
+} from '~/apis/apiHome';
 import request from '~/services/request';
-import { postAlertaFaltaDeEpi, postDemandaEducacao, postFeedback } from '~/apis/apiHome';
 import { pegarSO, pegarVersao } from '~/utils/platform';
 
 jest.mock('../src/services/request');
@@ -20,7 +24,11 @@ describe('apiHome', () => {
 
     postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email);
     expect(request.post).toHaveBeenCalledWith('alertaDeEpi', {
-      descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'ios'
+      descricao,
+      unidadeDeSaude,
+      email,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'ios',
     });
   });
 
@@ -34,7 +42,11 @@ describe('apiHome', () => {
 
     postAlertaFaltaDeEpi(descricao, unidadeDeSaude, email);
     expect(request.post).toHaveBeenCalledWith('alertaDeEpi', {
-      descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'android'
+      descricao,
+      unidadeDeSaude,
+      email,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'android',
     });
   });
 
@@ -48,7 +60,11 @@ describe('apiHome', () => {
 
     postDemandaEducacao(descricao, unidadeDeSaude, email);
     expect(request.post).toHaveBeenCalledWith('demanda-educacao', {
-      descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'ios'
+      descricao,
+      unidadeDeSaude,
+      email,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'ios',
     });
   });
 
@@ -62,7 +78,11 @@ describe('apiHome', () => {
 
     postDemandaEducacao(descricao, unidadeDeSaude, email);
     expect(request.post).toHaveBeenCalledWith('demanda-educacao', {
-      descricao, unidadeDeSaude, email, versaoAplicativo: '3.10.0', plataforma: 'android'
+      descricao,
+      unidadeDeSaude,
+      email,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'android',
     });
   });
 
@@ -77,7 +97,12 @@ describe('apiHome', () => {
 
     postFeedback(tipoDeFeedback, texto, email, imagem);
     expect(request.post).toHaveBeenCalledWith('feedback', {
-      tipoDeFeedback, texto, email, imagem, versaoAplicativo: '3.10.0', plataforma: 'android'
+      tipoDeFeedback,
+      texto,
+      email,
+      imagem,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'android',
     });
   });
 
@@ -92,7 +117,12 @@ describe('apiHome', () => {
 
     postFeedback(tipoDeFeedback, texto, email, imagem);
     expect(request.post).toHaveBeenCalledWith('feedback', {
-      tipoDeFeedback, texto, email, imagem, versaoAplicativo: '3.10.0', plataforma: 'ios'
+      tipoDeFeedback,
+      texto,
+      email,
+      imagem,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'ios',
     });
   });
 
@@ -107,7 +137,12 @@ describe('apiHome', () => {
 
     postFeedback(tipoDeFeedback, texto, email, imagem);
     expect(request.post).toHaveBeenCalledWith('feedback', {
-      tipoDeFeedback, texto, email, imagem, versaoAplicativo: '3.10.0', plataforma: 'ios'
+      tipoDeFeedback,
+      texto,
+      email,
+      imagem,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'ios',
     });
   });
 
@@ -122,7 +157,11 @@ describe('apiHome', () => {
 
     postFeedback(tipoDeFeedback, texto, email, imagem);
     expect(request.post).toHaveBeenCalledWith('feedback', {
-      tipoDeFeedback, texto, email, versaoAplicativo: '3.10.0', plataforma: 'android'
+      tipoDeFeedback,
+      texto,
+      email,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'android',
     });
   });
 
@@ -137,7 +176,11 @@ describe('apiHome', () => {
 
     postFeedback(tipoDeFeedback, texto, email, imagem);
     expect(request.post).toHaveBeenCalledWith('feedback', {
-      tipoDeFeedback, texto, email, versaoAplicativo: '3.10.0', plataforma: 'ios'
+      tipoDeFeedback,
+      texto,
+      email,
+      versaoAplicativo: '3.10.0',
+      plataforma: 'ios',
     });
   });
 });

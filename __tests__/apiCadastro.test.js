@@ -1,5 +1,9 @@
 import {
-  cadastrarUsuario, alteraDadosDoUsuario, deletarUsuario, verificarEmailCadastrado, perfilUsuario
+  alteraDadosDoUsuario,
+  cadastrarUsuario,
+  deletarUsuario,
+  perfilUsuario,
+  verificarEmailCadastrado,
 } from '~/apis/apiCadastro';
 import request from '~/services/request';
 import dadosUsuarioMock from '../__mocks__/valores/dadosUsuario';

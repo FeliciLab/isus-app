@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { analyticsData } from '~/utils/analytics';
 import { TESTIDS } from '~/constantes/testIDs';
-import FormularioLogin from '~/pages/Login/formulario';
-import { FormProvider } from '~/context/FormContext';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import { FormProvider } from '~/context/FormContext';
+import FormularioLogin from '~/pages/Login/formulario';
+import { analyticsData } from '~/utils/analytics';
 import modeloPessoaMock from '../../../__mocks__/valores/modeloPessoaMock';
 
 const mockedNavigate = jest.fn();

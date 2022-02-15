@@ -18,9 +18,9 @@ jobs:
       - name: Instala Dependências
         id: instalaDependencias
         run: yarn install
-      # - name: Executa Testes
-      #   id: executaTestes
-      #   run: yarn test
+      - name: Executa Testes
+        id: executaTestes
+        run: yarn test
       - name: Notificar no Slack
         uses: act10ns/slack@v1
         with:

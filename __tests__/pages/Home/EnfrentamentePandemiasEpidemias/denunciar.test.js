@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import feature from '~/constantes/features';
-import estaAtiva from '~/utils/estaAtiva';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import Denunciar from '~/pages/Denunciar/index';
 import ForcaTarefa from '~/pages/Home/ForcaTarefa/index';
-import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import estaAtiva from '~/utils/estaAtiva';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),

@@ -1,9 +1,9 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { analyticsData } from '~/utils/analytics';
-import Termos from '~/pages/Login/Termos';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import Termos from '~/pages/Login/Termos';
+import { analyticsData } from '~/utils/analytics';
 
 const mockedNavigate = jest.fn();
 

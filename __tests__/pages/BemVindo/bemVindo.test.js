@@ -4,9 +4,7 @@ import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { analyticsData } from '~/utils/analytics';
 import BemVindo from '~/pages/BemVindo';
-import {
-  AppTrackTransparencyContext
-} from '../../../src/context/AppTrackTransparencyContext';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
 

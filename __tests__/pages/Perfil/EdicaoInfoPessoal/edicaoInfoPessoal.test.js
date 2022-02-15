@@ -1,13 +1,11 @@
 import React from 'react';
-import { render, waitFor, cleanup } from 'util-teste';
+import { cleanup, render, waitFor } from 'util-teste';
+import { formatarMascarar } from '~/components/FormLayoutContexts/FormTextInputMask';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 import { FormProvider } from '~/context/FormContext';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
-import { AutenticacaoContext} from '~/context/AutenticacaoContext';
-import { formatarMascarar } from '~/components/FormLayoutContexts/FormTextInputMask';
-import {
-  AppTrackTransparencyContext,
-} from '../../../../src/context/AppTrackTransparencyContext';
 
 const mockNavigation = jest.fn();
 jest.mock('@react-navigation/native', () => ({
@@ -44,7 +42,8 @@ describe('EdicaoInfoPessoal', () => {
           } = render(
             <AppTrackTransparencyContext.Provider
               value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-              <AutenticacaoContext.Provider value={{pessoa: modeloPessoaMock}}>
+              <AutenticacaoContext.Provider
+                value={{ pessoa: modeloPessoaMock }}>
                 <FormProvider initValues={modeloPessoaMock}>
                   <EdicaoInfoPessoal />
                 </FormProvider>
