@@ -2,7 +2,7 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React, { useRef } from 'react';
 import SemConexao from '~/components/semConexao';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
@@ -50,23 +50,19 @@ function EdicaoPessoal(props) {
   );
 }
 
-function ElmoFunc(props) {
-  return (
-    <FormProvider>
-      <Elmo {...props} />
-    </FormProvider>
-  );
-}
+const ElmoFunc = props => (
+  <FormProvider>
+    <Elmo {...props} />
+  </FormProvider>
+);
 
-function Cadastro() {
-  return (
-    <Feature
-      name="316"
-      inactiveComponent={() => <TelaDeCadastro />}
-      activeComponent={CadastroRoutes}
-    />
-  );
-}
+const Cadastro = () => (
+  <Feature
+    name="316"
+    inactiveComponent={() => <TelaDeCadastro />}
+    activeComponent={CadastroRoutes}
+  />
+);
 
 const PreCadastro = () => (
   <Feature
@@ -95,7 +91,7 @@ function SemConexaoNovo(props) {
 }
 
 export default function App({ navigationRef }) {
-  const routeNameRef = React.useRef();
+  const routeNameRef = useRef();
   return (
     <NavigationContainer
       ref={navigationRef}
