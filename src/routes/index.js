@@ -2,7 +2,7 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import * as React from 'react';
+import React, { useRef } from 'react';
 import SemConexao from '~/components/semConexao';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
@@ -22,6 +22,9 @@ import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
 import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
+import QualiQuiz from '~/pages/QualiQuiz/index';
+import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
+import ResidenciaMedica from '~/pages/ResidenciaMedica';
 import NovoSemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
 import WebViewPage from '~/pages/WebView';
@@ -50,23 +53,19 @@ function EdicaoPessoal(props) {
   );
 }
 
-function ElmoFunc(props) {
-  return (
-    <FormProvider>
-      <Elmo {...props} />
-    </FormProvider>
-  );
-}
+const ElmoFunc = props => (
+  <FormProvider>
+    <Elmo {...props} />
+  </FormProvider>
+);
 
-function Cadastro() {
-  return (
-    <Feature
-      name="316"
-      inactiveComponent={() => <TelaDeCadastro />}
-      activeComponent={CadastroRoutes}
-    />
-  );
-}
+const Cadastro = () => (
+  <Feature
+    name="316"
+    inactiveComponent={() => <TelaDeCadastro />}
+    activeComponent={CadastroRoutes}
+  />
+);
 
 const PreCadastro = () => (
   <Feature
@@ -95,7 +94,7 @@ function SemConexaoNovo(props) {
 }
 
 export default function App({ navigationRef }) {
-  const routeNameRef = React.useRef();
+  const routeNameRef = useRef();
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -200,6 +199,15 @@ export default function App({ navigationRef }) {
           component={EdicaoPessoal}
         />
         <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
+        <RootStack.Screen
+          name={rotas.RESIDENCIA_MEDICA}
+          component={ResidenciaMedica}
+        />
+        <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
+        <RootStack.Screen
+          name={rotas.QUALIQUIZ_LOGIN}
+          component={LoginQualiQuiz}
+        />
         <RootStack.Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
         <RootStack.Screen
           name={rotas.CAPACITACAO_ELMO}
