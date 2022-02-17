@@ -8,11 +8,10 @@ import ItemCard from './itemCard';
 export default function ListaCards({ lista }) {
   const navigation = useNavigation();
 
-  const netInfo = useNetInfo();
+  const { isConnected } = useNetInfo();
 
   const onPress = item => {
-    // analyticsData(item.id, 'Click', 'Elmo');
-    if (!netInfo.isConnected) {
+    if (!isConnected) {
       if (item.tipo === 'webview') {
         navigation.navigate(ROTAS.SEM_CONEXAO, {
           componente: 'webview',

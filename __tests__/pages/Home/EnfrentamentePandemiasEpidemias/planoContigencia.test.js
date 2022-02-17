@@ -1,32 +1,33 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { labelsAnalytics } from '../../../../src/constantes/labelsAnalytics';
-import { analyticsData } from '../../../../src/utils/analytics';
-import { urls } from '../../../../src/constantes/urls';
-import estaAtiva from '../../../../src/utils/estaAtiva';
-import features from '../../../../src/constantes/features';
-import ForcaTarefa from '../../../../src/pages/Home/ForcaTarefa';
-import listaForcaTarefa from '../../../../src/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
-import { AppTrackTransparencyProvider } from '../../../../src/context/AppTrackTransparencyContext';
+import features from '~/constantes/features';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { urls } from '~/constantes/urls';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import ForcaTarefa from '~/pages/Home/ForcaTarefa';
+import listaForcaTarefa from '~/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
+import { analyticsData } from '~/utils/analytics';
+import estaAtiva from '~/utils/estaAtiva';
 
 const navigation = {
-  navigate: jest.fn()
+  navigate: jest.fn(),
 };
 
 jest.mock('@react-native-community/netinfo', () => ({
   ...jest.requireActual('@react-native-community/netinfo'),
   useNetInfo: () => ({
-    isConnected: true
-  })
+    isConnected: true,
+  }),
 }));
 
 let item = null;
 
 beforeEach(() => {
   const { getByTestId } = render(
-    <AppTrackTransparencyProvider mock>
+    <AppTrackTransparencyContext.Provider
+      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
       <ForcaTarefa navigation={navigation} />
-    </AppTrackTransparencyProvider>
+    </AppTrackTransparencyContext.Provider>,
   );
   item = getByTestId('cartaoHome-forcaTarefa-acao-plano-contigencia');
 });
@@ -41,17 +42,17 @@ if (estaAtiva(features.PLANO_CONTIGENCIA)) {
     expect(navigation.navigate).toHaveBeenCalled();
   });
 
-  test('deve retornar o Plano de Contigencia na segunda posição do vetor listaForcaTarefa', () => {
-    expect(listaForcaTarefa[1].id).toBe('acao-plano-contigencia');
-    expect(listaForcaTarefa[1].titulo).toBe('Plano de Contigência');
-    expect(listaForcaTarefa[1].ativo).toBe(true);
+  test('deve retornar o Plano de Contigencia na terceira posição do vetor listaForcaTarefa', () => {
+    expect(listaForcaTarefa[2].id).toBe('acao-plano-contigencia');
+    expect(listaForcaTarefa[2].titulo).toBe('Plano de Contingência');
+    expect(listaForcaTarefa[2].ativo).toBe(true);
   });
 
   test(`deve chamar a função navigate contendo a url ${urls.PLANO_CONTIGENCIA} quando clicar em Plano de Contigencia`, () => {
     fireEvent.press(item);
     expect(navigation.navigate).toHaveBeenCalledWith('webview', {
-      title: 'Plano de Contigência',
-      url: urls.PLANO_CONTIGENCIA
+      title: 'Plano de Contingência',
+      url: urls.PLANO_CONTIGENCIA,
     });
   });
 
@@ -66,7 +67,7 @@ if (estaAtiva(features.PLANO_CONTIGENCIA)) {
       expect(analyticsData).toHaveBeenCalledWith(
         labelsAnalytics.CARTAO_PLANO_CONTIGENCIA,
         'Click',
-        'Home'
+        'Home',
       );
     });
   });

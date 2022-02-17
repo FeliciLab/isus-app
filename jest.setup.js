@@ -9,11 +9,11 @@ jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo);
 NativeModules.RNCNetInfo = {
   getCurrentState: jest.fn(() => Promise.resolve()),
   addListener: jest.fn(),
-  removeListeners: jest.fn()
+  removeListeners: jest.fn(),
 };
 
 jest.mock('react-native-text-input-mask', () => ({
-  default: jest.fn()
+  default: jest.fn(),
 }));
 
 jest.mock('react-native-reanimated', () => {
@@ -21,7 +21,7 @@ jest.mock('react-native-reanimated', () => {
 
   // The mock for `call` immediately calls the callback which is incorrect
   // So we override it with a no-op
-  Reanimated.default.call = () => { };
+  Reanimated.default.call = () => {};
 
   return Reanimated;
 });

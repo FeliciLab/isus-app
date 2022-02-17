@@ -1,20 +1,21 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
-import Servicos from '../../../src/pages/Home/Servicos';
-import { analyticsData } from '../../../src/utils/analytics';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import Servicos from '~/pages/Home/Servicos';
+import { analyticsData } from '~/utils/analytics';
 
 const navigation = {
-  navigate: jest.fn()
+  navigate: jest.fn(),
 };
 
 describe('Servicos', () => {
   let renderedObject;
   beforeEach(() => {
     renderedObject = render(
-      <AppTrackTransparencyProvider mock>
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
         <Servicos navigation={navigation} />
-      </AppTrackTransparencyProvider>
+      </AppTrackTransparencyContext.Provider>,
     );
   });
 
@@ -37,7 +38,9 @@ describe('Servicos', () => {
   });
 
   test('deve chamar o analytics data ao clicar no serviço Ações do governo', () => {
-    const item = renderedObject.getByTestId('cartaoHome-servicos-Acoes_do_governo');
+    const item = renderedObject.getByTestId(
+      'cartaoHome-servicos-Acoes_do_governo',
+    );
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();
   });

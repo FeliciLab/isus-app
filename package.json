@@ -1,6 +1,6 @@
 {
   "name": "isusapp",
-  "version": "3.20.16",
+  "version": "3.20.17",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -9,8 +9,7 @@
     "ios-prod": "cross-env ENVFILE=.env react-native-fix-image && react-native run-ios --configuration Release",
     "start": "react-native start",
     "fix": "yarn lint --fix",
-    "test": "jest",
-    "silent-test": "jest --silent",
+    "test": "jest --silent",
     "lint": "eslint .",
     "post-version": "react-native-version --never-amend",
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."
@@ -20,7 +19,7 @@
     "@paralleldrive/react-feature-toggles": "^2.3.1",
     "@react-native-community/async-storage": "^1.9.0",
     "@react-native-community/masked-view": "^0.1.7",
-    "@react-native-community/netinfo": "^6.0.0",
+    "@react-native-community/netinfo": "^8.0.0",
     "@react-native-community/toolbar-android": "^0.2.1",
     "@react-native-firebase/analytics": "^10.1.0",
     "@react-native-firebase/app": "^10.1.0",
@@ -53,7 +52,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.1",
     "react-native-material-dropdown-v2": "0.11.1",
     "react-native-onesignal": "^4.3.3",
-    "react-native-paper": "^3.10.1",
+    "react-native-paper": "^4.11.2",
     "react-native-password-eye": "^1.0.2",
     "react-native-picker-select": "^8.0.4",
     "react-native-reanimated": "^2.3.1",
@@ -66,10 +65,10 @@
     "react-native-text-input-mask": "^3.1.4",
     "react-native-tracking-transparency": "^0.1.1",
     "react-native-vector-icons": "^6.6.0",
-    "react-native-webview": "^11.6.2",
+    "react-native-webview": "^11.17.2",
     "rn-fetch-blob": "^0.12.0",
-    "rn-placeholder": "^3.0.1",
-    "styled-components": "^5.2.0"
+    "rn-placeholder": "^3.0.3",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -83,7 +82,6 @@
     "cross-env": "^7.0.2",
     "editorconfig": "^0.15.3",
     "eslint": "^7.14.0",
-    "eslint-config-airbnb": "17.1.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
     "eslint-plugin-import": "2.18.0",

@@ -16,6 +16,7 @@ const PreCadastroRoutes = () => {
     titulo: 'Cadastro',
     cor: 'branco',
   });
+
   const { pessoa } = useAutenticacao();
 
   return (

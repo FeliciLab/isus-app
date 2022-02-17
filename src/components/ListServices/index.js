@@ -8,7 +8,6 @@ const ListServices = props => {
     <CarrosselStyle
       horizontal
       data={dados}
-      initialNumToRender={6}
       keyExtractor={item => String(item.id)}
       showsHorizontalScrollIndicator={false}
       {...rest}

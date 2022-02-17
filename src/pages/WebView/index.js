@@ -47,7 +47,7 @@ export default function WebViewPage({
               navigator.navigate(route.params.rota);
               return;
             }
-            navigator.popToTop();
+            navigator.goBack();
           }}>
           <Icon name="arrow-left" size={28} color="#FFF" />
         </TouchableOpacity>

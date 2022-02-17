@@ -2,7 +2,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
+import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { FormProvider } from '~/context/FormContext';
 import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
 import DemandaEducacao from './demandaEducacao';
@@ -14,18 +14,18 @@ import {
   DEMANDA_EDUCACAO,
   DUVIDAS_ELMO,
   RELATAR_PROBLEMA,
-  RELATAR_SUGESTAO
+  RELATAR_SUGESTAO,
 } from './tiposDeOcorrencia';
 
 export default function FaleConoscoScreen({ route }) {
   const navigation = useNavigation();
 
   const [ocorrenciaAtual, alterarOcorrenciaAtual] = useState(
-    route.params.ocorrencia
+    route.params.ocorrencia,
   );
 
   useFocusEffect(
-    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), [])
+    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), []),
   );
 
   const tiposDeOcorrencia = [
@@ -33,7 +33,7 @@ export default function FaleConoscoScreen({ route }) {
     { value: RELATAR_SUGESTAO.textoDoDropdown },
     { value: RELATAR_PROBLEMA.textoDoDropdown },
     { value: DEMANDA_EDUCACAO.textoDoDropdown },
-    { value: DUVIDAS_ELMO.textoDoDropdown }
+    { value: DUVIDAS_ELMO.textoDoDropdown },
   ];
 
   function TipoDoDropdown({ tipo }) {
@@ -57,10 +57,10 @@ export default function FaleConoscoScreen({ route }) {
   }
 
   useLayoutEffect(() => {
-    cabecalhoMenuBusca({
+    cabecalhoVoltar({
       navegador: navigation,
       titulo: ocorrenciaAtual.header,
-      cor: 'verde'
+      cor: 'verde',
     });
   }, []);
 
@@ -70,8 +70,7 @@ export default function FaleConoscoScreen({ route }) {
       extraScrollHeight={10}
       keyboardOpeningTime={100}
       enableOnAndroid
-      enableAutomaticScroll={Platform.OS === 'ios'}
-    >
+      enableAutomaticScroll={Platform.OS === 'ios'}>
       <View style={{ flex: 1, padding: 15 }}>
         <DropdownSimples
           label="Tipo de ocorrência"

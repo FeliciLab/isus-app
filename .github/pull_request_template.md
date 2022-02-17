@@ -1,18 +1,19 @@
-Responsáveis:  
+## Responsáveis
+
 @PessoaA @PessoaB
 
-Linked Issue:  
+Linked Issue:
 Close #numeroDaIssue
 
-### Descrição
+## Descrição
 
 Descrever_o_que_é_o_PR
 
-### Passos a passo para teste
+## Passos a passo para teste
 
 Descrever_o_passo_a_passo_para_testar_o_pr
 
-### Observações
+## Observações
 
 OPCIONAL_remover_se_desnecessário
 

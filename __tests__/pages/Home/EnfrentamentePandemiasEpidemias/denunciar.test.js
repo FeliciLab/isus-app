@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import feature from '../../../src/constantes/features';
-import estaAtiva from '../../../src/utils/estaAtiva';
-import Denunciar from '../../../src/pages/Denunciar/index';
-import ForcaTarefa from '../../../src/pages/Home/ForcaTarefa/index';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
+import feature from '~/constantes/features';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
+import Denunciar from '~/pages/Denunciar/index';
+import ForcaTarefa from '~/pages/Home/ForcaTarefa/index';
+import estaAtiva from '~/utils/estaAtiva';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -12,7 +12,7 @@ jest.mock('@react-navigation/native', () => ({
     navigate: mockedNavigate,
     setOptions: mockedNavigate,
   }),
-  useIsFocused: jest.fn()
+  useIsFocused: jest.fn(),
 }));
 
 const mockedNavigate = jest.fn();
@@ -23,9 +23,10 @@ if (estaAtiva(feature.DENUNCIAR)) {
     let renderedObject;
     beforeEach(() => {
       renderedObject = render(
-        <AppTrackTransparencyProvider mock>
+        <AppTrackTransparencyContext.Provider
+          value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
           <Denunciar />
-        </AppTrackTransparencyProvider>
+        </AppTrackTransparencyContext.Provider>,
       );
     });
 
@@ -58,12 +59,11 @@ if (estaAtiva(feature.DENUNCIAR)) {
   });
 
   test('deve chamar navigate ao tocar no cartao Denunciar', () => {
-    const {
-      getByTestId
-    } = render(
-      <AppTrackTransparencyProvider mock>
+    const { getByTestId } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
         <ForcaTarefa navigation={navigation} />
-      </AppTrackTransparencyProvider>
+      </AppTrackTransparencyContext.Provider>,
     );
 
     const itemCartaoHome = getByTestId('cartaoHome-forcaTarefa-acao-denuncias');

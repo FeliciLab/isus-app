@@ -15,11 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.20.16</string>
+	<string>3.20.17</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>57</string>
+	<string>58</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) requer acesso à biblioteca de imagens.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

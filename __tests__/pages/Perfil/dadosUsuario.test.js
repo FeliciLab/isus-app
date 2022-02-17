@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import { AppTrackTransparencyProvider } from '../../../src/context/AppTrackTransparencyContext';
-import { DadosUsuario } from '../../../src/pages/Perfil/DadosUsuario';
+import { AppTrackTransparencyProvider } from '~/context/AppTrackTransparencyContext';
+import { DadosUsuario } from '~/pages/Perfil/DadosUsuario';
 import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
 
 const mockedNavigate = jest.fn();
