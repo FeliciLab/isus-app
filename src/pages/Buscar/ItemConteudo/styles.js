@@ -11,6 +11,7 @@ export const ImagePost = styled.Image`
   width: 30%;
   height: 80px;
   border-radius: 8px;
+  background-color: ${CORES.CINZA};
 `;
 
 export const LeftContent = styled.View`
@@ -31,10 +32,4 @@ export const PostDate = styled.Text`
   color: ${CORES.VERDE};
   font-weight: normal;
   letter-spacing: 0.5px;
-`;
-
-export const ViewImg = styled.View`
-  height: 80px;
-  width: 80px;
-  margin-left: 32px;
 `;
