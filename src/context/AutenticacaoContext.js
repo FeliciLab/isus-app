@@ -27,6 +27,11 @@ const AutenticacaoProvider = ({ children }) => {
 
   const [token, setToken] = useAsyncStorage('@isus:token', null);
 
+  const [showTutorial, setShowTutorial] = useAsyncStorage(
+    '@isus:show-tutorial',
+    true,
+  );
+
   // Retorno se o perfil já estava cadastrado
   // Necessário para caso de uso de usuário que tem idSaude
   // mas que nao fez o cadastro no iSUS
@@ -73,6 +78,8 @@ const AutenticacaoProvider = ({ children }) => {
         alterarPessoa,
         signIn,
         signOut,
+        showTutorial,
+        setShowTutorial,
       }}>
       {children}
     </AutenticacaoContext.Provider>

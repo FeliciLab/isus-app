@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { Caption, Headline, Subheading } from 'react-native-paper';
 
 export const ViewColumn = styled.View`

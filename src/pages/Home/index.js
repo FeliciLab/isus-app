@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
@@ -11,6 +10,7 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado/index';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo/index';
+import rotas from '~/constantes/rotas';
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 
@@ -19,15 +19,14 @@ export default function Home() {
 
   const { analyticsData } = useAnalytics();
 
-  const { user } = useAutenticacao();
+  const { user, showTutorial } = useAutenticacao();
 
   async function redirectToWelcome() {
-    const item = await AsyncStorage.getItem('@show-tutorial');
-    const resp = JSON.parse(item);
-    if (resp !== false) {
+
+    if (showTutorial) {
       return navigation.reset({
         index: 0,
-        routes: [{ name: 'BemVindo' }],
+        routes: [{ name: rotas.BEM_VINDO }],
       });
     }
     return null;
@@ -54,7 +53,7 @@ export default function Home() {
           }}
           onPress={async () => {
             await analyticsData('Home', 'Click', 'lupa pesquisa');
-            navigation.navigate('Buscar');
+            navigation.navigate(rotas.SEARCH_STACK_SCREEN);
           }}>
           <Icon name="magnify" size={28} color={user ? '#4CAF50' : '#FFF'} />
         </TouchableOpacity>

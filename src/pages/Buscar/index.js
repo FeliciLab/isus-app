@@ -105,12 +105,6 @@ const Buscar = props => {
     }
   };
 
-  const renderListFooter = () => {
-    if (!loading) return null;
-
-    return <RodapeBusca />;
-  };
-
   const renderListEmpty = () => {
     if (termoBuscaDebounced === '') return null;
 
@@ -133,7 +127,7 @@ const Buscar = props => {
           onEndReached={onEndReached}
           onEndReachedThreshold={0.2}
           ListEmptyComponent={renderListEmpty}
-          ListFooterComponent={renderListFooter}
+          ListFooterComponent={loading ? <RodapeBusca /> : null}
         />
       </ViewColumn>
     </TouchableWithoutFeedback>
