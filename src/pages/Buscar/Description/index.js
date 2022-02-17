@@ -15,7 +15,7 @@ import { Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import ShareIcon from '~/assets/icons/share.svg';
 
-export default function DescriptionScreen(props) {
+export default function Description(props) {
   const navigation = useNavigation();
 
   const { route } = props;

@@ -1,42 +1,41 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Divider } from 'react-native-paper';
 import rotas from '~/constantes/rotas';
 import {
   ImagePost,
-  Legenda,
+  PostTitle,
   ViewImg,
-  ViewRowCentering,
-  ViewWhite,
-  WhiteTouchable,
+  Container,
+  PostDate,
+  LeftContent,
 } from './styles';
+import moment from 'moment';
+
+// moment(post.data).format('DD/MM/YYYY')
 
 const ItemConteudo = ({ item }) => {
-
   const navigation = useNavigation();
 
   return (
-    <ViewWhite>
-      <WhiteTouchable
-        onPress={() =>
-          navigation.navigate(rotas.DESCRICAO, {
-            parametros: {
-              ...item,
-            },
-            title: item.post_title,
-          })
-        }>
-        <ViewRowCentering>
-          {item.image && (
-            <ImagePost resizeMode="contain" source={{ uri: `${item.image}` }} />
-          )}
-          {!item.image && <ViewImg />}
-          <Legenda>{item.post_title}</Legenda>
-        </ViewRowCentering>
-
-        <Divider />
-      </WhiteTouchable>
-    </ViewWhite>
+    <Container
+      onPress={() =>
+        navigation.navigate(rotas.DESCRICAO, {
+          parametros: {
+            ...item,
+          },
+          title: item.post_title,
+        })
+      }>
+      {item.image ? (
+        <ImagePost resizeMode="cover" source={{ uri: `${item.image}` }} />
+      ) : (
+        <ViewImg />
+      )}
+      <LeftContent>
+        <PostTitle numberOfLines={2}>{item.post_title}</PostTitle>
+        <PostDate>{moment(item.data).format('DD/MM/YYYY')}</PostDate>
+      </LeftContent>
+    </Container>
   );
 };
 

@@ -9,7 +9,9 @@ import LegendaNaoEncontrada from './LegendaNaoEncontrada';
 import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
 import { TextSearch, TouchableLeft, ViewColumn } from './styles';
+import { Divider } from 'react-native-paper';
 
+// TODO: avaliar o uso de React Query https://react-query.tanstack.com/
 const Buscar = props => {
   const { navigation } = props;
 
@@ -126,6 +128,7 @@ const Buscar = props => {
           keyExtractor={item => String(item.id)}
           onEndReached={onEndReached}
           onEndReachedThreshold={0.2}
+          ItemSeparatorComponent={() => <Divider />}
           ListEmptyComponent={renderListEmpty}
           ListFooterComponent={loading ? <RodapeBusca /> : null}
         />
