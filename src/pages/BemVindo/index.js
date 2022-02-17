@@ -4,9 +4,6 @@ import { ImageBackground, StatusBar, View } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
-import useAnalytics from '~/hooks/useAnalytics';
-import useDialogAppTrack from '~/hooks/useDialogAppTrack';
-import tutorialbackground from '~assets/backgrounds/tutorialbackground.png';
 import bemVindo from '~/assets/icons/apresentacao/bemVindo.svg';
 import cadastroProfissional from '~/assets/icons/apresentacao/cadastroProfissional.svg';
 import diagnostico from '~/assets/icons/apresentacao/diagnostico.svg';
@@ -15,7 +12,10 @@ import manejoClinico from '~/assets/icons/apresentacao/manejoClinico.svg';
 import pesquisa from '~/assets/icons/apresentacao/pesquisa.svg';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
-import { salvarDados } from '~/services/armazenamento';
+import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import useDialogAppTrack from '~/hooks/useDialogAppTrack';
+import tutorialbackground from '~assets/backgrounds/tutorialbackground.png';
 import {
   BotaoCadastro,
   Conteudo,
@@ -36,6 +36,8 @@ export default function BemVindo() {
   const { exibirDialog } = useDialogAppTrack();
 
   const { analyticsData } = useAnalytics();
+
+  const { setShowTutorial } = useAutenticacao();
 
   const dataComPerfil = [
     {
@@ -86,7 +88,7 @@ export default function BemVindo() {
             if (exibirDialog('o Cadastro')) {
               return;
             }
-            salvarDados('@show-tutorial', false);
+            setShowTutorial(false);
             navigation.navigate('LOGIN_WELCOME', { screen: 'LOGIN' });
           }}
           mode="contained">
@@ -136,7 +138,9 @@ export default function BemVindo() {
   async function moveToHome() {
     try {
       analyticsData(labelsAnalytics.PULAR_TUTORIAL, 'Click', 'Tutorial');
-      await salvarDados('@show-tutorial', false);
+
+      setShowTutorial(false);
+
       return navigation.reset({
         index: 0,
         routes: [{ name: 'App' }],

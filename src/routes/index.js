@@ -167,7 +167,7 @@ export default function App({ navigationRef }) {
         <RootStack.Screen name="webview" component={WebViewPage} />
         <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
         <RootStack.Screen
-          name="Buscar"
+          name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}
           options={{ headerShown: false }}
         />
@@ -190,7 +190,7 @@ export default function App({ navigationRef }) {
           component={EdicaoProfissional}
         />
         <RootStack.Screen
-          name="BemVindo"
+          name={rotas.BEM_VINDO}
           component={BemVindo}
           options={{ headerShown: false }}
         />
@@ -222,21 +222,21 @@ export default function App({ navigationRef }) {
   );
 }
 
-const searchStack = createStackNavigator();
+const SearchStack = createStackNavigator();
 
 function SearchStackScreen() {
   return (
-    <searchStack.Navigator>
-      <searchStack.Screen
+    <SearchStack.Navigator>
+      <SearchStack.Screen
         name="Buscar"
         component={Buscar}
         options={{ headerShown: true }}
       />
-      <searchStack.Screen
+      <SearchStack.Screen
         name="Buscar Description"
         component={BuscarDescription}
         options={{ headerShown: true }}
       />
-    </searchStack.Navigator>
+    </SearchStack.Navigator>
   );
 }

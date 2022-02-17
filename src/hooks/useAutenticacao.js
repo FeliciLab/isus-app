@@ -11,6 +11,8 @@ function useAutenticacao() {
     alterarPessoa,
     signIn,
     signOut,
+    showTutorial,
+    setShowTutorial,
   } = useContext(AutenticacaoContext);
 
   return {
@@ -22,6 +24,8 @@ function useAutenticacao() {
     alterarPessoa,
     signIn,
     signOut,
+    showTutorial,
+    setShowTutorial,
   };
 }
 
