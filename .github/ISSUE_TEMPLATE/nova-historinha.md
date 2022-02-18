@@ -4,13 +4,12 @@ about: Modelo de história
 title: "<Verbo> ..."
 labels: app
 assignees: ''
-
 ---
 
 # Objetivo
 
-**Como** persona  
-**Quero** fazer_algo  
+**Como** persona
+**Quero** fazer_algo
 **Para** uma_finalidade
 
 # Contexto
@@ -27,9 +26,9 @@ assignees: ''
 
 # Critérios de Aceitação
 
-- [ ] titulo  
-**Dado que** algo  
-**Quando** faço  
+- [ ] titulo
+**Dado que** algo
+**Quando** faço
 **então** resulta
 
 
