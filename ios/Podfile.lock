@@ -174,7 +174,7 @@ PODS:
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
   - OneSignal (3.10.1)
-  - OneSignalXCFramework (3.10.0)
+  - OneSignalXCFramework (3.10.1)
   - OpenSSL-Universal (1.1.180)
   - PromisesObjC (1.2.12)
   - RCT-Folly (2021.06.28.00-v2):
@@ -381,12 +381,12 @@ PODS:
     - React-Core
   - react-native-image-picker (4.7.3):
     - React-Core
-  - react-native-netinfo (6.2.1):
+  - react-native-netinfo (8.0.0):
     - React-Core
-  - react-native-onesignal (4.3.6):
-    - OneSignalXCFramework (= 3.10.0)
+  - react-native-onesignal (4.3.7):
+    - OneSignalXCFramework (= 3.10.1)
     - React (< 1.0.0, >= 0.13.0)
-  - react-native-safe-area-context (3.3.2):
+  - react-native-safe-area-context (3.4.0):
     - React-Core
   - react-native-text-input-mask (3.1.4):
     - InputMask (~> 6.1.0)
@@ -790,7 +790,7 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   OneSignal: ce7e3c514b016b98211b3d0458de156b8cc82aec
-  OneSignalXCFramework: 10648e60ff3d335fbffa62d9b44b700b56d49b51
+  OneSignalXCFramework: fe027712118f2862ab193b72270487f11450ea63
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RCT-Folly: a21c126816d8025b547704b777a2ba552f3d9fa9
@@ -807,9 +807,9 @@ SPEC CHECKSUMS:
   React-logger: e522e76fa3e9ec3e7d7115b49485cc065cf4ae06
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
   react-native-image-picker: 4e6008ad8c2321622affa2c85432a5ebd02d480c
-  react-native-netinfo: 3d3769f0d65de15c83a9bf1346f8be71de5a24bf
-  react-native-onesignal: 3ca13c0004f12bff30f479f1a303286fd119dd56
-  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-netinfo: ba4ea50d836c60580c59079233c400753fe5bcb6
+  react-native-onesignal: 7643517fe655b94cfda8e697ec16f9b9135648b8
+  react-native-safe-area-context: f4f7cc09d81ae2d39dfd13e764d718969af07080
   react-native-text-input-mask: 36a546b378fadd2efe1b7484a859d34bc2c80395
   react-native-tracking-transparency: b2029ff756f1128b1f2c7c7c7f3003bc3c950f9f
   react-native-webview: 380c1a03ec94b7ed764dac8db1e7c9952d08c93a
