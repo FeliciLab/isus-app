@@ -33,6 +33,7 @@ import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import PreCadastroRoutes from './preCadastro.routes';
+import ListarOfertas from '~/pages/ResidenciaMedica/ListarOfertas';
 
 const RootStack = createStackNavigator();
 
@@ -202,6 +203,10 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.RESIDENCIA_MEDICA}
           component={ResidenciaMedica}
+        />
+        <RootStack.Screen
+          name={rotas.LISTAR_OFERTAS}
+          component={ListarOfertas}
         />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen

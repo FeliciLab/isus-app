@@ -24,9 +24,7 @@ const residenciaMedicaListCards = [
     ativo: true,
     icone: FrequenciasSVG,
     navegacao: {
-      componente: 'webview',
-      titulo: 'SAGU',
-      url: urls.SAGU,
+      componente: ROTAS.LISTAR_OFERTAS,
     },
   },
   {
@@ -75,23 +73,12 @@ const ResidenciaMedica = () => {
     item => {
       analyticsData(item.id, 'Click', 'ResidenciaMedica');
 
-      if (item.navegacao.net && !isConnected) {
-        navigation.navigate(ROTAS.SEM_CONEXAO);
-        return;
-      }
-
       if (item.navegacao.componente === 'browser') {
         Linking.openURL(item.navegacao.url);
         return;
       }
 
-      navigation.navigate(item.navegacao.componente, {
-        title: item.navegacao.titulo,
-        url: item.navegacao.url,
-        headerStyle: {
-          backgroundColor: item.navegacao.background,
-        },
-      });
+      navigation.navigate(item.navegacao.componente);
     },
     [isConnected, analyticsData],
   );

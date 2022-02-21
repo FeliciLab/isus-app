@@ -23,7 +23,9 @@ import {
 
 export default function Denunciar() {
   const navigation = useNavigation();
+
   const mandeEmail = useState('Mande um e-mail:');
+
   const faleLigacao = useState('Fale por ligação: ');
 
   function emailLigacao(text, linkTo) {
@@ -67,6 +69,7 @@ export default function Denunciar() {
       ),
     });
   });
+
   return (
     <>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
