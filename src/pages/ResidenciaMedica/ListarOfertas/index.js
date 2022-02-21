@@ -67,7 +67,7 @@ const ListarOfertas = () => {
       <FlatList
         data={ofertas}
         keyExtractor={() => uniqueId('oferta')}
-        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <OfertaItem
             oferta={item}

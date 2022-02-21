@@ -34,6 +34,7 @@ import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 import ListarOfertas from '~/pages/ResidenciaMedica/ListarOfertas';
+import HistoricoFrequencia from '~/pages/ResidenciaMedica/HistoricoFrequencia/index';
 
 const RootStack = createStackNavigator();
 
@@ -207,6 +208,10 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.LISTAR_OFERTAS}
           component={ListarOfertas}
+        />
+        <RootStack.Screen
+          name={rotas.HISTORICO_FREQUENCIA}
+          component={HistoricoFrequencia}
         />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen

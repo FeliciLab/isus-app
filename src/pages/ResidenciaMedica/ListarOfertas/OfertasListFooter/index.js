@@ -7,9 +7,8 @@ import rotas from '~/constantes/rotas';
 const OfertasListFooter = () => {
   const navigation = useNavigation();
 
-  // TODO: fazer navegação para rota de Histórico de Frequência
   const handleOnPress = () => {
-    navigation.navigate(rotas.HOME);
+    navigation.navigate(rotas.HISTORICO_FREQUENCIA);
   };
 
   return (
