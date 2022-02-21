@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
+import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
-import { TouchableOpacity, FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
-import { Container, Title, SubTitle } from './styles';
-import { uniqueId } from 'lodash';
 import OfertaItem from './OfertaItem';
+import OfertasListFooter from './OfertasListFooter/index';
+import { Container, SubTitle, Title } from './styles';
 
 const ListarOfertas = () => {
   const navigation = useNavigation();
@@ -29,6 +30,7 @@ const ListarOfertas = () => {
     },
   ];
 
+  // TODO: implementar navegação para tela da Presença da oferta
   const handleOnPressOfertaItem = item => {
     console.log(JSON.stringify(item, undefined, 2));
   };
@@ -72,6 +74,7 @@ const ListarOfertas = () => {
             onPress={() => handleOnPressOfertaItem(item)}
           />
         )}
+        ListFooterComponent={<OfertasListFooter />}
       />
     </Container>
   );
