@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
-import MessageErrorCard from '~/components/MessageErrorCard/index';
+import MessageErrorCard from '~/components/MessageErrorCard';
 import { CORES } from '~/constantes/estiloBase';
 import { useBanners } from '~/hooks/useBanners';
 import BannerCarrossel from './BannerCarrossel';

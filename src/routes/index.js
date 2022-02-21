@@ -22,7 +22,7 @@ import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
 import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
-import QualiQuiz from '~/pages/QualiQuiz/index';
+import QualiQuiz from '~/pages/QualiQuiz';
 import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import ResidenciaMedica from '~/pages/ResidenciaMedica';
 import NovoSemConexao from '~/pages/SemConexao';

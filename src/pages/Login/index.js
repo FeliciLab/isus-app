@@ -1,6 +1,6 @@
 import React from 'react';
 import ConteudoInicial from './ConteudoInicial';
-import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
+import IDSaudeLoginTemplate from './IDSaudeLoginTemplate';
 
 function Login({ route }) {
   return (

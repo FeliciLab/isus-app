@@ -17,7 +17,7 @@ import SvgFaleConosco from '~/assets/icons/elmo/icon_fale_conosco.svg';
 import SvgManualUso from '~/assets/icons/elmo/icon_manual_uso.svg';
 import SvgElmoLogo from '~/assets/icons/logo/logo-elmo-h1.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
-import ServiceButton from '~/components/ServiceButton/index';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';

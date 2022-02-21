@@ -3,7 +3,7 @@ import { fireEvent, render } from 'util-teste';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import { FormProvider } from '~/context/FormContext';
-import FormularioLogin from '~/pages/Login/formulario';
+import FormularioLogin from '~/pages/Login/FormularioLogin';
 import { analyticsData } from '~/utils/analytics';
 import modeloPessoaMock from '../../../__mocks__/valores/modeloPessoaMock';
 

@@ -14,12 +14,12 @@ import {
   RELATAR_SUGESTAO,
 } from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
 import Login from '~/pages/Login';
-import FormLogin from '~/pages/Login/formulario';
+import FormLogin from '~/pages/Login/FormularioLogin';
 import ContaExcluida from '~/pages/Perfil/contaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
-import PerfilScreen from '~/pages/Perfil/index';
-import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade/index';
-import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso/index';
+import PerfilScreen from '~/pages/Perfil';
+import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
+import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
 

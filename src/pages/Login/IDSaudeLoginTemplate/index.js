@@ -5,8 +5,8 @@ import IDSaudeBranco from '~/assets/icons/idsaude-branco.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
+import Termos from '../Termos';
 import { ChildrenView, Container, ConteudoImagem } from './styles';
-import Termos from './Termos';
 
 function IDSaudeLoginTemplate({ children }) {
   const navigation = useNavigation();
