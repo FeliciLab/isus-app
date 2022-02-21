@@ -6,6 +6,7 @@ import { Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
 import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
+import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
 import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
 import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
@@ -17,6 +18,17 @@ import useAnalytics from '~/hooks/useAnalytics';
 import { Container, Content, ResidenciasEmSaudeImage } from './styles';
 
 const residenciaMedicaListCards = [
+  {
+    id: 'frequencias',
+    titulo: 'Frequências',
+    ativo: true,
+    icone: FrequenciasSVG,
+    navegacao: {
+      componente: 'webview',
+      titulo: 'SAGU',
+      url: urls.SAGU,
+    },
+  },
   {
     id: 'sagu',
     titulo: 'SAGU',
