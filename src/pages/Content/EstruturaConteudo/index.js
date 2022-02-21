@@ -2,7 +2,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React, { useEffect, useLayoutEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
-import MessageErrorCard from '~/components/MessageErrorCard/index';
+import MessageErrorCard from '~/components/MessageErrorCard';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useConteudo from '~/hooks/useConteudo';

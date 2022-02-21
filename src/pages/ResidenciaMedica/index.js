@@ -9,7 +9,7 @@ import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
 import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
 import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
-import ServiceButton from '~/components/ServiceButton/index';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import { urls } from '~/constantes/urls';

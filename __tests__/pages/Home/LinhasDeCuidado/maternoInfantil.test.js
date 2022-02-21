@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil/index';
+import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
 import { analyticsData } from '~/utils/analytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';

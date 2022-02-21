@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
-import useAnalytics from '~/hooks/useAnalytics';
-import useDialogAppTrack from '~/hooks/useDialogAppTrack';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
-import { Botao } from '../styles';
-import { ConteudoDoTexto, Texto } from './styles';
+import useAnalytics from '~/hooks/useAnalytics';
+import useDialogAppTrack from '~/hooks/useDialogAppTrack';
+import { Botao, ConteudoDoTexto, Texto } from './styles';
 
 const ConteudoInicial = () => {
   const navigation = useNavigation();

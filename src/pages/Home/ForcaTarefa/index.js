@@ -3,7 +3,7 @@ import { uniqueId } from 'lodash';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import ListServices from '~/components/ListServices';
-import ServiceButton from '~/components/ServiceButton/index';
+import ServiceButton from '~/components/ServiceButton';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import { Titulo } from '../styles';
