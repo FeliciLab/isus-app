@@ -1,13 +1,13 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.View``;
+
+export const OfertaItemRow = styled.TouchableOpacity`
+  margin: 10px 0;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: 8px;
 `;
-
-export const Content = styled.View``;
 
 export const Title = styled.Text`
   color: #000;
@@ -15,6 +15,13 @@ export const Title = styled.Text`
   font-weight: 500;
   line-height: 24px;
   letter-spacing: 0.15px;
+`;
+
+export const SubTitle = styled.Text`
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+  color: rgba(0, 0, 0, 0.87);
 `;
 
 export const Dates = styled.Text`

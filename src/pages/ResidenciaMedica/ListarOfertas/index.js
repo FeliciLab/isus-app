@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
+import { Divider } from 'react-native-paper';
 import React, { useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import OfertaItem from './OfertaItem';
-import OfertasListFooter from './OfertasListFooter/index';
+// import OfertasListFooter from './OfertasListFooter/index';
 import { Container, SubTitle, Title } from './styles';
 
 const ListarOfertas = () => {
@@ -14,26 +15,24 @@ const ListarOfertas = () => {
 
   const ofertas = [
     {
+      id: 1,
       title: 'Imersão 01',
       inicio: '07/03/2022',
       fim: '18/03/2022',
     },
     {
+      id: 2,
       title: 'Imersão 02',
       inicio: '07/03/2022',
       fim: '18/03/2022',
     },
     {
+      id: 3,
       title: 'Imersão 03',
       inicio: '07/03/2022',
       fim: '18/03/2022',
     },
   ];
-
-  // TODO: implementar navegação para tela da Presença da oferta
-  const handleOnPressOfertaItem = item => {
-    console.log(JSON.stringify(item, undefined, 2));
-  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -68,13 +67,9 @@ const ListarOfertas = () => {
         data={ofertas}
         keyExtractor={() => uniqueId('oferta')}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <OfertaItem
-            oferta={item}
-            onPress={() => handleOnPressOfertaItem(item)}
-          />
-        )}
-        ListFooterComponent={<OfertasListFooter />}
+        ItemSeparatorComponent={() => <Divider />}
+        renderItem={({ item }) => <OfertaItem oferta={item} />}
+        // ListFooterComponent={<OfertasListFooter />}
       />
     </Container>
   );

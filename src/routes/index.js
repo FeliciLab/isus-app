@@ -35,6 +35,7 @@ import CadastroRoutes from './cadastro.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 import ListarOfertas from '~/pages/ResidenciaMedica/ListarOfertas';
 import HistoricoFrequencia from '~/pages/ResidenciaMedica/HistoricoFrequencia/index';
+import CorfirmarPresenca from '~/pages/ResidenciaMedica/CorfirmarPresenca';
 
 const RootStack = createStackNavigator();
 
@@ -166,8 +167,7 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen name="webview" component={WebViewPage} />
-        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
+
         <RootStack.Screen
           name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}
@@ -213,6 +213,10 @@ export default function App({ navigationRef }) {
           name={rotas.HISTORICO_FREQUENCIA}
           component={HistoricoFrequencia}
         />
+        <RootStack.Screen
+          name={rotas.CONFIRMAR_PRESENCA}
+          component={CorfirmarPresenca}
+        />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen
           name={rotas.QUALIQUIZ_LOGIN}
@@ -227,6 +231,9 @@ export default function App({ navigationRef }) {
           name={rotas.NOVIDADES_ELMO}
           component={NovidadesElmo}
         />
+        {/* WebViews */}
+        <RootStack.Screen name="webview" component={WebViewPage} />
+        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
@@ -18,11 +18,15 @@ import {
 const HistoricoFrequencia = () => {
   const navigation = useNavigation();
 
+  const {
+    params: { oferta },
+  } = useRoute();
+
   const presencas = [
     {
       date: 'Segunda-feira | 08/03/2022',
       turn: 'Manhã',
-      isPresent: true,
+      isPresent: true, // residente esteve presente nessa data
     },
     {
       date: 'Terça-feira | 09/03/2022',
@@ -93,7 +97,9 @@ const HistoricoFrequencia = () => {
   return (
     <Container>
       <Title>Histórico de frequência</Title>
-      <SubTitle>Imersão | 07/03 a 18/03/2022</SubTitle>
+      <SubTitle>
+        {oferta.title} | {oferta.inicio} a {oferta.fim}
+      </SubTitle>
       <PercentIndicator>Percentual de presença: 66,3%</PercentIndicator>
       <FlatList
         data={presencas}
