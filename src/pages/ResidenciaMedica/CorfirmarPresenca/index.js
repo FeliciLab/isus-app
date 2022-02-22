@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   AlunoInfo,
@@ -54,9 +55,9 @@ const CorfirmarPresenca = () => {
     });
   });
 
-  // TODO: implementar
   const handleMarcarPresencaButton = () => {
     console.log('MarcarPresencaButton');
+    navigation.navigate(rotas.SUCESSO_PRESENCA, { oferta });
   };
 
   return (

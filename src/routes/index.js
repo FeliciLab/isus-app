@@ -36,6 +36,7 @@ import PreCadastroRoutes from './preCadastro.routes';
 import ListarOfertas from '~/pages/ResidenciaMedica/ListarOfertas';
 import HistoricoFrequencia from '~/pages/ResidenciaMedica/HistoricoFrequencia/index';
 import CorfirmarPresenca from '~/pages/ResidenciaMedica/CorfirmarPresenca';
+import SucessoPresenca from '~/pages/ResidenciaMedica/SucessoPresenca';
 
 const RootStack = createStackNavigator();
 
@@ -216,6 +217,10 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.CONFIRMAR_PRESENCA}
           component={CorfirmarPresenca}
+        />
+        <RootStack.Screen
+          name={rotas.SUCESSO_PRESENCA}
+          component={SucessoPresenca}
         />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen
