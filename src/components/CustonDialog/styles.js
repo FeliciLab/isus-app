@@ -6,6 +6,7 @@ export const Actions = styled(Dialog.Actions)`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  padding-bottom: 20px;
 `;
 
 export const Title = styled(Dialog.Title)`
