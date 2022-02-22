@@ -6,6 +6,7 @@ import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import CustonDialog from '~/components/CustonDialog';
 import {
   AlunoInfo,
   Container,
@@ -15,6 +16,7 @@ import {
   Warning,
   WrapperSelect,
 } from './styles';
+import { Button } from 'react-native-paper';
 
 const CorfirmarPresenca = () => {
   const navigation = useNavigation();
@@ -26,6 +28,8 @@ const CorfirmarPresenca = () => {
   const [programaResidencia, setProgramaResidencia] = useState();
 
   const [municipio, setMunicipio] = useState();
+
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   const {
     params: { oferta },
@@ -56,7 +60,16 @@ const CorfirmarPresenca = () => {
   });
 
   const handleMarcarPresencaButton = () => {
-    console.log('MarcarPresencaButton');
+    setDialogVisible(true);
+    // navigation.navigate(rotas.SUCESSO_PRESENCA, { oferta });
+  };
+
+  const handleMarcarPresencaDialogVoltarButton = () => {
+    setDialogVisible(false);
+  };
+
+  const handleMarcarPresencaDialogConfirmarButton = () => {
+    setDialogVisible(false);
     navigation.navigate(rotas.SUCESSO_PRESENCA, { oferta });
   };
 
@@ -124,6 +137,24 @@ const CorfirmarPresenca = () => {
         durante as tardes (de 15 às 16h). Se você errar a seleção de alguma
         informação, poderá corrigir no período permitido.
       </Warning>
+      <CustonDialog
+        visible={dialogVisible}
+        setVisible={setDialogVisible}
+        title="Presença já confirmada"
+        content="Você já marcou sua presença. Caso deseje alterar alguma informação sobre o componente, programa ou município informado, faça a seleção correta e confirme a presença novamente."
+        LeftAction={() => (
+          <Button color={CORES.LARANJA} onPress={handleMarcarPresencaDialogVoltarButton}>
+            VOLTAR
+          </Button>
+        )}
+        RightAction={() => (
+          <Button
+            color={CORES.LARANJA}
+            onPress={handleMarcarPresencaDialogConfirmarButton}>
+            CONFIRMAR
+          </Button>
+        )}
+      />
     </Container>
   );
 };
