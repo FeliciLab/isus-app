@@ -9,6 +9,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   text-align: center;
+  max-width: 190px;
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.15px;
