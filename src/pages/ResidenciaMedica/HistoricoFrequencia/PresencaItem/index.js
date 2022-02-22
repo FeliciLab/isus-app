@@ -1,15 +1,15 @@
 import React from 'react';
 import { Container, Content, Date, Turno } from './styles';
-import Icon from 'react-native-vector-icons/AntDesign';
 import { CORES } from '~/constantes/estiloBase';
+import { CheckCircleoIcon, CloseCircleoIcon } from '~/icons/';
 
 const PresencaItem = ({ presenca }) => {
   return (
     <Container>
       {presenca.isPresent ? (
-        <Icon name="checkcircleo" size={36} color={CORES.VERDE} />
+        <CheckCircleoIcon size={36} color={CORES.VERDE} />
       ) : (
-        <Icon name="closecircleo" size={36} color={CORES.VERMELHO} />
+        <CloseCircleoIcon size={36} color={CORES.VERMELHO} />
       )}
       <Content>
         <Date>{presenca.date}</Date>

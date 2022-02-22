@@ -1,7 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -17,6 +16,7 @@ import {
   WrapperSelect,
 } from './styles';
 import { Button } from 'react-native-paper';
+import { ArrowLeftIcon } from '~/icons';
 
 const CorfirmarPresenca = () => {
   const navigation = useNavigation();
@@ -53,7 +53,7 @@ const CorfirmarPresenca = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
@@ -143,7 +143,9 @@ const CorfirmarPresenca = () => {
         title="Presença já confirmada"
         content="Você já marcou sua presença. Caso deseje alterar alguma informação sobre o componente, programa ou município informado, faça a seleção correta e confirme a presença novamente."
         LeftAction={() => (
-          <Button color={CORES.LARANJA} onPress={handleMarcarPresencaDialogVoltarButton}>
+          <Button
+            color={CORES.LARANJA}
+            onPress={handleMarcarPresencaDialogVoltarButton}>
             VOLTAR
           </Button>
         )}

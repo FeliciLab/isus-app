@@ -3,9 +3,9 @@ import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import { Divider } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
+import { ArrowLeftIcon } from '~/icons';
 import PresencaItem from './PresencaItem';
 import {
   Container,
@@ -88,7 +88,7 @@ const HistoricoFrequencia = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon name="arrow-left" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
