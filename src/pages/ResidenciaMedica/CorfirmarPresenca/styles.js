@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { FAB } from 'react-native-paper';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   flex: 1;
   padding: 24px 20px;
 `;
@@ -40,4 +40,8 @@ export const Warning = styled.Text`
   line-height: 20px;
   letter-spacing: 0.25px;
   color: rgba(0, 0, 0, 0.87);
+`;
+
+export const WrapperSelect = styled.View`
+  margin: 4px 0;
 `;

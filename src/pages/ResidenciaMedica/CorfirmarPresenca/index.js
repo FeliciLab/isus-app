@@ -1,8 +1,10 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useLayoutEffect } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import {
   AlunoInfo,
   Container,
@@ -10,10 +12,19 @@ import {
   SubTitle,
   Title,
   Warning,
+  WrapperSelect,
 } from './styles';
 
 const CorfirmarPresenca = () => {
   const navigation = useNavigation();
+
+  const { user } = useAutenticacao();
+
+  const [componenteHospitalar, setComponenteHospitalar] = useState();
+
+  const [programaResidencia, setProgramaResidencia] = useState();
+
+  const [municipio, setMunicipio] = useState();
 
   const {
     params: { oferta },
@@ -55,9 +66,51 @@ const CorfirmarPresenca = () => {
         {oferta.title} | {oferta.inicio} a {oferta.fim}
       </SubTitle>
       <View>
-        <AlunoInfo>Aluno(a): Francisco Cézar Aragão</AlunoInfo>
+        <AlunoInfo>Aluno(a): {user.name}</AlunoInfo>
         <AlunoInfo>Data: 07/03/2022 | Turno: Manhã </AlunoInfo>
       </View>
+
+      {/* TODO: remover esses componentes */}
+      <Text>{componenteHospitalar}</Text>
+      <Text>{programaResidencia}</Text>
+      <Text>{municipio}</Text>
+
+      <WrapperSelect>
+        <Select
+          label="Componente Hospitalar"
+          setValue={setComponenteHospitalar}
+          items={[
+            { label: 'Comunitário', value: 'Comunitário' },
+            { label: 'Hospitalar', value: 'Hospitalar' },
+          ]}
+        />
+      </WrapperSelect>
+
+      <WrapperSelect>
+        <Select
+          label="Programa de Residência"
+          setValue={setProgramaResidencia}
+          items={[
+            {
+              label: 'Saúde da Família e Comunidade',
+              value: 'Saúde da Família e Comunidade',
+            },
+            { label: 'Saúde Mental Coletiva', value: 'Saúde Mental Coletiva' },
+            { label: 'Saúde Coletiva', value: 'Saúde Coletiva' },
+          ]}
+        />
+      </WrapperSelect>
+      <WrapperSelect>
+        <Select
+          label="Selecione o Município"
+          setValue={setMunicipio}
+          items={[
+            { label: 'Acaraú', value: 'Acaraú' },
+            { label: 'Aracati', value: 'Aracati' },
+            { label: 'Camocim', value: 'Camocim' },
+          ]}
+        />
+      </WrapperSelect>
       <MarcarPresencaButton
         color="#fff"
         label="MARCAR PRESENÇA"
