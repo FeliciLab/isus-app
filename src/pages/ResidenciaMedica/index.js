@@ -8,6 +8,7 @@ import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
 import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
 import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
 import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
+import MatriculasSVG from '~/assets/icons/residenciaMedica/matricula_residencia.svg';
 import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ServiceButton from '~/components/ServiceButton';
@@ -21,10 +22,21 @@ const residenciaMedicaListCards = [
   {
     id: 'frequencias',
     titulo: 'Frequências',
-    ativo: true,
+    ativo: false,
     icone: FrequenciasSVG,
     navegacao: {
       componente: ROTAS.LISTAR_OFERTAS,
+    },
+  },
+  {
+    id: 'matriculas',
+    titulo: 'MATRÍCULAS',
+    ativo: true,
+    icone: MatriculasSVG,
+    navegacao: {
+      componente: 'webview',
+      titulo: 'MATRÍCULAS',
+      url: urls.MATRICULA_RESIDENCIA,
     },
   },
   {
