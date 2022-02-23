@@ -17,7 +17,7 @@ import useAnalytics from '~/hooks/useAnalytics';
 import { ArrowLeftIcon } from '~/icons';
 import { Container, Content, ResidenciasEmSaudeImage } from './styles';
 
-const residenciaMedicaListCards = [
+const residenciasCards = [
   {
     id: 'frequencias',
     titulo: 'Frequências',
@@ -62,7 +62,7 @@ const residenciaMedicaListCards = [
   },
 ];
 
-const ResidenciaMedica = () => {
+const Residencias = () => {
   const navigation = useNavigation();
 
   const { isConnected } = useNetInfo();
@@ -127,7 +127,7 @@ const ResidenciaMedica = () => {
       </Content>
       <FlatList
         horizontal
-        data={residenciaMedicaListCards}
+        data={residenciasCards}
         keyExtractor={item => `${item.id}`}
         style={{
           flexDirection: 'row',
@@ -149,4 +149,4 @@ const ResidenciaMedica = () => {
   );
 };
 
-export default ResidenciaMedica;
+export default Residencias;

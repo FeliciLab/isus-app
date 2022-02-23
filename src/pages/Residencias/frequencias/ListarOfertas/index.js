@@ -8,7 +8,6 @@ import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 import OfertaItem from './OfertaItem';
 import { Container, SubTitle, Title } from './styles';
-// import OfertasListFooter from './OfertasListFooter/index';
 
 const ListarOfertas = () => {
   const navigation = useNavigation();
@@ -69,7 +68,6 @@ const ListarOfertas = () => {
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item }) => <OfertaItem oferta={item} />}
-        // ListFooterComponent={<OfertasListFooter />}
       />
     </Container>
   );

@@ -18,7 +18,7 @@ import {
 import { Button } from 'react-native-paper';
 import { ArrowLeftIcon } from '~/icons';
 
-const CorfirmarPresenca = () => {
+const ConfirmarPresenca = () => {
   const navigation = useNavigation();
 
   const { user } = useAutenticacao();
@@ -161,4 +161,4 @@ const CorfirmarPresenca = () => {
   );
 };
 
-export default CorfirmarPresenca;
+export default ConfirmarPresenca;
