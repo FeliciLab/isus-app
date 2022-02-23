@@ -12,6 +12,7 @@ export default function WebViewPage({
   esqueletoDeCarregamento,
 }) {
   const navigator = useNavigation();
+
   const widthView = Dimensions.get('window').width;
 
   const definirTituloWebView = title => {
@@ -27,7 +28,7 @@ export default function WebViewPage({
   };
 
   const alterarBackground = () =>
-    route.params.idSaude ? '#304FFE' : '#4CAF50';
+    route?.params?.idSaude ? '#304FFE' : '#4CAF50';
 
   useLayoutEffect(() => {
     navigation.setOptions({

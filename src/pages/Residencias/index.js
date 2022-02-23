@@ -22,7 +22,7 @@ const residenciasCards = [
   {
     id: 'frequencias',
     titulo: 'Frequências',
-    ativo: false,
+    ativo: true,
     icone: FrequenciasSVG,
     navegacao: {
       componente: ROTAS.LISTAR_OFERTAS,
@@ -85,12 +85,23 @@ const Residencias = () => {
     item => {
       analyticsData(item.id, 'Click', 'ResidenciaMedica');
 
+      if (item.navegacao.net && !isConnected) {
+        navigation.navigate(ROTAS.SEM_CONEXAO);
+        return;
+      }
+
       if (item.navegacao.componente === 'browser') {
         Linking.openURL(item.navegacao.url);
         return;
       }
 
-      navigation.navigate(item.navegacao.componente);
+      navigation.navigate(item.navegacao.componente, {
+        title: item.navegacao.titulo,
+        url: item.navegacao.url,
+        headerStyle: {
+          backgroundColor: item.navegacao.background,
+        },
+      });
     },
     [isConnected, analyticsData],
   );
