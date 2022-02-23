@@ -11,7 +11,6 @@ function ListaCardsElmo() {
     try {
       const lista = await pegarCardsElmo();
       setCardsElmo(lista.data);
-      console.log(lista.data);
     } catch (error) {
       console.log(`erro ao listar Cards. ${error}`);
     }
