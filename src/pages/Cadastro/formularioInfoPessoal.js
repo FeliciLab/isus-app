@@ -12,10 +12,10 @@ import { Dropdown } from 'react-native-material-dropdown-v2';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
 import TextInputMask from 'react-native-text-input-mask';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import { getMunicipiosCeara } from '~/apis/apiCadastro';
 import FormContext from '~/context/FormContext';
 import WizardContext from '~/context/WizardContext';
+import { ArrowDropDownIcon } from '~/icons';
 import { salvarDados } from '~/services/armazenamento';
 import Regex from '~/utils/regex';
 import FormularioInfoProfissional from './formularioInfoProfissional';
@@ -221,14 +221,13 @@ export default function FormularioInfoPessoal() {
             alteraValor('cidade', { id: pegarId(cidade), nome: cidade });
           }}
         />
-        <IconDropdown
+        <ArrowDropDownIcon
           style={{
             position: 'absolute',
             right: 8,
             top: 30,
             fontSize: 25,
           }}
-          name="arrow-drop-down"
           onPress={() => dropdown.current.focus()}
         />
       </View>

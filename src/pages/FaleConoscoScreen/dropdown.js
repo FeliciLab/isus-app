@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown-v2';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { ArrowDropDownIcon } from '~/icons';
 import { tiposDeOcorrenciaDropdown } from './tiposDeOcorrencia';
 
 export default function DropdownSimples({
@@ -26,15 +26,13 @@ export default function DropdownSimples({
           aoMudarValor(tiposDeOcorrenciaDropdown[proximoValor]);
         }}
       />
-
-      <Icon
+      <ArrowDropDownIcon
         style={{
           position: 'absolute',
           right: 8,
           top: 30,
           fontSize: 25,
         }}
-        name="arrow-drop-down"
         onPress={() => dropdownRef.current.focus()}
       />
     </View>

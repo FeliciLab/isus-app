@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from 'react';
-import { Dropdown } from 'react-native-material-dropdown-v2';
-import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import { Controller } from 'react-hook-form';
-import FormContext from '~/context/FormContext';
+import { Dropdown } from 'react-native-material-dropdown-v2';
 import { CORES } from '~/constantes/estiloBase';
+import FormContext from '~/context/FormContext';
+import { ArrowDropDownIcon } from '~/icons';
 
 const FormSelect = ({ data, name, rules, label }) => {
   const dropdown = useRef();
@@ -31,14 +31,13 @@ const FormSelect = ({ data, name, rules, label }) => {
             onFocus={onFocus}
             baseColor={CORES.LARANJA}
           />
-          <IconDropdown
+          <ArrowDropDownIcon
             style={{
               position: 'absolute',
               right: 8,
               top: 30,
               fontSize: 25,
             }}
-            name="arrow-drop-down"
             onPress={() => dropdown.current.focus()}
           />
         </>
