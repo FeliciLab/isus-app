@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import jpgEsmaltec from '~/assets/icons/logo/logo-esmaltec.jpg';
 import jpgESP from '~/assets/icons/logo/logo-esp.jpg';
 import jpgFIEC from '~/assets/icons/logo/logo-fiec.jpg';
@@ -14,6 +13,7 @@ import jpgUNIFOR from '~/assets/icons/logo/logo-unifor.jpg';
 import ImageElmo from '~/assets/images/fig-elmo.jpg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
+import { ArrowLeftIcon } from '~/icons';
 import {
   ConteudoLogo,
   Imagem,
@@ -46,7 +46,7 @@ export default function SobreElmo() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });

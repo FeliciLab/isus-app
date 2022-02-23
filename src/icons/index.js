@@ -7,6 +7,10 @@ export const ArrowLeftIcon = props => (
   <MaterialCommunityIcons name="arrow-left" {...props} />
 );
 
+export const MagnifyIcon = props => (
+  <MaterialCommunityIcons name="magnify" {...props} />
+);
+
 export const CheckCircleoIcon = props => (
   <AntDesign name="checkcircleo" {...props} />
 );

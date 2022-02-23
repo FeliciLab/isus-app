@@ -1,15 +1,15 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { FlatList, Keyboard, TouchableWithoutFeedback } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Divider } from 'react-native-paper';
 import { pegarBusca } from '~/apis/apiHome';
 import useAnalytics from '~/hooks/useAnalytics';
 import useDebounce from '~/hooks/useDebounce';
+import { ArrowLeftIcon } from '~/icons';
 import ItemConteudo from './ItemConteudo';
 import LegendaNaoEncontrada from './LegendaNaoEncontrada';
 import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
 import { TextSearch, TouchableLeft, ViewColumn } from './styles';
-import { Divider } from 'react-native-paper';
 
 // TODO: avaliar o uso de React Query https://react-query.tanstack.com/
 const Buscar = props => {
@@ -52,7 +52,7 @@ const Buscar = props => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color="#FFF" />
         </TouchableLeft>
       ),
     });

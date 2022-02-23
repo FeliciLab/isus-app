@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
+import { ArrowLeftIcon } from '~/icons';
 
 const estiloCores = {
   verde: {
@@ -61,7 +62,7 @@ const TouchableGoBack = ({ navegador, cor }) => (
     onPress={() => {
       navegador.goBack();
     }}>
-    <Icon name="arrow-left" size={28} color={cor} />
+    <ArrowLeftIcon size={28} color={cor} />
   </TouchableOpacity>
 );
 
@@ -71,7 +72,7 @@ const TouchableGoHome = ({ navegador, cor }) => (
     onPress={() => {
       navegador.navigate(rotas.HOME, { screen: 'Home' });
     }}>
-    <Icon name="arrow-left" size={28} color={cor} />
+    <ArrowLeftIcon size={28} color={cor} />
   </TouchableOpacity>
 );
 
@@ -81,7 +82,7 @@ const TouchableGoRoute = ({ navegador, cor, rota }) => (
     onPress={() => {
       navegador.navigate(rota);
     }}>
-    <Icon name="arrow-left" size={28} color={cor} />
+    <ArrowLeftIcon size={28} color={cor} />
   </TouchableOpacity>
 );
 

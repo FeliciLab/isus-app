@@ -3,10 +3,10 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
 import { FormProvider } from '~/context/FormContext';
+import { ArrowLeftIcon } from '~/icons/index';
 import FormularioInfoPessoal from '~/pages/NovoCadastro/formularioInfoPessoal';
 import FormularioInfoProfissional from '~/pages/NovoCadastro/formularioInfoProfissional';
 import FormularioSenha from '~/pages/NovoCadastro/formularioSenha';
@@ -43,7 +43,7 @@ export default function RotasCadastro() {
         onPress={() => {
           navigation.goBack();
         }}>
-        <Icon name="arrow-left" size={28} color="#304FFE" />
+        <ArrowLeftIcon size={28} color="#304FFE" />
       </TouchableOpacity>
     ),
   };

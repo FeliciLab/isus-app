@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { WebView } from 'react-native-webview';
 import BarraDeStatus from '~/components/barraDeStatus';
+import { ArrowLeftIcon } from '~/icons';
 
 export default function WebViewPage({
   navigation,
@@ -49,7 +49,7 @@ export default function WebViewPage({
             }
             navigator.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color="#FFF" />
         </TouchableOpacity>
       ),
       ...route.params.navigationOptions,

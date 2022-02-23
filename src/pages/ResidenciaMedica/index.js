@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect } from 'react';
 import { FlatList, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
 import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
 import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
@@ -15,6 +14,7 @@ import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import { urls } from '~/constantes/urls';
 import useAnalytics from '~/hooks/useAnalytics';
+import { ArrowLeftIcon } from '~/icons';
 import { Container, Content, ResidenciasEmSaudeImage } from './styles';
 
 const residenciaMedicaListCards = [
@@ -101,7 +101,7 @@ const ResidenciaMedica = () => {
           onPress={() => {
             navigation.navigate(ROTAS.HOME);
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });

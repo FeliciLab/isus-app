@@ -2,7 +2,6 @@ import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { perfilUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
 import features from '~/constantes/features';
@@ -11,6 +10,7 @@ import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
+import { ArrowLeftIcon } from '~/icons';
 import { salvarDados } from '~/services/armazenamento';
 import {
   pegarEstadoLogadoArmazenado,
@@ -98,7 +98,7 @@ export default function PerfilScreen() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <ArrowLeftIcon size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });

@@ -2,7 +2,6 @@ import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { alteraDadosDoUsuario } from '~/apis/apiCadastro';
 import {
   pegarListaDeCategoriasProfissionais,
@@ -14,6 +13,7 @@ import BarraDeStatus from '~/components/barraDeStatus';
 import DropDown from '~/components/dropdown';
 import rotas from '~/constantes/rotas';
 import FormContext from '~/context/FormContext';
+import { ArrowLeftIcon } from '~/icons';
 import { pegarDados } from '~/services/armazenamento';
 import {
   Acordeon,
@@ -137,8 +137,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon
-            name="arrow-left"
+          <ArrowLeftIcon
             size={28}
             color={veioDoPerfil ? '#4CAF50' : '#304FFE'}
           />

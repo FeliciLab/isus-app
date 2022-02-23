@@ -88,7 +88,7 @@ const HistoricoFrequencia = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <ArrowLeftIcon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });

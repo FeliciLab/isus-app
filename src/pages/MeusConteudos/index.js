@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/barraDeStatus';
+import { ArrowLeftIcon } from '~/icons';
 import CartaoDeConteudo from './CartaoDeConteudo';
 
 function MeusConteudos({ route }) {
@@ -35,7 +35,7 @@ function MeusConteudos({ route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <ArrowLeftIcon size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });

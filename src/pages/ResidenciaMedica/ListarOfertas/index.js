@@ -1,14 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
-import { Divider } from 'react-native-paper';
 import React, { useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Divider } from 'react-native-paper';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
+import { ArrowLeftIcon } from '~/icons';
 import OfertaItem from './OfertaItem';
-// import OfertasListFooter from './OfertasListFooter/index';
 import { Container, SubTitle, Title } from './styles';
+// import OfertasListFooter from './OfertasListFooter/index';
 
 const ListarOfertas = () => {
   const navigation = useNavigation();
@@ -52,7 +52,7 @@ const ListarOfertas = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });

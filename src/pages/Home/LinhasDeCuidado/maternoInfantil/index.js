@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
-import useAnalytics from '~/hooks/useAnalytics';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconSvgMaterno from '~/assets/icons/linhasDeCuidado/maternoInfantilBanner.svg';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
+import { ArrowLeftIcon } from '~/icons';
 import { Container, ScrollView, SvgView, Texto, Titulo } from './styles';
 
 export default function MaternoInfantil({ route }) {
@@ -62,12 +62,13 @@ export default function MaternoInfantil({ route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color="#FFF" />
         </TouchableOpacity>
       ),
     });
   }, []);
 
+  // FIXME: Ta muito feio isso aqui
   const textoNascerNoCeara = () => (
     <>
       <Texto>

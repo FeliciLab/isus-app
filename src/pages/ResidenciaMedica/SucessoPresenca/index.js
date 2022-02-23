@@ -2,9 +2,9 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
+import { ArrowLeftIcon } from '~/icons';
 import { Container, Title, FABButton } from './styles';
 
 const SucessoPresenca = () => {
@@ -40,11 +40,7 @@ const SucessoPresenca = () => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <MaterialCommunityIcons
-            name="arrow-left"
-            size={28}
-            color={CORES.BRANCO}
-          />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
