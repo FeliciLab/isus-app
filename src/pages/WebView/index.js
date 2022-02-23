@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { WebView } from 'react-native-webview';
 import BarraDeStatus from '~/components/barraDeStatus';
+import { ArrowLeftIcon } from '~/icons';
 
 export default function WebViewPage({
   navigation,
@@ -12,6 +12,7 @@ export default function WebViewPage({
   esqueletoDeCarregamento,
 }) {
   const navigator = useNavigation();
+
   const widthView = Dimensions.get('window').width;
 
   const definirTituloWebView = title => {
@@ -27,7 +28,7 @@ export default function WebViewPage({
   };
 
   const alterarBackground = () =>
-    route.params.idSaude ? '#304FFE' : '#4CAF50';
+    route?.params?.idSaude ? '#304FFE' : '#4CAF50';
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,7 +50,7 @@ export default function WebViewPage({
             }
             navigator.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color="#FFF" />
         </TouchableOpacity>
       ),
       ...route.params.navigationOptions,

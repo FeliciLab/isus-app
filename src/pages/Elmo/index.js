@@ -1,5 +1,6 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
+import { sortBy } from 'lodash';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   BackHandler,
@@ -9,7 +10,6 @@ import {
   View,
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorCategoria } from '~/apis/apiHome';
 import elmoPatternBG from '~/assets/backgrounds/elmo_pattern.png';
 import SvgCapacitacao from '~/assets/icons/elmo/icon_capacitacao.svg';
@@ -21,10 +21,10 @@ import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
+import { ArrowLeftIcon } from '~/icons';
 import estaAtiva from '~/utils/estaAtiva';
 import CardElmo from './CardElmo';
 import ListaCardsElmo from './ListaCardsElmo';
-import { sortBy } from 'lodash';
 import {
   BackgroundImage,
   BotaoLink,
@@ -106,7 +106,7 @@ function Elmo() {
           onPress={() => {
             navigation.popToTop();
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });

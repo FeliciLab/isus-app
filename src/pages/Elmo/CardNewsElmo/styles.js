@@ -20,6 +20,7 @@ export const PostImage = styled.Image`
   height: 100px;
   width: 100%;
   border-radius: 8px;
+  background-color: ${CORES.CINZA};
 `;
 
 export const PostTitle = styled.Text`

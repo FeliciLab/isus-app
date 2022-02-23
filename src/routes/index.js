@@ -24,7 +24,11 @@ import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
 import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 import QualiQuiz from '~/pages/QualiQuiz';
 import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
-import ResidenciaMedica from '~/pages/ResidenciaMedica';
+import Residencias from '~/pages/Residencias';
+import ConfirmarPresenca from '~/pages/Residencias/frequencias/ConfirmarPresenca';
+import HistoricoFrequencia from '~/pages/Residencias/frequencias/HistoricoFrequencia/index';
+import ListarOfertas from '~/pages/Residencias/frequencias/ListarOfertas';
+import SucessoPresenca from '~/pages/Residencias/frequencias/SucessoPresenca';
 import NovoSemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
 import WebViewPage from '~/pages/WebView';
@@ -33,7 +37,6 @@ import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import PreCadastroRoutes from './preCadastro.routes';
-import ListarOfertas from '~/pages/ResidenciaMedica/ListarOfertas';
 
 const RootStack = createStackNavigator();
 
@@ -165,8 +168,7 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen name="webview" component={WebViewPage} />
-        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
+
         <RootStack.Screen
           name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}
@@ -202,11 +204,23 @@ export default function App({ navigationRef }) {
         <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
         <RootStack.Screen
           name={rotas.RESIDENCIA_MEDICA}
-          component={ResidenciaMedica}
+          component={Residencias}
         />
         <RootStack.Screen
           name={rotas.LISTAR_OFERTAS}
           component={ListarOfertas}
+        />
+        <RootStack.Screen
+          name={rotas.HISTORICO_FREQUENCIA}
+          component={HistoricoFrequencia}
+        />
+        <RootStack.Screen
+          name={rotas.CONFIRMAR_PRESENCA}
+          component={ConfirmarPresenca}
+        />
+        <RootStack.Screen
+          name={rotas.SUCESSO_PRESENCA}
+          component={SucessoPresenca}
         />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen
@@ -222,6 +236,9 @@ export default function App({ navigationRef }) {
           name={rotas.NOVIDADES_ELMO}
           component={NovidadesElmo}
         />
+        {/* WebViews */}
+        <RootStack.Screen name="webview" component={WebViewPage} />
+        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

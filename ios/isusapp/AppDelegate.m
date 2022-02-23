@@ -88,11 +88,11 @@ if ([FIRApp defaultApp] == nil) {
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
-#if DEBUG
-  return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-#else
-  return [CodePush bundleURL];
-#endif
+  #if DEBUG
+    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
+  #else
+    return [CodePush bundleURL];
+  #endif
 }
 
 @end
