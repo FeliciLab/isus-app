@@ -13,4 +13,5 @@ export const urls = {
   SAGU: 'https://academico.esp.ce.gov.br/',
   ESP_VIRTUAL: 'https://espvirtual.esp.ce.gov.br/',
   SIG_RESIDENCIAS: 'https://sigresidencias.saude.gov.br',
+  MATRICULA_RESIDENCIA: 'https://mapadasaude.dev.org.br/projeto/131/'
 };
