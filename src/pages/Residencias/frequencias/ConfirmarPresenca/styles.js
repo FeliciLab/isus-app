@@ -6,6 +6,17 @@ export const Container = styled.ScrollView`
   padding: 24px 20px;
 `;
 
+export const Content = styled.View`
+  flex: 1;
+  margin-top: 20px;
+`;
+
+export const ActivityIndicatorWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Title = styled.Text`
   font-weight: 500;
   font-size: 20px;
@@ -43,5 +54,5 @@ export const Warning = styled.Text`
 `;
 
 export const WrapperSelect = styled.View`
-  margin: 4px 0;
+  margin-top: 8px;
 `;

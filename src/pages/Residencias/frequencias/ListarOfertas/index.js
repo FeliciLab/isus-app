@@ -4,13 +4,13 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import {
   ActivityIndicator,
   FlatList,
-  // Text,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 import { Divider } from 'react-native-paper';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
-// import useAutenticacao from '~/hooks/useAutenticacao';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import { useOfertas } from '~/hooks/useOfertas';
 import { ArrowLeftIcon } from '~/icons';
 import OfertaItem from './OfertaItem';
@@ -21,7 +21,7 @@ const ListarOfertas = () => {
 
   const { ofertas, featchOfertas, isLoading } = useOfertas();
 
-  // const { user } = useAutenticacao();
+  const { user } = useAutenticacao();
 
   useEffect(() => {
     featchOfertas();
@@ -53,9 +53,9 @@ const ListarOfertas = () => {
 
   // FIXME: Precisamos colocar aqui a validação para quando o usuãrio não está logado
   // TODO: melhorar essa parte
-  // if (!user) {
-  //   return <Text>Vocẽ precisa estar logado para acessar essa tela</Text>;
-  // }
+  if (!user) {
+    return <Text>Vocẽ precisa estar logado para acessar essa tela</Text>;
+  }
 
   if (isLoading) {
     return <ActivityIndicator size="large" />;

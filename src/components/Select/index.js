@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import { CORES } from '~/constantes/estiloBase';
 
-const Select = ({ setValue, label, ...rest }) => {
+const Select = ({ value, setValue, label, ...rest }) => {
   const placeholder = {
     label,
     value: null,
@@ -14,6 +14,7 @@ const Select = ({ setValue, label, ...rest }) => {
     <View style={styles.container}>
       <RNPickerSelect
         placeholder={placeholder}
+        value={value}
         onValueChange={value => setValue(value)}
         {...rest}
       />

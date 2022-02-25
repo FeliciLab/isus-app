@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 import React from 'react';
 import { View } from 'react-native';
 import rotas from '~/constantes/rotas';
 import { KeyboardArrowRightIcon } from '~/icons';
 import { Container, Dates, OfertaItemRow, SubTitle, Title } from './styles';
-import moment from 'moment';
 
 // moment(oferta.inicio).format('DD/MM/YYYY')
 
