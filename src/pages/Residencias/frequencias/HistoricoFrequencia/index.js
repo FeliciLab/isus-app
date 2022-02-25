@@ -14,6 +14,7 @@ import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useUserPresencas } from '~/hooks/useUserPresencas';
 import { ArrowLeftIcon } from '~/icons';
+import HistoricoEmBranco from './HistoricoEmBranco';
 import PresencaItem from './PresencaItem';
 import {
   Container,
@@ -21,6 +22,7 @@ import {
   PercentIndicator,
   SubTitle,
   Title,
+  ActivityIndicatorWrapper,
 } from './styles';
 
 const HistoricoFrequencia = () => {
@@ -40,6 +42,23 @@ const HistoricoFrequencia = () => {
   useEffect(() => {
     featchUserPresencas();
   }, []);
+
+  // TODO: ver como isso fica apresentado
+  const daysOfOferta = () => {
+    const initialDate = moment(oferta.inicio);
+
+    const lastDate = moment(oferta.fim);
+
+    const diffDays = lastDate.diff(initialDate, 'days');
+
+    console.log({ diffDays });
+
+    return presencas.map(({ data, turno }) => ({
+      date: data,
+      turn: turno,
+      isPresent: true,
+    }));
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -66,7 +85,11 @@ const HistoricoFrequencia = () => {
   });
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return (
+      <ActivityIndicatorWrapper>
+        <ActivityIndicator size="large" />
+      </ActivityIndicatorWrapper>
+    );
   }
 
   return (
@@ -76,19 +99,18 @@ const HistoricoFrequencia = () => {
         {oferta.title} | {moment(oferta.inicio).format('DD/MM')} a{' '}
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
-      <PercentIndicator>Percentual de presença: 66,3%</PercentIndicator>
+      {presencas.length > 0 && (
+        <PercentIndicator>Percentual de presença: 66,3%</PercentIndicator>
+      )}
       <FlatList
-        data={presencas.map(({ data, turno }) => ({
-          date: data,
-          turn: turno,
-          isPresent: true,
-        }))}
+        data={daysOfOferta()}
         keyExtractor={() => uniqueId('presenca')}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <PresencaItem presenca={item} />}
         ItemSeparatorComponent={() => <Divider />}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 90 }} />}
+        ListEmptyComponent={<HistoricoEmBranco />}
       />
       <HomeButton
         color="#fff"

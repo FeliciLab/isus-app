@@ -42,7 +42,7 @@ export const AlunoInfo = styled.Text`
 
 export const MarcarPresencaButton = styled(FAB)`
   align-self: center;
-  background: #ff9800;
+  background: ${props => (props.disabled ? '#BDBDBD' : '#ff9800')};
   margin: 16px 0;
 `;
 

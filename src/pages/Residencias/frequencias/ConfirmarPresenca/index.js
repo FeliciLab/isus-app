@@ -41,6 +41,10 @@ const ConfirmarPresenca = () => {
 
   const [dialogVisible, setDialogVisible] = useState(false);
 
+  const [isManha, setIsManha] = useState(false);
+
+  const [isTarde, setIsTarde] = useState(false);
+
   const {
     saguUserInfo,
     featchSaguUserInfo,
@@ -58,6 +62,18 @@ const ConfirmarPresenca = () => {
     setProgramaResidencia(saguUserInfo?.programa_residencia);
     setResidenciaMunicipio(saguUserInfo?.municipio_residencia);
   }, [saguUserInfo]);
+
+  useEffect(() => {
+    const schedule = setInterval(() => {
+      const now = moment().format('HH:mm'); // pega o horário atual
+
+      setIsManha(now > '09:00' && now < '10:00');
+
+      setIsTarde(now > '15:00' && now < '16:00');
+    }, 1000);
+
+    return () => clearInterval(schedule);
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -104,7 +120,7 @@ const ConfirmarPresenca = () => {
   const handleMarcarPresencaButton = async () => {
     // Caso as informações do Sagu so usuário já existam
 
-    // Mudar isso, para o caso do usuário já ter marcao a presença no dia
+    // TODO: Mudar isso, para o caso do usuário já ter marcao a presença no dia
     if (saguUserInfo) {
       setDialogVisible(true);
       return;
@@ -197,7 +213,7 @@ const ConfirmarPresenca = () => {
             label="MARCAR PRESENÇA"
             small
             onPress={handleMarcarPresencaButton}
-            disabled={isLoading}
+            disabled={isLoading || !isManha || !isTarde}
             loading={isLoading}
           />
           <Warning>

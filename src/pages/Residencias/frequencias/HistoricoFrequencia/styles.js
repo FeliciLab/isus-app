@@ -36,3 +36,9 @@ export const HomeButton = styled(FAB)`
   align-self: center;
   background: #ff9800;
 `;
+
+export const ActivityIndicatorWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
