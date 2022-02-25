@@ -4,6 +4,9 @@ import { View } from 'react-native';
 import rotas from '~/constantes/rotas';
 import { KeyboardArrowRightIcon } from '~/icons';
 import { Container, Dates, OfertaItemRow, SubTitle, Title } from './styles';
+import moment from 'moment';
+
+// moment(oferta.inicio).format('DD/MM/YYYY')
 
 const OfertaItem = ({ oferta }) => {
   const navigation = useNavigation();
@@ -23,7 +26,8 @@ const OfertaItem = ({ oferta }) => {
         <View>
           <Title>{oferta.title}</Title>
           <Dates>
-            {oferta.inicio} à {oferta.fim}
+            {moment(oferta.inicio).format('DD/MM')} à{' '}
+            {moment(oferta.fim).format('DD/MM/YYYY')}
           </Dates>
         </View>
         <KeyboardArrowRightIcon size={24} />

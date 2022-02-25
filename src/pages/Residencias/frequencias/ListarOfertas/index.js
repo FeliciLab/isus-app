@@ -1,10 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
-import React, { useLayoutEffect } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect, useLayoutEffect } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  // Text,
+  TouchableOpacity,
+} from 'react-native';
 import { Divider } from 'react-native-paper';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
+// import useAutenticacao from '~/hooks/useAutenticacao';
+import { useOfertas } from '~/hooks/useOfertas';
 import { ArrowLeftIcon } from '~/icons';
 import OfertaItem from './OfertaItem';
 import { Container, SubTitle, Title } from './styles';
@@ -12,26 +19,13 @@ import { Container, SubTitle, Title } from './styles';
 const ListarOfertas = () => {
   const navigation = useNavigation();
 
-  const ofertas = [
-    {
-      id: 1,
-      title: 'Imersão 01',
-      inicio: '07/03/2022',
-      fim: '18/03/2022',
-    },
-    {
-      id: 2,
-      title: 'Imersão 02',
-      inicio: '07/03/2022',
-      fim: '18/03/2022',
-    },
-    {
-      id: 3,
-      title: 'Imersão 03',
-      inicio: '07/03/2022',
-      fim: '18/03/2022',
-    },
-  ];
+  const { ofertas, featchOfertas, isLoading } = useOfertas();
+
+  // const { user } = useAutenticacao();
+
+  useEffect(() => {
+    featchOfertas();
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -57,13 +51,28 @@ const ListarOfertas = () => {
     });
   });
 
+  // FIXME: Precisamos colocar aqui a validação para quando o usuãrio não está logado
+  // TODO: melhorar essa parte
+  // if (!user) {
+  //   return <Text>Vocẽ precisa estar logado para acessar essa tela</Text>;
+  // }
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" />;
+  }
+
   return (
     <Container>
       <BarraDeStatus backgroundColor="#4CAF50" barStyle="light-content" />
       <Title>Frequências</Title>
       <SubTitle>Residência Multiprofissional</SubTitle>
       <FlatList
-        data={ofertas}
+        data={ofertas.map(({ id, nome, inicio, fim }) => ({
+          id,
+          title: nome,
+          inicio,
+          fim,
+        }))}
         keyExtractor={() => uniqueId('oferta')}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <Divider />}
