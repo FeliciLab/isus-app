@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import moment from 'moment';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
@@ -9,21 +9,21 @@ import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useSaguUserInfo } from '~/hooks/useSaguUserInfo';
+import { useUserPresencas } from '~/hooks/useUserPresencas';
 import { ArrowLeftIcon } from '~/icons';
-import { updateSaguUserInfo } from '~/services/frequencias';
+import { marcarPresenca, updateSaguUserInfo } from '~/services/frequencias';
 import {
+  ActivityIndicatorWrapper,
   AlunoInfo,
   Container,
+  Content,
   MarcarPresencaButton,
   SubTitle,
   Title,
   Warning,
   WrapperSelect,
-  ActivityIndicatorWrapper,
-  Content,
 } from './styles';
 
-// TODO: Usar react hook form
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
 
@@ -45,35 +45,29 @@ const ConfirmarPresenca = () => {
 
   const [isTarde, setIsTarde] = useState(false);
 
+  const isPresenceIsCheckable = useMemo(() => isManha || isTarde, [
+    isManha,
+    isTarde,
+  ]);
+
+  const currentTurn = useMemo(() => {
+    if (isManha) return 'manhã';
+    if (isTarde) return 'tarde';
+    return 'tarde';
+  }, [isManha, isTarde]);
+
   const {
     saguUserInfo,
     featchSaguUserInfo,
     isLoading: saguUserInfoIsLoading,
   } = useSaguUserInfo(user.id);
 
+  const { presencas, featchUserPresencas } = useUserPresencas(
+    user.id,
+    oferta.id,
+  );
+
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    featchSaguUserInfo();
-  }, []);
-
-  useEffect(() => {
-    setComponente(saguUserInfo?.componente);
-    setProgramaResidencia(saguUserInfo?.programa_residencia);
-    setResidenciaMunicipio(saguUserInfo?.municipio_residencia);
-  }, [saguUserInfo]);
-
-  useEffect(() => {
-    const schedule = setInterval(() => {
-      const now = moment().format('HH:mm'); // pega o horário atual
-
-      setIsManha(now > '09:00' && now < '10:00');
-
-      setIsTarde(now > '15:00' && now < '16:00');
-    }, 1000);
-
-    return () => clearInterval(schedule);
-  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -99,6 +93,29 @@ const ConfirmarPresenca = () => {
     });
   });
 
+  useEffect(() => {
+    featchSaguUserInfo();
+    featchUserPresencas();
+  }, []);
+
+  useEffect(() => {
+    setComponente(saguUserInfo?.componente);
+    setProgramaResidencia(saguUserInfo?.programa_residencia);
+    setResidenciaMunicipio(saguUserInfo?.municipio_residencia);
+  }, [saguUserInfo]);
+
+  useEffect(() => {
+    const schedule = setInterval(() => {
+      const now = moment().format('HH:mm'); // pega o horário atual
+
+      setIsManha(now >= '09:00' && now <= '11:30');
+
+      setIsTarde(now >= '15:00' && now <= '16:00');
+    }, 1000);
+
+    return () => clearInterval(schedule);
+  }, []);
+
   const handleUpdateSaguUserInfo = async () => {
     try {
       setIsLoading(true);
@@ -109,6 +126,13 @@ const ConfirmarPresenca = () => {
         residenciaMunicipio,
       });
 
+      const response = await marcarPresenca(user.id, oferta.id, {
+        data: moment(), // não precisar ser formatada
+        turno: currentTurn,
+      });
+
+      console.log({ response });
+
       navigation.navigate(rotas.SUCESSO_PRESENCA, { oferta });
     } catch (error) {
       console.log(error);
@@ -117,11 +141,20 @@ const ConfirmarPresenca = () => {
     }
   };
 
-  const handleMarcarPresencaButton = async () => {
-    // Caso as informações do Sagu so usuário já existam
+  const handleMarcarPresencaButtonOnPress = async () => {
+    const newPresenca = {
+      data: moment().format('DD/MM/YYYY'),
+      turno: currentTurn,
+    };
 
-    // TODO: Mudar isso, para o caso do usuário já ter marcao a presença no dia
-    if (saguUserInfo) {
+    // Verifica se já existe uma presença para aquele dia e turno para o usuário e oferta
+    const presencaMarcada = presencas.some(
+      item =>
+        newPresenca.data === moment(item.data).format('DD/MM/YYYY') &&
+        newPresenca.turno === item.turno,
+    );
+
+    if (presencaMarcada) {
       setDialogVisible(true);
       return;
     }
@@ -205,15 +238,17 @@ const ConfirmarPresenca = () => {
           <View>
             <AlunoInfo>Aluno(a): {user.name}</AlunoInfo>
             <AlunoInfo>
-              Data: {moment(new Date()).format('DD/MM/YYYY')} | Turno: Manhã{' '}
+              Data: {moment().format('DD/MM/YYYY')} | Turno: {currentTurn}{' '}
             </AlunoInfo>
           </View>
           <MarcarPresencaButton
             color="#fff"
-            label="MARCAR PRESENÇA"
+            label={
+              isPresenceIsCheckable ? 'MARCAR PRESENÇA' : 'FORA DO HORÁRIO'
+            }
             small
-            onPress={handleMarcarPresencaButton}
-            disabled={isLoading || !isManha || !isTarde}
+            onPress={handleMarcarPresencaButtonOnPress}
+            disabled={isLoading || !isPresenceIsCheckable}
             loading={isLoading}
           />
           <Warning>
