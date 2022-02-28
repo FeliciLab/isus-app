@@ -33,6 +33,21 @@ export const getUserPresencas = async (userId, ofertaId) => {
 
 /**
  *
+ * @param {int} userId id do usuário
+ * @param {int} ofertaId id da oferta
+ * @param {data, turno} presenca presenca a ser marcada
+ * @returns
+ */
+export const marcarPresenca = async (userId, ofertaId, presenca) => {
+  const response = await request.post(
+    `/sagu/presencas/${userId}/${ofertaId}`,
+    presenca,
+  );
+  return response.data;
+};
+
+/**
+ *
  * @param {int} userId id do
  * @param {"componente": string, "programaResidencia": string, "residenciaMunicipio": "string"} saguUserInfo
  * @returns
