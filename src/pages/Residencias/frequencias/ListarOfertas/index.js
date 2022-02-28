@@ -14,7 +14,7 @@ import useAutenticacao from '~/hooks/useAutenticacao';
 import { useOfertas } from '~/hooks/useOfertas';
 import { ArrowLeftIcon } from '~/icons';
 import OfertaItem from './OfertaItem';
-import { Container, SubTitle, Title, ActivityIndicatorWrapper } from './styles';
+import { ActivityIndicatorWrapper, Container, SubTitle, Title } from './styles';
 
 const ListarOfertas = () => {
   const navigation = useNavigation();

@@ -17,12 +17,12 @@ import { ArrowLeftIcon } from '~/icons';
 import HistoricoEmBranco from './HistoricoEmBranco';
 import PresencaItem from './PresencaItem';
 import {
+  ActivityIndicatorWrapper,
   Container,
   HomeButton,
   PercentIndicator,
   SubTitle,
   Title,
-  ActivityIndicatorWrapper,
 } from './styles';
 
 const HistoricoFrequencia = () => {

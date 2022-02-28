@@ -5,7 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { ArrowLeftIcon } from '~/icons';
-import { Container, Title, FABButton } from './styles';
+import { Container, FABButton, Title } from './styles';
 
 const SucessoPresenca = () => {
   const navigation = useNavigation();
