@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
 import moment from 'moment';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo } from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -43,22 +43,41 @@ const HistoricoFrequencia = () => {
     featchUserPresencas();
   }, []);
 
-  // TODO: ver como isso fica apresentado
-  const daysOfOferta = () => {
+  const presecasPorOferta = useMemo(() => {
     const initialDate = moment(oferta.inicio);
 
     const lastDate = moment(oferta.fim);
 
     const diffDays = lastDate.diff(initialDate, 'days');
 
-    console.log({ diffDays });
+    const presenciables = [];
 
-    return presencas.map(({ data, turno }) => ({
-      date: data,
-      turn: turno,
-      isPresent: true,
+    for (let index = 0; index <= diffDays; index++) {
+      const auxData = moment(initialDate).add(index, 'day');
+
+      // desconsiderando sábado e domingo
+      if ([1, 2, 3, 4, 5].some(item => item === auxData.day())) {
+        presenciables.push({
+          data: auxData,
+          turno: 'manhã',
+        });
+        presenciables.push({
+          data: auxData,
+          turno: 'tarde',
+        });
+      }
+    }
+
+    return presenciables.map(({ data, turno }) => ({
+      data,
+      turno,
+      isPresent: presencas.some(
+        item =>
+          moment(item.data).format('DD/MM/YYYY') ===
+            moment(data).format('DD/MM/YYYY') && item.turno == turno,
+      ),
     }));
-  };
+  }, [presencas, oferta]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -103,7 +122,7 @@ const HistoricoFrequencia = () => {
         <PercentIndicator>Percentual de presença: 66,3%</PercentIndicator>
       )}
       <FlatList
-        data={daysOfOferta()}
+        data={presecasPorOferta}
         keyExtractor={() => uniqueId('presenca')}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <PresencaItem presenca={item} />}

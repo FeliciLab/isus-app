@@ -50,10 +50,13 @@ const ConfirmarPresenca = () => {
 
   const [isTarde, setIsTarde] = useState(false);
 
-  const isPresenceIsCheckable = useMemo(() => isManha || isTarde, [
-    isManha,
-    isTarde,
-  ]);
+  // é possivel marcar a presenca se estiver no horário e se o dia não é sabado ou domingo
+  const isPresenceIsCheckable = useMemo(() => {
+    return (
+      (isManha || isTarde) &&
+      [1, 2, 3, 4, 5].some(item => item === moment().day())
+    );
+  }, [isManha, isTarde]);
 
   const currentTurn = useMemo(() => {
     if (isManha) return 'manhã';
@@ -131,12 +134,10 @@ const ConfirmarPresenca = () => {
         residenciaMunicipio,
       });
 
-      const response = await marcarPresenca(user.id, oferta.id, {
+      await marcarPresenca(user.id, oferta.id, {
         data: moment(), // não precisar ser formatada
         turno: currentTurn,
       });
-
-      console.log({ response });
 
       navigation.navigate(rotas.SUCESSO_PRESENCA, { oferta });
     } catch (error) {
