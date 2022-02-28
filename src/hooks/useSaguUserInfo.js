@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { getSaguUserInfo } from '~/services/frequencias';
 
 export function useSaguUserInfo(userId) {
-  const [saguUserInfo, setSaguUserInfos] = useState([]);
+  const [saguUserInfo, setSaguUserInfos] = useState({});
 
   const [error, setError] = useState(false);
 
