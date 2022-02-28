@@ -23,6 +23,11 @@ import {
   Warning,
   WrapperSelect,
 } from './styles';
+import {
+  componentesOptions,
+  programasResidenciasOptions,
+  municipiosOptions,
+} from './options';
 
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
@@ -192,10 +197,10 @@ const ConfirmarPresenca = () => {
             label="Componente Hospitalar"
             value={componente}
             setValue={setComponente}
-            items={[
-              { label: 'Comunitário', value: 'Comunitário' },
-              { label: 'Hospitalar', value: 'Hospitalar' },
-            ]}
+            items={componentesOptions.map(item => ({
+              label: item,
+              value: item,
+            }))}
           />
         </WrapperSelect>
       )}
@@ -205,17 +210,10 @@ const ConfirmarPresenca = () => {
             label="Programa de Residência"
             value={programaResidencia}
             setValue={setProgramaResidencia}
-            items={[
-              {
-                label: 'Saúde da Família e Comunidade',
-                value: 'Saúde da Família e Comunidade',
-              },
-              {
-                label: 'Saúde Mental Coletiva',
-                value: 'Saúde Mental Coletiva',
-              },
-              { label: 'Saúde Coletiva', value: 'Saúde Coletiva' },
-            ]}
+            items={programasResidenciasOptions[componente].map(item => ({
+              label: item,
+              value: item,
+            }))}
           />
         </WrapperSelect>
       )}
@@ -225,11 +223,10 @@ const ConfirmarPresenca = () => {
             label="Selecione o Município"
             value={residenciaMunicipio}
             setValue={setResidenciaMunicipio}
-            items={[
-              { label: 'Acaraú', value: 'Acaraú' },
-              { label: 'Aracati', value: 'Aracati' },
-              { label: 'Camocim', value: 'Camocim' },
-            ]}
+            items={municipiosOptions.map(item => ({
+              label: item,
+              value: item,
+            }))}
           />
         </WrapperSelect>
       )}
