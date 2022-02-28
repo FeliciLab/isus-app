@@ -20,3 +20,9 @@ export const SubTitle = styled.Text`
   color: rgba(0, 0, 0, 0.87);
   margin-top: 24px;
 `;
+
+export const ActivityIndicatorWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
