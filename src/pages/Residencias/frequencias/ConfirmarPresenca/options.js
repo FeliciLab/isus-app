@@ -1,29 +1,6 @@
-// TODO: Colocar aqui as opções para os selects
+export const componentes = ['Comunitário', 'Hospitalar'];
 
-export const componentesOptions = ['Comunitário', 'Hospitalar'];
-
-export const programasResidenciasOptions = {
-  Comunitário: [
-    'Saúde da Família e Comunidade',
-    'Saúde Mental Coletiva',
-    'Saúde Coletiva',
-  ],
-  Hospitalar: [
-    'Cancerologia - Fortaleza',
-    'Cancerologia - Sobral',
-    'Cardiopneumologia',
-    'Enfermagem Obstétrica',
-    'Infectologia',
-    'Neonatologia',
-    'Neurologia e Neurocirurgia - Fortaleza',
-    'Neurologia e Neurocirurgia - Juazeiro',
-    'Neurologia e Neurocirurgia - Quixeramobim',
-    'Pediatria',
-    'Urgência e Emergência',
-  ],
-};
-
-export const municipiosOptions = [
+const municipios = [
   'Acaraú',
   'Aracati',
   'Camocim',
@@ -45,3 +22,49 @@ export const municipiosOptions = [
   'Tianguá',
   'Itapipoca',
 ];
+
+const programasResidenciasPorComponentes = {
+  Comunitário: [
+    'Saúde da Família e Comunidade',
+    'Saúde Mental Coletiva',
+    'Saúde Coletiva',
+  ],
+  Hospitalar: [
+    'Cancerologia',
+    'Cardiopneumologia',
+    'Enfermagem Obstétrica',
+    'Infectologia',
+    'Neonatologia',
+    'Neurologia e Neurocirurgia',
+    'Pediatria',
+    'Urgência e Emergência',
+  ],
+};
+
+const municipiosPorProgramasResidencias = {
+  'Saúde da Família e Comunidade': municipios,
+  'Saúde Mental Coletiva': municipios,
+  'Saúde Coletiva': municipios,
+  Cancerologia: ['Fortaleza', 'Sobral'],
+  Cardiopneumologia: [],
+  'Enfermagem Obstétrica': [],
+  Infectologia: [],
+  Neonatologia: [],
+  'Neurologia e Neurocirurgia': ['Fortaleza', 'Juazeiro', 'Quixeramobim'],
+  Pediatria: [],
+  'Urgência e Emergência': [],
+};
+
+export const getProgramasResidencias = componente => {
+  return programasResidenciasPorComponentes[componente]
+    ? programasResidenciasPorComponentes[componente]
+    : [];
+};
+
+export const getResidenciaMunicipios = programaResidencia => {
+  return municipiosPorProgramasResidencias[programaResidencia]
+    ? municipiosPorProgramasResidencias[programaResidencia]
+    : [];
+};
+
+console.log(getResidenciaMunicipios('Saúde da Família e Comunidade'));

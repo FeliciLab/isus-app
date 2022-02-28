@@ -13,6 +13,11 @@ import { useUserPresencas } from '~/hooks/useUserPresencas';
 import { ArrowLeftIcon } from '~/icons';
 import { marcarPresenca, updateSaguUserInfo } from '~/services/frequencias';
 import {
+  componentes,
+  getProgramasResidencias,
+  getResidenciaMunicipios,
+} from './options';
+import {
   ActivityIndicatorWrapper,
   AlunoInfo,
   Container,
@@ -23,11 +28,6 @@ import {
   Warning,
   WrapperSelect,
 } from './styles';
-import {
-  componentesOptions,
-  programasResidenciasOptions,
-  municipiosOptions,
-} from './options';
 
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
@@ -115,8 +115,8 @@ const ConfirmarPresenca = () => {
 
       setIsManha(now >= '09:00' && now <= '11:30');
 
-      setIsTarde(now >= '15:00' && now <= '16:00');
-    }, 1000);
+      setIsTarde(now >= '14:00' && now <= '17:00');
+    }, 100);
 
     return () => clearInterval(schedule);
   }, []);
@@ -196,11 +196,16 @@ const ConfirmarPresenca = () => {
           <Select
             label="Componente Hospitalar"
             value={componente}
-            setValue={setComponente}
-            items={componentesOptions.map(item => ({
+            setValue={value => {
+              setComponente(value);
+              setProgramaResidencia(null);
+              setResidenciaMunicipio(null);
+            }}
+            items={componentes.map(item => ({
               label: item,
               value: item,
             }))}
+            disabled={!isPresenceIsCheckable}
           />
         </WrapperSelect>
       )}
@@ -209,28 +214,35 @@ const ConfirmarPresenca = () => {
           <Select
             label="Programa de Residência"
             value={programaResidencia}
-            setValue={setProgramaResidencia}
-            items={programasResidenciasOptions[componente].map(item => ({
+            setValue={value => {
+              setProgramaResidencia(value);
+              setResidenciaMunicipio(null);
+            }}
+            items={getProgramasResidencias(componente).map(item => ({
               label: item,
               value: item,
             }))}
+            disabled={!isPresenceIsCheckable}
           />
         </WrapperSelect>
       )}
-      {programaResidencia && (
+      {programaResidencia &&
+        getResidenciaMunicipios(programaResidencia).length > 0 && (
         <WrapperSelect>
           <Select
             label="Selecione o Município"
             value={residenciaMunicipio}
             setValue={setResidenciaMunicipio}
-            items={municipiosOptions.map(item => ({
+            items={getResidenciaMunicipios(programaResidencia).map(item => ({
               label: item,
               value: item,
             }))}
+            disabled={!isPresenceIsCheckable}
           />
         </WrapperSelect>
       )}
-      {residenciaMunicipio && (
+      {(residenciaMunicipio ||
+        getResidenciaMunicipios(programaResidencia).length === 0) && (
         <Content>
           <View>
             <AlunoInfo>Aluno(a): {user.name}</AlunoInfo>
