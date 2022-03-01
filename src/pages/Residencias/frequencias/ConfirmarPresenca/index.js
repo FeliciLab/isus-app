@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
 import CustonFAB from '~/components/CustonFAB/index';
@@ -204,17 +204,6 @@ const ConfirmarPresenca = () => {
         {oferta.title} | {moment(oferta.inicio).format('DD/MM')} a{' '}
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
-      <Text>
-        {JSON.stringify(
-          {
-            componente,
-            programaResidencia,
-            residenciaMunicipio,
-          },
-          undefined,
-          2,
-        )}
-      </Text>
       {useSaguUserInfo && (
         <WrapperSelect>
           <Select
