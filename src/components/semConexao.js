@@ -2,14 +2,17 @@ import React, { useLayoutEffect } from 'react';
 import { CORES } from '../constantes/estiloBase';
 import {
   cabecalhoVoltar,
-  cabecalhoVoltarHome
+  cabecalhoVoltarHome,
 } from './layoutEffect/cabecalhoLayout';
 import { Botao, ScrollView, TextoCentralizado, TituloH6, View } from './style';
 
 export default function SemConexao(props) {
   const { navigation } = props;
+
   const { route } = props;
+
   const tituloCabecalho = 'Sem Conexão';
+
   const corFundo = 'verde';
 
   const onPress = () => {
@@ -37,22 +40,20 @@ export default function SemConexao(props) {
   }, []);
 
   return (
-    <>
-      <ScrollView>
-        <View>
-          <TituloH6>Sem conexão com a internet</TituloH6>
-        </View>
-        <View>
-          <TextoCentralizado>
-            Verifique se o wi-fi ou dados móveis estão ativos e tente novamente.
-          </TextoCentralizado>
-        </View>
-        <View>
-          <Botao labelStyle={{ color: CORES.LARANJA }} onPress={onPress}>
-            VOLTAR
-          </Botao>
-        </View>
-      </ScrollView>
-    </>
+    <ScrollView>
+      <View>
+        <TituloH6>Sem conexão com a internet</TituloH6>
+      </View>
+      <View>
+        <TextoCentralizado>
+          Verifique se o wi-fi ou dados móveis estão ativos e tente novamente.
+        </TextoCentralizado>
+      </View>
+      <View>
+        <Botao labelStyle={{ color: CORES.LARANJA }} onPress={onPress}>
+          VOLTAR
+        </Botao>
+      </View>
+    </ScrollView>
   );
 }

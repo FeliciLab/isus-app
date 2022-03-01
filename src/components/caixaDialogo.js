@@ -1,11 +1,11 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
 import {
   Button,
-  Paragraph,
-  Dialog,
-  Portal,
   DefaultTheme,
+  Dialog,
+  Paragraph,
+  Portal,
 } from 'react-native-paper';
 import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 
@@ -19,7 +19,7 @@ const CaixaDialogo = () => {
     textoConclusao,
     aoCancelar,
     aoConcluir,
-  } = React.useContext(CaixaDialogoContext);
+  } = useContext(CaixaDialogoContext);
 
   const theme = {
     ...DefaultTheme,
