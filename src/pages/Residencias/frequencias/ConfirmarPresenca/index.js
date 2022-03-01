@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
 import CustonFAB from '~/components/CustonFAB/index';
@@ -64,6 +64,17 @@ const ConfirmarPresenca = () => {
     return 'tarde';
   }, [isManha, isTarde]);
 
+  const atualSaguUserInfoIsValid = useMemo(() => {
+    return getResidenciaMunicipios(programaResidencia).length > 0
+      ? componente && programaResidencia && residenciaMunicipio
+      : componente && programaResidencia;
+  }, [
+    getResidenciaMunicipios,
+    componente,
+    programaResidencia,
+    residenciaMunicipio,
+  ]);
+
   const {
     saguUserInfo,
     featchSaguUserInfo,
@@ -116,9 +127,9 @@ const ConfirmarPresenca = () => {
     const schedule = setInterval(() => {
       const now = moment().format('HH:mm'); // pega o horário atual
 
-      setIsManha(now >= '09:00' && now <= '10:00');
+      setIsManha(now >= '09:00' && now <= '11:30');
 
-      setIsTarde(now >= '15:00' && now <= '16:00');
+      setIsTarde(now >= '14:00' && now <= '17:00');
     }, 100);
 
     return () => clearInterval(schedule);
@@ -193,6 +204,17 @@ const ConfirmarPresenca = () => {
         {oferta.title} | {moment(oferta.inicio).format('DD/MM')} a{' '}
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
+      <Text>
+        {JSON.stringify(
+          {
+            componente,
+            programaResidencia,
+            residenciaMunicipio,
+          },
+          undefined,
+          2,
+        )}
+      </Text>
       {useSaguUserInfo && (
         <WrapperSelect>
           <Select
@@ -243,8 +265,7 @@ const ConfirmarPresenca = () => {
           />
         </WrapperSelect>
       )}
-      {(residenciaMunicipio ||
-        getResidenciaMunicipios(programaResidencia).length === 0) && (
+      {atualSaguUserInfoIsValid && (
         <Content>
           <View>
             <AlunoInfo>Aluno(a): {user.name}</AlunoInfo>
