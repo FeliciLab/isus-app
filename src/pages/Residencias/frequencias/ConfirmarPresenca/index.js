@@ -127,9 +127,9 @@ const ConfirmarPresenca = () => {
     const schedule = setInterval(() => {
       const now = moment().format('HH:mm'); // pega o horário atual
 
-      setIsManha(now >= '09:00' && now <= '11:30');
+      setIsManha(now >= '09:00' && now <= '10:00');
 
-      setIsTarde(now >= '14:00' && now <= '17:00');
+      setIsTarde(now >= '15:00' && now <= '16:00');
     }, 100);
 
     return () => clearInterval(schedule);
