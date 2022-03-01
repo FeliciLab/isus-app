@@ -4,6 +4,7 @@ import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
+import CustonFAB from '~/components/CustonFAB/index';
 import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -22,7 +23,6 @@ import {
   AlunoInfo,
   Container,
   Content,
-  MarcarPresencaButton,
   SubTitle,
   Title,
   Warning,
@@ -252,7 +252,7 @@ const ConfirmarPresenca = () => {
               Data: {moment().format('DD/MM/YYYY')} | Turno: {currentTurn}{' '}
             </AlunoInfo>
           </View>
-          <MarcarPresencaButton
+          <CustonFAB
             color="#fff"
             label={
               isPresenceIsCheckable ? 'MARCAR PRESENÇA' : 'FORA DO HORÁRIO'

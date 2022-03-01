@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { Divider } from 'react-native-paper';
+import CustonFAB from '~/components/CustonFAB/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -19,7 +20,6 @@ import PresencaItem from './PresencaItem';
 import {
   ActivityIndicatorWrapper,
   Container,
-  HomeButton,
   PercentIndicator,
   SubTitle,
   Title,
@@ -147,8 +147,7 @@ const HistoricoFrequencia = () => {
         ListFooterComponent={<View style={{ height: 90 }} />}
         ListEmptyComponent={<HistoricoEmBranco />}
       />
-      <HomeButton
-        color="#fff"
+      <CustonFAB
         label="Home"
         small
         onPress={() => navigation.navigate(rotas.RESIDENCIA_MEDICA)}

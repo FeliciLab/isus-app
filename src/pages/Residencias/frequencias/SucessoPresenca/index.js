@@ -51,13 +51,11 @@ const SucessoPresenca = () => {
       <AntDesign name="checkcircle" size={width * 0.3} color={CORES.VERDE} />
       <Title>Sua frequência foi salva com sucesso.</Title>
       <FABButton
-        color="#fff"
         label="HISTÓRICO DE PRESENÇA"
         small
         onPress={handleNavigateToHistoricoFrequencia}
       />
       <FABButton
-        color="#fff"
         label="Home"
         small
         onPress={handleNavigateToResidenciaMedica}

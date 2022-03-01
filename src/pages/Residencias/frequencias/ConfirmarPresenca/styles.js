@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { FAB } from 'react-native-paper';
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -38,12 +37,6 @@ export const AlunoInfo = styled.Text`
   line-height: 26px;
   letter-spacing: 0.15px;
   color: rgba(0, 0, 0, 0.87);
-`;
-
-export const MarcarPresencaButton = styled(FAB)`
-  align-self: center;
-  background: ${props => (props.disabled ? '#BDBDBD' : '#ff9800')};
-  margin: 16px 0;
 `;
 
 export const Warning = styled.Text`

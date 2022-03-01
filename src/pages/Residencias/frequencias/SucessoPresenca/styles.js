@@ -1,5 +1,6 @@
-import { FAB } from 'react-native-paper';
 import styled from 'styled-components/native';
+
+import CustonFAB from '~/components/CustonFAB';
 
 export const Container = styled.View`
   flex: 1;
@@ -17,7 +18,6 @@ export const Title = styled.Text`
   margin: 8px 0;
 `;
 
-export const FABButton = styled(FAB)`
+export const FABButton = styled(CustonFAB)`
   margin-top: 20px;
-  background: #ff9800;
 `;
