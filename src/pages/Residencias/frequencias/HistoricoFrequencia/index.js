@@ -46,7 +46,8 @@ const HistoricoFrequencia = () => {
   const presecasPorOferta = useMemo(() => {
     const initialDate = moment(oferta.inicio);
 
-    const lastDate = moment(oferta.fim);
+    // min entre o dia atual e o fim da oferta
+    const lastDate = moment.min(moment(), moment(oferta.fim));
 
     const diffDays = lastDate.diff(initialDate, 'days');
 
@@ -68,7 +69,7 @@ const HistoricoFrequencia = () => {
       }
     }
 
-    return presenciables.map(({ data, turno }) => ({
+    return presenciables.reverse().map(({ data, turno }) => ({
       data,
       turno,
       isPresent: presencas.some(
@@ -78,6 +79,19 @@ const HistoricoFrequencia = () => {
       ),
     }));
   }, [presencas, oferta]);
+
+  const percentualPresencas = useMemo(() => {
+    const countIsPresent = presecasPorOferta.reduce((acc, curr) => {
+      if (curr.isPresent) {
+        acc++;
+      }
+      return acc;
+    }, 0);
+
+    const percent = countIsPresent / presecasPorOferta.length;
+
+    return `${parseFloat(percent * 100).toFixed(1)}%`;
+  }, [presecasPorOferta]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -119,7 +133,9 @@ const HistoricoFrequencia = () => {
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
       {presencas.length > 0 && (
-        <PercentIndicator>Percentual de presença: 66,3%</PercentIndicator>
+        <PercentIndicator>
+          Percentual de presença: {percentualPresencas}
+        </PercentIndicator>
       )}
       <FlatList
         data={presecasPorOferta}
