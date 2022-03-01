@@ -128,16 +128,17 @@ const ConfirmarPresenca = () => {
     try {
       setIsLoading(true);
 
-      await updateSaguUserInfo(user.id, {
-        componente,
-        programaResidencia,
-        residenciaMunicipio,
-      });
-
-      await marcarPresenca(user.id, oferta.id, {
-        data: moment(), // não precisar ser formatada
-        turno: currentTurn,
-      });
+      await Promise.all([
+        updateSaguUserInfo(user.id, {
+          componente,
+          programaResidencia,
+          residenciaMunicipio,
+        }),
+        marcarPresenca(user.id, oferta.id, {
+          data: moment(), // não precisar ser formatada
+          turno: currentTurn,
+        }),
+      ]);
 
       navigation.navigate(rotas.SUCESSO_PRESENCA, { oferta });
     } catch (error) {

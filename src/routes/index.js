@@ -28,6 +28,7 @@ import Residencias from '~/pages/Residencias';
 import ConfirmarPresenca from '~/pages/Residencias/frequencias/ConfirmarPresenca';
 import HistoricoFrequencia from '~/pages/Residencias/frequencias/HistoricoFrequencia/index';
 import ListarOfertas from '~/pages/Residencias/frequencias/ListarOfertas';
+import LoginFrequencias from '~/pages/Residencias/frequencias/LoginFrequencias/index';
 import SucessoPresenca from '~/pages/Residencias/frequencias/SucessoPresenca';
 import NovoSemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
@@ -37,6 +38,7 @@ import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import PreCadastroRoutes from './preCadastro.routes';
+import useAutenticacao from '~/hooks/useAutenticacao';
 
 const RootStack = createStackNavigator();
 
@@ -99,6 +101,9 @@ function SemConexaoNovo(props) {
 
 export default function App({ navigationRef }) {
   const routeNameRef = useRef();
+
+  const { user } = useAutenticacao();
+
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -208,19 +213,23 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.LISTAR_OFERTAS}
-          component={ListarOfertas}
+          component={user ? ListarOfertas : LoginFrequencias}
         />
         <RootStack.Screen
           name={rotas.HISTORICO_FREQUENCIA}
-          component={HistoricoFrequencia}
+          component={user ? HistoricoFrequencia : LoginFrequencias}
         />
         <RootStack.Screen
           name={rotas.CONFIRMAR_PRESENCA}
-          component={ConfirmarPresenca}
+          component={user ? ConfirmarPresenca : LoginFrequencias}
         />
         <RootStack.Screen
           name={rotas.SUCESSO_PRESENCA}
-          component={SucessoPresenca}
+          component={user ? SucessoPresenca : LoginFrequencias}
+        />
+        <RootStack.Screen
+          name={rotas.LOGIN_FREQUENCIA}
+          component={LoginFrequencias}
         />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen

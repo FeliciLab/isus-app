@@ -1,16 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
 import React, { useEffect, useLayoutEffect } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
-import useAutenticacao from '~/hooks/useAutenticacao';
 import { useOfertas } from '~/hooks/useOfertas';
 import { ArrowLeftIcon } from '~/icons';
 import OfertaItem from './OfertaItem';
@@ -20,8 +14,6 @@ const ListarOfertas = () => {
   const navigation = useNavigation();
 
   const { ofertas, featchOfertas, isLoading } = useOfertas();
-
-  const { user } = useAutenticacao();
 
   useEffect(() => {
     featchOfertas();
@@ -50,12 +42,6 @@ const ListarOfertas = () => {
       ),
     });
   });
-
-  // FIXME: Precisamos colocar aqui a validação para quando o usuãrio não está logado
-  // TODO: melhorar essa parte
-  if (!user) {
-    return <Text>Vocẽ precisa estar logado para acessar essa tela</Text>;
-  }
 
   if (isLoading) {
     return (
