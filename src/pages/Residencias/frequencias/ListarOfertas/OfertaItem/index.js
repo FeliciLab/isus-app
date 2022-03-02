@@ -22,8 +22,6 @@ const OfertaItem = ({ oferta }) => {
     return false;
   }, [oferta]);
 
-  console.log({ isDisabled });
-
   const handleNavigateToConfirmarPresenca = useCallback(
     () => navigation.navigate(rotas.CONFIRMAR_PRESENCA, { oferta }),
     [],
