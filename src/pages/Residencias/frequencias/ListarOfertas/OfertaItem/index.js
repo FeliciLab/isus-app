@@ -9,16 +9,14 @@ import { Container, Dates, OfertaItemRow, SubTitle, Title } from './styles';
 const OfertaItem = ({ oferta }) => {
   const navigation = useNavigation();
 
-  const isDisabled = useMemo(() => {
+  const isForaDoPeriodo = useMemo(() => {
     const now = moment();
-
     if (
-      moment(now).isAfter(oferta.fim) ||
-      moment(now).isBefore(oferta.inicio)
+      moment(now).isAfter(oferta.fim, 'day') ||
+      moment(now).isBefore(oferta.inicio, 'day')
     ) {
       return true;
     }
-
     return false;
   }, [oferta]);
 
@@ -35,7 +33,7 @@ const OfertaItem = ({ oferta }) => {
   return (
     <Container>
       <OfertaItemRow
-        disabled={isDisabled}
+        disabled={isForaDoPeriodo}
         onPress={handleNavigateToConfirmarPresenca}>
         <View>
           <Title>{oferta.title}</Title>
@@ -44,13 +42,13 @@ const OfertaItem = ({ oferta }) => {
             {moment(oferta.fim).format('DD/MM/YYYY')}
           </Dates>
         </View>
-        <KeyboardArrowRightIcon disabled={isDisabled} size={24} />
+        <KeyboardArrowRightIcon disabled={isForaDoPeriodo} size={24} />
       </OfertaItemRow>
       <OfertaItemRow
-        disabled={isDisabled}
+        disabled={isForaDoPeriodo}
         onPress={handleNavigateToHisoricoFrequencias}>
-        <SubTitle disabled={isDisabled}>Histórico de Frequência</SubTitle>
-        <KeyboardArrowRightIcon disabled={isDisabled} size={24} />
+        <SubTitle disabled={isForaDoPeriodo}>Histórico de Frequência</SubTitle>
+        <KeyboardArrowRightIcon disabled={isForaDoPeriodo} size={24} />
       </OfertaItemRow>
     </Container>
   );
