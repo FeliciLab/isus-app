@@ -1,28 +1,44 @@
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { View } from 'react-native';
 import rotas from '~/constantes/rotas';
 import { KeyboardArrowRightIcon } from '~/icons';
 import { Container, Dates, OfertaItemRow, SubTitle, Title } from './styles';
 
-// moment(oferta.inicio).format('DD/MM/YYYY')
-
 const OfertaItem = ({ oferta }) => {
   const navigation = useNavigation();
 
-  // TODO: implementar
-  const handleNavigateToConfirmarPresenca = () => {
-    navigation.navigate(rotas.CONFIRMAR_PRESENCA, { oferta });
-  };
+  const isDisabled = useMemo(() => {
+    const now = moment();
 
-  const handleNavigateToHisoricoFrequencias = () => {
-    navigation.navigate(rotas.HISTORICO_FREQUENCIA, { oferta });
-  };
+    if (
+      moment(now).isAfter(oferta.fim) ||
+      moment(now).isBefore(oferta.inicio)
+    ) {
+      return true;
+    }
+
+    return false;
+  }, [oferta]);
+
+  console.log({ isDisabled });
+
+  const handleNavigateToConfirmarPresenca = useCallback(
+    () => navigation.navigate(rotas.CONFIRMAR_PRESENCA, { oferta }),
+    [],
+  );
+
+  const handleNavigateToHisoricoFrequencias = useCallback(
+    () => navigation.navigate(rotas.HISTORICO_FREQUENCIA, { oferta }),
+    [],
+  );
 
   return (
     <Container>
-      <OfertaItemRow onPress={handleNavigateToConfirmarPresenca}>
+      <OfertaItemRow
+        disabled={isDisabled}
+        onPress={handleNavigateToConfirmarPresenca}>
         <View>
           <Title>{oferta.title}</Title>
           <Dates>
@@ -30,11 +46,13 @@ const OfertaItem = ({ oferta }) => {
             {moment(oferta.fim).format('DD/MM/YYYY')}
           </Dates>
         </View>
-        <KeyboardArrowRightIcon size={24} />
+        <KeyboardArrowRightIcon disabled={isDisabled} size={24} />
       </OfertaItemRow>
-      <OfertaItemRow onPress={handleNavigateToHisoricoFrequencias}>
-        <SubTitle>Histórico de Frequência</SubTitle>
-        <KeyboardArrowRightIcon size={24} />
+      <OfertaItemRow
+        disabled={isDisabled}
+        onPress={handleNavigateToHisoricoFrequencias}>
+        <SubTitle disabled={isDisabled}>Histórico de Frequência</SubTitle>
+        <KeyboardArrowRightIcon disabled={isDisabled} size={24} />
       </OfertaItemRow>
     </Container>
   );

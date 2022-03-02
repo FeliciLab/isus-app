@@ -61,7 +61,7 @@ const ConfirmarPresenca = () => {
   const currentTurn = useMemo(() => {
     if (isManha) return 'manhã';
     if (isTarde) return 'tarde';
-    return 'tarde';
+    return '-';
   }, [isManha, isTarde]);
 
   const atualSaguUserInfoIsValid = useMemo(() => {
@@ -127,7 +127,7 @@ const ConfirmarPresenca = () => {
     const schedule = setInterval(() => {
       const now = moment().format('HH:mm'); // pega o horário atual
 
-      setIsManha(now >= '09:00' && now <= '10:00');
+      setIsManha(now >= '09:00' && now <= '12:00');
 
       setIsTarde(now >= '15:00' && now <= '16:00');
     }, 100);
@@ -218,7 +218,6 @@ const ConfirmarPresenca = () => {
               label: item,
               value: item,
             }))}
-            disabled={!isPresenceIsCheckable}
           />
         </WrapperSelect>
       )}
@@ -235,7 +234,6 @@ const ConfirmarPresenca = () => {
               label: item,
               value: item,
             }))}
-            disabled={!isPresenceIsCheckable}
           />
         </WrapperSelect>
       )}
@@ -250,7 +248,6 @@ const ConfirmarPresenca = () => {
               label: item,
               value: item,
             }))}
-            disabled={!isPresenceIsCheckable}
           />
         </WrapperSelect>
       )}

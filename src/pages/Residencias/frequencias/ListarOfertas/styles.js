@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
+import { CORES } from '~/constantes/estiloBase';
 
 export const Container = styled.View`
   flex: 1;
   padding: 24px 20px;
+  background-color: ${CORES.BRANCO};
 `;
 
 export const Title = styled.Text`
@@ -17,7 +19,7 @@ export const SubTitle = styled.Text`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.15px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${CORES.PRETO87};
   margin-top: 24px;
 `;
 
