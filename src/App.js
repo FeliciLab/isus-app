@@ -8,6 +8,7 @@ import OneSignal from 'react-native-onesignal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import CaixaDialogo from './components/caixaDialogo';
+import { CORES } from './constantes/estiloBase';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
 import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
@@ -75,7 +76,7 @@ function App() {
 
   return (
     <>
-      <StatusBar backgroundColor="#4CAF50" barStyle="light-content" />
+      <StatusBar backgroundColor={CORES.VERDE} barStyle="light-content" />
       <FeatureToggles features={featuresAtivas}>
         <AutenticacaoProvider>
           <AppTrackTransparencyProvider>

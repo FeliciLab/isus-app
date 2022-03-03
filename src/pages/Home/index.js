@@ -3,6 +3,8 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/barraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import Banners from './Banners';
@@ -10,7 +12,6 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo';
-import rotas from '~/constantes/rotas';
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 
@@ -22,7 +23,6 @@ export default function Home() {
   const { user, showTutorial } = useAutenticacao();
 
   async function redirectToWelcome() {
-
     if (showTutorial) {
       return navigation.reset({
         index: 0,
@@ -39,11 +39,11 @@ export default function Home() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: user ? '#FFF' : '#4CAF50',
+        backgroundColor: user ? CORES.BRANCO : CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: user ? '#000' : '#FFF',
+      headerTintColor: user ? CORES.PRETO : CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'iSUS',
       headerRight: () => (
@@ -55,7 +55,11 @@ export default function Home() {
             await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate(rotas.SEARCH_STACK_SCREEN);
           }}>
-          <Icon name="magnify" size={28} color={user ? '#4CAF50' : '#FFF'} />
+          <Icon
+            name="magnify"
+            size={28}
+            color={user ? CORES.VERDE : CORES.BRANCO}
+          />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -66,22 +70,26 @@ export default function Home() {
           onPress={() => {
             navigation.toggleDrawer();
           }}>
-          <Icon name="menu" size={28} color={user ? '#4CAF50' : '#FFF'} />
+          <Icon
+            name="menu"
+            size={28}
+            color={user ? CORES.VERDE : CORES.BRANCO}
+          />
         </TouchableOpacity>
       ),
     });
-  }, []);
+  }, [user]);
 
   const { width } = Dimensions.get('screen');
 
   return (
     <>
       <BarraDeStatus
-        backgroundColor={user ? '#FFF' : '#4CAF50'}
+        backgroundColor={user ? CORES.BRANCO : CORES.VERDE}
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
-      <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
+      <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
