@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { CORES } from '~/constantes/estiloBase';
 
 export const Container = styled.View``;
 
@@ -10,7 +11,7 @@ export const OfertaItemRow = styled.TouchableOpacity`
 `;
 
 export const Title = styled.Text`
-  color: #000;
+  color: ${props => (props.disabled ? CORES.CINZA : CORES.PRETO)};
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -21,11 +22,11 @@ export const SubTitle = styled.Text`
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0.15px;
-  color: rgba(0, 0, 0, 0.87);
+  color: ${props => (props.disabled ? CORES.CINZA : CORES.PRETO87)};
 `;
 
 export const Dates = styled.Text`
-  color: #000;
+  color: ${props => (props.disabled ? CORES.CINZA : CORES.PRETO)};
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

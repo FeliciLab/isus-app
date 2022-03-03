@@ -36,8 +36,8 @@ const OfertaItem = ({ oferta }) => {
         disabled={isForaDoPeriodo}
         onPress={handleNavigateToConfirmarPresenca}>
         <View>
-          <Title>{oferta.title}</Title>
-          <Dates>
+          <Title disabled={isForaDoPeriodo}>{oferta.title}</Title>
+          <Dates disabled={isForaDoPeriodo}>
             {moment(oferta.inicio).format('DD/MM')} à{' '}
             {moment(oferta.fim).format('DD/MM/YYYY')}
           </Dates>
