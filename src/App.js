@@ -75,21 +75,19 @@ function App() {
   };
 
   return (
-    <>
+    <FeatureToggles features={featuresAtivas}>
       <StatusBar backgroundColor={CORES.VERDE} barStyle="light-content" />
-      <FeatureToggles features={featuresAtivas}>
-        <AutenticacaoProvider>
-          <AppTrackTransparencyProvider>
-            <CaixaDialogoProvider>
-              <SafeAreaProvider>
-                <Routes navigationRef={navigationRef} />
-                <CaixaDialogo />
-              </SafeAreaProvider>
-            </CaixaDialogoProvider>
-          </AppTrackTransparencyProvider>
-        </AutenticacaoProvider>
-      </FeatureToggles>
-    </>
+      <AutenticacaoProvider>
+        <AppTrackTransparencyProvider>
+          <CaixaDialogoProvider>
+            <SafeAreaProvider>
+              <Routes navigationRef={navigationRef} />
+              <CaixaDialogo />
+            </SafeAreaProvider>
+          </CaixaDialogoProvider>
+        </AppTrackTransparencyProvider>
+      </AutenticacaoProvider>
+    </FeatureToggles>
   );
 }
 

@@ -40,11 +40,11 @@ export default function PerfilScreen() {
         if (!logado) return;
 
         const token = await pegarTokenDoUsuarioNoStorage();
-        setToken(token);
+        await setToken(token);
         try {
           const perfil = await perfilUsuario();
-          setUser(perfil.data);
-          alterarPessoa(perfil.data);
+          await setUser(perfil.data);
+          await alterarPessoa(perfil.data);
           salvarDados('perfil', perfil.data);
         } catch (err) {
           console.log('ERRO', err);

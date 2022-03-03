@@ -46,7 +46,7 @@ const AutenticacaoProvider = ({ children }) => {
 
     await setUser(perfil.data);
 
-    alterarPessoa(perfil.data);
+    await alterarPessoa(perfil.data);
 
     return perfil.cadastrado;
   }, []);
@@ -58,11 +58,11 @@ const AutenticacaoProvider = ({ children }) => {
 
     await setUser(null);
 
-    alterarPessoa({});
+    await alterarPessoa({});
   }, [token]);
 
-  const alterarPessoa = dados => {
-    setPessoa({
+  const alterarPessoa = async dados => {
+    await setPessoa({
       ...Pessoa.criar(dados),
     });
   };

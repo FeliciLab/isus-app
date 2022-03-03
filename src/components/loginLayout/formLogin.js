@@ -111,13 +111,13 @@ const formLogin = ({ rotaAposLogin }) => {
         return;
       }
 
-      setToken(token);
-      salvarTokenDoUsuarioNoStorage(token);
+      await setToken(token);
+      await salvarTokenDoUsuarioNoStorage(token);
 
       const perfil = await perfilUsuario();
 
-      setUser(perfil.data);
-      alterarPessoa(perfil.data);
+      await setUser(perfil.data);
+      await alterarPessoa(perfil.data);
 
       setCarregando(false);
 
