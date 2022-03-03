@@ -15,7 +15,9 @@ const indexTitle = 1;
 
 export default function appTopTabScreen({ route, navigation }) {
   const genericComponent = route.params[indexComponent].type;
+
   const title = route.params[indexTitle];
+
   const [categorias, setCategorias] = useState([
     {
       name: ' ',
@@ -40,6 +42,7 @@ export default function appTopTabScreen({ route, navigation }) {
       }
 
       setCategorias(resposta.data[route.name]);
+
       salvarDados(`@categorias_${route.name}`, resposta.data[route.name]);
     } catch (err) {
       if (err.message === 'Network Error') {

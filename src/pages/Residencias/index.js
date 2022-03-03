@@ -25,7 +25,7 @@ const residenciasCards = [
     ativo: true,
     icone: FrequenciasSVG,
     navegacao: {
-      componente: ROTAS.LISTAR_OFERTAS,
+      componente: ROTAS.FREQUENCIAS,
     },
   },
   {

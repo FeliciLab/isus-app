@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import ConteudoDrawer from '~/components/ConteudoDrawer';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { FormProvider } from '~/context/FormContext';
 import { SemConexaoProvider } from '~/context/SemConexaoContext';
@@ -15,9 +16,9 @@ import {
 } from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
 import Login from '~/pages/Login';
 import FormLogin from '~/pages/Login/FormularioLogin';
+import PerfilScreen from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/contaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
-import PerfilScreen from '~/pages/Perfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
@@ -31,7 +32,7 @@ export default function AppDrawerScreen() {
       initialRouteName="SERVICE"
       drawerPosition="left"
       drawerStyle={{
-        backgroundColor: '#fff',
+        backgroundColor: CORES.BRANCO,
         width: Dimensions.get('screen').width / 1.5,
       }}
       drawerContent={props => (
@@ -120,6 +121,7 @@ function DeleteProfileScreen() {
   );
 }
 const AboutStack = createStackNavigator();
+
 function AboutStackScreen() {
   return (
     <AboutStack.Navigator>
@@ -133,6 +135,7 @@ function AboutStackScreen() {
 }
 
 const LoginStack = createStackNavigator();
+
 function LoginStackScreen() {
   return (
     <LoginStack.Navigator>
@@ -153,6 +156,7 @@ function LoginStackScreen() {
 }
 
 const FormLoginStack = createStackNavigator();
+
 function FormLoginStackScreen() {
   return (
     <FormProvider>
@@ -171,6 +175,7 @@ function FormLoginStackScreen() {
 }
 
 const PerfilStack = createStackNavigator();
+
 function PerfilStackScreen() {
   return (
     <PerfilStack.Navigator>
@@ -184,6 +189,7 @@ function PerfilStackScreen() {
 }
 
 const TermosDeUsoStack = createStackNavigator();
+
 function TermosDeUsoStackScreen() {
   return (
     <TermosDeUsoStack.Navigator>
@@ -197,6 +203,7 @@ function TermosDeUsoStackScreen() {
 }
 
 const PoliticaDePrivacidadeStack = createStackNavigator();
+
 function PoliticaDePrivacidadeStackScreen() {
   return (
     <PoliticaDePrivacidadeStack.Navigator>
@@ -210,6 +217,7 @@ function PoliticaDePrivacidadeStackScreen() {
 }
 
 const FeedbackStack = createStackNavigator();
+
 function FeedbackStackScreen() {
   return (
     <FeedbackStack.Navigator>
@@ -224,6 +232,7 @@ function FeedbackStackScreen() {
 }
 
 const DuvidasElmoStack = createStackNavigator();
+
 function DuvidasElmoStackScreen() {
   return (
     <DuvidasElmoStack.Navigator>
@@ -238,6 +247,7 @@ function DuvidasElmoStackScreen() {
 }
 
 const SusNoCearaStack = createStackNavigator();
+
 function SusNoCearaStackScreen() {
   return (
     <SusNoCearaStack.Navigator>
