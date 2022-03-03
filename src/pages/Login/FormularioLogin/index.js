@@ -68,7 +68,7 @@ const FormularioLogin = ({ route }) => {
     try {
       setCarregando(true);
 
-      const cadastrado = signIn(email, senha);
+      const cadastrado = await signIn(email, senha);
 
       setValue('email', '');
       setValue('senha', '');

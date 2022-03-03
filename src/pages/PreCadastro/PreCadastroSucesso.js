@@ -1,28 +1,23 @@
-import React, { useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import TelaDeSucesso from '~/components/TelaDeSucesso';
 import { CORES } from '~/constantes/estiloBase';
-import { AutenticacaoContext } from '~/context/AutenticacaoContext';
-import { armazenarEstadoLogado } from '~/services/autenticacao';
+import rotas from '~/constantes/rotas';
+import useAutenticacao from '~/hooks/useAutenticacao';
 
 const PreCadastroSucesso = ({ route }) => {
   const navigation = useNavigation();
 
   const { usuario } = route.params;
 
-  const { alterarDadosUsuario, alterarEstaLogado, alterarPessoa } = useContext(
-    AutenticacaoContext,
-  );
+  const { setUser, alterarPessoa } = useAutenticacao();
 
   useEffect(() => {
-    alterarDadosUsuario(usuario);
+    setUser(usuario);
     alterarPessoa(usuario);
-    alterarEstaLogado(true);
-    armazenarEstadoLogado(true);
 
-    // TODO: Por que esse timeout?
     setTimeout(() => {
-      navigation.navigate('HOME');
+      navigation.navigate(rotas.HOME);
     }, 4000);
   }, []);
 

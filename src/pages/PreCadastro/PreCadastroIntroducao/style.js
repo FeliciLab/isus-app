@@ -2,7 +2,7 @@ import { Dimensions, ImageBackground } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import styled from 'styled-components/native';
 
-export const ContainerPage = styled(ImageBackground)`
+export const Container = styled(ImageBackground)`
   flex: 1;
   justify-content: flex-end;
 `;
@@ -33,7 +33,3 @@ export const TextBody = styled(Paragraph)`
   font-weight: 400;
   font-size: 14px;
 `;
-
-export default {
-  ContainerPage,
-};

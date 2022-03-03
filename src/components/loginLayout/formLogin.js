@@ -112,16 +112,19 @@ const formLogin = ({ rotaAposLogin }) => {
       }
 
       await setToken(token);
+
       await salvarTokenDoUsuarioNoStorage(token);
 
       const perfil = await perfilUsuario();
 
       await setUser(perfil.data);
+
       await alterarPessoa(perfil.data);
 
       setCarregando(false);
 
       navigator.navigate(rotaAposLogin);
+
       return;
     } catch (error) {
       console.log('ERRO', error);

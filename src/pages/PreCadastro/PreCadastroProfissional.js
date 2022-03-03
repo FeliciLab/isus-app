@@ -5,8 +5,8 @@ import { perfilUsuario } from '~/apis/apiCadastro';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import FormProfissional from '~/components/FormPessoa/FormProfissional';
 import ROTAS from '~/constantes/rotas';
-import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 import FormContext from '~/context/FormContext';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import { atualizarUsuario } from '~/services/usuarioService';
 import { ContainerBody, RowButton } from './styles';
 
@@ -15,15 +15,13 @@ const PreCadastroProfissional = () => {
 
   const { getValues } = useContext(FormContext);
 
-  const { alterarDadosUsuario, tokenUsuario, alterarPessoa } = useContext(
-    AutenticacaoContext,
-  );
+  const { setUser, token, alterarPessoa } = useAutenticacao();
 
   const atualizarAutenticacao = async () => {
-    const perfil = await perfilUsuario(tokenUsuario);
+    const perfil = await perfilUsuario(token);
     console.log('atualizando perfil', perfil.data);
-    alterarDadosUsuario(perfil.data);
-    alterarPessoa(perfil.data);
+    await setUser(perfil.data);
+    await alterarPessoa(perfil.data);
   };
 
   return (
