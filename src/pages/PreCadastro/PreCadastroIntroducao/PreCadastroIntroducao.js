@@ -5,7 +5,7 @@ import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ROTAS from '~/constantes/rotas';
 import {
   ContainerBody,
-  ContainerPage,
+  Container,
   RowButton,
   RowTextIntro,
   TextBody,
@@ -20,24 +20,22 @@ export default function PreCadastroIntroducao() {
   };
 
   return (
-    <>
-      <ContainerPage source={BgIntro}>
-        <ContainerBody>
-          <RowTextIntro>
-            <TextTitle style={{ fontWeight: 'bold' }}>
-              Que bom ter você com a gente!
-            </TextTitle>
-            <TextBody>
-              Falta pouco para concluir o seu cadastro no iSUS. Precisamos
-              conhecer você melhor para lhe oferecer conteúdos selecionados de
-              acordo com o seu perfil.
-            </TextBody>
-          </RowTextIntro>
-          <RowButton>
-            <BotaoLaranja onPress={onPress}>Continuar</BotaoLaranja>
-          </RowButton>
-        </ContainerBody>
-      </ContainerPage>
-    </>
+    <Container source={BgIntro}>
+      <ContainerBody>
+        <RowTextIntro>
+          <TextTitle style={{ fontWeight: 'bold' }}>
+            Que bom ter você com a gente!
+          </TextTitle>
+          <TextBody>
+            Falta pouco para concluir o seu cadastro no iSUS. Precisamos
+            conhecer você melhor para lhe oferecer conteúdos selecionados de
+            acordo com o seu perfil.
+          </TextBody>
+        </RowTextIntro>
+        <RowButton>
+          <BotaoLaranja onPress={onPress}>Continuar</BotaoLaranja>
+        </RowButton>
+      </ContainerBody>
+    </Container>
   );
 }

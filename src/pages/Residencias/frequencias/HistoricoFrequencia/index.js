@@ -1,15 +1,25 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
-import React, { useLayoutEffect } from 'react';
-import { FlatList, TouchableOpacity, View } from 'react-native';
+import moment from 'moment';
+import React, { useEffect, useLayoutEffect, useMemo } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Divider } from 'react-native-paper';
+import CustonFAB from '~/components/CustonFAB/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import { useUserPresencas } from '~/hooks/useUserPresencas';
 import { ArrowLeftIcon } from '~/icons';
+import HistoricoEmBranco from './HistoricoEmBranco';
 import PresencaItem from './PresencaItem';
 import {
+  ActivityIndicatorWrapper,
   Container,
-  HomeButton,
   PercentIndicator,
   SubTitle,
   Title,
@@ -22,53 +32,66 @@ const HistoricoFrequencia = () => {
     params: { oferta },
   } = useRoute();
 
-  const presencas = [
-    {
-      date: 'Segunda-feira | 08/03/2022',
-      turn: 'Manhã',
-      isPresent: true, // residente esteve presente nessa data
-    },
-    {
-      date: 'Terça-feira | 09/03/2022',
-      turn: 'Manhã',
-      isPresent: false,
-    },
-    {
-      date: 'Quarta-feira | 10/03/2022',
-      turn: 'Manhã',
-      isPresent: true,
-    },
-    {
-      date: 'Segunda-feira | 08/03/2022',
-      turn: 'Manhã',
-      isPresent: true,
-    },
-    {
-      date: 'Terça-feira | 09/03/2022',
-      turn: 'Manhã',
-      isPresent: false,
-    },
-    {
-      date: 'Quarta-feira | 10/03/2022',
-      turn: 'Manhã',
-      isPresent: true,
-    },
-    {
-      date: 'Segunda-feira | 08/03/2022',
-      turn: 'Manhã',
-      isPresent: true,
-    },
-    {
-      date: 'Terça-feira | 09/03/2022',
-      turn: 'Manhã',
-      isPresent: false,
-    },
-    {
-      date: 'Quarta-feira | 10/03/2022',
-      turn: 'Manhã',
-      isPresent: true,
-    },
-  ];
+  const { user } = useAutenticacao();
+
+  const { presencas, featchUserPresencas, isLoading } = useUserPresencas(
+    user.id,
+    oferta.id,
+  );
+
+  useEffect(() => {
+    featchUserPresencas();
+  }, []);
+
+  const presecasPorOferta = useMemo(() => {
+    const initialDate = moment(oferta.inicio);
+
+    // min entre o dia atual e o fim da oferta
+    const lastDate = moment.min(moment(), moment(oferta.fim));
+
+    const diffDays = lastDate.diff(initialDate, 'days');
+
+    const presenciables = [];
+
+    for (let index = 0; index <= diffDays; index++) {
+      const auxData = moment(initialDate).add(index, 'day');
+
+      // desconsiderando sábado e domingo
+      if ([1, 2, 3, 4, 5].some(item => item === auxData.day())) {
+        presenciables.push({
+          data: auxData,
+          turno: 'manhã',
+        });
+        presenciables.push({
+          data: auxData,
+          turno: 'tarde',
+        });
+      }
+    }
+
+    return presenciables.reverse().map(({ data, turno }) => ({
+      data,
+      turno,
+      isPresent: presencas.some(
+        item =>
+          moment(item.data).format('DD/MM/YYYY') ===
+            moment(data).format('DD/MM/YYYY') && item.turno == turno,
+      ),
+    }));
+  }, [presencas, oferta]);
+
+  const percentualPresencas = useMemo(() => {
+    const countIsPresent = presecasPorOferta.reduce((acc, curr) => {
+      if (curr.isPresent) {
+        acc++;
+      }
+      return acc;
+    }, 0);
+
+    const percent = countIsPresent / presecasPorOferta.length;
+
+    return `${parseFloat(percent * 100).toFixed(1)}%`;
+  }, [presecasPorOferta]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -94,24 +117,37 @@ const HistoricoFrequencia = () => {
     });
   });
 
+  if (isLoading) {
+    return (
+      <ActivityIndicatorWrapper>
+        <ActivityIndicator size="large" />
+      </ActivityIndicatorWrapper>
+    );
+  }
+
   return (
     <Container>
       <Title>Histórico de frequência</Title>
       <SubTitle>
-        {oferta.title} | {oferta.inicio} a {oferta.fim}
+        {oferta.title} | {moment(oferta.inicio).format('DD/MM')} a{' '}
+        {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
-      <PercentIndicator>Percentual de presença: 66,3%</PercentIndicator>
+      {presencas.length > 0 && (
+        <PercentIndicator>
+          Percentual de presença: {percentualPresencas}
+        </PercentIndicator>
+      )}
       <FlatList
-        data={presencas}
+        data={presecasPorOferta}
         keyExtractor={() => uniqueId('presenca')}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <PresencaItem presenca={item} />}
         ItemSeparatorComponent={() => <Divider />}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 90 }} />}
+        ListEmptyComponent={<HistoricoEmBranco />}
       />
-      <HomeButton
-        color="#fff"
+      <CustonFAB
         label="Home"
         small
         onPress={() => navigation.navigate(rotas.RESIDENCIA_MEDICA)}

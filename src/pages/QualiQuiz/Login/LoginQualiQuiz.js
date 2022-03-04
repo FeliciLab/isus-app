@@ -2,11 +2,12 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { BackHandler, View } from 'react-native';
 import { cabecalhoVoltarHome } from '~/components/layoutEffect/cabecalhoLayout';
 import DefaultLogin from '~/components/loginLayout/DefaultLogin';
+import rotas from '~/constantes/rotas';
 
 const LoginQualiQuiz = ({ navigation }) => {
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate('HOME');
+      navigation.navigate(rotas.HOME);
       return true;
     };
     const backHandler = BackHandler.addEventListener(
@@ -30,7 +31,7 @@ const LoginQualiQuiz = ({ navigation }) => {
 
   return (
     <View>
-      <DefaultLogin rotaAposLogin="QUALIQUIZ" />
+      <DefaultLogin rotaAposLogin={rotas.QUALIQUIZ} />
     </View>
   );
 };

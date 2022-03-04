@@ -1,22 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { CORES } from '~/constantes/estiloBase';
-import useAutenticacao from '~/hooks/useAutenticacao';
+import rotas from '~/constantes/rotas';
 import TelaDeSucesso from '../TelaDeSucesso';
 
-const FormSucesso = ({ route }) => {
+const FormSucesso = () => {
   const navigation = useNavigation();
 
-  const { usuario } = route.params;
-
-  const { setUser } = useAutenticacao();
-
   useEffect(() => {
-    setUser(usuario);
-
-    setTimeout(() => {
-      navigation.navigate('HOME');
+    const timer = setTimeout(() => {
+      navigation.navigate(rotas.HOME);
     }, 4000);
+
+    return clearTimeout(timer);
   }, []);
 
   return (

@@ -1,7 +1,8 @@
+import moment from 'moment';
 import React from 'react';
-import { Container, Content, Date, Turno } from './styles';
 import { CORES } from '~/constantes/estiloBase';
 import { CheckCircleoIcon, CloseCircleoIcon } from '~/icons/';
+import { Container, Content, Date, Turno } from './styles';
 
 const PresencaItem = ({ presenca }) => {
   return (
@@ -12,8 +13,8 @@ const PresencaItem = ({ presenca }) => {
         <CloseCircleoIcon size={36} color={CORES.VERMELHO} />
       )}
       <Content>
-        <Date>{presenca.date}</Date>
-        <Turno>Turno: {presenca.turn}</Turno>
+        <Date>{moment(presenca.data).format('dddd [|] DD/MM/YYYY')}</Date>
+        <Turno>Turno: {presenca.turno}</Turno>
       </Content>
     </Container>
   );

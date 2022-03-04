@@ -16,6 +16,7 @@ export const efetuarAcesso = async ({ email, senha }) => {
 
 export const armazenarEstadoLogado = estado =>
   salvarDados('usuario-logado', estado);
+
 export const pegarEstadoLogadoArmazenado = () => pegarDados('usuario-logado');
 
 function autenticarComIdSaude(email, senha) {

@@ -4,6 +4,7 @@ import { BackHandler, View } from 'react-native';
 import { Config } from 'react-native-config';
 import IsusSvg from '~/assets/icons/isus_hor.svg';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 
 export default function QualiQuiz({ navigation }) {
@@ -36,7 +37,7 @@ export default function QualiQuiz({ navigation }) {
   useEffect(() => {
     const backAction = () => {
       clearTimeout(timeOutRef.current);
-      navigation.navigate('HOME');
+      navigation.navigate(rotas.HOME);
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',

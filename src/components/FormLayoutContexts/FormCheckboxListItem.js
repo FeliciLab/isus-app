@@ -1,8 +1,8 @@
+import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useState } from 'react';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import FormContext from '~/context/FormContext';
-import randomKey from '~/utils/randomKey';
 
 const theme = {
   ...DefaultTheme,
@@ -27,7 +27,7 @@ const FormCheckboxListItem = ({ name, label, value, updateItems }) => {
 
   return (
     <Checkbox.Item
-      key={randomKey()}
+      key={uniqueId('checkbox-item')}
       status={checked}
       labelStyle={{ maxWidth: '70%' }}
       theme={theme}

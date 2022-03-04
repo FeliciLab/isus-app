@@ -11,7 +11,7 @@ const UserInfo = () => {
     <Container>
       <Perfil>Olá, {user?.name?.split(' ')[0] || ''}</Perfil>
       <Categoria>
-        {user?.profissional.categoria_profissional?.nome || ''}
+        {user?.profissional?.categoria_profissional?.nome || ''}
       </Categoria>
     </Container>
   );

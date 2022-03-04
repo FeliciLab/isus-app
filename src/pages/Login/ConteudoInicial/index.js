@@ -6,6 +6,8 @@ import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useDialogAppTrack from '~/hooks/useDialogAppTrack';
 import { Botao, ConteudoDoTexto, Texto } from './styles';
+import rotas from '~/constantes/rotas';
+
 
 const ConteudoInicial = () => {
   const navigation = useNavigation();
@@ -33,7 +35,7 @@ const ConteudoInicial = () => {
               'Perfil',
             );
             if (!exibirDialog('o Cadastro')) {
-              navigation.navigate('CADASTRO');
+              navigation.navigate(rotas.CADASTRO);
             }
           }}>
           Realizar meu cadastro
@@ -44,7 +46,7 @@ const ConteudoInicial = () => {
           color="#ffffff"
           onPress={() => {
             analyticsData('ja_possuo_id_saude', 'Click', 'Perfil');
-            navigation.navigate('FORM_LOGIN');
+            navigation.navigate(rotas.LOGIN_FORM);
           }}>
           Já possuo ID Saúde
         </Botao>
