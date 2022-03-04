@@ -33,6 +33,7 @@ import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
+import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 
 const RootStack = createStackNavigator();
@@ -121,6 +122,7 @@ export default function App({ navigationRef }) {
           component={AppDrawerScreen}
           options={{ headerShown: false }}
         />
+        <RootStack.Screen name={rotas.LOGIN} component={LoginStackScreen} />
         <RootStack.Screen
           name="CADASTRO"
           options={{
