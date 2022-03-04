@@ -1,12 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import useAutenticacao from '~/hooks/useAutenticacao';
 import rotas from '~/constantes/rotas';
-import ListarOfertas from '~/pages/Residencias/frequencias/ListarOfertas';
-import HistoricoFrequencia from '~/pages/Residencias/frequencias/HistoricoFrequencia';
+import useAutenticacao from '~/hooks/useAutenticacao';
+import Login from '~/pages/Login/index';
 import ConfirmarPresenca from '~/pages/Residencias/frequencias/ConfirmarPresenca';
+import HistoricoFrequencia from '~/pages/Residencias/frequencias/HistoricoFrequencia';
+import ListarOfertas from '~/pages/Residencias/frequencias/ListarOfertas';
 import SucessoPresenca from '~/pages/Residencias/frequencias/SucessoPresenca';
-import LoginFrequencias from '~/pages/Residencias/frequencias/LoginFrequencias';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -29,7 +29,7 @@ export default function FrequenciasStackScreen() {
           <Screen name={rotas.SUCESSO_PRESENCA} component={SucessoPresenca} />
         </>
       ) : (
-        <Screen name={rotas.LOGIN_FREQUENCIA} component={LoginFrequencias} />
+        <Screen name={rotas.LOGIN_FREQUENCIA} component={Login} />
       )}
     </Navigator>
   );

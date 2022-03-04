@@ -5,8 +5,8 @@ import { Dimensions } from 'react-native';
 import ConteudoDrawer from '~/components/ConteudoDrawer';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
-import { FormProvider } from '~/context/FormContext';
-import { SemConexaoProvider } from '~/context/SemConexaoContext';
+// import { FormProvider } from '~/context/FormContext';
+// import { SemConexaoProvider } from '~/context/SemConexaoContext';
 import AboutScreen from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
 import FaleConoscoScreen from '~/pages/FaleConoscoScreen';
@@ -14,8 +14,8 @@ import {
   DUVIDAS_ELMO,
   RELATAR_SUGESTAO,
 } from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
-import Login from '~/pages/Login';
-import FormLogin from '~/pages/Login/FormularioLogin';
+// import Login from '~/pages/Login';
+// import FormLogin from '~/pages/Login/FormularioLogin';
 import PerfilScreen from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/contaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
@@ -23,6 +23,7 @@ import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
+import LoginStackScreen from './login.routes';
 
 const Drawer = createDrawerNavigator();
 
@@ -43,7 +44,9 @@ export default function AppDrawerScreen() {
       )}>
       <Drawer.Screen name={rotas.HOME} component={AppTab} />
       <Drawer.Screen name={rotas.LOGIN} component={LoginStackScreen} />
-      <Drawer.Screen name={rotas.FORM_LOGIN} component={FormLoginStackScreen} />
+
+      {/* <Drawer.Screen name={rotas.LOGIN} component={LoginStackScreen} />
+      <Drawer.Screen name={rotas.FORM_LOGIN} component={FormLoginStackScreen} /> */}
       <Drawer.Screen name={rotas.PERFIL} component={PerfilStackScreen} />
       <Drawer.Screen
         name={rotas.TERMOS_DE_USO}
@@ -134,45 +137,45 @@ function AboutStackScreen() {
   );
 }
 
-const LoginStack = createStackNavigator();
+// const LoginStack = createStackNavigator();
 
-function LoginStackScreen() {
-  return (
-    <LoginStack.Navigator>
-      <LoginStack.Screen
-        name="ID SAÚDE"
-        component={Login}
-        initialParams={{ possuiIDSaude: false }}
-        options={{ headerShown: false }}
-      />
-      <LoginStack.Screen
-        name="LOGIN"
-        component={Login}
-        initialParams={{ possuiIDSaude: true }}
-        options={{ headerShown: true }}
-      />
-    </LoginStack.Navigator>
-  );
-}
+// function LoginStackScreen() {
+//   return (
+//     <LoginStack.Navigator>
+//       <LoginStack.Screen
+//         name="ID SAÚDE"
+//         component={Login}
+//         initialParams={{ possuiIDSaude: false }}
+//         options={{ headerShown: false }}
+//       />
+//       <LoginStack.Screen
+//         name="LOGIN"
+//         component={Login}
+//         initialParams={{ possuiIDSaude: true }}
+//         options={{ headerShown: true }}
+//       />
+//     </LoginStack.Navigator>
+//   );
+// }
 
-const FormLoginStack = createStackNavigator();
+// const FormLoginStack = createStackNavigator();
 
-function FormLoginStackScreen() {
-  return (
-    <FormProvider>
-      <SemConexaoProvider>
-        <FormLoginStack.Navigator>
-          <FormLoginStack.Screen
-            name="FORM_LOGIN"
-            component={FormLogin}
-            initialParams={{ possuiIDSaude: true }}
-            options={{ headerShown: false }}
-          />
-        </FormLoginStack.Navigator>
-      </SemConexaoProvider>
-    </FormProvider>
-  );
-}
+// function FormLoginStackScreen() {
+//   return (
+//     <FormProvider>
+//       <SemConexaoProvider>
+//         <FormLoginStack.Navigator>
+//           <FormLoginStack.Screen
+//             name="FORM_LOGIN"
+//             component={FormLogin}
+//             initialParams={{ possuiIDSaude: true }}
+//             options={{ headerShown: false }}
+//           />
+//         </FormLoginStack.Navigator>
+//       </SemConexaoProvider>
+//     </FormProvider>
+//   );
+// }
 
 const PerfilStack = createStackNavigator();
 

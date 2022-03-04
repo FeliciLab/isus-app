@@ -1,25 +1,43 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import {
+  Keyboard,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import IDSaudeBranco from '~/assets/icons/idsaude-branco.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
-import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
+import { ArrowLeftIcon } from '~/icons/index';
 import Termos from '../Termos';
 import { ChildrenView, Container, ConteudoImagem } from './styles';
 
 function IDSaudeLoginTemplate({ children }) {
   const navigation = useNavigation();
 
-  useLayoutEffect(
-    () =>
-      cabecalhoVoltar({
-        title: '',
-        navegador: navigation,
-        cor: 'azul',
-      }),
-    [],
-  );
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        backgroundColor: CORES.AZUL,
+        elevation: 0,
+        shadowOpacity: 0,
+      },
+      headerTintColor: CORES.BRANCO,
+      headerTitleAlign: 'center',
+      headerTitle: '',
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19,
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
+        </TouchableOpacity>
+      ),
+    });
+  });
 
   return (
     <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
