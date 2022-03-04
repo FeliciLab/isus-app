@@ -40,12 +40,10 @@ const FormProfissional = ({ actionPress, labelButton, hiddenActionButton }) => {
               name="_hidden.categoriaProfissional"
               defaultValue=""
               render={({ value }) => (
-                <>
-                  <InputEspecialidades
-                    categoria={value}
-                    defaultValue={infoProfissional.especialidades}
-                  />
-                </>
+                <InputEspecialidades
+                  categoria={value}
+                  defaultValue={infoProfissional.especialidades}
+                />
               )}
             />
           </RowInput>

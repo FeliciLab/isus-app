@@ -20,6 +20,7 @@ import useCaixaDialogo from '~/hooks/useCaixaDialogo';
 import { emailValido, senhaValido } from '~/utils/validadores';
 import IDSaudeLoginTemplate from '../IDSaudeLoginTemplate';
 import { Botao } from './styles';
+import { CORES } from '~/constantes/estiloBase';
 
 const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
@@ -45,11 +46,11 @@ const FormularioLogin = ({ route }) => {
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#fff',
-      accent: '#fff',
-      text: '#fff',
-      background: '#304FFE',
-      placeholder: '#fff',
+      primary: CORES.BRANCO,
+      accent: CORES.BRANCO,
+      text: CORES.BRANCO,
+      background: CORES.AZUL,
+      placeholder: CORES.BRANCO,
     },
   };
 
@@ -68,7 +69,7 @@ const FormularioLogin = ({ route }) => {
     try {
       setCarregando(true);
 
-      const cadastrado = signIn(email, senha);
+      const cadastrado = await signIn(email, senha);
 
       setValue('email', '');
       setValue('senha', '');
@@ -139,7 +140,7 @@ const FormularioLogin = ({ route }) => {
               label="E-mail"
               mode="outlined"
               placeholder="E-mail"
-              selectionColor="#0000AB"
+              selectionColor={CORES.AZUL}
               onChangeText={onChange}
               autoCapitalize="none"
               value={value}
@@ -148,7 +149,7 @@ const FormularioLogin = ({ route }) => {
           )}
         />
         {errors?.email && (
-          <Text style={{ color: '#ffffff' }}>Insira um e-mail válido.</Text>
+          <Text style={{ color: CORES.BRANCO }}>Insira um e-mail válido.</Text>
         )}
         <Controller
           control={control}
@@ -166,7 +167,7 @@ const FormularioLogin = ({ route }) => {
               value={value}
               theme={theme}
               label="Senha"
-              selectionColor="#0000AB"
+              selectionColor={CORES.AZUL}
               placeholder="Senha"
               mode="outlined"
               secureTextEntry
@@ -175,7 +176,7 @@ const FormularioLogin = ({ route }) => {
         />
 
         {errors?.senha && (
-          <Text style={{ color: '#ffffff' }}>
+          <Text style={{ color: CORES.BRANCO }}>
             O campo de senha deve ser preenchido.
           </Text>
         )}
@@ -196,7 +197,7 @@ const FormularioLogin = ({ route }) => {
               abrirWebViewEsqueciMinhaSenha();
             }}
             mode="text"
-            color="#ffffff">
+            color={CORES.BRANCO}>
             Esqueci minha senha
           </Botao>
         </View>

@@ -52,17 +52,12 @@ export default function Banner({
   const exibirImg = () => {
     if (imagem.svg) {
       return (
-        <SvgCssUri
-          width="100%"
-          height="100%"
-          uri={imagem.svg}
-          cache="reload"
-          // viewBox={`${imageWidth}`}
-        />
+        <SvgCssUri width="100%" height="100%" uri={imagem.svg} cache="reload" />
       );
     }
 
     let source = imagem;
+
     if (imagem.uri) {
       source = { ...imagem, cache: 'reload' };
     }

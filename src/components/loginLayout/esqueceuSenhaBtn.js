@@ -27,19 +27,17 @@ const esqueceuSenhaBtn = ({ style }) => {
   };
 
   return (
-    <>
-      <Text
-        onPress={() => abrirWebView()}
-        style={{
-          color: CORES.LARANJA,
-          letterSpacing: 1,
-          textAlign: 'center',
-          fontWeight: 'bold',
-          ...style,
-        }}>
-        Esqueci minha senha
-      </Text>
-    </>
+    <Text
+      onPress={() => abrirWebView()}
+      style={{
+        color: CORES.LARANJA,
+        letterSpacing: 1,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        ...style,
+      }}>
+      Esqueci minha senha
+    </Text>
   );
 };
 

@@ -6,8 +6,8 @@ import { Paragraph } from 'react-native-paper';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
 import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
 import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
-import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
 import MatriculasSVG from '~/assets/icons/residenciaMedica/matricula_residencia.svg';
+import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
 import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ServiceButton from '~/components/ServiceButton';
@@ -25,7 +25,7 @@ const residenciasCards = [
     ativo: true,
     icone: FrequenciasSVG,
     navegacao: {
-      componente: ROTAS.LISTAR_OFERTAS,
+      componente: ROTAS.FREQUENCIAS,
     },
   },
   {

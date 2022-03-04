@@ -1,9 +1,19 @@
 import styled from 'styled-components/native';
-import { FAB } from 'react-native-paper';
 
 export const Container = styled.ScrollView`
   flex: 1;
   padding: 24px 20px;
+`;
+
+export const Content = styled.View`
+  flex: 1;
+  margin-top: 20px;
+`;
+
+export const ActivityIndicatorWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`
@@ -29,12 +39,6 @@ export const AlunoInfo = styled.Text`
   color: rgba(0, 0, 0, 0.87);
 `;
 
-export const MarcarPresencaButton = styled(FAB)`
-  align-self: center;
-  background: #ff9800;
-  margin: 16px 0;
-`;
-
 export const Warning = styled.Text`
   font-size: 14px;
   line-height: 20px;
@@ -43,5 +47,5 @@ export const Warning = styled.Text`
 `;
 
 export const WrapperSelect = styled.View`
-  margin: 4px 0;
+  margin-top: 8px;
 `;

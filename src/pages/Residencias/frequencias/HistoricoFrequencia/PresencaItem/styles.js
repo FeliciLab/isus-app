@@ -11,6 +11,7 @@ export const Content = styled.View`
 `;
 
 export const Date = styled.Text`
+  text-transform: capitalize;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;

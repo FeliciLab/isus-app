@@ -25,10 +25,6 @@ import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/Pre
 import QualiQuiz from '~/pages/QualiQuiz';
 import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
-import ConfirmarPresenca from '~/pages/Residencias/frequencias/ConfirmarPresenca';
-import HistoricoFrequencia from '~/pages/Residencias/frequencias/HistoricoFrequencia/index';
-import ListarOfertas from '~/pages/Residencias/frequencias/ListarOfertas';
-import SucessoPresenca from '~/pages/Residencias/frequencias/SucessoPresenca';
 import NovoSemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
 import WebViewPage from '~/pages/WebView';
@@ -36,6 +32,8 @@ import ManejoWebViewPage from '~/pages/WebView/ManejoWebView';
 import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
+import FrequenciasStackScreen from './frequencias.routes';
+import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 
 const RootStack = createStackNavigator();
@@ -99,6 +97,7 @@ function SemConexaoNovo(props) {
 
 export default function App({ navigationRef }) {
   const routeNameRef = useRef();
+
   return (
     <NavigationContainer
       ref={navigationRef}
@@ -123,6 +122,7 @@ export default function App({ navigationRef }) {
           component={AppDrawerScreen}
           options={{ headerShown: false }}
         />
+        <RootStack.Screen name={rotas.LOGIN} component={LoginStackScreen} />
         <RootStack.Screen
           name="CADASTRO"
           options={{
@@ -207,20 +207,9 @@ export default function App({ navigationRef }) {
           component={Residencias}
         />
         <RootStack.Screen
-          name={rotas.LISTAR_OFERTAS}
-          component={ListarOfertas}
-        />
-        <RootStack.Screen
-          name={rotas.HISTORICO_FREQUENCIA}
-          component={HistoricoFrequencia}
-        />
-        <RootStack.Screen
-          name={rotas.CONFIRMAR_PRESENCA}
-          component={ConfirmarPresenca}
-        />
-        <RootStack.Screen
-          name={rotas.SUCESSO_PRESENCA}
-          component={SucessoPresenca}
+          name={rotas.FREQUENCIAS}
+          component={FrequenciasStackScreen}
+          options={{ headerShown: false }}
         />
         <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
         <RootStack.Screen

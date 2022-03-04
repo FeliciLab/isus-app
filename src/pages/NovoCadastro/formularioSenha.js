@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
@@ -26,13 +26,13 @@ import textos from './textos.json';
 export default function FormularioSenha({ navigation }) {
   const { analyticsData } = useAnalytics();
 
-  const [carregando, setCarregando] = React.useState(false);
+  const [carregando, setCarregando] = useState(false);
 
-  const [botaoAtivo, setBotaoAtivo] = React.useState(false);
+  const [botaoAtivo, setBotaoAtivo] = useState(false);
 
-  const [mensagemDoAlerta, setMensagemDoAlerta] = React.useState('');
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
 
-  const [cadastroRealizado, setCadastroRealizado] = React.useState(false);
+  const [cadastroRealizado, setCadastroRealizado] = useState(false);
 
   const { signIn } = useAutenticacao();
 

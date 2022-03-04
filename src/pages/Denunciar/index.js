@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Linking, Text, TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 import BarraDeStatus from '~/components/barraDeStatus';
@@ -46,7 +46,7 @@ export default function Denunciar() {
     },
   };
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
         backgroundColor: '#FFF',

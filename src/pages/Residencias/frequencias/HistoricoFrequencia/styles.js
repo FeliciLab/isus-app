@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { FAB } from 'react-native-paper';
 
 export const Container = styled.View`
   flex: 1;
@@ -30,9 +29,8 @@ export const PercentIndicator = styled.Text`
   color: rgba(0, 0, 0, 0.87);
 `;
 
-export const HomeButton = styled(FAB)`
-  position: absolute;
-  bottom: 32px;
-  align-self: center;
-  background: #ff9800;
+export const ActivityIndicatorWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;

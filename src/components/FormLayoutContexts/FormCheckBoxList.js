@@ -1,8 +1,8 @@
+import { uniqueId } from 'lodash';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import FormContext from '~/context/FormContext';
-import randomKey from '~/utils/randomKey';
 import FormCheckboxListItem from './FormCheckboxListItem';
 
 const TitleText = ({ label }) => (
@@ -18,7 +18,9 @@ const TitleText = ({ label }) => (
 
 const FormCheckBoxList = ({ name, label, data, rules, defaultValue }) => {
   const { register, setValue, getValues } = useContext(FormContext);
+
   const [placeholder, setPlaceholder] = useState('Selecione as opções');
+
   const [quantidadeSelecionados, definirQuantidadeSelecionados] = useState(0);
 
   const definirPlaceholder = ({ valor }) => {
@@ -71,7 +73,7 @@ const FormCheckBoxList = ({ name, label, data, rules, defaultValue }) => {
         <View>
           {data.map(item => (
             <FormCheckboxListItem
-              key={randomKey()}
+              key={uniqueId('accordion')}
               label={item.label}
               value={item.value}
               name={name}

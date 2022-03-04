@@ -1,4 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { uniqueId } from 'lodash';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
@@ -6,7 +7,6 @@ import MessageErrorCard from '~/components/MessageErrorCard';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useConteudo from '~/hooks/useConteudo';
-import randomKey from '~/utils/randomKey';
 import TelaConteudo from '../TelaConteudo';
 
 const Tab = createMaterialTopTabNavigator();
@@ -71,7 +71,7 @@ export default function EstruturaConteudo({ navigation }) {
         <Tab.Screen
           options={{ title: item.name }}
           name={`${categoria}_${item.slug.replace('-', '_')}`}
-          key={randomKey()}
+          key={uniqueId('tab-screen')}
           component={TelaConteudo}
           initialParams={{ categoria: item }}
         />
