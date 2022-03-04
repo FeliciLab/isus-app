@@ -44,19 +44,12 @@ const AutenticacaoProvider = ({ children }) => {
 
     const perfil = await perfilUsuario(response.mensagem);
 
-    console.log(perfil);
-
-    // retornar false se o perfil não está cadastrado
-    if (!perfil.cadastrado) {
-      return false;
-    }
-
     await setUser(perfil.data);
 
     await alterarPessoa(perfil.data);
 
-    // verdaderio se o usuário cadastrado
-    return true;
+    // verificar se o usuário já está cadastrado no iSUS
+    return perfil.cadastrado ? true : false;
   }, []);
 
   const signOut = useCallback(async () => {
