@@ -11,11 +11,11 @@ import {
   View,
 } from 'react-native';
 import { Button, DefaultTheme, TextInput } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { deletarUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import BarraDeStatus from '~/components/barraDeStatus';
 import useAnalytics from '~/hooks/useAnalytics';
+import { ArrowLeftIcon } from '~/icons';
 import { pegarTokenDoUsuarioNoStorage } from '~/services/autenticacao';
 
 export default function ExcluirPerfil() {
@@ -173,7 +173,7 @@ export default function ExcluirPerfil() {
             refEntradaTexto.current.clear();
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <ArrowLeftIcon size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     marginLeft: 16,
     marginRight: 16,
-    color: 'rgba(0, 0, 0, 0.54)'
+    color: 'rgba(0, 0, 0, 0.54)',
   },
   campoDeTexto: {
     marginLeft: 16,

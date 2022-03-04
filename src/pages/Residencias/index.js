@@ -3,20 +3,42 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect } from 'react';
 import { FlatList, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
 import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
+import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
 import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
+import MatriculasSVG from '~/assets/icons/residenciaMedica/matricula_residencia.svg';
 import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
-import ServiceButton from '~/components/ServiceButton/index';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import { urls } from '~/constantes/urls';
 import useAnalytics from '~/hooks/useAnalytics';
+import { ArrowLeftIcon } from '~/icons';
 import { Container, Content, ResidenciasEmSaudeImage } from './styles';
 
-const residenciaMedicaListCards = [
+const residenciasCards = [
+  {
+    id: 'frequencias',
+    titulo: 'Frequências',
+    ativo: true,
+    icone: FrequenciasSVG,
+    navegacao: {
+      componente: ROTAS.LISTAR_OFERTAS,
+    },
+  },
+  {
+    id: 'matriculas',
+    titulo: 'MATRÍCULAS',
+    ativo: true,
+    icone: MatriculasSVG,
+    navegacao: {
+      componente: 'webview',
+      titulo: 'MATRÍCULAS',
+      url: urls.MATRICULA_RESIDENCIA,
+    },
+  },
   {
     id: 'sagu',
     titulo: 'SAGU',
@@ -52,7 +74,7 @@ const residenciaMedicaListCards = [
   },
 ];
 
-const ResidenciaMedica = () => {
+const Residencias = () => {
   const navigation = useNavigation();
 
   const { isConnected } = useNetInfo();
@@ -102,7 +124,7 @@ const ResidenciaMedica = () => {
           onPress={() => {
             navigation.navigate(ROTAS.HOME);
           }}>
-          <Icon name="arrow-left" size={28} color={CORES.BRANCO} />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
@@ -128,7 +150,7 @@ const ResidenciaMedica = () => {
       </Content>
       <FlatList
         horizontal
-        data={residenciaMedicaListCards}
+        data={residenciasCards}
         keyExtractor={item => `${item.id}`}
         style={{
           flexDirection: 'row',
@@ -150,4 +172,4 @@ const ResidenciaMedica = () => {
   );
 };
 
-export default ResidenciaMedica;
+export default Residencias;

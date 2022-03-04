@@ -18,7 +18,7 @@ import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useCaixaDialogo from '~/hooks/useCaixaDialogo';
 import { emailValido, senhaValido } from '~/utils/validadores';
-import IDSaudeLoginTemplate from './idsaudeLoginTemplate';
+import IDSaudeLoginTemplate from '../IDSaudeLoginTemplate';
 import { Botao } from './styles';
 
 const FormularioLogin = ({ route }) => {

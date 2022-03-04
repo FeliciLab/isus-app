@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
 import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
@@ -9,6 +8,7 @@ import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import { ArrowLeftIcon } from '~/icons';
 import {
   analyticsCategoria,
   analyticsUnidadeServico,
@@ -58,7 +58,7 @@ export default function FormularioSenha({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#304FFE" />
+          <ArrowLeftIcon size={28} color="#304FFE" />
         </TouchableOpacity>
       ),
     });

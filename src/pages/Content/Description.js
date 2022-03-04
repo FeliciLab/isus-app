@@ -21,11 +21,11 @@ import {
 } from 'react-native';
 import { Snackbar, Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { pegarProjetosPorId } from '~/apis/apiHome';
 import BarraDeStatus from '~/components/barraDeStatus';
 import BarraInferior from '~/components/barraInferior';
 import rotas from '~/constantes/rotas';
+import { ArrowLeftIcon } from '~/icons';
 import {
   converterImagemParaBase64,
   pegarDados,
@@ -211,7 +211,7 @@ export default function DescriptionScreen(props) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color="#FFF" />
         </TouchableOpacity>
       ),
     });

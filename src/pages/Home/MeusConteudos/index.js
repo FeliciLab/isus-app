@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ActivityIndicator, Card, Paragraph } from 'react-native-paper';
 import { pegarProjetosPorProfissional } from '~/apis/apiHome';
-import ListServices from '~/components/ListServices/index';
+import ListServices from '~/components/ListServices';
 import CartaoDeConteudo from './CartaoDeConteudo';
 
 function MeusConteudos() {

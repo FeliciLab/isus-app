@@ -1,11 +1,11 @@
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Linking, Text, TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 import BarraDeStatus from '~/components/barraDeStatus';
-import rotas from '~/constantes/rotas';
 import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
+import { ArrowLeftIcon } from '~/icons';
 import {
   BotaoEmail,
   BotaoLigarSus,
@@ -23,7 +23,9 @@ import {
 
 export default function Denunciar() {
   const navigation = useNavigation();
+
   const mandeEmail = useState('Mande um e-mail:');
+
   const faleLigacao = useState('Fale por ligação: ');
 
   function emailLigacao(text, linkTo) {
@@ -62,11 +64,12 @@ export default function Denunciar() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Icon name="arrow-left" size={28} color="#4CAF50" />
+          <ArrowLeftIcon size={28} color="#4CAF50" />
         </TouchableOpacity>
       ),
     });
   });
+
   return (
     <>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
