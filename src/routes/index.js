@@ -122,7 +122,11 @@ export default function App({ navigationRef }) {
           component={AppDrawerScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen name={rotas.LOGIN} component={LoginStackScreen} />
+        <RootStack.Screen
+          name={rotas.LOGIN}
+          component={LoginStackScreen}
+          options={{ headerShown: false }}
+        />
         <RootStack.Screen
           name="CADASTRO"
           options={{
