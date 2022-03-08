@@ -4,6 +4,7 @@ import {
   Keyboard,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import IDSaudeBranco from '~/assets/icons/idsaude-branco.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
@@ -14,6 +15,8 @@ import { ChildrenView, Container, ConteudoImagem } from './styles';
 
 function IDSaudeLoginTemplate({ children }) {
   const navigation = useNavigation();
+
+  const windowWidth = Dimensions.get('window').width;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -44,7 +47,7 @@ function IDSaudeLoginTemplate({ children }) {
       <Container>
         <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
         <ConteudoImagem>
-          <IDSaudeBranco />
+          <IDSaudeBranco height={windowWidth * 0.4} width={windowWidth * 0.4} />
         </ConteudoImagem>
         <ChildrenView>
           {children}
