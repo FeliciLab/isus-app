@@ -4,6 +4,7 @@ import { CORES } from '~/constantes/estiloBase';
 export const Container = styled.View`
   flex: 1;
   background-color: ${CORES.AZUL};
+  justify-content: space-between;
 `;
 
 export const ChildrenView = styled.View`
@@ -12,7 +13,7 @@ export const ChildrenView = styled.View`
 `;
 
 export const ConteudoImagem = styled.View`
-  margin: 50px 0;
+  margin: 40px 0;
   flex-direction: row;
   justify-content: center;
 `;
