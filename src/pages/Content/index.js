@@ -5,7 +5,6 @@ import {
   Dimensions,
   FlatList,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -19,30 +18,40 @@ import {
   normalizeEspacoTextoAnalytics,
 } from '~/utils/mascaras';
 import ImagemDePostagem from './ImagemDePostagem';
+import SemPostagem from './SemPostagem';
 
 export default function InformationScreen(props) {
   const { analyticsData } = useAnalytics();
+
   const { navigation } = props;
+
   const { route } = props;
+
   const { params } = route;
-  const [postagens, alterarPostagens] = useState([]);
-  const [semConexao, alterarSemConexao] = useState(false);
-  const estaConectado = useNetInfo().isConnected;
+
+  const [postagens, setPostagens] = useState([]);
+
+  const [semConexao, setSemConexao] = useState(false);
+
+  const { isConnected } = useNetInfo();
 
   useEffect(() => {
     const press = navigation.addListener('tabPress', () => {
-      if (!estaConectado && estaConectado !== null) {
+      if (!isConnected && isConnected !== null) {
         navigation.navigate(rotas.SEM_CONEXAO);
       }
     });
     return press;
-  }, [navigation, estaConectado]);
+  }, [navigation, isConnected]);
 
   useFocusEffect(
     useCallback(() => {
       const title = normalizeEspacoTextoAnalytics(params.title_description);
+
       const slug = adicionaMascaraAnalytics(params.slug);
+
       let analytics = '';
+
       if (slug === ' ') {
         analytics = title;
       } else {
@@ -58,18 +67,22 @@ export default function InformationScreen(props) {
     const resposta = await pegarDadosDeChavesCom(
       `@categoria_${params.term_id}`,
     );
-    alterarPostagens(resposta);
+    setPostagens(resposta);
   };
 
   const pegarConteudoDaApi = async () => {
     const resposta = await pegarProjetosPorCategoria(params.term_id);
+
     const postagensBaixadas = await pegarPostagensBaixadas(resposta.data.data);
+
     const postagensAtualizadas = marcarPostagensBaixadas(
       resposta.data.data,
       postagensBaixadas,
     );
-    alterarPostagens(postagensAtualizadas);
-    alterarSemConexao(false);
+
+    setPostagens(postagensAtualizadas);
+
+    setSemConexao(false);
   };
 
   const pegarPostagensBaixadas = async posts => {
@@ -91,14 +104,6 @@ export default function InformationScreen(props) {
     return posts;
   };
 
-  const semPostagem = () => (
-    <View style={estilos.centralizarTexto}>
-      <Text style={estilos.textoSemPostagem}>
-        Não há postagens salvas no seu dispositivo.
-      </Text>
-    </View>
-  );
-
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -106,7 +111,7 @@ export default function InformationScreen(props) {
       numColumns={2}
       keyExtractor={item => item.id}
       style={estilos.flatList}
-      ListEmptyComponent={semPostagem}
+      ListEmptyComponent={<SemPostagem />}
       renderItem={({ item }) => (
         <TouchableOpacity
           style={estilos.postagem}
@@ -134,14 +139,6 @@ export default function InformationScreen(props) {
 }
 
 const estilos = StyleSheet.create({
-  centralizarTexto: {
-    justifyContent: 'center',
-    width: '100%',
-  },
-  textoSemPostagem: {
-    color: 'rgba(0,0,0,0.6)',
-    marginTop: 20,
-  },
   flatList: {
     flex: 1,
     alignSelf: 'center',

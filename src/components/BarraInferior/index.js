@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, StyleSheet, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { StyleSheet, View, Animated } from 'react-native';
 
 function BarraInferior({
   telaDeOrigem,

@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Share } from 'react-native';
 import { pegarProjetosPorId } from '~/apis/apiHome';
 import BarraDeStatus from '~/components/barraDeStatus';
-import BarraInferior from '~/components/barraInferior';
+import BarraInferior from '~/components/BarraInferior';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import WebView from '~/components/WebView';
 import rotas from '~/constantes/rotas';
