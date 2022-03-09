@@ -108,6 +108,7 @@ export default function({ route, navigation }) {
   const baixarConteudo = async () => {
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
+
       const postagemOffline = {
         ...postagem,
         image: imagembase64,

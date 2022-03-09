@@ -1,12 +1,10 @@
+import { Dimensions } from 'react-native';
+import { Snackbar, Title } from 'react-native-paper';
 import styled from 'styled-components/native';
-import { Dimensions, Platform } from 'react-native';
-import { Title, Snackbar } from 'react-native-paper';
 
 export const AreaConteudo = styled.SafeAreaView`
   flex: 1;
   background-color: #ffffff;
-  // FIXME: não entendi esse padding-top
-  // padding-top: ${Platform.OS === 'android' ? 25 : 0}px;
 `;
 
 export const CorpoPrincipal = styled.View`

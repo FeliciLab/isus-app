@@ -29,6 +29,7 @@ export default function InformationScreen(props) {
 
   const { params } = route;
 
+  // TODO: acho que aqui está falantando um infinit scroll para baixar mais postagens
   const [postagens, setPostagens] = useState([]);
 
   const [semConexao, setSemConexao] = useState(false);
