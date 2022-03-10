@@ -111,11 +111,11 @@ export default function InformationScreen(props) {
       data={postagens}
       numColumns={2}
       keyExtractor={item => item.id}
-      style={estilos.flatList}
+      style={styles.flatList}
       ListEmptyComponent={<SemPostagem />}
       renderItem={({ item }) => (
         <TouchableOpacity
-          style={estilos.postagem}
+          style={styles.postagem}
           onPress={() =>
             navigation.navigate('Descrição', {
               object: {
@@ -128,7 +128,7 @@ export default function InformationScreen(props) {
           <ImagemDePostagem
             conteudoBaixado={semConexao}
             imagem={item.image}
-            estilo={estilos.imagemPostagem}
+            estilo={styles.imagemPostagem}
           />
           <View style={{ marginHorizontal: 15 }}>
             <Caption numberOfLines={3}>{item.post_title}</Caption>
@@ -139,7 +139,7 @@ export default function InformationScreen(props) {
   );
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
   flatList: {
     flex: 1,
     alignSelf: 'center',
