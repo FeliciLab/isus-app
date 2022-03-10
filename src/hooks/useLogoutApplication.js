@@ -10,13 +10,21 @@ function useLogoutApplication() {
     CaixaDialogoContext,
   );
 
-  const { alterarPessoa, setUser, signOut } = useAutenticacao();
+  const {
+    alterarPessoa,
+    setUser,
+    signOut,
+    setAutenticacaoLoading,
+  } = useAutenticacao();
 
   const realizarLogout = async () => {
     try {
+      setAutenticacaoLoading(true);
       await signOut();
     } catch (err) {
       console.log('erro', err);
+    } finally {
+      setAutenticacaoLoading(false);
     }
 
     await alterarPessoa({});
