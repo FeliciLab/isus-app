@@ -45,9 +45,7 @@ export default function({ route }) {
         <View>
           <Titulo>{postagem.post_title}</Titulo>
         </View>
-
         <Espacador />
-
         <ImagemDePostagem
           conteudoBaixado={conteudoBaixado}
           imagem={postagem.image}

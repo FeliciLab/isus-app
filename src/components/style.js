@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { TouchableOpacity, Dimensions } from 'react-native';
 import { Button, Card } from 'react-native-paper';
-import { CORES } from '../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
 
 export const Container = styled.View`
   background-color: #31f;

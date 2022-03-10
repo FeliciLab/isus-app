@@ -19,21 +19,21 @@ export default function({ route, navigation }) {
 
   const { analyticsData } = useAnalytics();
 
-  const [postagens, alterarPostagens] = useState([]);
+  const [postagens, setPostagens] = useState([]);
 
-  const [semConexao, alterarSemConexao] = useState(false);
+  const [semConexao, setSemConexao] = useState(false);
 
-  const estaConectado = useNetInfo().isConnected;
+  const { isConnected } = useNetInfo();
 
   useEffect(() => {
     const press = navigation.addListener('tabPress', () => {
-      if (!estaConectado && estaConectado !== null) {
+      if (!isConnected && isConnected !== null) {
         navigation.navigate(rotas.SEM_CONEXAO);
       }
     });
 
     return press;
-  }, [navigation, estaConectado]);
+  }, [navigation, isConnected]);
 
   useFocusEffect(
     useCallback(() => {
@@ -53,7 +53,7 @@ export default function({ route, navigation }) {
           await pegarConteudoDaApi();
         } catch (err) {
           if (err.message === 'Network Error') {
-            alterarSemConexao(true);
+            setSemConexao(true);
             await pegarConteudoDoStorage();
           }
         }
@@ -67,7 +67,7 @@ export default function({ route, navigation }) {
     const resposta = await pegarDadosDeChavesCom(
       `@categoria_${categoria.term_id}`,
     );
-    alterarPostagens(resposta);
+    setPostagens(resposta);
   };
 
   const pegarConteudoDaApi = async () => {
@@ -77,8 +77,8 @@ export default function({ route, navigation }) {
       resposta.data.data,
       postagensBaixadas,
     );
-    alterarPostagens(postagensAtualizadas);
-    alterarSemConexao(false);
+    setPostagens(postagensAtualizadas);
+    setSemConexao(false);
   };
 
   const pegarPostagensBaixadas = async posts => {

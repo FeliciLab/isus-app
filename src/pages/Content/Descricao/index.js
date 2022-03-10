@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Share } from 'react-native';
 import { pegarProjetosPorId } from '~/apis/apiHome';
 import BarraDeStatus from '~/components/barraDeStatus';
-import BarraInferior from '~/components/barraInferior';
+import BarraInferior from '~/components/BarraInferior';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import WebView from '~/components/WebView';
 import rotas from '~/constantes/rotas';
@@ -108,6 +108,7 @@ export default function({ route, navigation }) {
   const baixarConteudo = async () => {
     try {
       const imagembase64 = await converterImagemParaBase64(postagem.image);
+
       const postagemOffline = {
         ...postagem,
         image: imagembase64,

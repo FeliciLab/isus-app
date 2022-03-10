@@ -1,18 +1,11 @@
-import * as React from 'react';
+import React from 'react';
 import { AppRegistry } from 'react-native';
 import 'react-native-gesture-handler';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
+import theme from '~/theme/index';
 import { name as appName } from './app.json';
 import App from './src/App';
 import './src/utils/reactotronConfig';
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#4CAF50',
-  },
-};
 
 export default function Main() {
   return (
