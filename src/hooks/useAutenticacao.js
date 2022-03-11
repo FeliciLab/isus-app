@@ -13,6 +13,8 @@ function useAutenticacao() {
     signOut,
     showTutorial,
     setShowTutorial,
+    autenticacaoLoading,
+    setAutenticacaoLoading,
   } = useContext(AutenticacaoContext);
 
   return {
@@ -26,6 +28,8 @@ function useAutenticacao() {
     signOut,
     showTutorial,
     setShowTutorial,
+    autenticacaoLoading,
+    setAutenticacaoLoading,
   };
 }
 
