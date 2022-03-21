@@ -7,17 +7,17 @@ assignees: Wanderley97
 
 ---
 
-# Características
+## Características
 
 - Categoria:
 - E-mail:
 - Versão do App:
 - Plataforma:
 
-# Descrição
+## Descrição
 
 ...
 
-# Encaminhamentos
+## Encaminhamentos
 
 ...
