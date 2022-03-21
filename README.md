@@ -7,6 +7,7 @@ Esse é o repositório do aplicativo **iSUS**.
 - [App iSUS](#app-isus)
   - [O que é?](#o-que-é)
   - [Start do Projeto.](#start-do-projeto)
+    - [Variáveis de ambiente do projeto](#variáveis-de-ambiente-do-projeto)
     - [Usando Android](#usando-android)
     - [Usando o iOS](#usando-o-ios)
 
@@ -49,6 +50,8 @@ Crie o arquivo `.env.dev` como cópia do `.env.dev.example` e insira o valor das
 cp .env.dev.example .env.dev
 ```
 
+> Esse projeto utiliza uma API própria. Caso queira ver como essa API foi desenvolvida, avesse [aqui](https://github.com/EscolaDeSaudePublica/isus-api) para o reposiório aqui no github.
+
 ### Variáveis de ambiente do projeto
 
 - **ONE_SIGNAL_KEY:** Chave do OneSignal.
@@ -58,7 +61,7 @@ cp .env.dev.example .env.dev
 - **QUALIQUIZ_URL:** URL do Qualiquiz.
 - **IDSAUDE_URL:** URL do idSaude.
 
-### 🤖 Usando Android
+### Usando Android
 
 - Com o [Android Studio](https://developer.android.com/studio) e o Java SDK previamente instalados, digite o seguinte comando:
 
@@ -66,7 +69,7 @@ cp .env.dev.example .env.dev
 yarn android
 ```
 
-### 🍎 Usando o iOS
+### Usando o iOS
 
 - Com o **XCode** baixado no sistema e o **Cocoapods**, entre na pasta do iOS no projeto e instale as dependências do **Cocoapods**:
 
