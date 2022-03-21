@@ -71,3 +71,7 @@ android-keystore.jks
 
 # Testes
 coverage/
+
+# markdownlint config file
+.markdownlint.json
+

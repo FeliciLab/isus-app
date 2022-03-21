@@ -20,7 +20,7 @@ O objetivo é entregar informações, serviços e oportunidades, de forma automa
 
 Para mais informações, acesse [a nossa wiki](https://github.com/EscolaDeSaudePublica/isus-app/wiki). Acesse também o [nosso Board](https://github.com/orgs/EscolaDeSaudePublica/projects/20)
 
-## Start do Projeto.
+## 🚀 Start do Projeto
 
 - Após baixar o projeto, certifique se você está na branch develop, em seguida instale as dependências usando:
 
@@ -40,7 +40,7 @@ Para mais informações, acesse [a nossa wiki](https://github.com/EscolaDeSaudeP
  cp .env.dev.example .env.dev
 ```
 
-### Usando Android
+### 🤖 Usando Android
 
 - Com o Android Studio e o Java SDK previamente instalados, digite o seguinte comando:
 
@@ -49,7 +49,7 @@ yarn android
 
 ```
 
-### Usando o iOS
+### 🍎 Usando o iOS
 
 - Com o XCode baixado no sistema e o cocoapods, entre na pasta do iOS no projeto e instale as dependências do Cocoapods:
 
