@@ -2,14 +2,16 @@
 
 Esse é o repositório do aplicativo **iSUS**.
 
-<img src="https://user-images.githubusercontent.com/89998/83240358-a763d180-a16f-11ea-9e2f-226f7f197a91.png">
+<img src=".github/banner.png">
 
 - [App iSUS](#app-isus)
   - [O que é?](#o-que-é)
-  - [Start do Projeto.](#start-do-projeto)
+  - [Ferramentas usadas](#🧰-ferramentas-usadas)
+  - [Start do Projeto.](#🚀-start-do-projeto)
     - [Variáveis de ambiente do projeto](#variáveis-de-ambiente-do-projeto)
-    - [Usando Android](#usando-android)
+    - [Usando Android](#🤖-usando-android)
     - [Usando o iOS](#usando-o-ios)
+  - [Licença](#licença)
 
 ## O que é?
 
@@ -61,7 +63,7 @@ cp .env.dev.example .env.dev
 - **QUALIQUIZ_URL:** URL do Qualiquiz.
 - **IDSAUDE_URL:** URL do idSaude.
 
-### Usando Android
+### 🤖 Usando Android
 
 - Com o [Android Studio](https://developer.android.com/studio) e o Java SDK previamente instalados, digite o seguinte comando:
 
@@ -80,3 +82,7 @@ pod install
 ```bash
 yarn ios
 ```
+
+## Licença
+
+O iSUS tem [GNU GENERAL PUBLIC LICENSE](./LICENSE).
