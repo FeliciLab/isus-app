@@ -6,7 +6,7 @@ labels: app
 assignees: ''
 ---
 
-## Objetivo
+## 🚀 Objetivo
 
 **Como** persona
 **Quero** fazer_algo

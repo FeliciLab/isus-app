@@ -6,7 +6,7 @@ labels: app, bug
 assignees: ''
 ---
 
-## Descrição
+## 🐛 Descrição
 
 -
 
@@ -21,9 +21,9 @@ assignees: ''
 ## Critérios de Aceitação
 
 - [ ] titulo
-**Dado que** algo
-**Quando** faço
-**então** resulta
+      **Dado que** algo
+      **Quando** faço
+      **então** resulta
 
 ## Observações
 

@@ -5,7 +5,7 @@ title: 'Build New Version do iSUS X.XX.XX'
 labels: app
 assignees: ''
 ---
-## Nova Versão X.XX.XX
+## ✨ Nova Versão X.XX.XX
 
 ## Build
 

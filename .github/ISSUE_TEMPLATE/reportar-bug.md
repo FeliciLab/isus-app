@@ -6,7 +6,7 @@ labels: bug-report
 assignees: ''
 ---
 
-## Descrição
+## 🐛 Descrição
 
 > Descreva tudo que poder sobre o problema encontrado no aplicativo
 
