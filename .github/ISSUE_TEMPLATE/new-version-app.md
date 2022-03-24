@@ -1,13 +1,11 @@
 ---
 name: Nova versão do iSUS
 about: Modelo de issue para nova versão do iSUS
-title: "Build New Version do iSUS X.XX.XX"
+title: 'Build New Version do iSUS X.XX.XX'
 labels: app
 assignees: ''
 ---
-
-# Nova Versão X.XX.XX
-
+## ✨ Nova Versão X.XX.XX
 
 ## Build
 
