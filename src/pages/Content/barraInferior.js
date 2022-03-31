@@ -53,7 +53,6 @@ function BarraInferior({
 const estilos = StyleSheet.create({
   inferior: {
     backgroundColor: '#FFFFFF',
-    // shadowColor: '#000',
     borderTopColor: '#ccc',
     borderTopWidth: 1,
     shadowOffset: {

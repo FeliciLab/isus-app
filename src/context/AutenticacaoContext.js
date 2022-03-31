@@ -1,6 +1,8 @@
-import React, { createContext, useCallback } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { perfilUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
+import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
 import Pessoa from '~/models/pessoa';
 import { autenticarComIdSaude } from '~/services/autenticacao';
@@ -21,6 +23,8 @@ interface Token = {
 */
 
 const AutenticacaoProvider = ({ children }) => {
+  const [autenticacaoLoading, setAutenticacaoLoading] = useState(false);
+
   const [user, setUser] = useAsyncStorage('@isus:user', null);
 
   const [pessoa, setPessoa] = useAsyncStorage('@isus:pessoa', null);
@@ -81,8 +85,25 @@ const AutenticacaoProvider = ({ children }) => {
         signOut,
         showTutorial,
         setShowTutorial,
+        autenticacaoLoading,
+        setAutenticacaoLoading,
       }}>
       {children}
+      {autenticacaoLoading && (
+        <View
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            flex: 1,
+            zIndex: 1000,
+            backgroundColor: CORES.PRETO54,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator size="large" />
+        </View>
+      )}
     </AutenticacaoContext.Provider>
   );
 };

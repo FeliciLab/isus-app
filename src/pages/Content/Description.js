@@ -23,7 +23,7 @@ import { Snackbar, Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import { pegarProjetosPorId } from '~/apis/apiHome';
 import BarraDeStatus from '~/components/barraDeStatus';
-import BarraInferior from '~/components/barraInferior';
+import BarraInferior from '~/components/BarraInferior';
 import rotas from '~/constantes/rotas';
 import { ArrowLeftIcon } from '~/icons';
 import {
@@ -54,13 +54,13 @@ export default function DescriptionScreen(props) {
 
   const dataDePostagem = postagem.post_date;
 
-  const estaConectado = useNetInfo().isConnected;
+  const { isConnected } = useNetInfo();
 
   useEffect(() => {
-    if (!estaConectado && estaConectado !== null) {
+    if (!isConnected && isConnected !== null) {
       navigation.navigate(rotas.SEM_CONEXAO);
     }
-  }, [estaConectado]);
+  }, [isConnected]);
 
   useFocusEffect(
     useCallback(() => {
@@ -68,6 +68,7 @@ export default function DescriptionScreen(props) {
     }, []),
   );
 
+  // TODO: pegar qual conteúdo?
   const pegarConteudoDoStorage = async () => {
     try {
       const resposta = await pegarDados(
@@ -79,6 +80,7 @@ export default function DescriptionScreen(props) {
     }
   };
 
+  // TODO: pegar o que da api?
   const pegarConteudoDaApi = async () => {
     try {
       const resposta = await pegarProjetosPorId(params.object.id);
@@ -181,9 +183,8 @@ export default function DescriptionScreen(props) {
     }, 3000);
   };
 
-  const baixarPDF = (event, href) => {
-    // eslint-disable-next-line no-unused-expressions
-    estaConectado
+  const handleBaixarPDF = (event, href) => {
+    isConnected
       ? navigation.navigate('webview', {
         title: 'Acesso ao conteúdo',
         url: href,
@@ -236,11 +237,13 @@ export default function DescriptionScreen(props) {
           />
           <View
             style={{
-              // height: Dimensions.get('window').width / 1.5,
               width: Dimensions.get('window').width,
             }}>
             <View style={styles.viewHTML}>
-              <HTML html={postagem.post_content} onLinkPress={baixarPDF} />
+              <HTML
+                html={postagem.post_content}
+                onLinkPress={handleBaixarPDF}
+              />
             </View>
           </View>
         </View>

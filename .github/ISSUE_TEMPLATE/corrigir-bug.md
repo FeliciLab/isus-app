@@ -4,29 +4,27 @@ about: Modelo de reporte de bug
 title: "<Tela de login não aparece ao clicar em 'Já possuo Id Saúde'> ..."
 labels: app, bug
 assignees: ''
-
 ---
 
-# Descrição
+## 🐛 Descrição
 
 -
 
-# Passo-a-passo para replicar
+## Passo-a-passo para replicar
 
 -
 
-# Ideia de solução
+## Ideia de solução
 
 -
 
-# Critérios de Aceitação
+## Critérios de Aceitação
 
-- [ ] titulo  
-**Dado que** algo  
-**Quando** faço  
-**então** resulta
+- [ ] titulo
+      **Dado que** algo
+      **Quando** faço
+      **então** resulta
 
-
-# Observações
+## Observações
 
 ex: Prototipo

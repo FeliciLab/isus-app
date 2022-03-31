@@ -4,17 +4,20 @@ about: Atividade para um novo deploy
 title: Deploy vX.X.X
 labels: app, deploy
 assignees: ''
-
 ---
 
-## Versão
+## ✨ Versão
+
 X.X.X
 
 ## Atividades
-Android
+
+### Android
+
 - [ ] #issue1
 - [ ] #issue2
 
-iOS
+### iOS
+
 - [ ] #issue1
 - [ ] #issue2

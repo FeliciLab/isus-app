@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useContext } from 'react';
+import rotas from '~/constantes/rotas';
 import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 import useAutenticacao from './useAutenticacao';
 
@@ -10,18 +11,20 @@ function useLogoutApplication() {
     CaixaDialogoContext,
   );
 
-  const { alterarPessoa, setUser, signOut } = useAutenticacao();
+  const { signOut, setAutenticacaoLoading } = useAutenticacao();
 
   const realizarLogout = async () => {
     try {
+      setAutenticacaoLoading(true);
+
       await signOut();
+
+      navigation.navigate(rotas.HOME);
     } catch (err) {
       console.log('erro', err);
+    } finally {
+      setAutenticacaoLoading(false);
     }
-
-    await alterarPessoa({});
-    setUser(null);
-    navigation.navigate('HOME');
   };
 
   const abrirCaixaDialogoSair = async () => {
