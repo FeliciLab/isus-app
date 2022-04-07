@@ -9142,10 +9142,10 @@ react-freeze@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.0.tgz#b21c65fe1783743007c8c9a2952b1c8879a77354"
   integrity sha512-yQaiOqDmoKqks56LN9MTgY06O0qQHgV4FUrikH357DydArSZHQhl0BJFqGKIZoTqi8JizF9Dxhuk1FIZD6qCaw==
 
-react-hook-form@6.3.1:
-  version "6.3.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-6.3.1.tgz#c4152ca8cc7f1f75c2f96f3b21526b7ac02bbdf9"
-  integrity sha512-gbIXrYrENNQ/e4JoyK8LNfJXYYDaccu/7uT8izOq/0vWUKEdRFwCFvP1aLZWZnuE5tAaaFOlFdjynMh9PiC/dQ==
+react-hook-form@^7.29.0:
+  version "7.29.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.29.0.tgz#5e7e41a483b70731720966ed8be52163ea1fecf1"
+  integrity sha512-NcJqWRF6el5HMW30fqZRt27s+lorvlCCDbTpAyHoodQeYWXgQCvZJJQLC1kRMKdrJknVH0NIg3At6TUzlZJFOQ==
 
 "react-is@^16.12.0 || ^17.0.0", react-is@^17.0.1, react-is@^17.0.2:
   version "17.0.2"
