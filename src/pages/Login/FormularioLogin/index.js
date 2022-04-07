@@ -1,26 +1,21 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { Controller } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { View } from 'react-native';
 import { Config } from 'react-native-config';
-import { DefaultTheme, TextInput } from 'react-native-paper';
+import { DefaultTheme } from 'react-native-paper';
 import Alerta from '~/components/alerta';
+import ControlledTextInput from '~/components/ControlledTextInput/index';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { TESTIDS } from '~/constantes/testIDs';
-import FormContext from '~/context/FormContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useCaixaDialogo from '~/hooks/useCaixaDialogo';
-import { emailValido, senhaValido } from '~/utils/validadores';
 import IDSaudeLoginTemplate from '../IDSaudeLoginTemplate';
+import schema from './schema';
 import { Botao } from './styles';
-import { CORES } from '~/constantes/estiloBase';
 
 const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
@@ -31,9 +26,13 @@ const FormularioLogin = ({ route }) => {
 
   const caixaDialogo = useCaixaDialogo();
 
-  const { control, handleSubmit, errors, getValues, setValue } = useContext(
-    FormContext,
-  );
+  const { control, handleSubmit, getValues, setValue, errors } = useForm({
+    defaultValues: {
+      email: '',
+      senha: '',
+    },
+    resolver: yupResolver(schema),
+  });
 
   const { signIn } = useAutenticacao();
 
@@ -126,61 +125,23 @@ const FormularioLogin = ({ route }) => {
   return (
     <IDSaudeLoginTemplate route={route}>
       <View style={{ marginHorizontal: 16 }}>
-        <Controller
+        <ControlledTextInput
+          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
           control={control}
           name="email"
-          rules={{
-            required: true,
-            validate: { emailValido: value => emailValido(value) },
-          }}
-          defaultValue=""
-          render={({ onChange, value }) => (
-            <TextInput
-              testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
-              label="E-mail"
-              mode="outlined"
-              placeholder="E-mail"
-              selectionColor={CORES.AZUL}
-              onChangeText={onChange}
-              autoCapitalize="none"
-              value={value}
-              theme={theme}
-            />
-          )}
+          mode="outlined"
+          placeholder="Email"
+          theme={theme}
         />
-        {errors?.email && (
-          <Text style={{ color: CORES.BRANCO }}>Insira um e-mail válido.</Text>
-        )}
-        <Controller
+        <ControlledTextInput
+          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
           control={control}
           name="senha"
-          rules={{
-            required: true,
-            validate: { senhaValida: value => senhaValido(value) },
-          }}
-          defaultValue=""
-          render={({ onChange, value }) => (
-            <TextInput
-              testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
-              style={{ marginTop: 18 }}
-              onChangeText={onChange}
-              value={value}
-              theme={theme}
-              label="Senha"
-              selectionColor={CORES.AZUL}
-              placeholder="Senha"
-              mode="outlined"
-              secureTextEntry
-            />
-          )}
+          mode="outlined"
+          placeholder="Senha"
+          secureTextEntry
+          theme={theme}
         />
-
-        {errors?.senha && (
-          <Text style={{ color: CORES.BRANCO }}>
-            O campo de senha deve ser preenchido.
-          </Text>
-        )}
-
         <View style={{ marginTop: 18 }}>
           <Botao
             ref={refSubmit}
