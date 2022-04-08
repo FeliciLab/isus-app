@@ -17,6 +17,7 @@ import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo';
 import { yupResolver } from '@hookform/resolvers/yup';
+import ControlledMultipleSelectAccordion from '~/components/ControlledMultipleSelectAccordion';
 
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
@@ -29,6 +30,9 @@ const items = [
 
 const schema = yup.object({
   selectedMunicipioId: yup.number().required('Campo obrigatório'),
+  mutipleSelectMunicipioId: yup
+    .array()
+    .min(1, 'Preencher pelo menos um campo.'),
 });
 
 export default function Home() {
@@ -41,6 +45,7 @@ export default function Home() {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       selectedMunicipioId: undefined,
+      mutipleSelectMunicipioId: [],
     },
     resolver: yupResolver(schema),
   });
@@ -120,6 +125,15 @@ export default function Home() {
           title="Teste"
           placeholder="Município"
         />
+
+        <ControlledMultipleSelectAccordion
+          control={control}
+          name="mutipleSelectMunicipioId"
+          items={items}
+          title="Teste Select Multi"
+          placeholder="Cidades"
+        />
+
         <Button
           icon="camera"
           mode="contained"
