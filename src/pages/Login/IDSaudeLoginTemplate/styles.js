@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { CORES } from '~/constantes/estiloBase';
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: ${CORES.AZUL};
   justify-content: space-between;

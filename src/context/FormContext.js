@@ -6,14 +6,13 @@ const FormContext = createContext({});
 export const FormProvider = ({ initValues, children }) => {
   const {
     register,
-    errors,
     trigger,
     handleSubmit,
     setValue,
     getValues,
     control,
     unregister,
-    formState,
+    formState: { errors },
   } = useForm({
     defaultValues: initValues,
     mode: 'onBlur',
@@ -37,7 +36,7 @@ export const FormProvider = ({ initValues, children }) => {
         getValues,
         control,
         unregister,
-        formState,
+        // formState,
         fieldsEmpty,
       }}>
       {children}

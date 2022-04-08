@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import {
+  Dimensions,
   Keyboard,
+  Platform,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Dimensions,
 } from 'react-native';
 import IDSaudeBranco from '~/assets/icons/idsaude-branco.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
@@ -44,7 +45,7 @@ function IDSaudeLoginTemplate({ children }) {
 
   return (
     <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
-      <Container>
+      <Container behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
         <ConteudoImagem>
           <IDSaudeBranco height={windowWidth * 0.4} width={windowWidth * 0.4} />
