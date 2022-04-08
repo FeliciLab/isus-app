@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { Config } from 'react-native-config';
@@ -17,12 +17,21 @@ import IDSaudeLoginTemplate from '../IDSaudeLoginTemplate';
 import schema from './schema';
 import { Botao } from './styles';
 
+const textInputTheme = {
+  ...DefaultTheme,
+  colors: {
+    primary: CORES.BRANCO,
+    accent: CORES.BRANCO,
+    text: CORES.BRANCO,
+    background: CORES.AZUL,
+    placeholder: CORES.BRANCO,
+  },
+};
+
 const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
-
-  const refSubmit = useRef();
 
   const caixaDialogo = useCaixaDialogo();
 
@@ -42,23 +51,12 @@ const FormularioLogin = ({ route }) => {
 
   const [visivel, setVisivel] = useState(false);
 
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      primary: CORES.BRANCO,
-      accent: CORES.BRANCO,
-      text: CORES.BRANCO,
-      background: CORES.AZUL,
-      placeholder: CORES.BRANCO,
-    },
-  };
-
   const mostrarAlerta = useCallback(texto => {
     setTextoDoAlerta(texto);
     setVisivel(true);
   }, []);
 
-  const submitForm = async (data, options) => {
+  const handleSubmitForm = async (data, options) => {
     const { email, senha } = data;
 
     const tentativa = options?.tentativa || 1;
@@ -103,7 +101,7 @@ const FormularioLogin = ({ route }) => {
   };
 
   const tentarLoginNovamente = tentativa =>
-    submitForm(getValues(), { tentativa: tentativa + 1 });
+    handleSubmitForm(getValues(), { tentativa: tentativa + 1 });
 
   const abrirWebViewEsqueciMinhaSenha = useCallback(() => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
@@ -131,25 +129,27 @@ const FormularioLogin = ({ route }) => {
           name="email"
           mode="outlined"
           placeholder="Email"
-          theme={theme}
+          label="Email"
+          theme={textInputTheme}
         />
         <ControlledTextInput
+          style={{ marginTop: 8 }}
           testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
           control={control}
           name="senha"
           mode="outlined"
           placeholder="Senha"
+          label="Senha"
           secureTextEntry
-          theme={theme}
+          theme={textInputTheme}
         />
         <View style={{ marginTop: 18 }}>
           <Botao
-            ref={refSubmit}
             disabled={errors?.email || errors?.senha || carregando}
             testID={TESTIDS.BUTTON_FAZER_LOGIN}
             mode="contained"
             loading={carregando}
-            onPress={handleSubmit(submitForm)}>
+            onPress={handleSubmit(handleSubmitForm)}>
             Fazer Login
           </Botao>
           <Botao

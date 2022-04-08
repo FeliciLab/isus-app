@@ -1,13 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
+import { CORES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import rotas from '~/constantes/rotas';
 import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useDialogAppTrack from '~/hooks/useDialogAppTrack';
 import { Botao, ConteudoDoTexto, Texto } from './styles';
-import rotas from '~/constantes/rotas';
-
 
 const ConteudoInicial = () => {
   const navigation = useNavigation();
@@ -43,7 +43,7 @@ const ConteudoInicial = () => {
         <Botao
           testID={TESTIDS.BUTTON_JA_POSSUO_ID_SAUDE}
           mode="text"
-          color="#ffffff"
+          color={CORES.BRANCO}
           onPress={() => {
             analyticsData('ja_possuo_id_saude', 'Click', 'Perfil');
             navigation.navigate(rotas.LOGIN_FORM);

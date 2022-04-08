@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextInput, HelperText } from 'react-native-paper';
 import { Controller } from 'react-hook-form';
+import { HelperText, TextInput } from 'react-native-paper';
 
 // Componente de TextInput para ser usando com o react-hook-form
 const ControlledTextInput = props => {
@@ -9,6 +9,7 @@ const ControlledTextInput = props => {
   return (
     <Controller
       control={control}
+      name={name}
       render={({
         field: { onChange, onBlur, value },
         fieldState: { error },
@@ -24,7 +25,6 @@ const ControlledTextInput = props => {
           {error && <HelperText type="error">{error.message}</HelperText>}
         </>
       )}
-      name={name}
     />
   );
 };
