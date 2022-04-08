@@ -10,7 +10,7 @@ const SelectAccordion = props => {
   const handlePress = () => setExpanded(old => !old);
 
   return (
-    <List.Section title={title} {...rest}>
+    <List.Section title={title}>
       <List.Accordion
         title={
           items
