@@ -26,6 +26,31 @@ const items = [
   { value: 0, label: 'Fortaleza' },
   { value: 1, label: 'Mossoró' },
   { value: 2, label: 'Sobral' },
+  {
+    value: 3,
+    label:
+      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis tempore laboriosam iste sapiente, neque provident ipsum ex ipsa, odio quo tempora nisi voluptas explicabo rem nesciunt soluta sit recusandae praesentium',
+  },
+  {
+    value: 4,
+    label: 'Lorem ipsum dolor, sit amet consectetur',
+  },
+  {
+    value: 5,
+    label: 'Lorem ipsum',
+  },
+  {
+    value: 6,
+    label: 'Lorem ipsum dolor',
+  },
+  {
+    value: 7,
+    label: 'Lorem',
+  },
+  {
+    value: 8,
+    label: 'Lorem ip',
+  },
 ];
 
 const schema = yup.object({
@@ -132,6 +157,7 @@ export default function Home() {
           items={items}
           title="Teste Select Multi"
           placeholder="Cidades"
+          // hasChips={false}
         />
 
         <Button
