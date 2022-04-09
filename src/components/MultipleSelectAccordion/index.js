@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { List } from 'react-native-paper';
+import { List, Chip } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
+import { CloseCircleoIcon } from '~/icons/index';
 import { CORES } from '~/constantes/estiloBase';
 
 const MultipleSelectAccordion = props => {
@@ -9,6 +11,7 @@ const MultipleSelectAccordion = props => {
     setValues,
     placeholder,
     items = [],
+    hasChips = true,
     ...rest
   } = props;
 
@@ -54,8 +57,35 @@ const MultipleSelectAccordion = props => {
           );
         })}
       </List.Accordion>
+      {hasChips && (
+        <View style={styles.chipContainer}>
+          {items
+            .filter(item => values.some(value => value === item.value))
+            .map(item => (
+              <Chip
+                style={styles.chipItem}
+                key={item.value}
+                onClose={() => setValues(values.filter(v => v !== item.value))}
+                closeIcon={props => <CloseCircleoIcon size={28} {...props} />}>
+                {item.label}
+              </Chip>
+            ))}
+        </View>
+      )}
     </List.Section>
   );
 };
+
+const styles = StyleSheet.create({
+  chipContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 4,
+  },
+  chipItem: {
+    marginRight: 4,
+    marginVertical: 2,
+  },
+});
 
 export default MultipleSelectAccordion;
