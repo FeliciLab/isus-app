@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { List, Chip } from 'react-native-paper';
-import { View, StyleSheet } from 'react-native';
-import { CloseCircleoIcon } from '~/icons/index';
+import { StyleSheet, View } from 'react-native';
+import { Chip, List } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
+import { CloseCircleoIcon } from '~/icons/index';
+import { sortBy } from 'lodash';
 
 const MultipleSelectAccordion = props => {
   const {
@@ -23,8 +24,10 @@ const MultipleSelectAccordion = props => {
     <List.Section title={title}>
       <List.Accordion
         title={
-          items
-            .filter(item => values.includes(item.value))
+          sortBy(
+            items.filter(item => values.includes(item.value)),
+            ['label'],
+          )
             .map(item => item.label)
             .join(', ') || placeholder
         }
@@ -59,17 +62,18 @@ const MultipleSelectAccordion = props => {
       </List.Accordion>
       {hasChips && (
         <View style={styles.chipContainer}>
-          {items
-            .filter(item => values.some(value => value === item.value))
-            .map(item => (
-              <Chip
-                style={styles.chipItem}
-                key={item.value}
-                onClose={() => setValues(values.filter(v => v !== item.value))}
-                closeIcon={props => <CloseCircleoIcon size={28} {...props} />}>
-                {item.label}
-              </Chip>
-            ))}
+          {sortBy(
+            items.filter(item => values.some(value => value === item.value)),
+            ['label'],
+          ).map(item => (
+            <Chip
+              style={styles.chipItem}
+              key={item.value}
+              onClose={() => setValues(values.filter(v => v !== item.value))}
+              closeIcon={props => <CloseCircleoIcon size={28} {...props} />}>
+              {item.label}
+            </Chip>
+          ))}
         </View>
       )}
     </List.Section>
