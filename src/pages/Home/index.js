@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -8,8 +8,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as yup from 'yup';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledMultipleSelectAccordion from '~/components/ControlledMultipleSelectAccordion';
-import ControlledSelectAccordion from '~/components/ControlledSelectAccordion/index';
-import SelectModal from '~/components/SelectModal/index';
+import ControlledSelectAccordion from '~/components/ControlledSelectAccordion';
+import ControlledSelectModal from '~/components/ControlledSelectModal';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -67,12 +67,11 @@ export default function Home() {
 
   const { user, showTutorial } = useAutenticacao();
 
-  const [municipio, setMunicipio] = useState();
-
   const { control, handleSubmit } = useForm({
     defaultValues: {
       selectedMunicipioId: undefined,
       mutipleSelectMunicipioId: [],
+      selectModalMunicipioId: undefined,
     },
     resolver: yupResolver(schema),
   });
@@ -145,32 +144,27 @@ export default function Home() {
       />
       <UserInfo />
       <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
-
-        <SelectModal
-          value={municipio}
-          setValue={setMunicipio}
-          title="Select simples com Modal"
-          items={items}
-          placeholder="Município"
-        />
-
         <ControlledSelectAccordion
           control={control}
           name="selectedMunicipioId"
           items={items}
-          title="Teste"
+          title="Controlled Select Accordion"
           placeholder="Município"
         />
-
         <ControlledMultipleSelectAccordion
           control={control}
           name="mutipleSelectMunicipioId"
           items={items}
-          title="Teste Select Multi"
+          title="Controlled Multiple Select Accordion"
           placeholder="Cidades"
-          // hasChips={false}
         />
-
+        <ControlledSelectModal
+          control={control}
+          name="selectModalMunicipioId"
+          title="Controled Select Modal"
+          items={items}
+          placeholder="Município"
+        />
         <Button
           icon="camera"
           mode="contained"

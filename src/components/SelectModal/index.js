@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { List, Divider } from 'react-native-paper';
+import { Divider, List } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons/index';
 
@@ -39,10 +39,7 @@ const SelectModal = props => {
           <TouchableOpacity onPress={() => setOpen(false)}>
             <ArrowLeftIcon ArrowLeftIcon size={22} color={CORES.VERDE} />
           </TouchableOpacity>
-          <Text>{title}</Text>
-          <TouchableOpacity onPress={() => setOpen(false)}>
-            <Text style={styles.cancelText}>Cancelar</Text>
-          </TouchableOpacity>
+          <Text style={styles.modalHeaderText}>{title}</Text>
         </View>
         <FlatList
           data={items}
@@ -76,14 +73,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     padding: 10,
     borderBottomWidth: 0.5,
     borderBottomColor: '#999',
   },
-  cancelText: {
+  modalHeaderText: {
+    marginLeft: 10,
+    fontSize: 16,
     fontWeight: '600',
-    color: CORES.AZUL,
   },
 });
 
