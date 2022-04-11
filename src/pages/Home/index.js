@@ -1,12 +1,15 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as yup from 'yup';
 import BarraDeStatus from '~/components/barraDeStatus';
+import ControlledMultipleSelectAccordion from '~/components/ControlledMultipleSelectAccordion';
 import ControlledSelectAccordion from '~/components/ControlledSelectAccordion/index';
+import SelectModal from '~/components/SelectModal/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -16,9 +19,6 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo';
-import { yupResolver } from '@hookform/resolvers/yup';
-import ControlledMultipleSelectAccordion from '~/components/ControlledMultipleSelectAccordion';
-
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 
@@ -66,6 +66,8 @@ export default function Home() {
   const { analyticsData } = useAnalytics();
 
   const { user, showTutorial } = useAutenticacao();
+
+  const [municipio, setMunicipio] = useState();
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -143,6 +145,15 @@ export default function Home() {
       />
       <UserInfo />
       <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
+
+        <SelectModal
+          value={municipio}
+          setValue={setMunicipio}
+          title="Select simples com Modal"
+          items={items}
+          placeholder="Município"
+        />
+
         <ControlledSelectAccordion
           control={control}
           name="selectedMunicipioId"
