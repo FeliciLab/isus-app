@@ -1,16 +1,17 @@
-import React, { useCallback, useState } from 'react';
+import { sortBy } from 'lodash';
+import React, { useState } from 'react';
 import {
+  FlatList,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  Modal,
-  FlatList,
 } from 'react-native';
-import { Divider, List } from 'react-native-paper';
+import { Chip, Divider, List } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
-import { ArrowLeftIcon } from '~/icons/index';
-import { sortBy } from 'lodash';
+import { ArrowLeftIcon, CloseCircleoIcon } from '~/icons';
+
 const MultipleSelectModal = props => {
   const {
     title,
@@ -18,18 +19,19 @@ const MultipleSelectModal = props => {
     items = [],
     values = [],
     setValues,
+    hasChips = true,
     ...rest
   } = props;
 
   const [open, setOpen] = useState(false);
 
-  const handleOnPressItem = useCallback((item, isSelected) => {
+  const handleOnPressItem = (item, isSelected) => {
     if (isSelected) {
-      setValues(old => old.filter(value => value !== item.value));
+      setValues(values.filter(value => value !== item.value));
     } else {
-      setValues(old => [...old, item.value].sort());
+      setValues([...values, item.value].sort());
     }
-  }, []);
+  };
 
   return (
     <List.Section title={title}>
@@ -78,6 +80,22 @@ const MultipleSelectModal = props => {
           />
         </Modal>
       </List.Accordion>
+      {hasChips && (
+        <View style={styles.chipContainer}>
+          {sortBy(
+            items.filter(item => values.some(value => value === item.value)),
+            ['label'],
+          ).map(item => (
+            <Chip
+              style={styles.chipItem}
+              key={item.value}
+              onClose={() => setValues(values.filter(v => v !== item.value))}
+              closeIcon={props => <CloseCircleoIcon size={28} {...props} />}>
+              {item.label}
+            </Chip>
+          ))}
+        </View>
+      )}
     </List.Section>
   );
 };
@@ -97,6 +115,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     fontWeight: '600',
+  },
+  chipContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 4,
+  },
+  chipItem: {
+    marginRight: 4,
+    marginVertical: 2,
   },
 });
 

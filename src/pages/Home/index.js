@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -8,9 +8,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as yup from 'yup';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledMultipleSelectAccordion from '~/components/ControlledMultipleSelectAccordion';
+import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal';
 import ControlledSelectAccordion from '~/components/ControlledSelectAccordion';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
-import MultipleSelectModal from '~/components/MultipleSelectModal';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -59,6 +59,10 @@ const schema = yup.object({
   mutipleSelectMunicipioId: yup
     .array()
     .min(1, 'Preencher pelo menos um campo.'),
+  selectModalMunicipioId: yup.number().required('Campo obrigatório'),
+  mutipleSelectModalMunicipioId: yup
+    .array()
+    .min(1, 'Preencher pelo menos um campo.'),
 });
 
 export default function Home() {
@@ -73,11 +77,10 @@ export default function Home() {
       selectedMunicipioId: undefined,
       mutipleSelectMunicipioId: [],
       selectModalMunicipioId: undefined,
+      mutipleSelectModalMunicipioId: [],
     },
     resolver: yupResolver(schema),
   });
-
-  const [municipiosSelectedIds, setMunicipiosSelectedIds] = useState([]);
 
   async function redirectToWelcome() {
     if (showTutorial) {
@@ -161,6 +164,7 @@ export default function Home() {
           title="Controlled Multiple Select Accordion"
           placeholder="Cidades"
         />
+
         <ControlledSelectModal
           control={control}
           name="selectModalMunicipioId"
@@ -169,12 +173,12 @@ export default function Home() {
           placeholder="Município"
         />
 
-        <MultipleSelectModal
-          title="Multiple Select Modal"
-          placeholder="Município"
-          values={municipiosSelectedIds}
-          setValues={setMunicipiosSelectedIds}
+        <ControlledMultipleSelectModal
+          control={control}
+          name="mutipleSelectModalMunicipioId"
+          title="Controled Multiple Select Modal"
           items={items}
+          placeholder="Município"
         />
 
         <Button
