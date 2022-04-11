@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Chip, List } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
-import { CloseCircleoIcon } from '~/icons/index';
+import { CloseCircleoIcon } from '~/icons';
 import { sortBy } from 'lodash';
 
 const MultipleSelectAccordion = props => {
@@ -49,13 +49,13 @@ const MultipleSelectAccordion = props => {
                 }
                 setExpanded(false);
               }}
-              right={props => {
-                return isSelected ? (
+              right={props =>
+                isSelected ? (
                   <List.Icon {...props} icon="check" color={CORES.VERDE} />
                 ) : (
-                  <List.Icon {...props} />
-                );
-              }}
+                  <List.Icon {...props} color={CORES.VERDE} />
+                )
+              }
             />
           );
         })}

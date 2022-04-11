@@ -1,9 +1,9 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { HelperText } from 'react-native-paper';
-import SelectAccordion from '../SelectAccordion/index';
+import MultipleSelectModal from '../MultipleSelectModal';
 
-function ControlledSelectAccordion(props) {
+const ControlledMultipleSelectModal = props => {
   const { control, items, name, ...rest } = props;
 
   return (
@@ -12,10 +12,10 @@ function ControlledSelectAccordion(props) {
       name={name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
-          <SelectAccordion
-            value={value}
+          <MultipleSelectModal
+            values={value}
             items={items}
-            setValue={onChange}
+            setValues={onChange}
             {...rest}
           />
           {error && <HelperText type="error">{error.message}</HelperText>}
@@ -23,6 +23,6 @@ function ControlledSelectAccordion(props) {
       )}
     />
   );
-}
+};
 
-export default ControlledSelectAccordion;
+export default ControlledMultipleSelectModal;

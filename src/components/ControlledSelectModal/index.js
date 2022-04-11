@@ -1,10 +1,10 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { HelperText } from 'react-native-paper';
-import SelectAccordion from '../SelectAccordion/index';
+import SelectModal from '../SelectModal/index';
 
-function ControlledSelectAccordion(props) {
-  const { control, items, name, ...rest } = props;
+const ControlledSelectModal = props => {
+  const { control, name, items, ...rest } = props;
 
   return (
     <Controller
@@ -12,7 +12,7 @@ function ControlledSelectAccordion(props) {
       name={name}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
-          <SelectAccordion
+          <SelectModal
             value={value}
             items={items}
             setValue={onChange}
@@ -23,6 +23,6 @@ function ControlledSelectAccordion(props) {
       )}
     />
   );
-}
+};
 
-export default ControlledSelectAccordion;
+export default ControlledSelectModal;
