@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Chip, List } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
-import { CloseCircleoIcon } from '~/icons/index';
+import { CloseCircleoIcon } from '~/icons';
 import { sortBy } from 'lodash';
 
 const MultipleSelectAccordion = props => {
