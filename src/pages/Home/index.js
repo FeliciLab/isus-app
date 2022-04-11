@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -10,6 +10,7 @@ import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledMultipleSelectAccordion from '~/components/ControlledMultipleSelectAccordion';
 import ControlledSelectAccordion from '~/components/ControlledSelectAccordion';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
+import MultipleSelectModal from '~/components/MultipleSelectModal';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -75,6 +76,8 @@ export default function Home() {
     },
     resolver: yupResolver(schema),
   });
+
+  const [municipiosSelectedIds, setMunicipiosSelectedIds] = useState([]);
 
   async function redirectToWelcome() {
     if (showTutorial) {
@@ -165,6 +168,15 @@ export default function Home() {
           items={items}
           placeholder="Município"
         />
+
+        <MultipleSelectModal
+          title="Multiple Select Modal"
+          placeholder="Município"
+          values={municipiosSelectedIds}
+          setValues={setMunicipiosSelectedIds}
+          items={items}
+        />
+
         <Button
           icon="camera"
           mode="contained"

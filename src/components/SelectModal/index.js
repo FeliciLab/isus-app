@@ -48,15 +48,13 @@ const SelectModal = props => {
             <List.Item
               title={item.label}
               onPress={() => handleOnPressItem(item)}
-              right={props => {
-                const isSelected = item.value === value;
-
-                return (
-                  isSelected && (
-                    <List.Icon {...props} icon="check" color={CORES.VERDE} />
-                  )
-                );
-              }}
+              right={props =>
+                item.value === value ? (
+                  <List.Icon {...props} icon="check" color={CORES.VERDE} />
+                ) : (
+                  <List.Icon {...props} color={CORES.VERDE} />
+                )
+              }
             />
           )}
           ItemSeparatorComponent={() => <Divider />}

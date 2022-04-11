@@ -49,13 +49,13 @@ const MultipleSelectAccordion = props => {
                 }
                 setExpanded(false);
               }}
-              right={props => {
-                return isSelected ? (
+              right={props =>
+                isSelected ? (
                   <List.Icon {...props} icon="check" color={CORES.VERDE} />
                 ) : (
-                  <List.Icon {...props} />
-                );
-              }}
+                  <List.Icon {...props} color={CORES.VERDE} />
+                )
+              }
             />
           );
         })}
