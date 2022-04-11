@@ -13,8 +13,8 @@ function ControlledSelectAccordion(props) {
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
           <SelectAccordion
-            items={items}
             value={value}
+            items={items}
             setValue={onChange}
             {...rest}
           />

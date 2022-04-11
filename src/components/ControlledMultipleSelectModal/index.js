@@ -13,8 +13,8 @@ const ControlledMultipleSelectModal = props => {
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
           <MultipleSelectModal
-            items={items}
             values={value}
+            items={items}
             setValues={onChange}
             {...rest}
           />

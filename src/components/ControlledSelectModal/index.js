@@ -10,16 +10,12 @@ const ControlledSelectModal = props => {
     <Controller
       control={control}
       name={name}
-      render={({
-        field: { onChange, value },
-        fieldState: { error },
-      }) => (
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
           <SelectModal
             value={value}
             items={items}
             setValue={onChange}
-            placeholder="Município"
             {...rest}
           />
           {error && <HelperText type="error">{error.message}</HelperText>}

@@ -24,42 +24,42 @@ import UserInfo from './UserInfo';
 // import MeusConteudos from './MeusConteudos';
 
 const items = [
-  { value: 0, label: 'Fortaleza' },
-  { value: 1, label: 'Mossoró' },
-  { value: 2, label: 'Sobral' },
+  { value: '0', label: 'Fortaleza' },
+  { value: '1', label: 'Mossoró' },
+  { value: '2', label: 'Sobral' },
   {
-    value: 3,
+    value: '3',
     label:
       'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis tempore laboriosam iste sapiente, neque provident ipsum ex ipsa, odio quo tempora nisi voluptas explicabo rem nesciunt soluta sit recusandae praesentium',
   },
   {
-    value: 4,
+    value: '4',
     label: 'Lorem ipsum dolor, sit amet consectetur',
   },
   {
-    value: 5,
+    value: '5',
     label: 'Lorem ipsum',
   },
   {
-    value: 6,
+    value: '6',
     label: 'Lorem ipsum dolor',
   },
   {
-    value: 7,
+    value: '7',
     label: 'Lorem',
   },
   {
-    value: 8,
+    value: '8',
     label: 'Lorem ip',
   },
 ];
 
 const schema = yup.object({
-  selectedMunicipioId: yup.number().required('Campo obrigatório'),
+  selectedMunicipioId: yup.string().required('Campo obrigatório'),
   mutipleSelectMunicipioId: yup
     .array()
     .min(1, 'Preencher pelo menos um campo.'),
-  selectModalMunicipioId: yup.number().required('Campo obrigatório'),
+  selectModalMunicipioId: yup.string().required('Campo obrigatório'),
   mutipleSelectModalMunicipioId: yup
     .array()
     .min(1, 'Preencher pelo menos um campo.'),

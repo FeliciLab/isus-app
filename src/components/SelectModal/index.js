@@ -17,7 +17,7 @@ const SelectModal = props => {
   const [open, setOpen] = useState(false);
 
   const handleOnPressItem = item => {
-    setValue(old => (old === item.value ? undefined : item.value));
+    setValue(item.value === value ? undefined : item.value);
     setOpen(false);
   };
 
@@ -43,7 +43,7 @@ const SelectModal = props => {
         </View>
         <FlatList
           data={items}
-          keyExtractor={item => item.value}
+          keyExtractor={item => item.value.toString()}
           renderItem={({ item }) => (
             <List.Item
               title={item.label}
@@ -57,7 +57,7 @@ const SelectModal = props => {
               }
             />
           )}
-          ItemSeparatorComponent={() => <Divider />}
+          ItemSeparatorComponent={Divider}
         />
       </Modal>
     </List.Section>

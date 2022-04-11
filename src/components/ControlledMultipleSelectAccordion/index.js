@@ -13,8 +13,8 @@ function ControlledMultipleSelectAccordion(props) {
       render={({ field: { onChange, value }, fieldState: { error } }) => (
         <>
           <MultipleSelectAccordion
-            items={items}
             values={value}
+            items={items}
             setValues={onChange}
             {...rest}
           />
