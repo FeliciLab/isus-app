@@ -1,10 +1,13 @@
 /* eslint-disable global-require */
-import { NativeModules } from 'react-native';
-import './__mocks__/@react-native-firebase';
-import 'react-native-gesture-handler/jestSetup';
+import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import mockRNCNetInfo from '@react-native-community/netinfo/jest/netinfo-mock';
+import { NativeModules } from 'react-native';
+import 'react-native-gesture-handler/jestSetup';
+import './__mocks__/@react-native-firebase';
 
 jest.mock('@react-native-community/netinfo', () => mockRNCNetInfo);
+
+jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage);
 
 NativeModules.RNCNetInfo = {
   getCurrentState: jest.fn(() => Promise.resolve()),
