@@ -1,296 +1,145 @@
-import NetInfo from '@react-native-community/netinfo';
-import React, {
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
-import { Alert } from 'react-native';
-import { Dropdown } from 'react-native-material-dropdown-v2';
-import { DefaultTheme } from 'react-native-paper';
-import TextInputMask from 'react-native-text-input-mask';
-import { getMunicipiosCeara } from '~/apis/apiCadastro';
+// import NetInfo from '@react-native-community/netinfo';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import BarraDeStatus from '~/components/barraDeStatus';
-import {
-  cabecalhoSemBotao,
-  cabecalhoVoltar,
-} from '~/components/layoutEffect/cabecalhoLayout';
-import FormContext from '~/context/FormContext';
-import { salvarDados } from '~/services/armazenamento';
-import {
-  cpfNaoCadastrado,
-  cpfValido,
-  emailNaoCadastrado,
-  emailValido,
-  nomeValido,
-} from '~/utils/validadores';
-import {
-  Botao,
-  CampoDeTexto,
-  ConteudoDropdown,
-  IconeDropdown,
-  Scroll,
-  TextoDeErro,
-  Titulo,
-  TituloDoFormulario,
-} from './styles';
+import ControlledSelectModal from '~/components/ControlledSelectModal';
+import ControlledTextInput from '~/components/ControlledTextInput';
+import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
+import { useMunicipios } from '~/hooks/useMunicipios';
+// import { salvarDados } from '~/services/armazenamento';
+import { Botao, Scroll, Titulo, TituloDoFormulario } from './styles';
 import textos from './textos.json';
 
-export default function FormularioInfoPessoal({ navigation }) {
-  const dropdown = useRef();
+const schema = yup.object({
+  nomeCompleto: yup.string().required('Campo obrigatório'),
+  email: yup
+    .string()
+    .email('Email inválido')
+    .required('Campo obrigatório'),
+  telefone: yup.string().required('Campo obrigatório'),
+  cpf: yup.string().required('Campo obrigatório'),
+  cidade: yup.string().required('Campo obrigatório'),
+});
 
-  const [botaoAtivo, setBotaoAtivo] = useState(false);
-
-  const [nomeCidades, setNomeCidades] = useState(() => []);
-
-  const [cidades, setCidades] = useState([]);
-
-  let estaConectado = false;
+export default function FormularioInfoPessoal() {
+  const { municipios, fetchMunicipios } = useMunicipios();
 
   const theme = {
-    ...DefaultTheme,
     colors: {
       primary: '#304FFE',
     },
   };
 
-  const themeError = {
-    ...DefaultTheme,
-    colors: {
-      primary: 'red',
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      nomeCompleto: '',
+      email: '',
+      telefone: '',
+      cpf: '',
+      cidade: '',
     },
-  };
-
-  const { register, setValue, trigger, errors, getValues } = useContext(
-    FormContext,
-  );
-
-  useEffect(() => {
-    // eslint-disable-next-line no-undef
-    NetInfo.addEventListener(state => {
-      estaConectado = state.isConnected;
-    });
-    if (!estaConectado) {
-      Alert.alert(
-        'Sem conexão com a internet',
-        'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              navigation.navigate('LOGIN');
-            },
-          },
-        ],
-      );
-    }
+    resolver: yupResolver(schema),
   });
 
-  useEffect(() => {
-    register('nomeCompleto', {
-      required: true,
-      validate: nomeCompleto =>
-        nomeValido(nomeCompleto) || 'O nome deve conter apenas letras.',
-    });
-    register('email', {
-      required: true,
-      validate: {
-        emailValido: email =>
-          emailValido(email) || textos.formularioPessoal.mensagemEmail,
-        emailCadastrado: async email =>
-          (await emailNaoCadastrado(email)) ||
-          textos.formularioPessoal.mensagemEmailExistente,
-      },
-    });
-    register('telefone', {
-      required: true,
-      minLength: {
-        value: 11,
-        message: textos.formularioPessoal.mensagemTelefone,
-      },
-      maxLength: 14,
-    });
-    register('cpf', {
-      required: true,
-      minLength: {
-        value: 11,
-        message: textos.formularioPessoal.mensagemCPF,
-      },
-      validate: {
-        cpfValido: cpf =>
-          cpfValido(cpf) || textos.formularioPessoal.mensagemCPFValidacao,
-        cpfCadastrado: async cpf =>
-          (await cpfNaoCadastrado(cpf)) ||
-          textos.formularioPessoal.mensagemCPFExistente,
-      },
-      maxLength: 14,
-    });
-    register('cidade', {
-      required: true,
-    });
-  }, [register]);
-
-  const layout = {
-    titulo: 'Cadastro',
-    navegador: navigation,
-    cor: 'branco',
+  const handleOnPressNextButton = dataForm => {
+    console.log({ dataForm });
   };
 
-  useLayoutEffect(
-    () => (layout ? cabecalhoVoltar(layout) : cabecalhoSemBotao(layout)),
-    [],
-  );
+  // useEffect(() => {
+  //   const unsubscribe = NetInfo.addEventListener(state => {
+  //     setEstaConectado(state.isConnected);
+  //   });
 
-  const alteraValor = async (campo, valor) => {
-    setValue(campo, valor);
-    await trigger();
-    setBotaoAtivo(Object.entries(errors).length === 0);
-  };
+  //   if (!estaConectado) {
+  //     Alert.alert(
+  //       'Sem conexão com a internet',
+  //       'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
+  //       [
+  //         {
+  //           text: 'OK',
+  //           onPress: () => {
+  //             navigation.navigate('LOGIN');
+  //           },
+  //         },
+  //       ],
+  //     );
+  //   }
+  //   return () => unsubscribe();
+  // });
 
   useEffect(() => {
-    async function pegarCidades() {
-      const response = await getMunicipiosCeara();
-      setNomeCidades(response.data.map(item => item.nome));
-      setCidades(response.data.map(item => item));
-    }
-
-    pegarCidades();
+    fetchMunicipios();
   }, []);
 
-  useEffect(() => {
-    async function guardarCidades() {
-      await salvarDados('municipios', nomeCidades);
-      await salvarDados('objeto', cidades);
-    }
-
-    guardarCidades();
-  }, [nomeCidades]);
-
   return (
-    <>
-      <Scroll>
-        <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-        <Titulo>{textos.formularioPessoal.introducao}</Titulo>
-        <TituloDoFormulario>
-          {textos.formularioPessoal.titulo}
-        </TituloDoFormulario>
-        <CampoDeTexto
-          label="Nome Completo"
-          name="nomeCompleto"
-          underlineColor="#BDBDBD"
-          defaultValue=""
-          onChangeText={text => {
-            alteraValor('nomeCompleto', text);
-          }}
-          mode="outlined"
-          theme={
-            getValues().nomeCompleto === undefined ||
-            (getValues().nomeCompleto === '' ? theme : errors.nomeCompleto)
-              ? themeError
-              : theme
-          }
-        />
-        {errors.nomeCompleto && (
-          <TextoDeErro>{errors.nomeCompleto.message}</TextoDeErro>
-        )}
-        <CampoDeTexto
-          label="E-mail"
-          name="email"
-          keyboardType="email-address"
-          onChangeText={text => {
-            alteraValor('email', text.trim());
-          }}
-          mode="outlined"
-          theme={
-            getValues().email === undefined ||
-            (getValues().email === '' ? theme : errors.email)
-              ? themeError
-              : theme
-          }
-        />
-        {errors.email && <TextoDeErro>{errors.email.message}</TextoDeErro>}
-        <CampoDeTexto
-          label="Telefone"
-          name="telefone"
-          keyboardType="number-pad"
-          onChangeText={text => text}
-          mode="outlined"
-          theme={
-            getValues().telefone === undefined ||
-            (getValues().telefone === '' ? theme : errors.telefone)
-              ? themeError
-              : theme
-          }
-          maxLength={15}
-          render={props => (
-            <TextInputMask
-              {...props}
-              onChangeText={(formatted, extracted) => {
-                props.onChangeText(formatted);
-                alteraValor('telefone', extracted);
-              }}
-              mask="([00]) [00000]-[0000]"
-            />
-          )}
-        />
-        {errors.telefone && (
-          <TextoDeErro>{errors.telefone.message}</TextoDeErro>
-        )}
-        <CampoDeTexto
-          label="CPF"
-          name="cpf"
-          keyboardType="number-pad"
-          onChangeText={text => text}
-          mode="outlined"
-          theme={
-            getValues().cpf === undefined ||
-            (getValues().cpf === '' ? theme : errors.cpf)
-              ? themeError
-              : theme
-          }
-          maxLength={14}
-          render={props => (
-            <TextInputMask
-              {...props}
-              onChangeText={(formatted, extracted) => {
-                props.onChangeText(formatted);
-                alteraValor('cpf', extracted);
-              }}
-              mask="[000].[000].[000]-[00]"
-            />
-          )}
-        />
-        {errors.cpf && <TextoDeErro>{errors.cpf.message}</TextoDeErro>}
-        <ConteudoDropdown>
-          <Dropdown
-            ref={dropdown}
-            label="Município de Residência"
-            data={nomeCidades}
-            labelExtractor={cidade => cidade}
-            valueExtractor={cidade => cidade}
-            onChangeText={cidade => {
-              alteraValor('cidade', {
-                id: cidades.find(e => e.nome === cidade)?.id,
-                nome: cidade,
-              });
-            }}
-          />
-          <IconeDropdown
-            name="arrow-drop-down"
-            onPress={() => dropdown.current.focus()}
-          />
-        </ConteudoDropdown>
-        <Botao
-          cor="#304FFE"
-          disabled={!botaoAtivo}
-          label="Próximo"
-          labelStyle={{ color: '#fff' }}
-          mode="contained"
-          onPress={() => navigation.navigate('FormularioInfoProfissional')}>
-          Próximo
-        </Botao>
-      </Scroll>
-    </>
+    <Scroll>
+      <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+      <Titulo>{textos.formularioPessoal.introducao}</Titulo>
+      <TituloDoFormulario>{textos.formularioPessoal.titulo}</TituloDoFormulario>
+      <ControlledTextInput
+        style={{ marginVertical: 5 }}
+        control={control}
+        name="nomeCompleto"
+        mode="outlined"
+        placeholder="Nome Completo"
+        label="Nome Completo"
+        theme={theme}
+      />
+      <ControlledTextInput
+        style={{ marginVertical: 5 }}
+        control={control}
+        name="email"
+        mode="outlined"
+        placeholder="email@email.com"
+        keyboardType="email-address"
+        label="E-mail"
+        theme={theme}
+      />
+      <ControlledTextInputMask
+        style={{ marginVertical: 5 }}
+        control={control}
+        name="telefone"
+        mode="outlined"
+        placeholder="(99) 99999-9999"
+        mask="([00]) [00000]-[0000]"
+        keyboardType="phone-pad"
+        label="Telefone"
+        theme={theme}
+      />
+      <ControlledTextInputMask
+        style={{ marginVertical: 5 }}
+        control={control}
+        name="cpf"
+        mode="outlined"
+        placeholder="000.000.000-00"
+        mask="[000].[000].[000]-[00]"
+        keyboardType="numeric"
+        label="CPF"
+        theme={theme}
+      />
+      <ControlledSelectModal
+        control={control}
+        name="cidade"
+        mode="outlined"
+        placeholder="Selecione o município de residência"
+        title="Município de residência"
+        items={municipios.map(item => ({
+          value: String(item.id),
+          label: String(item.nome),
+        }))}
+      />
+      <Botao
+        cor="#304FFE"
+        // disabled={!botaoAtivo}
+        label="Próximo"
+        labelStyle={{ color: '#fff' }}
+        mode="contained"
+        // onPress={() => navigation.navigate('FormularioInfoProfissional')}
+        onPress={handleSubmit(handleOnPressNextButton)}>
+        Próximo
+      </Botao>
+    </Scroll>
   );
 }
