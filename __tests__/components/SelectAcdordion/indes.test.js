@@ -47,8 +47,4 @@ describe('Testes do Componente Select Acordion', () => {
 
     expect(placeholder).toBeTruthy();
   });
-
-  it('Deve ter os itens', () => {
-    expect(setValueMock).toHaveBeenCalled();
-  });
 });
