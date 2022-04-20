@@ -45,7 +45,11 @@ function IDSaudeLoginTemplate({ children }) {
 
   return (
     <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
-      <Container behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Container
+        extraScrollHeight={100}
+        keyboardOpeningTime={100}
+        enableOnAndroid={true}
+        enableAutomaticScroll={Platform.OS === 'ios'}>
         <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
         <ConteudoImagem>
           <IDSaudeBranco height={windowWidth * 0.4} width={windowWidth * 0.4} />
