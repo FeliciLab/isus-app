@@ -51,6 +51,8 @@ function FormularioInfoProfissional({ navigation }) {
     console.log(dataForm);
 
     setIsLoading(false);
+
+    navigation.navigate('FormularioSenha');
   };
 
   const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
