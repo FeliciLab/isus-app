@@ -18,10 +18,10 @@ export async function pegarListaDeCategoriasProfissionais() {
   return ordenarPorNome(resultado.data);
 }
 
-export async function pegarListaDeEspecialidades(id) {
-  if (id !== 0) {
+export async function pegarListaDeEspecialidades(categoriaProfissionalId) {
+  if (categoriaProfissionalId !== 0 || categoriaProfissionalId !== '') {
     const resultado = await request.get(
-      `/categorias-profissionais/${id}/especialidades`,
+      `/categorias-profissionais/${categoriaProfissionalId}/especialidades`,
     );
     return ordenarPorNome(resultado.data);
   }
