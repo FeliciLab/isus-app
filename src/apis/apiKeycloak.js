@@ -19,13 +19,18 @@ export async function pegarListaDeCategoriasProfissionais() {
 }
 
 export async function pegarListaDeEspecialidades(categoriaProfissionalId) {
-  if (categoriaProfissionalId !== 0 || categoriaProfissionalId !== '') {
-    const resultado = await request.get(
-      `/categorias-profissionais/${categoriaProfissionalId}/especialidades`,
-    );
-    return ordenarPorNome(resultado.data);
+  if (
+    !categoriaProfissionalId ||
+    categoriaProfissionalId === 0 ||
+    categoriaProfissionalId === ''
+  ) {
+    return [];
   }
-  return [];
+
+  const resultado = await request.get(
+    `/categorias-profissionais/${categoriaProfissionalId}/especialidades`,
+  );
+  return ordenarPorNome(resultado.data);
 }
 
 export async function pegarTokenDeAcesso(refreshToken) {
