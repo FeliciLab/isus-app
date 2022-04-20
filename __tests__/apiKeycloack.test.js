@@ -46,3 +46,8 @@ test('deve trazer lista de especialidades vazia ao usar id igual a 0', async () 
   const lista = await pegarListaDeEspecialidades(0);
   expect(lista).toEqual([]);
 });
+
+test('deve trazer lista de especialidades vazia ao usar id igual a string vazia', async () => {
+  const lista = await pegarListaDeEspecialidades('');
+  expect(lista).toEqual([]);
+});
