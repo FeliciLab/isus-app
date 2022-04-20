@@ -5,9 +5,8 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
-import { FormProvider } from '~/context/FormContext';
 import { ArrowLeftIcon } from '~/icons/index';
-import FormularioInfoPessoal from '~/pages/NovoCadastro/formularioInfoPessoal';
+import FormularioInfoPessoal from '~/pages/NovoCadastro/FormularioInfoPessoal';
 import FormularioInfoProfissional from '~/pages/NovoCadastro/formularioInfoProfissional';
 import FormularioSenha from '~/pages/NovoCadastro/formularioSenha';
 import NovoFormularioInfoProfissional from '~/pages/NovoCadastro/novoFormularioInfoProfissional';
@@ -49,25 +48,23 @@ export default function RotasCadastro() {
   };
 
   return (
-    <FormProvider>
-      <CadastroStack.Navigator>
-        <CadastroStack.Screen
-          name={rotas.FORMULARIO_PESSOAL}
-          component={FormularioInfoPessoal}
-          options={options}
-        />
-        <CadastroStack.Screen
-          name={rotas.FORMULARIO_PROFISSIONAL}
-          component={FormularioProfissional}
-          initialParams={{ tela_anterior: rotas.FORMULARIO_PESSOAL }}
-          options={options}
-        />
-        <CadastroStack.Screen
-          name={rotas.FORMULARIO_SENHA}
-          component={FormularioSenha}
-          options={options}
-        />
-      </CadastroStack.Navigator>
-    </FormProvider>
+    <CadastroStack.Navigator>
+      <CadastroStack.Screen
+        name={rotas.FORMULARIO_PESSOAL}
+        component={FormularioInfoPessoal}
+        options={options}
+      />
+      <CadastroStack.Screen
+        name={rotas.FORMULARIO_PROFISSIONAL}
+        component={FormularioProfissional}
+        initialParams={{ tela_anterior: rotas.FORMULARIO_PESSOAL }}
+        options={options}
+      />
+      <CadastroStack.Screen
+        name={rotas.FORMULARIO_SENHA}
+        component={FormularioSenha}
+        options={options}
+      />
+    </CadastroStack.Navigator>
   );
 }

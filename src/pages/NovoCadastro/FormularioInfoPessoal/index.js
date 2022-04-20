@@ -1,38 +1,30 @@
-// import NetInfo from '@react-native-community/netinfo';
-import { yupResolver } from '@hookform/resolvers/yup';
+// import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
 import { useMunicipios } from '~/hooks/useMunicipios';
-// import { salvarDados } from '~/services/armazenamento';
+// import schema from './schema';
 import { Botao, Scroll, Titulo, TituloDoFormulario } from './styles';
-import textos from './textos.json';
 
-const schema = yup.object({
-  nomeCompleto: yup.string().required('Campo obrigatório'),
-  email: yup
-    .string()
-    .email('Email inválido')
-    .required('Campo obrigatório'),
-  telefone: yup.string().required('Campo obrigatório'),
-  cpf: yup.string().required('Campo obrigatório'),
-  cidade: yup.string().required('Campo obrigatório'),
-});
+// import NetInfo from '@react-native-community/netinfo';
+// import { salvarDados } from '~/services/armazenamento';
 
-export default function FormularioInfoPessoal() {
+const theme = {
+  colors: {
+    primary: '#304FFE',
+  },
+};
+
+function FormularioInfoPessoal() {
+  const navigation = useNavigation();
+
   const { municipios, fetchMunicipios } = useMunicipios();
 
-  const theme = {
-    colors: {
-      primary: '#304FFE',
-    },
-  };
-
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, errors } = useForm({
     defaultValues: {
       nomeCompleto: '',
       email: '',
@@ -40,11 +32,14 @@ export default function FormularioInfoPessoal() {
       cpf: '',
       cidade: '',
     },
-    resolver: yupResolver(schema),
+    // TODO: voltar a validação depois dos testes
+    // resolver: yupResolver(schema),
   });
 
+  // TODO: colocar validação do cpf já existente usando a API
   const handleOnPressNextButton = dataForm => {
     console.log({ dataForm });
+    navigation.navigate('FormularioInfoProfissional', { ...dataForm });
   };
 
   // useEffect(() => {
@@ -76,8 +71,10 @@ export default function FormularioInfoPessoal() {
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
-      <Titulo>{textos.formularioPessoal.introducao}</Titulo>
-      <TituloDoFormulario>{textos.formularioPessoal.titulo}</TituloDoFormulario>
+      <Titulo>
+        Vamos realizar seu cadastro, precisamos apenas de algumas informações:
+      </Titulo>
+      <TituloDoFormulario>Informações Pessoais:</TituloDoFormulario>
       <ControlledTextInput
         style={{ marginVertical: 5 }}
         control={control}
@@ -132,14 +129,15 @@ export default function FormularioInfoPessoal() {
       />
       <Botao
         cor="#304FFE"
-        // disabled={!botaoAtivo}
+        disabled={!!errors}
         label="Próximo"
         labelStyle={{ color: '#fff' }}
         mode="contained"
-        // onPress={() => navigation.navigate('FormularioInfoProfissional')}
         onPress={handleSubmit(handleOnPressNextButton)}>
         Próximo
       </Botao>
     </Scroll>
   );
 }
+
+export default FormularioInfoPessoal;
