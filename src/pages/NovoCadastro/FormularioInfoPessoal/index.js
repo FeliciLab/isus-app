@@ -81,7 +81,7 @@ function FormularioInfoPessoal() {
         if (data?.cpf_existe) {
           setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
           setIsValidatingCpfCadastrado(false);
-          return false;
+          return true;
         }
       }
     } catch (error) {
@@ -90,7 +90,7 @@ function FormularioInfoPessoal() {
     } finally {
       setIsValidatingCpfCadastrado(false);
     }
-    return true;
+    return false;
   }, []);
 
   // TODO: colocar validação do cpf já existente usando a API
