@@ -8,7 +8,7 @@ import ControlledTextInput from '~/components/ControlledTextInput';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
 import { useMunicipios } from '~/hooks/useMunicipios';
 // import schema from './schema';
-import { Botao, Scroll, Titulo, TituloDoFormulario } from './styles';
+import { Botao, Container, SubTitulo, Titulo } from './styles';
 
 // import NetInfo from '@react-native-community/netinfo';
 // import { salvarDados } from '~/services/armazenamento';
@@ -69,12 +69,12 @@ function FormularioInfoPessoal() {
   }, []);
 
   return (
-    <Scroll>
+    <Container>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <Titulo>
         Vamos realizar seu cadastro, precisamos apenas de algumas informações:
       </Titulo>
-      <TituloDoFormulario>Informações Pessoais:</TituloDoFormulario>
+      <SubTitulo>Informações Pessoais:</SubTitulo>
       <ControlledTextInput
         style={{ marginVertical: 5 }}
         control={control}
@@ -136,7 +136,7 @@ function FormularioInfoPessoal() {
         onPress={handleSubmit(handleOnPressNextButton)}>
         Próximo
       </Botao>
-    </Scroll>
+    </Container>
   );
 }
 
