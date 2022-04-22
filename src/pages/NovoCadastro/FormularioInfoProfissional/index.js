@@ -20,7 +20,6 @@ import {
   Titulo,
   TituloDoFormulario,
 } from './styles';
-import textos from '../textos.json';
 
 function FormularioInfoProfissional({ navigation }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
@@ -235,10 +234,11 @@ function FormularioInfoProfissional({ navigation }) {
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <ConteudoDropdown>
-        <Titulo>{textos.formularioProfissional.introducao}</Titulo>
-        <TituloDoFormulario>
-          {textos.formularioProfissional.titulo}
-        </TituloDoFormulario>
+        <Titulo>
+          Vamos realizar seu cadastro, precisamos apenas de suas informações
+          profissionais:
+        </Titulo>
+        <TituloDoFormulario>Categoria Profissional:</TituloDoFormulario>
         <DropDown
           label="Categoria profissional"
           dados={listaDeCategorias}
@@ -253,9 +253,7 @@ function FormularioInfoProfissional({ navigation }) {
         {tratarCategoriaProfissional === 1 ||
         tratarCategoriaProfissional === 3 ? (
             <>
-              <TituloDoFormulario>
-                {textos.formularioProfissional.especialidade}
-              </TituloDoFormulario>
+              <TituloDoFormulario>Qual é sua especialidade?</TituloDoFormulario>
               <Acordeon
                 titleStyle={{ color: 'black' }}
                 title={
@@ -288,9 +286,7 @@ function FormularioInfoProfissional({ navigation }) {
           ) : (
             <></>
           )}
-        <TituloDoFormulario>
-          {textos.formularioProfissional.servicos}
-        </TituloDoFormulario>
+        <TituloDoFormulario>Em que setor você está atuando?</TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
           title={

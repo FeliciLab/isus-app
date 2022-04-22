@@ -1,14 +1,19 @@
-// import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import {
+  verificarCPFCadastrado,
+  verificarEmailCadastrado,
+} from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
 import { useMunicipios } from '~/hooks/useMunicipios';
-// import schema from './schema';
+import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
+import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
 // import NetInfo from '@react-native-community/netinfo';
 // import { salvarDados } from '~/services/armazenamento';
@@ -24,7 +29,7 @@ function FormularioInfoPessoal() {
 
   const { municipios, fetchMunicipios } = useMunicipios();
 
-  const { control, handleSubmit, errors } = useForm({
+  const { control, handleSubmit, errors, setError, clearErrors } = useForm({
     defaultValues: {
       nomeCompleto: '',
       email: '',
@@ -32,12 +37,76 @@ function FormularioInfoPessoal() {
       cpf: '',
       cidade: '',
     },
-    // TODO: voltar a validação depois dos testes
-    // resolver: yupResolver(schema),
+    resolver: yupResolver(schema),
   });
 
+  const [isValidatingCpfCadastrado, setIsValidatingCpfCadastrado] = useState(
+    false,
+  );
+
+  const [
+    isValidatingEmailCadastrado,
+    setIsValidatingEmailCadastrado,
+  ] = useState(false);
+
+  const emailAlreadyRegistered = useCallback(async email => {
+    try {
+      if (email) {
+        setIsValidatingEmailCadastrado(true);
+
+        const { data } = await verificarEmailCadastrado(email);
+
+        if (data?.email_existe) {
+          setError('email', { type: 'custon', message: 'Email cadastrado.' });
+          setIsValidatingEmailCadastrado(false);
+          return true;
+        }
+      }
+    } catch (error) {
+      // TODO: colocar falidação de erro aqui
+      console.log(error);
+    } finally {
+      setIsValidatingEmailCadastrado(false);
+    }
+    return false;
+  }, []);
+
+  const cpfAlreadyRegistered = useCallback(async cpf => {
+    try {
+      if (cpf && cpf.length >= 11) {
+        setIsValidatingCpfCadastrado(true);
+
+        const { data } = await verificarCPFCadastrado(cpf);
+
+        if (data?.cpf_existe) {
+          setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
+          setIsValidatingCpfCadastrado(false);
+          return false;
+        }
+      }
+    } catch (error) {
+      // TODO: colocar falidação de erro aqui
+      console.log(error);
+    } finally {
+      setIsValidatingCpfCadastrado(false);
+    }
+    return true;
+  }, []);
+
   // TODO: colocar validação do cpf já existente usando a API
-  const handleOnPressNextButton = dataForm => {
+  const handleOnPressNextButton = async dataForm => {
+    if (await emailAlreadyRegistered(dataForm.email)) {
+      return;
+    } else {
+      clearErrors('email');
+    }
+
+    if (await cpfAlreadyRegistered(dataForm.cpf.replace(/\D+/g, ''))) {
+      return;
+    } else {
+      clearErrors('cpf');
+    }
+
     console.log({ dataForm });
     navigation.navigate('FormularioInfoProfissional', { ...dataForm });
   };
@@ -94,6 +163,9 @@ function FormularioInfoPessoal() {
         label="E-mail"
         theme={theme}
       />
+      {isValidatingEmailCadastrado && (
+        <ValidationFieldIndicator message="Validando Email" />
+      )}
       <ControlledTextInputMask
         style={{ marginVertical: 5 }}
         control={control}
@@ -116,6 +188,9 @@ function FormularioInfoPessoal() {
         label="CPF"
         theme={theme}
       />
+      {isValidatingCpfCadastrado && (
+        <ValidationFieldIndicator message="Validando CPF" />
+      )}
       <ControlledSelectModal
         control={control}
         name="cidade"
@@ -130,6 +205,7 @@ function FormularioInfoPessoal() {
       <Botao
         cor="#304FFE"
         disabled={!!errors}
+        loading={isValidatingEmailCadastrado || isValidatingCpfCadastrado}
         label="Próximo"
         labelStyle={{ color: '#fff' }}
         mode="contained"
