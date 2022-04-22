@@ -4,10 +4,13 @@ const schema = yup.object({
   nomeCompleto: yup.string().required('Campo obrigatório'),
   email: yup
     .string()
-    .email('Email inválido')
-    .required('Campo obrigatório'),
+    .required('Campo obrigatório')
+    .email('O email deve ser no formato exemplo@exemplo.com'),
   telefone: yup.string().required('Campo obrigatório'),
-  cpf: yup.string().required('Campo obrigatório'),
+  cpf: yup
+    .string()
+    .required('Campo obrigatório')
+    .min(14, 'O seu CPF deve ter pelo menos 11 números'),
   cidade: yup.string().required('Campo obrigatório'),
 });
 
