@@ -18,5 +18,5 @@ export const FormButtonContainer = styled.View`
 `;
 
 export const FormInputSpacer = styled.View`
-  margin: 4px 0;
+  height: 18px;
 `;
