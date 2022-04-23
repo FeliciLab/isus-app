@@ -40,7 +40,15 @@ const FormularioLogin = ({ route }) => {
 
   // const caixaDialogo = useCaixaDialogo();
 
-  const { control, handleSubmit, setValue, errors } = useForm({
+  const {
+    control,
+    handleSubmit,
+    setFocus,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    mode: 'all', // all = Validation will trigger on the blur and change events
+    reValidateMode: 'onBlur',
     defaultValues: {
       email: '',
       senha: '',
@@ -61,7 +69,8 @@ const FormularioLogin = ({ route }) => {
     setVisivel(true);
   }, []);
 
-  const handleSubmitForm = async data => {
+  // handleSubmit(handleSubmitForm)
+  const handleSubmitForm = handleSubmit(async data => {
     const { email, senha } = data;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
@@ -107,7 +116,7 @@ const FormularioLogin = ({ route }) => {
     } finally {
       setCarregando(false);
     }
-  };
+  });
 
   // const tentarLoginNovamente = tentativa =>
   //   handleSubmitForm(getValues(), { tentativa: tentativa + 1 });
@@ -134,12 +143,21 @@ const FormularioLogin = ({ route }) => {
       <FormContainer>
         <ControlledTextInput
           autoCapitalize="none"
+          autoCorrect={false}
+          blurOnSubmit={false} // não deixa teclado sumir no enter
           control={control}
+          errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
           keyboardType="email-address"
           label="Email"
           name="email"
           mode="outlined"
+          onChangeText={text => setValue('email', text.trim())}
+          onSubmitEditing={() => {
+            setFocus('senha');
+          }}
+          returnKeyType="next"
           placeholder="Email"
+          selectionColor={CORES.CINZA_WEB}
           testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
           textContentType="emailAddress"
           theme={textInputTheme}
@@ -150,11 +168,16 @@ const FormularioLogin = ({ route }) => {
         <ControlledTextInput
           autoCapitalize="none"
           control={control}
+          errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
           label="Senha"
           name="senha"
           mode="outlined"
+          onSubmitEditing={handleSubmit(handleSubmitForm)}
+          returnKeyType="done"
           placeholder="Senha"
           secureTextEntry
+          // selectionColor={CORES.AZUL}
+          selectionColor={CORES.CINZA_WEB}
           testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
           textContentType="password"
           theme={textInputTheme}
@@ -162,11 +185,13 @@ const FormularioLogin = ({ route }) => {
 
         <FormButtonContainer>
           <Botao
-            disabled={errors?.email || errors?.senha || carregando}
-            testID={TESTIDS.BUTTON_FAZER_LOGIN}
-            mode="contained"
+            disabled={
+              errors?.email?.message || errors?.senha?.message || carregando
+            }
             loading={carregando}
-            onPress={handleSubmit(handleSubmitForm)}>
+            mode="contained"
+            onPress={handleSubmit(handleSubmitForm)}
+            testID={TESTIDS.BUTTON_FAZER_LOGIN}>
             Fazer Login
           </Botao>
           <Botao
