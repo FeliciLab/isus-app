@@ -18,6 +18,7 @@ import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
 import NetInfo from '@react-native-community/netinfo';
 import { Alert } from 'react-native';
+import { find } from 'lodash';
 // import { salvarDados } from '~/services/armazenamento';
 
 const theme = {
@@ -44,7 +45,7 @@ function FormularioInfoPessoal() {
       email: '',
       telefone: '',
       cpf: '',
-      cidade: '',
+      municipioSelectedId: '',
     },
     resolver: yupResolver(schema),
   });
@@ -118,8 +119,16 @@ function FormularioInfoPessoal() {
       clearErrors('cpf');
     }
 
-    console.log({ dataForm });
-    navigation.navigate('FormularioInfoProfissional', { ...dataForm });
+    // Informações para próxima página
+    const dataToNextPage = {
+      nomeCompleto: dataForm.nomeCompleto,
+      email: dataForm.email,
+      telefone: dataForm.telefone.replace(/\D+/g, ''),
+      cpf: dataForm.cpf.replace(/\D+/g, ''),
+      municipio: find(municipios, ['id', Number(dataForm.municipioSelectedId)]),
+    };
+
+    navigation.navigate('FormularioInfoProfissional', dataToNextPage);
   };
 
   // TODO: rever essa lógica de esperiêcnia offline
@@ -205,7 +214,7 @@ function FormularioInfoPessoal() {
       )}
       <ControlledSelectModal
         control={control}
-        name="cidade"
+        name="municipioSelectedId"
         mode="outlined"
         placeholder="Selecione o município de residência"
         title="Município de residência"

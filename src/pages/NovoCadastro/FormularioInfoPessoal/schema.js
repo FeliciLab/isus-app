@@ -20,7 +20,7 @@ const schema = yup.object({
       test: cpfValido,
       message: 'CPF inválido',
     }),
-  cidade: yup.string().required('Campo obrigatório'),
+  municipioSelectedId: yup.string().required('Campo obrigatório'),
 });
 
 export default schema;
