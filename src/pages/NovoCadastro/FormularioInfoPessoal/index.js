@@ -6,6 +6,7 @@ import {
   verificarCPFCadastrado,
   verificarEmailCadastrado,
 } from '~/apis/apiCadastro';
+import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
@@ -15,7 +16,8 @@ import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
 import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
-// import NetInfo from '@react-native-community/netinfo';
+import NetInfo from '@react-native-community/netinfo';
+import { Alert } from 'react-native';
 // import { salvarDados } from '~/services/armazenamento';
 
 const theme = {
@@ -26,6 +28,13 @@ const theme = {
 
 function FormularioInfoPessoal() {
   const navigation = useNavigation();
+
+  // TODO: rever essa lógica de esperiêcnia offline
+  let estaConectado = false;
+
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
 
   const { municipios, fetchMunicipios } = useMunicipios();
 
@@ -49,6 +58,11 @@ function FormularioInfoPessoal() {
     setIsValidatingEmailCadastrado,
   ] = useState(false);
 
+  const mostrarAlerta = mensagem => {
+    setExibicaoDoAlerta(true);
+    setMensagemDoAlerta(mensagem);
+  };
+
   const emailAlreadyRegistered = useCallback(async email => {
     try {
       if (email) {
@@ -58,12 +72,11 @@ function FormularioInfoPessoal() {
 
         if (data?.email_existe) {
           setError('email', { type: 'custon', message: 'Email cadastrado.' });
-          setIsValidatingEmailCadastrado(false);
           return true;
         }
       }
     } catch (error) {
-      // TODO: colocar falidação de erro aqui
+      mostrarAlerta('Erro ao validar Email.');
       console.log(error);
     } finally {
       setIsValidatingEmailCadastrado(false);
@@ -80,12 +93,11 @@ function FormularioInfoPessoal() {
 
         if (data?.cpf_existe) {
           setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
-          setIsValidatingCpfCadastrado(false);
           return true;
         }
       }
     } catch (error) {
-      // TODO: colocar falidação de erro aqui
+      mostrarAlerta('Erro ao validar CPF.');
       console.log(error);
     } finally {
       setIsValidatingCpfCadastrado(false);
@@ -93,7 +105,6 @@ function FormularioInfoPessoal() {
     return false;
   }, []);
 
-  // TODO: colocar validação do cpf já existente usando a API
   const handleOnPressNextButton = async dataForm => {
     if (await emailAlreadyRegistered(dataForm.email)) {
       return;
@@ -111,27 +122,28 @@ function FormularioInfoPessoal() {
     navigation.navigate('FormularioInfoProfissional', { ...dataForm });
   };
 
-  // useEffect(() => {
-  //   const unsubscribe = NetInfo.addEventListener(state => {
-  //     setEstaConectado(state.isConnected);
-  //   });
+  // TODO: rever essa lógica de esperiêcnia offline
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(state => {
+      estaConectado = state.isConnected;
+    });
 
-  //   if (!estaConectado) {
-  //     Alert.alert(
-  //       'Sem conexão com a internet',
-  //       'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
-  //       [
-  //         {
-  //           text: 'OK',
-  //           onPress: () => {
-  //             navigation.navigate('LOGIN');
-  //           },
-  //         },
-  //       ],
-  //     );
-  //   }
-  //   return () => unsubscribe();
-  // });
+    if (!estaConectado) {
+      Alert.alert(
+        'Sem conexão com a internet',
+        'Verifique se o wi-fi ou os dados móveis estão ativos e tente novamente.',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('LOGIN');
+            },
+          },
+        ],
+      );
+    }
+    return () => unsubscribe();
+  });
 
   useEffect(() => {
     fetchMunicipios();
@@ -204,7 +216,9 @@ function FormularioInfoPessoal() {
       />
       <Botao
         cor="#304FFE"
-        disabled={!!errors}
+        disabled={
+          !!errors || isValidatingEmailCadastrado || isValidatingCpfCadastrado
+        }
         loading={isValidatingEmailCadastrado || isValidatingCpfCadastrado}
         label="Próximo"
         labelStyle={{ color: '#fff' }}
@@ -212,6 +226,12 @@ function FormularioInfoPessoal() {
         onPress={handleSubmit(handleOnPressNextButton)}>
         Próximo
       </Botao>
+      <Alerta
+        visivel={exibicaoDoAlerta}
+        textoDoAlerta={mensagemDoAlerta}
+        duration={4000}
+        onDismiss={() => setExibicaoDoAlerta(false)}
+      />
     </Container>
   );
 }
