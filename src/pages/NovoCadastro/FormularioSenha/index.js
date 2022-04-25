@@ -18,8 +18,6 @@ import {
 import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
 
-// import Alerta from '~/components/alerta';
-
 export default function FormularioSenha({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -60,7 +58,7 @@ export default function FormularioSenha({ navigation }) {
 
       await cadastrarUsuario(newUserData);
 
-      await signIn(infoPessoal.email, dataForm.password);
+      await signIn(newUserData.email, newUserData.senha);
 
       analyticsData(labelsAnalytics.FINALIZAR_MEU_CADASTRO, 'Click', 'Perfil');
 
@@ -146,12 +144,6 @@ export default function FormularioSenha({ navigation }) {
         loading={isLoading}>
         Finalizar
       </Botao>
-      {/* <Alerta
-        visivel={cadastroRealizado}
-        textoDoAlerta={mensagemDoAlerta}
-        duration={4000}
-        onDismiss={() => setCadastroRealizado(false)}
-      /> */}
     </Container>
   );
 }
