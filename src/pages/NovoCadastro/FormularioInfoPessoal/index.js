@@ -1,7 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import NetInfo from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
+import { find } from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Alert } from 'react-native';
 import {
   verificarCPFCadastrado,
   verificarEmailCadastrado,
@@ -16,9 +19,6 @@ import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
 import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
-import NetInfo from '@react-native-community/netinfo';
-import { Alert } from 'react-native';
-import { find } from 'lodash';
 // import { salvarDados } from '~/services/armazenamento';
 
 const theme = {
@@ -120,7 +120,7 @@ function FormularioInfoPessoal() {
     }
 
     // Informações para próxima página
-    const dataToNextPage = {
+    const infoPessoal = {
       nomeCompleto: dataForm.nomeCompleto,
       email: dataForm.email,
       telefone: dataForm.telefone.replace(/\D+/g, ''),
@@ -128,7 +128,7 @@ function FormularioInfoPessoal() {
       municipio: find(municipios, ['id', Number(dataForm.municipioSelectedId)]),
     };
 
-    navigation.navigate('FormularioInfoProfissional', dataToNextPage);
+    navigation.navigate('FormularioInfoProfissional', { infoPessoal });
   };
 
   // TODO: rever essa lógica de esperiêcnia offline

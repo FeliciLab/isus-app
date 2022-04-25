@@ -1,5 +1,5 @@
 import { useRoute } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
 // import { alteraDadosDoUsuario } from '~/apis/apiCadastro';
@@ -16,9 +16,14 @@ import { ArrowLeftIcon } from '~/icons';
 // import { pegarDados } from '~/services/armazenamento';
 // import { Botao, Scroll, Titulo } from './styles';
 import { Botao, Container, Titulo, SubTitulo } from './styles';
+import { find, filter } from 'lodash';
 
 function NovoFormularioInfoProfissional({ navigation }) {
   const route = useRoute();
+
+  const { infoPessoal } = route.params;
+
+  console.log(JSON.stringify(infoPessoal, null, 2));
 
   const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
@@ -29,8 +34,6 @@ function NovoFormularioInfoProfissional({ navigation }) {
     // TODO: colocar as validações
     // resolver: yupResolver(schema),
   });
-
-  const [isLoading, setIsLoading] = useState(false);
 
   const categoriaProfissionalSelectedIdWatch = watch(
     'categoriaProfissionalSelectedId',
@@ -46,13 +49,22 @@ function NovoFormularioInfoProfissional({ navigation }) {
   const { especialidades, featchEspecialidades } = useEspecialidades();
 
   const handleOnPressNextButton = dataForm => {
-    setIsLoading(true);
+    const infoProfissional = {
+      categoriaProfissional: find(categoriasProfissionais, [
+        'id',
+        Number(dataForm.categoriaProfissionalSelectedId),
+      ]),
+      especialidades: filter(especialidades, item =>
+        dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
+      ),
+      servicos: filter(servicos, item =>
+        dataForm.servicosSelectedsIds.map(Number).includes(item.id),
+      ),
+    };
 
-    console.log(dataForm);
+    console.log(JSON.stringify(infoProfissional, null, 2));
 
-    setIsLoading(false);
-
-    navigation.navigate('FormularioSenha');
+    navigation.navigate('FormularioSenha', { infoPessoal, infoProfissional });
   };
 
   const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
@@ -138,7 +150,6 @@ function NovoFormularioInfoProfissional({ navigation }) {
       <Botao
         cor={definirCorDosElementos()}
         disabled={false}
-        loading={isLoading}
         labelStyle={{ color: '#fff' }}
         // onPress={() => {
         //   registrarUnidadesDeServico();

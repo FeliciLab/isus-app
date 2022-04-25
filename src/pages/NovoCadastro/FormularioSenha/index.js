@@ -1,48 +1,35 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRoute } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
-// import { cadastrarUsuario } from '~/apis/apiCadastro';
-// import Alerta from '~/components/alerta';
+import { cadastrarUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
-// import { labelsAnalytics } from '~/constantes/labelsAnalytics';
-// import FormContext from '~/context/FormContext';
-// import useAnalytics from '~/hooks/useAnalytics';
-// import useAutenticacao from '~/hooks/useAutenticacao';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import useAnalytics from '~/hooks/useAnalytics';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import { ArrowLeftIcon } from '~/icons';
+import {
+  analyticsCategoria,
+  analyticsUnidadeServico,
+} from '~/utils/funcoesAnalytics';
 import schema from './schema';
-// import {
-//   analyticsCategoria,
-//   analyticsUnidadeServico,
-// } from '~/utils/funcoesAnalytics';
-import { Botao, Container, Titulo, SubTitulo } from './styles';
+import { Botao, Container, SubTitulo, Titulo } from './styles';
+
+// import Alerta from '~/components/alerta';
 
 export default function FormularioSenha({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
 
-  // const { analyticsData } = useAnalytics();
+  const route = useRoute();
 
-  // const [botaoAtivo, setBotaoAtivo] = useState(false);
+  const { infoPessoal, infoProfissional } = route.params;
 
-  // const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
+  const { analyticsData } = useAnalytics();
 
-  // const [cadastroRealizado, setCadastroRealizado] = useState(false);
-
-  // const { signIn } = useAutenticacao();
-
-  // const { register, setValue, trigger, errors, getValues } = useContext(
-  //   FormContext,
-  // );
-
-  // const valores = getValues();
-
-  // const { categoriaProfissional } = valores;
-
-  // const uniServ = JSON.parse(valores.unidadeServico);
-
-  // const now = Date.now();
+  const { signIn } = useAutenticacao();
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -52,14 +39,50 @@ export default function FormularioSenha({ navigation }) {
     resolver: yupResolver(schema),
   });
 
-  const handleOnPressNextButton = dataForm => {
-    setIsLoading(true);
+  const handleOnPressNextButton = async dataForm => {
+    try {
+      setIsLoading(true);
 
-    console.log(dataForm);
+      const newUserData = {
+        nomeCompleto: infoPessoal.nomeCompleto,
+        email: infoPessoal.email,
+        telefone: infoPessoal.telefone,
+        cpf: infoPessoal.cpf,
+        cidadeId: infoPessoal.municipio.id,
+        cidade: infoPessoal.municipio.nome,
+        categoriaProfissional: infoProfissional.categoriaProfissional || {},
+        especialidades: infoProfissional.especialidades || [],
+        unidadeServico: infoProfissional.servicos || [],
+        senha: dataForm.password,
+        repetirsenha: dataForm.confirmPassword,
+        termos: true,
+      };
 
-    setIsLoading(false);
+      await cadastrarUsuario(newUserData);
 
-    // navigation.navigate('FormularioSenha');
+      await signIn(infoPessoal.email, dataForm.password);
+
+      analyticsData(labelsAnalytics.FINALIZAR_MEU_CADASTRO, 'Click', 'Perfil');
+
+      analyticsCategoria(newUserData.categoriaProfissional, Date, 'Cadastro');
+
+      analyticsUnidadeServico(
+        newUserData.unidadeServico,
+        Date.now(),
+        'Cadastro',
+      );
+
+      navigation.navigate('TelaDeSucesso', {
+        textoApresentacao:
+          'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+        telaDeRedirecionamento: 'HOME',
+        telaDeBackground: '#304FFE',
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useLayoutEffect(() => {
@@ -78,99 +101,12 @@ export default function FormularioSenha({ navigation }) {
     });
   }, []);
 
-  // const mostrarAlerta = mensagem => {
-  //   setMensagemDoAlerta(mensagem);
-  //   setCadastroRealizado(true);
-  // };
-
   const theme = {
     ...DefaultTheme,
     colors: {
       primary: '#304FFE',
     },
   };
-
-  // const alteraValor = async (campo, valor) => {
-  //   setValue(campo, valor);
-  //   await trigger(['senha', 'repetirsenha']);
-  //   setBotaoAtivo(Object.entries(errors).length === 0);
-  // };
-
-  // const tratarDadosCadastro = dadosCadastro => {
-  //   const { cidade, cpf, telefone } = dadosCadastro;
-  //   return {
-  //     ...dadosCadastro,
-  //     cidadeId: cidade.id,
-  //     cidade: cidade.nome,
-  //     cpf,
-  //     telefone,
-  //     termos: true,
-  //   };
-  // };
-
-  // const realizarCadastroDoUsuario = async () => {
-  //   const dados = tratarDadosCadastro(getValues());
-  //   console.log({
-  //     ...dados,
-  //     unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
-  //     especialidades: JSON.parse(dados?.especialidades || '[]'),
-  //     categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}'),
-  //   });
-  //   const resposta = await cadastrarUsuario({
-  //     ...dados,
-  //     unidadeServico: JSON.parse(dados?.unidadeServico || '[]'),
-  //     especialidades: JSON.parse(dados?.especialidades || '[]'),
-  //     categoriaProfissional: JSON.parse(dados?.categoriaProfissional || '{}'),
-  //   });
-  //   return resposta.data;
-  // };
-
-  // const aposCadastro = async resultado => {
-  //   if (resultado.sucesso) {
-  //     const dados = tratarDadosCadastro(getValues());
-
-  //     await signIn(dados.email, dados.senha);
-
-  //     navigation.navigate('TelaDeSucesso', {
-  //       textoApresentacao:
-  //         'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
-  //       telaDeRedirecionamento: 'HOME',
-  //       telaDeBackground: '#304FFE',
-  //     });
-  //     return;
-  //   }
-
-  //   let mensagemErro;
-  //   if (resultado.erros.cpf) {
-  //     const [mensagemErroCPF] = resultado.erros.cpf;
-  //     mensagemErro = mensagemErroCPF;
-  //   }
-  //   if (resultado.erros.email) {
-  //     const [mensagemErroEmail] = resultado.erros.email;
-  //     mensagemErro = mensagemErroEmail;
-  //   }
-  //   if (resultado.erros.email && resultado.erros.cpf) {
-  //     const [mensagemErroEmail] = resultado.erros.email;
-  //     const [mensagemErroCPF] = resultado.erros.cpf;
-  //     mostrarAlerta(mensagemErroEmail);
-  //     mostrarAlerta(mensagemErroCPF);
-  //     return;
-  //   }
-  //   mostrarAlerta(mensagemErro);
-  // };
-
-  // useEffect(() => {
-  //   register('senha', {
-  //     required: true,
-  //     minLength: { value: 8, message: textos.formularioSenha.erroTamanho },
-  //   });
-  //   register('repetirsenha', {
-  //     required: true,
-  //     validate: repetirsenha =>
-  //       repetirsenha === getValues('senha') ||
-  //       textos.formularioSenha.erroIguais,
-  //   });
-  // }, [register]);
 
   return (
     <Container>
@@ -201,53 +137,13 @@ export default function FormularioSenha({ navigation }) {
         theme={theme}
       />
 
-      {/* <CampoDeTexto
-        label="Senha"
-        name="senha"
-        secureTextEntry
-        onChangeText={text => alteraValor('senha', text)}
-        mode="outlined"
-        theme={theme}
-      /> */}
-      {/* {errors.senha && <TextoDeErro>{errors.senha.message}</TextoDeErro>} */}
-      {/* <CampoDeTexto
-        label="Confirmação de senha"
-        name="repetirsenha"
-        secureTextEntry
-        underlineColor="#BDBDBD"
-        onChangeText={text => alteraValor('repetirsenha', text)}
-        mode="outlined"
-        theme={theme}
-      /> */}
-      {/* {errors.repetirsenha && (
-        <TextoDeErro>{errors.repetirsenha.message}</TextoDeErro>
-      )} */}
       <Botao
         cor="#304FFE"
-        // disabled={!botaoAtivo}
+        disabled={isLoading}
         labelStyle={{ color: '#fff' }}
         mode="contained"
         onPress={handleSubmit(handleOnPressNextButton)}
-        loading={isLoading}
-        // onPress={async () => {
-        //   setCarregando(true);
-        //   try {
-        //     const resultado = await realizarCadastroDoUsuario();
-        //     aposCadastro(resultado);
-        //     setCarregando(false);
-        //     analyticsData(
-        //       labelsAnalytics.FINALIZAR_MEU_CADASTRO,
-        //       'Click',
-        //       'Perfil',
-        //     );
-        //     analyticsCategoria(categoriaProfissional, now, 'Cadastro');
-        //     analyticsUnidadeServico(uniServ, now, 'Cadastro');
-        //   } catch (err) {
-        //     console.log(err);
-        //     setCarregando(false);
-        //   }
-        // }}
-      >
+        loading={isLoading}>
         Finalizar
       </Botao>
       {/* <Alerta
