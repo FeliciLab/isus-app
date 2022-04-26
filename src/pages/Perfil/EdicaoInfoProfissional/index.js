@@ -78,14 +78,17 @@ function EdicaoInfoProfissional() {
       const infoProfissional = {
         categoriaProfissional: find(categoriasProfissionais, [
           'id',
-          Number(dataForm.categoriaProfissionalSelectedId),
+          Number(dataForm.categoriaProfissionalSelectedId) || '',
         ]),
-        especialidades: filter(especialidades, item =>
-          dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
-        ),
-        unidadesServicos: filter(servicos, item =>
-          dataForm.servicosSelectedsIds.map(Number).includes(item.id),
-        ),
+        especialidades:
+          filter(especialidades, item =>
+            dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+        // lá na api está no singular
+        unidadeServico:
+          filter(servicos, item =>
+            dataForm.servicosSelectedsIds.map(Number).includes(item.id),
+          ) || [],
       };
 
       await atualizarUsuarioApi({
