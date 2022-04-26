@@ -8,19 +8,6 @@ import { autenticarComIdSaude } from '~/services/autenticacao';
 
 const AutenticacaoContext = createContext();
 
-/*
-interface Token = {
-  "access_token": string;
-  "expires_in": number;
-  "not-before-policy": number;
-  "refresh_expires_in": number;
-  "refresh_token": string;
-  "scope": string;
-  "session_state": string;
-  "token_type": string;
-}
-*/
-
 const AutenticacaoProvider = ({ children }) => {
   const [autenticacaoLoading, setAutenticacaoLoading] = useState(false);
 
@@ -83,8 +70,6 @@ const AutenticacaoProvider = ({ children }) => {
 
   const updateUser = useCallback(async () => {
     const perfil = await perfilUsuario(token);
-
-    console.log('updateUser: perfil', JSON.stringify(perfil, null, 2));
 
     const newUserData = {
       id: perfil.data.id,
