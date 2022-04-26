@@ -27,11 +27,11 @@ import { BotaoSalvar, Container, TituloPrincipal } from './styles';
 function EdicaoInfoProfissional() {
   const navigation = useNavigation();
 
-  const { pessoa, updateUserInfo, user } = useAutenticacao();
+  const { user, updateUser } = useAutenticacao();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(JSON.stringify({ pessoa }, null, 2));
+  console.log('EdicaoInfoProfissional: user', user);
 
   const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
@@ -75,20 +75,20 @@ function EdicaoInfoProfissional() {
   useEffect(() => {
     setValue(
       'categoriaProfissionalSelectedId',
-      String(pessoa.categoriaProfissional.id),
+      String(user.categoriaProfissional.id),
     );
     setValue(
       'especialidadesSelectedsIds',
-      pessoa.especialidades.map(esp => String(esp.id)),
+      user.especialidades.map(esp => String(esp.id)),
     );
     setValue(
       'servicosSelectedsIds',
-      pessoa.unidadeServico.map(esp => String(esp.id)),
+      user.unidadesServicos.map(esp => String(esp.id)),
     );
   }, []);
 
   const handleOnPressNextButton = async dataForm => {
-    console.log(JSON.stringify(dataForm, null, 2));
+    // console.log(JSON.stringify(dataForm, null, 2));
 
     try {
       setIsLoading(true);
@@ -101,18 +101,21 @@ function EdicaoInfoProfissional() {
         especialidades: filter(especialidades, item =>
           dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
         ),
-        servicos: filter(servicos, item =>
+        unidadesServicos: filter(servicos, item =>
           dataForm.servicosSelectedsIds.map(Number).includes(item.id),
         ),
       };
 
-      atualizarUsuarioApi({
-        ...pessoa,
+      await atualizarUsuarioApi({
+        ...user,
         ...infoProfissional,
+        cidade: user.municipio,
+        cidadeId: user.municipio.id,
+        nomeCompleto: user.name,
         termos: true,
       });
 
-      await updateUserInfo();
+      await updateUser();
 
       console.log(JSON.stringify(user, null, 2));
     } catch (error) {

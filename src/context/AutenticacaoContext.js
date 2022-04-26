@@ -84,7 +84,9 @@ const AutenticacaoProvider = ({ children }) => {
   const updateUser = useCallback(async () => {
     const perfil = await perfilUsuario(token);
 
-    await setUser({
+    console.log('updateUser: perfil', JSON.stringify(perfil, null, 2));
+
+    const newUserData = {
       id: perfil.data.id,
       idKeycloak: perfil.data.id_keycloak,
       name: perfil.data.name,
@@ -99,7 +101,11 @@ const AutenticacaoProvider = ({ children }) => {
       unidadesServicos: perfil.data.profissional.unidades_servicos,
       especialidades: perfil.data.profissional.especialidades,
       cadastrado: perfil.data.cadastrado,
-    });
+    };
+
+    console.log(newUserData);
+
+    await setUser(newUserData);
   }, [token]);
 
   return (
