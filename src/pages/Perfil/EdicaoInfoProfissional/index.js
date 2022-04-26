@@ -106,7 +106,7 @@ function EdicaoInfoProfissional() {
         ),
       };
 
-      const response = atualizarUsuarioApi({
+      atualizarUsuarioApi({
         ...pessoa,
         ...infoProfissional,
         termos: true,
