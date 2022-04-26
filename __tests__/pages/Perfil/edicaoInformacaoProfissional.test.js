@@ -71,3 +71,7 @@
 //     expect(true);
 //   });
 // }
+
+test('teste de exemplo', () => {
+  expect(true);
+});
