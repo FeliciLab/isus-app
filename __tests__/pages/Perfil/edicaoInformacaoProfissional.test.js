@@ -8,14 +8,14 @@
 // import estaAtiva from '~/utils/estaAtiva';
 // import dadosUsuario from '../../../__mocks__/valores/dadosUsuario';
 
-const mockedNavigate = jest.fn();
+// const mockedNavigate = jest.fn();
 
-jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
-  useNavigation: () => ({
-    navigate: mockedNavigate,
-  }),
-}));
+// jest.mock('@react-navigation/native', () => ({
+//   ...jest.requireActual('@react-navigation/native'),
+//   useNavigation: () => ({
+//     navigate: mockedNavigate,
+//   }),
+// }));
 
 // if (estaAtiva(feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
 //   describe('EdicaoInformacaoProfissional', () => {
