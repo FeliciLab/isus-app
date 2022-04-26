@@ -18,7 +18,7 @@ request.interceptors.request.use(async req => {
   const token = await pegarTokenDoUsuarioNoStorage();
 
   if (token) {
-    req.headers.Authorization = `Bearer ${token.access_token}`;
+    req.headers.Authorization = `Bearer ${token.accessToken}`;
   }
 
   return req;
@@ -33,7 +33,7 @@ request.interceptors.response.use(
       try {
         await atualizarTokenDeAcessoDoUsuario();
         const token = await pegarTokenDoUsuarioNoStorage();
-        error.config.headers.Authorization = `Bearer ${token.access_token ||
+        error.config.headers.Authorization = `Bearer ${token.accessToken ||
           ''}`;
         return axios.request(error.config);
       } catch (err) {
