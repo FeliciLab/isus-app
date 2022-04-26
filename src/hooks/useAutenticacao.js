@@ -15,6 +15,7 @@ function useAutenticacao() {
     setShowTutorial,
     autenticacaoLoading,
     setAutenticacaoLoading,
+    updateUserInfo,
   } = useContext(AutenticacaoContext);
 
   return {
@@ -30,6 +31,7 @@ function useAutenticacao() {
     setShowTutorial,
     autenticacaoLoading,
     setAutenticacaoLoading,
+    updateUserInfo,
   };
 }
 

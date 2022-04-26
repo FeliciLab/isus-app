@@ -72,6 +72,14 @@ const AutenticacaoProvider = ({ children }) => {
     });
   };
 
+  const updateUserInfo = async () => {
+    const perfil = await perfilUsuario(token);
+
+    await setUser(perfil.data);
+
+    await alterarPessoa(perfil.data);
+  };
+
   return (
     <AutenticacaoContext.Provider
       value={{
@@ -87,6 +95,7 @@ const AutenticacaoProvider = ({ children }) => {
         setShowTutorial,
         autenticacaoLoading,
         setAutenticacaoLoading,
+        updateUserInfo,
       }}>
       {children}
       {autenticacaoLoading && (

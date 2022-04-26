@@ -75,7 +75,7 @@ function NovoFormularioInfoProfissional({ navigation }) {
   }, []);
 
   useEffect(() => {
-    setValue('especialdadeSelectedId', '');
+    setValue('especialidadesSelectedsIds', []);
     featchEspecialidades(categoriaProfissionalSelectedIdWatch);
   }, [categoriaProfissionalSelectedIdWatch]);
 
