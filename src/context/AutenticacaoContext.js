@@ -61,11 +61,13 @@ const AutenticacaoProvider = ({ children }) => {
   }, []);
 
   const signOut = useCallback(async () => {
-    await logout(token);
+    const auxToken = token;
+
+    await setUser(null);
 
     await setToken(null);
 
-    await setUser(null);
+    await logout(auxToken);
   }, [token]);
 
   const updateUser = useCallback(async () => {
