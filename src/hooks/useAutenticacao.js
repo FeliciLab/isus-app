@@ -5,6 +5,7 @@ function useAutenticacao() {
   const {
     user,
     updateUser,
+    deleteUser,
     token,
     setToken,
     signIn,
@@ -18,6 +19,7 @@ function useAutenticacao() {
   return {
     user,
     updateUser,
+    deleteUser,
     token,
     setToken,
     signIn,
