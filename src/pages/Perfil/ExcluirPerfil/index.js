@@ -1,34 +1,26 @@
 // import NetInfo from '@react-native-community/netinfo';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button, DefaultTheme } from 'react-native-paper';
-import * as yup from 'yup';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
-import { ArrowLeftIcon } from '~/icons';
-import { useNetInfo } from '@react-native-community/netinfo';
-import useAutenticacao from '~/hooks/useAutenticacao';
 import useAnalytics from '~/hooks/useAnalytics';
-import { deletarUsuario } from '~/apis/apiCadastro';
-
-const schema = yup.object({
-  palavra: yup
-    .string()
-    .required('Campo obrigatório')
-    .oneOf(['EXCLUIR'], 'O campo deve ser igual a EXCLUIR'),
-});
+import useAutenticacao from '~/hooks/useAutenticacao';
+import { ArrowLeftIcon } from '~/icons';
+import schema from './schema';
 
 export default function ExcluirPerfil() {
   const navigation = useNavigation();
 
   const { isConnected } = useNetInfo();
 
-  const [isLOading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { signOut } = useAutenticacao();
+  const { deleteUser } = useAutenticacao();
 
   const { analyticsData } = useAnalytics();
 
@@ -41,7 +33,10 @@ export default function ExcluirPerfil() {
 
   const handleOnPressExcluirButton = async formData => {
     try {
+      console.log({ formData });
+
       setIsLoading(true);
+
       if (!isConnected) {
         Alert.alert(
           'Sem conexão com a internet',
@@ -56,11 +51,7 @@ export default function ExcluirPerfil() {
           ],
         );
       } else {
-        console.log({ formData });
-
-        await deletarUsuario();
-
-        await signOut();
+        await deleteUser();
 
         await analyticsData('confirmar_exclusao_conta', 'Click', 'Perfil');
 
@@ -72,35 +63,6 @@ export default function ExcluirPerfil() {
       setIsLoading(false);
     }
   };
-
-  // const excluirUsuario = () => {
-  //   if (Object.keys(palavra).length !== 0 && palavra === 'EXCLUIR') {
-  //     deletarUsuario()
-  //       .then(value => {
-  //         if (value.status === 200) {
-  //           realizarLogout();
-  //           navigation.navigate('CONTA_EXCLUIDA');
-  //           analyticsData('confirmar_exclusao_conta', 'Click', 'Perfil');
-  //         }
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //         setIsvalidator(false);
-  //         setCorPrimariaSenha('#F2453D');
-  //         setTimeout(() => {
-  //           setIsvalidator(true);
-  //           setCorPrimariaSenha('#FF9800');
-  //         }, 4000);
-  //       });
-  //   } else {
-  //     setIsvalidator(false);
-  //     setCorPrimariaSenha('#F2453D');
-  //     setTimeout(() => {
-  //       setCorPrimariaSenha('#FF9800');
-  //       setIsvalidator(true);
-  //     }, 4000);
-  //   }
-  // };
 
   const theme = {
     ...DefaultTheme,
@@ -137,7 +99,7 @@ export default function ExcluirPerfil() {
   }, []);
 
   return (
-    <View style={styles.margem}>
+    <View style={styles.container}>
       <BarraDeStatus backgroundColor="#fff" barStyle="dark-content" />
       <Text style={styles.tituloDestaque}>
         Para confirmar a exclusão da sua conta no ID Saúde, digite EXCLUIR.
@@ -155,7 +117,8 @@ export default function ExcluirPerfil() {
         testID="botao-excluir-perfil"
         style={styles.botaoHabilitado}
         mode="contained"
-        disabled={isLOading}
+        disabled={isLoading}
+        loading={isLoading}
         labelStyle={styles.botaoExcluirConta}
         onPress={handleSubmit(handleOnPressExcluirButton)}>
         EXCLUIR
@@ -165,7 +128,7 @@ export default function ExcluirPerfil() {
 }
 
 const styles = StyleSheet.create({
-  margem: {
+  container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#FFF',
@@ -190,13 +153,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 16,
     fontWeight: '500',
-  },
-  infoErro: {
-    marginLeft: 16,
-    marginRight: 16,
-    color: '#FF0C3E',
-    width: 342,
-    height: 46,
-    fontSize: 14,
   },
 });
