@@ -48,7 +48,7 @@ async function excluirTokenDoUsuarioNoStorage() {
 async function atualizarTokenDeAcessoDoUsuario() {
   try {
     const token = await pegarTokenDoUsuarioNoStorage();
-    const resultado = await pegarTokenDeAcesso(token.refreshToken);
+    const resultado = await pegarTokenDeAcesso(token?.refreshToken);
     if (!resultado.sucesso) {
       await excluirTokenDoUsuarioNoStorage();
     }
