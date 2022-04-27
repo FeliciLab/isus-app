@@ -43,9 +43,8 @@ function DadosUsuario({ dados }) {
 
 // Só mostra as especioalidades para medicina e enfermagem
 function Especialidades({ dados }) {
-  return (
-    dados.profissional &&
-    [1, 3].includes(dados.categoriaProfissional.id) && (
+  return dados.profissional &&
+    [1, 3].includes(dados.categoriaProfissional.id) ? (
       <View>
         <Text style={estilos.label}>ESPECIALIDADE</Text>
         <Text style={estilos.dado}>
@@ -54,8 +53,9 @@ function Especialidades({ dados }) {
             : ''}
         </Text>
       </View>
-    )
-  );
+    ) : (
+      <></>
+    );
 }
 
 function DadosUsuarioProfissional({ dados }) {
@@ -101,13 +101,7 @@ function AdicionarDadosProfissionais() {
         Parece que você ainda não cadastrou suas informações profissionais,
         vamos fazer isso agora?
       </Text>
-      <Botao
-        uri={rotas.EDICAO_PROFISSIONAL}
-        // params={{
-        //   screen: rotas.EDICAO_PROFISSIONAL,
-        //   params: { tela_anterior: rotas.PERFIL },
-        // }}
-        testID="botao-dados-adicionar">
+      <Botao uri={rotas.EDICAO_PROFISSIONAL} testID="botao-dados-adicionar">
         ADICIONAR INFORMAÇÕES
       </Botao>
     </View>
