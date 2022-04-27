@@ -13,7 +13,7 @@ import DeletarConta from '~/assets/images/deletar_conta.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
 import rotas from '~/constantes/rotas';
 
-export default function ExcluirPerfil() {
+export default function ContaExcluida() {
   const navigation = useNavigation();
 
   useEffect(() => {

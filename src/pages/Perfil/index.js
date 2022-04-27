@@ -8,7 +8,7 @@ import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
 import { ArrowLeftIcon } from '~/icons';
-import CabecalhoPerfil from './cabecalhoPerfil';
+import CabecalhoPerfil from './CabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
