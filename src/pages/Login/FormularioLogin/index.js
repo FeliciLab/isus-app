@@ -70,7 +70,7 @@ const FormularioLogin = ({ route }) => {
   }, []);
 
   // handleSubmit(handleSubmitForm)
-  const handleSubmitForm = handleSubmit(async data => {
+  const handleSubmitForm = async data => {
     const { email, senha } = data;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
@@ -116,7 +116,7 @@ const FormularioLogin = ({ route }) => {
     } finally {
       setCarregando(false);
     }
-  });
+  };
 
   // const tentarLoginNovamente = tentativa =>
   //   handleSubmitForm(getValues(), { tentativa: tentativa + 1 });
