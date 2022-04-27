@@ -49,9 +49,9 @@ function EdicaoProfissional(props) {
 
 function EdicaoPessoal(props) {
   return (
-    <FormProvider>
-      <EdicaoInfoPessoal {...props} />
-    </FormProvider>
+    // <FormProvider>
+    <EdicaoInfoPessoal {...props} />
+    // </FormProvider>
   );
 }
 
