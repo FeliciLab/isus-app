@@ -37,11 +37,11 @@ function EdicaoInfoProfissional() {
   } = useForm({
     defaultValues: {
       categoriaProfissionalSelectedId:
-        String(user.categoriaProfissional.id) || '',
+        String(user.categoriaProfissional?.id) || '',
       especialidadesSelectedsIds:
-        user.especialidades.map(item => String(item.id)) || [],
+        user.especialidades?.map(item => String(item.id)) || [],
       servicosSelectedsIds:
-        user.unidadesServicos.map(item => String(item.id)) || [],
+        user.unidadesServicos?.map(item => String(item.id)) || [],
     },
   });
 
@@ -61,7 +61,7 @@ function EdicaoInfoProfissional() {
   useEffect(() => {
     featchServicos();
     featchCategoriasProfissionais();
-    featchEspecialidades(user.categoriaProfissional.id);
+    featchEspecialidades(user.categoriaProfissional?.id);
   }, []);
 
   useEffect(() => {
