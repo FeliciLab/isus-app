@@ -91,12 +91,16 @@ function EdicaoInfoProfissional() {
           ) || [],
       };
 
-      await atualizarUsuarioApi({
+      const newUserData = {
         ...user,
         ...infoProfissional,
         cidade: user.municipio,
         cidadeId: user.municipio.id,
         nomeCompleto: user.name,
+      };
+
+      await atualizarUsuarioApi({
+        ...newUserData,
         termos: true,
       });
 
