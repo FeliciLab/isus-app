@@ -41,9 +41,9 @@ export async function pegarTokenDeAcesso(refreshToken) {
 }
 
 export function logout(token) {
-  return request.post('logout', { refresh_token: token.refresh_token });
+  return request.post('logout', { refresh_token: token.refreshToken });
 }
 
 export function excluir(token) {
-  return request.delete('delete', { refresh_token: token.refresh_token });
+  return request.delete('delete', { refresh_token: token.refreshToken });
 }

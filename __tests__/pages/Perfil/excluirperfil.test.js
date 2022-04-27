@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'util-teste';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
-import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
+import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
 
 jest.useFakeTimers();
 

@@ -60,15 +60,13 @@ const AutenticacaoProvider = ({ children }) => {
     return perfil.cadastrado ? true : false;
   }, []);
 
-  const signOut = useCallback(async () => {
-    const auxToken = token;
+  const signOut = async () => {
+    await logout(token);
 
     await setUser(null);
 
     await setToken(null);
-
-    await logout(auxToken);
-  }, [token]);
+  };
 
   const updateUser = useCallback(async () => {
     const perfil = await perfilUsuario(token);
