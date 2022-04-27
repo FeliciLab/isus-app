@@ -23,8 +23,6 @@ function NovoFormularioInfoProfissional({ navigation }) {
 
   const { infoPessoal } = route.params;
 
-  console.log(JSON.stringify(infoPessoal, null, 2));
-
   const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
       categoriaProfissionalSelectedId: '',
@@ -61,8 +59,6 @@ function NovoFormularioInfoProfissional({ navigation }) {
         dataForm.servicosSelectedsIds.map(Number).includes(item.id),
       ),
     };
-
-    console.log(JSON.stringify(infoProfissional, null, 2));
 
     navigation.navigate('FormularioSenha', { infoPessoal, infoProfissional });
   };
