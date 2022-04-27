@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { perfilUsuario } from '~/apis/apiCadastro';
+import { deletarUsuario, perfilUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
@@ -93,11 +93,20 @@ const AutenticacaoProvider = ({ children }) => {
     await setUser(newUserData);
   }, [token]);
 
+  const deleteUser = useCallback(async () => {
+    await deletarUsuario();
+
+    await setUser(null);
+
+    await setToken(null);
+  }, [token]);
+
   return (
     <AutenticacaoContext.Provider
       value={{
         user,
         updateUser,
+        deleteUser,
         token,
         setToken,
         signIn,
