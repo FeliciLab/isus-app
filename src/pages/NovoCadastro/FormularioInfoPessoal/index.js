@@ -19,8 +19,6 @@ import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
 import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
-// import { salvarDados } from '~/services/armazenamento';
-
 const theme = {
   colors: {
     primary: '#304FFE',

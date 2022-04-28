@@ -9,7 +9,7 @@ export const Title = styled(Paragraph)`
   margin-bottom: 10px;
 `;
 
-export const ContainerBody = styled.View`
+export const Container = styled.View`
   flex: 1;
   justify-content: space-between;
   background-color: ${CORES.BRANCO};

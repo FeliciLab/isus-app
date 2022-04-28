@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -8,6 +9,7 @@ import ControlledTextInputMask from '~/components/ControlledTextInputMask';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useMunicipios } from '~/hooks/useMunicipios';
+import schema from './schema';
 import { Container } from './styles';
 
 const PreCadastroInfoPessoal = () => {
@@ -17,20 +19,15 @@ const PreCadastroInfoPessoal = () => {
 
   console.log(user);
 
-  const {
-    control,
-    handleSubmit,
-    // errors,
-    // setError,
-    // clearErrors
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
-      nomeCompleto: user.name,
-      email: user.email,
-      telefone: user.telefone,
+      nomeCompleto: user.name || '',
+      email: user.email || '',
+      telefone: user.telefone || '',
       cpf: '',
       municipioSelectedId: '',
     },
+    resolver: yupResolver(schema),
   });
 
   const { municipios, fetchMunicipios } = useMunicipios();
