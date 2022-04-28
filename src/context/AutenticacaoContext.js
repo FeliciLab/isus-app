@@ -40,20 +40,20 @@ const AutenticacaoProvider = ({ children }) => {
     const perfil = await perfilUsuario(response.mensagem);
 
     await setUser({
-      id: perfil.data.id,
-      idKeycloak: perfil.data.id_keycloak,
-      name: perfil.data.name,
-      email: perfil.data.email,
-      cpf: perfil.data.cpf,
-      telefone: perfil.data.telefone,
-      municipio: perfil.data.municipio,
-      estado: perfil.data.estado,
-      categoriaProfissional: perfil.data.profissional.categoria_profissional,
-      tiposContratacoes: perfil.data.profissional.tipos_contratacoes,
-      titulacoesAcademica: perfil.data.profissional.titulacoes_academica,
-      unidadesServicos: perfil.data.profissional.unidades_servicos,
-      especialidades: perfil.data.profissional.especialidades,
-      cadastrado: perfil.data.cadastrado,
+      id: perfil.data?.id,
+      idKeycloak: perfil.data?.id_keycloak,
+      name: perfil.data?.name,
+      email: perfil.data?.email,
+      cpf: perfil.data?.cpf,
+      telefone: perfil.data?.telefone,
+      municipio: perfil.data?.municipio,
+      estado: perfil.data?.estado,
+      categoriaProfissional: perfil.data?.profissional?.categoria_profissional,
+      tiposContratacoes: perfil.data?.profissional?.tipos_contratacoes,
+      titulacoesAcademica: perfil.data?.profissional?.titulacoes_academica,
+      unidadesServicos: perfil.data?.profissional?.unidades_servicos,
+      especialidades: perfil.data?.profissional?.especialidades,
+      cadastrado: perfil?.cadastrado,
     });
 
     // verificar se o usuário já está cadastrado no iSUS
