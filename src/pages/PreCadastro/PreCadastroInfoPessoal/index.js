@@ -14,6 +14,7 @@ import useAutenticacao from '~/hooks/useAutenticacao';
 import { useMunicipios } from '~/hooks/useMunicipios';
 import schema from './schema';
 import { Container } from './styles';
+import { find } from 'lodash';
 
 const PreCadastroInfoPessoal = () => {
   const navigation = useNavigation();
@@ -77,8 +78,24 @@ const PreCadastroInfoPessoal = () => {
       } else {
         clearErrors('cpf');
       }
+      // TODO: remover isso depois
       console.log(dataForm);
-      navigation.navigate(rotas.PRE_CADASTRO_INFO_PROFISSIONAL);
+
+      // Informações para próxima página
+      const infoPessoal = {
+        nomeCompleto: dataForm.nomeCompleto,
+        email: dataForm.email,
+        telefone: dataForm.telefone.replace(/\D+/g, ''),
+        cpf: dataForm.cpf.replace(/\D+/g, ''),
+        municipio: find(municipios, [
+          'id',
+          Number(dataForm.municipioSelectedId),
+        ]),
+      };
+
+      navigation.navigate(rotas.PRE_CADASTRO_INFO_PROFISSIONAL, {
+        infoPessoal,
+      });
     } catch (error) {
       console.log(error);
     } finally {

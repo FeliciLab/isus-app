@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -15,6 +15,13 @@ import { Container, RowButton } from './styles';
 
 const PreCadastroInfoProfissional = () => {
   const navigation = useNavigation();
+
+  const route = useRoute();
+
+  const { infoPessoal } = route.params;
+
+  // TODO: remover isso depois
+  console.log({ infoPessoal });
 
   const [isLoading, setIsLoading] = useState(false);
 
