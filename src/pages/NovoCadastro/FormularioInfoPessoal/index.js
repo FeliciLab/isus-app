@@ -13,11 +13,11 @@ import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
-import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
+import ControlledTextInputMask from '~/components/ControlledTextInputMask';
+import ValidationFieldIndicator from '~/components/ValidationFieldIndicator';
 import { useMunicipios } from '~/hooks/useMunicipios';
 import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
-import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
 const theme = {
   colors: {

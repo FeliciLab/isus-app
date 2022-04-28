@@ -1,11 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { verificarCPFCadastrado } from '~/apis/apiCadastro';
+import Alerta from '~/components/alerta';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask';
+import ValidationFieldIndicator from '~/components/ValidationFieldIndicator/index';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useMunicipios } from '~/hooks/useMunicipios';
@@ -17,13 +20,15 @@ const PreCadastroInfoPessoal = () => {
 
   const { user } = useAutenticacao();
 
-  console.log(user);
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
 
-  const { control, handleSubmit } = useForm({
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
+
+  const { control, handleSubmit, setError, clearErrors } = useForm({
     defaultValues: {
-      nomeCompleto: user.name || '',
-      email: user.email || '',
-      telefone: user.telefone || '',
+      nomeCompleto: user?.name || '',
+      email: user?.email || '',
+      telefone: user?.telefone || '',
       cpf: '',
       municipioSelectedId: '',
     },
@@ -32,9 +37,45 @@ const PreCadastroInfoPessoal = () => {
 
   const { municipios, fetchMunicipios } = useMunicipios();
 
-  const handleOnPressButtonContinuar = dataFrom => {
-    console.log(dataFrom);
-    navigation.navigate(rotas.PRE_CADASTRO_PROFISSIONAL);
+  const [isValidatingCpfCadastrado, setIsValidatingCpfCadastrado] = useState(
+    false,
+  );
+
+  const cpfAlreadyRegistered = useCallback(async cpf => {
+    try {
+      if (cpf && cpf.length >= 11) {
+        setIsValidatingCpfCadastrado(true);
+
+        const { data } = await verificarCPFCadastrado(cpf);
+
+        if (data?.cpf_existe) {
+          setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
+          return true;
+        }
+      }
+    } catch (error) {
+      mostrarAlerta('Erro ao validar CPF.');
+      console.log(error);
+    } finally {
+      setIsValidatingCpfCadastrado(false);
+    }
+    return false;
+  }, []);
+
+  const mostrarAlerta = mensagem => {
+    setExibicaoDoAlerta(true);
+    setMensagemDoAlerta(mensagem);
+  };
+
+  const handleOnPressButtonContinuar = async dataForm => {
+    if (await cpfAlreadyRegistered(dataForm.cpf.replace(/\D+/g, ''))) {
+      return;
+    } else {
+      clearErrors('cpf');
+    }
+
+    console.log(dataForm);
+    navigation.navigate(rotas.PRE_CADASTRO_INFO_PROFISSIONAL);
   };
 
   useEffect(() => {
@@ -82,7 +123,9 @@ const PreCadastroInfoPessoal = () => {
         keyboardType="numeric"
         label="CPF"
       />
-
+      {isValidatingCpfCadastrado && (
+        <ValidationFieldIndicator message="Validando CPF" />
+      )}
       <ControlledSelectModal
         control={control}
         name="municipioSelectedId"
@@ -105,6 +148,12 @@ const PreCadastroInfoPessoal = () => {
       >
         Continuar
       </BotaoLaranja>
+      <Alerta
+        visivel={exibicaoDoAlerta}
+        textoDoAlerta={mensagemDoAlerta}
+        duration={4000}
+        onDismiss={() => setExibicaoDoAlerta(false)}
+      />
     </Container>
   );
 };
