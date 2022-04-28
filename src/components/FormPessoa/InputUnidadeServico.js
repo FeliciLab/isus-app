@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { pegarListaDeServicos } from '~/apis/apiKeycloak';
 import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
 
+// TODO: possivel remoção
 const InputUnidadeServico = ({ defaultValue }) => {
   const [data, setData] = useState([]);
 

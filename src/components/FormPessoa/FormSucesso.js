@@ -4,6 +4,7 @@ import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import TelaDeSucesso from '../TelaDeSucesso';
 
+// TODO: possivel remoção
 const FormSucesso = () => {
   const navigation = useNavigation();
 

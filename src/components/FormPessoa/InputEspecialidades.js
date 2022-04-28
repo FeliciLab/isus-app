@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { pegarListaDeEspecialidades } from '~/apis/apiKeycloak';
 import FormCheckBoxList from '../FormLayoutContexts/FormCheckBoxList';
 
+// TODO: possivel remoção
 const InputEspecialidades = ({ categoria, defaultValue }) => {
   const [data, setData] = useState([]);
 

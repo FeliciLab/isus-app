@@ -3,6 +3,7 @@ import { getMunicipiosCeara } from '~/apis/apiCadastro';
 import FormContext from '~/context/FormContext';
 import FormSelect from '../FormLayoutContexts/FormSelect';
 
+// TODO: possivel remoção
 const InputMunicipios = () => {
   const [municipios, setMunicipios] = useState(['Município']);
 

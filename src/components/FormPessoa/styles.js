@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Paragraph } from 'react-native-paper';
 import { CORES } from '../../constantes/estiloBase';
 
+// TODO: possivel remoção
 export const Title = styled(Paragraph)`
   font-weight: 500;
   font-size: 20px;

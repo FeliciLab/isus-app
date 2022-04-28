@@ -20,6 +20,8 @@ const PreCadastroInfoPessoal = () => {
 
   const { user } = useAutenticacao();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
 
   const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
@@ -68,14 +70,20 @@ const PreCadastroInfoPessoal = () => {
   };
 
   const handleOnPressButtonContinuar = async dataForm => {
-    if (await cpfAlreadyRegistered(dataForm.cpf.replace(/\D+/g, ''))) {
-      return;
-    } else {
-      clearErrors('cpf');
+    try {
+      setIsLoading(true);
+      if (await cpfAlreadyRegistered(dataForm.cpf.replace(/\D+/g, ''))) {
+        return;
+      } else {
+        clearErrors('cpf');
+      }
+      console.log(dataForm);
+      navigation.navigate(rotas.PRE_CADASTRO_INFO_PROFISSIONAL);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-
-    console.log(dataForm);
-    navigation.navigate(rotas.PRE_CADASTRO_INFO_PROFISSIONAL);
   };
 
   useEffect(() => {
@@ -140,12 +148,8 @@ const PreCadastroInfoPessoal = () => {
 
       <BotaoLaranja
         onPress={handleSubmit(handleOnPressButtonContinuar)}
-        // onPress={async () => {
-        //   await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
-        //   if (hasErrors) return;
-        //   navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
-        // }}
-      >
+        disabled={isLoading}
+        loading={isLoading}>
         Continuar
       </BotaoLaranja>
       <Alerta
