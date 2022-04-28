@@ -72,7 +72,7 @@ const FormularioLogin = ({ route }) => {
       setValue('senha', '');
 
       navigation.navigate(
-        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO_INTRODUCAO,
+        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO,
       );
     } catch (error) {
       if (error.response?.status === 401) {

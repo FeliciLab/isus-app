@@ -16,7 +16,7 @@ export default function PreCadastroIntroducao() {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.navigate(ROTAS.PRE_CADASTRO);
+    navigation.navigate(ROTAS.PRE_CADASTRO_INFO_PESSOAL);
   };
 
   return (

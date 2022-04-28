@@ -21,7 +21,6 @@ import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
 import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
-import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 import QualiQuiz from '~/pages/QualiQuiz';
 import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
@@ -35,6 +34,8 @@ import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
+
+console.log(JSON.stringify(PreCadastroRoutes));
 
 const RootStack = createStackNavigator();
 
@@ -66,22 +67,6 @@ const Cadastro = () => (
     name="316"
     inactiveComponent={TelaDeCadastro}
     activeComponent={CadastroRoutes}
-  />
-);
-
-const PreCadastro = () => (
-  <Feature
-    name="453"
-    inactiveComponent={PreCadastroRoutes}
-    activeComponent={PreCadastroRoutes}
-  />
-);
-
-const PreCadastroIntro = () => (
-  <Feature
-    name="453"
-    inactiveComponent={PreCadastroIntroducao}
-    activeComponent={PreCadastroIntroducao}
   />
 );
 
@@ -137,14 +122,9 @@ export default function App({ navigationRef }) {
           component={Cadastro}
         />
         <RootStack.Screen
-          name="PRE_CADASTRO"
+          name={rotas.PRE_CADASTRO}
           options={{ headerShown: false }}
-          component={PreCadastro}
-        />
-        <RootStack.Screen
-          name="PRE_CADASTRO_INTRODUCAO"
-          options={{ headerShown: false }}
-          component={PreCadastroIntro}
+          component={PreCadastroRoutes}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"
@@ -172,7 +152,6 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-
         <RootStack.Screen
           name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}

@@ -15,6 +15,9 @@ import UserInfo from './UserInfo';
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 
+// TODO: Remocer depois
+import { Button } from 'react-native-paper';
+
 export default function Home() {
   const navigation = useNavigation();
 
@@ -89,6 +92,13 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
+      <Button
+        style={{ margin: 10 }}
+        icon="camera"
+        mode="outlined"
+        onPress={() => navigation.navigate(rotas.PRE_CADASTRO)}>
+        Pre-Cadastro
+      </Button>
       <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
