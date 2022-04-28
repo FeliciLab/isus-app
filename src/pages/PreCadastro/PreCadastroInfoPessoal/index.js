@@ -13,7 +13,7 @@ import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useMunicipios } from '~/hooks/useMunicipios';
 import schema from './schema';
-import { Container } from './styles';
+import { Container, RowButton } from './styles';
 import { find } from 'lodash';
 
 const PreCadastroInfoPessoal = () => {
@@ -78,8 +78,6 @@ const PreCadastroInfoPessoal = () => {
       } else {
         clearErrors('cpf');
       }
-      // TODO: remover isso depois
-      console.log(dataForm);
 
       // Informações para próxima página
       const infoPessoal = {
@@ -97,6 +95,7 @@ const PreCadastroInfoPessoal = () => {
         infoPessoal,
       });
     } catch (error) {
+      mostrarAlerta('Algo inesperado aconteceu.');
       console.log(error);
     } finally {
       setIsLoading(false);
@@ -162,13 +161,14 @@ const PreCadastroInfoPessoal = () => {
           label: String(item.nome),
         }))}
       />
-
-      <BotaoLaranja
-        onPress={handleSubmit(handleOnPressButtonContinuar)}
-        disabled={isLoading}
-        loading={isLoading}>
-        Continuar
-      </BotaoLaranja>
+      <RowButton>
+        <BotaoLaranja
+          onPress={handleSubmit(handleOnPressButtonContinuar)}
+          disabled={isLoading}
+          loading={isLoading}>
+          Continuar
+        </BotaoLaranja>
+      </RowButton>
       <Alerta
         visivel={exibicaoDoAlerta}
         textoDoAlerta={mensagemDoAlerta}

@@ -1,16 +1,18 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { filter, find } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
+import { atualizarUsuarioApi } from '~/apis/apiCadastro';
+import Alerta from '~/components/alerta';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 import rotas from '~/constantes/rotas';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import { useCategoriasProfissionais } from '~/hooks/useCategoriasProfissionais';
 import { useEspecialidades } from '~/hooks/useEspecialidades';
 import { useServicos } from '~/hooks/useServicos';
-// import ROTAS from '~/constantes/rotas';
-// import useAutenticacao from '~/hooks/useAutenticacao';
 import { Container, RowButton } from './styles';
 
 const PreCadastroInfoProfissional = () => {
@@ -20,10 +22,18 @@ const PreCadastroInfoProfissional = () => {
 
   const { infoPessoal } = route.params;
 
-  // TODO: remover isso depois
-  console.log({ infoPessoal });
+  const { updateUser } = useAutenticacao();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
+
+  const mostrarAlerta = mensagem => {
+    setExibicaoDoAlerta(true);
+    setMensagemDoAlerta(mensagem);
+  };
 
   const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
@@ -46,16 +56,45 @@ const PreCadastroInfoProfissional = () => {
 
   const { especialidades, featchEspecialidades } = useEspecialidades();
 
-  // TODO: colocar a atualização do usuário aqui
   const handlerOnPressConcluir = async dataForm => {
     try {
       setIsLoading(true);
 
-      console.log({ dataForm });
+      const infoProfissional = {
+        categoriaProfissional: find(categoriasProfissionais, [
+          'id',
+          Number(dataForm?.categoriaProfissionalSelectedId) || '',
+        ]),
+        especialidades:
+          filter(especialidades, item =>
+            dataForm?.especialidadesSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+        // lá na api está no singular
+        unidadeServico:
+          filter(servicos, item =>
+            dataForm?.servicosSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+      };
+
+      const newUserData = {
+        ...infoPessoal,
+        ...infoProfissional,
+        cidade: infoPessoal.municipio,
+        cidadeId: infoPessoal.municipio.id,
+        nomeCompleto: infoPessoal.nomeCompleto,
+      };
+
+      await atualizarUsuarioApi({
+        ...newUserData,
+        termos: true,
+      });
+
+      await updateUser(); // atualiza as informações do usuário internamente no app
 
       navigation.navigate(rotas.PRE_CADASTRO_SUCESSO);
     } catch (error) {
-      console.log('problema ao atualizar perfil no context', error);
+      mostrarAlerta('Problema ao atualizar perfil.');
+      console.log('Problema ao atualizar perfil.', error);
     } finally {
       setIsLoading(false);
     }
@@ -112,11 +151,18 @@ const PreCadastroInfoProfissional = () => {
         <RowButton>
           <BotaoLaranja
             loading={isLoading}
+            disabled={isLoading}
             onPress={handleSubmit(handlerOnPressConcluir)}>
             Concluir
           </BotaoLaranja>
         </RowButton>
       </ScrollView>
+      <Alerta
+        visivel={exibicaoDoAlerta}
+        textoDoAlerta={mensagemDoAlerta}
+        duration={4000}
+        onDismiss={() => setExibicaoDoAlerta(false)}
+      />
     </Container>
   );
 };

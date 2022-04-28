@@ -92,6 +92,7 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
+      {/* TODO: remover esse botão depois do deskcheck */}
       <Button
         style={{ margin: 10 }}
         icon="camera"
