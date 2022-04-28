@@ -3,6 +3,7 @@ import { pegarListaDeEspecialidades } from '~/apis/apiKeycloak';
 import FormCheckBoxList from '~/components/FormLayoutContexts/FormCheckBoxList';
 import FormContext from '~/context/FormContext';
 
+// TODO: possivel remoção
 const InputEspecialidades = ({ categoria }) => {
   const [data, setData] = useState([]);
 

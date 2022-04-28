@@ -5,7 +5,6 @@ import rotas from '~/constantes/rotas';
 import PreCadastroInfoPessoal from '~/pages/PreCadastro/PreCadastroInfoPessoal';
 import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao';
 import PreCadastroProfissional from '~/pages/PreCadastro/PreCadastroProfissional';
-import PreCadastroSenha from '~/pages/PreCadastro/PreCadastroSenha';
 import PreCadastroSucesso from '~/pages/PreCadastro/PreCadastroSucesso';
 
 const PreCadastroStack = createStackNavigator();
@@ -32,11 +31,6 @@ export default function PreCadastroRoutes() {
       <PreCadastroStack.Screen
         name={rotas.PRE_CADASTRO_PROFISSIONAL}
         component={PreCadastroProfissional}
-        options={opcoes}
-      />
-      <PreCadastroStack.Screen
-        name={rotas.PRE_CADASTRO_SENHA}
-        component={PreCadastroSenha}
         options={opcoes}
       />
       <PreCadastroStack.Screen

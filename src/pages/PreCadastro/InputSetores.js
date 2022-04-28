@@ -3,6 +3,7 @@ import { pegarListaDeServicos } from '~/apis/apiKeycloak';
 import FormCheckBoxList from '~/components/FormLayoutContexts/FormCheckBoxList';
 import FormContext from '~/context/FormContext';
 
+// TODO: possivel remoção
 const InputSetores = () => {
   const [data, setData] = useState([]);
 

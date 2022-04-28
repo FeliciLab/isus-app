@@ -1,16 +1,17 @@
-// import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
+import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask';
-import ControlledSelectModal from '~/components/ControlledSelectModal';
-import { Container } from './styles';
-import { useMunicipios } from '~/hooks/useMunicipios';
+import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import { useMunicipios } from '~/hooks/useMunicipios';
+import { Container } from './styles';
 
 const PreCadastroInfoPessoal = () => {
-  // const navigator = useNavigation();
+  const navigation = useNavigation();
 
   const { user } = useAutenticacao();
 
@@ -18,7 +19,7 @@ const PreCadastroInfoPessoal = () => {
 
   const {
     control,
-    // handleSubmit,
+    handleSubmit,
     // errors,
     // setError,
     // clearErrors
@@ -33,6 +34,11 @@ const PreCadastroInfoPessoal = () => {
   });
 
   const { municipios, fetchMunicipios } = useMunicipios();
+
+  const handleOnPressButtonContinuar = dataFrom => {
+    console.log(dataFrom);
+    navigation.navigate(rotas.PRE_CADASTRO_PROFISSIONAL);
+  };
 
   useEffect(() => {
     fetchMunicipios();
@@ -93,11 +99,12 @@ const PreCadastroInfoPessoal = () => {
       />
 
       <BotaoLaranja
-      // onPress={async () => {
-      //   await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
-      //   if (hasErrors) return;
-      //   navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
-      // }}
+        onPress={handleSubmit(handleOnPressButtonContinuar)}
+        // onPress={async () => {
+        //   await trigger(['nome', 'email', 'telefone', 'cpf', 'cidadeId']);
+        //   if (hasErrors) return;
+        //   navigator.navigate(ROTAS.PRE_CADASTRO_PROFISSIONAL);
+        // }}
       >
         Continuar
       </BotaoLaranja>

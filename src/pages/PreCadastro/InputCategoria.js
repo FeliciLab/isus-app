@@ -3,6 +3,7 @@ import { pegarListaDeCategoriasProfissionais } from '~/apis/apiKeycloak';
 import FormSelect from '~/components/FormLayoutContexts/FormSelect';
 import FormContext from '~/context/FormContext';
 
+// TODO: possivel remoção
 const InputCategoria = () => {
   const [data, setData] = useState([]);
 
