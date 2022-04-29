@@ -12,7 +12,6 @@ import rotas from '~/constantes/rotas';
 import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
-import useCaixaDialogo from '~/hooks/useCaixaDialogo';
 import IDSaudeLoginTemplate from '../IDSaudeLoginTemplate';
 import schema from './schema';
 import { Botao } from './styles';
@@ -25,6 +24,7 @@ const textInputTheme = {
     text: CORES.BRANCO,
     background: CORES.AZUL,
     placeholder: CORES.BRANCO,
+    error: CORES.VERMELHO,
   },
 };
 
@@ -33,9 +33,15 @@ const FormularioLogin = ({ route }) => {
 
   const { analyticsData } = useAnalytics();
 
-  const caixaDialogo = useCaixaDialogo();
-
-  const { control, handleSubmit, getValues, setValue, errors } = useForm({
+  const {
+    control,
+    handleSubmit,
+    setFocus,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    mode: 'all', // all = Validation will trigger on the blur and change events
+    reValidateMode: 'onBlur',
     defaultValues: {
       email: '',
       senha: '',
@@ -56,10 +62,8 @@ const FormularioLogin = ({ route }) => {
     setVisivel(true);
   }, []);
 
-  const handleSubmitForm = async (data, options) => {
+  const handleSubmitForm = async data => {
     const { email, senha } = data;
-
-    const tentativa = options?.tentativa || 1;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
 
@@ -72,36 +76,17 @@ const FormularioLogin = ({ route }) => {
       setValue('senha', '');
 
       navigation.navigate(
-        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO,
+        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO_INTRODUCAO,
       );
     } catch (error) {
       if (error.response?.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
         return;
-      } else if (error.message) {
-        if (!error.message.semConexao) {
-          mostrarAlerta(error.mensagem);
-          return;
-        }
-
-        if (tentativa > 3) {
-          navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
-        } else {
-          caixaDialogo.SemConexao(
-            {
-              acaoConcluir: tentarLoginNovamente,
-            },
-            tentativa,
-          );
-        }
       }
     } finally {
       setCarregando(false);
     }
   };
-
-  const tentarLoginNovamente = tentativa =>
-    handleSubmitForm(getValues(), { tentativa: tentativa + 1 });
 
   const abrirWebViewEsqueciMinhaSenha = useCallback(() => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
@@ -124,28 +109,49 @@ const FormularioLogin = ({ route }) => {
     <IDSaudeLoginTemplate route={route}>
       <View style={{ marginHorizontal: 16 }}>
         <ControlledTextInput
-          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
+          autoCapitalize="none"
+          autoCorrect={false}
+          blurOnSubmit={false} // não deixa teclado sumir no enter
           control={control}
+          errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
+          keyboardType="email-address"
+          label="Email"
           name="email"
           mode="outlined"
+          onChangeText={text => setValue('email', text.trim())}
+          onSubmitEditing={() => {
+            setFocus('senha');
+          }}
+          returnKeyType="next"
           placeholder="Email"
-          label="Email"
+          selectionColor={CORES.CINZA_WEB}
+          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
+          textContentType="emailAddress"
           theme={textInputTheme}
         />
         <ControlledTextInput
-          style={{ marginTop: 8 }}
-          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
+          autoCapitalize="none"
           control={control}
+          style={{ marginTop: 18 }}
+          errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
+          label="Senha"
           name="senha"
           mode="outlined"
+          onSubmitEditing={handleSubmit(handleSubmitForm)}
+          returnKeyType="done"
           placeholder="Senha"
-          label="Senha"
           secureTextEntry
+          // selectionColor={CORES.AZUL}
+          selectionColor={CORES.CINZA_WEB}
+          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
+          textContentType="password"
           theme={textInputTheme}
         />
         <View style={{ marginTop: 18 }}>
           <Botao
-            disabled={errors?.email || errors?.senha || carregando}
+            disabled={
+              errors?.email?.message || errors?.senha?.message || carregando
+            }
             testID={TESTIDS.BUTTON_FAZER_LOGIN}
             mode="contained"
             loading={carregando}

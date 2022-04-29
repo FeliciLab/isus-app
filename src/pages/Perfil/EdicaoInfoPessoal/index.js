@@ -199,7 +199,6 @@ function EdicaoInfoPessoal() {
             Edite as informações pessoais que você deseja atualizar:
           </TituloPrincipal>
         </ConteudoFormulario>
-
         <ContainerBody>
           <ContainerForm>
             <Title>Informações pessoais</Title>
@@ -266,7 +265,6 @@ function EdicaoInfoPessoal() {
               />
             </RowInput>
           </ContainerForm>
-
           <RowButton>
             <BotaoLaranja
               disabled={hasErrors || isLoading}
@@ -276,12 +274,6 @@ function EdicaoInfoPessoal() {
             </BotaoLaranja>
           </RowButton>
         </ContainerBody>
-
-        {/* <FormInfoPessoal
-          actionPress={handleSubmit(submitForm)}
-          labelButton="Salvar"
-        /> */}
-
         <Alerta
           visivel={exibicaoDoAlerta}
           textoDoAlerta={mensagemDoAlerta}
