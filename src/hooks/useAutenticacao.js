@@ -4,11 +4,9 @@ import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 function useAutenticacao() {
   const {
     user,
-    setUser,
+    updateUser,
     token,
     setToken,
-    pessoa,
-    alterarPessoa,
     signIn,
     signOut,
     showTutorial,
@@ -19,11 +17,9 @@ function useAutenticacao() {
 
   return {
     user,
-    setUser,
+    updateUser,
     token,
     setToken,
-    pessoa,
-    alterarPessoa,
     signIn,
     signOut,
     showTutorial,

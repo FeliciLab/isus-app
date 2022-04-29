@@ -1,8 +1,15 @@
 import { Feature } from '@paralleldrive/react-feature-toggles';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useCallback, useContext, useLayoutEffect } from 'react';
+import {
+  // useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
+import React, {
+  // useCallback,
+  useContext,
+  useLayoutEffect,
+} from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { perfilUsuario } from '~/apis/apiCadastro';
+// import { perfilUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
 import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
@@ -11,11 +18,11 @@ import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
 import { ArrowLeftIcon } from '~/icons';
-import { salvarDados } from '~/services/armazenamento';
-import {
-  pegarEstadoLogadoArmazenado,
-  pegarTokenDoUsuarioNoStorage,
-} from '~/services/autenticacao';
+// import { salvarDados } from '~/services/armazenamento';
+// import {
+//   pegarEstadoLogadoArmazenado,
+//   pegarTokenDoUsuarioNoStorage,
+// } from '~/services/autenticacao';
 import CabecalhoPerfil from './cabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
@@ -26,33 +33,39 @@ export default function PerfilScreen() {
 
   const { analyticsData } = useAnalytics();
 
-  const { user, setUser, setToken, alterarPessoa } = useAutenticacao();
+  const {
+    user,
+    // setUser,
+    // setToken,
+    // alterarPessoa
+  } = useAutenticacao();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext,
   );
   const { abrirCaixaDialogoSair, realizarLogout } = useLogoutApplication();
 
-  useFocusEffect(
-    useCallback(() => {
-      async function pegarTokenUsuario() {
-        const logado = await pegarEstadoLogadoArmazenado();
-        if (!logado) return;
+  // TODO: avalidar o uso desse useFocusEffect
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     async function pegarTokenUsuario() {
+  //       const logado = await pegarEstadoLogadoArmazenado();
+  //       if (!logado) return;
 
-        const token = await pegarTokenDoUsuarioNoStorage();
-        await setToken(token);
-        try {
-          const perfil = await perfilUsuario();
-          await setUser(perfil.data);
-          await alterarPessoa(perfil.data);
-          salvarDados('perfil', perfil.data);
-        } catch (err) {
-          console.log('ERRO', err);
-        }
-      }
-      pegarTokenUsuario();
-    }, []),
-  );
+  //       const token = await pegarTokenDoUsuarioNoStorage();
+  //       await setToken(token);
+  //       try {
+  //         const perfil = await perfilUsuario();
+  //         await setUser(perfil.data);
+  //         await alterarPessoa(perfil.data);
+  //         salvarDados('perfil', perfil.data);
+  //       } catch (err) {
+  //         console.log('ERRO', err);
+  //       }
+  //     }
+  //     pegarTokenUsuario();
+  //   }, []),
+  // );
 
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {

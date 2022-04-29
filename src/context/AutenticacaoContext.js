@@ -4,7 +4,6 @@ import { perfilUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
-import Pessoa from '~/models/pessoa';
 import { autenticarComIdSaude } from '~/services/autenticacao';
 
 const AutenticacaoContext = createContext();
@@ -27,8 +26,6 @@ const AutenticacaoProvider = ({ children }) => {
 
   const [user, setUser] = useAsyncStorage('@isus:user', null);
 
-  const [pessoa, setPessoa] = useAsyncStorage('@isus:pessoa', null);
-
   const [token, setToken] = useAsyncStorage('@isus:token', null);
 
   const [showTutorial, setShowTutorial] = useAsyncStorage(
@@ -42,15 +39,35 @@ const AutenticacaoProvider = ({ children }) => {
   const signIn = useCallback(async (email, senha) => {
     const response = await autenticarComIdSaude(email, senha);
 
-    // Precisa vir antes para salvar o token do usuário para poder fazer a busca do
-    // perfil do usuário
-    await setToken(response.mensagem);
+    await setToken({
+      accessToken: response.mensagem.access_token,
+      expiresIn: response.mensagem.expires_in,
+      notBeforePolicy: response.mensagem['not-before-policy'],
+      refreshExpiresIn: response.mensagem.refresh_expires_in,
+      refreshToken: response.mensagem.refresh_token,
+      scope: response.mensagem.scope,
+      sessionState: response.mensagem.session_state,
+      tokenType: response.mensagem.token_type,
+    });
 
     const perfil = await perfilUsuario(response.mensagem);
 
-    await setUser(perfil.data);
-
-    await alterarPessoa(perfil.data);
+    await setUser({
+      id: perfil.data.id,
+      idKeycloak: perfil.data.id_keycloak,
+      name: perfil.data.name,
+      email: perfil.data.email,
+      cpf: perfil.data.cpf,
+      telefone: perfil.data.telefone,
+      municipio: perfil.data.municipio,
+      estado: perfil.data.estado,
+      categoriaProfissional: perfil.data.profissional.categoria_profissional,
+      tiposContratacoes: perfil.data.profissional.tipos_contratacoes,
+      titulacoesAcademica: perfil.data.profissional.titulacoes_academica,
+      unidadesServicos: perfil.data.profissional.unidades_servicos,
+      especialidades: perfil.data.profissional.especialidades,
+      cadastrado: perfil.data.cadastrado,
+    });
 
     // verificar se o usuário já está cadastrado no iSUS
     return perfil.cadastrado ? true : false;
@@ -62,25 +79,42 @@ const AutenticacaoProvider = ({ children }) => {
     await setToken(null);
 
     await setUser(null);
-
-    await alterarPessoa({});
   }, [token]);
 
-  const alterarPessoa = async dados => {
-    await setPessoa({
-      ...Pessoa.criar(dados),
-    });
-  };
+  const updateUser = useCallback(async () => {
+    const perfil = await perfilUsuario(token);
+
+    console.log('updateUser: perfil', JSON.stringify(perfil, null, 2));
+
+    const newUserData = {
+      id: perfil.data.id,
+      idKeycloak: perfil.data.id_keycloak,
+      name: perfil.data.name,
+      email: perfil.data.email,
+      cpf: perfil.data.cpf,
+      telefone: perfil.data.telefone,
+      municipio: perfil.data.municipio,
+      estado: perfil.data.estado,
+      categoriaProfissional: perfil.data.profissional.categoria_profissional,
+      tiposContratacoes: perfil.data.profissional.tipos_contratacoes,
+      titulacoesAcademica: perfil.data.profissional.titulacoes_academica,
+      unidadesServicos: perfil.data.profissional.unidades_servicos,
+      especialidades: perfil.data.profissional.especialidades,
+      cadastrado: perfil.data.cadastrado,
+    };
+
+    console.log(newUserData);
+
+    await setUser(newUserData);
+  }, [token]);
 
   return (
     <AutenticacaoContext.Provider
       value={{
         user,
-        setUser,
+        updateUser,
         token,
         setToken,
-        pessoa,
-        alterarPessoa,
         signIn,
         signOut,
         showTutorial,

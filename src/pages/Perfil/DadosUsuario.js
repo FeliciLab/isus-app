@@ -44,16 +44,13 @@ function DadosUsuario({ dados }) {
 }
 
 function Especialidades({ dados }) {
-  return (dados.profissional &&
-    dados.profissional.categoria_profissional.id === 1) ||
-    dados.profissional.categoria_profissional.id === 3 ? (
+  return (dados.profissional && dados.categoriaProfissional.id === 1) ||
+    dados.categoriaProfissional.id === 3 ? (
       <>
         <Text style={estilos.label}>ESPECIALIDADE</Text>
         <Text style={estilos.dado}>
-          {dados.profissional &&
-        dados.profissional.especialidades &&
-        dados.profissional.especialidades.length
-            ? dados.profissional.especialidades.map(dado => dado.nome).join(', ')
+          {dados && dados.especialidades && dados.especialidades.length
+            ? dados.especialidades.map(dado => dado.nome).join(', ')
             : ''}
         </Text>
       </>
@@ -65,13 +62,11 @@ function Especialidades({ dados }) {
 function DadosUsuarioProfissional({ dados }) {
   return (
     // eslint-disable-next-line
-    dados.profissional &&
-      dados.profissional.categoria_profissional &&
-      dados.profissional.unidades_servicos ? (
-        MostrarDadosUsuarioProfissional(dados)
-      ) : (
-        <AdicionarDadosProfissionais />
-      )
+    dados && dados.categoriaProfissional && dados.unidadesServicos ? (
+      MostrarDadosUsuarioProfissional(dados)
+    ) : (
+      <AdicionarDadosProfissionais />
+    )
   );
 }
 
@@ -80,17 +75,15 @@ function MostrarDadosUsuarioProfissional(dados) {
     <View style={estilos.espacamento}>
       <Text style={estilos.label}>CATEGORIA PROFISSIONAL</Text>
       <Text style={estilos.dado}>
-        {dados.profissional && dados.profissional.categoria_profissional
-          ? dados.profissional.categoria_profissional.nome
+        {dados && dados.categoriaProfissional
+          ? dados.categoriaProfissional.nome
           : ''}
       </Text>
       <Especialidades dados={dados} />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
-        {dados.profissional && dados.profissional.unidades_servicos.length
-          ? dados.profissional.unidades_servicos
-            .map(dado => dado.nome)
-            .join(', ')
+        {dados && dados.unidadesServicos.length
+          ? dados.unidadesServicos.map(dado => dado.nome).join(', ')
           : ''}
       </Text>
       <Feature

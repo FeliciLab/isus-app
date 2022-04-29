@@ -2,19 +2,15 @@ import { uniqueId } from 'lodash';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { Checkbox, DefaultTheme } from 'react-native-paper';
-import { alteraDadosDoUsuario } from '~/apis/apiCadastro';
 import {
   pegarListaDeCategoriasProfissionais,
   pegarListaDeEspecialidades,
   pegarListaDeServicos,
 } from '~/apis/apiKeycloak';
-import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import DropDown from '~/components/dropdown';
-import rotas from '~/constantes/rotas';
 import FormContext from '~/context/FormContext';
 import { ArrowLeftIcon } from '~/icons';
-import { pegarDados } from '~/services/armazenamento';
 import {
   Acordeon,
   Botao,
@@ -24,37 +20,20 @@ import {
   Titulo,
   TituloDoFormulario,
 } from './styles';
-import textos from './textos.json';
 
-function FormularioInfoProfissional({ navigation, route }) {
+function FormularioInfoProfissional({ navigation }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
 
-  const [listaDeServicos, setListaDeServicos] = useState([]);
-
-  const [listaDeCategorias, setListaDeCategorias] = useState([]);
-
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
-
-  const [unidadesServico, setUnidadesServico] = useState({});
-
+  const [listaDeServicos, alterarListaDeServicos] = useState([]);
+  const [listaDeCategorias, alterarListaDeCategorias] = useState([]);
+  const [categoriaSelecionada, alterarCategoriaSelecionada] = useState('');
+  const [unidadesServico, alterarUnidadesServico] = useState({});
   const [
     tratarCategoriaProfissional,
-    setTratarCategoriaProfissional,
-  ] = useState(0);
-
-  const [listaDeEspecialidades, setListaDeEspecialidades] = useState([]);
-
-  const [unidadesEspecialidades, setUnidadesEspecialidades] = useState({});
-
-  const [carregando, setCarregando] = useState(false);
-
-  const [perfildoUsuario, setPerfilDoUsuario] = useState({});
-
-  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
-
-  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
-
-  const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
+    alterarTratarCategoriaProfissional,
+  ] = React.useState(0);
+  const [listaDeEspecialidades, alterarListaDeEspecialidades] = useState([]);
+  const [unidadesEspecialidades, alterarUnidadesEspecialidades] = useState({});
 
   const theme = {
     ...DefaultTheme,
@@ -99,36 +78,30 @@ function FormularioInfoProfissional({ navigation, route }) {
 
   const pegarValoresCategoriaProfissional = () => {
     const valores = getValues();
-    setCategoriaSelecionada(valores.categoriaProfissional);
+    alterarCategoriaSelecionada(valores.categoriaProfissional);
     verificarCategoria();
   };
 
   useEffect(() => {
     const aoIniciar = async () => {
       const servicos = await pegarListaDeServicos();
-      setListaDeServicos(servicos);
+      alterarListaDeServicos(servicos);
       pegarValoresUnidadesServicos();
 
       const categorias = await pegarListaDeCategoriasProfissionais();
-      setListaDeCategorias(categorias);
+      alterarListaDeCategorias(categorias);
       pegarValoresCategoriaProfissional();
 
       const especialidades = await pegarListaDeEspecialidades(
         tratarCategoriaProfissional,
       );
-      setListaDeEspecialidades(especialidades);
-
-      if (veioDoPerfil) {
-        const perfil = await pegarDados('perfil');
-        setPerfilDoUsuario(perfil);
-      }
+      alterarListaDeEspecialidades(especialidades);
     };
     aoIniciar();
   }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: veioDoPerfil ? 'Informações profissionais' : 'Cadastro',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -137,10 +110,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <ArrowLeftIcon
-            size={28}
-            color={veioDoPerfil ? '#4CAF50' : '#304FFE'}
-          />
+          <ArrowLeftIcon size={28} color="#304FFE" />
         </TouchableOpacity>
       ),
     });
@@ -151,12 +121,12 @@ function FormularioInfoProfissional({ navigation, route }) {
     if (categoriaProfissional) {
       JSON.parse(categoriaProfissional, (key, value) => {
         if (key === 'id') {
-          setTratarCategoriaProfissional(value);
+          alterarTratarCategoriaProfissional(value);
 
           if (value === 1 || value === 3) {
             const aoEspecialidades = async () => {
               const especialidades = await pegarListaDeEspecialidades(value);
-              setListaDeEspecialidades(especialidades);
+              alterarListaDeEspecialidades(especialidades);
               pegarValoresEspecialidades(especialidades);
             };
             aoEspecialidades();
@@ -165,8 +135,6 @@ function FormularioInfoProfissional({ navigation, route }) {
       });
     }
   };
-
-  const definirCorDosElementos = () => (veioDoPerfil ? '#FF9800' : '#304FFE');
 
   const mudarValoresUnidadesServicos = servicos => {
     const unidadesServicoCheckBoxes = { ...unidadesServico };
@@ -179,7 +147,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           : true,
       };
     });
-    setUnidadesServico(unidadesServicoCheckBoxes);
+    alterarUnidadesServico(unidadesServicoCheckBoxes);
   };
 
   const mudarValorEspecilidades = especialidade => {
@@ -191,7 +159,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         ? !check[`${especialidade.nome}`].foiMarcado
         : true,
     };
-    setUnidadesEspecialidades(check);
+    alterarUnidadesEspecialidades(check);
   };
 
   const mudarValoresEspecialidades = especialidades => {
@@ -205,7 +173,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           : true,
       };
     });
-    setUnidadesEspecialidades(especialidadesCheckBoxes);
+    alterarUnidadesEspecialidades(especialidadesCheckBoxes);
   };
 
   const mudarValor = servico => {
@@ -217,7 +185,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         ? !check[`${servico.nome}`].foiMarcado
         : true,
     };
-    setUnidadesServico(check);
+    alterarUnidadesServico(check);
   };
 
   const tratarUnidadesDeServico = () => {
@@ -262,92 +230,15 @@ function FormularioInfoProfissional({ navigation, route }) {
     setValue('especialidades', especialidadesTratados);
   };
 
-  const tratarCamposDeUsuario = campos => {
-    const {
-      email,
-      name,
-      telefone,
-      cpf,
-      municipio,
-      categoriaProfissional,
-      especialidades,
-      unidadeServico,
-    } = campos;
-    return {
-      email,
-      nomeCompleto: name,
-      telefone,
-      cpf,
-      cidadeId: municipio.id,
-      cidade: municipio.nome,
-      termos: true,
-      categoriaProfissional,
-      especialidades,
-      unidadeServico,
-    };
-  };
-
-  // Cadastro
-  const alterarTelaDoCadastro = () => {
-    navigation.navigate('FormularioSenha');
-  };
-
-  const mostrarAlerta = mensagem => {
-    setExibicaoDoAlerta(true);
-    setMensagemDoAlerta(mensagem);
-  };
-
-  // Adicionar Informações profissionais
-  const adicionarInformaçõesProfissionais = async () => {
-    setCarregando(true);
-    const {
-      categoriaProfissional,
-      especialidades,
-      unidadeServico,
-    } = getValues();
-    const usuarioTratado = tratarCamposDeUsuario({
-      ...perfildoUsuario,
-      categoriaProfissional,
-      especialidades,
-      unidadeServico,
-    });
-    setPerfilDoUsuario({
-      ...perfildoUsuario,
-      categoria_profissional: categoriaProfissional,
-      // eslint-disable-next-line object-shorthand
-      especialidades: especialidades,
-      unidade_servico: unidadeServico,
-    });
-    try {
-      console.log('perfil atualizado', usuarioTratado);
-      const resposta = await alteraDadosDoUsuario(usuarioTratado);
-      navigation.navigate('TelaDeSucesso', {
-        textoApresentacao:
-          'Parabéns! Você cadastrou suas informações profissionais. Você será redirecionado para sua página de Perfil.',
-        telaDeRedirecionamento: 'PERFIL',
-        telaDeBackground: '#4CAF50',
-      });
-      console.log(resposta.data);
-      setCarregando(false);
-    } catch (err) {
-      console.log(err);
-      mostrarAlerta('Ocorreu um erro. Tente novamente mais tarde.');
-      setCarregando(false);
-    }
-  };
-
   return (
     <Scroll>
       <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
       <ConteudoDropdown>
         <Titulo>
-          {veioDoPerfil
-            ? textos.formularioProfissional.introducaoAdicaoPerfil
-            : textos.formularioProfissional.introducao}
+          Vamos realizar seu cadastro, precisamos apenas de suas informações
+          profissionais:
         </Titulo>
-        <TituloDoFormulario>
-          {textos.formularioProfissional.titulo}
-        </TituloDoFormulario>
+        <TituloDoFormulario>Categoria Profissional:</TituloDoFormulario>
         <DropDown
           label="Categoria profissional"
           dados={listaDeCategorias}
@@ -362,9 +253,7 @@ function FormularioInfoProfissional({ navigation, route }) {
         {tratarCategoriaProfissional === 1 ||
         tratarCategoriaProfissional === 3 ? (
             <>
-              <TituloDoFormulario>
-                {textos.formularioProfissional.especialidade}
-              </TituloDoFormulario>
+              <TituloDoFormulario>Qual é sua especialidade?</TituloDoFormulario>
               <Acordeon
                 titleStyle={{ color: 'black' }}
                 title={
@@ -384,7 +273,7 @@ function FormularioInfoProfissional({ navigation, route }) {
                       }
                       labelStyle={{ maxWidth: '70%' }}
                       theme={theme}
-                      color={definirCorDosElementos()}
+                      color="#304FFE"
                       label={especialidade.nome}
                       onPress={() => {
                         mudarValorEspecilidades(especialidade);
@@ -397,9 +286,7 @@ function FormularioInfoProfissional({ navigation, route }) {
           ) : (
             <></>
           )}
-        <TituloDoFormulario>
-          {textos.formularioProfissional.servicos}
-        </TituloDoFormulario>
+        <TituloDoFormulario>Em que setor você está atuando?</TituloDoFormulario>
         <Acordeon
           titleStyle={{ color: 'black' }}
           title={
@@ -410,7 +297,7 @@ function FormularioInfoProfissional({ navigation, route }) {
               listaDeServicos.length !== 0 &&
               listaDeServicos.map(servico => (
                 <Checkbox.Item
-                  key={uniqueId('servico')}
+                  key={uniqueId('servco')}
                   status={
                     unidadesServico[servico.nome] &&
                     unidadesServico[servico.nome].foiMarcado
@@ -419,7 +306,7 @@ function FormularioInfoProfissional({ navigation, route }) {
                   }
                   labelStyle={{ maxWidth: '70%' }}
                   theme={theme}
-                  color={definirCorDosElementos()}
+                  color="#304FFE"
                   label={servico.nome}
                   onPress={() => {
                     mudarValor(servico);
@@ -430,27 +317,16 @@ function FormularioInfoProfissional({ navigation, route }) {
         </Acordeon>
       </ConteudoDropdown>
       <Botao
-        cor={definirCorDosElementos()}
         disabled={false}
-        loading={carregando}
         labelStyle={{ color: '#fff' }}
         onPress={() => {
           registrarUnidadesDeServico();
           registrarUnidadesDeEspecialidades();
-          if (veioDoPerfil) {
-            return adicionarInformaçõesProfissionais();
-          }
-          return alterarTelaDoCadastro();
+          navigation.navigate('FormularioSenha');
         }}
         mode="contained">
-        {veioDoPerfil ? 'salvar' : 'Próximo'}
+        Próximo
       </Botao>
-      <Alerta
-        visivel={exibicaoDoAlerta}
-        textoDoAlerta={mensagemDoAlerta}
-        duration={4000}
-        onDismiss={() => setExibicaoDoAlerta(false)}
-      />
     </Scroll>
   );
 }

@@ -49,9 +49,9 @@ function EdicaoProfissional(props) {
 
 function EdicaoPessoal(props) {
   return (
-    <FormProvider>
-      <EdicaoInfoPessoal {...props} />
-    </FormProvider>
+    // <FormProvider>
+    <EdicaoInfoPessoal {...props} />
+    // </FormProvider>
   );
 }
 
@@ -64,7 +64,7 @@ const ElmoFunc = props => (
 const Cadastro = () => (
   <Feature
     name="316"
-    inactiveComponent={() => <TelaDeCadastro />}
+    inactiveComponent={TelaDeCadastro}
     activeComponent={CadastroRoutes}
   />
 );
