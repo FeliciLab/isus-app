@@ -34,9 +34,6 @@ function TelaDeSucesso({ route }) {
 }
 
 const estilos = StyleSheet.create({
-  // background: {
-  //   backgroundColor: '#4CAF50',
-  // },
   safeArea: {
     height: '100%',
     alignItems: 'center',
