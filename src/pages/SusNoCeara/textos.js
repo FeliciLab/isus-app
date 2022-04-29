@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, Linking } from 'react-native';
-import { navigate } from '../../routes/rootNavigation';
+import { navigate } from '~/routes/rootNavigation';
 
 const informacoes = {
   Lei8080: {
