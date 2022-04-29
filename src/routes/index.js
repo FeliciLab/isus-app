@@ -35,8 +35,6 @@ import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 
-console.log(JSON.stringify(PreCadastroRoutes));
-
 const RootStack = createStackNavigator();
 
 // TODO: Avaliar a remoção deste Feature Toggle
