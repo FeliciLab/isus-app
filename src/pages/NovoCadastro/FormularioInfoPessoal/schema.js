@@ -9,12 +9,14 @@ const schema = yup.object({
     .email('O email deve ser no formato exemplo@exemplo.com'),
   telefone: yup
     .string()
+    .transform(value => value.replace(/\D+/g, ''))
     .required('Campo obrigatório')
-    .min(15, 'O telefone deve ter pelo menos 11 números'),
+    .min(11, 'O telefone deve ter pelo menos 11 números'),
   cpf: yup
     .string()
+    .transform(value => value.replace(/\D+/g, ''))
     .required('Campo obrigatório')
-    .min(14, 'O seu CPF deve ter pelo menos 11 números')
+    .min(11, 'O seu CPF deve ter pelo menos 11 números')
     .test({
       name: 'cpfValido',
       test: cpfValido,
