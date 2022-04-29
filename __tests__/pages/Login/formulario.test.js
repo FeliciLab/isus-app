@@ -20,17 +20,29 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
-jest.mock('../../../src/utils/validadores', () => ({
-  emailValido: jest.fn(() => true),
-  senhaValido: jest.fn(() => true),
-}));
+// Mock abaixo não necessário enquanto usar 'yup' para validar
+// jest.mock('../../../src/utils/validadores', () => ({
+//   emailValido: jest.fn(() => true),
+//   senhaValido: jest.fn(() => true),
+// }));
 
-jest.mock('@react-native-community/netinfo', () => ({
-  ...jest.requireActual('@react-native-community/netinfo'),
-  useNetInfo: () => ({
-    isConnected: true,
-  }),
-}));
+// Mock não necessário devido a remoção do teste de conectividade
+// jest.mock('@react-native-community/netinfo', () => ({
+//   ...jest.requireActual('@react-native-community/netinfo'),
+//   useNetInfo: () => ({
+//     isConnected: true,
+//   }),
+// }));
+
+/*
+ * Mock para trocar o KASV por ScrollView durante os testes, pois o
+ * FormularioLogin é encapsulado pelo componente IDSaudeLoginTemplate
+ * https://github.com/APSL/react-native-keyboard-aware-scroll-view/issues/493
+ */
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  const KeyboardAwareScrollView = require('react-native').ScrollView;
+  return { KeyboardAwareScrollView };
+});
 
 describe('Login > Formulario', () => {
   describe('DADO que estou na tela de login', () => {
@@ -50,9 +62,9 @@ describe('Login > Formulario', () => {
 
       campoSenha = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA);
     });
-
     describe('E renderizo a pagina', () => {
       test('ENTÃO o campo e-mail deve estar em branco.', () => {
+        console.log('CAMPO EMAIL: ', campoEmail);
         expect(campoEmail.props.value).toEqual('');
       });
 
