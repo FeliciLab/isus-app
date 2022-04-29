@@ -36,6 +36,7 @@ import SearchStackScreen from './search.routes';
 
 const RootStack = createStackNavigator();
 
+// TODO: crirar atividade para remover FormProvider
 const ElmoFunc = props => (
   <FormProvider>
     <Elmo {...props} />
@@ -50,15 +51,14 @@ const Cadastro = () => (
   />
 );
 
-function SemConexaoNovo(props) {
-  return (
-    <Feature
-      name={features.TELA_SEM_CONEXAO}
-      activeComponent={() => <NovoSemConexao {...props} />}
-      inactiveComponent={() => <SemConexao {...props} />}
-    />
-  );
-}
+// TODO: remover depois esse Feature
+const SemConexaoNovo = props => (
+  <Feature
+    name={features.TELA_SEM_CONEXAO}
+    activeComponent={() => <NovoSemConexao {...props} />}
+    inactiveComponent={() => <SemConexao {...props} />}
+  />
+);
 
 export default function App({ navigationRef }) {
   const routeNameRef = useRef();

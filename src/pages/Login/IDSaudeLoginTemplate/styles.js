@@ -5,7 +5,6 @@ import { CORES } from '~/constantes/estiloBase';
 export const Container = styled(KeyboardAwareScrollView)`
   flex: 1;
   background-color: ${CORES.AZUL};
-  justify-content: space-between;
 `;
 
 export const ChildrenView = styled.View`
