@@ -11,8 +11,9 @@ import {
 import { Button } from 'react-native-paper';
 import DeletarConta from '~/assets/images/deletar_conta.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
+import rotas from '~/constantes/rotas';
 
-export default function ExcluirPerfil() {
+export default function ContaExcluida() {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -43,30 +44,28 @@ export default function ExcluirPerfil() {
   }, []);
 
   return (
-    <>
+    <ScrollView>
       <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
-      <ScrollView>
-        <View style={estilos.container}>
-          <View style={estilos.parteCenter}>
-            <DeletarConta style={estilos.imagemUser} />
-            <Text style={estilos.textoInfo}>
-              Conta excluída com sucesso. Esta ação não pode ser desfeita, mas
-              você pode criar novamente uma conta quando quiser.
-            </Text>
-            <Text style={estilos.textoInfo}>
-              Esperamos que você retorne em breve.
-            </Text>
-            <Button
-              color="#fff"
-              mode="contained"
-              style={estilos.botaoOk}
-              onPress={() => navigation.navigate('ID SAÚDE')}>
-              OK
-            </Button>
-          </View>
+      <View style={estilos.container}>
+        <View style={estilos.parteCenter}>
+          <DeletarConta style={estilos.imagemUser} />
+          <Text style={estilos.textoInfo}>
+            Conta excluída com sucesso. Esta ação não pode ser desfeita, mas
+            você pode criar novamente uma conta quando quiser.
+          </Text>
+          <Text style={estilos.textoInfo}>
+            Esperamos que você retorne em breve.
+          </Text>
+          <Button
+            color="#fff"
+            mode="contained"
+            style={estilos.botaoOk}
+            onPress={() => navigation.navigate(rotas.HOME)}>
+            OK
+          </Button>
         </View>
-      </ScrollView>
-    </>
+      </View>
+    </ScrollView>
   );
 }
 const widthView = Dimensions.get('window').width;

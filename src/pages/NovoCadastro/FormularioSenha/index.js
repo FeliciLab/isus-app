@@ -7,12 +7,12 @@ import { DefaultTheme } from 'react-native-paper';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
-import { labelsAnalytics } from '~/constantes/labelsAnalytics';
-import useAnalytics from '~/hooks/useAnalytics';
+// import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+// import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { ArrowLeftIcon } from '~/icons';
 import {
-  analyticsCategoria,
+  // analyticsCategoria,
   analyticsUnidadeServico,
 } from '~/utils/funcoesAnalytics';
 import schema from './schema';
@@ -25,7 +25,7 @@ export default function FormularioSenha({ navigation }) {
 
   const { infoPessoal, infoProfissional } = route.params;
 
-  const { analyticsData } = useAnalytics();
+  // const { analyticsData } = useAnalytics();
 
   const { signIn } = useAutenticacao();
 
@@ -56,13 +56,15 @@ export default function FormularioSenha({ navigation }) {
         termos: true,
       };
 
+      console.log(newUserData);
+
       await cadastrarUsuario(newUserData);
 
       await signIn(newUserData.email, newUserData.senha);
 
-      analyticsData(labelsAnalytics.FINALIZAR_MEU_CADASTRO, 'Click', 'Perfil');
-
-      analyticsCategoria(newUserData.categoriaProfissional, Date, 'Cadastro');
+      // TODO: rever essa parte
+      // analyticsData(labelsAnalytics.FINALIZAR_MEU_CADASTRO, 'Click', 'Perfil');
+      // analyticsCategoria(newUserData.categoriaProfissional, Date, 'Cadastro');
 
       analyticsUnidadeServico(
         newUserData.unidadeServico,

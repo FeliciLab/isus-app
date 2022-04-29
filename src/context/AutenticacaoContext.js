@@ -1,25 +1,12 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { perfilUsuario } from '~/apis/apiCadastro';
+import { deletarUsuario, perfilUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
 import { autenticarComIdSaude } from '~/services/autenticacao';
 
 const AutenticacaoContext = createContext();
-
-/*
-interface Token = {
-  "access_token": string;
-  "expires_in": number;
-  "not-before-policy": number;
-  "refresh_expires_in": number;
-  "refresh_token": string;
-  "scope": string;
-  "session_state": string;
-  "token_type": string;
-}
-*/
 
 const AutenticacaoProvider = ({ children }) => {
   const [autenticacaoLoading, setAutenticacaoLoading] = useState(false);
@@ -53,38 +40,36 @@ const AutenticacaoProvider = ({ children }) => {
     const perfil = await perfilUsuario(response.mensagem);
 
     await setUser({
-      id: perfil.data.id,
-      idKeycloak: perfil.data.id_keycloak,
-      name: perfil.data.name,
-      email: perfil.data.email,
-      cpf: perfil.data.cpf,
-      telefone: perfil.data.telefone,
-      municipio: perfil.data.municipio,
-      estado: perfil.data.estado,
-      categoriaProfissional: perfil.data.profissional.categoria_profissional,
-      tiposContratacoes: perfil.data.profissional.tipos_contratacoes,
-      titulacoesAcademica: perfil.data.profissional.titulacoes_academica,
-      unidadesServicos: perfil.data.profissional.unidades_servicos,
-      especialidades: perfil.data.profissional.especialidades,
-      cadastrado: perfil.data.cadastrado,
+      id: perfil.data?.id,
+      idKeycloak: perfil.data?.id_keycloak,
+      name: perfil.data?.name,
+      email: perfil.data?.email,
+      cpf: perfil.data?.cpf,
+      telefone: perfil.data?.telefone,
+      municipio: perfil.data?.municipio,
+      estado: perfil.data?.estado,
+      categoriaProfissional: perfil.data?.profissional?.categoria_profissional,
+      tiposContratacoes: perfil.data?.profissional?.tipos_contratacoes,
+      titulacoesAcademica: perfil.data?.profissional?.titulacoes_academica,
+      unidadesServicos: perfil.data?.profissional?.unidades_servicos,
+      especialidades: perfil.data?.profissional?.especialidades,
+      cadastrado: perfil?.cadastrado,
     });
 
     // verificar se o usuário já está cadastrado no iSUS
     return perfil.cadastrado ? true : false;
   }, []);
 
-  const signOut = useCallback(async () => {
+  const signOut = async () => {
     await logout(token);
 
-    await setToken(null);
-
     await setUser(null);
-  }, [token]);
+
+    await setToken(null);
+  };
 
   const updateUser = useCallback(async () => {
     const perfil = await perfilUsuario(token);
-
-    console.log('updateUser: perfil', JSON.stringify(perfil, null, 2));
 
     const newUserData = {
       id: perfil.data.id,
@@ -108,11 +93,20 @@ const AutenticacaoProvider = ({ children }) => {
     await setUser(newUserData);
   }, [token]);
 
+  const deleteUser = useCallback(async () => {
+    await deletarUsuario();
+
+    await setUser(null);
+
+    await setToken(null);
+  }, [token]);
+
   return (
     <AutenticacaoContext.Provider
       value={{
         user,
         updateUser,
+        deleteUser,
         token,
         setToken,
         signIn,

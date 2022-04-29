@@ -2,19 +2,14 @@ import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
-// import { alteraDadosDoUsuario } from '~/apis/apiCadastro';
-// import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
-// import DropDown from '~/components/dropdown';
 import rotas from '~/constantes/rotas';
 import { useCategoriasProfissionais } from '~/hooks/useCategoriasProfissionais';
 import { useEspecialidades } from '~/hooks/useEspecialidades';
 import { useServicos } from '~/hooks/useServicos';
 import { ArrowLeftIcon } from '~/icons';
-// import { pegarDados } from '~/services/armazenamento';
-// import { Botao, Scroll, Titulo } from './styles';
 import { Botao, Container, Titulo, SubTitulo } from './styles';
 import { find, filter } from 'lodash';
 
@@ -23,16 +18,12 @@ function NovoFormularioInfoProfissional({ navigation }) {
 
   const { infoPessoal } = route.params;
 
-  console.log(JSON.stringify(infoPessoal, null, 2));
-
   const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
       categoriaProfissionalSelectedId: '',
       especialidadesSelectedsIds: [],
       servicosSelectedsIds: [],
     },
-    // TODO: colocar as validações
-    // resolver: yupResolver(schema),
   });
 
   const categoriaProfissionalSelectedIdWatch = watch(
@@ -61,8 +52,6 @@ function NovoFormularioInfoProfissional({ navigation }) {
         dataForm.servicosSelectedsIds.map(Number).includes(item.id),
       ),
     };
-
-    console.log(JSON.stringify(infoProfissional, null, 2));
 
     navigation.navigate('FormularioSenha', { infoPessoal, infoProfissional });
   };
@@ -151,24 +140,10 @@ function NovoFormularioInfoProfissional({ navigation }) {
         cor={definirCorDosElementos()}
         disabled={false}
         labelStyle={{ color: '#fff' }}
-        // onPress={() => {
-        //   registrarUnidadesDeServico();
-        //   registrarUnidadesDeEspecialidades();
-        //   if (veioDoPerfil) {
-        //     return adicionarInformaçõesProfissionais();
-        //   }
-        //   return alterarTelaDoCadastro();
-        // }}
         onPress={handleSubmit(handleOnPressNextButton)}
         mode="contained">
         {veioDoPerfil ? 'salvar' : 'Próximo'}
       </Botao>
-      {/* <Alerta
-        visivel={exibicaoDoAlerta}
-        // textoDoAlerta={}
-        duration={4000}
-        onDismiss={() => setExibicaoDoAlerta(false)}
-      /> */}
     </Container>
   );
 }

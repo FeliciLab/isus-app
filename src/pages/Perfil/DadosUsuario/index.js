@@ -1,9 +1,7 @@
-import { Feature } from '@paralleldrive/react-feature-toggles';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import features from '~/constantes/features';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -43,30 +41,28 @@ function DadosUsuario({ dados }) {
   );
 }
 
+// Só mostra as especioalidades para medicina e enfermagem
 function Especialidades({ dados }) {
-  return (dados.profissional && dados.categoriaProfissional.id === 1) ||
-    dados.categoriaProfissional.id === 3 ? (
-      <>
+  return dados.profissional &&
+    [1, 3].includes(dados.categoriaProfissional.id) ? (
+      <View>
         <Text style={estilos.label}>ESPECIALIDADE</Text>
         <Text style={estilos.dado}>
           {dados && dados.especialidades && dados.especialidades.length
             ? dados.especialidades.map(dado => dado.nome).join(', ')
             : ''}
         </Text>
-      </>
+      </View>
     ) : (
       <></>
     );
 }
 
 function DadosUsuarioProfissional({ dados }) {
-  return (
-    // eslint-disable-next-line
-    dados && dados.categoriaProfissional && dados.unidadesServicos ? (
-      MostrarDadosUsuarioProfissional(dados)
-    ) : (
-      <AdicionarDadosProfissionais />
-    )
+  return dados && dados.categoriaProfissional && dados.unidadesServicos ? (
+    MostrarDadosUsuarioProfissional(dados)
+  ) : (
+    <AdicionarDadosProfissionais />
   );
 }
 
@@ -86,18 +82,13 @@ function MostrarDadosUsuarioProfissional(dados) {
           ? dados.unidadesServicos.map(dado => dado.nome).join(', ')
           : ''}
       </Text>
-      <Feature
-        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
-        activeComponent={() => (
-          <Botao
-            uri={rotas.EDICAO_PROFISSIONAL}
-            params={{ tela_anterior: rotas.PERFIL }}
-            testID={labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS}
-            style={estilos.botao}>
-            EDITAR INFORMAÇÕES
-          </Botao>
-        )}
-      />
+      <Botao
+        uri={rotas.EDICAO_PROFISSIONAL}
+        params={{ tela_anterior: rotas.PERFIL }}
+        testID={labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS}
+        style={estilos.botao}>
+        EDITAR INFORMAÇÕES
+      </Botao>
     </View>
   );
 }
@@ -110,30 +101,9 @@ function AdicionarDadosProfissionais() {
         Parece que você ainda não cadastrou suas informações profissionais,
         vamos fazer isso agora?
       </Text>
-      <Feature
-        name={features.EDICAO_DE_INFORMACOES_PROFISSIONAIS}
-        activeComponent={() => (
-          <Botao
-            uri={rotas.CADASTRO}
-            params={{
-              screen: rotas.FORMULARIO_PROFISSIONAL,
-              params: { tela_anterior: rotas.PERFIL },
-            }}
-            testID="botao-dados-adicionar">
-            ADICIONAR INFORMAÇÕES
-          </Botao>
-        )}
-        inactiveComponent={() => (
-          <Botao
-            uri={rotas.EDICAO_PROFISSIONAL}
-            params={{
-              screen: rotas.FORMULARIO_PROFISSIONAL,
-              params: { tela_anterior: rotas.PERFIL },
-            }}>
-            ADICIONAR INFORMAÇÕES
-          </Botao>
-        )}
-      />
+      <Botao uri={rotas.EDICAO_PROFISSIONAL} testID="botao-dados-adicionar">
+        ADICIONAR INFORMAÇÕES
+      </Botao>
     </View>
   );
 }

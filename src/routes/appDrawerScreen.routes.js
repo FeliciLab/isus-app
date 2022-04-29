@@ -13,8 +13,8 @@ import {
   RELATAR_SUGESTAO,
 } from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
 import PerfilScreen from '~/pages/Perfil';
-import ContaExcluida from '~/pages/Perfil/contaExcluida';
-import ExcluirPerfil from '~/pages/Perfil/excluirPerfil';
+import ContaExcluida from '~/pages/Perfil/ContaExcluida';
+import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';

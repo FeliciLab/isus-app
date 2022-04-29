@@ -1,29 +1,14 @@
-import { Feature } from '@paralleldrive/react-feature-toggles';
-import {
-  // useFocusEffect,
-  useNavigation,
-} from '@react-navigation/native';
-import React, {
-  // useCallback,
-  useContext,
-  useLayoutEffect,
-} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
-// import { perfilUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/barraDeStatus';
-import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
 import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
 import { ArrowLeftIcon } from '~/icons';
-// import { salvarDados } from '~/services/armazenamento';
-// import {
-//   pegarEstadoLogadoArmazenado,
-//   pegarTokenDoUsuarioNoStorage,
-// } from '~/services/autenticacao';
-import CabecalhoPerfil from './cabecalhoPerfil';
+import CabecalhoPerfil from './CabecalhoPerfil';
 import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
@@ -33,39 +18,12 @@ export default function PerfilScreen() {
 
   const { analyticsData } = useAnalytics();
 
-  const {
-    user,
-    // setUser,
-    // setToken,
-    // alterarPessoa
-  } = useAutenticacao();
+  const { user } = useAutenticacao();
 
   const { mostrarCaixaDialogo, fecharCaixaDialogo } = useContext(
     CaixaDialogoContext,
   );
-  const { abrirCaixaDialogoSair, realizarLogout } = useLogoutApplication();
-
-  // TODO: avalidar o uso desse useFocusEffect
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     async function pegarTokenUsuario() {
-  //       const logado = await pegarEstadoLogadoArmazenado();
-  //       if (!logado) return;
-
-  //       const token = await pegarTokenDoUsuarioNoStorage();
-  //       await setToken(token);
-  //       try {
-  //         const perfil = await perfilUsuario();
-  //         await setUser(perfil.data);
-  //         await alterarPessoa(perfil.data);
-  //         salvarDados('perfil', perfil.data);
-  //       } catch (err) {
-  //         console.log('ERRO', err);
-  //       }
-  //     }
-  //     pegarTokenUsuario();
-  //   }, []),
-  // );
+  const { abrirCaixaDialogoSair } = useLogoutApplication();
 
   const abrirCaixaDialogo = async () => {
     const atributosCaixaDialogo = {
@@ -120,58 +78,39 @@ export default function PerfilScreen() {
   if (!user) return null;
 
   return (
-    <>
+    <ScrollView style={{ backgroundColor: '#FFF' }}>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-      <ScrollView style={{ backgroundColor: '#FFF' }}>
-        <View style={estilos.margem}>
-          <CabecalhoPerfil nome={user.name} />
-          <MenuPerfil titulo="Informações pessoais">
-            <DadosUsuario dados={user} />
-          </MenuPerfil>
-          <MenuPerfil titulo="Informações profissionais">
-            <DadosUsuarioProfissional dados={user} />
-          </MenuPerfil>
-          <MenuPerfil titulo="Privacidade">
-            <MenuPerfilItem
-              icone="clipboard-text"
-              titulo="Termos de uso"
-              onPress={() => navigation.navigate(rotas.TERMOS_DE_USO)}
-            />
-          </MenuPerfil>
-          <MenuPerfil titulo="Preferências">
-            <Feature
-              name={features.CONFIRMACAO_AO_SAIR}
-              activeComponent={() => (
-                <MenuPerfilItem
-                  icone="exit-to-app"
-                  titulo="Sair"
-                  onPress={() => abrirCaixaDialogoSair()}
-                />
-              )}
-              inactiveComponent={() => (
-                <MenuPerfilItem
-                  icone="exit-to-app"
-                  titulo="Sair"
-                  onPress={() => realizarLogout()}
-                />
-              )}
-            />
-            <Feature
-              name={features.EXCLUSAO_USUARIO}
-              activeComponent={() => (
-                <MenuPerfilItem
-                  icone="delete-forever"
-                  titulo="Excluir Conta"
-                  onPress={() => {
-                    abrirCaixaDialogo();
-                  }}
-                />
-              )}
-            />
-          </MenuPerfil>
-        </View>
-      </ScrollView>
-    </>
+      <View style={estilos.margem}>
+        <CabecalhoPerfil nome={user.name} />
+        <MenuPerfil titulo="Informações pessoais">
+          <DadosUsuario dados={user} />
+        </MenuPerfil>
+        <MenuPerfil titulo="Informações profissionais">
+          <DadosUsuarioProfissional dados={user} />
+        </MenuPerfil>
+        <MenuPerfil titulo="Privacidade">
+          <MenuPerfilItem
+            icone="clipboard-text"
+            titulo="Termos de uso"
+            onPress={() => navigation.navigate(rotas.TERMOS_DE_USO)}
+          />
+        </MenuPerfil>
+        <MenuPerfil titulo="Preferências">
+          <MenuPerfilItem
+            icone="exit-to-app"
+            titulo="Sair"
+            onPress={() => abrirCaixaDialogoSair()}
+          />
+          <MenuPerfilItem
+            icone="delete-forever"
+            titulo="Excluir Conta"
+            onPress={() => {
+              abrirCaixaDialogo();
+            }}
+          />
+        </MenuPerfil>
+      </View>
+    </ScrollView>
   );
 }
 

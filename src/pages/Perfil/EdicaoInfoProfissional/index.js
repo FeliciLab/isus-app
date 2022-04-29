@@ -3,41 +3,45 @@ import { filter, find } from 'lodash';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { atualizarUsuarioApi } from '~/apis/apiCadastro';
+import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 import { PERFIL } from '~/constantes/textos';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useCategoriasProfissionais } from '~/hooks/useCategoriasProfissionais';
 import { useEspecialidades } from '~/hooks/useEspecialidades';
 import { useServicos } from '~/hooks/useServicos';
 import { BotaoSalvar, Container, TituloPrincipal } from './styles';
-// import Alerta from '~/components/alerta';
-// import FormProfissional from '~/components/FormPessoa/FormProfissional';
-// import { CORES } from '~/constantes/estiloBase';
-// import FormContext from '~/context/FormContext';
-// import ROTAS from '~/constantes/rotas';
-// import { atualizarUsuario } from '~/services/usuarioService';
-// import {
-//   analyticsCategoria,
-//   analyticsUnidadeServico,
-// } from '~/utils/funcoesAnalytics';
 
 function EdicaoInfoProfissional() {
   const navigation = useNavigation();
+
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
+
+  const [alertMessage, setAlertMessage] = useState('');
 
   const { user, updateUser } = useAutenticacao();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log('EdicaoInfoProfissional: user', user);
-
-  const { control, handleSubmit, watch, setValue } = useForm({
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { isDirty },
+  } = useForm({
     defaultValues: {
-      categoriaProfissionalSelectedId: '',
-      especialidadesSelectedsIds: [],
-      servicosSelectedsIds: [],
+      categoriaProfissionalSelectedId:
+        String(user.categoriaProfissional?.id) || '',
+      especialidadesSelectedsIds:
+        user.especialidades?.map(item => String(item.id)) || [],
+      servicosSelectedsIds:
+        user.unidadesServicos?.map(item => String(item.id)) || [],
     },
   });
 
@@ -54,6 +58,78 @@ function EdicaoInfoProfissional() {
 
   const { especialidades, featchEspecialidades } = useEspecialidades();
 
+  useEffect(() => {
+    featchServicos();
+    featchCategoriasProfissionais();
+    featchEspecialidades(user.categoriaProfissional?.id);
+  }, []);
+
+  useEffect(() => {
+    if (isDirty) {
+      setValue('especialidadesSelectedsIds', []);
+      featchEspecialidades(categoriaProfissionalSelectedIdWatch);
+    }
+  }, [categoriaProfissionalSelectedIdWatch]);
+
+  const handleOnPressNextButton = async dataForm => {
+    try {
+      setIsLoading(true);
+
+      const infoProfissional = {
+        categoriaProfissional: find(categoriasProfissionais, [
+          'id',
+          Number(dataForm.categoriaProfissionalSelectedId) || '',
+        ]),
+        especialidades:
+          filter(especialidades, item =>
+            dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+        // lá na api está no singular
+        unidadeServico:
+          filter(servicos, item =>
+            dataForm.servicosSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+      };
+
+      const newUserData = {
+        ...user,
+        ...infoProfissional,
+        cidade: user.municipio,
+        cidadeId: user.municipio.id,
+        nomeCompleto: user.name,
+      };
+
+      await atualizarUsuarioApi({
+        ...newUserData,
+        termos: true,
+      });
+
+      await updateUser(); // atualiza as informações do usuário internamente no app
+
+      // TODO: colocar aqui o analytics
+      // estava chamando os métodos analyticsCategoria e analyticsUnidadeServico
+      // mas como essa chamada era antes depois de redirecionar para a tela de sucesso
+      // o erro não era percebido
+      // Rever como enviar essas informações para o analytics
+
+      navigation.navigate('TelaDeSucesso', {
+        textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+        telaDeRedirecionamento: rotas.PERFIL,
+        telaDeBackground: CORES.VERDE,
+      });
+    } catch (error) {
+      console.log(error);
+      handleShowAlert(PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleShowAlert = mensagem => {
+    setIsOpenAlert(true);
+    setAlertMessage(mensagem);
+  };
+
   useLayoutEffect(() => {
     cabecalhoVoltar({
       navegador: navigation,
@@ -62,113 +138,13 @@ function EdicaoInfoProfissional() {
     });
   }, []);
 
-  useEffect(() => {
-    featchServicos();
-    featchCategoriasProfissionais();
-  }, []);
-
-  useEffect(() => {
-    setValue('especialidadesSelectedsIds', []);
-    featchEspecialidades(categoriaProfissionalSelectedIdWatch);
-  }, [categoriaProfissionalSelectedIdWatch]);
-
-  useEffect(() => {
-    setValue(
-      'categoriaProfissionalSelectedId',
-      String(user.categoriaProfissional.id),
-    );
-    setValue(
-      'especialidadesSelectedsIds',
-      user.especialidades.map(esp => String(esp.id)),
-    );
-    setValue(
-      'servicosSelectedsIds',
-      user.unidadesServicos.map(esp => String(esp.id)),
-    );
-  }, []);
-
-  const handleOnPressNextButton = async dataForm => {
-    // console.log(JSON.stringify(dataForm, null, 2));
-
-    try {
-      setIsLoading(true);
-
-      const infoProfissional = {
-        categoriaProfissional: find(categoriasProfissionais, [
-          'id',
-          Number(dataForm.categoriaProfissionalSelectedId),
-        ]),
-        especialidades: filter(especialidades, item =>
-          dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
-        ),
-        unidadesServicos: filter(servicos, item =>
-          dataForm.servicosSelectedsIds.map(Number).includes(item.id),
-        ),
-      };
-
-      await atualizarUsuarioApi({
-        ...user,
-        ...infoProfissional,
-        cidade: user.municipio,
-        cidadeId: user.municipio.id,
-        nomeCompleto: user.name,
-        termos: true,
-      });
-
-      await updateUser();
-
-      console.log(JSON.stringify(user, null, 2));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-
-    // try {
-    //   const result = await atualizarUsuario(
-    //     {
-    //       ...pessoa,
-    //       ...getValues(),
-    //     },
-    //     { somenteProfissionais: true },
-    //   );
-    //   if (result) {
-    //     navigation.navigate('TelaDeSucesso', {
-    //       textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
-    //       telaDeRedirecionamento: ROTAS.PERFIL,
-    //       telaDeBackground: CORES.VERDE,
-    //     });
-    //     const categoriaProfissional = JSON.stringify(
-    //       result.categoriaProfissional,
-    //     );
-    //     const uniServ = result.unidadeServico;
-    //     analyticsCategoria(
-    //       categoriaProfissional,
-    //       now,
-    //       'Atualização Cadastro',
-    //     );
-    //     analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
-    //   }
-    // } catch (e) {
-    //   console.log(e);
-    //   mostrarAlerta(PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
-    // }
-  };
-
-  // const mostrarAlerta = mensagem => {
-  //   setExibicaoDoAlerta(true);
-  //   setMensagemDoAlerta(mensagem);
-  // };
-
   return (
     <Container>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-
       <TituloPrincipal>
         Vamos agora adicionar suas informações profissionais, para isso,
         selecione as opções abaixo
       </TituloPrincipal>
-
       <ControlledSelectModal
         control={control}
         name="categoriaProfissionalSelectedId"
@@ -212,46 +188,12 @@ function EdicaoInfoProfissional() {
         mode="contained">
         Salvar
       </BotaoSalvar>
-      {/* <FormProfissional
-        labelButton="Salvar"
-        actionPress={handleSubmit(async () => {
-          try {
-            const result = await atualizarUsuario(
-              {
-                ...pessoa,
-                ...getValues(),
-              },
-              { somenteProfissionais: true },
-            );
-            if (result) {
-              navigation.navigate('TelaDeSucesso', {
-                textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
-                telaDeRedirecionamento: ROTAS.PERFIL,
-                telaDeBackground: CORES.VERDE,
-              });
-              const categoriaProfissional = JSON.stringify(
-                result.categoriaProfissional,
-              );
-              const uniServ = result.unidadeServico;
-              analyticsCategoria(
-                categoriaProfissional,
-                now,
-                'Atualização Cadastro',
-              );
-              analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
-            }
-          } catch (e) {
-            console.log(e);
-            mostrarAlerta(PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
-          }
-        })}
-      /> */}
-      {/* <Alerta
-        visivel={exibicaoDoAlerta}
-        textoDoAlerta={mensagemDoAlerta}
+      <Alerta
+        visivel={isOpenAlert}
+        textoDoAlerta={alertMessage}
         duration={4000}
-        onDismiss={() => setExibicaoDoAlerta(false)}
-      /> */}
+        onDismiss={() => setIsOpenAlert(false)}
+      />
     </Container>
   );
 }
