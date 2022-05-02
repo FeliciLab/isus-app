@@ -3,6 +3,7 @@ import { Button } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import FormContext from '~/context/FormContext';
 
+// TODO: remover depois
 const BtnLogin = props => {
   const { acao, style, carregando, ...rest } = props;
 

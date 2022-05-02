@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 
+// TODO: remover depois
 const cadastrarNovoBtn = ({ style }) => {
   const navigator = useNavigation();
   const navegarCadastro = () => {

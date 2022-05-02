@@ -31,6 +31,7 @@ const style = StyleSheet.create({
 
 const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
+// TODO: remover depois
 const formLogin = ({ rotaAposLogin }) => {
   const navigator = useNavigation();
 

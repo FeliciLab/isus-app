@@ -4,6 +4,7 @@ import CadastrarNovoBtn from './cadastrarNovoBtn';
 import EsqueceuSenhaBtn from './esqueceuSenhaBtn';
 import FormLogin from './formLogin';
 
+// TODO: remover depois
 const DefaultLogin = ({ rotaAposLogin }) => (
   <>
     <FormProvider>

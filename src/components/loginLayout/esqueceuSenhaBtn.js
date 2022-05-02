@@ -6,6 +6,7 @@ import { Config } from 'react-native-config';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 
+// TODO: remover depois
 const esqueceuSenhaBtn = ({ style }) => {
   const netInfo = useNetInfo();
   const navigation = useNavigation();
