@@ -39,7 +39,7 @@ const RootStack = createStackNavigator();
 // TODO: crirar atividade para remover FormProvider
 const ElmoFunc = props => (
   <FormProvider>
-    <Elmo {...props} />
+    <Elmo {...props} /> 
   </FormProvider>
 );
 

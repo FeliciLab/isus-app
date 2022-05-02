@@ -8,3 +8,15 @@ export const Botao = styled(Button)`
   background-color: ${props =>
     props.mode === 'text' ? CORES.AZUL : CORES.BRANCO};
 `;
+
+export const FormContainer = styled.View`
+  margin: 0 16px;
+`;
+
+export const FormButtonContainer = styled.View`
+  margin-top: 18px;
+`;
+
+export const FormInputSpacer = styled.View`
+  height: 18px;
+`;
