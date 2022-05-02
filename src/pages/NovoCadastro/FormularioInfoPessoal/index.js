@@ -38,6 +38,8 @@ function FormularioInfoPessoal() {
   const { municipios, fetchMunicipios } = useMunicipios();
 
   const { control, handleSubmit, errors, setError, clearErrors } = useForm({
+    mode: 'all',
+    reValidateMode: 'onSubmit',
     defaultValues: {
       nomeCompleto: '',
       email: '',
