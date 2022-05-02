@@ -1,20 +1,18 @@
-import styled from 'styled-components/native';
 import { Paragraph } from 'react-native-paper';
-import { CORES } from '../../constantes/estiloBase';
+import styled from 'styled-components/native';
+import { CORES } from '~/constantes/estiloBase';
 
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${CORES.BRANCO};
+  padding-left: 14px;
+  padding-right: 14px;
+`;
 
 export const Title = styled(Paragraph)`
   font-weight: 500;
   font-size: 20px;
   margin-bottom: 10px;
-`;
-
-export const ContainerBody = styled.View`
-  flex: 1;
-  justify-content: space-between;
-  background-color: ${CORES.BRANCO};
-  padding-left: 14px;
-  padding-right: 14px;
 `;
 
 export const ContainerForm = styled.View`

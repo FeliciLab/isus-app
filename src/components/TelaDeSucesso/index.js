@@ -5,15 +5,13 @@ import BarraDeStatus from '../barraDeStatus';
 import { SafeArea, Text } from './style';
 
 const TelaDeSucesso = ({ texto, corBackground }) => (
-  <>
+  <View style={{ backgroundColor: corBackground }}>
     <BarraDeStatus backgroundColor={corBackground} barStyle="light-content" />
-    <View style={{ backgroundColor: corBackground }}>
-      <SafeArea>
-        <Check />
-        <Text>{texto}</Text>
-      </SafeArea>
-    </View>
-  </>
+    <SafeArea>
+      <Check />
+      <Text>{texto}</Text>
+    </SafeArea>
+  </View>
 );
 
 export default TelaDeSucesso;

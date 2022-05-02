@@ -35,6 +35,8 @@ function EdicaoInfoProfissional() {
     setValue,
     formState: { isDirty },
   } = useForm({
+    mode: 'all', // all = Validation will trigger on the blur and change events
+    reValidateMode: 'onSubmit', // onSubmit = 'onChange'
     defaultValues: {
       categoriaProfissionalSelectedId:
         String(user.categoriaProfissional?.id) || '',
@@ -113,7 +115,7 @@ function EdicaoInfoProfissional() {
       // Rever como enviar essas informações para o analytics
 
       navigation.navigate('TelaDeSucesso', {
-        textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
+        textoApresentacao: PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_SUCESSO,
         telaDeRedirecionamento: rotas.PERFIL,
         telaDeBackground: CORES.VERDE,
       });

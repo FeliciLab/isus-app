@@ -13,13 +13,11 @@ import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
-import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
+import ControlledTextInputMask from '~/components/ControlledTextInputMask';
+import ValidationFieldIndicator from '~/components/ValidationFieldIndicator';
 import { useMunicipios } from '~/hooks/useMunicipios';
 import schema from './schema';
 import { Botao, Container, SubTitulo, Titulo } from './styles';
-import ValidationFieldIndicator from './ValidationFieldIndicator/index';
-
-// import { salvarDados } from '~/services/armazenamento';
 
 const theme = {
   colors: {
@@ -40,6 +38,8 @@ function FormularioInfoPessoal() {
   const { municipios, fetchMunicipios } = useMunicipios();
 
   const { control, handleSubmit, errors, setError, clearErrors } = useForm({
+    mode: 'all',
+    reValidateMode: 'onSubmit',
     defaultValues: {
       nomeCompleto: '',
       email: '',
@@ -93,7 +93,7 @@ function FormularioInfoPessoal() {
         const { data } = await verificarCPFCadastrado(cpf);
 
         if (data?.cpf_existe) {
-          setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
+          setError('cpf', { type: 'custom', message: 'CPF já cadastrado.' });
           return true;
         }
       }

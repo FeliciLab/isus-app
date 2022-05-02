@@ -20,25 +20,20 @@ function TelaDeSucesso({ route }) {
   }, []);
 
   return (
-    <>
+    <View style={{ backgroundColor: telaDeBackground }}>
       <BarraDeStatus
         backgroundColor={telaDeBackground}
         barStyle="light-content"
       />
-      <View style={{ backgroundColor: telaDeBackground }}>
-        <SafeAreaView style={estilos.safeArea}>
-          <Check />
-          <Text style={estilos.textoApresentacao}>{textoApresentacao}</Text>
-        </SafeAreaView>
-      </View>
-    </>
+      <SafeAreaView style={estilos.safeArea}>
+        <Check />
+        <Text style={estilos.textoApresentacao}>{textoApresentacao}</Text>
+      </SafeAreaView>
+    </View>
   );
 }
 
 const estilos = StyleSheet.create({
-  // background: {
-  //   backgroundColor: '#4CAF50',
-  // },
   safeArea: {
     height: '100%',
     alignItems: 'center',

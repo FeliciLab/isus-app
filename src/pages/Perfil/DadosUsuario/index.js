@@ -41,21 +41,21 @@ function DadosUsuario({ dados }) {
   );
 }
 
-// Só mostra as especioalidades para medicina e enfermagem
+// Medicina = 1, Enfermagem = 3
+// Apenas exibe para as categorias de Medicina e Enfermagem
 function Especialidades({ dados }) {
-  return dados.profissional &&
-    [1, 3].includes(dados.categoriaProfissional.id) ? (
-      <View>
-        <Text style={estilos.label}>ESPECIALIDADE</Text>
-        <Text style={estilos.dado}>
-          {dados && dados.especialidades && dados.especialidades.length
-            ? dados.especialidades.map(dado => dado.nome).join(', ')
-            : ''}
-        </Text>
-      </View>
-    ) : (
-      <></>
-    );
+  return dados && [1, 3].includes(dados.categoriaProfissional.id) ? (
+    <View>
+      <Text style={estilos.label}>ESPECIALIDADE</Text>
+      <Text style={estilos.dado}>
+        {dados && dados.especialidades
+          ? dados.especialidades.map(dado => dado.nome).join(', ')
+          : ''}
+      </Text>
+    </View>
+  ) : (
+    <></>
+  );
 }
 
 function DadosUsuarioProfissional({ dados }) {

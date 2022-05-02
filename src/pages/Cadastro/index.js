@@ -5,6 +5,7 @@ import BarraDeStatus from '~/components/barraDeStatus';
 import { FormProvider } from '~/context/FormContext';
 import WizardContext, { WizardProvider } from '~/context/WizardContext';
 
+// TODO: possivel remoção
 function TelaDeCadastro() {
   const { TelaAtual } = useContext(WizardContext);
 

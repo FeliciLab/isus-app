@@ -4,7 +4,7 @@ import { HelperText, TextInput } from 'react-native-paper';
 
 // Componente de TextInput para ser usando com o react-hook-form
 const ControlledTextInput = props => {
-  const { control, errorTextStyle, name, ...rest } = props;
+  const { control, name, errorTextStyle, helperTextProps, ...rest } = props;
 
   return (
     <Controller
@@ -24,7 +24,10 @@ const ControlledTextInput = props => {
             {...rest}
           />
           {error && (
-            <HelperText style={errorTextStyle} type="error">
+            <HelperText
+              style={errorTextStyle}
+              type="error"
+              {...helperTextProps}>
               {error.message}
             </HelperText>
           )}

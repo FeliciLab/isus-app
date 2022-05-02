@@ -3,8 +3,8 @@ import * as yup from 'yup';
 const schema = yup.object({
   email: yup
     .string()
-    .email('Email inválido')
-    .required('Campo obrigatório'),
+    .required('Campo obrigatório')
+    .email('Email inválido'),
   senha: yup
     .string()
     .required('Campo obrigatório')

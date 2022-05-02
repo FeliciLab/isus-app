@@ -1,34 +1,40 @@
 // import React from 'react';
 // import { cleanup, render, waitFor } from 'util-teste';
-// // import { formatarMascarar } from '~/components/FormLayoutContexts/FormTextInputMask';
+// import { formatarMascarar } from '~/components/FormLayoutContexts/FormTextInputMask';
 // import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 // import { AutenticacaoContext } from '~/context/AutenticacaoContext';
 // import { FormProvider } from '~/context/FormContext';
 // import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 // import modeloPessoaMock from '../../../../__mocks__/valores/modeloPessoaMock';
 
-// // TODO: voltar testes que estão comentados.
-// // Estamos fazendo isso para poder dar continuidade com as atividades de
-// // revisão dos formulários
-// // obs.: provavelmente esses testes vão mudar.
-// // ass.: Ericson Moreira
+// TODO: voltar testes que estão comentados.
+// Estamos fazendo isso para poder dar continuidade com as atividades de
+// revisão dos formulários
+// obs.: provavelmente esses testes vão mudar.
+// ass.: Ericson Moreira
 
-// const mockNavigation = jest.fn();
+const mockNavigation = jest.fn();
 
-// jest.mock('@react-navigation/native', () => ({
-//   ...jest.requireActual('@react-navigation/native'),
-//   useNavigation: () => ({
-//     navigate: mockNavigation,
-//     setOptions: mockNavigation,
-//   }),
-//   useIsFocused: jest.fn(),
-// }));
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: mockNavigation,
+    setOptions: mockNavigation,
+  }),
+  useIsFocused: jest.fn(),
+}));
 
-// // Ver documentacao da testing-library sobre fakeTimers
+// Ver documentacao da testing-library sobre fakeTimers
 // afterEach(cleanup, () => {
 //   jest.runOnlyPendingTimers();
 //   jest.useRealTimers();
 // });
+
+describe('EdicaoInfoPessoal', () => {
+  test('TODO: voltar testes', () => {
+    expect(true).toBeTruthy();
+  });
+});
 
 // describe('EdicaoInfoPessoal', () => {
 //   describe('DADO QUE estou na tela de edição de informações pessoais', () => {
@@ -71,11 +77,11 @@
 //         expect(getByTextTest(textoTopo)).not.toBeNull();
 //       });
 
-//       test('ENTÃO um campo do tipo input/text deve ser exibido com a label Nome Completo', () => {
-//         const nomeLabel = 'Nome Completo';
-//         const labelId = getAllByTextTest(nomeLabel);
-//         expect(labelId[0].props.children).toEqual(nomeLabel);
-//       });
+//       // test('ENTÃO um campo do tipo input/text deve ser exibido com a label Nome Completo', () => {
+//       //   const nomeLabel = 'Nome Completo';
+//       //   const labelId = getAllByTextTest(nomeLabel);
+//       //   expect(labelId[0].props.children).toEqual(nomeLabel);
+//       // });
 
 //       // test('ENTÃO o campo Nome Completo deve estar preenchido com o nome da pessoa autenticada', () => {
 //       //   const nomeController = 'nomeCompleto';
@@ -158,7 +164,3 @@
 //     });
 //   });
 // });
-
-test('TODO: refazer teste de Edição Info Pessoal', () => {
-  expect(true);
-});

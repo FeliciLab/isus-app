@@ -49,7 +49,6 @@ function IDSaudeLoginTemplate({ children }) {
         enableAutomaticScroll={true} // ativa animação, p/ subir o botão login
         enableOnAndroid={true}
         enableResetScrollToCoords={false} // reduz bounce ao mudar input
-        // extraScrollHeight={90} // causa "bounce" scroll em ações no teclado
         extraHeight={200} // garante subir até o botão de login
       >
         <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />

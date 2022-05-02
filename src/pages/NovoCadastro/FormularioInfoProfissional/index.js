@@ -21,6 +21,7 @@ import {
   TituloDoFormulario,
 } from './styles';
 
+// TODO: possível remoção
 function FormularioInfoProfissional({ navigation }) {
   const { setValue, register, unregister, getValues } = useContext(FormContext);
 

@@ -18,6 +18,7 @@ import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask/index';
 import { cabecalhoVoltarRota } from '~/components/layoutEffect/cabecalhoLayout';
+import ValidationFieldIndicator from '~/components/ValidationFieldIndicator/index';
 import { CORES, INPUT_THEMES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import ROTAS from '~/constantes/rotas';
@@ -37,16 +38,20 @@ import {
   Title,
   TituloPrincipal,
 } from './styles';
-import ValidationFieldIndicator from './ValidationFieldIndicator/index';
 
 function EdicaoInfoPessoal() {
   const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+
   const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
 
   const navigation = useNavigation();
+
   const { analyticsData } = useAnalytics();
+
   const { municipios, fetchMunicipios } = useMunicipios();
+
   const { user, updateUser } = useAutenticacao();
 
   const {
@@ -98,7 +103,7 @@ function EdicaoInfoPessoal() {
         const { data } = await verificarCPFCadastrado(cpf);
 
         if (data?.cpf_existe) {
-          setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
+          setError('cpf', { type: 'custom', message: 'CPF já cadastrado.' });
           return true;
         }
       }
@@ -178,7 +183,6 @@ function EdicaoInfoPessoal() {
 
   useEffect(() => {
     fetchMunicipios();
-
     setValue('nomeCompleto', user.name.trim());
     setValue('email', user.email);
     setValue('telefone', user.telefone.toString());
@@ -195,7 +199,6 @@ function EdicaoInfoPessoal() {
             Edite as informações pessoais que você deseja atualizar:
           </TituloPrincipal>
         </ConteudoFormulario>
-
         <ContainerBody>
           <ContainerForm>
             <Title>Informações pessoais</Title>
@@ -262,7 +265,6 @@ function EdicaoInfoPessoal() {
               />
             </RowInput>
           </ContainerForm>
-
           <RowButton>
             <BotaoLaranja
               disabled={hasErrors || isLoading}
@@ -272,12 +274,6 @@ function EdicaoInfoPessoal() {
             </BotaoLaranja>
           </RowButton>
         </ContainerBody>
-
-        {/* <FormInfoPessoal
-          actionPress={handleSubmit(submitForm)}
-          labelButton="Salvar"
-        /> */}
-
         <Alerta
           visivel={exibicaoDoAlerta}
           textoDoAlerta={mensagemDoAlerta}

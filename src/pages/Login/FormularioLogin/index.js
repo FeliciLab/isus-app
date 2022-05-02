@@ -2,24 +2,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme } from 'react-native-paper';
 import Alerta from '~/components/alerta';
-import ControlledTextInput from '~/components/ControlledTextInput';
+import ControlledTextInput from '~/components/ControlledTextInput/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
-// import useCaixaDialogo from '~/hooks/useCaixaDialogo';
 import IDSaudeLoginTemplate from '../IDSaudeLoginTemplate';
 import schema from './schema';
-import {
-  Botao,
-  FormButtonContainer,
-  FormContainer,
-  FormInputSpacer,
-} from './styles';
+import { Botao } from './styles';
 
 const textInputTheme = {
   ...DefaultTheme,
@@ -37,8 +32,6 @@ const FormularioLogin = ({ route }) => {
   const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
-
-  // const caixaDialogo = useCaixaDialogo();
 
   const {
     control,
@@ -69,7 +62,6 @@ const FormularioLogin = ({ route }) => {
     setVisivel(true);
   }, []);
 
-  // handleSubmit(handleSubmitForm)
   const handleSubmitForm = async data => {
     const { email, senha } = data;
 
@@ -84,42 +76,17 @@ const FormularioLogin = ({ route }) => {
       setValue('senha', '');
 
       navigation.navigate(
-        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO_INTRODUCAO,
+        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO,
       );
     } catch (error) {
       if (error.response?.status === 401) {
         mostrarAlerta('Email e/ou senha incorreto(s)');
         return;
       }
-
-      // TODO: Melhorar contador de tentativas e experiência sem conexão.
-      // if (error.message) {
-      //   if (!error.message.semConexao) {
-      //     mostrarAlerta(error.mensagem);
-      //     return;
-      //   }
-
-      //   if (tentativa > 3) {
-
-      //     navigation.navigate(rotas.SEM_CONEXAO, { formlogin: true });
-
-      //   } else {
-
-      //     caixaDialogo.SemConexao(
-      //       {
-      //         acaoConcluir: tentarLoginNovamente,
-      //       },
-      //       tentativa,
-      //     );
-      //   }
-      // }
     } finally {
       setCarregando(false);
     }
   };
-
-  // const tentarLoginNovamente = tentativa =>
-  //   handleSubmitForm(getValues(), { tentativa: tentativa + 1 });
 
   const abrirWebViewEsqueciMinhaSenha = useCallback(() => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
@@ -140,7 +107,7 @@ const FormularioLogin = ({ route }) => {
 
   return (
     <IDSaudeLoginTemplate route={route}>
-      <FormContainer>
+      <View style={{ marginHorizontal: 16 }}>
         <ControlledTextInput
           autoCapitalize="none"
           autoCorrect={false}
@@ -162,12 +129,10 @@ const FormularioLogin = ({ route }) => {
           textContentType="emailAddress"
           theme={textInputTheme}
         />
-
-        <FormInputSpacer />
-
         <ControlledTextInput
           autoCapitalize="none"
           control={control}
+          style={{ marginTop: 18 }}
           errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
           label="Senha"
           name="senha"
@@ -182,16 +147,15 @@ const FormularioLogin = ({ route }) => {
           textContentType="password"
           theme={textInputTheme}
         />
-
-        <FormButtonContainer>
+        <View style={{ marginTop: 18 }}>
           <Botao
             disabled={
               errors?.email?.message || errors?.senha?.message || carregando
             }
-            loading={carregando}
+            testID={TESTIDS.BUTTON_FAZER_LOGIN}
             mode="contained"
-            onPress={handleSubmit(handleSubmitForm)}
-            testID={TESTIDS.BUTTON_FAZER_LOGIN}>
+            loading={carregando}
+            onPress={handleSubmit(handleSubmitForm)}>
             Fazer Login
           </Botao>
           <Botao
@@ -203,8 +167,8 @@ const FormularioLogin = ({ route }) => {
             color={CORES.BRANCO}>
             Esqueci minha senha
           </Botao>
-        </FormButtonContainer>
-      </FormContainer>
+        </View>
+      </View>
       <Alerta
         textoDoAlerta={textoDoAlerta}
         visivel={visivel}

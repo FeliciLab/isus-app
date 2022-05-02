@@ -115,7 +115,6 @@ export default function FormularioSenha({ navigation }) {
         Para finalizar seu cadastro, precisamos apenas de mais uma informação:
       </Titulo>
       <SubTitulo>Defina uma senha:</SubTitulo>
-
       <ControlledTextInput
         style={{ marginVertical: 5 }}
         control={control}
@@ -136,7 +135,6 @@ export default function FormularioSenha({ navigation }) {
         secureTextEntry
         theme={theme}
       />
-
       <Botao
         cor="#304FFE"
         disabled={isLoading}

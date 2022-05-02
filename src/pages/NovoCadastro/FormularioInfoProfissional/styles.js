@@ -5,6 +5,7 @@ import IconDropdown from 'react-native-vector-icons/MaterialIcons';
 import featureAtivas from '../../featureAtivas';
 import features from '../../constantes/features';
 
+// TODO: possível remoção
 export const Titulo = styled(Title)`
   font-size: 24px;
   line-height: 28px;
