@@ -52,7 +52,7 @@ const PreCadastroInfoPessoal = () => {
         const { data } = await verificarCPFCadastrado(cpf);
 
         if (data?.cpf_existe) {
-          setError('cpf', { type: 'custom', message: 'CPF cadastrado.' });
+          setError('cpf', { type: 'custom', message: 'CPF já cadastrado.' });
           return true;
         }
       }
