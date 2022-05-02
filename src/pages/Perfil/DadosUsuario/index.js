@@ -41,14 +41,17 @@ function DadosUsuario({ dados }) {
   );
 }
 
+// TODO: verificar pq especialidades não aparecem
 // Só mostra as especioalidades para medicina e enfermagem
 function Especialidades({ dados }) {
+  console.log(JSON.stringify(dados, null, 2));
+
   return dados.profissional &&
     [1, 3].includes(dados.categoriaProfissional.id) ? (
       <View>
         <Text style={estilos.label}>ESPECIALIDADE</Text>
         <Text style={estilos.dado}>
-          {dados && dados.especialidades && dados.especialidades.length
+          {dados && dados.especialidades
             ? dados.especialidades.map(dado => dado.nome).join(', ')
             : ''}
         </Text>
