@@ -9,7 +9,7 @@ import {
   verificarCPFCadastrado,
   verificarEmailCadastrado,
 } from '~/apis/apiCadastro';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';

@@ -3,7 +3,7 @@ import { filter, find } from 'lodash';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { atualizarUsuarioApi } from '~/apis/apiCadastro';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';

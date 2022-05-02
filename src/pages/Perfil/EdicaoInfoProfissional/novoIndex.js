@@ -9,7 +9,7 @@ import {
   pegarListaDeEspecialidades,
   pegarListaDeServicos,
 } from '~/apis/apiKeycloak';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import DropDown from '~/components/dropdown';
 import FormContext from '~/context/FormContext';
