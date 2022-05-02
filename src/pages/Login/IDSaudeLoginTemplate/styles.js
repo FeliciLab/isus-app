@@ -1,10 +1,10 @@
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styled from 'styled-components/native';
 import { CORES } from '~/constantes/estiloBase';
 
-export const Container = styled.View`
+export const Container = styled(KeyboardAwareScrollView)`
   flex: 1;
   background-color: ${CORES.AZUL};
-  justify-content: space-between;
 `;
 
 export const ChildrenView = styled.View`

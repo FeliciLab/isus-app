@@ -1,6 +1,6 @@
 {
   "name": "isusapp",
-  "version": "3.21.4",
+  "version": "3.22.0",
   "private": true,
   "scripts": {
     "android": "cross-env ENVFILE=.env.dev react-native run-android --variant debug",
@@ -15,9 +15,10 @@
     "clean-cache-android": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd .."
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@paralleldrive/feature-toggles": "^1.0.4",
     "@paralleldrive/react-feature-toggles": "^2.3.1",
-    "@react-native-community/async-storage": "^1.9.0",
+    "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/netinfo": "^8.0.0",
     "@react-native-community/toolbar-android": "^0.2.1",
@@ -42,7 +43,7 @@
     "react": "17.0.2",
     "react-content-loader": "^5.0.4",
     "react-fade-in": "^1.1.0",
-    "react-hook-form": "6.3.1",
+    "react-hook-form": "^7.29.0",
     "react-native": "0.66.3",
     "react-native-app-intro-slider": "^4.0.2",
     "react-native-code-push": "^6.2.1",
@@ -68,7 +69,8 @@
     "react-native-webview": "^11.17.2",
     "rn-fetch-blob": "^0.12.0",
     "rn-placeholder": "^3.0.3",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

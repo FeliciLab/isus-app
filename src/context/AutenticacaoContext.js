@@ -1,33 +1,17 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { perfilUsuario } from '~/apis/apiCadastro';
+import { deletarUsuario, perfilUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
-import Pessoa from '~/models/pessoa';
 import { autenticarComIdSaude } from '~/services/autenticacao';
 
 const AutenticacaoContext = createContext();
-
-/*
-interface Token = {
-  "access_token": string;
-  "expires_in": number;
-  "not-before-policy": number;
-  "refresh_expires_in": number;
-  "refresh_token": string;
-  "scope": string;
-  "session_state": string;
-  "token_type": string;
-}
-*/
 
 const AutenticacaoProvider = ({ children }) => {
   const [autenticacaoLoading, setAutenticacaoLoading] = useState(false);
 
   const [user, setUser] = useAsyncStorage('@isus:user', null);
-
-  const [pessoa, setPessoa] = useAsyncStorage('@isus:pessoa', null);
 
   const [token, setToken] = useAsyncStorage('@isus:token', null);
 
@@ -42,45 +26,89 @@ const AutenticacaoProvider = ({ children }) => {
   const signIn = useCallback(async (email, senha) => {
     const response = await autenticarComIdSaude(email, senha);
 
-    // Precisa vir antes para salvar o token do usuário para poder fazer a busca do
-    // perfil do usuário
-    await setToken(response.mensagem);
+    await setToken({
+      accessToken: response.mensagem.access_token,
+      expiresIn: response.mensagem.expires_in,
+      notBeforePolicy: response.mensagem['not-before-policy'],
+      refreshExpiresIn: response.mensagem.refresh_expires_in,
+      refreshToken: response.mensagem.refresh_token,
+      scope: response.mensagem.scope,
+      sessionState: response.mensagem.session_state,
+      tokenType: response.mensagem.token_type,
+    });
 
     const perfil = await perfilUsuario(response.mensagem);
 
-    await setUser(perfil.data);
-
-    await alterarPessoa(perfil.data);
+    await setUser({
+      id: perfil.data?.id,
+      idKeycloak: perfil.data?.id_keycloak,
+      name: perfil.data?.name,
+      email: perfil.data?.email,
+      cpf: perfil.data?.cpf,
+      telefone: perfil.data?.telefone,
+      municipio: perfil.data?.municipio,
+      estado: perfil.data?.estado,
+      categoriaProfissional: perfil.data?.profissional?.categoria_profissional,
+      tiposContratacoes: perfil.data?.profissional?.tipos_contratacoes,
+      titulacoesAcademica: perfil.data?.profissional?.titulacoes_academica,
+      unidadesServicos: perfil.data?.profissional?.unidades_servicos,
+      especialidades: perfil.data?.profissional?.especialidades,
+      cadastrado: perfil?.cadastrado,
+    });
 
     // verificar se o usuário já está cadastrado no iSUS
     return perfil.cadastrado ? true : false;
   }, []);
 
-  const signOut = useCallback(async () => {
+  const signOut = async () => {
     await logout(token);
-
-    await setToken(null);
 
     await setUser(null);
 
-    await alterarPessoa({});
+    await setToken(null);
+  };
+
+  const updateUser = useCallback(async () => {
+    const perfil = await perfilUsuario(token);
+
+    const newUserData = {
+      id: perfil.data.id,
+      idKeycloak: perfil.data.id_keycloak,
+      name: perfil.data.name,
+      email: perfil.data.email,
+      cpf: perfil.data.cpf,
+      telefone: perfil.data.telefone,
+      municipio: perfil.data.municipio,
+      estado: perfil.data.estado,
+      categoriaProfissional: perfil.data.profissional.categoria_profissional,
+      tiposContratacoes: perfil.data.profissional.tipos_contratacoes,
+      titulacoesAcademica: perfil.data.profissional.titulacoes_academica,
+      unidadesServicos: perfil.data.profissional.unidades_servicos,
+      especialidades: perfil.data.profissional.especialidades,
+      cadastrado: perfil.data.cadastrado,
+    };
+
+    console.log(newUserData);
+
+    await setUser(newUserData);
   }, [token]);
 
-  const alterarPessoa = async dados => {
-    await setPessoa({
-      ...Pessoa.criar(dados),
-    });
-  };
+  const deleteUser = useCallback(async () => {
+    await deletarUsuario();
+
+    await setUser(null);
+
+    await setToken(null);
+  }, [token]);
 
   return (
     <AutenticacaoContext.Provider
       value={{
         user,
-        setUser,
+        updateUser,
+        deleteUser,
         token,
         setToken,
-        pessoa,
-        alterarPessoa,
         signIn,
         signOut,
         showTutorial,

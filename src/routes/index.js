@@ -8,8 +8,6 @@ import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
 import { FormProvider } from '~/context/FormContext';
 import BemVindo from '~/pages/BemVindo';
-import Buscar from '~/pages/Buscar';
-import BuscarDescription from '~/pages/Buscar/Description';
 import TelaDeCadastro from '~/pages/Cadastro';
 import Descricao from '~/pages/Content/Descricao';
 import Description from '~/pages/Content/Description';
@@ -21,7 +19,6 @@ import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
 import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
-import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao/PreCadastroIntroducao';
 import QualiQuiz from '~/pages/QualiQuiz';
 import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
@@ -35,65 +32,33 @@ import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
+import SearchStackScreen from './search.routes';
 
 const RootStack = createStackNavigator();
 
-// TODO: Avaliar a remoção deste Feature Toggle
-function EdicaoProfissional(props) {
-  return (
-    <FormProvider>
-      <EdicaoInfoProfissional {...props} />
-    </FormProvider>
-  );
-}
-
-function EdicaoPessoal(props) {
-  return (
-    <FormProvider>
-      <EdicaoInfoPessoal {...props} />
-    </FormProvider>
-  );
-}
-
+// TODO: crirar atividade para remover FormProvider
 const ElmoFunc = props => (
   <FormProvider>
-    <Elmo {...props} />
+    <Elmo {...props} /> 
   </FormProvider>
 );
 
 const Cadastro = () => (
   <Feature
     name="316"
-    inactiveComponent={() => <TelaDeCadastro />}
+    inactiveComponent={TelaDeCadastro}
     activeComponent={CadastroRoutes}
   />
 );
 
-const PreCadastro = () => (
+// TODO: remover depois esse Feature
+const SemConexaoNovo = props => (
   <Feature
-    name="453"
-    inactiveComponent={PreCadastroRoutes}
-    activeComponent={PreCadastroRoutes}
+    name={features.TELA_SEM_CONEXAO}
+    activeComponent={() => <NovoSemConexao {...props} />}
+    inactiveComponent={() => <SemConexao {...props} />}
   />
 );
-
-const PreCadastroIntro = () => (
-  <Feature
-    name="453"
-    inactiveComponent={PreCadastroIntroducao}
-    activeComponent={PreCadastroIntroducao}
-  />
-);
-
-function SemConexaoNovo(props) {
-  return (
-    <Feature
-      name={features.TELA_SEM_CONEXAO}
-      activeComponent={() => <NovoSemConexao {...props} />}
-      inactiveComponent={() => <SemConexao {...props} />}
-    />
-  );
-}
 
 export default function App({ navigationRef }) {
   const routeNameRef = useRef();
@@ -137,14 +102,9 @@ export default function App({ navigationRef }) {
           component={Cadastro}
         />
         <RootStack.Screen
-          name="PRE_CADASTRO"
+          name={rotas.PRE_CADASTRO}
           options={{ headerShown: false }}
-          component={PreCadastro}
-        />
-        <RootStack.Screen
-          name="PRE_CADASTRO_INTRODUCAO"
-          options={{ headerShown: false }}
-          component={PreCadastroIntro}
+          component={PreCadastroRoutes}
         />
         <RootStack.Screen
           name="LOGIN_WELCOME"
@@ -172,7 +132,6 @@ export default function App({ navigationRef }) {
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-
         <RootStack.Screen
           name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}
@@ -194,7 +153,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.EDICAO_PROFISSIONAL}
-          component={EdicaoProfissional}
+          component={EdicaoInfoProfissional}
         />
         <RootStack.Screen
           name={rotas.BEM_VINDO}
@@ -203,7 +162,7 @@ export default function App({ navigationRef }) {
         />
         <RootStack.Screen
           name={rotas.EDICAO_INFO_PESSOAIS}
-          component={EdicaoPessoal}
+          component={EdicaoInfoPessoal}
         />
         <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
         <RootStack.Screen
@@ -234,24 +193,5 @@ export default function App({ navigationRef }) {
         <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
       </RootStack.Navigator>
     </NavigationContainer>
-  );
-}
-
-const SearchStack = createStackNavigator();
-
-function SearchStackScreen() {
-  return (
-    <SearchStack.Navigator>
-      <SearchStack.Screen
-        name="Buscar"
-        component={Buscar}
-        options={{ headerShown: true }}
-      />
-      <SearchStack.Screen
-        name="Buscar Description"
-        component={BuscarDescription}
-        options={{ headerShown: true }}
-      />
-    </SearchStack.Navigator>
   );
 }

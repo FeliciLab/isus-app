@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import {
+  Dimensions,
   Keyboard,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  Dimensions,
 } from 'react-native';
 import IDSaudeBranco from '~/assets/icons/idsaude-branco.svg';
 import BarraDeStatus from '~/components/barraDeStatus';
@@ -44,7 +44,13 @@ function IDSaudeLoginTemplate({ children }) {
 
   return (
     <TouchableWithoutFeedback touchSoundDisabled onPress={Keyboard.dismiss}>
-      <Container>
+      <Container
+        keyboardOpeningTime={100} // ios only default 250
+        enableAutomaticScroll={true} // ativa animação, p/ subir o botão login
+        enableOnAndroid={true}
+        enableResetScrollToCoords={false} // reduz bounce ao mudar input
+        extraHeight={200} // garante subir até o botão de login
+      >
         <BarraDeStatus barStyle="light-content" backgroundColor={CORES.AZUL} />
         <ConteudoImagem>
           <IDSaudeBranco height={windowWidth * 0.4} width={windowWidth * 0.4} />

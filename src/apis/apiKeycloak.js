@@ -18,14 +18,19 @@ export async function pegarListaDeCategoriasProfissionais() {
   return ordenarPorNome(resultado.data);
 }
 
-export async function pegarListaDeEspecialidades(id) {
-  if (id !== 0) {
-    const resultado = await request.get(
-      `/categorias-profissionais/${id}/especialidades`,
-    );
-    return ordenarPorNome(resultado.data);
+export async function pegarListaDeEspecialidades(categoriaProfissionalId) {
+  if (
+    !categoriaProfissionalId ||
+    categoriaProfissionalId === 0 ||
+    categoriaProfissionalId === ''
+  ) {
+    return [];
   }
-  return [];
+
+  const resultado = await request.get(
+    `/categorias-profissionais/${categoriaProfissionalId}/especialidades`,
+  );
+  return ordenarPorNome(resultado.data);
 }
 
 export async function pegarTokenDeAcesso(refreshToken) {
@@ -36,9 +41,9 @@ export async function pegarTokenDeAcesso(refreshToken) {
 }
 
 export function logout(token) {
-  return request.post('logout', { refresh_token: token.refresh_token });
+  return request.post('logout', { refresh_token: token?.refreshToken });
 }
 
 export function excluir(token) {
-  return request.delete('delete', { refresh_token: token.refresh_token });
+  return request.delete('delete', { refresh_token: token?.refreshToken });
 }

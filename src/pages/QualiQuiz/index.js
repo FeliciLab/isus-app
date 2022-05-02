@@ -21,7 +21,7 @@ export default function QualiQuiz({ navigation }) {
       } else {
         navigator.navigate('webview', {
           title: 'Voltar ao iSUS',
-          url: `${Config.QUALIQUIZ_URL}/isus/login/1/${token.access_token}`,
+          url: `${Config.QUALIQUIZ_URL}/isus/login/1/${token.accessToken}`,
           rota: 'HOME',
           navigationOptions: {
             headerStyle: {

@@ -1,33 +1,136 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useLayoutEffect, useState } from 'react';
+import { filter, find } from 'lodash';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { atualizarUsuarioApi } from '~/apis/apiCadastro';
 import Alerta from '~/components/alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
-import FormProfissional from '~/components/FormPessoa/FormProfissional';
+import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
+import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
-import ROTAS from '~/constantes/rotas';
+import rotas from '~/constantes/rotas';
 import { PERFIL } from '~/constantes/textos';
-import FormContext from '~/context/FormContext';
 import useAutenticacao from '~/hooks/useAutenticacao';
-import { atualizarUsuario } from '~/services/usuarioService';
-import {
-  analyticsCategoria,
-  analyticsUnidadeServico,
-} from '~/utils/funcoesAnalytics';
-import { ConteudoFormulario, SafeArea, TituloPrincipal } from './styles';
+import { useCategoriasProfissionais } from '~/hooks/useCategoriasProfissionais';
+import { useEspecialidades } from '~/hooks/useEspecialidades';
+import { useServicos } from '~/hooks/useServicos';
+import { BotaoSalvar, Container, TituloPrincipal } from './styles';
 
 function EdicaoInfoProfissional() {
   const navigation = useNavigation();
 
-  const { handleSubmit, getValues } = useContext(FormContext);
+  const [isOpenAlert, setIsOpenAlert] = useState(false);
 
-  const { pessoa } = useAutenticacao();
+  const [alertMessage, setAlertMessage] = useState('');
 
-  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+  const { user, updateUser } = useAutenticacao();
 
-  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const now = Date.now();
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { isDirty },
+  } = useForm({
+    mode: 'all', // all = Validation will trigger on the blur and change events
+    reValidateMode: 'onSubmit', // onSubmit = 'onChange'
+    defaultValues: {
+      categoriaProfissionalSelectedId:
+        String(user.categoriaProfissional?.id) || '',
+      especialidadesSelectedsIds:
+        user.especialidades?.map(item => String(item.id)) || [],
+      servicosSelectedsIds:
+        user.unidadesServicos?.map(item => String(item.id)) || [],
+    },
+  });
+
+  const categoriaProfissionalSelectedIdWatch = watch(
+    'categoriaProfissionalSelectedId',
+  );
+
+  const { servicos, featchServicos } = useServicos();
+
+  const {
+    categoriasProfissionais,
+    featchCategoriasProfissionais,
+  } = useCategoriasProfissionais();
+
+  const { especialidades, featchEspecialidades } = useEspecialidades();
+
+  useEffect(() => {
+    featchServicos();
+    featchCategoriasProfissionais();
+    featchEspecialidades(user.categoriaProfissional?.id);
+  }, []);
+
+  useEffect(() => {
+    if (isDirty) {
+      setValue('especialidadesSelectedsIds', []);
+      featchEspecialidades(categoriaProfissionalSelectedIdWatch);
+    }
+  }, [categoriaProfissionalSelectedIdWatch]);
+
+  const handleOnPressNextButton = async dataForm => {
+    try {
+      setIsLoading(true);
+
+      const infoProfissional = {
+        categoriaProfissional: find(categoriasProfissionais, [
+          'id',
+          Number(dataForm.categoriaProfissionalSelectedId) || '',
+        ]),
+        especialidades:
+          filter(especialidades, item =>
+            dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+        // lá na api está no singular
+        unidadeServico:
+          filter(servicos, item =>
+            dataForm.servicosSelectedsIds.map(Number).includes(item.id),
+          ) || [],
+      };
+
+      const newUserData = {
+        ...user,
+        ...infoProfissional,
+        cidade: user.municipio,
+        cidadeId: user.municipio.id,
+        nomeCompleto: user.name,
+      };
+
+      await atualizarUsuarioApi({
+        ...newUserData,
+        termos: true,
+      });
+
+      await updateUser(); // atualiza as informações do usuário internamente no app
+
+      // TODO: colocar aqui o analytics
+      // estava chamando os métodos analyticsCategoria e analyticsUnidadeServico
+      // mas como essa chamada era antes depois de redirecionar para a tela de sucesso
+      // o erro não era percebido
+      // Rever como enviar essas informações para o analytics
+
+      navigation.navigate('TelaDeSucesso', {
+        textoApresentacao: PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_SUCESSO,
+        telaDeRedirecionamento: rotas.PERFIL,
+        telaDeBackground: CORES.VERDE,
+      });
+    } catch (error) {
+      console.log(error);
+      handleShowAlert(PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleShowAlert = mensagem => {
+    setIsOpenAlert(true);
+    setAlertMessage(mensagem);
+  };
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
@@ -37,61 +140,63 @@ function EdicaoInfoProfissional() {
     });
   }, []);
 
-  const mostrarAlerta = mensagem => {
-    setExibicaoDoAlerta(true);
-    setMensagemDoAlerta(mensagem);
-  };
-
   return (
-    <SafeArea>
+    <Container>
       <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-      <ConteudoFormulario>
-        <TituloPrincipal>
-          Vamos agora adicionar suas informações profissionais, para isso,
-          selecione as opções abaixo:
-        </TituloPrincipal>
-      </ConteudoFormulario>
-      <FormProfissional
-        labelButton="Salvar"
-        actionPress={handleSubmit(async () => {
-          try {
-            const result = await atualizarUsuario(
-              {
-                ...pessoa,
-                ...getValues(),
-              },
-              { somenteProfissionais: true },
-            );
-            if (result) {
-              navigation.navigate('TelaDeSucesso', {
-                textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
-                telaDeRedirecionamento: ROTAS.PERFIL,
-                telaDeBackground: CORES.VERDE,
-              });
-              const categoriaProfissional = JSON.stringify(
-                result.categoriaProfissional,
-              );
-              const uniServ = result.unidadeServico;
-              analyticsCategoria(
-                categoriaProfissional,
-                now,
-                'Atualização Cadastro',
-              );
-              analyticsUnidadeServico(uniServ, now, 'Atualização Cadastro');
-            }
-          } catch (e) {
-            console.log(e);
-            mostrarAlerta(PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_ERRO_SALVAR);
-          }
-        })}
+      <TituloPrincipal>
+        Vamos agora adicionar suas informações profissionais, para isso,
+        selecione as opções abaixo
+      </TituloPrincipal>
+      <ControlledSelectModal
+        control={control}
+        name="categoriaProfissionalSelectedId"
+        mode="outlined"
+        placeholder="Categoria Profissional"
+        title="Categoria Profissional"
+        items={categoriasProfissionais.map(item => ({
+          value: String(item.id),
+          label: String(item.nome),
+        }))}
       />
+      {['1', '3'].includes(categoriaProfissionalSelectedIdWatch) && (
+        <ControlledMultipleSelectModal
+          control={control}
+          name="especialidadesSelectedsIds"
+          mode="outlined"
+          placeholder="Especialidade"
+          title="Especialidade"
+          items={especialidades.map(item => ({
+            value: String(item.id),
+            label: String(item.nome),
+          }))}
+        />
+      )}
+      <ControlledMultipleSelectModal
+        control={control}
+        name="servicosSelectedsIds"
+        mode="outlined"
+        placeholder="Em que setor você está atuando?"
+        title="Setor de Atuação"
+        items={servicos.map(item => ({
+          value: String(item.id),
+          label: String(item.nome),
+        }))}
+      />
+
+      <BotaoSalvar
+        labelStyle={{ color: '#fff' }}
+        onPress={handleSubmit(handleOnPressNextButton)}
+        loading={isLoading}
+        mode="contained">
+        Salvar
+      </BotaoSalvar>
       <Alerta
-        visivel={exibicaoDoAlerta}
-        textoDoAlerta={mensagemDoAlerta}
+        visivel={isOpenAlert}
+        textoDoAlerta={alertMessage}
         duration={4000}
-        onDismiss={() => setExibicaoDoAlerta(false)}
+        onDismiss={() => setIsOpenAlert(false)}
       />
-    </SafeArea>
+    </Container>
   );
 }
 
