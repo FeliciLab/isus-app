@@ -6,8 +6,8 @@ import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { ArrowLeftIcon } from '~/icons/index';
 import FormularioInfoPessoal from '~/pages/NovoCadastro/FormularioInfoPessoal';
+import FormularioInfoProfissional from '~/pages/NovoCadastro/FormularioInfoProfissional';
 import FormularioSenha from '~/pages/NovoCadastro/FormularioSenha';
-import NovoFormularioInfoProfissional from '~/pages/NovoCadastro/NovoFormularioInfoProfissional';
 
 const CadastroStack = createStackNavigator();
 
@@ -44,7 +44,7 @@ export default function RotasCadastro() {
       />
       <CadastroStack.Screen
         name={rotas.FORMULARIO_PROFISSIONAL}
-        component={NovoFormularioInfoProfissional}
+        component={FormularioInfoProfissional}
         initialParams={{ tela_anterior: rotas.FORMULARIO_PESSOAL }}
         options={options}
       />
