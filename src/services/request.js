@@ -5,6 +5,7 @@ import {
   atualizarTokenDeAcessoDoUsuario,
 } from './autenticacao';
 
+// TODO: melhorar o nome dessa variável
 const request = axios.create({
   timeout: 20000,
   baseURL: Config.API_URL,
