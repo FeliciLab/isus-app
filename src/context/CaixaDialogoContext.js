@@ -2,15 +2,24 @@ import React, { createContext, useState } from 'react';
 
 const CaixaDialogoContext = createContext();
 
+// TODO: verificar se isso é realmente necessário
 function CaixaDialogoProvider({ children }) {
   const [indice, mudarIndice] = useState(0);
+
   const [visivel, alterarVisibilidade] = useState(false);
+
   const [titulo, alterarTitulo] = useState('');
+
   const [texto, alterarTexto] = useState('');
+
   const [cor, alterarCor] = useState('');
+
   const [textoConclusao, alterarTextoConclusao] = useState('');
+
   const [textoCancelamento, alterarTextoCancelamento] = useState('');
+
   const [aoCancelar, alterarAoCancelar] = useState(() => true);
+
   const [aoConcluir, alterarAoConcluir] = useState(() => true);
 
   const mostrarCaixaDialogo = obj => {
