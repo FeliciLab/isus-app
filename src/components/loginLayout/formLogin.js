@@ -1,5 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Controller } from 'react-hook-form';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -16,20 +22,6 @@ import Regex from '~/utils/regex';
 import { emailNaoCadastrado } from '~/utils/validadores';
 import BtnLogin from './btnLogin';
 import MsgErroFormCampo from './msgErroFormCampo';
-
-const style = StyleSheet.create({
-  titulo: {
-    fontSize: 24,
-    textAlign: 'center',
-    marginBottom: 40,
-  },
-  campoTexto: {
-    marginTop: 5,
-    marginBottom: 5,
-  },
-});
-
-const emailValido = email => email && Regex.EMAIL.test(email.toLowerCase());
 
 // TODO: remover depois
 const formLogin = ({ rotaAposLogin }) => {
@@ -50,6 +42,11 @@ const formLogin = ({ rotaAposLogin }) => {
   );
 
   const { setUser, setToken, alterarPessoa } = useAutenticacao();
+
+  const emailValido = useCallback(
+    email => email && Regex.EMAIL.test(email.toLowerCase()),
+    [],
+  );
 
   useEffect(() => {
     register('email', {
@@ -212,5 +209,17 @@ const formLogin = ({ rotaAposLogin }) => {
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  titulo: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginBottom: 40,
+  },
+  campoTexto: {
+    marginTop: 5,
+    marginBottom: 5,
+  },
+});
 
 export default formLogin;

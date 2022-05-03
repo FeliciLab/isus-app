@@ -23,6 +23,7 @@ import LoginStackScreen from './login.routes';
 
 const Drawer = createDrawerNavigator();
 
+// TODO: resolver alerta de duplicação de nomas nas rotas de PERFIL
 export default function AppDrawerScreen() {
   return (
     <Drawer.Navigator
