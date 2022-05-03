@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export const ConteudoContext = createContext();
 
+// TODO: verificar se isso é realmene necessário
 export const ConteudoProvider = ({ categoria, titulo, children }) => {
   const navigation = useNavigation();
 

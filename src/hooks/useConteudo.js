@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ConteudoContext } from '~/context/ConteudoContext';
 
+// TODO: descobrir para que isso serve
 function useConteudo() {
   const {
     categoria,

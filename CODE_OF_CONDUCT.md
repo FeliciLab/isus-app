@@ -14,19 +14,19 @@ raça ou religião.
 
 Exemplos de comportamentos que contribuem a criar um ambiente positivo incluem:
 
-* Usar linguagem acolhedora e inclusiva
-* Respeitar pontos de vista e experiências diferentes
-* Aceitar crítica construtiva com graça
-* Focar no que é melhor para a comunidade
-* Mostrar empatia com outros membros da comunidade
+- Usar linguagem acolhedora e inclusiva
+- Respeitar pontos de vista e experiências diferentes
+- Aceitar crítica construtiva com graça
+- Focar no que é melhor para a comunidade
+- Mostrar empatia com outros membros da comunidade
 
 Exemplos de comportamentos inaceitáveis por parte dos participantes incluem:
 
-* Uso de linguagem ou imagens sexuais e atenção ou avanço sexual indesejada
-* Comentários insultuosos e/ou depreciativos e ataques pessoais ou políticos (*Trolling*)
-* Assédio público ou privado
-* Publicar informação pessoal de outros sem permissão explícita, como, por exemplo, um endereço eletrônico ou residencial
-* Qualquer outra forma de conduta que pode ser razoavelmente considerada inapropriada num ambiente profissional
+- Uso de linguagem ou imagens sexuais e atenção ou avanço sexual indesejada
+- Comentários insultuosos e/ou depreciativos e ataques pessoais ou políticos (_Trolling_)
+- Assédio público ou privado
+- Publicar informação pessoal de outros sem permissão explícita, como, por exemplo, um endereço eletrônico ou residencial
+- Qualquer outra forma de conduta que pode ser razoavelmente considerada inapropriada num ambiente profissional
 
 ## Nossas responsibilidades
 
@@ -67,4 +67,4 @@ determinadas por outros membros da liderança do projeto.
 ## Atribuição
 
 Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contributor-covenant.org),
-versão 1.4, disponível em https://www.contributor-covenant.org/pt-br/version/1/4/code-of-conduct.html
+versão 1.4, disponível em [aqui](https://www.contributor-covenant.org/pt-br/version/1/4/code-of-conduct.html).

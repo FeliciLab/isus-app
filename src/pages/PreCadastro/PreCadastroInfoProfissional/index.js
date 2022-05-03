@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
 import { atualizarUsuarioApi } from '~/apis/apiCadastro';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';

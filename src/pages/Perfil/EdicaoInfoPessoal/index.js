@@ -11,7 +11,7 @@ import {
   atualizarUsuarioApi,
   verificarCPFCadastrado,
 } from '~/apis/apiCadastro';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledSelectModal from '~/components/ControlledSelectModal';

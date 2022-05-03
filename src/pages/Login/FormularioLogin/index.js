@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme } from 'react-native-paper';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';

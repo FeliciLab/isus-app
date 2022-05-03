@@ -1,3 +1,7 @@
+// TODO: deveria estar na pasta routes
+// Não faz sentido estar aqui.
+// Na pasta routes ficaria com o nome de names.routes.js
+
 export default {
   DESCRICAO: 'DESCRICAO',
   FORMULARIO_PESSOAL: 'FormularioInfoPessoal',

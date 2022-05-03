@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { verificarCPFCadastrado } from '~/apis/apiCadastro';
-import Alerta from '~/components/alerta';
+import Alerta from '~/components/Alerta';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';

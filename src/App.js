@@ -17,6 +17,8 @@ import Routes from './routes';
 import { navigate, navigationRef } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
 
+// TODO: Remover o FeatureToggles quando pararmos de chamar no código
+
 function App() {
   useEffect(() => {
     SimpleLineIcons.loadFont();

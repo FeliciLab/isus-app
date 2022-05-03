@@ -8,7 +8,6 @@ import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
 import { FormProvider } from '~/context/FormContext';
 import BemVindo from '~/pages/BemVindo';
-import TelaDeCadastro from '~/pages/Cadastro';
 import Descricao from '~/pages/Content/Descricao';
 import Description from '~/pages/Content/Description';
 import Elmo from '~/pages/Elmo';
@@ -26,7 +25,6 @@ import NovoSemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
 import WebViewPage from '~/pages/WebView';
 import ManejoWebViewPage from '~/pages/WebView/ManejoWebView';
-import estaAtiva from '~/utils/estaAtiva';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
@@ -39,16 +37,8 @@ const RootStack = createStackNavigator();
 // TODO: crirar atividade para remover FormProvider
 const ElmoFunc = props => (
   <FormProvider>
-    <Elmo {...props} /> 
+    <Elmo {...props} />
   </FormProvider>
-);
-
-const Cadastro = () => (
-  <Feature
-    name="316"
-    inactiveComponent={TelaDeCadastro}
-    activeComponent={CadastroRoutes}
-  />
 );
 
 // TODO: remover depois esse Feature
@@ -95,11 +85,9 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name="CADASTRO"
           options={{
-            headerShown: !estaAtiva(
-              features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO,
-            ),
+            headerShown: false,
           }}
-          component={Cadastro}
+          component={CadastroRoutes}
         />
         <RootStack.Screen
           name={rotas.PRE_CADASTRO}

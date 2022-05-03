@@ -1,5 +1,6 @@
 import feature from './constantes/features';
 
+// TODO: remover o uso de Features
 export default [
   feature.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO,
   feature.EDICAO_DE_INFORMACOES_PROFISSIONAIS,

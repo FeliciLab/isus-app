@@ -60,6 +60,8 @@ const AutenticacaoProvider = ({ children }) => {
     return perfil.cadastrado ? true : false;
   }, []);
 
+  // TODO: Verificar se a chamada para o logout da API é realmente necessária
+  // Justificativa: Quando não tem internet, não é possível fazer logout
   const signOut = async () => {
     await logout(token);
 

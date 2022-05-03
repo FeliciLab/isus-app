@@ -1,5 +1,7 @@
 import { atualizarUsuarioApi } from '~/apis/apiCadastro';
 
+// TODO: possivel remoção desse arquivo
+
 const tratarDadosPessoais = form => ({
   ...form,
   cpf: form.cpf.replace(/\D/g, ''),
@@ -39,13 +41,16 @@ const tratarDadosUsuario = (form, options) => {
   };
 };
 
+// TODO: remover. Isso já está senfo deito pelo useAutenticacao
 export const atualizarUsuario = async (dados, options) => {
   const usuario = {
     ...dados,
     ...tratarDadosUsuario(dados, options),
   };
 
+  // Nunca entendo essa parada de _hidden. Ass.: Ericson
   delete usuario._hidden;
+
   try {
     await atualizarUsuarioApi(usuario);
     return usuario;

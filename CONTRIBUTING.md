@@ -33,7 +33,7 @@ título da issue tente resumir da melhor forma o problema evitando títulos
 genéricos como _"Falha no sistema"_ ou _"Problemas na instalação"_. No corpo da
 issue, tente seguir o seguinte formato:
 
-```
+```md
 ## **Descrição**
 Descreva o seu problema ou sua necessidade.
 
@@ -44,7 +44,7 @@ Tente especificar a versão, aparelho, sistema operacional e se possível insira
 
 Exemplo:
 
-```
+```md
 ## **Descrição**
 Descreva o seu problema ou sua necessidade.
 
@@ -162,7 +162,7 @@ formas de contribuir:
 Pensou em alguma outra forma de contribuir? Compartilha com a gente! Escreva
 para `nit@esp.ce.gov.br` e conte sua história.
 
-# Créditos
+## Créditos
 
 Este documento foi escrito com o auxílio de outros documentos similares
 utilizados em outras comunidades. Destacamos:
