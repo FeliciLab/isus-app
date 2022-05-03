@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect } from 'react';
-import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Dimensions, ScrollView, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/barraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
+import database from '~/database/index';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import Banners from './Banners';
@@ -22,6 +23,26 @@ export default function Home() {
 
   const { user, showTutorial } = useAutenticacao();
 
+  const [notifications, setNotifications] = useState([]);
+
+  const notificationsCollection = database.get('notifications');
+
+  const testeCreateNotification = async () => {
+    await database.write(async () => {
+      await notificationsCollection.create(notification => {
+        notification.title = '';
+        notification.description = '';
+        notification.cover = '';
+        notification.readed = false;
+        notification.visualized = false;
+      });
+    });
+
+    const allNotifications = await notificationsCollection.query().fetch();
+
+    setNotifications(allNotifications);
+  };
+
   async function redirectToWelcome() {
     if (showTutorial) {
       return navigation.reset({
@@ -33,6 +54,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    testeCreateNotification();
     redirectToWelcome();
   }, []);
 
@@ -89,6 +111,9 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
+      {notifications.map(item => (
+        <Text key={item.id}>{item.id}</Text>
+      ))}
       <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
