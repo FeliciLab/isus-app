@@ -14,7 +14,7 @@ import {
 import ImagemDePostagem from '../ImagemDePostagem';
 import { ListaPostagemVazia, ListaPostagens, Postagem } from './style';
 
-export default function({ route, navigation }) {
+export default function TelaConteudo({ route, navigation }) {
   const { categoria } = route.params;
 
   const { analyticsData } = useAnalytics();
