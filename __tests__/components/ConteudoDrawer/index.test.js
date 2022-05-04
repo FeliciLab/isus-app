@@ -14,7 +14,7 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn()
 }));
 
-jest.mock('../../../src/components/ConteudoDrawer/aoCompartilhar', () => jest.fn());
+// jest.mock('../../../src/components/ConteudoDrawer/aoCompartilhar', () => jest.fn());
 
 describe('testes de interface para o menu lateral do app', () => {
   describe('Dado que clico no menu lateral', () => {
