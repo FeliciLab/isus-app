@@ -1,5 +1,5 @@
 import { Model } from '@nozbe/watermelondb';
-import { readonly, date, field } from '@nozbe/watermelondb/decorators';
+import { date, field, readonly } from '@nozbe/watermelondb/decorators';
 
 class NotificationModel extends Model {
   static table = 'notifications';
