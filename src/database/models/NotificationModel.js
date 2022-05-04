@@ -1,5 +1,5 @@
 import { Model } from '@nozbe/watermelondb';
-import { date, field, readonly } from '@nozbe/watermelondb/decorators';
+import { date, field, readonly, writer } from '@nozbe/watermelondb/decorators';
 
 class NotificationModel extends Model {
   static table = 'notifications';
@@ -26,6 +26,18 @@ class NotificationModel extends Model {
   @readonly
   @date('updated_at')
   updatedAt;
+
+  @writer async markAsRead() {
+    await this.update(notification => {
+      notification.readed = true;
+    });
+  }
+
+  @writer async markAsViewed() {
+    await this.update(notification => {
+      notification.visualized = true;
+    });
+  }
 }
 
 export { NotificationModel };
