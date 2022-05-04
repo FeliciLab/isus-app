@@ -12,7 +12,6 @@ export const Container = styled.View`
 
 export const Scroll = styled.ScrollView`
   padding: 0 16px 0 16px;
-  margin-bottom: 20px;
 `;
 
 export const ConteudoFormulario = styled.View`
