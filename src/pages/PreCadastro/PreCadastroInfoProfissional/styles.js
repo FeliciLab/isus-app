@@ -5,8 +5,7 @@ export const Container = styled.View`
   flex: 1;
   justify-content: space-between;
   background-color: ${CORES.BRANCO};
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: 0 16px 16px;
 `;
 
 export const RowButton = styled.View`

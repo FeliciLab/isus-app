@@ -6,8 +6,7 @@ import featureAtivas from '~/featureAtivas';
 
 export const Container = styled(ScrollView)`
   background-color: #ffffff;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 16px 16px;
 `;
 
 export const Titulo = styled(Title)`

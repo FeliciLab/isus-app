@@ -5,8 +5,7 @@ import { CORES } from '~/constantes/estiloBase';
 export const Container = styled.View`
   flex: 1;
   background-color: ${CORES.BRANCO};
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: 0 16px 16px;
 `;
 
 export const Title = styled(Paragraph)`
