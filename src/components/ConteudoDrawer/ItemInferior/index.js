@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { Share, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -7,13 +8,12 @@ import testIDs from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import useLogoutApplication from '~/hooks/useLogoutApplication';
-import packageJson from '../../../package.json';
-import aoCompartilhar from './aoCompartilhar';
-import ItemDrawer from './itemDrawer';
+import packageJson from '../../../../package.json';
+import ItemDrawer from '../ItemDrawer';
 import { ConteudoVersao, ItensInferior, TextoVersao } from './styles';
 
-const itemInferior = () => {
-  const navigationTermos = useNavigation();
+const ItemInferior = () => {
+  const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
 
@@ -22,6 +22,18 @@ const itemInferior = () => {
   const { abrirCaixaDialogoSair } = useLogoutApplication();
 
   const { user } = useAutenticacao();
+
+  const handleCompartilhar = async () => {
+    const messagLink =
+      'Conhece o app iSUS? Um produto digital do governo do Ceará de apoio a profissionais de saúde, com informações, serviços e oportunidades na palma da mão! Saiba mais: https://coronavirus.ceara.gov.br/isus/';
+    try {
+      await Share.share({
+        message: messagLink,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const conteudoItem = [
     {
@@ -36,7 +48,7 @@ const itemInferior = () => {
       nome: 'Sobre o iSUS',
       testID: testIDs.DRAWER.ITEM_SOBRE_O_ISUS,
       labelDoAnalytics: 'sobre_o_isus',
-      aoPressionar: () => navigationTermos.navigate(rotas.SOBRE_O_ISUS),
+      aoPressionar: () => navigation.navigate(rotas.SOBRE_O_ISUS),
     },
     {
       icone: (
@@ -50,7 +62,7 @@ const itemInferior = () => {
       nome: 'Termos de Uso',
       testID: testIDs.DRAWER.ITEM_TERMOS_DE_USO,
       labelDoAnalytics: 'termos_de_uso',
-      aoPressionar: () => navigationTermos.navigate(rotas.TERMOS_DE_USO),
+      aoPressionar: () => navigation.navigate(rotas.TERMOS_DE_USO),
     },
     {
       icone: (
@@ -64,8 +76,7 @@ const itemInferior = () => {
       nome: 'Política de Privacidade',
       testID: testIDs.DRAWER.ITEM_POLITA_DE_PRIVACIDADE,
       labelDoAnalytics: 'Politica_de_Privacidade',
-      aoPressionar: () =>
-        navigationTermos.navigate(rotas.POLITICA_DE_PRIVACIDADE),
+      aoPressionar: () => navigation.navigate(rotas.POLITICA_DE_PRIVACIDADE),
     },
     {
       icone: (
@@ -79,7 +90,7 @@ const itemInferior = () => {
       nome: 'Compartilhar',
       testID: testIDs.DRAWER.ITEM_COMPARTILHE_O_ISUS,
       labelDoAnalytics: 'compartilhe_o_isus',
-      aoPressionar: () => aoCompartilhar(),
+      aoPressionar: () => handleCompartilhar(),
     },
     ...(user
       ? [
@@ -102,7 +113,7 @@ const itemInferior = () => {
   ];
 
   return (
-    <>
+    <View>
       <ItensInferior>
         {conteudoItem.map(
           ({ icone, nome, testID, labelDoAnalytics, aoPressionar }) => (
@@ -122,8 +133,8 @@ const itemInferior = () => {
       <ConteudoVersao>
         <TextoVersao>Versão {versaoSistema}</TextoVersao>
       </ConteudoVersao>
-    </>
+    </View>
   );
 };
 
-export default itemInferior;
+export default ItemInferior;

@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { uniqueId } from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -11,11 +10,11 @@ import rotas from '~/constantes/rotas';
 import testIDs from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
-import ItemDrawer from './itemDrawer';
-import ItemInferior from './itemInferior';
+import ItemDrawer from './ItemDrawer/index';
+import ItemInferior from './ItemInferior';
 import { DroidSafeArea } from './styles';
 
-function conteudoDoDrawer(props) {
+function ConteudoDrawer(props) {
   const { routeName } = props;
 
   const { user } = useAutenticacao();
@@ -24,7 +23,7 @@ function conteudoDoDrawer(props) {
 
   const { navigate } = useNavigation();
 
-  const ItensDoDrawer = [
+  const itens = [
     {
       testID: testIDs.DRAWER.ITEM_HOME,
       nome: 'Home',
@@ -83,10 +82,10 @@ function conteudoDoDrawer(props) {
     },
   ];
 
-  const RenderizaItensDoDrawer = () =>
-    ItensDoDrawer.map(({ testID, nome, icone, rota, labelDoAnalytics }) => (
+  const ItensDrawer = () =>
+    itens.map(({ testID, nome, icone, rota, labelDoAnalytics }) => (
       <ItemDrawer
-        key={uniqueId(nome)}
+        key={nome}
         testID={testID}
         nome={nome}
         icone={icone}
@@ -99,23 +98,21 @@ function conteudoDoDrawer(props) {
     ));
 
   return (
-    <>
-      <DroidSafeArea>
-        <View>
-          <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
-        </View>
-        <View
-          style={{
-            height: '100%',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-          }}>
-          <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
-          <ItemInferior />
-        </View>
-      </DroidSafeArea>
-    </>
+    <DroidSafeArea>
+      <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
+      <View
+        style={{
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+        }}>
+        <ScrollView {...props}>
+          <ItensDrawer />
+        </ScrollView>
+        <ItemInferior />
+      </View>
+    </DroidSafeArea>
   );
 }
 
-export default conteudoDoDrawer;
+export default ConteudoDrawer;
