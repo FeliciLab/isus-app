@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import { CORES } from '~/constantes/estiloBase';
 
+// TODO: remover
 const Select = ({ value, setValue, label, ...rest }) => {
   const placeholder = {
     label,

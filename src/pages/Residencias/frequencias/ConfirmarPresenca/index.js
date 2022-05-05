@@ -5,7 +5,7 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
 import CustonFAB from '~/components/CustonFAB/index';
-import Select from '~/components/Select';
+// import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -26,9 +26,13 @@ import {
   SubTitle,
   Title,
   Warning,
-  WrapperSelect,
+  // WrapperSelect,
 } from './styles';
+import { useForm } from 'react-hook-form';
+import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 
+// TODO: remover o Select que temos aqui para usar os componentes novos
+// TODO: usar o useForm para fazer o formulário
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
 
@@ -37,12 +41,6 @@ const ConfirmarPresenca = () => {
   } = useRoute();
 
   const { user } = useAutenticacao();
-
-  const [componente, setComponente] = useState();
-
-  const [programaResidencia, setProgramaResidencia] = useState();
-
-  const [residenciaMunicipio, setResidenciaMunicipio] = useState();
 
   const [dialogVisible, setDialogVisible] = useState(false);
 
@@ -64,17 +62,6 @@ const ConfirmarPresenca = () => {
     return '-';
   }, [isManha, isTarde]);
 
-  const atualSaguUserInfoIsValid = useMemo(() => {
-    return getResidenciaMunicipios(programaResidencia).length > 0
-      ? componente && programaResidencia && residenciaMunicipio
-      : componente && programaResidencia;
-  }, [
-    getResidenciaMunicipios,
-    componente,
-    programaResidencia,
-    residenciaMunicipio,
-  ]);
-
   const {
     saguUserInfo,
     featchSaguUserInfo,
@@ -87,6 +74,36 @@ const ConfirmarPresenca = () => {
   );
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    watch,
+  } = useForm({
+    defaultValues: {
+      componente: '',
+      programaResidencia: '',
+      residenciaMunicipio: '',
+    },
+  });
+
+  const componenteWatch = watch('componente');
+
+  const programaResidenciaWatch = watch('programaResidencia');
+
+  const residenciaMunicipioWatch = watch('residenciaMunicipio');
+
+  const atualSaguUserInfoIsValid = useMemo(() => {
+    return getResidenciaMunicipios(programaResidenciaWatch).length > 0
+      ? componenteWatch && programaResidenciaWatch && residenciaMunicipioWatch
+      : componenteWatch && programaResidenciaWatch;
+  }, [
+    getResidenciaMunicipios,
+    componenteWatch,
+    programaResidenciaWatch,
+    residenciaMunicipioWatch,
+  ]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -118,9 +135,11 @@ const ConfirmarPresenca = () => {
   }, []);
 
   useEffect(() => {
-    setComponente(saguUserInfo?.componente);
-    setProgramaResidencia(saguUserInfo?.programa_residencia);
-    setResidenciaMunicipio(saguUserInfo?.municipio_residencia);
+    reset({
+      componente: saguUserInfo?.componente || '',
+      programaResidencia: saguUserInfo?.programa_residencia || '',
+      residenciaMunicipio: saguUserInfo?.municipio_residencia || '',
+    });
   }, [saguUserInfo]);
 
   useEffect(() => {
@@ -135,7 +154,11 @@ const ConfirmarPresenca = () => {
     return () => clearInterval(schedule);
   }, []);
 
-  const handleUpdateSaguUserInfo = async () => {
+  const handleUpdateSaguUserInfo = async ({
+    componente,
+    programaResidencia,
+    residenciaMunicipio,
+  }) => {
     try {
       setIsLoading(true);
 
@@ -159,7 +182,7 @@ const ConfirmarPresenca = () => {
     }
   };
 
-  const handleMarcarPresencaButtonOnPress = async () => {
+  const handleMarcarPresencaButtonOnPress = async (dataForm) => {
     const newPresenca = {
       data: moment().format('DD/MM/YYYY'),
       turno: currentTurn,
@@ -177,7 +200,7 @@ const ConfirmarPresenca = () => {
       return;
     }
 
-    await handleUpdateSaguUserInfo();
+    await handleUpdateSaguUserInfo(dataForm);
   };
 
   const handleMarcarPresencaDialogVoltarButton = () => {
@@ -205,56 +228,53 @@ const ConfirmarPresenca = () => {
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
       {useSaguUserInfo && (
-        <WrapperSelect>
-          <Select
-            label="Componente Hospitalar"
-            value={componente}
-            setValue={value => {
-              setComponente(value);
-              setProgramaResidencia(null);
-              setResidenciaMunicipio(null);
-            }}
-            items={componentes.map(item => ({
-              label: item,
-              value: item,
-            }))}
-          />
-        </WrapperSelect>
+        <ControlledSelectModal
+          control={control}
+          name="componente"
+          mode="outlined"
+          placeholder="Componente Hospitalar"
+          title="Componente Hospitalar"
+          items={componentes.map(item => ({
+            value: item,
+            label: item,
+          }))}
+        />
       )}
-      {componente && (
-        <WrapperSelect>
-          <Select
-            label="Programa de Residência"
-            value={programaResidencia}
-            setValue={value => {
-              setProgramaResidencia(value);
-              setResidenciaMunicipio(null);
-            }}
-            items={getProgramasResidencias(componente).map(item => ({
-              label: item,
-              value: item,
-            }))}
-          />
-        </WrapperSelect>
+      {componenteWatch !== '' && (
+        <ControlledSelectModal
+          control={control}
+          name="programaResidencia"
+          mode="outlined"
+          placeholder="Programa de Residência"
+          title="Programa de Residência"
+          items={getProgramasResidencias(componenteWatch).map(item => ({
+            value: item,
+            label: item,
+          }))}
+        />
       )}
-      {programaResidencia &&
-        getResidenciaMunicipios(programaResidencia).length > 0 && (
-        <WrapperSelect>
-          <Select
-            label="Selecione o Município"
-            value={residenciaMunicipio}
-            setValue={setResidenciaMunicipio}
-            items={getResidenciaMunicipios(programaResidencia).map(item => ({
-              label: item,
+
+      {programaResidenciaWatch !== '' &&
+        getResidenciaMunicipios(programaResidenciaWatch).length > 0 && (
+        <ControlledSelectModal
+          control={control}
+          name="residenciaMunicipio"
+          mode="outlined"
+          placeholder="Selecione o Município"
+          title="Selecione o Município"
+          items={getResidenciaMunicipios(programaResidenciaWatch).map(
+            item => ({
               value: item,
-            }))}
-          />
-        </WrapperSelect>
+              label: item,
+            }),
+          )}
+        />
       )}
-      {atualSaguUserInfoIsValid && (
+
+      {atualSaguUserInfoIsValid !== '' && (
         <Content>
           <View>
-            <AlunoInfo>Aluno(a): {user.name}</AlunoInfo>
+            <AlunoInfo>Aluno(a): {user?.name || ''}</AlunoInfo>
             <AlunoInfo>
               Data: {moment().format('DD/MM/YYYY')} | Turno: {currentTurn}{' '}
             </AlunoInfo>
@@ -265,7 +285,7 @@ const ConfirmarPresenca = () => {
               isPresenceIsCheckable ? 'MARCAR PRESENÇA' : 'FORA DO HORÁRIO'
             }
             small
-            onPress={handleMarcarPresencaButtonOnPress}
+            onPress={handleSubmit(handleMarcarPresencaButtonOnPress)}
             disabled={isLoading || !isPresenceIsCheckable}
             loading={isLoading}
           />
