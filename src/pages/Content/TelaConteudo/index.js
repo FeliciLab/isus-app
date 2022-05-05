@@ -3,9 +3,9 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
 import { Caption } from 'react-native-paper';
-import useAnalytics from '~/hooks/useAnalytics';
 import { pegarProjetosPorCategoria } from '~/apis/apiHome';
 import rotas from '~/constantes/rotas';
+import useAnalytics from '~/hooks/useAnalytics';
 import { pegarDados, pegarDadosDeChavesCom } from '~/services/armazenamento';
 import {
   adicionaMascaraAnalytics,
