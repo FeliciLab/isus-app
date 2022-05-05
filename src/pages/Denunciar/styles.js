@@ -1,6 +1,6 @@
-import styled from 'styled-components/native';
 import { Button } from 'react-native-paper';
-import IconFarolDenunciar from '../../assets/icons/forcaTarefa/farolDenuncia.svg';
+import styled from 'styled-components/native';
+import IconFarolDenunciar from '~/assets/icons/forcaTarefa/farolDenuncia.svg';
 
 export const Container = styled.View`
   background-color: #fff;
@@ -25,7 +25,7 @@ export const Titulo = styled.Text`
   margin-left: 16px;
   margin-right: 16px;
   text-align: center;
-  color: ${props => (props.color ? props.color : 'black')}
+  color: ${props => (props.color ? props.color : 'black')};
 `;
 
 export const TextoEmailLigacao = styled.Text`
