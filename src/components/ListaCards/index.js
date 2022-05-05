@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { FlatList, Linking } from 'react-native';
 import ROTAS from '~/constantes/rotas';
-import ItemCard from './itemCard';
+import ItemCard from './ItemCard';
 
 export default function ListaCards({ lista }) {
   const navigation = useNavigation();

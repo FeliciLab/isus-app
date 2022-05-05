@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { pegarCardsElmo } from '~/apis/apiHome';
-import ListaCards from '~/components/listaCards';
-import { Imagem } from '~/components/listaCards/styles';
+import ListaCards from '~/components/ListaCards';
+import { Imagem } from '~/components/ListaCards/styles';
 import { listaImagensElmo } from '~/constantes/imagens';
 
 function ListaCardsElmo() {
