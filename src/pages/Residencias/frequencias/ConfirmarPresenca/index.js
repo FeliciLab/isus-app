@@ -5,7 +5,6 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
 import CustonFAB from '~/components/CustonFAB/index';
-// import Select from '~/components/Select';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -26,13 +25,10 @@ import {
   SubTitle,
   Title,
   Warning,
-  // WrapperSelect,
 } from './styles';
 import { useForm } from 'react-hook-form';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 
-// TODO: remover o Select que temos aqui para usar os componentes novos
-// TODO: usar o useForm para fazer o formulário
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
 
