@@ -1,5 +1,6 @@
 import { DefaultTheme } from 'react-native-paper';
 
+// TODO: descobrir como fazer isso melhor
 export const CORES = {
   BRANCO: '#FFFFFF',
   LARANJA: '#FF9800',
@@ -26,6 +27,7 @@ export const CORES = {
   PRETO87: 'rgba(0,0,0, 0.87)',
 };
 
+// TODO: Descobrir onde isso está sendo usado
 export const INPUT_THEMES = {
   AZUL: {
     ...DefaultTheme,
