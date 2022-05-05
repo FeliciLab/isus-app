@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		3B7E864F2824182600B30057 /* wmelon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7E864E2824182600B30057 /* wmelon.swift */; };
 		60D133EA6FEEB03623B8583A /* libPods-isusapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA624AC5C50A9170949B3E3 /* libPods-isusapp.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		96A36F9F275E8BDF00C5892D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A36F9E275E8BDF00C5892D /* NotificationService.swift */; };
@@ -51,6 +52,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = isusapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = isusapp/main.m; sourceTree = "<group>"; };
 		2F7039099CDDFAB911C20ED4 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		3B7E864B2824168900B30057 /* isusapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "isusapp-Bridging-Header.h"; sourceTree = "<group>"; };
+		3B7E864E2824182600B30057 /* wmelon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wmelon.swift; sourceTree = "<group>"; };
 		3BD32B502EA67E326F92E396 /* Pods-isusapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-isusapp.debug.xcconfig"; path = "Target Support Files/Pods-isusapp/Pods-isusapp.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = isusapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BA624AC5C50A9170949B3E3 /* libPods-isusapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-isusapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +169,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3B7E864E2824182600B30057 /* wmelon.swift */,
 				96D04C6227837A4600F95510 /* GoogleService-Info.plist */,
 				96D04C60278375B900F95510 /* GoogleService-Info-debug.plist */,
 				13B07FAE1A68108700A75B9A /* isusapp */,
@@ -175,6 +179,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				19A8D5B6E3F19114B70CCAB4 /* Pods */,
+				3B7E864B2824168900B30057 /* isusapp-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -285,7 +290,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1330;
 					};
 					96A36F9B275E8BDF00C5892D = {
 						CreatedOnToolsVersion = 13.1;
@@ -592,6 +597,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				3B7E864F2824182600B30057 /* wmelon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +708,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.esp.isus;
 				PRODUCT_NAME = isusapp;
+				SWIFT_OBJC_BRIDGING_HEADER = "isusapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -733,6 +740,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.esp.isus;
 				PRODUCT_NAME = isusapp;
+				SWIFT_OBJC_BRIDGING_HEADER = "isusapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

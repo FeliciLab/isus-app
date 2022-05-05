@@ -1,12 +1,12 @@
 PODS:
-  - appcenter-analytics (4.4.4):
+  - appcenter-analytics (4.4.3):
     - AppCenter/Analytics (~> 4.0)
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
-  - appcenter-core (4.4.4):
+  - appcenter-core (4.4.3):
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
-  - appcenter-crashes (4.4.4):
+  - appcenter-crashes (4.4.3):
     - AppCenter/Crashes (~> 4.0)
     - AppCenterReactNativeShared (~> 4.0)
     - React-Core
@@ -515,9 +515,13 @@ PODS:
     - React-Core
   - RNVectorIcons (6.7.0):
     - React
+  - simdjson (1.0.0)
   - SSZipArchive (2.2.3)
   - toolbar-android (0.2.1):
     - React
+  - WatermelonDB (0.24.0):
+    - React
+    - React-jsi
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -600,7 +604,9 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "simdjson (from `../node_modules/@nozbe/simdjson`)"
   - "toolbar-android (from `../node_modules/@react-native-community/toolbar-android`)"
+  - "WatermelonDB (from `../node_modules/@nozbe/watermelondb`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -746,16 +752,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  simdjson:
+    :path: "../node_modules/@nozbe/simdjson"
   toolbar-android:
     :path: "../node_modules/@react-native-community/toolbar-android"
+  WatermelonDB:
+    :path: "../node_modules/@nozbe/watermelondb"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   AppCenter: b0b6f1190215b5f983c42934db718f3b46fff3c0
-  appcenter-analytics: 4403fa85b98266f0672aa3676cb0416755ce2ff6
-  appcenter-core: 9b90e7b8581598cf4f61d2efe41581cc69631da8
-  appcenter-crashes: 02e9432ed23579e258af9742356d74271539fb85
+  appcenter-analytics: 1b32062da2e250c5e1396c678df8c6011ccbcf5a
+  appcenter-core: 6ea4754df4a3d8917a5803e2681a58179d7f7a21
+  appcenter-crashes: b079913ac0f0059e6cf39b7a805135223e508666
   AppCenterReactNativeShared: ac6961204492735ce2507df0a14ce59b13e9c1c5
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: a7c83b31436843459a1961bfd74b96033dc77234
@@ -836,11 +846,13 @@ SPEC CHECKSUMS:
   RNScreens: f7ad633b2e0190b77b6a7aab7f914fad6f198d8d
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
+  simdjson: c96317b3a50dff3468a42f586ab7ed22c6ab2fd9
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   toolbar-android: 2a73856e98b750d7e71ce4644d3f41cc98211719
+  WatermelonDB: e043b1a32ddc63864eb539b562e86ef80f8224cd
   Yoga: 32a18c0e845e185f4a2a66ec76e1fd1f958f22fa
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 534b74da72c4be489f79c5c846299f0a8bd2db99
+PODFILE CHECKSUM: 4ca2bf882148b26fbcf798c67c2f7898aa068fdf
 
 COCOAPODS: 1.11.3
