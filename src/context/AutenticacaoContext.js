@@ -3,7 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { deletarUsuario, perfilUsuario } from '~/apis/apiCadastro';
 import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
-import useAsyncStorage from '~/hooks/useAsyncStorage';
+import useAsyncStorageState from '~/hooks/useAsyncStorageState';
 import { autenticarComIdSaude } from '~/services/autenticacao';
 
 const AutenticacaoContext = createContext();
@@ -11,11 +11,11 @@ const AutenticacaoContext = createContext();
 const AutenticacaoProvider = ({ children }) => {
   const [autenticacaoLoading, setAutenticacaoLoading] = useState(false);
 
-  const [user, setUser] = useAsyncStorage('@isus:user', null);
+  const [user, setUser] = useAsyncStorageState('@isus:user', null);
 
-  const [token, setToken] = useAsyncStorage('@isus:token', null);
+  const [token, setToken] = useAsyncStorageState('@isus:token', null);
 
-  const [showTutorial, setShowTutorial] = useAsyncStorage(
+  const [showTutorial, setShowTutorial] = useAsyncStorageState(
     '@isus:show-tutorial',
     true,
   );

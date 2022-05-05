@@ -1,7 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 
-function useAsyncStorage(key, initialValue) {
+function useAsyncStorageState(key, initialValue) {
+  const { getItem, setItem, removeItem } = useAsyncStorage(key);
+
   const [storedValue, setStoredValue] = useState(async () => {
     try {
       await getStoredItem(key, initialValue);
@@ -14,7 +16,7 @@ function useAsyncStorage(key, initialValue) {
 
   async function getStoredItem(key, initialValue) {
     try {
-      const item = await AsyncStorage.getItem(key);
+      const item = await getItem();
       const value = item ? JSON.parse(item) : initialValue;
       setStoredValue(value);
     } catch (error) {
@@ -24,10 +26,15 @@ function useAsyncStorage(key, initialValue) {
 
   const setValue = async value => {
     try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      await AsyncStorage.setItem(key, JSON.stringify(valueToStore));
+      if (!value) {
+        setStoredValue(value);
+        removeItem();
+      } else {
+        const valueToStore =
+          value instanceof Function ? value(storedValue) : value;
+        setStoredValue(valueToStore);
+        await setItem(JSON.stringify(valueToStore));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -36,4 +43,4 @@ function useAsyncStorage(key, initialValue) {
   return [storedValue, setValue];
 }
 
-export default useAsyncStorage;
+export default useAsyncStorageState;
