@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme } from 'react-native-paper';
-import Alerta from '~/components/Alerta';
+import AlertaLogin from '~/components/AlertaLogin';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -53,13 +53,16 @@ const FormularioLogin = ({ route }) => {
 
   const [carregando, setCarregando] = useState(false);
 
-  const [textoDoAlerta, setTextoDoAlerta] = useState('');
+  const [alertText, setAlertText] = useState({
+    headerText: '',
+    bodyText: '',
+  });
 
-  const [visivel, setVisivel] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  const mostrarAlerta = useCallback(texto => {
-    setTextoDoAlerta(texto);
-    setVisivel(true);
+  const showAlertText = useCallback(text => {
+    setAlertText(text);
+    setVisible(true);
   }, []);
 
   const handleSubmitForm = async data => {
@@ -80,7 +83,10 @@ const FormularioLogin = ({ route }) => {
       );
     } catch (error) {
       if (error.response?.status === 401) {
-        mostrarAlerta('Email e/ou senha incorreto(s)');
+        showAlertText({
+          headerText: 'Credenciais incorretas!',
+          bodyText: 'Tente novamente ou recupere sua senha.',
+        });
         return;
       }
     } finally {
@@ -147,6 +153,13 @@ const FormularioLogin = ({ route }) => {
           textContentType="password"
           theme={textInputTheme}
         />
+        <AlertaLogin
+          bodyText={alertText.bodyText}
+          duration={5000}
+          headerText={alertText.headerText}
+          onDismiss={() => setVisible(false)}
+          visible={visible}
+        />
         <View style={{ marginTop: 18 }}>
           <Botao
             disabled={
@@ -169,12 +182,6 @@ const FormularioLogin = ({ route }) => {
           </Botao>
         </View>
       </View>
-      <Alerta
-        textoDoAlerta={textoDoAlerta}
-        visivel={visivel}
-        duration={5000}
-        onDismiss={() => setVisivel(false)}
-      />
     </IDSaudeLoginTemplate>
   );
 };
