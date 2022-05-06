@@ -22,7 +22,7 @@ import {
 import { Snackbar, Title } from 'react-native-paper';
 import HTML from 'react-native-render-html';
 import { pegarProjetosPorId } from '~/apis/apiHome';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import BarraInferior from '~/components/BarraInferior';
 import rotas from '~/constantes/rotas';
 import { ArrowLeftIcon } from '~/icons';

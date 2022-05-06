@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { ArrowLeftIcon } from '~/icons';
 import CartaoDeConteudo from './CartaoDeConteudo';
 

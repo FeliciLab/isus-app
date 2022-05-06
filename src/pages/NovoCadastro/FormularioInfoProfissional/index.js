@@ -2,7 +2,7 @@ import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 import rotas from '~/constantes/rotas';

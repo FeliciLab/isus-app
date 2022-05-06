@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import DeletarConta from '~/assets/images/deletar_conta.svg';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import rotas from '~/constantes/rotas';
 
 export default function ContaExcluida() {
