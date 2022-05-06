@@ -23,7 +23,7 @@ const ControlledTextInput = props => {
             ref={ref}
             {...rest}
           />
-          {error && (
+          {error && error?.message && (
             <HelperText
               style={errorTextStyle}
               type="error"
