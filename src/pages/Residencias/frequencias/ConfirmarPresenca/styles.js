@@ -45,7 +45,3 @@ export const Warning = styled.Text`
   letter-spacing: 0.25px;
   color: rgba(0, 0, 0, 0.87);
 `;
-
-export const WrapperSelect = styled.View`
-  margin-top: 8px;
-`;

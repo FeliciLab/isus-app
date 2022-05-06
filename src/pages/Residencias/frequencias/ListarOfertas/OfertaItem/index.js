@@ -33,7 +33,7 @@ const OfertaItem = ({ oferta }) => {
   return (
     <Container>
       <OfertaItemRow
-        disabled={isForaDoPeriodo}
+        // disabled={isForaDoPeriodo} // TODO: remover isso depois
         onPress={handleNavigateToConfirmarPresenca}>
         <View>
           <Title disabled={isForaDoPeriodo}>{oferta.title}</Title>

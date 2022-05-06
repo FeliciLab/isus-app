@@ -71,12 +71,7 @@ const ConfirmarPresenca = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    watch,
-  } = useForm({
+  const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       componente: '',
       programaResidencia: '',
@@ -90,6 +85,7 @@ const ConfirmarPresenca = () => {
 
   const residenciaMunicipioWatch = watch('residenciaMunicipio');
 
+  // TODO: ajustar essa parte
   const atualSaguUserInfoIsValid = useMemo(() => {
     return getResidenciaMunicipios(programaResidenciaWatch).length > 0
       ? componenteWatch && programaResidenciaWatch && residenciaMunicipioWatch
@@ -131,6 +127,7 @@ const ConfirmarPresenca = () => {
   }, []);
 
   useEffect(() => {
+    console.log('reset');
     reset({
       componente: saguUserInfo?.componente || '',
       programaResidencia: saguUserInfo?.programa_residencia || '',
@@ -178,7 +175,7 @@ const ConfirmarPresenca = () => {
     }
   };
 
-  const handleMarcarPresencaButtonOnPress = async (dataForm) => {
+  const handleMarcarPresencaButtonOnPress = async dataForm => {
     const newPresenca = {
       data: moment().format('DD/MM/YYYY'),
       turno: currentTurn,
@@ -223,6 +220,17 @@ const ConfirmarPresenca = () => {
         {oferta.title} | {moment(oferta.inicio).format('DD/MM')} a{' '}
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
+      <SubTitle>
+        {JSON.stringify(
+          {
+            componente: componenteWatch,
+            programaResidencia: programaResidenciaWatch,
+            residenciaMunicipioWatch: residenciaMunicipioWatch,
+          },
+          null,
+          2,
+        )}
+      </SubTitle>
       {useSaguUserInfo && (
         <ControlledSelectModal
           control={control}
@@ -236,7 +244,8 @@ const ConfirmarPresenca = () => {
           }))}
         />
       )}
-      {componenteWatch !== '' && (
+
+      {componenteWatch && (
         <ControlledSelectModal
           control={control}
           name="programaResidencia"
@@ -250,7 +259,7 @@ const ConfirmarPresenca = () => {
         />
       )}
 
-      {programaResidenciaWatch !== '' &&
+      {programaResidenciaWatch &&
         getResidenciaMunicipios(programaResidenciaWatch).length > 0 && (
         <ControlledSelectModal
           control={control}

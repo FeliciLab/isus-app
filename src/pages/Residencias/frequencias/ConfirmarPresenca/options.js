@@ -1,4 +1,5 @@
-export const componentes = ['Comunitário', 'Hospitalar'];
+// TODO: necessário estruturar com { value: string, label: label,}
+export const componentes = ['Comunitario', 'Hospitalar'];
 
 const municipios = [
   'Acaraú',
@@ -24,7 +25,7 @@ const municipios = [
 ];
 
 const programasResidenciasPorComponentes = {
-  Comunitário: [
+  Comunitario: [
     'Saúde da Família e Comunidade',
     'Saúde Mental Coletiva',
     'Saúde Coletiva',
@@ -56,12 +57,17 @@ const municipiosPorProgramasResidencias = {
 };
 
 export const getProgramasResidencias = componente => {
+  console.log('componente', componente);
+
+  if (!componente) return [];
   return programasResidenciasPorComponentes[componente]
     ? programasResidenciasPorComponentes[componente]
     : [];
 };
 
 export const getResidenciaMunicipios = programaResidencia => {
+  console.log('programaResidencia', programaResidencia);
+  if (!programaResidencia) return [];
   return municipiosPorProgramasResidencias[programaResidencia]
     ? municipiosPorProgramasResidencias[programaResidencia]
     : [];
