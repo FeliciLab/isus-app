@@ -1,61 +1,39 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
-import { Snackbar } from 'react-native-paper';
 
-function AlertaLogin({
-  visible,
-  duration,
-  headerText = '',
-  bodyText = '',
-  ...rest
-}) {
+function AlertaLogin({ visible = false, headerText, bodyText, ...rest }) {
   return (
-    <Snackbar
-      wrapperStyle={{
-        position: 'relative',
-        // zIndex: 500,
-      }}
-      visible={visible}
-      duration={duration}
-      style={styles.snackbar}
-      {...rest}>
-      <View style={styles.textContainer}>
-        <Text style={styles.header}>{headerText}</Text>
-        <Text style={styles.body}>{bodyText}</Text>
+    visible && (
+      <View style={[styles.container, { marginTop: 16 }]} {...rest}>
+        <View style={styles.textContainer}>
+          <Text style={styles.header}>{headerText}</Text>
+          <Text style={styles.body}>{bodyText}</Text>
+        </View>
       </View>
-    </Snackbar>
+    )
   );
 }
 
 const styles = StyleSheet.create({
-  snackbar: {
-    borderRadius: 0, // borderRadius nulo para seguir o layout do figma
-    margin: 0, // zerar margem padrão do estilo interno do SnackBar
-    marginTop: 16,
+  container: {
     borderLeftWidth: 8,
     borderColor: CORES.VERMELHO,
     backgroundColor: CORES.AZUL,
-    flexDirection: 'row-reverse',
-    elevation: 0,
+  },
+  textContainer: {
+    marginLeft: 8,
   },
   header: {
-    marginTop: -16,
     fontSize: 16,
-    color: 'white',
+    color: CORES.BRANCO,
     fontWeight: '800',
   },
   body: {
-    marginBottom: -12,
-    margin: 0,
     fontSize: 12,
-    color: 'white',
+    color: CORES.BRANCO,
     fontWeight: '400',
-  },
-  textContainer: {
-    justifyContent: 'space-between',
-    margin: 0,
-    padding: 0,
   },
 });
 
