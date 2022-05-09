@@ -42,8 +42,6 @@ const FormularioLogin = ({ route }) => {
     setValue,
     formState: { errors },
   } = useForm({
-    mode: 'all', // all = Validation will trigger on the blur and change events
-    reValidateMode: 'onBlur',
     defaultValues: {
       email: '',
       senha: '',
