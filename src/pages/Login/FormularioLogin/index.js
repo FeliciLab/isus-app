@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme } from 'react-native-paper';
-import Alerta from '~/components/Alerta';
+import AlertaLogin from '~/components/AlertaLogin';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -35,13 +35,13 @@ const FormularioLogin = ({ route }) => {
 
   const {
     control,
+    clearErrors,
     handleSubmit,
+    setError,
     setFocus,
     setValue,
     formState: { errors },
   } = useForm({
-    mode: 'all', // all = Validation will trigger on the blur and change events
-    reValidateMode: 'onBlur',
     defaultValues: {
       email: '',
       senha: '',
@@ -53,19 +53,25 @@ const FormularioLogin = ({ route }) => {
 
   const [carregando, setCarregando] = useState(false);
 
-  const [textoDoAlerta, setTextoDoAlerta] = useState('');
+  const [alertText, setAlertText] = useState({
+    headerText: 'Credenciais incorretas!',
+    bodyText: 'Tente novamente ou recupere sua senha.',
+  });
 
-  const [visivel, setVisivel] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
 
-  const mostrarAlerta = useCallback(texto => {
-    setTextoDoAlerta(texto);
-    setVisivel(true);
+  const showAlertText = useCallback((visible = true, text) => {
+    text && setAlertText(text);
+    setAlertVisible(visible);
+    visible === false && clearErrors(['email', 'senha']);
   }, []);
 
   const handleSubmitForm = async data => {
     const { email, senha } = data;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
+
+    showAlertText(false);
 
     try {
       setCarregando(true);
@@ -80,7 +86,16 @@ const FormularioLogin = ({ route }) => {
       );
     } catch (error) {
       if (error.response?.status === 401) {
-        mostrarAlerta('Email e/ou senha incorreto(s)');
+        showAlertText(true, {
+          headerText: 'Credenciais incorretas!',
+          bodyText: 'Tente novamente ou recupere sua senha.',
+        });
+
+        // Marca o input com cor de erro, sem enviar mensagem
+        // O type é opcional para organizar o debug do obj de erro
+        setError('email', { type: 'manual' });
+        setError('senha', { type: 'manual' });
+
         return;
       }
     } finally {
@@ -102,6 +117,7 @@ const FormularioLogin = ({ route }) => {
       setValue('email', '');
       setValue('senha', '');
       setCarregando(false);
+      setAlertVisible(false);
     };
   }, []);
 
@@ -118,6 +134,7 @@ const FormularioLogin = ({ route }) => {
           label="Email"
           name="email"
           mode="outlined"
+          onChange={() => showAlertText(false)}
           onChangeText={text => setValue('email', text.trim())}
           onSubmitEditing={() => {
             setFocus('senha');
@@ -137,15 +154,20 @@ const FormularioLogin = ({ route }) => {
           label="Senha"
           name="senha"
           mode="outlined"
+          onChange={() => showAlertText(false)}
           onSubmitEditing={handleSubmit(handleSubmitForm)}
           returnKeyType="done"
           placeholder="Senha"
           secureTextEntry
-          // selectionColor={CORES.AZUL}
           selectionColor={CORES.CINZA_WEB}
           testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
           textContentType="password"
           theme={textInputTheme}
+        />
+        <AlertaLogin
+          bodyText={alertText.bodyText}
+          headerText={alertText.headerText}
+          visible={alertVisible}
         />
         <View style={{ marginTop: 18 }}>
           <Botao
@@ -169,12 +191,6 @@ const FormularioLogin = ({ route }) => {
           </Botao>
         </View>
       </View>
-      <Alerta
-        textoDoAlerta={textoDoAlerta}
-        visivel={visivel}
-        duration={5000}
-        onDismiss={() => setVisivel(false)}
-      />
     </IDSaudeLoginTemplate>
   );
 };
