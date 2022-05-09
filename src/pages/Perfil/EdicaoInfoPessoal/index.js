@@ -12,7 +12,7 @@ import {
   verificarCPFCadastrado,
 } from '~/apis/apiCadastro';
 import Alerta from '~/components/Alerta';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput/';

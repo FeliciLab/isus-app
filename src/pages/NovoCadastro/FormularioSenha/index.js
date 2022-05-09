@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { TouchableOpacity } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 // import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 // import useAnalytics from '~/hooks/useAnalytics';

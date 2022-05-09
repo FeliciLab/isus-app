@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import IDSaudeBranco from '~/assets/icons/idsaude-branco.svg';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons/index';
 import Termos from '../Termos';

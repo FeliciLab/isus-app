@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 import { Botao, Container, ScrollView, Texto, Titulo } from '../styles';

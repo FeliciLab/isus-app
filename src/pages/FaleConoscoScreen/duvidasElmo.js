@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import { postDuvidasElmo } from '~/apis/apiHome';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import MsgErroFormCampo from '~/components/loginLayout/msgErroFormCampo';
 import { CORES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';

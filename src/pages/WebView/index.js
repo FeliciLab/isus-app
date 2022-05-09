@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { ArrowLeftIcon } from '~/icons';
 
 export default function WebViewPage({

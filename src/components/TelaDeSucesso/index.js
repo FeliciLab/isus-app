@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Check from '~/assets/icons/check.svg';
-import BarraDeStatus from '../barraDeStatus';
+import BarraDeStatus from '../BarraDeStatus';
 import { SafeArea, Text } from './style';
 
 // TODO: possivel remoção
