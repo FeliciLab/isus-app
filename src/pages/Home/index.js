@@ -1,6 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+// import LinhasDeCuidado from './LinhasDeCuidado';
+// import MeusConteudos from './MeusConteudos';
+import { Badge } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
@@ -12,8 +15,6 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo';
-// import LinhasDeCuidado from './LinhasDeCuidado';
-// import MeusConteudos from './MeusConteudos';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -70,6 +71,10 @@ export default function Home() {
           onPress={() => {
             navigation.toggleDrawer();
           }}>
+          <Badge
+            size={10}
+            style={{ position: 'absolute', top: 2, right: 2, zIndex: 10 }}
+          />
           <Icon
             name="menu"
             size={28}
