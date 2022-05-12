@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { uniqueId } from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -54,6 +53,20 @@ function conteudoDoDrawer(props) {
       rota: user ? rotas.PERFIL : rotas.LOGIN,
     },
     {
+      testID: testIDs.DRAWER.ITEM_PERFIL,
+      nome: 'Notificações',
+      icone: (
+        <Icon
+          testID="icon-drawer-notifications"
+          name="bell"
+          size={22}
+          color={CORES.PRETO54}
+        />
+      ),
+      labelDoAnalytics: 'notifications',
+      rota: rotas.NOTIFICATIONS,
+    },
+    {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
       nome: 'Fale conosco',
       icone: (
@@ -86,7 +99,7 @@ function conteudoDoDrawer(props) {
   const RenderizaItensDoDrawer = () =>
     ItensDoDrawer.map(({ testID, nome, icone, rota, labelDoAnalytics }) => (
       <ItemDrawer
-        key={uniqueId(nome)}
+        key={nome}
         testID={testID}
         nome={nome}
         icone={icone}
@@ -99,22 +112,20 @@ function conteudoDoDrawer(props) {
     ));
 
   return (
-    <>
-      <DroidSafeArea>
-        <View>
-          <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
-        </View>
-        <View
-          style={{
-            height: '100%',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-          }}>
-          <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
-          <ItemInferior />
-        </View>
-      </DroidSafeArea>
-    </>
+    <DroidSafeArea>
+      <View>
+        <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
+      </View>
+      <View
+        style={{
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+        }}>
+        <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
+        <ItemInferior />
+      </View>
+    </DroidSafeArea>
   );
 }
 
