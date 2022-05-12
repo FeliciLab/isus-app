@@ -53,7 +53,7 @@ function conteudoDoDrawer(props) {
       rota: user ? rotas.PERFIL : rotas.LOGIN,
     },
     {
-      testID: testIDs.DRAWER.ITEM_PERFIL,
+      testID: testIDs.DRAWER.ITEM_NOTIFICATIONS,
       nome: 'Notificações',
       icone: (
         <Icon

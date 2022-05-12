@@ -1,13 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-
-// import { Container } from './styles';
+import { Text } from 'react-native';
+import { Container } from './styles';
 
 const Notifications = () => {
   return (
-    <View>
+    <Container>
       <Text>Notifications</Text>
-    </View>
+    </Container>
   );
 };
 
