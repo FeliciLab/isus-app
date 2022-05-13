@@ -53,6 +53,7 @@ export const TESTIDS = {
     ITEM_COMPARTILHE_O_ISUS: 'drawer-item-compartilhe-o-isus',
     ITEM_POLITA_DE_PRIVACIDADE: 'drawer-item-politica-de-privacidade',
     ITEM_SAIR: 'drawer-item-sair',
+    ITEM_NOTIFICATIONS: 'drawer-item-notifications'
   },
   ICONS: {
     ICON_HOME: 'icon-drawer-home',

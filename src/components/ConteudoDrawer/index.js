@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { uniqueId } from 'lodash';
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -15,6 +14,7 @@ import ItemDrawer from './itemDrawer';
 import ItemInferior from './itemInferior';
 import { DroidSafeArea } from './styles';
 
+// TODO: implementar a integração com os dados
 function conteudoDoDrawer(props) {
   const { routeName } = props;
 
@@ -54,6 +54,47 @@ function conteudoDoDrawer(props) {
       rota: user ? rotas.PERFIL : rotas.LOGIN,
     },
     {
+      testID: testIDs.DRAWER.ITEM_NOTIFICATIONS,
+      nome: () => (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Text
+            style={{
+              fontSize: 15,
+              color: 'rgba(0, 0, 0, 0.87)',
+              fontWeight: '500',
+            }}>
+            Notificações
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              padding: 4,
+              borderRadius: 4,
+              backgroundColor: '#F2453D',
+              color: '#fff',
+              fontWeight: '500',
+            }}>
+            13
+          </Text>
+        </View>
+      ),
+      icone: (
+        <Icon
+          testID="icon-drawer-notifications"
+          name="bell"
+          size={22}
+          color={CORES.PRETO54}
+        />
+      ),
+      labelDoAnalytics: 'notifications',
+      rota: rotas.NOTIFICATIONS,
+    },
+    {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
       nome: 'Fale conosco',
       icone: (
@@ -86,7 +127,7 @@ function conteudoDoDrawer(props) {
   const RenderizaItensDoDrawer = () =>
     ItensDoDrawer.map(({ testID, nome, icone, rota, labelDoAnalytics }) => (
       <ItemDrawer
-        key={uniqueId(nome)}
+        key={nome}
         testID={testID}
         nome={nome}
         icone={icone}
@@ -99,22 +140,20 @@ function conteudoDoDrawer(props) {
     ));
 
   return (
-    <>
-      <DroidSafeArea>
-        <View>
-          <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
-        </View>
-        <View
-          style={{
-            height: '100%',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-          }}>
-          <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
-          <ItemInferior />
-        </View>
-      </DroidSafeArea>
-    </>
+    <DroidSafeArea>
+      <View>
+        <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
+      </View>
+      <View
+        style={{
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+        }}>
+        <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
+        <ItemInferior />
+      </View>
+    </DroidSafeArea>
   );
 }
 

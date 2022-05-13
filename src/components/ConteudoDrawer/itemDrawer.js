@@ -11,7 +11,9 @@ export default function ItemDrawer({
   testID,
 }) {
   const features = useFeatures();
+
   const featureEstaAtiva = () => !!(feature && features.includes(feature));
+
   const featureExiste = () => !!feature;
 
   const visibilidade = () => {

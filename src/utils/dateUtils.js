@@ -20,3 +20,19 @@ export default function formatarDataPorExtenso(date) {
     moment(postData).format('MMMM'),
   )} de ${moment(postData).format('YYYY')}`;
 }
+
+// Fromatar de acordo com diferença da data passada com a data atual
+export function formatarWithCalendar(date) {
+  const dateFormated = moment(date)
+    .locale('pt-br')
+    .calendar({
+      sameDay: function(now) {
+        return `[há] ${now.diff(this, 'hours')} [horas]`;
+      },
+      lastDay: 'ddd [às] HH:mm',
+      lastWeek: 'ddd [às] HH:mm',
+      sameElse: 'DD [de] MMM [às] HH:mm',
+    });
+
+  return dateFormated;
+}
