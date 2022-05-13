@@ -1,12 +1,13 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
+import { CORES } from '~/constantes/estiloBase';
+import { ArrowLeftIcon } from '~/icons/index';
+import NotificationsEmptyMesage from './ NotificationsEmptyMesage/index';
 import items from './mockItems';
 import NotificationCard from './NotificationCard';
 import { Container, NotificationsBottomBar } from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { ArrowLeftIcon } from '~/icons/index';
-import { CORES } from '~/constantes/estiloBase';
 
 const Notifications = () => {
   const navigation = useNavigation();
@@ -34,6 +35,7 @@ const Notifications = () => {
     });
   }, []);
 
+  // TODO: implementar integração
   const handrleMarkAllRead = useCallback(async () => {
     console.log('handrleMarkAllRead Press');
   }, []);
@@ -45,6 +47,7 @@ const Notifications = () => {
         data={items}
         renderItem={({ item }) => <NotificationCard data={item} />}
         keyExtractor={item => item.id}
+        ListEmptyComponent={() => <NotificationsEmptyMesage />}
       />
       <NotificationsBottomBar>
         <Button onPress={handrleMarkAllRead}>MARCAR TODAS COMO LIDAS</Button>
