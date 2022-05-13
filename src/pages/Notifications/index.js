@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import { sortBy } from 'lodash';
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -8,7 +9,6 @@ import NotificationsEmptyMesage from './ NotificationsEmptyMesage/index';
 import items from './mockItems';
 import NotificationCard from './NotificationCard';
 import { Container, NotificationsBottomBar } from './styles';
-import { sortBy } from 'lodash';
 
 const Notifications = () => {
   const navigation = useNavigation();
