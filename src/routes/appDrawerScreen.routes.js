@@ -19,7 +19,6 @@ import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
 import LoginStackScreen from './login.routes';
-import NotificationsStackScreen from './notifications.routes';
 
 const Drawer = createDrawerNavigator();
 
@@ -91,10 +90,6 @@ export default function AppDrawerScreen() {
         name={rotas.DENUNCIAR}
         component={Denunciar}
         options={{ headerShown: true }}
-      />
-      <Drawer.Screen
-        name={rotas.NOTIFICATIONS}
-        component={NotificationsStackScreen}
       />
     </Drawer.Navigator>
   );

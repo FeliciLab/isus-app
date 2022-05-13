@@ -1,29 +1,42 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useCallback } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Surface } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
+import { useNavigation } from '@react-navigation/native';
+import rotas from '~/constantes/rotas';
 
 const NotificationCard = props => {
+  const navigation = useNavigation();
+
   const { data } = props;
+
+  const handleOnPress = useCallback(() => {
+    console.log(console.log(JSON.stringify(data, null, 2)));
+    navigation.navigate(rotas.NOTIFICATIONS_DETAILS, { data });
+  }, [data]);
 
   return (
     <Surface style={styles.card}>
-      <Image
-        resizeMode="cover"
-        style={styles.cover}
-        source={{
-          uri:
-            'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/001232.png',
-        }}
-      />
+      <TouchableOpacity activeOpacity={0.8} onPress={handleOnPress}>
+        <Image
+          resizeMode="cover"
+          style={styles.cover}
+          source={{
+            uri:
+              'https://coronavirus.ceara.gov.br/wp-content/uploads/2020/05/001232.png',
+          }}
+        />
+      </TouchableOpacity>
       <View
         style={[
           styles.content,
-          data.Visualized
+          data.visualized
             ? styles.contentVisualized
             : styles.contentNotVisualized,
         ]}>
-        <Text style={styles.title}>{data.title}</Text>
+        <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+          {data.title}
+        </Text>
         <Text style={styles.date}>{data.date}</Text>
       </View>
     </Surface>

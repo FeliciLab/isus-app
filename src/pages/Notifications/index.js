@@ -1,49 +1,43 @@
-import React from 'react';
-import { FlatList } from 'react-native';
+import React, { useCallback, useLayoutEffect } from 'react';
+import { FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
+import items from './mockItems';
 import NotificationCard from './NotificationCard';
 import { Container, NotificationsBottomBar } from './styles';
-
-// TODO: remover depois
-const items = [
-  {
-    id: '1',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-  {
-    id: '2',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-  {
-    id: '3',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-  {
-    id: '4',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-  {
-    id: '5',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-  {
-    id: '6',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-  {
-    id: '7',
-    title: 'Protocolo aborda alocação de recursos em ...',
-    date: 'Há 6 horas',
-  },
-];
+import { useNavigation } from '@react-navigation/native';
+import { ArrowLeftIcon } from '~/icons/index';
+import { CORES } from '~/constantes/estiloBase';
 
 const Notifications = () => {
+  const navigation = useNavigation();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        elevation: 0,
+        shadowOpacity: 0,
+      },
+      headerTintColor: 'rgba(0, 0, 0, 0.87)',
+      headerTitleAlign: 'center',
+      headerTitle: 'Notificações',
+      headerLeft: () => (
+        <TouchableOpacity
+          style={{
+            marginHorizontal: 19,
+          }}
+          onPress={() => {
+            navigation.goBack();
+          }}>
+          <ArrowLeftIcon size={28} color={CORES.VERDE} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
+
+  const handrleMarkAllRead = useCallback(async () => {
+    console.log('handrleMarkAllRead Press');
+  }, []);
+
   return (
     <Container>
       <FlatList
@@ -53,9 +47,7 @@ const Notifications = () => {
         keyExtractor={item => item.id}
       />
       <NotificationsBottomBar>
-        <Button onPress={() => console.log('Pressed')}>
-          MARCAR TODAS COMO LIDAS
-        </Button>
+        <Button onPress={handrleMarkAllRead}>MARCAR TODAS COMO LIDAS</Button>
       </NotificationsBottomBar>
     </Container>
   );

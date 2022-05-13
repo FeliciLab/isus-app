@@ -29,6 +29,7 @@ import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
+import NotificationsStackScreen from './notifications.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 import SearchStackScreen from './search.routes';
 
@@ -175,6 +176,11 @@ export default function App({ navigationRef }) {
         <RootStack.Screen
           name={rotas.NOVIDADES_ELMO}
           component={NovidadesElmo}
+        />
+        <RootStack.Screen
+          name={rotas.NOTIFICATIONS}
+          component={NotificationsStackScreen}
+          options={{ headerShown: false }}
         />
         {/* WebViews */}
         <RootStack.Screen name="webview" component={WebViewPage} />
