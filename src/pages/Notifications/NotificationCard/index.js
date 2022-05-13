@@ -4,6 +4,7 @@ import { Surface } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import { useNavigation } from '@react-navigation/native';
 import rotas from '~/constantes/rotas';
+import { formatarWithCalendar } from '~/utils/dateUtils';
 
 const NotificationCard = props => {
   const navigation = useNavigation();
@@ -37,7 +38,7 @@ const NotificationCard = props => {
         <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
           {data.title}
         </Text>
-        <Text style={styles.date}>{data.date}</Text>
+        <Text style={styles.date}>{formatarWithCalendar(data.date)}</Text>
       </View>
     </Surface>
   );
