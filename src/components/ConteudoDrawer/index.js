@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -14,6 +14,7 @@ import ItemDrawer from './itemDrawer';
 import ItemInferior from './itemInferior';
 import { DroidSafeArea } from './styles';
 
+// TODO: implementar a integração com os dados
 function conteudoDoDrawer(props) {
   const { routeName } = props;
 
@@ -54,7 +55,34 @@ function conteudoDoDrawer(props) {
     },
     {
       testID: testIDs.DRAWER.ITEM_NOTIFICATIONS,
-      nome: 'Notificações',
+      nome: () => (
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <Text
+            style={{
+              fontSize: 15,
+              color: 'rgba(0, 0, 0, 0.87)',
+              fontWeight: '500',
+            }}>
+            Notificações
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              padding: 4,
+              borderRadius: 4,
+              backgroundColor: '#F2453D',
+              color: '#fff',
+              fontWeight: '500',
+            }}>
+            13
+          </Text>
+        </View>
+      ),
       icone: (
         <Icon
           testID="icon-drawer-notifications"
