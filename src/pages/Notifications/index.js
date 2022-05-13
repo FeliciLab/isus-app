@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
@@ -8,6 +8,7 @@ import NotificationsEmptyMesage from './ NotificationsEmptyMesage/index';
 import items from './mockItems';
 import NotificationCard from './NotificationCard';
 import { Container, NotificationsBottomBar } from './styles';
+import { sortBy } from 'lodash';
 
 const Notifications = () => {
   const navigation = useNavigation();
@@ -35,6 +36,11 @@ const Notifications = () => {
     });
   }, []);
 
+  const notifications = useMemo(() => sortBy(items, 'date').reverse(), [
+    items,
+    sortBy,
+  ]);
+
   // TODO: implementar integração
   const handrleMarkAllRead = useCallback(async () => {
     console.log('handrleMarkAllRead Press');
@@ -44,7 +50,7 @@ const Notifications = () => {
     <Container>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={items}
+        data={notifications}
         renderItem={({ item }) => <NotificationCard data={item} />}
         keyExtractor={item => item.id}
         ListEmptyComponent={() => <NotificationsEmptyMesage />}
