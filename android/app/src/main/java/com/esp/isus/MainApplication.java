@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import io.xogus.reactnative.versioncheck.RNVersionCheckPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.microsoft.codepush.react.CodePush; // <- https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md

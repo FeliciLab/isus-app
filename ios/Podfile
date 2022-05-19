@@ -14,6 +14,8 @@ target 'isusapp' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-version-check', :path => '../node_modules/react-native-version-check'
+
   target 'isusappTests' do
     inherit! :complete
     # Pods for testing
