@@ -2,7 +2,7 @@ import { FeatureToggles } from '@paralleldrive/react-feature-toggles';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import React, { useEffect } from 'react';
-import { Platform, StatusBar } from 'react-native';
+import { Linking, Platform, StatusBar } from 'react-native';
 import codePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -16,6 +16,7 @@ import featuresAtivas from './featureAtivas';
 import Routes from './routes';
 import { navigate, navigationRef } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
+import VersionCheck from 'react-native-version-check';
 
 // TODO: Remover o FeatureToggles quando pararmos de chamar no código
 
@@ -61,6 +62,15 @@ function App() {
     });
 
     return () => OneSignal.clearHandlers();
+  }, []);
+
+  // TODO: o que fazer quano precisar de atualização?
+  useEffect(() => {
+    VersionCheck.needUpdate().then(async res => {
+      console.log(JSON.stringify(res, null, 2)); // true
+
+      Linking.openURL(res.storeUrl); // open store if update is needed.
+    });
   }, []);
 
   const redirecionaManejo = () => navigate('clinical management');
