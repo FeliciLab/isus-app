@@ -7,6 +7,7 @@ import codePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import VersionCheck from 'react-native-version-check';
 import CaixaDialogo from './components/caixaDialogo';
 import { CORES } from './constantes/estiloBase';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
@@ -16,7 +17,6 @@ import featuresAtivas from './featureAtivas';
 import Routes from './routes';
 import { navigate, navigationRef } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
-import VersionCheck from 'react-native-version-check';
 
 // TODO: Remover o FeatureToggles quando pararmos de chamar no código
 
