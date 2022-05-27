@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import ListaCards from '~/components/listaCards';
+import ListaCards from '~/components/ListaCards';
 import feature from '~/constantes/features';
 import { listaImagensElmo } from '~/constantes/imagens';
 import ROTAS from '~/constantes/rotas';
