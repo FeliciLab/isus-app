@@ -2,6 +2,7 @@ import { Button, Snackbar, TextInput } from 'react-native-paper';
 import styled from 'styled-components/native';
 import { CORES } from '~/constantes/estiloBase';
 
+// TODO: remover isso depois
 export const Container = styled.View`
   background-color: ${CORES.BRANCO};
   margin: 0 16px;
