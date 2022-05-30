@@ -91,7 +91,6 @@ export default function AlertaFaltaDeEpiScreen() {
           Saúde para nos ajudar a resolver o problema e melhorar a condição
           atual.
         </Text>
-
         <TextInput
           numberOfLines={5}
           mode="outlined"
@@ -102,7 +101,6 @@ export default function AlertaFaltaDeEpiScreen() {
           onChangeText={text => setDescricao(text)}
           style={{ marginBottom: 20 }}
         />
-
         <TextInput
           mode="outlined"
           ref={unidadeDeSaudeInput}
@@ -111,7 +109,6 @@ export default function AlertaFaltaDeEpiScreen() {
           onChangeText={text => setUnidadeDeSaude(text)}
           style={{ marginBottom: 20 }}
         />
-
         <TextInput
           mode="outlined"
           ref={emailInput}
@@ -120,7 +117,6 @@ export default function AlertaFaltaDeEpiScreen() {
           onChangeText={text => setEmail(text)}
           style={{ marginBottom: 20 }}
         />
-
         <Text
           style={{
             letterSpacing: 0.25,

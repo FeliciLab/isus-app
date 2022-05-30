@@ -4,26 +4,18 @@ import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import SelectModal from '~/components/SelectModal/index';
-import { FormProvider } from '~/context/FormContext';
-import AlertaFaltaDeEpiScreen from './alertaFaltaDeEpi';
-import DemandaEducacao from './demandaEducacao';
-import DropdownSimples from './dropdown';
-import DuvidasElmo from './duvidasElmo';
-import FeedbackScreen from './feedback';
-import {
-  ALERTA_FALTA_EPI,
-  DEMANDA_EDUCACAO,
-  DUVIDAS_ELMO,
-  RELATAR_PROBLEMA,
-  RELATAR_SUGESTAO,
-} from './tiposDeOcorrencia';
+import AlertarFaltaEPIFrom from './AlertarFaltaEPIFrom/index';
+import DemandaEducacaoFrom from './DemandaEducacaoFrom/index';
+import DuvidasElmoFrom from './DuvidasElmoFrom/index';
+import RelatarProbelmaFrom from './RelatarProbelmaFrom/index';
+import RelatarSujestaoFrom from './RelatarSujestaoFrom/index';
 
 const ocorrencias = [
-  'Relatar problema (iSUS)',
   'Relatar sugestão (iSUS)',
-  'Alerta de falta de EPI',
+  'Relatar problema (iSUS)',
   'Demanda por Educação Permanente',
   'Dúvidas sobre o Elmo',
+  'Alerta de falta de EPI',
 ];
 
 export default function FaleConoscoScreen({ route }) {
@@ -39,33 +31,20 @@ export default function FaleConoscoScreen({ route }) {
     useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), []),
   );
 
-  const tiposDeOcorrencia = [
-    { value: ALERTA_FALTA_EPI.textoDoDropdown },
-    { value: RELATAR_SUGESTAO.textoDoDropdown },
-    { value: RELATAR_PROBLEMA.textoDoDropdown },
-    { value: DEMANDA_EDUCACAO.textoDoDropdown },
-    { value: DUVIDAS_ELMO.textoDoDropdown },
-  ];
-
-  function TipoDoDropdown({ tipo }) {
-    if (tipo === ALERTA_FALTA_EPI.textoDoDropdown) {
-      return <AlertaFaltaDeEpiScreen />;
-    }
-
-    if (tipo === DEMANDA_EDUCACAO.textoDoDropdown) {
-      return <DemandaEducacao />;
-    }
-
-    if (tipo === DUVIDAS_ELMO.textoDoDropdown) {
-      return (
-        <FormProvider>
-          <DuvidasElmo />
-        </FormProvider>
-      );
-    }
-
-    return <FeedbackScreen tipoDeFeedback={ocorrenciaAtual} />;
-  }
+  const renderForm = () => {
+    const forms = {
+      'Relatar problema (iSUS)': <RelatarProbelmaFrom />,
+      'Relatar sugestão (iSUS)': <RelatarSujestaoFrom />,
+      'Alerta de falta de EPI': <AlertarFaltaEPIFrom />,
+      'Demanda por Educação Permanente': <DemandaEducacaoFrom />,
+      'Dúvidas sobre o Elmo': <DuvidasElmoFrom />,
+    };
+    return forms[ocorrenciaSelected] ? (
+      forms[ocorrenciaSelected]
+    ) : (
+      <RelatarProbelmaFrom />
+    );
+  };
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
@@ -93,13 +72,7 @@ export default function FaleConoscoScreen({ route }) {
             label: String(item),
           }))}
         />
-        <DropdownSimples
-          label="Tipo de ocorrência"
-          dados={tiposDeOcorrencia}
-          valorInicial={ocorrenciaAtual}
-          aoMudarValor={ocorrencia => alterarOcorrenciaAtual(ocorrencia)}
-        />
-        <TipoDoDropdown tipo={ocorrenciaAtual.textoDoDropdown} />
+        {renderForm()}
       </View>
     </KeyboardAwareScrollView>
   );

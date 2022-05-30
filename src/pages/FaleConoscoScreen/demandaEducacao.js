@@ -89,7 +89,6 @@ export default function DemandaEducacaoScreen() {
           onChangeText={text => alterarDescricao(text)}
           style={{ marginBottom: 20 }}
         />
-
         <TextInput
           mode="outlined"
           ref={unidadeDeSaudeInput}
@@ -98,7 +97,6 @@ export default function DemandaEducacaoScreen() {
           onChangeText={text => alterarUnidadeDeSaude(text)}
           style={{ marginBottom: 20 }}
         />
-
         <TextInput
           mode="outlined"
           ref={emailInput}
@@ -107,7 +105,6 @@ export default function DemandaEducacaoScreen() {
           onChangeText={text => setEmail(text)}
           style={{ marginBottom: 20 }}
         />
-
         <Text
           style={{
             letterSpacing: 0.25,
