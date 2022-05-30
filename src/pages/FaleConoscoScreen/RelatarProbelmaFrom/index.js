@@ -4,9 +4,10 @@ import { Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Button } from 'react-native-paper';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
+import CustonFAB from '~/components/CustonFAB/index';
 
 const RelatarProbelmaFrom = () => {
-  const { control } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       motivo: '',
       email: '',
@@ -20,6 +21,10 @@ const RelatarProbelmaFrom = () => {
     });
 
     console.log(result.assets[0].uri);
+  };
+
+  const onSubmit = data => {
+    console.log(data);
   };
 
   return (
@@ -53,6 +58,20 @@ const RelatarProbelmaFrom = () => {
         mode="outlined"
         label="Email"
       />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+        }}>
+        <CustonFAB
+          labelStyle={{ color: '#fff' }}
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+          label="Enviar"
+          small
+        />
+      </View>
     </View>
   );
 };

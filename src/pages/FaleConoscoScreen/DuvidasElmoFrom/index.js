@@ -2,14 +2,19 @@ import React from 'react';
 import { View } from 'react-native';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import { useForm } from 'react-hook-form';
+import CustonFAB from '~/components/CustonFAB/index';
 
 const DuvidasElmoFrom = () => {
-  const { control } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       duvida: '',
       email: '',
     },
   });
+
+  const onSubmit = data => {
+    console.log(data);
+  };
 
   return (
     <View>
@@ -27,6 +32,20 @@ const DuvidasElmoFrom = () => {
         mode="outlined"
         label="Email"
       />
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+        }}>
+        <CustonFAB
+          labelStyle={{ color: '#fff' }}
+          mode="contained"
+          onPress={handleSubmit(onSubmit)}
+          label="Enviar"
+          small
+        />
+      </View>
     </View>
   );
 };
