@@ -6,7 +6,7 @@ import { pegarProjetosPorId } from '~/apis/apiHome';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import BarraInferior from '~/components/BarraInferior';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
-import WebView from '~/components/WebView';
+import WebViewContent from '../../../components/WebViewContent';
 import rotas from '~/constantes/rotas';
 import {
   converterImagemParaBase64,
@@ -18,7 +18,9 @@ import wordpress from '~/services/wordpress';
 import formatarDataPorExtenso from '~/utils/dateUtils';
 import { AreaConteudo, Barra, TextoLateral } from './style';
 
-export default function({ route, navigation }) {
+// Componente responsável pelo carregamento das "postagens" da barra inferior
+// (Minha Saude, Educação, Pesquisa)
+const Descricao = ({ route, navigation }) => {
   const { parametros, title } = route.params;
 
   const estaConectado = useNetInfo().isConnected;
@@ -172,7 +174,8 @@ export default function({ route, navigation }) {
 
   return (
     <AreaConteudo>
-      <WebView url={wordpress.urlPostagem(postagem.id)} />
+      <WebViewContent url={wordpress.urlPostagem(postagem.id)} />
+
       <BarraDeStatus
         backgroundColor={parametros.barraStatus}
         barStyle={route.params.estiloBarra}
@@ -188,4 +191,6 @@ export default function({ route, navigation }) {
       />
     </AreaConteudo>
   );
-}
+};
+
+export default Descricao;
