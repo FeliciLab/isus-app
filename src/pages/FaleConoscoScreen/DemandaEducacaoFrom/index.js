@@ -1,8 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import schema from './schema';
 
 const DemandaEducacaoFrom = () => {
   const { control, handleSubmit } = useForm({
@@ -12,6 +14,7 @@ const DemandaEducacaoFrom = () => {
       unidadeDeSaude: '',
       email: '',
     },
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = data => {

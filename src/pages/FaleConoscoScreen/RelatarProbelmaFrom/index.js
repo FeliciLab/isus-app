@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
@@ -5,6 +6,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { Button } from 'react-native-paper';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import schema from './schema';
 
 const RelatarProbelmaFrom = () => {
   const { control, handleSubmit } = useForm({
@@ -12,6 +14,7 @@ const RelatarProbelmaFrom = () => {
       motivo: '',
       email: '',
     },
+    resolver: yupResolver(schema),
   });
 
   const handleAttachmentImage = async () => {
