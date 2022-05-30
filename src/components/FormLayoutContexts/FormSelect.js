@@ -5,6 +5,7 @@ import { CORES } from '~/constantes/estiloBase';
 import FormContext from '~/context/FormContext';
 import { ArrowDropDownIcon } from '~/icons';
 
+// TODO: acho que podemos remover isso
 const FormSelect = ({ data, name, rules, label }) => {
   const dropdown = useRef();
   const { control, setValue } = useContext(FormContext);

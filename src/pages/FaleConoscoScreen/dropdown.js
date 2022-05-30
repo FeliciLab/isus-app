@@ -4,6 +4,7 @@ import { Dropdown } from 'react-native-material-dropdown-v2';
 import { ArrowDropDownIcon } from '~/icons';
 import { tiposDeOcorrenciaDropdown } from './tiposDeOcorrencia';
 
+// TODO: acho que podemos remover isso
 export default function DropdownSimples({
   valorInicial,
   aoMudarValor,
