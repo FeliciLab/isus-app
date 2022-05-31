@@ -6,6 +6,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { Button, Chip } from 'react-native-paper';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import schema from './schema';
 
 const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
@@ -28,7 +29,7 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
 
   // TODO: implementar
   const onSubmit = data => {
-    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
+    showFeedBackMessage(RELATAR_SUGESTAO.feedback);
     console.log(data);
   };
 

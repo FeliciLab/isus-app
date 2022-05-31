@@ -1,32 +1,27 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Snackbar } from 'react-native-paper';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import SelectModal from '~/components/SelectModal';
+import { ocorrencias } from '~/constantes/ocorrencias';
 import AlertarFaltaEPIFrom from './AlertarFaltaEPIFrom';
 import DemandaEducacaoFrom from './DemandaEducacaoFrom';
 import DuvidasElmoFrom from './DuvidasElmoFrom';
 import RelatarProbelmaFrom from './RelatarProbelmaFrom';
 import RelatarSujestaoFrom from './RelatarSujestaoFrom';
-import { Snackbar } from 'react-native-paper';
-
-const ocorrencias = [
-  'Relatar sugestão (iSUS)',
-  'Relatar problema (iSUS)',
-  'Demanda por Educação Permanente',
-  'Dúvidas sobre o Elmo',
-  'Alerta de falta de EPI',
-];
 
 // TODO: colocar o useRoute
-export default function FaleConoscoScreen({ route }) {
+export default function FaleConoscoScreen() {
   const navigation = useNavigation();
 
-  const [ocorrenciaSelected, setOcorrenciaSelected] = useState(ocorrencias[0]);
+  const route = useRoute();
 
-  const [ocorrenciaAtual, alterarOcorrenciaAtual] = useState(
-    route.params.ocorrencia,
+  const { ocorrencia } = route.params;
+
+  const [ocorrenciaSelectedId, setOcorrenciaSelectedId] = useState(
+    ocorrencia ? ocorrencia.id : ocorrencias[0].id,
   );
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
@@ -38,40 +33,37 @@ export default function FaleConoscoScreen({ route }) {
     setSnackbarVisible(true);
   };
 
-  useFocusEffect(
-    useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), []),
-  );
-
-  const renderForm = () => {
+  const renderForm = useCallback(() => {
     const forms = {
-      'Relatar problema (iSUS)': (
+      RELATAR_PROBLEMA: (
         <RelatarProbelmaFrom showFeedBackMessage={showFeedBackMessage} />
       ),
-      'Relatar sugestão (iSUS)': (
+      RELATAR_SUGESTAO: (
         <RelatarSujestaoFrom showFeedBackMessage={showFeedBackMessage} />
       ),
-      'Alerta de falta de EPI': (
+      ALERTA_FALTA_EPI: (
         <AlertarFaltaEPIFrom showFeedBackMessage={showFeedBackMessage} />
       ),
-      'Demanda por Educação Permanente': (
+      DEMANDA_EDUCACAO: (
         <DemandaEducacaoFrom showFeedBackMessage={showFeedBackMessage} />
       ),
-      'Dúvidas sobre o Elmo': <DuvidasElmoFrom />,
+      DUVIDAS_ELMO: <DuvidasElmoFrom />,
     };
-    return forms[ocorrenciaSelected] ? (
-      forms[ocorrenciaSelected]
+    return forms[ocorrenciaSelectedId] ? (
+      forms[ocorrenciaSelectedId]
     ) : (
       <RelatarProbelmaFrom showFeedBackMessage={showFeedBackMessage} />
     );
-  };
+  }, [ocorrenciaSelectedId]);
 
   useLayoutEffect(() => {
     cabecalhoVoltar({
       navegador: navigation,
-      titulo: ocorrenciaAtual.header,
+      titulo: ocorrencias.find(item => item.id === ocorrenciaSelectedId)
+        ?.header,
       cor: 'verde',
     });
-  }, []);
+  }, [ocorrenciaSelectedId]);
 
   return (
     <View style={{ backgroundColor: '#ffffff', flex: 1 }}>
@@ -87,11 +79,11 @@ export default function FaleConoscoScreen({ route }) {
           <SelectModal
             mode="outlined"
             title="Tipo de ocorrência"
-            value={ocorrenciaSelected}
-            setValue={setOcorrenciaSelected}
+            value={ocorrenciaSelectedId}
+            setValue={setOcorrenciaSelectedId}
             items={ocorrencias.map(item => ({
-              value: String(item),
-              label: String(item),
+              value: item.id,
+              label: item.label,
             }))}
           />
           {renderForm()}

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { DUVIDAS_ELMO } from '~/constantes/ocorrencias';
 import schema from './schema';
 
 const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
@@ -16,7 +17,7 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
   });
 
   const onSubmit = data => {
-    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
+    showFeedBackMessage(DUVIDAS_ELMO.feedback);
     console.log(data);
   };
 

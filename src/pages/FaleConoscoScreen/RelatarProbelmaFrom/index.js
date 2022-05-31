@@ -8,6 +8,7 @@ import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import schema from './schema';
 import { Chip } from 'react-native-paper';
+import { RELATAR_PROBLEMA } from '~/constantes/ocorrencias';
 
 const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
   const { control, handleSubmit } = useForm({
@@ -29,7 +30,7 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
 
   // TODO: implementar
   const onSubmit = data => {
-    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
+    showFeedBackMessage(RELATAR_PROBLEMA.feedback);
     console.log(data);
   };
 

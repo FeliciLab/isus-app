@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { ALERTA_FALTA_EPI } from '~/constantes/ocorrencias';
 import schema from './schema';
 
 const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
@@ -18,7 +19,7 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
 
   // TODO: implementar
   const onSubmit = data => {
-    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
+    showFeedBackMessage(ALERTA_FALTA_EPI.feedback);
     console.log(data);
   };
 

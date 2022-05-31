@@ -3,14 +3,11 @@ import React from 'react';
 import { Dimensions } from 'react-native';
 import ConteudoDrawer from '~/components/ConteudoDrawer';
 import { CORES } from '~/constantes/estiloBase';
+import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import rotas from '~/constantes/rotas';
 import AboutScreen from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
 import FaleConoscoScreen from '~/pages/FaleConoscoScreen';
-import {
-  DUVIDAS_ELMO,
-  RELATAR_SUGESTAO,
-} from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
 import PerfilScreen from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';

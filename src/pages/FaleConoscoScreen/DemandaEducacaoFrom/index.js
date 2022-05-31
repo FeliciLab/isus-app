@@ -5,6 +5,7 @@ import { View } from 'react-native';
 // import { postDemandaEducacao } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { DEMANDA_EDUCACAO } from '~/constantes/ocorrencias';
 import schema from './schema';
 
 const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
@@ -28,7 +29,7 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
       //   email,
       // );
 
-      showFeedBackMessage('Sua demanda foi enviado, obrigado!');
+      showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
 
       console.log(
         JSON.stringify({ descricao, unidadeDeSaude, email }, null, 2),
