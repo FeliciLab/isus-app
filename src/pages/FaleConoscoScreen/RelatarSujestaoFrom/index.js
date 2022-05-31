@@ -3,12 +3,12 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { Button } from 'react-native-paper';
+import { Button, Chip } from 'react-native-paper';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import schema from './schema';
 
-const RelatarSujestaoFrom = () => {
+const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       motivo: '',
@@ -26,7 +26,9 @@ const RelatarSujestaoFrom = () => {
     console.log(result.assets[0].uri);
   };
 
+  // TODO: implementar
   const onSubmit = data => {
+    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
     console.log(data);
   };
 
@@ -52,7 +54,9 @@ const RelatarSujestaoFrom = () => {
           onPress={handleAttachmentImage}>
           ANEXAR IMAGEM
         </Button>
-        {/* <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} /> */}
+        <Chip onClose={() => console.log('onClose Pressed')}>
+          Nome do arquivo
+        </Chip>
       </View>
       <ControlledTextInput
         style={{ marginVertical: 5 }}

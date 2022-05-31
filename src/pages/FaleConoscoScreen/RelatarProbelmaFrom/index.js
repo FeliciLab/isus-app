@@ -9,7 +9,7 @@ import CustonFAB from '~/components/CustonFAB/index';
 import schema from './schema';
 import { Chip } from 'react-native-paper';
 
-const RelatarProbelmaFrom = () => {
+const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       motivo: '',
@@ -27,7 +27,9 @@ const RelatarProbelmaFrom = () => {
     console.log(result.assets[0].uri);
   };
 
+  // TODO: implementar
   const onSubmit = data => {
+    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
     console.log(data);
   };
 

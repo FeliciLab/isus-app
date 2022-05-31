@@ -6,7 +6,7 @@ import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import schema from './schema';
 
-const DuvidasElmoFrom = () => {
+const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       duvida: '',
@@ -16,6 +16,7 @@ const DuvidasElmoFrom = () => {
   });
 
   const onSubmit = data => {
+    showFeedBackMessage('Sua demanda foi enviado, obrigado!');
     console.log(data);
   };
 

@@ -3,12 +3,13 @@ import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
-import SelectModal from '~/components/SelectModal/index';
-import AlertarFaltaEPIFrom from './AlertarFaltaEPIFrom/index';
-import DemandaEducacaoFrom from './DemandaEducacaoFrom/index';
-import DuvidasElmoFrom from './DuvidasElmoFrom/index';
-import RelatarProbelmaFrom from './RelatarProbelmaFrom/index';
-import RelatarSujestaoFrom from './RelatarSujestaoFrom/index';
+import SelectModal from '~/components/SelectModal';
+import AlertarFaltaEPIFrom from './AlertarFaltaEPIFrom';
+import DemandaEducacaoFrom from './DemandaEducacaoFrom';
+import DuvidasElmoFrom from './DuvidasElmoFrom';
+import RelatarProbelmaFrom from './RelatarProbelmaFrom';
+import RelatarSujestaoFrom from './RelatarSujestaoFrom';
+import { Snackbar } from 'react-native-paper';
 
 const ocorrencias = [
   'Relatar sugestão (iSUS)',
@@ -27,22 +28,39 @@ export default function FaleConoscoScreen({ route }) {
     route.params.ocorrencia,
   );
 
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+
+  const [feedBackMessage, setFeedBackMessage] = useState('');
+
+  const showFeedBackMessage = message => {
+    setFeedBackMessage(message);
+    setSnackbarVisible(true);
+  };
+
   useFocusEffect(
     useCallback(() => alterarOcorrenciaAtual(route.params.ocorrencia), []),
   );
 
   const renderForm = () => {
     const forms = {
-      'Relatar problema (iSUS)': <RelatarProbelmaFrom />,
-      'Relatar sugestão (iSUS)': <RelatarSujestaoFrom />,
-      'Alerta de falta de EPI': <AlertarFaltaEPIFrom />,
-      'Demanda por Educação Permanente': <DemandaEducacaoFrom />,
+      'Relatar problema (iSUS)': (
+        <RelatarProbelmaFrom showFeedBackMessage={showFeedBackMessage} />
+      ),
+      'Relatar sugestão (iSUS)': (
+        <RelatarSujestaoFrom showFeedBackMessage={showFeedBackMessage} />
+      ),
+      'Alerta de falta de EPI': (
+        <AlertarFaltaEPIFrom showFeedBackMessage={showFeedBackMessage} />
+      ),
+      'Demanda por Educação Permanente': (
+        <DemandaEducacaoFrom showFeedBackMessage={showFeedBackMessage} />
+      ),
       'Dúvidas sobre o Elmo': <DuvidasElmoFrom />,
     };
     return forms[ocorrenciaSelected] ? (
       forms[ocorrenciaSelected]
     ) : (
-      <RelatarProbelmaFrom />
+      <RelatarProbelmaFrom showFeedBackMessage={showFeedBackMessage} />
     );
   };
 
@@ -55,25 +73,39 @@ export default function FaleConoscoScreen({ route }) {
   }, []);
 
   return (
-    <KeyboardAwareScrollView
-      style={{ backgroundColor: '#FFFFFF' }}
-      extraScrollHeight={10}
-      keyboardOpeningTime={100}
-      enableOnAndroid
-      enableAutomaticScroll={Platform.OS === 'ios'}>
-      <View style={{ flex: 1, padding: 15 }}>
-        <SelectModal
-          mode="outlined"
-          title="Tipo de ocorrência"
-          value={ocorrenciaSelected}
-          setValue={setOcorrenciaSelected}
-          items={ocorrencias.map(item => ({
-            value: String(item),
-            label: String(item),
-          }))}
-        />
-        {renderForm()}
-      </View>
-    </KeyboardAwareScrollView>
+    <View style={{ backgroundColor: '#ffffff', flex: 1 }}>
+      <KeyboardAwareScrollView
+        extraScrollHeight={10}
+        keyboardOpeningTime={100}
+        enableOnAndroid
+        enableAutomaticScroll={Platform.OS === 'ios'}>
+        <View
+          style={{
+            padding: 15,
+          }}>
+          <SelectModal
+            mode="outlined"
+            title="Tipo de ocorrência"
+            value={ocorrenciaSelected}
+            setValue={setOcorrenciaSelected}
+            items={ocorrencias.map(item => ({
+              value: String(item),
+              label: String(item),
+            }))}
+          />
+          {renderForm()}
+        </View>
+      </KeyboardAwareScrollView>
+      <Snackbar
+        visible={snackbarVisible}
+        duration={5000}
+        onDismiss={() => setSnackbarVisible(false)}
+        action={{
+          label: 'ok',
+          onPress: () => setSnackbarVisible(false),
+        }}>
+        {feedBackMessage}
+      </Snackbar>
+    </View>
   );
 }
