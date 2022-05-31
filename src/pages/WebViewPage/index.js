@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import {
   ActivityIndicator,
@@ -6,21 +5,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { ArrowLeftIcon } from '~/icons';
 
-const WebViewPage = ({ navigation, route }) => {
-  const navigator = useNavigation();
+const WebViewPage = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
 
-  const widthView = Dimensions.get('window').width;
+  const windowWidth = Dimensions.get('window').width;
 
   const definirTituloWebView = title => {
     if (title.length <= 35) {
       return title;
     }
 
-    if (widthView <= 320) {
+    if (windowWidth <= 320) {
       return `${title.substring(0, 24).trim()}...`;
     }
 
@@ -45,10 +46,10 @@ const WebViewPage = ({ navigation, route }) => {
           }}
           onPress={() => {
             if (route.params.rota) {
-              navigator.navigate(route.params.rota);
+              navigation.navigate(route.params.rota);
               return;
             }
-            navigator.goBack();
+            navigation.goBack();
           }}>
           <ArrowLeftIcon size={28} color="#FFF" />
         </TouchableOpacity>
@@ -68,10 +69,7 @@ const WebViewPage = ({ navigation, route }) => {
         bottom: 0,
         top: 0,
       }}>
-      <ActivityIndicator
-        size={'large'}
-        color={alterarBackground()}
-      />
+      <ActivityIndicator size={'large'} color={alterarBackground()} />
     </View>
   );
 
