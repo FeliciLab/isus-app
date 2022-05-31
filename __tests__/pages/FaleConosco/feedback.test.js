@@ -1,13 +1,14 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+import { RELATAR_PROBLEMA } from '~/constantes/ocorrencias';
 import { TESTIDS } from '~/constantes/testIDs';
+import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import Feedback from '~/pages/FaleConoscoScreen/feedback';
 import { analyticsData } from '~/utils/analytics';
-import { RELATAR_PROBLEMA } from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
-import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 
 const mockedNavigate = jest.fn();
+
 jest.mock('../../../src/utils/validadores.js', () => ({
   feedbackValido: jest.fn(() => true),
   emailValido: jest.fn(() => true),
