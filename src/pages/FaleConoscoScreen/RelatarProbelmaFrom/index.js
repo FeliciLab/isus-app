@@ -7,6 +7,7 @@ import { Button } from 'react-native-paper';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import schema from './schema';
+import { Chip } from 'react-native-paper';
 
 const RelatarProbelmaFrom = () => {
   const { control, handleSubmit } = useForm({
@@ -52,7 +53,9 @@ const RelatarProbelmaFrom = () => {
           onPress={handleAttachmentImage}>
           ANEXAR IMAGEM
         </Button>
-        {/* <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} /> */}
+        <Chip onClose={() => console.log('onClose Pressed')}>
+          Nome do arquivo
+        </Chip>
       </View>
       <ControlledTextInput
         style={{ marginVertical: 5 }}

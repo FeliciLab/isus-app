@@ -2,14 +2,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { Button, Snackbar, TextInput } from 'react-native-paper';
+import { Button, Snackbar, TextInput, Chip } from 'react-native-paper';
 import { postFeedback } from '~/apis/apiHome';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import { vazio } from '~/utils/objectUtils';
 import { emailValido, feedbackValido } from '~/utils/validadores';
-import Tag from './Tag';
+// import Tag from './Tag';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const { analyticsData } = useAnalytics();
@@ -96,10 +96,10 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
     setNomeImagem('');
   };
 
-  const limparArquivoDeImagem = () => {
-    setNomeImagem('');
-    setImagem({});
-  };
+  // const limparArquivoDeImagem = () => {
+  //   setNomeImagem('');
+  //   setImagem({});
+  // };
 
   const extrairCaminhoDoArquivo = path =>
     `~${path.substring(path.indexOf('/Documents'))}`;
@@ -210,9 +210,12 @@ export default function FeedbackScreen({ tipoDeFeedback }) {
             }}>
             ANEXAR IMAGEM
           </Button>
-          <Tag text={nomeImagem} onClose={() => limparArquivoDeImagem()} />
+          {nomeImagem && (
+            <Chip onClose={() => console.log('onClose Pressed')}>
+              Nome do arquivo
+            </Chip>
+          )}
         </View>
-
         <TextInput
           testID="input-feedback-email"
           mode="outlined"
