@@ -11,6 +11,8 @@ import TelaConteudo from '../TelaConteudo';
 
 const Tab = createMaterialTopTabNavigator();
 
+// Componente responsável pelas "Tabs" de navegação carregadas na barra superior
+// Localizada dentro da Barra inferior: "Minha Saúde", "Educação" e "Pesquisa"
 export default function EstruturaConteudo({ navigation }) {
   const {
     titulo,
