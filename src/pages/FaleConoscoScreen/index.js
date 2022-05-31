@@ -19,6 +19,7 @@ const ocorrencias = [
   'Alerta de falta de EPI',
 ];
 
+// TODO: colocar o useRoute
 export default function FaleConoscoScreen({ route }) {
   const navigation = useNavigation();
 
