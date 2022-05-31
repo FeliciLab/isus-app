@@ -1,15 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { Button, Chip } from 'react-native-paper';
+import { postFeedback } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import { RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import schema from './schema';
 
 const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [imagem, setImagem] = useState();
+
   const { control, handleSubmit } = useForm({
     defaultValues: {
       motivo: '',
@@ -19,18 +24,38 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
   });
 
   const handleAttachmentImage = async () => {
-    const result = await launchImageLibrary({
-      mediaType: 'photo',
-      includeBase64: true,
-    });
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        includeBase64: true,
+      });
 
-    console.log(result.assets[0].uri);
+      setImagem(result.assets[0]);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // TODO: implementar
-  const onSubmit = data => {
-    showFeedBackMessage(RELATAR_SUGESTAO.feedback);
-    console.log(data);
+  // TODO: melhorar a implementação
+  const onSubmit = async ({ motivo, email }) => {
+    try {
+      setIsLoading(true);
+
+      const { data } = await postFeedback(
+        RELATAR_SUGESTAO.label,
+        motivo,
+        email,
+        imagem,
+      );
+
+      showFeedBackMessage(RELATAR_SUGESTAO.feedback);
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -55,9 +80,14 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
           onPress={handleAttachmentImage}>
           ANEXAR IMAGEM
         </Button>
-        <Chip onClose={() => console.log('onClose Pressed')}>
-          Nome do arquivo
-        </Chip>
+        {imagem && (
+          <Chip
+            style={{ maxWidth: 200 }}
+            ellipsizeMode="middle"
+            onClose={() => setImagem(null)}>
+            {imagem.fileName}
+          </Chip>
+        )}
       </View>
       <ControlledTextInput
         style={{ marginVertical: 5 }}
@@ -74,6 +104,8 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
         }}>
         <CustonFAB
           labelStyle={{ color: '#fff' }}
+          loading={isLoading}
+          disabled={isLoading}
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           label="Enviar"

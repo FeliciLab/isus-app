@@ -9,7 +9,6 @@ import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import { vazio } from '~/utils/objectUtils';
 import { emailValido, feedbackValido } from '~/utils/validadores';
-// import Tag from './Tag';
 
 export default function FeedbackScreen({ tipoDeFeedback }) {
   const { analyticsData } = useAnalytics();
