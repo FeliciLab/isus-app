@@ -13,12 +13,24 @@ import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons/index';
 
 const SelectModal = props => {
-  const { title, placeholder, items = [], value, setValue, ...rest } = props;
+  const {
+    title,
+    placeholder,
+    items = [],
+    value,
+    setValue,
+    deselectable = true,
+    ...rest
+  } = props;
 
   const [open, setOpen] = useState(false);
 
   const handleOnPressItem = item => {
-    setValue(item.value === value ? undefined : item.value);
+    if (deselectable) {
+      setValue(item.value === value ? undefined : item.value);
+    } else {
+      setValue(item.value);
+    }
     setOpen(false);
   };
 
@@ -37,7 +49,6 @@ const SelectModal = props => {
         visible={open}
         onRequestClose={() => setOpen(false)}>
         <SafeAreaView>
-
           <View style={styles.header}>
             <TouchableOpacity onPress={() => setOpen(false)}>
               <ArrowLeftIcon ArrowLeftIcon size={22} color={CORES.VERDE} />

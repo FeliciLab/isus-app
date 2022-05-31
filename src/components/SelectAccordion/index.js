@@ -3,11 +3,28 @@ import { List } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 
 const SelectAccordion = props => {
-  const { title, value, setValue, placeholder, items = [], ...rest } = props;
+  const {
+    title,
+    value,
+    setValue,
+    placeholder,
+    items = [],
+    deselectable = true,
+    ...rest
+  } = props;
 
   const [expanded, setExpanded] = useState(false);
 
   const handlePress = () => setExpanded(old => !old);
+
+  const handleOnPressItem = item => {
+    if (deselectable) {
+      setValue(item.value === value ? undefined : item.value);
+    } else {
+      setValue(item.value);
+    }
+    setExpanded(false);
+  };
 
   return (
     <List.Section title={title}>
@@ -24,10 +41,7 @@ const SelectAccordion = props => {
           <List.Item
             key={item.value}
             title={item.label}
-            onPress={() => {
-              setValue(item.value === value ? undefined : item.value);
-              setExpanded(false);
-            }}
+            onPress={() => handleOnPressItem(item)}
             right={props => {
               return item.value === value ? (
                 <List.Icon {...props} icon="check" color={CORES.VERDE} />

@@ -78,6 +78,7 @@ export default function FaleConoscoScreen() {
           }}>
           <SelectModal
             mode="outlined"
+            deselectable={false}
             title="Tipo de ocorrência"
             value={ocorrenciaSelectedId}
             setValue={setOcorrenciaSelectedId}
