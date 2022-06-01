@@ -1,10 +1,7 @@
-import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useRef } from 'react';
-import SemConexao from '~/components/semConexao';
-import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
 import { FormProvider } from '~/context/FormContext';
 import BemVindo from '~/pages/BemVindo';
@@ -20,7 +17,7 @@ import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
 import QualiQuiz from '~/pages/QualiQuiz';
 import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
-import NovoSemConexao from '~/pages/SemConexao';
+import SemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
 import WebViewPage from '~/pages/WebViewPage';
 import AppDrawerScreen from './appDrawerScreen.routes';
@@ -37,15 +34,6 @@ const ElmoFunc = props => (
   <FormProvider>
     <Elmo {...props} />
   </FormProvider>
-);
-
-// TODO: remover depois esse Feature
-const SemConexaoNovo = props => (
-  <Feature
-    name={features.TELA_SEM_CONEXAO}
-    activeComponent={() => <NovoSemConexao {...props} />}
-    inactiveComponent={() => <SemConexao {...props} />}
-  />
 );
 
 const Routes = ({ navigationRef }) => {
@@ -105,7 +93,7 @@ const Routes = ({ navigationRef }) => {
         />
         <RootStack.Screen
           name={rotas.SEM_CONEXAO}
-          component={SemConexaoNovo}
+          component={SemConexao}
           options={{ headerShown: true }}
         />
         <RootStack.Screen

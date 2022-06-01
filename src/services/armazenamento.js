@@ -94,16 +94,6 @@ const converterImagemParaBase64 = async urlImagem => {
   return file;
 };
 
-const Armazenamento = {
-  salvarDados,
-  pegarDados,
-  pegarTodasAsChaves,
-  pegarChavesCom,
-  pegarDadosDeChavesCom,
-  removerDados,
-  converterImagemParaBase64,
-};
-
 export {
   salvarDados,
   pegarDados,
@@ -113,5 +103,3 @@ export {
   removerDados,
   converterImagemParaBase64,
 };
-
-export default Armazenamento;

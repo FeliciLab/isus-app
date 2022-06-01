@@ -13,8 +13,3 @@ export const Paragrafo = styled(Paragraph)`
   max-width: 112px;
 `;
 
-export const Imagem = styled.Image`
-  width: 140px;
-  height: 100px;
-  border-radius: 10px;
-`;
