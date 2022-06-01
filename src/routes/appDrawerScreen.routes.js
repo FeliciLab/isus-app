@@ -7,7 +7,7 @@ import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import rotas from '~/constantes/rotas';
 import AboutScreen from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
-import FaleConoscoScreen from '~/pages/FaleConoscoScreen';
+import FaleConosco from '~/pages/FaleConosco';
 import PerfilScreen from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
@@ -53,13 +53,13 @@ export default function AppDrawerScreen() {
       />
       <Drawer.Screen
         name={rotas.FALE_CONOSCO}
-        component={FaleConoscoScreen}
+        component={FaleConosco}
         options={{ headerShown: true }}
         initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
       <Drawer.Screen
         name={rotas.DUVIDAS_ELMO}
-        component={FaleConoscoScreen}
+        component={FaleConosco}
         options={{ headerShown: true }}
         initialParams={{ ocorrencia: DUVIDAS_ELMO }}
       />

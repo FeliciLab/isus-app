@@ -16,7 +16,7 @@ import DuvidasElmoFrom from './DuvidasElmoFrom';
 import RelatarProbelmaFrom from './RelatarProbelmaFrom';
 import RelatarSujestaoFrom from './RelatarSujestaoFrom';
 
-export default function FaleConoscoScreen() {
+export default function FaleConosco() {
   const navigation = useNavigation();
 
   const route = useRoute();
