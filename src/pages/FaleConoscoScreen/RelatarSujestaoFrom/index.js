@@ -24,6 +24,17 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
     resolver: yupResolver(schema),
   });
 
+  const extrairMensagemDeErro = ({ errors }) => {
+    if (errors.motivo) return errors.duvida[0];
+    if (errors.email) return errors.duvida[0];
+    if (errors['imagem.dados']) {
+      return 'Falha no envio da imagem. Entre em contato com o suporte técnico para verificar o problema.';
+    }
+    if (errors['imagem.tipo']) return errors['imagem.tipo'][0];
+    if (errors['imagem.tamanho']) return errors['imagem.tamanho'][0];
+    return '';
+  };
+
   const handleAttachmentImage = async () => {
     try {
       const result = await launchImageLibrary({
@@ -42,9 +53,16 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
       motivo: '',
       email: '',
     });
+    setImagem(null);
   };
 
-  // TODO: melhorar a implementação
+  const handleParserImage = image => ({
+    nome: image.fileName,
+    tipo: image.type,
+    tamanho: image.fileSize,
+    dados: image.base64,
+  });
+
   const onSubmit = async ({ motivo, email }) => {
     try {
       setIsLoading(true);
@@ -53,14 +71,25 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
         RELATAR_SUGESTAO.label,
         motivo,
         email,
-        imagem,
+        handleParserImage(imagem),
       );
 
-      showFeedBackMessage(RELATAR_SUGESTAO.feedback);
-
-      console.log(data);
+      if (data.errors) {
+        showFeedBackMessage(extrairMensagemDeErro(data));
+      } else {
+        limparCampos();
+        showFeedBackMessage(RELATAR_SUGESTAO.feedback);
+      }
     } catch (error) {
-      console.log(error);
+      if (error.message === 'Network Error') {
+        showFeedBackMessage(
+          'Erro na conexão com o servidor. Tente novamente mais tarde.',
+        );
+      } else {
+        showFeedBackMessage(
+          'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+        );
+      }
     } finally {
       setIsLoading(false);
     }

@@ -24,6 +24,17 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
     resolver: yupResolver(schema),
   });
 
+  const extrairMensagemDeErro = ({ errors }) => {
+    if (errors.motivo) return errors.duvida[0];
+    if (errors.email) return errors.duvida[0];
+    if (errors['imagem.dados']) {
+      return 'Falha no envio da imagem. Entre em contato com o suporte técnico para verificar o problema.';
+    }
+    if (errors['imagem.tipo']) return errors['imagem.tipo'][0];
+    if (errors['imagem.tamanho']) return errors['imagem.tamanho'][0];
+    return '';
+  };
+
   const handleAttachmentImage = async () => {
     try {
       const result = await launchImageLibrary({
@@ -45,25 +56,13 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
     setImagem(null);
   };
 
-  const parsearResponse = response => ({
+  const handleParserImage = response => ({
     nome: response.fileName,
     tipo: response.type,
     tamanho: response.fileSize,
     dados: response.base64,
   });
 
-  const extrairMensagemDeErro = ({ errors }) => {
-    if (errors.motivo) return errors.duvida[0];
-    if (errors.email) return errors.duvida[0];
-    if (errors['imagem.dados']) {
-      return 'Falha no envio da imagem. Entre em contato com o suporte técnico para verificar o problema.';
-    }
-    if (errors['imagem.tipo']) return errors['imagem.tipo'][0];
-    if (errors['imagem.tamanho']) return errors['imagem.tamanho'][0];
-    return '';
-  };
-
-  // TODO: melhorar a implementação
   const onSubmit = async ({ motivo, email }) => {
     try {
       setIsLoading(true);
@@ -72,7 +71,7 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
         RELATAR_PROBLEMA.label,
         motivo,
         email,
-        parsearResponse(imagem),
+        handleParserImage(imagem),
       );
 
       if (data.errors) {
