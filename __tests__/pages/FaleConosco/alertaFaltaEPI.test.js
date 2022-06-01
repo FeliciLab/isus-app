@@ -1,13 +1,10 @@
 import React from 'react';
-import {
-  // fireEvent,
-  render,
-} from 'util-teste';
+import { fireEvent, act, render } from 'util-teste';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import AlertarFaltaEPIFrom from '~/pages/FaleConosco/AlertarFaltaEPIFrom';
 // import { labelsAnalytics } from '~/constantes/labelsAnalytics';
-// import { analyticsData } from '~/utils/analytics';
+import { analyticsData } from '~/utils/analytics';
 
 const mockedNavigate = jest.fn();
 
@@ -38,8 +35,63 @@ describe('descreve os testes de Fale conosco', () => {
     BotaoFaltaDeEPI = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
   });
 
-  test('deve renderizar o botão de enviar ao renderizar o alertaFaltaEPI', () => {
+  test('deve renderizar o botão de enviar ao renderizar o AlertarFaltaEPIFrom', () => {
     expect(BotaoFaltaDeEPI).not.toBeNull();
+  });
+
+  test('deve ter todos os elementos da tela', async () => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{
+          trackingStatus: 'active',
+          isTrackingAuthorized: true,
+        }}>
+        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+
+    const descricaoInput = getByTestId('descricaoInput');
+
+    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+
+    const emailInput = getByTestId('emailInput');
+
+    expect(enviarButton).toBeTruthy();
+    expect(descricaoInput).toBeTruthy();
+    expect(unidadeDeSaudeInput).toBeTruthy();
+    expect(emailInput).toBeTruthy();
+  });
+
+  test('Deve aparecer as mensagens de erro quando inputs não preenchidos', async () => {
+    const { getByTestId, getAllByText } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{
+          trackingStatus: 'active',
+          isTrackingAuthorized: true,
+        }}>
+        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    const msgErrors = getAllByText('Campo obrigatório');
+
+    expect(msgErrors.length).toBe(2);
+  });
+
+  test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
+    await act(async () => {
+      fireEvent.press(BotaoFaltaDeEPI);
+    });
+
+    expect(analyticsData).not.toHaveBeenCalled();
   });
 
   // TODO: ajustar os testes para poder usar as validações

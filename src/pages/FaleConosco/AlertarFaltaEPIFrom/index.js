@@ -87,6 +87,7 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
         Saúde para nos ajudar a resolver o problema e melhorar a condição atual.
       </Text>
       <ControlledTextInput
+        testID="descricaoInput"
         style={{ marginVertical: 5 }}
         multiline
         numberOfLines={5}
@@ -96,6 +97,7 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
         label="Descreva a situação atual *"
       />
       <ControlledTextInput
+        testID="unidadeDeSaudeInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="unidadeDeSaude"
@@ -103,6 +105,7 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
         label="Unidade de Saúde *"
       />
       <ControlledTextInput
+        testID="emailInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="email"
