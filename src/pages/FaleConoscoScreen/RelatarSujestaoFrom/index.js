@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
@@ -15,7 +16,7 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
 
   const [imagem, setImagem] = useState();
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       motivo: '',
       email: '',
@@ -34,6 +35,13 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const limparCampos = () => {
+    reset({
+      motivo: '',
+      email: '',
+    });
   };
 
   // TODO: melhorar a implementação
@@ -57,6 +65,8 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
       setIsLoading(false);
     }
   };
+
+  useFocusEffect(useCallback(() => limparCampos(), []));
 
   return (
     <View>

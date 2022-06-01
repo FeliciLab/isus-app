@@ -1,26 +1,83 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import { postAlertaFaltaDeEpi } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { ALERTA_FALTA_EPI } from '~/constantes/ocorrencias';
+import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
+import { useFocusEffect } from '@react-navigation/native';
 
 const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
-  const { control, handleSubmit } = useForm({
+  const { analyticsData } = useAnalytics();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
-      situacaoAtual: '',
+      descricao: '',
       unidadeDeSaude: '',
       email: '',
     },
     resolver: yupResolver(schema),
   });
 
-  // TODO: implementar
-  const onSubmit = data => {
-    showFeedBackMessage(ALERTA_FALTA_EPI.feedback);
-    console.log(data);
+  const extrairMensagemDeErro = response => {
+    if (response.errors.descricao) return response.errors.descricao[0];
+    if (response.errors.unidadeDeSaude)
+      return response.errors.unidadeDeSaude[0];
+    return '';
+  };
+
+  const limparCampos = () => {
+    reset({
+      descricao: '',
+      unidadeDeSaude: '',
+      email: '',
+    });
+  };
+
+  useFocusEffect(useCallback(() => limparCampos(), []));
+
+  const onSubmit = async ({ descricao, unidadeDeSaude, email }) => {
+    try {
+      setIsLoading(true);
+      const { data } = await postAlertaFaltaDeEpi(
+        descricao,
+        unidadeDeSaude,
+        email,
+      );
+
+      if (data.errors) {
+        showFeedBackMessage(extrairMensagemDeErro(data));
+      } else {
+        limparCampos();
+      }
+
+      analyticsData(
+        labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI,
+        'Click',
+        'Fale Conosco',
+      );
+
+      showFeedBackMessage(ALERTA_FALTA_EPI.feedback);
+    } catch (error) {
+      console.log(error);
+      if (error.message === 'Network Error')
+        showFeedBackMessage(
+          'Erro na conexão com o servidor. Tente novamente mais tarde.',
+        );
+      else
+        showFeedBackMessage(
+          'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+        );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -34,7 +91,7 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
         multiline
         numberOfLines={5}
         control={control}
-        name="situacaoAtual"
+        name="descricao"
         mode="outlined"
         label="Descreva a situação atual *"
       />
@@ -59,7 +116,10 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
           justifyContent: 'flex-end',
         }}>
         <CustonFAB
+          testID={TESTIDS.BOTAO_ALERTAEPI_ENVIAR}
           labelStyle={{ color: '#fff' }}
+          loading={isLoading}
+          disabled={isLoading}
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           label="Enviar"

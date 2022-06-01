@@ -31,7 +31,7 @@ export default function AlertaFaltaDeEpiScreen() {
 
   const [carregando, setCarregando] = useState(false);
 
-  useFocusEffect(useCallback(() => () => limparCampos(), []));
+  useFocusEffect(useCallback(() => limparCampos(), []));
 
   const onSubmit = async () => {
     try {

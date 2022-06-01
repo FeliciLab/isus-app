@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-// import { postDemandaEducacao } from '~/apis/apiHome';
+import { postDemandaEducacao } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import { DEMANDA_EDUCACAO } from '~/constantes/ocorrencias';
@@ -11,7 +12,7 @@ import schema from './schema';
 const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       descricao: '',
       unidadeDeSaude: '',
@@ -20,16 +21,28 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
     resolver: yupResolver(schema),
   });
 
+  const limparCampos = () => {
+    reset({
+      descricao: '',
+      unidadeDeSaude: '',
+      email: '',
+    });
+  };
+
   const onSubmit = async ({ descricao, unidadeDeSaude, email }) => {
     try {
       setIsLoading(true);
-      // const { data } = await postDemandaEducacao(
-      //   descricao,
-      //   unidadeDeSaude,
-      //   email,
-      // );
+
+      const { data } = await postDemandaEducacao(
+        descricao,
+        unidadeDeSaude,
+        email,
+      );
 
       showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
+
+      // TODO: remover depois esses consoles.logs
+      console.log(JSON.stringify(data, null, 2));
 
       console.log(
         JSON.stringify({ descricao, unidadeDeSaude, email }, null, 2),
@@ -40,6 +53,8 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
       setIsLoading(false);
     }
   };
+
+  useFocusEffect(useCallback(() => limparCampos(), []));
 
   return (
     <View>
@@ -71,9 +86,9 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
           justifyContent: 'flex-end',
         }}>
         <CustonFAB
+          labelStyle={{ color: '#fff' }}
           loading={isLoading}
           disabled={isLoading}
-          labelStyle={{ color: '#fff' }}
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           label="Enviar"

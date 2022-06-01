@@ -1,22 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { Button } from 'react-native-paper';
+import { Button, Chip } from 'react-native-paper';
+import { postFeedback } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
-import schema from './schema';
-import { Chip } from 'react-native-paper';
 import { RELATAR_PROBLEMA } from '~/constantes/ocorrencias';
-import { postFeedback } from '~/apis/apiHome';
+import schema from './schema';
 
 const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [imagem, setImagem] = useState();
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       motivo: '',
       email: '',
@@ -35,6 +35,13 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const limparCampos = () => {
+    reset({
+      motivo: '',
+      email: '',
+    });
   };
 
   // TODO: melhorar a implementação
@@ -58,6 +65,8 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
       setIsLoading(false);
     }
   };
+
+  useFocusEffect(useCallback(() => limparCampos(), []));
 
   return (
     <View>

@@ -1,4 +1,8 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -21,7 +25,7 @@ export default function FaleConoscoScreen() {
   const { ocorrencia } = route.params;
 
   const [ocorrenciaSelectedId, setOcorrenciaSelectedId] = useState(
-    ocorrencia ? ocorrencia.id : ocorrencias[0].id,
+    ocorrencias[0].id,
   );
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
@@ -64,6 +68,14 @@ export default function FaleConoscoScreen() {
       cor: 'verde',
     });
   }, [ocorrenciaSelectedId]);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (ocorrencia) {
+        setOcorrenciaSelectedId(ocorrencia.id);
+      }
+    }, []),
+  );
 
   return (
     <View style={{ backgroundColor: '#ffffff', flex: 1 }}>

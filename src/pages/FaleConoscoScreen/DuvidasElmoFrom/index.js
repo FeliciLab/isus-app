@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
@@ -8,7 +9,9 @@ import { DUVIDAS_ELMO } from '~/constantes/ocorrencias';
 import schema from './schema';
 
 const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
-  const { control, handleSubmit } = useForm({
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       duvida: '',
       email: '',
@@ -16,10 +19,26 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = data => {
-    showFeedBackMessage(DUVIDAS_ELMO.feedback);
-    console.log(data);
+  const limparCampos = () => {
+    reset({
+      duvida: '',
+      email: '',
+    });
   };
+
+  const onSubmit = data => {
+    try {
+      setIsLoading(true);
+      showFeedBackMessage(DUVIDAS_ELMO.feedback);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useFocusEffect(useCallback(() => limparCampos(), []));
 
   return (
     <View>
@@ -45,6 +64,8 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
         }}>
         <CustonFAB
           labelStyle={{ color: '#fff' }}
+          loading={isLoading}
+          disabled={isLoading}
           mode="contained"
           onPress={handleSubmit(onSubmit)}
           label="Enviar"
