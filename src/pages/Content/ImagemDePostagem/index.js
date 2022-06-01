@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, Platform } from 'react-native';
-import WebView from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import defaultThumbnail from '~/assets/images/default_thumbnail.png';
 
 export default function ImagemDePostagem({ conteudoBaixado, imagem, estilo }) {
@@ -31,7 +31,7 @@ export default function ImagemDePostagem({ conteudoBaixado, imagem, estilo }) {
     <Image
       resizeMode="cover"
       style={estilo}
-      source={imagem !== null ? { uri: `${imagem}` } : DEFAULT_IMAGE}
+      source={imagem ? { uri: `${imagem}` } : DEFAULT_IMAGE}
     />
   );
 

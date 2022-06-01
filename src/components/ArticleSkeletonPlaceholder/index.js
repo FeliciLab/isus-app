@@ -1,13 +1,11 @@
 import React from 'react';
-import { View, Dimensions, PixelRatio, StyleSheet } from 'react-native';
+import { Dimensions, PixelRatio, StyleSheet, View } from 'react-native';
 import {
   Placeholder,
-  PlaceholderLine,
-  Shine,
-  PlaceholderMedia,
+  PlaceholderLine, PlaceholderMedia, Shine
 } from 'rn-placeholder';
 
-export default function() {
+const ArticleSkeletonPlaceholder = () => {
   const { container, cabecalho, conteudo, titulo, imagem } = styles;
 
   const calculaLinhasdeArtigo = () => {
@@ -20,7 +18,7 @@ export default function() {
       100;
     const linhas = [];
     for (let i = 1; i < alturaDisponivel; i += 1) {
-      linhas.push(<PlaceholderLine />);
+      linhas.push(<PlaceholderLine key={i} />);
     }
     return linhas;
   };
@@ -38,7 +36,7 @@ export default function() {
       </Placeholder>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -66,3 +64,5 @@ const styles = StyleSheet.create({
     marginRight: 60,
   },
 });
+
+export default ArticleSkeletonPlaceholder;

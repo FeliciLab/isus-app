@@ -6,7 +6,6 @@ import rotas from '~/constantes/rotas';
 import { FormProvider } from '~/context/FormContext';
 import BemVindo from '~/pages/BemVindo';
 import Descricao from '~/pages/Content/Descricao';
-import Description from '~/pages/Content/Description';
 import Elmo from '~/pages/Elmo';
 import CapacitacaoElmo from '~/pages/Elmo/CapacitacaoElmo';
 import NovidadesElmo from '~/pages/Elmo/NovidadesElmo';
@@ -20,8 +19,7 @@ import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
 import SemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
-import WebViewPage from '~/pages/WebView';
-import ManejoWebViewPage from '~/pages/WebView/ManejoWebView';
+import WebViewPage from '~/pages/WebViewPage';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
@@ -38,7 +36,7 @@ const ElmoFunc = props => (
   </FormProvider>
 );
 
-export default function App({ navigationRef }) {
+const Routes = ({ navigationRef }) => {
   const routeNameRef = useRef();
 
   return (
@@ -87,11 +85,6 @@ export default function App({ navigationRef }) {
           component={AppDrawerScreen}
           options={{ headerShown: false }}
           initialParams={{ possuiIDSaude: false }}
-        />
-        <RootStack.Screen
-          name="Descrição"
-          component={Description}
-          options={{ headerShown: true }}
         />
         <RootStack.Screen
           name={rotas.DESCRICAO}
@@ -164,10 +157,13 @@ export default function App({ navigationRef }) {
           name={rotas.NOVIDADES_ELMO}
           component={NovidadesElmo}
         />
-        {/* WebViews */}
-        <RootStack.Screen name="webview" component={WebViewPage} />
-        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
+        <RootStack.Screen
+          name={rotas.WEBVIEW_PAGE}
+          component={WebViewPage}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default Routes;
