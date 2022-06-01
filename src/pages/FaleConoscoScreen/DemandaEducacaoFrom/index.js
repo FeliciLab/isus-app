@@ -29,6 +29,13 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
     });
   };
 
+  const extrairMensagemDeErro = response => {
+    if (response.errors.descricao) return response.errors.descricao[0];
+    if (response.errors.unidadeDeSaude)
+      return response.errors.unidadeDeSaude[0];
+    return '';
+  };
+
   const onSubmit = async ({ descricao, unidadeDeSaude, email }) => {
     try {
       setIsLoading(true);
@@ -39,16 +46,22 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
         email,
       );
 
-      showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
-
-      // TODO: remover depois esses consoles.logs
-      console.log(JSON.stringify(data, null, 2));
-
-      console.log(
-        JSON.stringify({ descricao, unidadeDeSaude, email }, null, 2),
-      );
+      if (data.errors) {
+        showFeedBackMessage(extrairMensagemDeErro(data));
+      } else {
+        showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
+        limparCampos();
+      }
     } catch (error) {
-      console.log(error);
+      if (error.message === 'Network Error') {
+        showFeedBackMessage(
+          'Erro na conexão com o servidor. Tente novamente mais tarde.',
+        );
+      } else {
+        showFeedBackMessage(
+          'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+        );
+      }
     } finally {
       setIsLoading(false);
     }
