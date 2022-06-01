@@ -7,6 +7,7 @@ import { postDemandaEducacao } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import { DEMANDA_EDUCACAO } from '~/constantes/ocorrencias';
+import { TESTIDS } from '~/constantes/testIDs';
 import schema from './schema';
 
 const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
@@ -99,6 +100,7 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
           justifyContent: 'flex-end',
         }}>
         <CustonFAB
+          testID={TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR}
           labelStyle={{ color: '#fff' }}
           loading={isLoading}
           disabled={isLoading}

@@ -9,6 +9,7 @@ import { postFeedback } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import { RELATAR_PROBLEMA } from '~/constantes/ocorrencias';
+import { TESTIDS } from '~/constantes/testIDs';
 import schema from './schema';
 
 const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
@@ -142,6 +143,7 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
           justifyContent: 'flex-end',
         }}>
         <CustonFAB
+          testID={TESTIDS.BOTAO_FEEDBACK_ENVIAR}
           labelStyle={{ color: '#fff' }}
           loading={isLoading}
           disabled={isLoading}

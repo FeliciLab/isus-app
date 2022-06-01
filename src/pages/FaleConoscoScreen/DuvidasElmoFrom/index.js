@@ -7,6 +7,7 @@ import { postDuvidasElmo } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import { DUVIDAS_ELMO } from '~/constantes/ocorrencias';
+import { TESTIDS } from '~/constantes/testIDs';
 import schema from './schema';
 
 const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
@@ -85,6 +86,7 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
           justifyContent: 'flex-end',
         }}>
         <CustonFAB
+          testID={TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR}
           labelStyle={{ color: '#fff' }}
           loading={isLoading}
           disabled={isLoading}

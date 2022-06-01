@@ -34,13 +34,3 @@ export const BotaoForm = styled(Button)`
   background-color: ${props =>
     props.disabled ? CORES.CINZA_DESABILITADO : CORES.LARANJA};
 `;
-
-export const BotaoFormDisable = styled(Button)`
-  border-radius: 50px;
-  width: 150px;
-  height: 45px;
-  align-self: flex-end;
-  /* align-items: flex-end; */
-  justify-content: center;
-  margin: 20px;
-`;
