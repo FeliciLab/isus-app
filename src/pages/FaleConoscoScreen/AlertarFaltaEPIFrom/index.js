@@ -26,10 +26,10 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
     resolver: yupResolver(schema),
   });
 
-  const extrairMensagemDeErro = response => {
-    if (response.errors.descricao) return response.errors.descricao[0];
-    if (response.errors.unidadeDeSaude)
-      return response.errors.unidadeDeSaude[0];
+  const extrairMensagemDeErro = ({ errors }) => {
+    if (errors.descricao) return errors.descricao[0];
+    if (errors.unidadeDeSaude) return errors.unidadeDeSaude[0];
+    if (errors.email) return errors.email[0];
     return '';
   };
 

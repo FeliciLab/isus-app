@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { postDuvidasElmo } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
 import { DUVIDAS_ELMO } from '~/constantes/ocorrencias';
@@ -26,13 +27,34 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
     });
   };
 
-  const onSubmit = data => {
+  const extrairMensagemDeErro = ({ errors }) => {
+    if (errors.duvida) return errors.duvida[0];
+    if (errors.email) return errors.email[0];
+    return '';
+  };
+
+  const onSubmit = async ({ duvida, email }) => {
     try {
       setIsLoading(true);
-      showFeedBackMessage(DUVIDAS_ELMO.feedback);
-      console.log(data);
+
+      const { data } = await postDuvidasElmo(duvida, email);
+
+      if (data.errors) {
+        showFeedBackMessage(extrairMensagemDeErro(data));
+      } else {
+        showFeedBackMessage(DUVIDAS_ELMO.feedback);
+        limparCampos();
+      }
     } catch (error) {
-      console.log(error);
+      if (error.message === 'Network Error') {
+        showFeedBackMessage(
+          'Erro na conexão com o servidor. Tente novamente mais tarde.',
+        );
+      } else {
+        showFeedBackMessage(
+          'Ocorreu um erro inesperado. Tente novamente mais tarde.',
+        );
+      }
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +76,7 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
         control={control}
         name="email"
         mode="outlined"
-        label="Email"
+        label="Email *"
       />
       <View
         style={{

@@ -51,7 +51,9 @@ export default function FaleConoscoScreen() {
       DEMANDA_EDUCACAO: (
         <DemandaEducacaoFrom showFeedBackMessage={showFeedBackMessage} />
       ),
-      DUVIDAS_ELMO: <DuvidasElmoFrom />,
+      DUVIDAS_ELMO: (
+        <DuvidasElmoFrom showFeedBackMessage={showFeedBackMessage} />
+      ),
     };
     return forms[ocorrenciaSelectedId] ? (
       forms[ocorrenciaSelectedId]
