@@ -8,12 +8,16 @@ import { Button, Chip } from 'react-native-paper';
 import { postFeedback } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
 
 const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { analyticsData } = useAnalytics();
 
   const [imagem, setImagem] = useState();
 
@@ -80,6 +84,7 @@ const RelatarSujestaoFrom = ({ showFeedBackMessage }) => {
       } else {
         limparCampos();
         showFeedBackMessage(RELATAR_SUGESTAO.feedback);
+        analyticsData(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
       }
     } catch (error) {
       if (error.message === 'Network Error') {

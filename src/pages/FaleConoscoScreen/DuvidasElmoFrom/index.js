@@ -6,11 +6,15 @@ import { View } from 'react-native';
 import { postDuvidasElmo } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { DUVIDAS_ELMO } from '~/constantes/ocorrencias';
 import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
 
 const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
+  const { analyticsData } = useAnalytics();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { control, handleSubmit, reset } = useForm({
@@ -45,6 +49,11 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
       } else {
         showFeedBackMessage(DUVIDAS_ELMO.feedback);
         limparCampos();
+        analyticsData(
+          labelsAnalytics.ENVIAR_DUVIDAS_ELMO,
+          'Click',
+          'Fale Conosco',
+        );
       }
     } catch (error) {
       if (error.message === 'Network Error') {

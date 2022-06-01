@@ -6,11 +6,15 @@ import { View } from 'react-native';
 import { postDemandaEducacao } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { DEMANDA_EDUCACAO } from '~/constantes/ocorrencias';
 import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
 
 const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
+  const { analyticsData } = useAnalytics();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const { control, handleSubmit, reset } = useForm({
@@ -52,6 +56,11 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
       } else {
         showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
         limparCampos();
+        analyticsData(
+          labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
+          'Click',
+          'Fale Conosco',
+        );
       }
     } catch (error) {
       if (error.message === 'Network Error') {
