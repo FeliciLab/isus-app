@@ -14,7 +14,7 @@ import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
 
-const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
+const RelatarProblemaFrom = ({ showFeedBackMessage }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { analyticsData } = useAnalytics();
@@ -162,4 +162,4 @@ const RelatarProbelmaFrom = ({ showFeedBackMessage }) => {
   );
 };
 
-export default RelatarProbelmaFrom;
+export default RelatarProblemaFrom;

@@ -5,9 +5,8 @@ import {
 } from 'util-teste';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
-import DemandaEducacaoFrom from '~/pages/FaleConosco/DemandaEducacaoFrom';
+import RelatarProblemaFrom from '~/pages/FaleConosco/RelatarProblemaFrom';
 // import { labelsAnalytics } from '~/constantes/labelsAnalytics';
-// import DemandaEducacao from '~/pages/FaleConoscoScreen/demandaEducacao';
 // import { analyticsData } from '~/utils/analytics';
 
 const mockedNavigate = jest.fn();
@@ -23,36 +22,35 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: jest.fn(),
   useIsFocused: jest.fn(),
 }));
+let BotaoFeedback = null;
+
+beforeEach(() => {
+  const { getByTestId } = render(
+    <AppTrackTransparencyContext.Provider
+      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+      <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
+    </AppTrackTransparencyContext.Provider>,
+  );
+  BotaoFeedback = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
+});
 
 describe('descreve os testes de Fale conosco', () => {
-  let BotaoDemandaEducacao = null;
-  beforeEach(() => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-        <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
-
-    BotaoDemandaEducacao = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
-  });
-
-  test('deve renderizar o botão de enviar ao renderizar o alertaFaltaEPI', () => {
-    expect(BotaoDemandaEducacao).not.toBeNull();
+  test('deve renderizar o botão de enviar ao renderizar o Feedback', () => {
+    expect(BotaoFeedback).not.toBeNull();
   });
 
   // TODO: ajustar os testes para poder usar as validações
   // Não conseguimos fazer esses testes pq o analitycis só é chamando quando se conclui o envio dos
   // dados
   // test('deve  chamar o analyticsData quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoDemandaEducacao);
+  //   fireEvent.press(BotaoFeedback);
   //   expect(analyticsData).toHaveBeenCalled();
   // });
 
   // test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoDemandaEducacao);
+  //   fireEvent.press(BotaoFeedback);
   //   expect(analyticsData).toHaveBeenCalledWith(
-  //     labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
+  //     labelsAnalytics.ENVIAR_FEEDBACK,
   //     'Click',
   //     'Fale Conosco',
   //   );

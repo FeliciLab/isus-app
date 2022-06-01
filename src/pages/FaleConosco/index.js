@@ -13,7 +13,7 @@ import { ocorrencias } from '~/constantes/ocorrencias';
 import AlertarFaltaEPIFrom from './AlertarFaltaEPIFrom';
 import DemandaEducacaoFrom from './DemandaEducacaoFrom';
 import DuvidasElmoFrom from './DuvidasElmoFrom';
-import RelatarProbelmaFrom from './RelatarProbelmaFrom';
+import RelatarProblemaFrom from './RelatarProblemaFrom';
 import RelatarSujestaoFrom from './RelatarSujestaoFrom';
 
 export default function FaleConosco() {
@@ -39,7 +39,7 @@ export default function FaleConosco() {
   const renderForm = useCallback(() => {
     const forms = {
       RELATAR_PROBLEMA: (
-        <RelatarProbelmaFrom showFeedBackMessage={showFeedBackMessage} />
+        <RelatarProblemaFrom showFeedBackMessage={showFeedBackMessage} />
       ),
       RELATAR_SUGESTAO: (
         <RelatarSujestaoFrom showFeedBackMessage={showFeedBackMessage} />
@@ -57,7 +57,7 @@ export default function FaleConosco() {
     return forms[ocorrenciaSelectedId] ? (
       forms[ocorrenciaSelectedId]
     ) : (
-      <RelatarProbelmaFrom showFeedBackMessage={showFeedBackMessage} />
+      <RelatarProblemaFrom showFeedBackMessage={showFeedBackMessage} />
     );
   }, [ocorrenciaSelectedId]);
 
