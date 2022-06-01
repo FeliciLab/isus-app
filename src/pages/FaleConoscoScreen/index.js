@@ -16,7 +16,6 @@ import DuvidasElmoFrom from './DuvidasElmoFrom';
 import RelatarProbelmaFrom from './RelatarProbelmaFrom';
 import RelatarSujestaoFrom from './RelatarSujestaoFrom';
 
-// TODO: colocar o useRoute
 export default function FaleConoscoScreen() {
   const navigation = useNavigation();
 
