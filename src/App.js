@@ -16,10 +16,21 @@ import featuresAtivas from './featureAtivas';
 import Routes from './routes';
 import { navigate, navigationRef } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
+import { LogBox } from 'react-native';
 
 // TODO: Remover o FeatureToggles quando pararmos de chamar no código
 
 function App() {
+  // Ignora warnings relacionados a nova versão do RN com os módulos:
+  // react-native-reanimated (deps de react-native-navigation)
+  // react-native-keyboard-aware-scroll-view
+  // rn-fetch-blob
+  LogBox.ignoreLogs([
+    'new NativeEventEmitter()',
+    'EventEmitter.removeListener',
+    'Require cycle: node_modules/rn-fetch-blob/index.js',
+  ]);
+
   useEffect(() => {
     SimpleLineIcons.loadFont();
 
