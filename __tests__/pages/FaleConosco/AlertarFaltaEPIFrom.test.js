@@ -22,17 +22,20 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
+const renderAlertarFaltaEPIFrom = () =>
+  render(
+    <AppTrackTransparencyContext.Provider
+      value={{
+        trackingStatus: 'active',
+        isTrackingAuthorized: true,
+      }}>
+      <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+    </AppTrackTransparencyContext.Provider>,
+  );
+
 describe('Testes do AlertarFaltaEPIFrom', () => {
   test('Deve ter todos os elementos da tela', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderAlertarFaltaEPIFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
@@ -49,15 +52,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
   });
 
   test('Deve aparecer as mensagens de erro quando inputs não preenchidos', async () => {
-    const { getByTestId, getAllByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, getAllByText } = renderAlertarFaltaEPIFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
@@ -71,15 +66,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
   });
 
   test('Deve aparecer as mensagem de erro para email inválido', async () => {
-    const { getByTestId, getByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, getByText } = renderAlertarFaltaEPIFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
@@ -98,15 +85,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
   });
 
   test('Não deve aparecer a mensagem de erro para email válido', async () => {
-    const { getByTestId, queryByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, queryByText } = renderAlertarFaltaEPIFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
@@ -125,15 +104,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
   });
 
   test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderAlertarFaltaEPIFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
@@ -145,15 +116,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
   });
 
   test('Deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderAlertarFaltaEPIFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 

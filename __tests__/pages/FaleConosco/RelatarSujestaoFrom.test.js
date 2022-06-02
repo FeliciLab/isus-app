@@ -3,13 +3,14 @@ import { act, fireEvent, render } from 'util-teste';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
-import DemandaEducacaoFrom from '~/pages/FaleConosco/DemandaEducacaoFrom';
+import RelatarSujestaoFrom from '~/pages/FaleConosco/RelatarSujestaoFrom';
 import { analyticsData } from '~/utils/analytics';
 
 jest.mock('../../../src/utils/analytics');
 jest.mock('../../../src/apis/apiHome');
 
 const mockedNavigate = jest.fn();
+
 const mockShowFeedBackMessage = jest.fn();
 
 jest.mock('@react-navigation/native', () => ({
@@ -22,36 +23,36 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
-const renderDemandaEducacaoFrom = () =>
+const renderRelatarSujestaoFrom = () =>
   render(
     <AppTrackTransparencyContext.Provider
-      value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
-      <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      value={{
+        trackingStatus: 'active',
+        isTrackingAuthorized: true,
+      }}>
+      <RelatarSujestaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
     </AppTrackTransparencyContext.Provider>,
   );
 
-describe('Testes do DemandaEducacaoFrom', () => {
-  test('Deve ter todos os elementos da tela', () => {
-    const { getByTestId } = renderDemandaEducacaoFrom();
+describe('Testes do RelatarProblemaFrom', () => {
+  test('Deve ter todos os elementos da tela', async () => {
+    const { getByTestId } = renderRelatarSujestaoFrom();
 
-    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
-    const descricaoInput = getByTestId('descricaoInput');
-
-    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+    const motivoInput = getByTestId('motivoInput');
 
     const emailInput = getByTestId('emailInput');
 
     expect(enviarButton).toBeTruthy();
-    expect(descricaoInput).toBeTruthy();
-    expect(unidadeDeSaudeInput).toBeTruthy();
+    expect(motivoInput).toBeTruthy();
     expect(emailInput).toBeTruthy();
   });
 
   test('Deve aparecer as mensagens de erro quando inputs não preenchidos', async () => {
-    const { getByTestId, getAllByText } = renderDemandaEducacaoFrom();
+    const { getByTestId, getAllByText } = renderRelatarSujestaoFrom();
 
-    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
     await act(async () => {
       fireEvent.press(enviarButton);
@@ -59,16 +60,17 @@ describe('Testes do DemandaEducacaoFrom', () => {
 
     const msgErrors = getAllByText('Campo obrigatório');
 
-    expect(msgErrors.length).toBe(2);
+    expect(msgErrors.length).toBe(1);
   });
 
   test('Deve aparecer as mensagem de erro para email inválido', async () => {
-    const { getByTestId, getByText } = renderDemandaEducacaoFrom();
+    const { getByTestId, getByText } = renderRelatarSujestaoFrom();
 
-    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
     const emailInput = getByTestId('emailInput');
 
+    // email inválido
     fireEvent.changeText(emailInput, 'ABCDEFG');
 
     await act(async () => {
@@ -80,13 +82,14 @@ describe('Testes do DemandaEducacaoFrom', () => {
     expect(msgError).toBeTruthy();
   });
 
-  test('Não deve aparecer as mensagem de erro para email válido', async () => {
-    const { getByTestId, queryByText } = renderDemandaEducacaoFrom();
+  test('Não deve aparecer a mensagem de erro para email válido', async () => {
+    const { getByTestId, queryByText } = renderRelatarSujestaoFrom();
 
-    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
     const emailInput = getByTestId('emailInput');
 
+    // email válido
     fireEvent.changeText(emailInput, 'emial@email.com');
 
     await act(async () => {
@@ -99,9 +102,9 @@ describe('Testes do DemandaEducacaoFrom', () => {
   });
 
   test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
-    const { getByTestId } = renderDemandaEducacaoFrom();
+    const { getByTestId } = renderRelatarSujestaoFrom();
 
-    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
     await act(async () => {
       fireEvent.press(enviarButton);
@@ -111,18 +114,14 @@ describe('Testes do DemandaEducacaoFrom', () => {
   });
 
   test('Deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
-    const { getByTestId } = renderDemandaEducacaoFrom();
+    const { getByTestId } = renderRelatarSujestaoFrom();
 
-    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
-    const descricaoInput = getByTestId('descricaoInput');
-
-    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
-
+    const motivoInput = getByTestId('motivoInput');
     const emailInput = getByTestId('emailInput');
 
-    fireEvent.changeText(descricaoInput, 'Alguma coisa para testar');
-    fireEvent.changeText(unidadeDeSaudeInput, 'Alguma coisa para testar');
+    fireEvent.changeText(motivoInput, 'Alguma coisa para testar');
     fireEvent.changeText(emailInput, 'email@email.com');
 
     await act(async () => {
@@ -130,7 +129,7 @@ describe('Testes do DemandaEducacaoFrom', () => {
     });
 
     expect(analyticsData).toHaveBeenCalledWith(
-      labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
+      labelsAnalytics.ENVIAR_FEEDBACK,
       'Click',
       'Fale Conosco',
     );

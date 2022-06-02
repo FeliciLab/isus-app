@@ -23,17 +23,20 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
+const renderRelatarProblemaFrom = () =>
+  render(
+    <AppTrackTransparencyContext.Provider
+      value={{
+        trackingStatus: 'active',
+        isTrackingAuthorized: true,
+      }}>
+      <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
+    </AppTrackTransparencyContext.Provider>,
+  );
+
 describe('Testes do RelatarProblemaFrom', () => {
   test('Deve ter todos os elementos da tela', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderRelatarProblemaFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
@@ -47,15 +50,7 @@ describe('Testes do RelatarProblemaFrom', () => {
   });
 
   test('Deve aparecer as mensagens de erro quando inputs não preenchidos', async () => {
-    const { getByTestId, getAllByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, getAllByText } = renderRelatarProblemaFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
@@ -69,15 +64,7 @@ describe('Testes do RelatarProblemaFrom', () => {
   });
 
   test('Deve aparecer as mensagem de erro para email inválido', async () => {
-    const { getByTestId, getByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, getByText } = renderRelatarProblemaFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
@@ -96,15 +83,7 @@ describe('Testes do RelatarProblemaFrom', () => {
   });
 
   test('Não deve aparecer a mensagem de erro para email válido', async () => {
-    const { getByTestId, queryByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, queryByText } = renderRelatarProblemaFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
@@ -123,15 +102,7 @@ describe('Testes do RelatarProblemaFrom', () => {
   });
 
   test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderRelatarProblemaFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
@@ -143,15 +114,7 @@ describe('Testes do RelatarProblemaFrom', () => {
   });
 
   test('Deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <RelatarProblemaFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderRelatarProblemaFrom();
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 

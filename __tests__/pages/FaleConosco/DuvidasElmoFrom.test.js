@@ -23,17 +23,20 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
+const renderDuvidasElmoFrom = () =>
+  render(
+    <AppTrackTransparencyContext.Provider
+      value={{
+        trackingStatus: 'active',
+        isTrackingAuthorized: true,
+      }}>
+      <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+    </AppTrackTransparencyContext.Provider>,
+  );
+
 describe('Testes do DuvidasElmoFrom', () => {
   test('Deve ter todos os elementos da tela', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderDuvidasElmoFrom();
 
     const enviarButton = getByTestId(TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR);
     const duvidaInput = getByTestId('duvidaInput');
@@ -45,15 +48,7 @@ describe('Testes do DuvidasElmoFrom', () => {
   });
 
   test('Deve aparecer as mensagens de erro quando inputs não preenchidos', async () => {
-    const { getByTestId, getAllByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, getAllByText } = renderDuvidasElmoFrom();
 
     const enviarButton = getByTestId(TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR);
 
@@ -67,15 +62,7 @@ describe('Testes do DuvidasElmoFrom', () => {
   });
 
   test('Deve aparecer as mensagem de erro para email inválido', async () => {
-    const { getByTestId, getByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, getByText } = renderDuvidasElmoFrom();
 
     const enviarButton = getByTestId(TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR);
 
@@ -94,15 +81,7 @@ describe('Testes do DuvidasElmoFrom', () => {
   });
 
   test('Não deve aparecer a mensagem de erro para email válido', async () => {
-    const { getByTestId, queryByText } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId, queryByText } = renderDuvidasElmoFrom();
 
     const enviarButton = getByTestId(TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR);
 
@@ -121,15 +100,7 @@ describe('Testes do DuvidasElmoFrom', () => {
   });
 
   test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderDuvidasElmoFrom();
 
     const enviarButton = getByTestId(TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR);
 
@@ -141,15 +112,7 @@ describe('Testes do DuvidasElmoFrom', () => {
   });
 
   test('Deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <DuvidasElmoFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
+    const { getByTestId } = renderDuvidasElmoFrom();
 
     const enviarButton = getByTestId(TESTIDS.ELMO.DUVIDAS.BOTAO_ENVIAR);
     const duvidaInput = getByTestId('duvidaInput');
