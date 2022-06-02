@@ -95,7 +95,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
     expect(msgError).toBeTruthy();
   });
 
-  test('Não deve aparecer as mensagem de erro para email válido', async () => {
+  test('Não deve aparecer a mensagem de erro para email válido', async () => {
     const { getByTestId, queryByText } = render(
       <AppTrackTransparencyContext.Provider
         value={{
@@ -155,12 +155,10 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
-    const descricaoInput = getByTestId('descricaoInput');
-    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+    const motivoInput = getByTestId('motivoInput');
     const emailInput = getByTestId('emailInput');
 
-    fireEvent.changeText(descricaoInput, 'Alguma coisa para testar');
-    fireEvent.changeText(unidadeDeSaudeInput, 'Alguma coisa para testar');
+    fireEvent.changeText(motivoInput, 'Alguma coisa para testar');
     fireEvent.changeText(emailInput, 'email@email.com');
 
     await act(async () => {

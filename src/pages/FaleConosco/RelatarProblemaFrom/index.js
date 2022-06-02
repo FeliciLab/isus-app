@@ -72,6 +72,8 @@ const RelatarProblemaFrom = ({ showFeedBackMessage }) => {
     try {
       setIsLoading(true);
 
+      analyticsData(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
+
       const { data } = await postFeedback(
         RELATAR_PROBLEMA.label,
         motivo,
@@ -84,7 +86,6 @@ const RelatarProblemaFrom = ({ showFeedBackMessage }) => {
       } else {
         limparCampos();
         showFeedBackMessage(RELATAR_PROBLEMA.feedback);
-        analyticsData(labelsAnalytics.ENVIAR_FEEDBACK, 'Click', 'Fale Conosco');
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -110,6 +111,7 @@ const RelatarProblemaFrom = ({ showFeedBackMessage }) => {
         Saúde para nos ajudar a resolver o problema e melhorar a condição atual.
       </Text>
       <ControlledTextInput
+        testID="motivoInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="motivo"
@@ -135,6 +137,7 @@ const RelatarProblemaFrom = ({ showFeedBackMessage }) => {
         )}
       </View>
       <ControlledTextInput
+        testID="emailInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="email"
