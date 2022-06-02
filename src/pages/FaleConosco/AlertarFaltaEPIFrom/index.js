@@ -46,6 +46,13 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
   const onSubmit = async ({ descricao, unidadeDeSaude, email }) => {
     try {
       setIsLoading(true);
+
+      analyticsData(
+        labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI,
+        'Click',
+        'Fale Conosco',
+      );
+
       const { data } = await postAlertaFaltaDeEpi(
         descricao,
         unidadeDeSaude,
@@ -57,12 +64,6 @@ const AlertarFaltaEPIFrom = ({ showFeedBackMessage }) => {
       } else {
         limparCampos();
       }
-
-      analyticsData(
-        labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI,
-        'Click',
-        'Fale Conosco',
-      );
 
       showFeedBackMessage(ALERTA_FALTA_EPI.feedback);
     } catch (error) {

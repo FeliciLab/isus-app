@@ -1,10 +1,10 @@
 import React from 'react';
-import { fireEvent, act, render } from 'util-teste';
+import { act, fireEvent, render } from 'util-teste';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import AlertarFaltaEPIFrom from '~/pages/FaleConosco/AlertarFaltaEPIFrom';
-// import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { analyticsData } from '~/utils/analytics';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 
 const mockedNavigate = jest.fn();
 
@@ -20,26 +20,8 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
-describe('descreve os testes de Fale conosco', () => {
-  let BotaoFaltaDeEPI = null;
-  beforeEach(() => {
-    const { getByTestId } = render(
-      <AppTrackTransparencyContext.Provider
-        value={{
-          trackingStatus: 'active',
-          isTrackingAuthorized: true,
-        }}>
-        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
-      </AppTrackTransparencyContext.Provider>,
-    );
-    BotaoFaltaDeEPI = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
-  });
-
-  test('deve renderizar o botão de enviar ao renderizar o AlertarFaltaEPIFrom', () => {
-    expect(BotaoFaltaDeEPI).not.toBeNull();
-  });
-
-  test('deve ter todos os elementos da tela', async () => {
+describe('Testes do AlertarFaltaEPIFrom', () => {
+  test('Deve ter todos os elementos da tela', async () => {
     const { getByTestId } = render(
       <AppTrackTransparencyContext.Provider
         value={{
@@ -86,28 +68,109 @@ describe('descreve os testes de Fale conosco', () => {
     expect(msgErrors.length).toBe(2);
   });
 
-  test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
+  test('Deve aparecer as mensagem de erro para email inválido', async () => {
+    const { getByTestId, getByText } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{
+          trackingStatus: 'active',
+          isTrackingAuthorized: true,
+        }}>
+        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+
+    const emailInput = getByTestId('emailInput');
+
+    // email inválido
+    fireEvent.changeText(emailInput, 'ABCDEFG');
+
     await act(async () => {
-      fireEvent.press(BotaoFaltaDeEPI);
+      fireEvent.press(enviarButton);
+    });
+
+    const msgError = getByText('Email inválido');
+
+    expect(msgError).toBeTruthy();
+  });
+
+  test('Não deve aparecer as mensagem de erro para email válido', async () => {
+    const { getByTestId, queryByText } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{
+          trackingStatus: 'active',
+          isTrackingAuthorized: true,
+        }}>
+        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+
+    const emailInput = getByTestId('emailInput');
+
+    // email válido
+    fireEvent.changeText(emailInput, 'emial@email.com');
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    const msgError = queryByText('Email inválido');
+
+    expect(msgError).not.toBeTruthy();
+  });
+
+  test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{
+          trackingStatus: 'active',
+          isTrackingAuthorized: true,
+        }}>
+        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
     });
 
     expect(analyticsData).not.toHaveBeenCalled();
   });
 
-  // TODO: ajustar os testes para poder usar as validações
-  // Não conseguimos fazer esses testes pq o analitycis só é chamando quando se conclui o envio dos
-  // dados
-  // test('deve  chamar o analyticsData quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoFaltaDeEPI);
-  //   expect(analyticsData).toHaveBeenCalled();
-  // });
+  test('deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{
+          trackingStatus: 'active',
+          isTrackingAuthorized: true,
+        }}>
+        <AlertarFaltaEPIFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
 
-  // test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoFaltaDeEPI);
-  //   expect(analyticsData).toHaveBeenCalledWith(
-  //     labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI,
-  //     'Click',
-  //     'Fale Conosco',
-  //   );
-  // });
+    const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
+
+    const descricaoInput = getByTestId('descricaoInput');
+    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+    const emailInput = getByTestId('emailInput');
+
+    fireEvent.changeText(descricaoInput, 'Alguma coisa para testar');
+    fireEvent.changeText(unidadeDeSaudeInput, 'Alguma coisa para testar');
+    fireEvent.changeText(emailInput, 'email@email.com');
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.ENVIAR_ALERTA_FALTA_EPI,
+      'Click',
+      'Fale Conosco',
+    );
+  });
 });
