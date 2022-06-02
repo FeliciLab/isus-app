@@ -142,7 +142,7 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
     expect(analyticsData).not.toHaveBeenCalled();
   });
 
-  test('deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
+  test('Deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
     const { getByTestId } = render(
       <AppTrackTransparencyContext.Provider
         value={{

@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  // fireEvent,
-  render,
-} from 'util-teste';
+import { act, fireEvent, render } from 'util-teste';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import DemandaEducacaoFrom from '~/pages/FaleConosco/DemandaEducacaoFrom';
-// import { labelsAnalytics } from '~/constantes/labelsAnalytics';
-// import DemandaEducacao from '~/pages/FaleConoscoScreen/demandaEducacao';
-// import { analyticsData } from '~/utils/analytics';
+import { analyticsData } from '~/utils/analytics';
 
 const mockedNavigate = jest.fn();
 
@@ -24,9 +20,8 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: jest.fn(),
 }));
 
-describe('descreve os testes de Fale conosco', () => {
-  let BotaoDemandaEducacao = null;
-  beforeEach(() => {
+describe('Testes do DemandaEducacaoFrom', () => {
+  test('Deve ter todos os elementos da tela', () => {
     const { getByTestId } = render(
       <AppTrackTransparencyContext.Provider
         value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
@@ -34,27 +29,130 @@ describe('descreve os testes de Fale conosco', () => {
       </AppTrackTransparencyContext.Provider>,
     );
 
-    BotaoDemandaEducacao = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+
+    const descricaoInput = getByTestId('descricaoInput');
+
+    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+
+    const emailInput = getByTestId('emailInput');
+
+    expect(enviarButton).toBeTruthy();
+    expect(descricaoInput).toBeTruthy();
+    expect(unidadeDeSaudeInput).toBeTruthy();
+    expect(emailInput).toBeTruthy();
   });
 
-  test('deve renderizar o botão de enviar ao renderizar o alertaFaltaEPI', () => {
-    expect(BotaoDemandaEducacao).not.toBeNull();
+  test('Deve aparecer as mensagens de erro quando inputs não preenchidos', async () => {
+    const { getByTestId, getAllByText } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+        <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    const msgErrors = getAllByText('Campo obrigatório');
+
+    expect(msgErrors.length).toBe(2);
   });
 
-  // TODO: ajustar os testes para poder usar as validações
-  // Não conseguimos fazer esses testes pq o analitycis só é chamando quando se conclui o envio dos
-  // dados
-  // test('deve  chamar o analyticsData quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoDemandaEducacao);
-  //   expect(analyticsData).toHaveBeenCalled();
-  // });
+  test('Deve aparecer as mensagem de erro para email inválido', async () => {
+    const { getByTestId, getByText } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+        <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
 
-  // test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoDemandaEducacao);
-  //   expect(analyticsData).toHaveBeenCalledWith(
-  //     labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
-  //     'Click',
-  //     'Fale Conosco',
-  //   );
-  // });
+    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+
+    const emailInput = getByTestId('emailInput');
+
+    fireEvent.changeText(emailInput, 'ABCDEFG');
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    const msgError = getByText('Email inválido');
+
+    expect(msgError).toBeTruthy();
+  });
+
+  test('Não deve aparecer as mensagem de erro para email válido', async () => {
+    const { getByTestId, queryByText } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+        <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+
+    const emailInput = getByTestId('emailInput');
+
+    fireEvent.changeText(emailInput, 'emial@email.com');
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    const msgError = queryByText('Email inválido');
+
+    expect(msgError).not.toBeTruthy();
+  });
+
+  test('Não deve chamar o analyticsData com inputs não preenchidos', async () => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+        <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    expect(analyticsData).not.toHaveBeenCalled();
+  });
+
+  test('Deve chamar o analyticsData com inputs preenchidos corretamente', async () => {
+    const { getByTestId } = render(
+      <AppTrackTransparencyContext.Provider
+        value={{ trackingStatus: 'active', isTrackingAuthorized: true }}>
+        <DemandaEducacaoFrom showFeedBackMessage={mockShowFeedBackMessage} />
+      </AppTrackTransparencyContext.Provider>,
+    );
+
+    const enviarButton = getByTestId(TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR);
+
+    const descricaoInput = getByTestId('descricaoInput');
+
+    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+
+    const emailInput = getByTestId('emailInput');
+
+    fireEvent.changeText(descricaoInput, 'Alguma coisa para testar');
+    fireEvent.changeText(unidadeDeSaudeInput, 'Alguma coisa para testar');
+    fireEvent.changeText(emailInput, 'email@email.com');
+
+    await act(async () => {
+      fireEvent.press(enviarButton);
+    });
+
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
+      'Click',
+      'Fale Conosco',
+    );
+  });
 });

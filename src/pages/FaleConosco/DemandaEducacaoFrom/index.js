@@ -45,6 +45,12 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
     try {
       setIsLoading(true);
 
+      analyticsData(
+        labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
+        'Click',
+        'Fale Conosco',
+      );
+
       const { data } = await postDemandaEducacao(
         descricao,
         unidadeDeSaude,
@@ -56,11 +62,6 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
       } else {
         showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
         limparCampos();
-        analyticsData(
-          labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
-          'Click',
-          'Fale Conosco',
-        );
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -82,6 +83,7 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
   return (
     <View>
       <ControlledTextInput
+        testID="descricaoInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="descricao"
@@ -89,6 +91,7 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
         label="Descreva a situação atual *"
       />
       <ControlledTextInput
+        testID="unidadeDeSaudeInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="unidadeDeSaude"
@@ -96,6 +99,7 @@ const DemandaEducacaoFrom = ({ showFeedBackMessage }) => {
         label="Unidade de Saúde *"
       />
       <ControlledTextInput
+        testID="emailInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="email"
