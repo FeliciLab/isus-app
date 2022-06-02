@@ -42,6 +42,12 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
     try {
       setIsLoading(true);
 
+      analyticsData(
+        labelsAnalytics.ENVIAR_DUVIDAS_ELMO,
+        'Click',
+        'Fale Conosco',
+      );
+
       const { data } = await postDuvidasElmo(duvida, email);
 
       if (data.errors) {
@@ -49,11 +55,6 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
       } else {
         showFeedBackMessage(DUVIDAS_ELMO.feedback);
         limparCampos();
-        analyticsData(
-          labelsAnalytics.ENVIAR_DUVIDAS_ELMO,
-          'Click',
-          'Fale Conosco',
-        );
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -75,6 +76,7 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
   return (
     <View>
       <ControlledTextInput
+        testID="duvidaInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="duvida"
@@ -82,6 +84,7 @@ const DuvidasElmoFrom = ({ showFeedBackMessage }) => {
         label="Dúvidas sobre o Elmo *"
       />
       <ControlledTextInput
+        testID="emailInput"
         style={{ marginVertical: 5 }}
         control={control}
         name="email"
