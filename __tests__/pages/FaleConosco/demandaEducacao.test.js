@@ -6,8 +6,10 @@ import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyConte
 import DemandaEducacaoFrom from '~/pages/FaleConosco/DemandaEducacaoFrom';
 import { analyticsData } from '~/utils/analytics';
 
-const mockedNavigate = jest.fn();
+jest.mock('../../../src/utils/analytics');
+jest.mock('../../../src/apis/apiHome');
 
+const mockedNavigate = jest.fn();
 const mockShowFeedBackMessage = jest.fn();
 
 jest.mock('@react-navigation/native', () => ({

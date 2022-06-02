@@ -6,6 +6,9 @@ import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyConte
 import RelatarProblemaFrom from '~/pages/FaleConosco/RelatarProblemaFrom';
 import { analyticsData } from '~/utils/analytics';
 
+jest.mock('../../../src/utils/analytics');
+jest.mock('../../../src/apis/apiHome');
+
 const mockedNavigate = jest.fn();
 
 const mockShowFeedBackMessage = jest.fn();

@@ -6,8 +6,10 @@ import AlertarFaltaEPIFrom from '~/pages/FaleConosco/AlertarFaltaEPIFrom';
 import { analyticsData } from '~/utils/analytics';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 
-const mockedNavigate = jest.fn();
+jest.mock('../../../src/utils/analytics');
+jest.mock('../../../src/apis/apiHome');
 
+const mockedNavigate = jest.fn();
 const mockShowFeedBackMessage = jest.fn();
 
 jest.mock('@react-navigation/native', () => ({
@@ -155,10 +157,12 @@ describe('Testes do AlertarFaltaEPIFrom', () => {
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_ALERTAEPI_ENVIAR);
 
-    const motivoInput = getByTestId('motivoInput');
+    const descricaoInput = getByTestId('descricaoInput');
+    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
     const emailInput = getByTestId('emailInput');
 
-    fireEvent.changeText(motivoInput, 'Alguma coisa para testar');
+    fireEvent.changeText(descricaoInput, 'Alguma coisa para testar');
+    fireEvent.changeText(unidadeDeSaudeInput, 'Alguma coisa para testar');
     fireEvent.changeText(emailInput, 'email@email.com');
 
     await act(async () => {
