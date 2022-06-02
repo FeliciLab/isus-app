@@ -1,9 +1,9 @@
 import React from 'react';
 import { act, fireEvent, render } from 'util-teste';
+import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import RelatarProblemaFrom from '~/pages/FaleConosco/RelatarProblemaFrom';
-// import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { analyticsData } from '~/utils/analytics';
 
 const mockedNavigate = jest.fn();
@@ -152,35 +152,20 @@ describe('Testes do RelatarProblemaFrom', () => {
 
     const enviarButton = getByTestId(TESTIDS.BOTAO_FEEDBACK_ENVIAR);
 
-    const descricaoInput = getByTestId('descricaoInput');
-    const unidadeDeSaudeInput = getByTestId('unidadeDeSaudeInput');
+    const motivoInput = getByTestId('motivoInput');
     const emailInput = getByTestId('emailInput');
 
-    fireEvent.changeText(descricaoInput, 'Alguma coisa para testar');
-    fireEvent.changeText(unidadeDeSaudeInput, 'Alguma coisa para testar');
+    fireEvent.changeText(motivoInput, 'Alguma coisa para testar');
     fireEvent.changeText(emailInput, 'email@email.com');
 
     await act(async () => {
       fireEvent.press(enviarButton);
     });
 
-    expect(analyticsData).not.toHaveBeenCalled();
+    expect(analyticsData).toHaveBeenCalledWith(
+      labelsAnalytics.ENVIAR_FEEDBACK,
+      'Click',
+      'Fale Conosco',
+    );
   });
-
-  // TODO: ajustar os testes para poder usar as validações
-  // Não conseguimos fazer esses testes pq o analitycis só é chamando quando se conclui o envio dos
-  // dados
-  // test('deve  chamar o analyticsData quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoFeedback);
-  //   expect(analyticsData).toHaveBeenCalled();
-  // });
-
-  // test('deve  chamar o analyticsData com os parâmetros corretos quando clicar no bota botão de enviar', () => {
-  //   fireEvent.press(BotaoFeedback);
-  //   expect(analyticsData).toHaveBeenCalledWith(
-  //     labelsAnalytics.ENVIAR_FEEDBACK,
-  //     'Click',
-  //     'Fale Conosco',
-  //   );
-  // });
 });
