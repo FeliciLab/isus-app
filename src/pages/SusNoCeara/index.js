@@ -22,6 +22,7 @@ import {
   TextoSobreSUS,
   TextoSobreSUSCeara
 } from './textos';
+import rotas from '~/constantes/rotas';
 
 const informacoes = {
   InstagramESP: {
@@ -95,7 +96,7 @@ export default function SusNoCearaScreen() {
             marginHorizontal: 19,
           }}
           onPress={() => {
-            navigation.navigate('Buscar');
+            navigation.navigate(rotas.SEARCH_STACK_SCREEN);
           }}>
           <Icon name="magnify" size={28} color="#FFF" />
         </TouchableOpacity>

@@ -75,7 +75,7 @@ export default function appTopTabScreen({ route, navigation }) {
             marginHorizontal: 19,
           }}
           onPress={() => {
-            navigation.navigate('Buscar');
+            navigation.navigate(rotas.SEARCH_STACK_SCREEN);
           }}>
           <MagnifyIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
