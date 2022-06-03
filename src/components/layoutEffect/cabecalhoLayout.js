@@ -40,7 +40,7 @@ const TouchableSearch = ({ navegador, cor }) => (
   <TouchableOpacity
     style={{ marginHorizontal: 19 }}
     onPress={() => {
-      navegador.navigate('Buscar');
+      navegador.navigate(rotas.SEARCH_STACK_SCREEN);
     }}>
     <Icon name="magnify" size={28} color={cor} />
   </TouchableOpacity>
@@ -146,13 +146,13 @@ export const cabecalhoVoltarRota = ({ navegador, titulo, cor, rota }) =>
 
 export const getOptionsCabecalhoSemBotao = ({ titulo, cor }) => ({
   ...getOptions({ titulo, cor }),
-  headerLeft: () => {},
-  headerRight: () => {},
+  headerLeft: () => { },
+  headerRight: () => { },
 });
 
 export const cabecalhoSemBotao = ({ navegador, titulo, cor }) =>
   navegador.setOptions({
     ...getOptions({ titulo, cor }),
-    headerLeft: () => {},
-    headerRight: () => {},
+    headerLeft: () => { },
+    headerRight: () => { },
   });
