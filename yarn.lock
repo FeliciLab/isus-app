@@ -9015,7 +9015,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.5.9, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -9301,37 +9301,6 @@ react-native-keyboard-aware-scroll-view@^0.9.1:
   dependencies:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
-
-react-native-material-buttons@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-native-material-buttons/-/react-native-material-buttons-0.5.0.tgz#ab2b3e3fc3f500ca713f51e9d75978aff602152a"
-  integrity sha1-qys+P8P1AMpxP1Hp11l4r/YCFSo=
-  dependencies:
-    prop-types "^15.5.9"
-    react-native-material-ripple "^0.7.0"
-
-react-native-material-dropdown-v2@0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/react-native-material-dropdown-v2/-/react-native-material-dropdown-v2-0.11.1.tgz#f77a9d83db9f9ba3b6114bdc8b28840a9ca5d279"
-  integrity sha512-fLom8DJ7tkB1wZsjkU3lPBcDdNRcLBZTKoRojolMOnD3AHfS+POkORh2g6VToMfhnz4rHBeLGzScu7VGsf8jow==
-  dependencies:
-    prop-types "^15.5.9"
-    react-native-material-buttons "^0.5.0"
-    react-native-material-ripple "^0.8.0"
-
-react-native-material-ripple@^0.7.0:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/react-native-material-ripple/-/react-native-material-ripple-0.7.5.tgz#e2af5110680532f14aea3c3a438247be2ffef659"
-  integrity sha1-4q9REGgFMvFK6jw6Q4JHvi/+9lk=
-  dependencies:
-    prop-types "^15.5.10"
-
-react-native-material-ripple@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-material-ripple/-/react-native-material-ripple-0.8.0.tgz#b8c24e6fdea2af2a21e8468b1f40b35483019e2f"
-  integrity sha1-uMJOb96iryoh6EaLH0CzVIMBni8=
-  dependencies:
-    prop-types "^15.5.10"
 
 react-native-onesignal@^4.3.3:
   version "4.3.8"
