@@ -1,16 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  atualizarUsuarioApi,
-  verificarCPFCadastrado,
-} from '~/apis/apiCadastro';
+import { atualizarUsuarioApi } from '~/apis/apiCadastro';
 import Alerta from '~/components/Alerta';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
@@ -18,7 +10,6 @@ import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput/';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask/';
 import { cabecalhoVoltarRota } from '~/components/layoutEffect/cabecalhoLayout';
-import ValidationFieldIndicator from '~/components/ValidationFieldIndicator/';
 import { CORES, INPUT_THEMES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import ROTAS from '~/constantes/rotas';
@@ -31,12 +22,11 @@ import {
   Container,
   ContainerBody,
   ContainerForm,
-  ConteudoFormulario,
   RowButton,
   RowInput,
   Scroll,
+  SubTitle,
   Title,
-  TituloPrincipal,
 } from './styles';
 
 function EdicaoInfoPessoal() {
@@ -55,11 +45,9 @@ function EdicaoInfoPessoal() {
   const { user, updateUser } = useAutenticacao();
 
   const {
-    clearErrors,
     control,
     formState: { errors },
     handleSubmit,
-    setError,
     setValue,
   } = useForm({
     // OBS: Modos de validação onChange causam re-render ao mudar valores.
@@ -74,10 +62,6 @@ function EdicaoInfoPessoal() {
     },
     resolver: yupResolver(schema),
   });
-
-  const [isValidatingCpfCadastrado, setIsValidatingCpfCadastrado] = useState(
-    false,
-  );
 
   const theme = INPUT_THEMES.LARANJA;
 
@@ -95,27 +79,6 @@ function EdicaoInfoPessoal() {
     setMensagemDoAlerta(mensagem);
   };
 
-  const cpfAlreadyRegistered = useCallback(async cpf => {
-    try {
-      if (cpf && cpf.length >= 11) {
-        setIsValidatingCpfCadastrado(true);
-
-        const { data } = await verificarCPFCadastrado(cpf);
-
-        if (data?.cpf_existe) {
-          setError('cpf', { type: 'custom', message: 'CPF já cadastrado.' });
-          return true;
-        }
-      }
-    } catch (err) {
-      mostrarAlerta('Erro ao validar CPF.');
-      console.log(err);
-    } finally {
-      setIsValidatingCpfCadastrado(false);
-    }
-    return false;
-  }, []);
-
   const hasErrors =
     errors?.nomeCompleto?.message ||
     errors?.email?.message ||
@@ -127,21 +90,10 @@ function EdicaoInfoPessoal() {
     try {
       setIsLoading(true);
 
-      // cpf do form é validado somente se for diferente do cpf já cadastrado
-      if (
-        data.cpf.replace(/\D+/g, '') !== user.cpf &&
-        (await cpfAlreadyRegistered(data.cpf.replace(/\D+/g, '')))
-      ) {
-        return;
-      } else {
-        clearErrors('cpf');
-      }
-
       const formSelectedMunicipio = municipios.find(
-        m => m.id === parseInt(data.municipioSelectedId),
+        municipio => municipio.id === parseInt(data.municipioSelectedId),
       );
 
-      // .replace() p/ remoção de - e () do cpf e telefone
       const infoPessoal = {
         nomeCompleto: data.nomeCompleto.trim(),
         telefone: data.telefone.replace(/\D+/g, ''),
@@ -194,14 +146,12 @@ function EdicaoInfoPessoal() {
     <Container>
       <BarraDeStatus backgroundColor={CORES.BRANCO} barStyle="dark-content" />
       <Scroll>
-        <ConteudoFormulario>
-          <TituloPrincipal testID="texto">
-            Edite as informações pessoais que você deseja atualizar:
-          </TituloPrincipal>
-        </ConteudoFormulario>
+        <Title testID="texto">
+          Edite as informações pessoais que você deseja atualizar:
+        </Title>
         <ContainerBody>
           <ContainerForm>
-            <Title>Informações pessoais</Title>
+            <SubTitle>Informações pessoais</SubTitle>
             <RowInput>
               <ControlledTextInput
                 control={control}
@@ -239,6 +189,7 @@ function EdicaoInfoPessoal() {
             <RowInput>
               <ControlledTextInputMask
                 control={control}
+                disabled
                 keyboardType="numeric"
                 label="CPF"
                 mask="[000].[000].[000]-[00]"
@@ -247,9 +198,6 @@ function EdicaoInfoPessoal() {
                 placeholder="000.000.000-00"
                 theme={theme}
               />
-              {isValidatingCpfCadastrado && (
-                <ValidationFieldIndicator message="Validando CPF" />
-              )}
             </RowInput>
             <RowInput>
               <ControlledSelectModal
