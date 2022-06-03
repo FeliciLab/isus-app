@@ -6,12 +6,10 @@ import {
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, List } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import useAnalytics from '~/hooks/useAnalytics';
 import IconeSus30Anos from '~/assets/images/sus_30_anos.png';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
@@ -22,7 +20,7 @@ import {
   TextoSobreSUS,
   TextoSobreSUSCeara
 } from './textos';
-import rotas from '~/constantes/rotas';
+import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
 
 const informacoes = {
   InstagramESP: {
@@ -76,42 +74,15 @@ const informacoes = {
   },
 };
 
-export default function SusNoCearaScreen() {
+const SusNoCearaScreen = () => {
   const { analyticsData } = useAnalytics();
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: '#4CAF50',
-        elevation: 0,
-        shadowOpacity: 0,
-      },
-      headerTintColor: '#FFF',
-      headerTitleAlign: 'center',
-      headerTitle: 'SUS no Ceará',
-      headerRight: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19,
-          }}
-          onPress={() => {
-            navigation.navigate(rotas.SEARCH_STACK_SCREEN);
-          }}>
-          <Icon name="magnify" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 19,
-          }}
-          onPress={() => {
-            navigation.toggleDrawer();
-          }}>
-          <Icon name="menu" size={28} color="#FFF" />
-        </TouchableOpacity>
-      ),
+    cabecalhoMenuBusca({
+      navegador: navigation,
+      titulo: 'SUS no Ceará',
+      cor: 'verde',
     });
   }, []);
 
@@ -239,7 +210,7 @@ export default function SusNoCearaScreen() {
       </List.Accordion>
     </ScrollView>
   );
-}
+};
 
 const estilos = StyleSheet.create({
   titulo: {
@@ -277,3 +248,5 @@ const linkingURLouApp = (titulo, tipo) => {
     Linking.openURL(`${informacoes[titulo].url}`);
   }
 };
+
+export default SusNoCearaScreen;
