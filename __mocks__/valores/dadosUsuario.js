@@ -10,18 +10,18 @@ export default {
   municipio: {
     id: 1347,
     estado_id: 6,
-    nome: 'Fortaleza'
+    nome: 'Fortaleza',
   },
   estado: {
     id: 6,
     nome: 'Ceará',
-    uf: 'CE'
+    uf: 'CE',
   },
   profissional: {
     categoria_profissional: {
       id: 3,
       nome: 'Enfermagem',
-      ordem: 3
+      ordem: 3,
     },
     tipos_contratacoes: [],
     titulacoes_academica: [],
@@ -31,27 +31,27 @@ export default {
         pai: 3,
         nome: 'Acolhimento psicossocial',
         created_at: null,
-        updated_at: null
+        updated_at: null,
       },
       {
         id: 19,
         pai: 3,
         nome: 'Alimentação e assistência nutricional e dietética',
         created_at: null,
-        updated_at: null
-      }
+        updated_at: null,
+      },
     ],
     especialidades: [
       {
         id: 60,
         categoriaprofissional_id: 3,
-        nome: 'Assistência de enfermagem em anestesiologia'
+        nome: 'Assistência de enfermagem em anestesiologia',
       },
       {
         id: 111,
         categoriaprofissional_id: 3,
-        nome: 'Bioética'
-      }
-    ]
-  }
+        nome: 'Bioética',
+      },
+    ],
+  },
 };

@@ -14,8 +14,8 @@ const cardsElmoMock = [
     valor: 'https://sus.ce.gov.br/elmo/faca-sua-capacitacao/',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_treinamento'
-    }
+      labelAnalytics: 'elmo_card_treinamento',
+    },
   },
   {
     id: 2,
@@ -27,11 +27,12 @@ const cardsElmoMock = [
     sessao: 'conteudos',
     tipo: 'browser',
     titulo: 'Manual de Uso',
-    valor: 'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
+    valor:
+      'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_manualdeuso'
-    }
+      labelAnalytics: 'elmo_card_manualdeuso',
+    },
   },
   {
     id: 3,
@@ -46,8 +47,8 @@ const cardsElmoMock = [
     valor: 'DUVIDAS_ELMO',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_faleconosco'
-    }
+      labelAnalytics: 'elmo_card_faleconosco',
+    },
   },
   {
     id: 4,
@@ -62,8 +63,8 @@ const cardsElmoMock = [
     valor: 'https://sus.ce.gov.br/elmo/materiais/',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_materiais'
-    }
+      labelAnalytics: 'elmo_card_materiais',
+    },
   },
   {
     id: 5,
@@ -78,8 +79,8 @@ const cardsElmoMock = [
     valor: 'https://sus.ce.gov.br/elmo/depoimentos/',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_depoimentos'
-    }
+      labelAnalytics: 'elmo_card_depoimentos',
+    },
   },
   {
     id: 6,
@@ -94,8 +95,8 @@ const cardsElmoMock = [
     valor: 'https://sus.ce.gov.br/elmo/biblioteca/',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_biblioteca'
-    }
+      labelAnalytics: 'elmo_card_biblioteca',
+    },
   },
   {
     id: 7,
@@ -110,9 +111,9 @@ const cardsElmoMock = [
     valor: 'https://sus.ce.gov.br/elmo/doacoes/',
     opcoes: {
       localImagem: 'app',
-      labelAnalytics: 'elmo_card_doacoes'
-    }
-  }
+      labelAnalytics: 'elmo_card_doacoes',
+    },
+  },
 ];
 
 export default cardsElmoMock;
