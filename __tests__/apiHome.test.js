@@ -1,6 +1,14 @@
 import {
+  pegarBanners,
+  pegarBusca,
+  pegarCardsElmo,
+  pegarCategoriasArquitetura,
+  pegarProjetosPorCategoria,
+  pegarProjetosPorId,
+  pegarProjetosPorProfissional,
   postAlertaFaltaDeEpi,
   postDemandaEducacao,
+  postDuvidasElmo,
   postFeedback,
 } from '~/apis/apiHome';
 import request from '~/services/request';
@@ -182,5 +190,88 @@ describe('apiHome', () => {
       versaoAplicativo: '3.10.0',
       plataforma: 'ios',
     });
+  });
+
+  it('deve fazer fazer resquest com /categoriasArquitetura?v2=true', () => {
+    pegarCategoriasArquitetura();
+
+    expect(request.get).toHaveBeenCalledWith('/categoriasArquitetura?v2=true');
+  });
+
+  it('deve fazer fazer resquest com /projetosPorCategoria com o id passado como parametro', () => {
+    const idMock = 1;
+
+    pegarProjetosPorCategoria(idMock);
+
+    expect(request.get).toHaveBeenCalledWith(`/projetosPorCategoria/${idMock}`);
+  });
+
+  it('deve fazer fazer resquest com /buscaPorProjetos com parâmetros', () => {
+    const itemMock = 1;
+
+    const pageMock = 1;
+
+    pegarBusca(itemMock, pageMock);
+
+    expect(request.get).toHaveBeenCalledWith('/buscaPorProjetos', {
+      params: {
+        search: itemMock,
+        page: pageMock,
+      },
+    });
+  });
+
+  it('deve fazer fazer resquest com /buscaPorProjetos com parâmetros default', () => {
+    pegarBusca();
+
+    expect(request.get).toHaveBeenCalledWith('/buscaPorProjetos', {
+      params: {
+        search: '',
+        page: 1,
+      },
+    });
+  });
+
+  it('deve fazer fazer resquest /projeto/{item}', () => {
+    const itemMock = 1;
+
+    pegarProjetosPorId(itemMock);
+
+    expect(request.get).toHaveBeenCalledWith(`/projeto/${itemMock}`);
+  });
+
+  it('deve fazer fazer resquest /projetos-por-profissional', () => {
+    pegarProjetosPorProfissional();
+
+    expect(request.get).toHaveBeenCalledWith('/projetos-por-profissional');
+  });
+
+  it('postDuvidasElmo com parametros', () => {
+    const duvidaMock = 'duvidaMock';
+    const emailMock = 'emailMock';
+
+    pegarSO.mockImplementation(() => 'ios');
+    pegarVersao.mockImplementation(() => '3.10.0');
+
+    postDuvidasElmo(duvidaMock, emailMock);
+
+    expect(request.post).toHaveBeenCalledWith('duvidas-elmo', {
+      duvida: duvidaMock,
+      email: emailMock,
+      versaoAplicativo: pegarVersao(),
+      plataforma: pegarSO(),
+    });
+  });
+
+  it('pegarBanners', () => {
+    pegarBanners();
+
+    expect(request.get).toHaveBeenCalledWith('banner-config');
+  });
+
+  it('pegarCardsElmo', () => {
+    pegarCardsElmo();
+
+    expect(request.get).toHaveBeenCalledWith('definicoes-conteudos/elmo');
   });
 });

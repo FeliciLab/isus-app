@@ -24,7 +24,7 @@ export function pegarProjetosPorId(item) {
 }
 
 export async function pegarProjetosPorProfissional() {
-  return request.get('projetos-por-profissional');
+  return request.get('/projetos-por-profissional');
 }
 
 export function postFeedback(tipoDeFeedback, texto, email, imagem) {
