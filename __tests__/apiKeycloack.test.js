@@ -1,8 +1,11 @@
 import {
   autenticar,
+  excluir,
+  logout,
   pegarListaDeCategoriasProfissionais,
   pegarListaDeEspecialidades,
   pegarListaDeServicos,
+  pegarTokenDeAcesso,
 } from '~/apis/apiKeycloak';
 import request from '~/services/request';
 
@@ -22,8 +25,10 @@ describe('apiKeycloack', () => {
   it('deve autenticar usuario', () => {
     const email = 'usuaria@email.com';
     const senha = '88888888';
-    autenticar(email, senha);
+    const response = autenticar(email, senha);
+
     expect(request.post).toHaveBeenCalledWith('auth', { email, senha });
+    expect(response).toBeTruthy();
   });
 
   it('deve chamar requester com parametro get ao usar função pegarListaDeCategoriasProfissionais', () => {
@@ -51,5 +56,37 @@ describe('apiKeycloack', () => {
   it('deve trazer lista de especialidades vazia ao usar id igual a string vazia', async () => {
     const lista = await pegarListaDeEspecialidades('');
     expect(lista).toEqual([]);
+  });
+
+  it('deve trazer token de acesso', () => {
+    const tokenMock = 'asdasdasdas';
+
+    const response = pegarTokenDeAcesso(tokenMock);
+
+    expect(request.post).toHaveBeenCalledWith('/refresh-token', {
+      refresh_token: tokenMock,
+    });
+
+    expect(response).toBeTruthy();
+  });
+
+  it('deve trazer logout', () => {
+    const tokenMock = 'asdasdasdas';
+
+    logout({ refreshToken: tokenMock });
+
+    expect(request.post).toHaveBeenCalledWith('logout', {
+      refresh_token: tokenMock,
+    });
+  });
+
+  it('deve deletar a token na api', () => {
+    const tokenMock = 'asdasdasdas';
+
+    excluir({ refreshToken: tokenMock });
+
+    expect(request.delete).toHaveBeenCalledWith('delete', {
+      refresh_token: tokenMock,
+    });
   });
 });
