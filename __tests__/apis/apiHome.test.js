@@ -14,8 +14,8 @@ import {
 import request from '~/services/request';
 import { pegarSO, pegarVersao } from '~/utils/platform';
 
-jest.mock('../src/services/request');
-jest.mock('../src/utils/platform');
+jest.mock('../../src/services/request');
+jest.mock('../../src/utils/platform');
 
 afterEach(() => {
   request.post.mockReset();

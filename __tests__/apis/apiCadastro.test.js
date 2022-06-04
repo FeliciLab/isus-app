@@ -6,9 +6,9 @@ import {
   verificarEmailCadastrado,
 } from '~/apis/apiCadastro';
 import request from '~/services/request';
-import dadosUsuarioMock from '../__mocks__/valores/dadosUsuario';
+import dadosUsuarioMock from '../../__mocks__/valores/dadosUsuario';
 
-jest.mock('../src/services/request');
+jest.mock('../../src/services/request');
 
 test('Deve enviar os parâmetros corretamente do cadastrar usuário', () => {
   cadastrarUsuario(dadosUsuarioMock);
