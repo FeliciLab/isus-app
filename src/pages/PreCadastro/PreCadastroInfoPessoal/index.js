@@ -30,6 +30,7 @@ const PreCadastroInfoPessoal = () => {
       nomeCompleto: user?.name || '',
       email: user?.email || '',
       telefone: user?.telefone || '',
+      cpf: user?.cpf || '',
       municipioSelectedId: '',
     },
     resolver: yupResolver(schema),
@@ -101,6 +102,17 @@ const PreCadastroInfoPessoal = () => {
         mask="([00]) [00000]-[0000]"
         keyboardType="phone-pad"
         label="Telefone"
+      />
+      <ControlledTextInputMask
+        style={{ marginVertical: 5 }}
+        control={control}
+        name="cpf"
+        mode="outlined"
+        placeholder="000.000.000-00"
+        mask="[000].[000].[000]-[00]"
+        keyboardType="numeric"
+        label="CPF"
+        disabled
       />
       <ControlledSelectModal
         control={control}
