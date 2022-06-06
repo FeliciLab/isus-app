@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import BgIntro from '~/assets/images/idsaude/bgIntro.png';
-import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
+import CustonFAB from '~/components/CustonFAB/index';
 import ROTAS from '~/constantes/rotas';
 import {
   ContainerBody,
@@ -33,7 +33,13 @@ export default function PreCadastroIntroducao() {
           </TextBody>
         </RowTextIntro>
         <RowButton>
-          <BotaoLaranja onPress={onPress}>Continuar</BotaoLaranja>
+          <CustonFAB
+            labelStyle={{ color: '#fff' }}
+            mode="contained"
+            onPress={onPress}
+            label="Continuar"
+            small
+          />
         </RowButton>
       </ContainerBody>
     </Container>

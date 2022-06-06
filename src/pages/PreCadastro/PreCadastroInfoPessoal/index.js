@@ -4,10 +4,10 @@ import { find } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Alerta from '~/components/Alerta';
-import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
 import ControlledSelectModal from '~/components/ControlledSelectModal';
 import ControlledTextInput from '~/components/ControlledTextInput';
 import ControlledTextInputMask from '~/components/ControlledTextInputMask';
+import CustonFAB from '~/components/CustonFAB/index';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useMunicipios } from '~/hooks/useMunicipios';
@@ -127,12 +127,15 @@ const PreCadastroInfoPessoal = () => {
         }))}
       />
       <RowButton>
-        <BotaoLaranja
-          onPress={handleSubmit(handleOnPressButtonContinuar)}
+        <CustonFAB
+          labelStyle={{ color: '#fff' }}
+          loading={isLoading}
           disabled={isLoading}
-          loading={isLoading}>
-          Continuar
-        </BotaoLaranja>
+          mode="contained"
+          onPress={handleSubmit(handleSubmit(handleOnPressButtonContinuar))}
+          label="Continuar"
+          small
+        />
       </RowButton>
       <Alerta
         visivel={exibicaoDoAlerta}
