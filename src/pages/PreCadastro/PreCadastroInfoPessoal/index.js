@@ -52,6 +52,7 @@ const PreCadastroInfoPessoal = () => {
         nomeCompleto: dataForm.nomeCompleto,
         email: dataForm.email,
         telefone: dataForm.telefone.replace(/\D+/g, ''),
+        cpf: dataForm.cpf.replace(/\D+/g, ''),
         municipio: find(municipios, [
           'id',
           Number(dataForm.municipioSelectedId),
