@@ -1,10 +1,10 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { deletarUsuario, perfilUsuario } from '~/apis/apiCadastro';
-import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
 import { autenticarComIdSaude } from '~/services/autenticacao';
+// import { logout } from '~/apis/apiKeycloak';
 
 const AutenticacaoContext = createContext();
 
@@ -63,7 +63,7 @@ const AutenticacaoProvider = ({ children }) => {
   // TODO: Verificar se a chamada para o logout da API é realmente necessária
   // Justificativa: Quando não tem internet, não é possível fazer logout
   const signOut = async () => {
-    await logout(token);
+    // await logout(token);
 
     await setUser(null);
 

@@ -10,27 +10,23 @@ import useAutenticacao from '~/hooks/useAutenticacao';
 export default function QualiQuiz({ navigation }) {
   const navigator = useNavigation();
 
-  const { user, token } = useAutenticacao();
+  const { token } = useAutenticacao();
 
   const timeOutRef = useRef();
 
   const handleEffect = () => {
     timeOutRef.current = setTimeout(() => {
-      if (!user) {
-        navigation.navigate('QUALIQUIZ_LOGIN');
-      } else {
-        navigator.navigate('webview', {
-          title: 'Voltar ao iSUS',
-          url: `${Config.QUALIQUIZ_URL}/isus/login/1/${token.accessToken}`,
-          rota: 'HOME',
-          navigationOptions: {
-            headerStyle: {
-              backgroundColor: '#4E377C',
-            },
-            headerTitleAlign: 'left',
+      navigator.navigate(rotas.WEBVIEW_PAGE, {
+        title: 'Voltar ao iSUS',
+        url: `${Config.QUALIQUIZ_URL}/isus/login/1/${token.accessToken}`,
+        rota: 'HOME',
+        navigationOptions: {
+          headerStyle: {
+            backgroundColor: '#4E377C',
           },
-        });
-      }
+          headerTitleAlign: 'left',
+        },
+      });
     }, 1500);
   };
 

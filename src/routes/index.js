@@ -13,8 +13,6 @@ import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
 import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
-import QualiQuiz from '~/pages/QualiQuiz';
-import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
 import SemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
@@ -24,6 +22,7 @@ import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
+import QualiquizRoutes from './qualiquiz.routes';
 import SearchStackScreen from './search.routes';
 
 const { Screen, Navigator } = createStackNavigator();
@@ -132,8 +131,11 @@ const Routes = ({ navigationRef }) => {
           component={FrequenciasStackScreen}
           options={{ headerShown: false }}
         />
-        <Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
-        <Screen name={rotas.QUALIQUIZ_LOGIN} component={LoginQualiQuiz} />
+        <Screen
+          name={rotas.QUALIQUIZ}
+          component={QualiquizRoutes}
+          options={{ headerShown: false }}
+        />
         <Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
         <Screen name={rotas.CAPACITACAO_ELMO} component={CapacitacaoElmo} />
         <Screen name={rotas.NOVIDADES_ELMO} component={NovidadesElmo} />
