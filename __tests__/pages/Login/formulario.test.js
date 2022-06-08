@@ -17,22 +17,13 @@ jest.mock('@react-navigation/native', () => ({
     navigate: mockedNavigate,
     setOptions: jest.fn(),
   }),
+  useRoute: jest.fn(() => ({
+    params: {
+      redirectRoute: '',
+    },
+  })),
   useIsFocused: jest.fn(),
 }));
-
-// Mock abaixo não necessário enquanto usar 'yup' para validar
-// jest.mock('../../../src/utils/validadores', () => ({
-//   emailValido: jest.fn(() => true),
-//   senhaValido: jest.fn(() => true),
-// }));
-
-// Mock não necessário devido a remoção do teste de conectividade
-// jest.mock('@react-native-community/netinfo', () => ({
-//   ...jest.requireActual('@react-native-community/netinfo'),
-//   useNetInfo: () => ({
-//     isConnected: true,
-//   }),
-// }));
 
 /*
  * Mock para trocar o KASV por ScrollView durante os testes, pois o
