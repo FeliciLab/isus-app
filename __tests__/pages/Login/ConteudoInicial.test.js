@@ -32,6 +32,7 @@ describe('ConteudoInicial', () => {
     const item = renderedObject.getByTestId(TESTIDS.BUTTON_REALIZAR_CADASTRO);
 
     fireEvent.press(item);
+
     expect(analyticsData).toHaveBeenCalled();
   });
 
@@ -39,6 +40,7 @@ describe('ConteudoInicial', () => {
     const item = renderedObject.getByTestId(TESTIDS.BUTTON_REALIZAR_CADASTRO);
 
     fireEvent.press(item);
+
     expect(analyticsData).toHaveBeenCalledWith(
       labelsAnalytics.INICIAR_MEU_CADASTRO,
       'Click',
@@ -50,6 +52,7 @@ describe('ConteudoInicial', () => {
     const item = renderedObject.getByTestId(TESTIDS.BUTTON_JA_POSSUO_ID_SAUDE);
 
     fireEvent.press(item);
+
     expect(analyticsData).toHaveBeenCalled();
   });
 
