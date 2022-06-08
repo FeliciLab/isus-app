@@ -14,7 +14,7 @@ const QualiquizRoutes = () => {
     <Navigator>
       {user ? (
         <Screen
-          name="QualiQuizInitial"
+          name={rotas.QUALIQUIZ_INTRODUCAO}
           component={QualiQuiz}
           options={{ headerShown: false }}
         />
@@ -23,6 +23,7 @@ const QualiquizRoutes = () => {
           name={rotas.QUALIQUIZ_LOGIN}
           component={LoginStackScreen}
           options={{ headerShown: false }}
+          initialParams={{ redirectRoute: rotas.QUALIQUIZ_INTRODUCAO }}
         />
       )}
     </Navigator>

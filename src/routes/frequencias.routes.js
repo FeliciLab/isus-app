@@ -33,6 +33,7 @@ export default function FrequenciasStackScreen() {
           name={rotas.LOGIN_FREQUENCIA}
           component={LoginStackScreen}
           options={{ headerShown: false }}
+          initialParams={{ redirectRoute: rotas.LISTAR_OFERTAS }}
         />
       )}
     </Navigator>

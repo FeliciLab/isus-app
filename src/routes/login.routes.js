@@ -3,10 +3,15 @@ import React from 'react';
 import rotas from '~/constantes/rotas';
 import Login from '~/pages/Login';
 import FormularioLogin from '~/pages/Login/FormularioLogin';
+import { useRoute } from '@react-navigation/native';
 
 const { Navigator, Screen } = createStackNavigator();
 
 export default function LoginStackScreen() {
+  const route = useRoute();
+
+  const { redirectRoute } = route.params;
+
   return (
     <Navigator>
       <Screen
@@ -22,7 +27,7 @@ export default function LoginStackScreen() {
       <Screen
         name={rotas.LOGIN_FORM}
         component={FormularioLogin}
-        initialParams={{ possuiIDSaude: true }}
+        initialParams={{ possuiIDSaude: true, redirectRoute }}
       />
     </Navigator>
   );

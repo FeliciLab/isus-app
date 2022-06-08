@@ -58,6 +58,7 @@ const Routes = ({ navigationRef }) => {
           name={rotas.LOGIN}
           component={LoginStackScreen}
           options={{ headerShown: false }}
+          initialParams={{ redirectRoute: rotas.HOME }}
         />
         <Screen
           name="CADASTRO"

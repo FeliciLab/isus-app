@@ -35,7 +35,11 @@ export default function AppDrawerScreen() {
         />
       )}>
       <Screen name={rotas.HOME} component={AppTab} />
-      <Screen name={rotas.LOGIN} component={LoginStackScreen} />
+      <Screen
+        name={rotas.LOGIN}
+        component={LoginStackScreen}
+        initialParams={{ redirectRoute: rotas.HOME }}
+      />
       <Screen
         name={rotas.PERFIL}
         component={PerfilScreen}
