@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useRef } from 'react';
 import rotas from '~/constantes/rotas';
-import { FormProvider } from '~/context/FormContext';
 import BemVindo from '~/pages/BemVindo';
 import Descricao from '~/pages/Content/Descricao';
 import Elmo from '~/pages/Elmo';
@@ -27,14 +26,7 @@ import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 import SearchStackScreen from './search.routes';
 
-const RootStack = createStackNavigator();
-
-// TODO: crirar atividade para remover FormProvider
-const ElmoFunc = props => (
-  <FormProvider>
-    <Elmo {...props} />
-  </FormProvider>
-);
+const { Screen, Navigator } = createStackNavigator();
 
 const Routes = ({ navigationRef }) => {
   const routeNameRef = useRef();
@@ -57,56 +49,56 @@ const Routes = ({ navigationRef }) => {
         }
         routeNameRef.current = currentRouteName;
       }}>
-      <RootStack.Navigator>
-        <RootStack.Screen
+      <Navigator>
+        <Screen
           name="App"
           component={AppDrawerScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.LOGIN}
           component={LoginStackScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name="CADASTRO"
           options={{
             headerShown: false,
           }}
           component={CadastroRoutes}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.PRE_CADASTRO}
           options={{ headerShown: false }}
           component={PreCadastroRoutes}
         />
-        <RootStack.Screen
+        <Screen
           name="LOGIN_WELCOME"
           component={AppDrawerScreen}
           options={{ headerShown: false }}
           initialParams={{ possuiIDSaude: false }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.DESCRICAO}
           component={Descricao}
           options={{ headerShown: true, title: 'Descrição' }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.SEM_CONEXAO}
           component={SemConexao}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.MATERNO_INFANTIL}
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name="TelaDeSucesso"
           component={TelaDeSucesso}
           initialParams={{
@@ -115,53 +107,38 @@ const Routes = ({ navigationRef }) => {
           }}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name="MeusConteudos"
           component={MeusConteudos}
           initialParams={{ conteudos: [] }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.EDICAO_PROFISSIONAL}
           component={EdicaoInfoProfissional}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.BEM_VINDO}
           component={BemVindo}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.EDICAO_INFO_PESSOAIS}
           component={EdicaoInfoPessoal}
         />
-        <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
-        <RootStack.Screen
-          name={rotas.RESIDENCIA_MEDICA}
-          component={Residencias}
-        />
-        <RootStack.Screen
+        <Screen name={rotas.ELMO} component={Elmo} />
+        <Screen name={rotas.RESIDENCIA_MEDICA} component={Residencias} />
+        <Screen
           name={rotas.FREQUENCIAS}
           component={FrequenciasStackScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
-        <RootStack.Screen
-          name={rotas.QUALIQUIZ_LOGIN}
-          component={LoginQualiQuiz}
-        />
-        <RootStack.Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
-        <RootStack.Screen
-          name={rotas.CAPACITACAO_ELMO}
-          component={CapacitacaoElmo}
-        />
-        <RootStack.Screen
-          name={rotas.NOVIDADES_ELMO}
-          component={NovidadesElmo}
-        />
-        <RootStack.Screen
-          name={rotas.WEBVIEW_PAGE}
-          component={WebViewPage}
-        />
-      </RootStack.Navigator>
+        <Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
+        <Screen name={rotas.QUALIQUIZ_LOGIN} component={LoginQualiQuiz} />
+        <Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
+        <Screen name={rotas.CAPACITACAO_ELMO} component={CapacitacaoElmo} />
+        <Screen name={rotas.NOVIDADES_ELMO} component={NovidadesElmo} />
+        <Screen name={rotas.WEBVIEW_PAGE} component={WebViewPage} />
+      </Navigator>
     </NavigationContainer>
   );
 };
