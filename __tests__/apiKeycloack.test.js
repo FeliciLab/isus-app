@@ -19,10 +19,10 @@ test('deve trazer lista de serviços', () => {
 });
 
 test('deve autenticar usuario', () => {
-  const email = 'usuaria@email.com';
+  const username = 'usuaria@email.com';
   const senha = '88888888';
-  autenticar(email, senha);
-  expect(request.post).toHaveBeenCalledWith('auth', { email, senha });
+  autenticar(username, senha);
+  expect(request.post).toHaveBeenCalledWith('auth', { username, senha });
 });
 
 test('deve chamar requester com parametro get ao usar função pegarListaDeCategoriasProfissionais', () => {
