@@ -81,12 +81,14 @@ describe('Login > Formulario', () => {
     test('Deve exibir erro de email inválido', async () => {
       const { getByText, getByTestId } = renderFormularioLogin();
 
-      const campoEmail = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+      const campoUsername = getByTestId(
+        TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME,
+      );
 
       const botaoFazerLogin = getByTestId(TESTIDS.BUTTON_FAZER_LOGIN);
 
       // email inválido
-      fireEvent.changeText(campoEmail, 'ABCDEFG');
+      fireEvent.changeText(campoUsername, 'ABCDEFG');
 
       await act(async () => {
         fireEvent.press(botaoFazerLogin);
