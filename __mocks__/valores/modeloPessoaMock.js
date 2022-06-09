@@ -8,16 +8,16 @@ export default {
   cidade: 'Fortaleza',
   especialidades: [
     { id: 60, nome: 'Assistência de enfermagem em anestesiologia' },
-    { id: 111, nome: 'Bioética' }
+    { id: 111, nome: 'Bioética' },
   ],
   categoriaProfissional: { id: 3, nome: 'Enfermagem' },
   unidadeServico: [
     { id: 18, nome: 'Acolhimento psicossocial' },
     {
       id: 19,
-      nome: 'Alimentação e assistência nutricional e dietética'
-    }
+      nome: 'Alimentação e assistência nutricional e dietética',
+    },
   ],
   senha: '12345678',
-  confirmarSenha: '12345678'
+  confirmarSenha: '12345678',
 };

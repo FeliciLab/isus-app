@@ -19,8 +19,10 @@ export const RowTextIntro = styled.View`
   padding: 30px;
 `;
 export const RowButton = styled.View`
-  align-items: flex-end;
-  padding-right: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 12px;
 `;
 
 export const TextTitle = styled(Paragraph)`

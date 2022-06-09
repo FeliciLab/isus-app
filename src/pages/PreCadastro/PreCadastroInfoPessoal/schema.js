@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { cpfValido } from '~/utils/validadores';
 
 const schema = yup.object({
   nomeCompleto: yup.string().required('Campo obrigatório'),
@@ -11,15 +10,6 @@ const schema = yup.object({
     .string()
     .required('Campo obrigatório')
     .min(15, 'O telefone deve ter pelo menos 11 números'),
-  cpf: yup
-    .string()
-    .required('Campo obrigatório')
-    .min(14, 'O seu CPF deve ter pelo menos 11 números')
-    .test({
-      name: 'cpfValido',
-      test: cpfValido,
-      message: 'CPF inválido',
-    }),
   municipioSelectedId: yup.string().required('Campo obrigatório'),
 });
 

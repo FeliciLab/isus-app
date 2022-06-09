@@ -10,11 +10,11 @@ export default {
   municipio: {
     id: 1126,
     estado_id: 6,
-    nome: 'Acopiara'
+    nome: 'Acopiara',
   },
   estado: {
     id: 6,
     nome: 'Ceará',
-    uf: 'CE'
+    uf: 'CE',
   },
 };
