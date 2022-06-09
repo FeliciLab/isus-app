@@ -1,3 +1,4 @@
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import {
   ActivityIndicator,
@@ -5,13 +6,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { ArrowLeftIcon } from '~/icons';
 
 const WebViewPage = () => {
   const navigation = useNavigation();
+
   const route = useRoute();
 
   const windowWidth = Dimensions.get('window').width;

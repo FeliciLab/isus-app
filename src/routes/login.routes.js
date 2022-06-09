@@ -1,16 +1,18 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-// import { FormProvider } from '~/context/FormContext';
+import rotas from '~/constantes/rotas';
 import Login from '~/pages/Login';
 import FormularioLogin from '~/pages/Login/FormularioLogin';
-import rotas from '~/constantes/rotas';
+import { useRoute } from '@react-navigation/native';
 
 const { Navigator, Screen } = createStackNavigator();
 
-// TODO: Avaliar se FormProvider ainda é necessário
 export default function LoginStackScreen() {
+  const route = useRoute();
+
+  const { redirectRoute } = route.params;
+
   return (
-    // <FormProvider>
     <Navigator>
       <Screen
         name={rotas.LOGIN_COM_ID_SAUDE}
@@ -25,9 +27,8 @@ export default function LoginStackScreen() {
       <Screen
         name={rotas.LOGIN_FORM}
         component={FormularioLogin}
-        initialParams={{ possuiIDSaude: true }}
+        initialParams={{ possuiIDSaude: true, redirectRoute }}
       />
     </Navigator>
-    // </FormProvider>
   );
 }

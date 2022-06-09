@@ -3,11 +3,11 @@ import React from 'react';
 import { getOptionsCabecalhoSemBotao } from '~/components/layoutEffect/cabecalhoLayout';
 import rotas from '~/constantes/rotas';
 import PreCadastroInfoPessoal from '~/pages/PreCadastro/PreCadastroInfoPessoal';
-import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao';
 import PreCadastroInfoProfissional from '~/pages/PreCadastro/PreCadastroInfoProfissional';
+import PreCadastroIntroducao from '~/pages/PreCadastro/PreCadastroIntroducao';
 import PreCadastroSucesso from '~/pages/PreCadastro/PreCadastroSucesso';
 
-const PreCadastroStack = createStackNavigator();
+const { Screen, Navigator } = createStackNavigator();
 
 // Rotas para o cadastro para quando um usuário tem idSaude mas não se cadastrou ainda no iSUS
 export default function PreCadastroRoutes() {
@@ -17,27 +17,27 @@ export default function PreCadastroRoutes() {
   });
 
   return (
-    <PreCadastroStack.Navigator>
-      <PreCadastroStack.Screen
+    <Navigator>
+      <Screen
         name={rotas.PRE_CADASTRO_INTRODUCAO}
         component={PreCadastroIntroducao}
         options={options}
       />
-      <PreCadastroStack.Screen
+      <Screen
         name={rotas.PRE_CADASTRO_INFO_PESSOAL}
         component={PreCadastroInfoPessoal}
         options={options}
       />
-      <PreCadastroStack.Screen
+      <Screen
         name={rotas.PRE_CADASTRO_INFO_PROFISSIONAL}
         component={PreCadastroInfoProfissional}
         options={options}
       />
-      <PreCadastroStack.Screen
+      <Screen
         name={rotas.PRE_CADASTRO_SUCESSO}
         component={PreCadastroSucesso}
         options={{ ...options, headerShown: false }}
       />
-    </PreCadastroStack.Navigator>
+    </Navigator>
   );
 }

@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
@@ -28,8 +28,12 @@ const textInputTheme = {
   },
 };
 
-const FormularioLogin = ({ route }) => {
+const FormularioLogin = () => {
   const navigation = useNavigation();
+
+  const route = useRoute();
+
+  const { redirectRoute } = route.params;
 
   const { analyticsData } = useAnalytics();
 
@@ -87,9 +91,7 @@ const FormularioLogin = ({ route }) => {
       setValue('username', '');
       setValue('senha', '');
 
-      navigation.navigate(
-        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO,
-      );
+      navigation.navigate(cadastrado ? redirectRoute : rotas.PRE_CADASTRO);
     } catch (error) {
       if (error.response?.status === 401) {
         showAlertText(true, {
@@ -147,7 +149,7 @@ const FormularioLogin = ({ route }) => {
   };
 
   return (
-    <IDSaudeLoginTemplate route={route}>
+    <IDSaudeLoginTemplate>
       <View style={{ marginHorizontal: 16 }}>
         <ControlledTextInput
           autoCapitalize="none"

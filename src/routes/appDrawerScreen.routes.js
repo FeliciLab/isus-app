@@ -8,20 +8,19 @@ import rotas from '~/constantes/rotas';
 import AboutScreen from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
 import FaleConosco from '~/pages/FaleConosco';
-import PerfilScreen from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
-import LoginStackScreen from './login.routes';
+import PerfilRoutes from './perfil.routes';
 
-const Drawer = createDrawerNavigator();
+const { Navigator, Screen } = createDrawerNavigator();
 
 export default function AppDrawerScreen() {
   return (
-    <Drawer.Navigator
+    <Navigator
       initialRouteName="SERVICE"
       drawerPosition="left"
       drawerStyle={{
@@ -34,60 +33,59 @@ export default function AppDrawerScreen() {
           routeName={props.state.routeNames[props.state.index]}
         />
       )}>
-      <Drawer.Screen name={rotas.HOME} component={AppTab} />
-      <Drawer.Screen name={rotas.LOGIN} component={LoginStackScreen} />
-      <Drawer.Screen
+      <Screen name={rotas.HOME} component={AppTab} />
+      <Screen
         name={rotas.PERFIL}
-        component={PerfilScreen}
-        options={{ headerShown: true }}
+        component={PerfilRoutes}
+        options={{ headerShown: false }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.TERMOS_DE_USO}
         component={TermoDeUsoScreen}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.POLITICA_DE_PRIVACIDADE}
         component={PoliticaDePrivacidadeScreen}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.FALE_CONOSCO}
         component={FaleConosco}
         options={{ headerShown: true }}
         initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.DUVIDAS_ELMO}
         component={FaleConosco}
         options={{ headerShown: true }}
         initialParams={{ ocorrencia: DUVIDAS_ELMO }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.SUS_NO_CEARA}
         component={SusNoCearaScreen}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.SOBRE}
         component={AboutScreen}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.EXCLUIR_PERFIL}
         component={ExcluirPerfil}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.CONTA_EXCLUIDA}
         component={ContaExcluida}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen
+      <Screen
         name={rotas.DENUNCIAR}
         component={Denunciar}
         options={{ headerShown: true }}
       />
-    </Drawer.Navigator>
+    </Navigator>
   );
 }
