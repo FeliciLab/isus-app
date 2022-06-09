@@ -1,8 +1,10 @@
 import { autenticar, pegarTokenDeAcesso } from '~/apis/apiKeycloak';
 import { pegarDados, removerDados, salvarDados } from './armazenamento';
 
-function autenticarComIdSaude(email, senha) {
-  return autenticar(email, senha);
+// TODO: possivel remoção
+// Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
+function autenticarComIdSaude(username, senha) {
+  return autenticar(username, senha);
 }
 
 // TODO: possivel remoção

@@ -47,7 +47,8 @@ const FormularioLogin = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: '',
+      isCpf: false,
+      username: '',
       senha: '',
     },
     resolver: yupResolver(schema),
@@ -67,11 +68,11 @@ const FormularioLogin = () => {
   const showAlertText = useCallback((visible = true, text) => {
     text && setAlertText(text);
     setAlertVisible(visible);
-    visible === false && clearErrors(['email', 'senha']);
+    visible === false && clearErrors(['username', 'senha']);
   }, []);
 
   const handleSubmitForm = async data => {
-    const { email, senha } = data;
+    const { username, senha, isCpf } = data;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
 
@@ -80,9 +81,14 @@ const FormularioLogin = () => {
     try {
       setCarregando(true);
 
-      const cadastrado = await signIn(email, senha);
+      const cadastrado = await signIn(
+        isCpf === true
+          ? username.replace(/[^\d]+/g, '').trim()
+          : username.trim(),
+        senha
+      );
 
-      setValue('email', '');
+      setValue('username', '');
       setValue('senha', '');
 
       navigation.navigate(cadastrado ? redirectRoute : rotas.PRE_CADASTRO);
@@ -95,7 +101,7 @@ const FormularioLogin = () => {
 
         // Marca o input com cor de erro, sem enviar mensagem
         // O type é opcional para organizar o debug do obj de erro
-        setError('email', { type: 'manual' });
+        setError('username', { type: 'manual' });
         setError('senha', { type: 'manual' });
 
         return;
@@ -116,12 +122,31 @@ const FormularioLogin = () => {
 
   useEffect(() => {
     return () => {
-      setValue('email', '');
+      setValue('username', '');
       setValue('senha', '');
       setCarregando(false);
       setAlertVisible(false);
     };
   }, []);
+
+  const consideraCpfRegex = /^(\d{3})[.]?(\d{3})[.]?/;
+  const consideraEmailRegex = /@/;
+  const cpfRegex = /^(\d{3})[.]?(\d{3})[.]?(\d{3})[-.]?(\d{2})/;
+
+  const handleOnChangeText = (text) => {
+    if (!consideraEmailRegex.test(text) && consideraCpfRegex.test(text)) {
+      // Avisa ao validador do Yup que é um CPF
+      setValue('isCpf', true);
+
+      const maskedValue = text.replace(cpfRegex, '$1.$2.$3-$4');
+
+      setValue('username', maskedValue.trim());
+    } else {
+      setValue('isCpf', false);
+
+      setValue('username', text.trim());
+    }
+  };
 
   return (
     <IDSaudeLoginTemplate>
@@ -133,19 +158,19 @@ const FormularioLogin = () => {
           control={control}
           errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
           keyboardType="email-address"
-          label="Email"
-          name="email"
+          label="Email ou CPF"
+          name="username"
           mode="outlined"
           onChange={() => showAlertText(false)}
-          onChangeText={text => setValue('email', text.trim())}
+          onChangeText={handleOnChangeText}
           onSubmitEditing={() => {
             setFocus('senha');
           }}
           returnKeyType="next"
-          placeholder="Email"
+          placeholder="Email ou CPF"
           selectionColor={CORES.CINZA_WEB}
-          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
-          textContentType="emailAddress"
+          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME}
+          textContentType="username"
           theme={textInputTheme}
         />
         <ControlledTextInput
@@ -174,7 +199,7 @@ const FormularioLogin = () => {
         <View style={{ marginTop: 18 }}>
           <Botao
             disabled={
-              errors?.email?.message || errors?.senha?.message || carregando
+              errors?.username?.message || errors?.senha?.message || carregando
             }
             testID={TESTIDS.BUTTON_FAZER_LOGIN}
             mode="contained"

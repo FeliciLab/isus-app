@@ -23,11 +23,11 @@ describe('apiKeycloack', () => {
   });
 
   it('deve autenticar usuario', () => {
-    const email = 'usuaria@email.com';
+    const username = 'usuaria@email.com';
     const senha = '88888888';
-    const response = autenticar(email, senha);
+    const response = autenticar(username, senha);
 
-    expect(request.post).toHaveBeenCalledWith('auth', { email, senha });
+    expect(request.post).toHaveBeenCalledWith('auth', { username, senha });
     expect(response).toBeTruthy();
   });
 

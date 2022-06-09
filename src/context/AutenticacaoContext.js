@@ -23,8 +23,8 @@ const AutenticacaoProvider = ({ children }) => {
   // Retorno se o perfil já estava cadastrado
   // Necessário para caso de uso de usuário que tem idSaude
   // mas que nao fez o cadastro no iSUS
-  const signIn = useCallback(async (email, senha) => {
-    const response = await autenticarComIdSaude(email, senha);
+  const signIn = useCallback(async (username, senha) => {
+    const response = await autenticarComIdSaude(username, senha);
 
     await setToken({
       accessToken: response.mensagem.access_token,
@@ -89,8 +89,6 @@ const AutenticacaoProvider = ({ children }) => {
       especialidades: perfil.data.profissional.especialidades,
       cadastrado: perfil.data.cadastrado,
     };
-
-    console.log(newUserData);
 
     await setUser(newUserData);
   }, [token]);

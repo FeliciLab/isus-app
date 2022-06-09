@@ -40,19 +40,21 @@ const renderFormularioLogin = () =>
 
 describe('Login > Formulario', () => {
   describe('DADO que estou na tela de login', () => {
-    let campoEmail;
+    let campoUsername;
+
     let campoSenha;
 
     beforeEach(() => {
       const { getByTestId } = renderFormularioLogin();
 
-      campoEmail = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+      campoUsername = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME);
+
       campoSenha = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA);
     });
 
     describe('E renderizo a pagina', () => {
       test('ENTÃO o campo e-mail deve estar em branco.', () => {
-        expect(campoEmail.props.value).toEqual('');
+        expect(campoUsername.props.value).toEqual('');
       });
 
       test('ENTÃO o campo senha deve estar em branco.', () => {
@@ -118,7 +120,7 @@ describe('Login > Formulario', () => {
   describe('Testes de Analytics da tela Login', () => {
     let botaoFazerLogin;
     let botaoEsqueciSenha;
-    let campoEmail;
+    let campoUsername;
     let campoSenha;
 
     beforeEach(async () => {
@@ -128,20 +130,19 @@ describe('Login > Formulario', () => {
 
       botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
 
-      campoEmail = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+      campoUsername = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME);
 
       campoSenha = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA);
 
-      // Preenchendo os campos
-      await act(() => {
-        fireEvent.changeText(campoEmail, EMAIL);
-        fireEvent.changeText(campoSenha, SENHA);
-        fireEvent.press(botaoFazerLogin);
-      });
+      fireEvent.changeText(campoUsername, EMAIL);
+
+      fireEvent.changeText(campoSenha, SENHA);
+
+      fireEvent.press(botaoFazerLogin);
     });
 
     test('Campo email deve estar preenchido', () => {
-      expect(campoEmail.props.value).toEqual(EMAIL);
+      expect(campoUsername.props.value).toEqual(EMAIL);
     });
 
     test('Campo senha deve estar preenchido', () => {
