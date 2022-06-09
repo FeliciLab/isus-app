@@ -32,12 +32,6 @@ describe('apiKeycloack', () => {
   });
 
   it('deve chamar requester com parametro get ao usar função pegarListaDeCategoriasProfissionais', () => {
-
-    expect(request.post).toHaveBeenCalledWith('auth', { email, senha });
-    expect(response).toBeTruthy();
-  });
-
-  it('deve chamar requester com parametro get ao usar função pegarListaDeCategoriasProfissionais', () => {
     pegarListaDeCategoriasProfissionais();
     expect(request.get).toHaveBeenCalledWith('/categorias-profissionais');
   });
