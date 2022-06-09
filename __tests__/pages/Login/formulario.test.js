@@ -46,7 +46,7 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
 
 describe('Login > Formulario', () => {
   describe('DADO que estou na tela de login', () => {
-    let campoEmail;
+    let campoUsername;
 
     let campoSenha;
 
@@ -58,14 +58,14 @@ describe('Login > Formulario', () => {
         </AppTrackTransparencyContext.Provider>,
       );
 
-      campoEmail = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+      campoUsername = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME);
 
       campoSenha = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA);
     });
     describe('E renderizo a pagina', () => {
       test('ENTÃO o campo e-mail deve estar em branco.', () => {
-        console.log('CAMPO EMAIL: ', campoEmail);
-        expect(campoEmail.props.value).toEqual('');
+        console.log('CAMPO EMAIL: ', campoUsername);
+        expect(campoUsername.props.value).toEqual('');
       });
 
       test('ENTÃO o campo senha deve estar em branco.', () => {
@@ -79,7 +79,7 @@ describe('Login > Formulario', () => {
 
     let botaoEsqueciSenha;
 
-    let campoEmail;
+    let campoUsername;
 
     let campoSenha;
 
@@ -95,11 +95,11 @@ describe('Login > Formulario', () => {
 
       botaoEsqueciSenha = getByTestId(TESTIDS.BUTTON_ESQUECI_SENHA);
 
-      campoEmail = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL);
+      campoUsername = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME);
 
       campoSenha = getByTestId(TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA);
 
-      fireEvent.changeText(campoEmail, EMAIL);
+      fireEvent.changeText(campoUsername, EMAIL);
 
       fireEvent.changeText(campoSenha, SENHA);
 
@@ -107,7 +107,7 @@ describe('Login > Formulario', () => {
     });
 
     test('Campo email deve estar preenchido', () => {
-      expect(campoEmail.props.value).toEqual(EMAIL);
+      expect(campoUsername.props.value).toEqual(EMAIL);
     });
 
     test('Campo senha deve estar preenchido', () => {
