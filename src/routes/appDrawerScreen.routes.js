@@ -8,14 +8,13 @@ import rotas from '~/constantes/rotas';
 import AboutScreen from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
 import FaleConosco from '~/pages/FaleConosco';
-import PerfilScreen from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
-import LoginStackScreen from './login.routes';
+import PerfilRoutes from './perfil.routes';
 
 const { Navigator, Screen } = createDrawerNavigator();
 
@@ -36,14 +35,9 @@ export default function AppDrawerScreen() {
       )}>
       <Screen name={rotas.HOME} component={AppTab} />
       <Screen
-        name={rotas.LOGIN}
-        component={LoginStackScreen}
-        initialParams={{ redirectRoute: rotas.HOME }}
-      />
-      <Screen
         name={rotas.PERFIL}
-        component={PerfilScreen}
-        options={{ headerShown: true }}
+        component={PerfilRoutes}
+        options={{ headerShown: false }}
       />
       <Screen
         name={rotas.TERMOS_DE_USO}

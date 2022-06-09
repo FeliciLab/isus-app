@@ -10,15 +10,12 @@ import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import testIDs from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
-import useAutenticacao from '~/hooks/useAutenticacao';
 import ItemDrawer from './itemDrawer';
 import ItemInferior from './itemInferior';
 import { DroidSafeArea } from './styles';
 
 function conteudoDoDrawer(props) {
   const { routeName } = props;
-
-  const { user } = useAutenticacao();
 
   const { analyticsData } = useAnalytics();
 
@@ -51,7 +48,7 @@ function conteudoDoDrawer(props) {
         />
       ),
       labelDoAnalytics: 'meu_perfil',
-      rota: user ? rotas.PERFIL : rotas.LOGIN,
+      rota: rotas.PERFIL,
     },
     {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
@@ -99,22 +96,20 @@ function conteudoDoDrawer(props) {
     ));
 
   return (
-    <>
-      <DroidSafeArea>
-        <View>
-          <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
-        </View>
-        <View
-          style={{
-            height: '100%',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-          }}>
-          <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
-          <ItemInferior />
-        </View>
-      </DroidSafeArea>
-    </>
+    <DroidSafeArea>
+      <View>
+        <Heart testID="svg-heart" size={40} style={{ margin: 10 }} />
+      </View>
+      <View
+        style={{
+          height: '100%',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+        }}>
+        <ScrollView {...props}>{RenderizaItensDoDrawer()}</ScrollView>
+        <ItemInferior />
+      </View>
+    </DroidSafeArea>
   );
 }
 
