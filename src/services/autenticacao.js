@@ -3,8 +3,8 @@ import { autenticar, pegarTokenDeAcesso } from '~/apis/apiKeycloak';
 
 // TODO: possivel remoção
 // Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
-export const efetuarAcesso = async ({ email, senha }) => {
-  const response = await autenticarComIdSaude(email, senha).then();
+export const efetuarAcesso = async ({ username, senha }) => {
+  const response = await autenticarComIdSaude(username, senha);
   if (!response.sucesso) {
     return {
       erro: true,
@@ -27,8 +27,8 @@ export const pegarEstadoLogadoArmazenado = () => pegarDados('usuario-logado');
 
 // TODO: possivel remoção
 // Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
-function autenticarComIdSaude(email, senha) {
-  return autenticar(email, senha);
+function autenticarComIdSaude(username, senha) {
+  return autenticar(username, senha);
 }
 
 // TODO: possivel remoção
