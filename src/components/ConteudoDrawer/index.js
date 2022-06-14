@@ -13,6 +13,7 @@ import useAnalytics from '~/hooks/useAnalytics';
 import ItemDrawer from './itemDrawer';
 import ItemInferior from './itemInferior';
 import { DroidSafeArea } from './styles';
+import useAutenticacao from '~/hooks/useAutenticacao';
 
 function conteudoDoDrawer(props) {
   const { routeName } = props;
@@ -20,6 +21,8 @@ function conteudoDoDrawer(props) {
   const { analyticsData } = useAnalytics();
 
   const { navigate } = useNavigation();
+
+  const { user } = useAutenticacao();
 
   const ItensDoDrawer = [
     {
@@ -48,7 +51,7 @@ function conteudoDoDrawer(props) {
         />
       ),
       labelDoAnalytics: 'meu_perfil',
-      rota: rotas.PERFIL,
+      rota: user ? rotas.PERFIL : rotas.LOGIN,
     },
     {
       testID: testIDs.DRAWER.ITEM_FALECONOSCO,
