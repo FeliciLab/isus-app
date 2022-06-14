@@ -13,7 +13,7 @@ import { DadosUsuario, DadosUsuarioProfissional } from './DadosUsuario';
 import MenuPerfil from './Menus/menuPerfil';
 import MenuPerfilItem from './Menus/menuPerfilItem';
 
-export default function PerfilScreen() {
+export default function Perfil() {
   const navigation = useNavigation();
 
   const { analyticsData } = useAnalytics();
