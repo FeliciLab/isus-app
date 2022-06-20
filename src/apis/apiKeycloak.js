@@ -3,8 +3,8 @@ import request from '~/services/request';
 const ordenarPorNome = lista =>
   lista.sort((a, b) => a.nome.localeCompare(b.nome));
 
-export async function autenticar(email, senha) {
-  const { data } = await request.post('auth', { email, senha });
+export async function autenticar(username, senha) {
+  const { data } = await request.post('auth', { username, senha });
   return data;
 }
 

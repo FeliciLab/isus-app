@@ -1,10 +1,10 @@
 import React, { createContext, useCallback, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { deletarUsuario, perfilUsuario } from '~/apis/apiCadastro';
-import { logout } from '~/apis/apiKeycloak';
 import { CORES } from '~/constantes/estiloBase';
 import useAsyncStorage from '~/hooks/useAsyncStorage';
 import { autenticarComIdSaude } from '~/services/autenticacao';
+// import { logout } from '~/apis/apiKeycloak';
 
 const AutenticacaoContext = createContext();
 
@@ -23,8 +23,8 @@ const AutenticacaoProvider = ({ children }) => {
   // Retorno se o perfil já estava cadastrado
   // Necessário para caso de uso de usuário que tem idSaude
   // mas que nao fez o cadastro no iSUS
-  const signIn = useCallback(async (email, senha) => {
-    const response = await autenticarComIdSaude(email, senha);
+  const signIn = useCallback(async (username, senha) => {
+    const response = await autenticarComIdSaude(username, senha);
 
     await setToken({
       accessToken: response.mensagem.access_token,
@@ -60,8 +60,10 @@ const AutenticacaoProvider = ({ children }) => {
     return perfil.cadastrado ? true : false;
   }, []);
 
+  // TODO: Verificar se a chamada para o logout da API é realmente necessária
+  // Justificativa: Quando não tem internet, não é possível fazer logout
   const signOut = async () => {
-    await logout(token);
+    // await logout(token);
 
     await setUser(null);
 
@@ -87,8 +89,6 @@ const AutenticacaoProvider = ({ children }) => {
       especialidades: perfil.data.profissional.especialidades,
       cadastrado: perfil.data.cadastrado,
     };
-
-    console.log(newUserData);
 
     await setUser(newUserData);
   }, [token]);

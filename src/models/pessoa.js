@@ -1,3 +1,6 @@
+// TODO: estamos usando o user do Autenticação
+// Remover depois
+
 const especialidade = { id: '', nome: '' };
 
 const categoriaProfissional = { id: '', nome: '' };

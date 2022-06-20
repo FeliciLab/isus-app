@@ -13,8 +13,9 @@ import {
 } from '~/utils/mascaras';
 import ImagemDePostagem from '../ImagemDePostagem';
 import { ListaPostagemVazia, ListaPostagens, Postagem } from './style';
+import PostListSkeletonPlaceholder from '~/components/PostListSkeletonPlaceholder';
 
-export default function({ route, navigation }) {
+const TelaConteudo = ({ route, navigation }) => {
   const { categoria } = route.params;
 
   const { analyticsData } = useAnalytics();
@@ -22,6 +23,8 @@ export default function({ route, navigation }) {
   const [postagens, setPostagens] = useState([]);
 
   const [semConexao, setSemConexao] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const { isConnected } = useNetInfo();
 
@@ -50,7 +53,9 @@ export default function({ route, navigation }) {
 
       async function pegarConteudo() {
         try {
+          !postagens && setIsLoading(true);
           await pegarConteudoDaApi();
+          setIsLoading(false);
         } catch (err) {
           if (err.message === 'Network Error') {
             setSemConexao(true);
@@ -100,37 +105,47 @@ export default function({ route, navigation }) {
     return posts;
   };
 
-  return (
-    <ListaPostagens
-      showsVerticalScrollIndicator={false}
-      data={postagens}
-      numColumns={2}
-      keyExtractor={item => item.id}
-      ListEmptyComponent={ListaPostagemVazia}
-      renderItem={({ item }) => (
-        <Postagem
-          onPress={() =>
-            navigation.navigate(rotas.DESCRICAO, {
-              parametros: {
-                ...item,
-                categoria_id: categoria.term_id,
-              },
-              title: categoria.title_description,
-            })
-          }>
-          <ImagemDePostagem
-            conteudoBaixado={semConexao}
-            imagem={item.image}
-            estilo={estilos.imagemPostagem}
-          />
-          <View style={{ marginHorizontal: 15 }}>
-            <Caption numberOfLines={3}>{item.post_title}</Caption>
-          </View>
-        </Postagem>
-      )}
-    />
+  const PostagemItem = ({ item }) => (
+    <Postagem
+      onPress={() =>
+        navigation.navigate(rotas.DESCRICAO, {
+          parametros: {
+            ...item,
+            categoria_id: categoria.term_id,
+          },
+          title: categoria.title_description,
+        })
+      }>
+      <ImagemDePostagem
+        conteudoBaixado={semConexao}
+        imagem={item.image}
+        estilo={estilos.imagemPostagem}
+      />
+      <View style={{ marginHorizontal: 15 }}>
+        <Caption numberOfLines={3}>{item.post_title}</Caption>
+      </View>
+    </Postagem>
   );
-}
+
+  return (
+    <>
+      {isLoading && <PostListSkeletonPlaceholder />}
+
+      <ListaPostagens
+        showsVerticalScrollIndicator={false}
+        data={postagens}
+        numColumns={2}
+        keyExtractor={item => item.id}
+        ListEmptyComponent={ListaPostagemVazia}
+        renderItem={({ item }) => <PostagemItem item={item} />
+        }
+      />
+
+    </>
+  );
+};
+
+export default TelaConteudo;
 
 const estilos = StyleSheet.create({
   imagemPostagem: {

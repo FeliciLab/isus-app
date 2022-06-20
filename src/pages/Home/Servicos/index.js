@@ -121,11 +121,18 @@ function Servicos({ navigation }) {
     },
   ];
 
+  // Exclui componentes que possuem dados no próprio iSUS-APP
+  const excludeComponents = [ROTAS.ELMO, ROTAS.RESIDENCIA_MEDICA];
+
   const handleOnPressServiceButton = useCallback(
     item => {
       analyticsData(item.id, 'Click', 'Home');
 
-      if (item.navegacao.net && !isConnected) {
+      if (
+        item.navegacao.net &&
+        !excludeComponents.includes(item.navegacao?.componente) &&
+        !isConnected
+      ) {
         navigation.navigate(ROTAS.SEM_CONEXAO, {
           componente: item.navegacao.componente,
           title: item.navegacao.titulo,

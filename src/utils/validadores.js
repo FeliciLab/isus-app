@@ -1,6 +1,4 @@
 /* eslint-disable operator-linebreak */
-/* eslint-disable no-var */
-/* eslint-disable no-undef */
 /* eslint-disable no-plusplus */
 /* eslint-disable eqeqeq */
 /* eslint-disable radix */
@@ -27,11 +25,13 @@ export const nomeValido = nomeCompleto =>
 
 // eslint-disable-next-line arrow-parens
 export const cpfValido = cpf => {
+  // Remove os pontos/traço da expressão regular, caso exista
   cpf = cpf.replace(/[^\d]+/g, '');
   if (cpf === '') {
     return false;
   }
 
+  // Elimina CPFs invalidos conhecidos
   if (
     cpf.length != 11 ||
     cpf === '00000000000' ||
@@ -48,8 +48,9 @@ export const cpfValido = cpf => {
     return false;
   }
 
+  // Valida 1o digito
   let add = 0;
-  for (i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i++) {
     add += parseInt(cpf.charAt(i)) * (10 - i);
   }
 
@@ -62,8 +63,9 @@ export const cpfValido = cpf => {
     return false;
   }
 
+  // Valida 2o digito
   add = 0;
-  for (i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i++) {
     add += parseInt(cpf.charAt(i)) * (11 - i);
   }
 

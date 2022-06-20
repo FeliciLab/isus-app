@@ -1,13 +1,10 @@
 import { ScrollView } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 import styled from 'styled-components/native';
-import features from '~/constantes/features';
-import featureAtivas from '~/featureAtivas';
 
 export const Container = styled(ScrollView)`
   background-color: #ffffff;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 16px 16px;
 `;
 
 export const Titulo = styled(Title)`
@@ -35,9 +32,6 @@ export const Botao = styled(Button)`
   background-color: ${props => {
     if (props.disabled) {
       return '#BDBDBD';
-    }
-    if (featureAtivas.includes(features.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
-      return props.cor;
     }
     return '#304FFE';
   }};

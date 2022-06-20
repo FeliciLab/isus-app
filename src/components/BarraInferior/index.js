@@ -1,31 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  // useEffect,
+  useRef,
+  // useState
+} from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
+// TODO: voltar o botão quando a funcionalidade estiver ok
 function BarraInferior({
-  telaDeOrigem,
-  aoClicarEmBaixar,
+  // telaDeOrigem,
+  // aoClicarEmBaixar,
   aoCompartilhar,
-  conteudoBaixado,
+  // conteudoBaixado,
   informacaoLateral,
   barraVisivel,
 }) {
-  const [iconeDownload, setIconeDownload] = useState();
+  // const [iconeDownload, setIconeDownload] = useState();
 
-  const telas = {
-    descricao: 'descricao',
-    manejo: 'manejo',
-  };
+  // const telas = {
+  //   descricao: 'descricao',
+  //   manejo: 'manejo',
+  // };
 
-  useEffect(() => {
-    if (telaDeOrigem === telas.descricao) {
-      if (conteudoBaixado) {
-        return setIconeDownload('cloud-check');
-      }
-      return setIconeDownload('cloud-download');
-    }
-    return setIconeDownload('download');
-  }, [conteudoBaixado]);
+  // useEffect(() => {
+  //   if (telaDeOrigem === telas.descricao) {
+  //     if (conteudoBaixado) {
+  //       return setIconeDownload('cloud-check');
+  //     }
+  //     return setIconeDownload('cloud-download');
+  //   }
+  //   return setIconeDownload('download');
+  // }, [conteudoBaixado]);
 
   const valorVisibilidade = useRef(new Animated.Value(0)).current;
 
@@ -66,7 +71,7 @@ function BarraInferior({
             {aoCompartilhar && (
               <Appbar.Action icon="share-variant" onPress={aoCompartilhar} />
             )}
-            <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} />
+            {/* <Appbar.Action icon={iconeDownload} onPress={aoClicarEmBaixar} /> */}
           </View>
         </View>
       </Appbar>

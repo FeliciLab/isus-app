@@ -3,7 +3,7 @@ import { uniqueId } from 'lodash';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
 import { Divider } from 'react-native-paper';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { useOfertas } from '~/hooks/useOfertas';
 import { ArrowLeftIcon } from '~/icons';

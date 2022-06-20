@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { CORES } from '../../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
 
 export const SafeArea = styled.SafeAreaView`
   height: 100%;

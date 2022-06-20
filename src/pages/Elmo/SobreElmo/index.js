@@ -11,7 +11,7 @@ import jpgSENAI from '~/assets/icons/logo/logo-senai.jpg';
 import jpgUFC from '~/assets/icons/logo/logo-ufc.jpg';
 import jpgUNIFOR from '~/assets/icons/logo/logo-unifor.jpg';
 import ImageElmo from '~/assets/images/fig-elmo.jpg';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 import {

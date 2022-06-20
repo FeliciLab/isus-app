@@ -17,7 +17,7 @@ export const TESTIDS = {
   BOTAO_TUTORIAL_PROXIMO: 'botao-tutorial-proximo',
   FORMULARIO: {
     LOGIN: {
-      CAMPO_EMAIL: 'campo-email',
+      CAMPO_USERNAME: 'campo-username',
       CAMPO_SENHA: 'campo-senha',
     },
   },

@@ -1,11 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
 import { Config } from 'react-native-config';
 import { DefaultTheme } from 'react-native-paper';
-import Alerta from '~/components/alerta';
+import AlertaLogin from '~/components/AlertaLogin';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -28,22 +28,27 @@ const textInputTheme = {
   },
 };
 
-const FormularioLogin = ({ route }) => {
+const FormularioLogin = () => {
   const navigation = useNavigation();
+
+  const route = useRoute();
+
+  const { redirectRoute } = route.params;
 
   const { analyticsData } = useAnalytics();
 
   const {
     control,
+    clearErrors,
     handleSubmit,
+    setError,
     setFocus,
     setValue,
     formState: { errors },
   } = useForm({
-    mode: 'all', // all = Validation will trigger on the blur and change events
-    reValidateMode: 'onBlur',
     defaultValues: {
-      email: '',
+      isCpf: false,
+      username: '',
       senha: '',
     },
     resolver: yupResolver(schema),
@@ -53,34 +58,52 @@ const FormularioLogin = ({ route }) => {
 
   const [carregando, setCarregando] = useState(false);
 
-  const [textoDoAlerta, setTextoDoAlerta] = useState('');
+  const [alertText, setAlertText] = useState({
+    headerText: 'Credenciais incorretas!',
+    bodyText: 'Tente novamente ou recupere sua senha.',
+  });
 
-  const [visivel, setVisivel] = useState(false);
+  const [alertVisible, setAlertVisible] = useState(false);
 
-  const mostrarAlerta = useCallback(texto => {
-    setTextoDoAlerta(texto);
-    setVisivel(true);
+  const showAlertText = useCallback((visible = true, text) => {
+    text && setAlertText(text);
+    setAlertVisible(visible);
+    visible === false && clearErrors(['username', 'senha']);
   }, []);
 
   const handleSubmitForm = async data => {
-    const { email, senha } = data;
+    const { username, senha, isCpf } = data;
 
     analyticsData('fazer_login', 'Click', 'Perfil');
+
+    showAlertText(false);
 
     try {
       setCarregando(true);
 
-      const cadastrado = await signIn(email, senha);
+      const cadastrado = await signIn(
+        isCpf === true
+          ? username.replace(/[^\d]+/g, '').trim()
+          : username.trim(),
+        senha
+      );
 
-      setValue('email', '');
+      setValue('username', '');
       setValue('senha', '');
 
-      navigation.navigate(
-        cadastrado ? rotas.HOME_SCREEN_HOME : rotas.PRE_CADASTRO,
-      );
+      navigation.navigate(cadastrado ? redirectRoute : rotas.PRE_CADASTRO);
     } catch (error) {
       if (error.response?.status === 401) {
-        mostrarAlerta('Email e/ou senha incorreto(s)');
+        showAlertText(true, {
+          headerText: 'Credenciais incorretas!',
+          bodyText: 'Tente novamente ou recupere sua senha.',
+        });
+
+        // Marca o input com cor de erro, sem enviar mensagem
+        // O type é opcional para organizar o debug do obj de erro
+        setError('username', { type: 'manual' });
+        setError('senha', { type: 'manual' });
+
         return;
       }
     } finally {
@@ -99,14 +122,34 @@ const FormularioLogin = ({ route }) => {
 
   useEffect(() => {
     return () => {
-      setValue('email', '');
+      setValue('username', '');
       setValue('senha', '');
       setCarregando(false);
+      setAlertVisible(false);
     };
   }, []);
 
+  const consideraCpfRegex = /^(\d{3})[.]?(\d{3})[.]?/;
+  const consideraEmailRegex = /@/;
+  const cpfRegex = /^(\d{3})[.]?(\d{3})[.]?(\d{3})[-.]?(\d{2})/;
+
+  const handleOnChangeText = (text) => {
+    if (!consideraEmailRegex.test(text) && consideraCpfRegex.test(text)) {
+      // Avisa ao validador do Yup que é um CPF
+      setValue('isCpf', true);
+
+      const maskedValue = text.replace(cpfRegex, '$1.$2.$3-$4');
+
+      setValue('username', maskedValue.trim());
+    } else {
+      setValue('isCpf', false);
+
+      setValue('username', text.trim());
+    }
+  };
+
   return (
-    <IDSaudeLoginTemplate route={route}>
+    <IDSaudeLoginTemplate>
       <View style={{ marginHorizontal: 16 }}>
         <ControlledTextInput
           autoCapitalize="none"
@@ -115,18 +158,19 @@ const FormularioLogin = ({ route }) => {
           control={control}
           errorTextStyle={{ color: CORES.BRANCO, fontSize: 14 }}
           keyboardType="email-address"
-          label="Email"
-          name="email"
+          label="Email ou CPF"
+          name="username"
           mode="outlined"
-          onChangeText={text => setValue('email', text.trim())}
+          onChange={() => showAlertText(false)}
+          onChangeText={handleOnChangeText}
           onSubmitEditing={() => {
             setFocus('senha');
           }}
           returnKeyType="next"
-          placeholder="Email"
+          placeholder="Email ou CPF"
           selectionColor={CORES.CINZA_WEB}
-          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_EMAIL}
-          textContentType="emailAddress"
+          testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_USERNAME}
+          textContentType="username"
           theme={textInputTheme}
         />
         <ControlledTextInput
@@ -137,20 +181,25 @@ const FormularioLogin = ({ route }) => {
           label="Senha"
           name="senha"
           mode="outlined"
+          onChange={() => showAlertText(false)}
           onSubmitEditing={handleSubmit(handleSubmitForm)}
           returnKeyType="done"
           placeholder="Senha"
           secureTextEntry
-          // selectionColor={CORES.AZUL}
           selectionColor={CORES.CINZA_WEB}
           testID={TESTIDS.FORMULARIO.LOGIN.CAMPO_SENHA}
           textContentType="password"
           theme={textInputTheme}
         />
+        <AlertaLogin
+          bodyText={alertText.bodyText}
+          headerText={alertText.headerText}
+          visible={alertVisible}
+        />
         <View style={{ marginTop: 18 }}>
           <Botao
             disabled={
-              errors?.email?.message || errors?.senha?.message || carregando
+              errors?.username?.message || errors?.senha?.message || carregando
             }
             testID={TESTIDS.BUTTON_FAZER_LOGIN}
             mode="contained"
@@ -169,12 +218,6 @@ const FormularioLogin = ({ route }) => {
           </Botao>
         </View>
       </View>
-      <Alerta
-        textoDoAlerta={textoDoAlerta}
-        visivel={visivel}
-        duration={5000}
-        onDismiss={() => setVisivel(false)}
-      />
     </IDSaudeLoginTemplate>
   );
 };

@@ -1,16 +1,10 @@
-import { Feature } from '@paralleldrive/react-feature-toggles';
 import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useRef } from 'react';
-import SemConexao from '~/components/semConexao';
-import features from '~/constantes/features';
 import rotas from '~/constantes/rotas';
-import { FormProvider } from '~/context/FormContext';
 import BemVindo from '~/pages/BemVindo';
-import TelaDeCadastro from '~/pages/Cadastro';
 import Descricao from '~/pages/Content/Descricao';
-import Description from '~/pages/Content/Description';
 import Elmo from '~/pages/Elmo';
 import CapacitacaoElmo from '~/pages/Elmo/CapacitacaoElmo';
 import NovidadesElmo from '~/pages/Elmo/NovidadesElmo';
@@ -19,48 +13,21 @@ import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
 import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
-import QualiQuiz from '~/pages/QualiQuiz';
-import LoginQualiQuiz from '~/pages/QualiQuiz/Login/LoginQualiQuiz';
 import Residencias from '~/pages/Residencias';
-import NovoSemConexao from '~/pages/SemConexao';
+import SemConexao from '~/pages/SemConexao';
 import TelaDeSucesso from '~/pages/TelaDeSucesso';
-import WebViewPage from '~/pages/WebView';
-import ManejoWebViewPage from '~/pages/WebView/ManejoWebView';
-import estaAtiva from '~/utils/estaAtiva';
+import WebViewPage from '~/pages/WebViewPage';
 import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
 import PreCadastroRoutes from './preCadastro.routes';
+import QualiquizRoutes from './qualiquiz.routes';
 import SearchStackScreen from './search.routes';
 
-const RootStack = createStackNavigator();
+const { Screen, Navigator } = createStackNavigator();
 
-// TODO: crirar atividade para remover FormProvider
-const ElmoFunc = props => (
-  <FormProvider>
-    <Elmo {...props} /> 
-  </FormProvider>
-);
-
-const Cadastro = () => (
-  <Feature
-    name="316"
-    inactiveComponent={TelaDeCadastro}
-    activeComponent={CadastroRoutes}
-  />
-);
-
-// TODO: remover depois esse Feature
-const SemConexaoNovo = props => (
-  <Feature
-    name={features.TELA_SEM_CONEXAO}
-    activeComponent={() => <NovoSemConexao {...props} />}
-    inactiveComponent={() => <SemConexao {...props} />}
-  />
-);
-
-export default function App({ navigationRef }) {
+const Routes = ({ navigationRef }) => {
   const routeNameRef = useRef();
 
   return (
@@ -81,63 +48,57 @@ export default function App({ navigationRef }) {
         }
         routeNameRef.current = currentRouteName;
       }}>
-      <RootStack.Navigator>
-        <RootStack.Screen
+      <Navigator>
+        <Screen
           name="App"
           component={AppDrawerScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.LOGIN}
           component={LoginStackScreen}
           options={{ headerShown: false }}
+          initialParams={{ redirectRoute: rotas.HOME }}
         />
-        <RootStack.Screen
+        <Screen
           name="CADASTRO"
           options={{
-            headerShown: !estaAtiva(
-              features.CRIAR_PERSISTENCIA_DE_DADOS_NO_CADASTRO,
-            ),
+            headerShown: false,
           }}
-          component={Cadastro}
+          component={CadastroRoutes}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.PRE_CADASTRO}
           options={{ headerShown: false }}
           component={PreCadastroRoutes}
         />
-        <RootStack.Screen
+        <Screen
           name="LOGIN_WELCOME"
           component={AppDrawerScreen}
           options={{ headerShown: false }}
           initialParams={{ possuiIDSaude: false }}
         />
-        <RootStack.Screen
-          name="Descrição"
-          component={Description}
-          options={{ headerShown: true }}
-        />
-        <RootStack.Screen
+        <Screen
           name={rotas.DESCRICAO}
           component={Descricao}
           options={{ headerShown: true, title: 'Descrição' }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.SEM_CONEXAO}
-          component={SemConexaoNovo}
+          component={SemConexao}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.MATERNO_INFANTIL}
           component={MaternoInfantil}
           options={{ headerShown: true }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.SEARCH_STACK_SCREEN}
           component={SearchStackScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name="TelaDeSucesso"
           component={TelaDeSucesso}
           initialParams={{
@@ -146,52 +107,43 @@ export default function App({ navigationRef }) {
           }}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name="MeusConteudos"
           component={MeusConteudos}
           initialParams={{ conteudos: [] }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.EDICAO_PROFISSIONAL}
           component={EdicaoInfoProfissional}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.BEM_VINDO}
           component={BemVindo}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen
+        <Screen
           name={rotas.EDICAO_INFO_PESSOAIS}
           component={EdicaoInfoPessoal}
         />
-        <RootStack.Screen name={rotas.ELMO} component={ElmoFunc} />
-        <RootStack.Screen
-          name={rotas.RESIDENCIA_MEDICA}
-          component={Residencias}
-        />
-        <RootStack.Screen
+        <Screen name={rotas.ELMO} component={Elmo} />
+        <Screen name={rotas.RESIDENCIA_MEDICA} component={Residencias} />
+        <Screen
           name={rotas.FREQUENCIAS}
           component={FrequenciasStackScreen}
           options={{ headerShown: false }}
         />
-        <RootStack.Screen name={rotas.QUALIQUIZ} component={QualiQuiz} />
-        <RootStack.Screen
-          name={rotas.QUALIQUIZ_LOGIN}
-          component={LoginQualiQuiz}
+        <Screen
+          name={rotas.QUALIQUIZ}
+          component={QualiquizRoutes}
+          options={{ headerShown: false }}
         />
-        <RootStack.Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
-        <RootStack.Screen
-          name={rotas.CAPACITACAO_ELMO}
-          component={CapacitacaoElmo}
-        />
-        <RootStack.Screen
-          name={rotas.NOVIDADES_ELMO}
-          component={NovidadesElmo}
-        />
-        {/* WebViews */}
-        <RootStack.Screen name="webview" component={WebViewPage} />
-        <RootStack.Screen name="manejoWebview" component={ManejoWebViewPage} />
-      </RootStack.Navigator>
+        <Screen name={rotas.SOBRE_ELMO} component={SobreElmo} />
+        <Screen name={rotas.CAPACITACAO_ELMO} component={CapacitacaoElmo} />
+        <Screen name={rotas.NOVIDADES_ELMO} component={NovidadesElmo} />
+        <Screen name={rotas.WEBVIEW_PAGE} component={WebViewPage} />
+      </Navigator>
     </NavigationContainer>
   );
-}
+};
+
+export default Routes;

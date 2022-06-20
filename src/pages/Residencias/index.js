@@ -9,7 +9,7 @@ import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
 import MatriculasSVG from '~/assets/icons/residenciaMedica/matricula_residencia.svg';
 import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
 import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';

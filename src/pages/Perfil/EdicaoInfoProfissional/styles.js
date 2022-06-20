@@ -19,6 +19,7 @@ export const BotaoSalvar = styled(Button)`
   border-radius: 50px;
   width: 150px;
   height: 45px;
+  margin-bottom: 16px;
   align-self: flex-end;
   justify-content: center;
   background-color: #ff9800;

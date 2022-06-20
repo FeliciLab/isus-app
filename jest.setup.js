@@ -32,3 +32,13 @@ jest.mock('react-native-reanimated', () => {
 // Silence the warning: Animated: `useNativeDriver` is not supported
 // because the native animated module is missing
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
+/*
+ * Mock para trocar o KASV por ScrollView durante os testes, pois o
+ * FormularioLogin é encapsulado pelo componente IDSaudeLoginTemplate
+ * https://github.com/APSL/react-native-keyboard-aware-scroll-view/issues/493
+ */
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  const KeyboardAwareScrollView = require('react-native').ScrollView;
+  return { KeyboardAwareScrollView };
+});

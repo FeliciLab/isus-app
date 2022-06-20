@@ -1,6 +1,6 @@
 import { Button } from 'react-native-paper';
 import styled from 'styled-components/native';
-import { CORES } from '../../constantes/estiloBase';
+import { CORES } from '~/constantes/estiloBase';
 
 export const BotaoCircular = styled(Button)`
   justify-content: center;

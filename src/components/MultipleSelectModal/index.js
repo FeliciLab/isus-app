@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {
   FlatList,
   Modal,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -51,52 +52,56 @@ const MultipleSelectModal = props => {
           animationType="slide"
           visible={open}
           onRequestClose={() => setOpen(false)}>
-          <View style={styles.header}>
-            <TouchableOpacity onPress={() => setOpen(false)}>
-              <ArrowLeftIcon ArrowLeftIcon size={22} color={CORES.VERDE} />
-            </TouchableOpacity>
-            <Text style={styles.modalHeaderText}>{title}</Text>
-          </View>
-          <FlatList
-            data={items}
-            keyExtractor={item => item.value}
-            renderItem={({ item }) => {
-              const isSelected = values.some(value => value === item.value);
-              return (
-                <List.Item
-                  title={item.label}
-                  onPress={() => handleOnPressItem(item, isSelected)}
-                  right={props =>
-                    isSelected ? (
-                      <List.Icon {...props} icon="check" color={CORES.VERDE} />
-                    ) : (
-                      <List.Icon {...props} color={CORES.VERDE} />
-                    )
-                  }
-                />
-              );
-            }}
-            ItemSeparatorComponent={() => <Divider />}
-          />
+          <SafeAreaView>
+            <View style={styles.header}>
+              <TouchableOpacity onPress={() => setOpen(false)}>
+                <ArrowLeftIcon ArrowLeftIcon size={22} color={CORES.VERDE} />
+              </TouchableOpacity>
+              <Text style={styles.modalHeaderText}>{title}</Text>
+            </View>
+            <FlatList
+              data={items}
+              keyExtractor={item => item.value}
+              renderItem={({ item }) => {
+                const isSelected = values.some(value => value === item.value);
+                return (
+                  <List.Item
+                    title={item.label}
+                    onPress={() => handleOnPressItem(item, isSelected)}
+                    right={props =>
+                      isSelected ? (
+                        <List.Icon {...props} icon="check" color={CORES.VERDE} />
+                      ) : (
+                        <List.Icon {...props} color={CORES.VERDE} />
+                      )
+                    }
+                  />
+                );
+              }}
+              ItemSeparatorComponent={() => <Divider />}
+            />
+          </SafeAreaView>
         </Modal>
       </List.Accordion>
-      {hasChips && (
-        <View style={styles.chipContainer}>
-          {sortBy(
-            items.filter(item => values.some(value => value === item.value)),
-            ['label'],
-          ).map(item => (
-            <Chip
-              style={styles.chipItem}
-              key={item.value}
-              onClose={() => setValues(values.filter(v => v !== item.value))}
-              closeIcon={props => <CloseCircleoIcon size={28} {...props} />}>
-              {item.label}
-            </Chip>
-          ))}
-        </View>
-      )}
-    </List.Section>
+      {
+        hasChips && (
+          <View style={styles.chipContainer}>
+            {sortBy(
+              items.filter(item => values.some(value => value === item.value)),
+              ['label'],
+            ).map(item => (
+              <Chip
+                style={styles.chipItem}
+                key={item.value}
+                onClose={() => setValues(values.filter(v => v !== item.value))}
+                closeIcon={props => <CloseCircleoIcon size={28} {...props} />}>
+                {item.label}
+              </Chip>
+            ))}
+          </View>
+        )
+      }
+    </List.Section >
   );
 };
 

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import BarraDeStatus from '~/components/barraDeStatus';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
 import { CORES } from '~/constantes/estiloBase';
 import CardNewsElmo from '../CardNewsElmo';

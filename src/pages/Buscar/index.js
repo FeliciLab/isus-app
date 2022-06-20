@@ -11,7 +11,6 @@ import LegendaPesquisando from './LegendaPesquisando';
 import RodapeBusca from './RodapeBusca';
 import { TextSearch, TouchableLeft, ViewColumn } from './styles';
 
-// TODO: avaliar o uso de React Query https://react-query.tanstack.com/
 const Buscar = props => {
   const { navigation } = props;
 

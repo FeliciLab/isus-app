@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNFetchBlob from 'rn-fetch-blob'; // Causando warning
 
+// TODO: possível remoção desse arquivo
+
 /**
  * Salva os dados no AsyncStorage
  * @param {String} chave Chave de acesso ao valor.
@@ -92,16 +94,6 @@ const converterImagemParaBase64 = async urlImagem => {
   return file;
 };
 
-const Armazenamento = {
-  salvarDados,
-  pegarDados,
-  pegarTodasAsChaves,
-  pegarChavesCom,
-  pegarDadosDeChavesCom,
-  removerDados,
-  converterImagemParaBase64,
-};
-
 export {
   salvarDados,
   pegarDados,
@@ -111,5 +103,3 @@ export {
   removerDados,
   converterImagemParaBase64,
 };
-
-export default Armazenamento;

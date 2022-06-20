@@ -7,7 +7,7 @@ const banners = [
     tipo: 'webview',
     ordem: 1,
     ativo: true,
-    options: { localImage: 'app', labelAnalytics: 'banner_vacina_covid19' }
+    options: { localImage: 'app', labelAnalytics: 'banner_vacina_covid19' },
   },
   {
     id: 2,
@@ -20,8 +20,8 @@ const banners = [
     ativo: true,
     options: {
       localImage: 'app',
-      labelAnalytics: 'guia_assistencia_farmaceutica'
-    }
+      labelAnalytics: 'guia_assistencia_farmaceutica',
+    },
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const banners = [
     tipo: 'rota',
     ordem: 3,
     ativo: true,
-    options: { localImage: 'app', login: true, labelAnalytics: 'id_saude' }
+    options: { localImage: 'app', login: true, labelAnalytics: 'id_saude' },
   },
   {
     id: 4,
@@ -41,12 +41,18 @@ const banners = [
     tipo: 'rota',
     ordem: 3,
     ativo: true,
-    options: { localImage: 'app', login: false, labelAnalytics: 'id_saude' }
-  }
+    options: { localImage: 'app', login: false, labelAnalytics: 'id_saude' },
+  },
 ];
 
-export const bannersAutenticado = banners.filter(i => i.options.login !== false);
-export const bannersNaoAutenticado = banners.filter(i => i.options.login !== true);
+export const bannersAutenticado = banners.filter(
+  banner => banner.options.login !== false,
+);
+
+export const bannersNaoAutenticado = banners.filter(
+  banner => banner.options.login !== true,
+);
+
 export const bannersRota = banners.filter(i => i.tipo === 'rota');
 
 export default banners;

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   FlatList,
   Modal,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,12 +13,24 @@ import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons/index';
 
 const SelectModal = props => {
-  const { title, placeholder, items = [], value, setValue, ...rest } = props;
+  const {
+    title,
+    placeholder,
+    items = [],
+    value,
+    setValue,
+    deselectable = true,
+    ...rest
+  } = props;
 
   const [open, setOpen] = useState(false);
 
   const handleOnPressItem = item => {
-    setValue(item.value === value ? undefined : item.value);
+    if (deselectable) {
+      setValue(item.value === value ? undefined : item.value);
+    } else {
+      setValue(item.value);
+    }
     setOpen(false);
   };
 
@@ -35,30 +48,32 @@ const SelectModal = props => {
         animationType="slide"
         visible={open}
         onRequestClose={() => setOpen(false)}>
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => setOpen(false)}>
-            <ArrowLeftIcon ArrowLeftIcon size={22} color={CORES.VERDE} />
-          </TouchableOpacity>
-          <Text style={styles.modalHeaderText}>{title}</Text>
-        </View>
-        <FlatList
-          data={items}
-          keyExtractor={item => item.value.toString()}
-          renderItem={({ item }) => (
-            <List.Item
-              title={item.label}
-              onPress={() => handleOnPressItem(item)}
-              right={props =>
-                item.value === value ? (
-                  <List.Icon {...props} icon="check" color={CORES.VERDE} />
-                ) : (
-                  <List.Icon {...props} color={CORES.VERDE} />
-                )
-              }
-            />
-          )}
-          ItemSeparatorComponent={Divider}
-        />
+        <SafeAreaView>
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => setOpen(false)}>
+              <ArrowLeftIcon ArrowLeftIcon size={22} color={CORES.VERDE} />
+            </TouchableOpacity>
+            <Text style={styles.modalHeaderText}>{title}</Text>
+          </View>
+          <FlatList
+            data={items}
+            keyExtractor={item => item.value.toString()}
+            renderItem={({ item }) => (
+              <List.Item
+                title={item.label}
+                onPress={() => handleOnPressItem(item)}
+                right={props =>
+                  item.value === value ? (
+                    <List.Icon {...props} icon="check" color={CORES.VERDE} />
+                  ) : (
+                    <List.Icon {...props} color={CORES.VERDE} />
+                  )
+                }
+              />
+            )}
+            ItemSeparatorComponent={Divider}
+          />
+        </SafeAreaView>
       </Modal>
     </List.Section>
   );

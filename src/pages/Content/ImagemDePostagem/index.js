@@ -1,8 +1,11 @@
 import React from 'react';
 import { Image, Platform } from 'react-native';
-import WebView from 'react-native-webview';
+import { WebView } from 'react-native-webview';
+import defaultThumbnail from '~/assets/images/default_thumbnail.png';
 
 export default function ImagemDePostagem({ conteudoBaixado, imagem, estilo }) {
+  const DEFAULT_IMAGE = Image.resolveAssetSource(defaultThumbnail);
+
   const PlataformaImagemOffline = {
     ios: () => ImagemOfflineiOS,
     android: () => ImagemOfflineAndroid,
@@ -25,7 +28,11 @@ export default function ImagemDePostagem({ conteudoBaixado, imagem, estilo }) {
   );
 
   const ImagemOnline = () => (
-    <Image resizeMode="cover" style={estilo} source={{ uri: `${imagem}` }} />
+    <Image
+      resizeMode="cover"
+      style={estilo}
+      source={imagem ? { uri: `${imagem}` } : DEFAULT_IMAGE}
+    />
   );
 
   const imagemEhBase64 = () => (imagem ? !imagem.startsWith('http') : false);

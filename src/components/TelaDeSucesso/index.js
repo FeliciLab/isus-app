@@ -1,9 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import Check from '~/assets/icons/check.svg';
-import BarraDeStatus from '../barraDeStatus';
+import BarraDeStatus from '../BarraDeStatus';
 import { SafeArea, Text } from './style';
 
+// TODO: possivel remoção
 const TelaDeSucesso = ({ texto, corBackground }) => (
   <View style={{ backgroundColor: corBackground }}>
     <BarraDeStatus backgroundColor={corBackground} barStyle="light-content" />

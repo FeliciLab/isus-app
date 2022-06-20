@@ -5,25 +5,20 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import {
   BackHandler,
   FlatList,
-  Linking,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { pegarProjetosPorCategoria } from '~/apis/apiHome';
 import elmoPatternBG from '~/assets/backgrounds/elmo_pattern.png';
-import SvgCapacitacao from '~/assets/icons/elmo/icon_capacitacao.svg';
-import SvgFaleConosco from '~/assets/icons/elmo/icon_fale_conosco.svg';
-import SvgManualUso from '~/assets/icons/elmo/icon_manual_uso.svg';
 import SvgElmoLogo from '~/assets/icons/logo/logo-elmo-h1.svg';
-import BarraDeStatus from '~/components/barraDeStatus';
-import ServiceButton from '~/components/ServiceButton';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
-import features from '~/constantes/features';
 import ROTAS from '~/constantes/rotas';
+import { useCardsElmo } from '~/hooks/useCardsElmo';
 import { ArrowLeftIcon } from '~/icons';
-import estaAtiva from '~/utils/estaAtiva';
 import CardElmo from './CardElmo';
+import { defaultCardsElmo } from './defaultCardsElmo';
 import ListaCardsElmo from './ListaCardsElmo';
 import {
   BackgroundImage,
@@ -35,7 +30,7 @@ import {
   ScrollView,
   SvgView,
   Texto,
-  TituloH6,
+  TituloH6
 } from './styles';
 
 function Elmo() {
@@ -47,16 +42,21 @@ function Elmo() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const { cardsElmo, fetchCardsElmo } = useCardsElmo();
+
   const aoIniciar = async () => {
     try {
       setIsLoading(true);
 
-      const responseNotasTecnicas = await pegarProjetosPorCategoria(100744);
+      // CardsElmo
+      await fetchCardsElmo();
 
+      // Notícias
+      const responseNotasTecnicas = await pegarProjetosPorCategoria(100744);
       const responsePostagens = await pegarProjetosPorCategoria(2004);
 
       // Ordenando por data em ordem decrescente
-      // Ordenacção necessária pois estamos unindo os conteúdos
+      // Ordenação necessária pois estamos unindo os conteúdos
       const projetos = sortBy(
         [...responseNotasTecnicas.data.data, ...responsePostagens.data.data],
         'data',
@@ -112,40 +112,6 @@ function Elmo() {
     });
   }, []);
 
-  const listaElmoCards = [
-    {
-      id: 'elmo-capacitacao',
-      titulo: 'Capacitação',
-      ativo: true,
-      icone: SvgCapacitacao,
-      navegacao: {
-        componente: ROTAS.CAPACITACAO_ELMO,
-        titulo: 'Elmo',
-        background: CORES.INDIGO_DYE,
-      },
-    },
-    {
-      id: 'elmo-manual-uso',
-      titulo: 'Manual de Uso',
-      ativo: true,
-      icone: SvgManualUso,
-      navegacao: {
-        componente: 'browser',
-        url:
-          'https://sus.ce.gov.br/elmo/wp-content/uploads/sites/2/2021/01/Manual_Elmo_1.1_JAN2021.pdf',
-      },
-    },
-    {
-      id: 'elmo-fale-conosco',
-      titulo: 'Fale Conosco',
-      ativo: true,
-      icone: SvgFaleConosco,
-      navegacao: {
-        componente: ROTAS.DUVIDAS_ELMO,
-      },
-    },
-  ];
-
   const ListaDeConteudo = () => {
     if (conteudos && conteudos.length > 0) {
       return (
@@ -175,27 +141,6 @@ function Elmo() {
     );
   };
 
-  const handleOnPressCartoHome = item => {
-    // analyticsData(item.id, 'Click', 'Elmo');
-    if (item.navegacao.net && !netInfo.isConnected) {
-      navigation.navigate(ROTAS.SEM_CONEXAO);
-      return;
-    }
-
-    if (item.navegacao.componente === 'browser') {
-      Linking.openURL(item.navegacao.url);
-      return;
-    }
-
-    navigation.navigate(item.navegacao.componente, {
-      title: item.navegacao.titulo,
-      url: item.navegacao.url,
-      headerStyle: {
-        backgroundColor: item.navegacao.background,
-      },
-    });
-  };
-
   return (
     <ScrollView style={{ flex: 1 }}>
       <BarraDeStatus
@@ -221,30 +166,11 @@ function Elmo() {
         onPress={() => navigation.navigate(ROTAS.SOBRE_ELMO)}>
         Saiba Mais
       </BotaoLink>
-      {estaAtiva(features.LISTA_CARDS) ? (
-        <ListaCardsElmo />
-      ) : (
-        <FlatList
-          horizontal
-          data={listaElmoCards}
-          keyExtractor={(items, index) => `${index}`}
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center',
-          }}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <ServiceButton
-              testID={`cards-${item.id}`}
-              key={item.id}
-              ativo={item.ativo}
-              titulo={item.titulo}
-              Icone={item.icone}
-              onPress={() => handleOnPressCartoHome(item)}
-            />
-          )}
-        />
-      )}
+      <ListaCardsElmo data={
+        netInfo.isConnected
+          ? cardsElmo
+          : defaultCardsElmo
+      } />
       <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
         <NovidadesTitle>
           <TituloH6 color={CORES.PRETO54}>Novidades</TituloH6>

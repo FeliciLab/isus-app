@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
 import { atualizarUsuarioApi } from '~/apis/apiCadastro';
-import Alerta from '~/components/alerta';
-import { BotaoLaranja } from '~/components/Botoes/BotoesCirculares';
+import Alerta from '~/components/Alerta';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
+import CustonFAB from '~/components/CustonFAB/index';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useCategoriasProfissionais } from '~/hooks/useCategoriasProfissionais';
@@ -149,12 +149,15 @@ const PreCadastroInfoProfissional = () => {
           }))}
         />
         <RowButton>
-          <BotaoLaranja
+          <CustonFAB
+            labelStyle={{ color: '#fff' }}
             loading={isLoading}
             disabled={isLoading}
-            onPress={handleSubmit(handlerOnPressConcluir)}>
-            Concluir
-          </BotaoLaranja>
+            mode="contained"
+            onPress={handleSubmit(handlerOnPressConcluir)}
+            label="Concluir"
+            small
+          />
         </RowButton>
       </ScrollView>
       <Alerta

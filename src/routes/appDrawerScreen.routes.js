@@ -1,31 +1,26 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Dimensions } from 'react-native';
 import ConteudoDrawer from '~/components/ConteudoDrawer';
 import { CORES } from '~/constantes/estiloBase';
+import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import rotas from '~/constantes/rotas';
 import AboutScreen from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
-import FaleConoscoScreen from '~/pages/FaleConoscoScreen';
-import {
-  DUVIDAS_ELMO,
-  RELATAR_SUGESTAO,
-} from '~/pages/FaleConoscoScreen/tiposDeOcorrencia';
-import PerfilScreen from '~/pages/Perfil';
+import FaleConosco from '~/pages/FaleConosco';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
+import Perfil from '~/pages/Perfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
-import LoginStackScreen from './login.routes';
 
-const Drawer = createDrawerNavigator();
+const { Navigator, Screen } = createDrawerNavigator();
 
 export default function AppDrawerScreen() {
   return (
-    <Drawer.Navigator
+    <Navigator
       initialRouteName="SERVICE"
       drawerPosition="left"
       drawerStyle={{
@@ -38,180 +33,59 @@ export default function AppDrawerScreen() {
           routeName={props.state.routeNames[props.state.index]}
         />
       )}>
-      <Drawer.Screen name={rotas.HOME} component={AppTab} />
-      <Drawer.Screen name={rotas.LOGIN} component={LoginStackScreen} />
-      <Drawer.Screen name={rotas.PERFIL} component={PerfilStackScreen} />
-      <Drawer.Screen
-        name={rotas.TERMOS_DE_USO}
-        component={TermosDeUsoStackScreen}
-      />
-      <Drawer.Screen
-        name={rotas.POLITICA_DE_PRIVACIDADE}
-        component={PoliticaDePrivacidadeStackScreen}
-      />
-      <Drawer.Screen
-        name={rotas.FALE_CONOSCO}
-        component={FeedbackStackScreen}
-      />
-      <Drawer.Screen
-        name={rotas.DUVIDAS_ELMO}
-        component={DuvidasElmoStackScreen}
-      />
-      <Drawer.Screen
-        name={rotas.SUS_NO_CEARA}
-        component={SusNoCearaStackScreen}
-      />
-      <Drawer.Screen name={rotas.SOBRE} component={AboutStackScreen} />
-      <Drawer.Screen
-        name={rotas.EXCLUIR_PERFIL}
-        component={DeleteProfileScreen}
-      />
-      <Drawer.Screen
-        name={rotas.CONTA_EXCLUIDA}
-        component={DeleteAccountScreen}
-      />
-      <Drawer.Screen
-        name={rotas.DENUNCIAR}
-        component={DenunciarAccountScreen}
-      />
-    </Drawer.Navigator>
-  );
-}
-
-const DenunciarAccountStack = createStackNavigator();
-function DenunciarAccountScreen() {
-  return (
-    <DenunciarAccountStack.Navigator>
-      <DenunciarAccountStack.Screen
-        name="DENUNCIAR"
-        component={Denunciar}
-        options={{ headerShown: true }}
-      />
-    </DenunciarAccountStack.Navigator>
-  );
-}
-
-const DeleteAccountStack = createStackNavigator();
-function DeleteAccountScreen() {
-  return (
-    <DeleteAccountStack.Navigator>
-      <DeleteAccountStack.Screen
-        name="CONTA_EXCLUIDA"
-        component={ContaExcluida}
-        options={{ headerShown: true }}
-      />
-    </DeleteAccountStack.Navigator>
-  );
-}
-
-const DeleteProfileStack = createStackNavigator();
-function DeleteProfileScreen() {
-  return (
-    <DeleteProfileStack.Navigator>
-      <DeleteProfileStack.Screen
-        name="EXCLUIR_PERFIL"
-        component={ExcluirPerfil}
-        options={{ headerShown: true }}
-      />
-    </DeleteProfileStack.Navigator>
-  );
-}
-const AboutStack = createStackNavigator();
-
-function AboutStackScreen() {
-  return (
-    <AboutStack.Navigator>
-      <AboutStack.Screen
-        name="SOBRE"
-        component={AboutScreen}
-        options={{ headerShown: true }}
-      />
-    </AboutStack.Navigator>
-  );
-}
-
-const PerfilStack = createStackNavigator();
-
-function PerfilStackScreen() {
-  return (
-    <PerfilStack.Navigator>
-      <PerfilStack.Screen
+      <Screen name={rotas.HOME} component={AppTab} />
+      <Screen
         name={rotas.PERFIL}
-        component={PerfilScreen}
+        component={Perfil}
         options={{ headerShown: true }}
       />
-    </PerfilStack.Navigator>
-  );
-}
-
-const TermosDeUsoStack = createStackNavigator();
-
-function TermosDeUsoStackScreen() {
-  return (
-    <TermosDeUsoStack.Navigator>
-      <TermosDeUsoStack.Screen
-        name="TERMOS_DE_USO"
+      <Screen
+        name={rotas.TERMOS_DE_USO}
         component={TermoDeUsoScreen}
         options={{ headerShown: true }}
       />
-    </TermosDeUsoStack.Navigator>
-  );
-}
-
-const PoliticaDePrivacidadeStack = createStackNavigator();
-
-function PoliticaDePrivacidadeStackScreen() {
-  return (
-    <PoliticaDePrivacidadeStack.Navigator>
-      <PoliticaDePrivacidadeStack.Screen
-        name="POLITICA_DE_PRIVACIDADE"
+      <Screen
+        name={rotas.POLITICA_DE_PRIVACIDADE}
         component={PoliticaDePrivacidadeScreen}
         options={{ headerShown: true }}
       />
-    </PoliticaDePrivacidadeStack.Navigator>
-  );
-}
-
-const FeedbackStack = createStackNavigator();
-
-function FeedbackStackScreen() {
-  return (
-    <FeedbackStack.Navigator>
-      <FeedbackStack.Screen
-        name="FEEDBACK"
-        component={FaleConoscoScreen}
+      <Screen
+        name={rotas.FALE_CONOSCO}
+        component={FaleConosco}
         options={{ headerShown: true }}
         initialParams={{ ocorrencia: RELATAR_SUGESTAO }}
       />
-    </FeedbackStack.Navigator>
-  );
-}
-
-const DuvidasElmoStack = createStackNavigator();
-
-function DuvidasElmoStackScreen() {
-  return (
-    <DuvidasElmoStack.Navigator>
-      <DuvidasElmoStack.Screen
+      <Screen
         name={rotas.DUVIDAS_ELMO}
-        component={FaleConoscoScreen}
+        component={FaleConosco}
         options={{ headerShown: true }}
         initialParams={{ ocorrencia: DUVIDAS_ELMO }}
       />
-    </DuvidasElmoStack.Navigator>
-  );
-}
-
-const SusNoCearaStack = createStackNavigator();
-
-function SusNoCearaStackScreen() {
-  return (
-    <SusNoCearaStack.Navigator>
-      <SusNoCearaStack.Screen
-        name="SUS_NO_CEARA"
+      <Screen
+        name={rotas.SUS_NO_CEARA}
         component={SusNoCearaScreen}
         options={{ headerShown: true }}
       />
-    </SusNoCearaStack.Navigator>
+      <Screen
+        name={rotas.SOBRE}
+        component={AboutScreen}
+        options={{ headerShown: true }}
+      />
+      <Screen
+        name={rotas.EXCLUIR_PERFIL}
+        component={ExcluirPerfil}
+        options={{ headerShown: true }}
+      />
+      <Screen
+        name={rotas.CONTA_EXCLUIDA}
+        component={ContaExcluida}
+        options={{ headerShown: true }}
+      />
+      <Screen
+        name={rotas.DENUNCIAR}
+        component={Denunciar}
+        options={{ headerShown: true }}
+      />
+    </Navigator>
   );
 }

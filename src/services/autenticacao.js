@@ -1,58 +1,42 @@
-import { salvarDados, pegarDados, removerDados } from './armazenamento';
 import { autenticar, pegarTokenDeAcesso } from '~/apis/apiKeycloak';
+import { pegarDados, removerDados, salvarDados } from './armazenamento';
 
-export const efetuarAcesso = async ({ email, senha }) => {
-  const response = await autenticarComIdSaude(email, senha).then();
-  if (!response.sucesso) {
-    return {
-      erro: true,
-      msg: response.erros ? response.erros : response.mensagem,
-    };
-  }
-  await salvarTokenDoUsuarioNoStorage(response.mensagem);
-  const token = await pegarTokenDoUsuarioNoStorage();
-  return { erro: false, token };
-};
-
-export const armazenarEstadoLogado = estado =>
-  salvarDados('usuario-logado', estado);
-
-export const pegarEstadoLogadoArmazenado = () => pegarDados('usuario-logado');
-
-function autenticarComIdSaude(email, senha) {
-  return autenticar(email, senha);
+// TODO: possivel remoção
+// Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
+function autenticarComIdSaude(username, senha) {
+  return autenticar(username, senha);
 }
 
-async function salvarDadosDeCadastro(dados) {
-  await salvarDados('cadastro-usuario', dados);
-}
-
-async function pegarDadosDeCadastro() {
-  const resultado = await pegarDados('cadastro-usuario');
-  return resultado;
-}
-
+// TODO: possivel remoção
 async function pegarTokenDoUsuarioNoStorage() {
   const token = await pegarDados('@isus:token');
   return token;
 }
 
+// TODO: possivel remoção
+// Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
 function salvarTokenDoUsuarioNoStorage(token) {
   return salvarDados('@isus:token', token);
 }
 
+// TODO: possivel remoção
+// Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
 async function excluirTokenDoUsuarioNoStorage() {
   await removerDados('@isus:token');
 }
 
+// TODO: possivel remoção
+// Justificativa: todo acesso deve ser efetuado pelo hook de autenticação
 async function atualizarTokenDeAcessoDoUsuario() {
   try {
     const token = await pegarTokenDoUsuarioNoStorage();
+
     const resultado = await pegarTokenDeAcesso(token?.refreshToken);
     if (!resultado.sucesso) {
       await excluirTokenDoUsuarioNoStorage();
     }
     const { mensagem } = resultado;
+
     await salvarTokenDoUsuarioNoStorage(mensagem);
   } catch (err) {
     console.log(err);
@@ -64,7 +48,5 @@ export {
   salvarTokenDoUsuarioNoStorage,
   pegarTokenDoUsuarioNoStorage,
   excluirTokenDoUsuarioNoStorage,
-  salvarDadosDeCadastro,
-  pegarDadosDeCadastro,
   atualizarTokenDeAcessoDoUsuario,
 };

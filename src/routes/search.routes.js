@@ -1,25 +1,24 @@
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import Buscar from '~/pages/Buscar';
 import BuscarDescription from '~/pages/Buscar/Description';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import rotas from '~/constantes/rotas';
 
-const SearchStack = createStackNavigator();
+const { Screen, Navigator } = createStackNavigator();
 
-function SearchStackScreen() {
-  return (
-    <SearchStack.Navigator>
-      <SearchStack.Screen
-        name="Buscar"
-        component={Buscar}
-        options={{ headerShown: true }}
-      />
-      <SearchStack.Screen
-        name="Buscar Description"
-        component={BuscarDescription}
-        options={{ headerShown: true }}
-      />
-    </SearchStack.Navigator>
-  );
-}
+const SearchStackScreen = () => (
+  <Navigator>
+    <Screen
+      name={rotas.SEARCH_PAGE}
+      component={Buscar}
+      options={{ headerShown: true }}
+    />
+    <Screen
+      name={rotas.SEARCH_PAGE_DESCRIPTION}
+      component={BuscarDescription}
+      options={{ headerShown: true }}
+    />
+  </Navigator>
+);
 
 export default SearchStackScreen;
