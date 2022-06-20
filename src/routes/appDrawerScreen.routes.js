@@ -10,11 +10,11 @@ import Denunciar from '~/pages/Denunciar';
 import FaleConosco from '~/pages/FaleConosco';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
+import Perfil from '~/pages/Perfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
 import AppTab from './appBottomTab.routes';
-import PerfilRoutes from './perfil.routes';
 
 const { Navigator, Screen } = createDrawerNavigator();
 
@@ -36,8 +36,8 @@ export default function AppDrawerScreen() {
       <Screen name={rotas.HOME} component={AppTab} />
       <Screen
         name={rotas.PERFIL}
-        component={PerfilRoutes}
-        options={{ headerShown: false }}
+        component={Perfil}
+        options={{ headerShown: true }}
       />
       <Screen
         name={rotas.TERMOS_DE_USO}
