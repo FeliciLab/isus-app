@@ -1,8 +1,6 @@
 import { ScrollView } from 'react-native';
 import { Button, Title } from 'react-native-paper';
 import styled from 'styled-components/native';
-import features from '~/constantes/features';
-import featureAtivas from '~/featureAtivas';
 
 export const Container = styled(ScrollView)`
   background-color: #ffffff;
@@ -34,9 +32,6 @@ export const Botao = styled(Button)`
   background-color: ${props => {
     if (props.disabled) {
       return '#BDBDBD';
-    }
-    if (featureAtivas.includes(features.EDICAO_DE_INFORMACOES_PROFISSIONAIS)) {
-      return props.cor;
     }
     return '#304FFE';
   }};

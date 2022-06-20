@@ -16,8 +16,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
-    "@paralleldrive/feature-toggles": "^1.0.4",
-    "@paralleldrive/react-feature-toggles": "^2.3.1",
     "@react-native-async-storage/async-storage": "^1.17.3",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/netinfo": "^8.0.0",

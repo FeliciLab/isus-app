@@ -1,4 +1,3 @@
-import { FeatureToggles } from '@paralleldrive/react-feature-toggles';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import React, { useEffect } from 'react';
@@ -12,13 +11,10 @@ import { CORES } from './constantes/estiloBase';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
 import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
-import featuresAtivas from './featureAtivas';
 import Routes from './routes';
 import { navigate, navigationRef } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
 import { LogBox } from 'react-native';
-
-// TODO: Remover o FeatureToggles quando pararmos de chamar no código
 
 function App() {
   // Ignora warnings relacionados a nova versão do RN com os módulos:
@@ -87,8 +83,9 @@ function App() {
     });
   };
 
+  // TODO verificar se statusbar deve ficar fora do safearea
   return (
-    <FeatureToggles features={featuresAtivas}>
+    <>
       <StatusBar backgroundColor={CORES.VERDE} barStyle="light-content" />
       <AutenticacaoProvider>
         <AppTrackTransparencyProvider>
@@ -100,7 +97,7 @@ function App() {
           </CaixaDialogoProvider>
         </AppTrackTransparencyProvider>
       </AutenticacaoProvider>
-    </FeatureToggles>
+    </>
   );
 }
 
