@@ -31,7 +31,7 @@ const OficinaDesign = () => {
       ativo: true,
       icone: FrequenciasSVG,
       navegacao: {
-        componente: rotas.FREQUENCIAS,
+        componente: rotas.OFICINA_DESIGN_LISTAR_OFICINAS,
       },
     },
     {

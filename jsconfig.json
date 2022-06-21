@@ -2,14 +2,11 @@
   "compilerOptions": {
     "target": "es6",
     "moduleResolution": "node",
+    "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "./src/*"
-      ]
+      "~/*": ["./src/*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"]
 }
