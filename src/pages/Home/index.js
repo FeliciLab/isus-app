@@ -12,6 +12,8 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo';
+import { Button } from 'react-native-paper';
+
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 
@@ -89,6 +91,11 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
+      <Button
+        mode="contained"
+        onPress={() => navigation.navigate(rotas.OFICINA_DESIGN)}>
+        Press me
+      </Button>
       <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
