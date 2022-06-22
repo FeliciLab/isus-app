@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
-// import { Container } from './styles';
+import { Container, Title } from './styles';
 
 const ListarOficinas = () => {
   const navigation = useNavigation();
@@ -18,7 +18,7 @@ const ListarOficinas = () => {
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
-      headerTitle: 'Residências em Saúde',
+      headerTitle: 'Oficinas',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -34,10 +34,10 @@ const ListarOficinas = () => {
   });
 
   return (
-    <View>
+    <Container>
       <BarraDeStatus backgroundColor="#59AAB8" barStyle="light-content" />
-      <Text>ListarOficinas</Text>
-    </View>
+      <Title>Frequências</Title>
+    </Container>
   );
 };
 
