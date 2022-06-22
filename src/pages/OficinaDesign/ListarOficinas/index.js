@@ -31,11 +31,7 @@ const ListarOficinas = () => {
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
-      headerTitle: 'Oficina de Design de Serviços | ESP',
-      headerTitleContainerStyle: {
-        width: '60%',
-        alignItems: 'center',
-      },
+      headerTitle: 'Oficinas',
       headerLeft: () => (
         <TouchableOpacity
           style={{

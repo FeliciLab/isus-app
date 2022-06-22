@@ -40,7 +40,7 @@ const OficinaDesign = () => {
       ativo: true,
       icone: SiteOficinaSVG,
       navegacao: {
-        componente: 'webview',
+        componente: 'browser',
         titulo: 'Oficina de Design',
         url: urls.OFICINA_DESIGN,
       },
@@ -116,7 +116,7 @@ const OficinaDesign = () => {
       <FlatList
         horizontal
         data={residenciasCards}
-        keyExtractor={item => `${item.id}`}
+        keyExtractor={({ id }) => String(id)}
         style={{
           flexDirection: 'row',
           alignSelf: 'flex-start',

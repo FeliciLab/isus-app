@@ -18,12 +18,11 @@ const SucessoPresencaOficina = () => {
 
   const { width } = Dimensions.get('window');
 
-  // TODO: mudar aqui as rotas
   const handleNavigateToHistoricoFrequencia = () =>
     navigation.navigate(rotas.OFICINA_DESIGN_HISTORICO_FREQUENCIA, { oficina });
 
   const handleNavigateToResidenciaMedica = () =>
-    navigation.navigate(rotas.RESIDENCIA_MEDICA);
+    navigation.navigate(rotas.OFICINA_DESIGN_HOME);
 
   useLayoutEffect(() => {
     navigation.setOptions({

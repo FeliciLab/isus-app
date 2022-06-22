@@ -87,7 +87,7 @@ const HistoricoFrequenciaOficina = () => {
       <CustonFAB
         label="Home"
         small
-        onPress={() => navigation.navigate(rotas.RESIDENCIA_MEDICA)}
+        onPress={() => navigation.navigate(rotas.OFICINA_DESIGN_HOME)}
       />
     </Container>
   );
