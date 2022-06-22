@@ -1,12 +1,8 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-plusplus */
-/* eslint-disable eqeqeq */
-/* eslint-disable radix */
-import Regex from './regex';
 import {
-  verificarEmailCadastrado,
   verificarCPFCadastrado,
+  verificarEmailCadastrado,
 } from '~/apis/apiCadastro';
+import Regex from './regex';
 
 export const descricaoValida = descricao => descricao.replace(/\s/g, '').length;
 
