@@ -20,7 +20,7 @@ const SucessoPresencaOficina = () => {
 
   // TODO: mudar aqui as rotas
   const handleNavigateToHistoricoFrequencia = () =>
-    navigation.navigate(rotas.HISTORICO_FREQUENCIA, { oficina });
+    navigation.navigate(rotas.OFICINA_DESIGN_HISTORICO_FREQUENCIA, { oficina });
 
   const handleNavigateToResidenciaMedica = () =>
     navigation.navigate(rotas.RESIDENCIA_MEDICA);

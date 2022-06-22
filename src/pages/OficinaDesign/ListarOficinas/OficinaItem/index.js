@@ -29,7 +29,10 @@ const OficinaItem = ({ oficina }) => {
 
   // TODO: colocar a rota para a tela adequada
   const handleNavigateToHisoricoFrequencias = useCallback(
-    () => navigation.navigate(rotas.HISTORICO_FREQUENCIA, { oficina }),
+    () =>
+      navigation.navigate(rotas.OFICINA_DESIGN_HISTORICO_FREQUENCIA, {
+        oficina,
+      }),
     [],
   );
 
