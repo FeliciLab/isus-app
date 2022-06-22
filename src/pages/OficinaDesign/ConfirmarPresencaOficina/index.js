@@ -124,7 +124,7 @@ const ConfirmarPresencaOficina = () => {
         }))}
         mode="outlined"
         name="area"
-        placeholder="Selecione o município de residência"
+        placeholder="Selecione sua área na ESP"
         title="Área"
       />
       <ControlledTextInput
