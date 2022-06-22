@@ -29,6 +29,7 @@ import {
   WrapperSelect,
 } from './styles';
 
+// TODO: mudar o nome desse componente para ConfirmarPresencaOferta
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
 

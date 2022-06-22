@@ -1,24 +1,41 @@
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 import React, { useLayoutEffect } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
+import { Divider } from 'react-native-paper';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
+import OficinaItem from './OficinaItem';
 import { Container, Title } from './styles';
 
 const ListarOficinas = () => {
   const navigation = useNavigation();
 
+  // TODO: criar o hook para buscar as oficinas cadastradas
+  const oficinasMock = [
+    {
+      id: 1,
+      nome: 'Oficina de Design de Serviços | ESP',
+      inicio: moment().subtract(7, 'days'), // sete dias antes de hj
+      fim: moment().add(7, 'days'), // sete dias depois de hj
+    },
+  ];
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#59AAB8',
+        backgroundColor: CORES.AZUL_OFICINA,
         elevation: 0,
         shadowOpacity: 0,
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
-      headerTitle: 'Oficinas',
+      headerTitle: 'Oficina de Design de Serviços | ESP',
+      headerTitleContainerStyle: {
+        width: '60%',
+        alignItems: 'center',
+      },
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -35,8 +52,23 @@ const ListarOficinas = () => {
 
   return (
     <Container>
-      <BarraDeStatus backgroundColor="#59AAB8" barStyle="light-content" />
+      <BarraDeStatus
+        backgroundColor={CORES.AZUL_OFICINA_DARK}
+        barStyle="light-content"
+      />
       <Title>Frequências</Title>
+      <FlatList
+        data={oficinasMock.map(({ id, nome, inicio, fim }) => ({
+          id,
+          title: nome,
+          inicio,
+          fim,
+        }))}
+        keyExtractor={({ id }) => String(id)}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={() => <Divider />}
+        renderItem={({ item }) => <OficinaItem oficina={item} />}
+      />
     </Container>
   );
 };

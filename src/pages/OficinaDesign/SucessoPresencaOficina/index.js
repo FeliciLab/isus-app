@@ -2,23 +2,25 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { ArrowLeftIcon } from '~/icons';
-import { Container, FABButton, Title } from './styles';
+import { FABButton } from '~/pages/Residencias/frequencias/SucessoPresenca/styles';
+import { Container, Title } from './styles';
 
-// TODO: mudar o nome para SucessoPresencaOferta
-const SucessoPresenca = () => {
+const SucessoPresencaOficina = () => {
   const navigation = useNavigation();
 
   const {
-    params: { oferta },
+    params: { oficina },
   } = useRoute();
 
   const { width } = Dimensions.get('window');
 
+  // TODO: mudar aqui as rotas
   const handleNavigateToHistoricoFrequencia = () =>
-    navigation.navigate(rotas.HISTORICO_FREQUENCIA, { oferta });
+    navigation.navigate(rotas.HISTORICO_FREQUENCIA, { oficina });
 
   const handleNavigateToResidenciaMedica = () =>
     navigation.navigate(rotas.RESIDENCIA_MEDICA);
@@ -26,13 +28,13 @@ const SucessoPresenca = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.AZUL_OFICINA,
         elevation: 0,
         shadowOpacity: 0,
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
-      headerTitle: 'Residências em Saúde',
+      headerTitle: 'Oficina',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -49,6 +51,10 @@ const SucessoPresenca = () => {
 
   return (
     <Container>
+      <BarraDeStatus
+        backgroundColor={CORES.AZUL_OFICINA_DARK}
+        barStyle="light-content"
+      />
       <AntDesign name="checkcircle" size={width * 0.3} color={CORES.VERDE} />
       <Title>Sua frequência foi salva com sucesso.</Title>
       <FABButton
@@ -65,4 +71,4 @@ const SucessoPresenca = () => {
   );
 };
 
-export default SucessoPresenca;
+export default SucessoPresencaOficina;

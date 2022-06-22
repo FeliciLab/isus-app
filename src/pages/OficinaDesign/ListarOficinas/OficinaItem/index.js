@@ -22,7 +22,8 @@ const OficinaItem = ({ oficina }) => {
 
   // TODO: colocar a rota para a tela adequada
   const handleNavigateToConfirmarPresenca = useCallback(
-    () => navigation.navigate(rotas.CONFIRMAR_PRESENCA, { oficina }),
+    () =>
+      navigation.navigate(rotas.OFICINA_DESIGN_CONFIRMAR_PRESENCA, { oficina }),
     [],
   );
 

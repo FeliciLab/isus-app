@@ -3,8 +3,9 @@ import React from 'react';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import OficinaDesign from '~/pages/OficinaDesign';
+import ConfirmarPresencaOficina from '~/pages/OficinaDesign/ConfirmarPresencaOficina';
 import ListarOficinas from '~/pages/OficinaDesign/ListarOficinas';
-import HistoricoFrequencia from '~/pages/Residencias/frequencias/HistoricoFrequencia';
+import SucessoPresencaOficina from '~/pages/OficinaDesign/SucessoPresencaOficina';
 import LoginStackScreen from './login.routes';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -18,12 +19,16 @@ export default function OficinaDesignStackScreen() {
         <>
           <Screen name={rotas.OFICINA_DESIGN_HOME} component={OficinaDesign} />
           <Screen
-            name={rotas.HISTORICO_FREQUENCIA}
-            component={HistoricoFrequencia}
-          />
-          <Screen
             name={rotas.OFICINA_DESIGN_LISTAR_OFICINAS}
             component={ListarOficinas}
+          />
+          <Screen
+            name={rotas.OFICINA_DESIGN_CONFIRMAR_PRESENCA}
+            component={ConfirmarPresencaOficina}
+          />
+          <Screen
+            name={rotas.OFICINA_DESIGN_SUCESSO}
+            component={SucessoPresencaOficina}
           />
         </>
       ) : (

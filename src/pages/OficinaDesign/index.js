@@ -98,20 +98,19 @@ const OficinaDesign = () => {
 
   return (
     <Container>
-      <BarraDeStatus backgroundColor="#59AAB8" barStyle="light-content" />
+      <BarraDeStatus backgroundColor="#0091AC" barStyle="light-content" />
       <OficinaDesignImage source={OficinaDesignBG} />
       <Content>
         <Paragraph>
           A Oficina de Design de Serviços da ESP tem o objetivo de reunir
           pessoas de representatividade de todas as áreas da escola para, por
           meio de um processo colaborativo baseado no Design Thinking,
-          reconhecer seus principais desafios e priorizá-los com a validação de
-          todos os participantes.
-        </Paragraph>
-        <Paragraph style={{ marginTop: 16 }}>
-          Acesse esse ambiente para realizar sua frequência nos dias do evento.
-          Para mais informações sobre a oficina acesse:
-          sus.ce.gov.br/felicilab/oficinadesignesp/
+          reconhecer seus principais problemas e priorizá-los com a validação de
+          todos os participantes. Além disso, o mapeamento dos problemas irá
+          possibilitar o reconhecimento do que será tratado com base na
+          aproximação dos objetivos estratégicos da ESP alinhados aos
+          Macroprocessos por Eixos Estratégicos. Acesse esse ambiente para
+          realizar sua frequência nos dias do evento.
         </Paragraph>
       </Content>
       <FlatList
