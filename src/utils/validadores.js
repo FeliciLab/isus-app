@@ -1,23 +1,3 @@
-import {
-  verificarCPFCadastrado,
-  verificarEmailCadastrado,
-} from '~/apis/apiCadastro';
-import Regex from './regex';
-
-export const descricaoValida = descricao => descricao.replace(/\s/g, '').length;
-
-export const unidadeDeSaudeValida = unidadeDeSaude =>
-  unidadeDeSaude.replace(/\s/g, '').length;
-
-export const feedbackValido = feedback => feedback.replace(/\s/g, '').length;
-
-export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-
-export const senhaValido = senha => senha.replace(/\s/g, '').length > 0;
-
-export const nomeValido = nomeCompleto =>
-  Regex.NOME.test(nomeCompleto.toLowerCase());
-
 export const cpfValido = cpf => {
   // Remove os pontos/traço da expressão regular, caso exista
   cpf = cpf.replace(/[^\d]+/g, '');
@@ -74,20 +54,3 @@ export const cpfValido = cpf => {
 
   return true;
 };
-
-export async function emailNaoCadastrado(email) {
-  const resposta = await verificarEmailCadastrado(email);
-  const emailExiste = resposta.data.email_existe;
-  return !emailExiste;
-}
-
-export async function cpfNaoCadastrado(cpf) {
-  const resposta = await verificarCPFCadastrado(cpf);
-  const cpfExiste = resposta.data.cpf_existe;
-  return !cpfExiste;
-}
-
-export async function cpfCadastradoIdSaude(cpf) {
-  const resposta = await verificarCPFCadastrado(cpf);
-  return resposta.data.cpf_existe;
-}
