@@ -15,4 +15,5 @@ export const urls = {
   SIG_RESIDENCIAS: 'https://sigresidencias.saude.gov.br',
   MATRICULA_RESIDENCIA:
     'https://www.esp.ce.gov.br/ensino/residencia-em-saude/matricula/',
+  OFICINA_DESIGN: 'https://sus.ce.gov.br/felicilab/oficinadesignesp/',
 };

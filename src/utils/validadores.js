@@ -1,32 +1,7 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable no-plusplus */
-/* eslint-disable eqeqeq */
-/* eslint-disable radix */
-import Regex from './regex';
-import {
-  verificarEmailCadastrado,
-  verificarCPFCadastrado,
-} from '~/apis/apiCadastro';
-
-export const descricaoValida = descricao => descricao.replace(/\s/g, '').length;
-
-export const unidadeDeSaudeValida = unidadeDeSaude =>
-  unidadeDeSaude.replace(/\s/g, '').length;
-
-export const feedbackValido = feedback => feedback.replace(/\s/g, '').length;
-
-export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
-
-export const senhaValido = senha => senha.replace(/\s/g, '').length > 0;
-
-export const nomeValido = nomeCompleto =>
-  // eslint-disable-next-line implicit-arrow-linebreak
-  Regex.NOME.test(nomeCompleto.toLowerCase());
-
-// eslint-disable-next-line arrow-parens
 export const cpfValido = cpf => {
   // Remove os pontos/traço da expressão regular, caso exista
   cpf = cpf.replace(/[^\d]+/g, '');
+
   if (cpf === '') {
     return false;
   }
@@ -50,11 +25,13 @@ export const cpfValido = cpf => {
 
   // Valida 1o digito
   let add = 0;
+
   for (let i = 0; i < 9; i++) {
     add += parseInt(cpf.charAt(i)) * (10 - i);
   }
 
   let rev = 11 - (add % 11);
+
   if (rev == 10 || rev == 11) {
     rev = 0;
   }
@@ -65,11 +42,13 @@ export const cpfValido = cpf => {
 
   // Valida 2o digito
   add = 0;
+
   for (let i = 0; i < 10; i++) {
     add += parseInt(cpf.charAt(i)) * (11 - i);
   }
 
   rev = 11 - (add % 11);
+
   if (rev == 10 || rev == 11) {
     rev = 0;
   }
@@ -80,20 +59,3 @@ export const cpfValido = cpf => {
 
   return true;
 };
-
-export async function emailNaoCadastrado(email) {
-  const resposta = await verificarEmailCadastrado(email);
-  const emailExiste = resposta.data.email_existe;
-  return !emailExiste;
-}
-
-export async function cpfNaoCadastrado(cpf) {
-  const resposta = await verificarCPFCadastrado(cpf);
-  const cpfExiste = resposta.data.cpf_existe;
-  return !cpfExiste;
-}
-
-export async function cpfCadastradoIdSaude(cpf) {
-  const resposta = await verificarCPFCadastrado(cpf);
-  return resposta.data.cpf_existe;
-}

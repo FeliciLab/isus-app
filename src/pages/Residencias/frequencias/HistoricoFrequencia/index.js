@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 import { Divider } from 'react-native-paper';
 import CustonFAB from '~/components/CustonFAB/index';
+import HistoricoEmBranco from '~/components/HistoricoEmBranco';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useUserPresencas } from '~/hooks/useUserPresencas';
 import { ArrowLeftIcon } from '~/icons';
-import HistoricoEmBranco from './HistoricoEmBranco';
 import PresencaItem from './PresencaItem';
 import {
   ActivityIndicatorWrapper,
