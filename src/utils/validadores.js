@@ -16,10 +16,8 @@ export const emailValido = email => Regex.EMAIL.test(email.toLowerCase());
 export const senhaValido = senha => senha.replace(/\s/g, '').length > 0;
 
 export const nomeValido = nomeCompleto =>
-  // eslint-disable-next-line implicit-arrow-linebreak
   Regex.NOME.test(nomeCompleto.toLowerCase());
 
-// eslint-disable-next-line arrow-parens
 export const cpfValido = cpf => {
   // Remove os pontos/traço da expressão regular, caso exista
   cpf = cpf.replace(/[^\d]+/g, '');
