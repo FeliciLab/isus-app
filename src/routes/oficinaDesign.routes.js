@@ -41,7 +41,7 @@ export default function OficinaDesignStackScreen() {
           name={rotas.LOGIN_FREQUENCIA}
           component={LoginStackScreen}
           options={{ headerShown: false }}
-          initialParams={{ redirectRoute: rotas.LISTAR_OFERTAS }}
+          initialParams={{ redirectRoute: rotas.OFICINA_DESIGN_HOME }}
         />
       )}
     </Navigator>
