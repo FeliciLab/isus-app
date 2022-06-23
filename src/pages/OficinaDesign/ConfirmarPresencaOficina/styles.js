@@ -30,6 +30,7 @@ export const SubTitle = styled.Text`
   line-height: 24px;
   letter-spacing: 0.15px;
   color: rgba(0, 0, 0, 0.87);
+  margin-top: 5px;
 `;
 
 export const AlunoInfo = styled.Text`

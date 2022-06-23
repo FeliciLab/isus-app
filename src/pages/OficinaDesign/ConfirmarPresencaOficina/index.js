@@ -15,7 +15,14 @@ import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { ArrowLeftIcon } from '~/icons';
 import schema from './schema';
-import { AlunoInfo, Container, Content, SubTitle, Warning } from './styles';
+import {
+  AlunoInfo,
+  Container,
+  Content,
+  SubTitle,
+  Title,
+  Warning,
+} from './styles';
 
 const areas = [
   'ASCOM',
@@ -112,8 +119,9 @@ const ConfirmarPresencaOficina = () => {
         backgroundColor={CORES.AZUL_OFICINA_DARK}
         barStyle="light-content"
       />
+      <Title>{oficina.title}</Title>
       <SubTitle>
-        {oficina.title} | {moment(oficina.inicio).format('DD/MM')} a{' '}
+        {moment(oficina.inicio).format('DD/MM')} a{' '}
         {moment(oficina.fim).format('DD/MM/YYYY')}
       </SubTitle>
       <ControlledSelectModal
@@ -137,7 +145,7 @@ const ConfirmarPresencaOficina = () => {
       />
       <Content>
         <View>
-          <AlunoInfo>Aluno(a): {user.name}</AlunoInfo>
+          <AlunoInfo>Participante: {user.name}</AlunoInfo>
           <AlunoInfo>Data: {moment().format('DD/MM/YYYY')}</AlunoInfo>
         </View>
         <CustonFAB
