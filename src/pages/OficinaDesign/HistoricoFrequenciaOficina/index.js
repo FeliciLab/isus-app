@@ -13,6 +13,7 @@ import { ArrowLeftIcon } from '~/icons';
 import PresencaOfertaItem from './PresencaOfertaItem';
 import { Container, PercentIndicator, SubTitle, Title } from './styles';
 
+// TODO: remover o mock
 const presecasMock = [
   {
     id: 1,
@@ -31,6 +32,7 @@ const presecasMock = [
   },
 ];
 
+// TODO: implementar integração com dados da API
 const HistoricoFrequenciaOficina = () => {
   const navigation = useNavigation();
 
@@ -47,7 +49,7 @@ const HistoricoFrequenciaOficina = () => {
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
-      headerTitle: 'Oferta',
+      headerTitle: 'Oficinas',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -68,11 +70,12 @@ const HistoricoFrequenciaOficina = () => {
         backgroundColor={CORES.AZUL_OFICINA_DARK}
         barStyle="light-content"
       />
-      <Title>Histórico de frequência</Title>
+      <Title>{oficina.title}</Title>
       <SubTitle>
-        {oficina.title} | {moment(oficina.inicio).format('DD/MM')} a{' '}
+        {moment(oficina.inicio).format('DD/MM')} a{' '}
         {moment(oficina.fim).format('DD/MM/YYYY')}
       </SubTitle>
+      {/* TODO: colocar aqui o calculo pra o percential de frequência */}
       <PercentIndicator>Percentual de presença: 66%</PercentIndicator>
       <FlatList
         data={presecasMock}
