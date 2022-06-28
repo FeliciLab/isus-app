@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import moment from 'moment';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { ActivityIndicator, Divider } from 'react-native-paper';
@@ -14,16 +13,6 @@ const ListarOficinas = () => {
   const navigation = useNavigation();
 
   const { ofertas, fetchEspOfertas, isLoading } = useEspOfertas();
-
-  // TODO: criar o hook para buscar as oficinas cadastradas
-  // const oficinasMock = [
-  //   {
-  //     id: 1,
-  //     nome: 'Oficina de Design de Serviços | ESP',
-  //     inicio: moment().subtract(7, 'days'), // sete dias antes de hj
-  //     fim: moment().add(7, 'days'), // sete dias depois de hj
-  //   },
-  // ];
 
   useEffect(() => {
     fetchEspOfertas();
