@@ -14,23 +14,23 @@ import PresencaOfertaItem from './PresencaOfertaItem';
 import { Container, PercentIndicator, SubTitle, Title } from './styles';
 
 // TODO: remover o mock
-const presecasMock = [
-  {
-    id: 1,
-    isPresent: true,
-    data: new Date(),
-  },
-  {
-    id: 2,
-    isPresent: true,
-    data: new Date(),
-  },
-  {
-    id: 3,
-    isPresent: false,
-    data: new Date(),
-  },
-];
+// const presecasMock = [
+//   {
+//     id: 1,
+//     isPresent: true,
+//     data: new Date(),
+//   },
+//   {
+//     id: 2,
+//     isPresent: true,
+//     data: new Date(),
+//   },
+//   {
+//     id: 3,
+//     isPresent: false,
+//     data: new Date(),
+//   },
+// ];
 
 // TODO: implementar integração com dados da API
 const HistoricoFrequenciaOficina = () => {
