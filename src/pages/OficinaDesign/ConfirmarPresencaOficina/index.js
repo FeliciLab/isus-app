@@ -114,7 +114,7 @@ const ConfirmarPresencaOficina = () => {
       setIsLoading(true);
 
       const newPresenca = {
-        data: moment(), //"2014-09-08T08:02:17-03:00" (ISO 8601)
+        data: moment(), //"2022-06-29T18:44:22.469Z" (ISO 8601 em GMT)
       };
 
       // Verifica se já existe uma presença pro dia.
