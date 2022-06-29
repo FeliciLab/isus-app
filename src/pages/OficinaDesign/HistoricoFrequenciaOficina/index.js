@@ -1,5 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import moment from 'moment';
+import { uniqueId } from 'lodash';
 import React, { useEffect, useLayoutEffect, useMemo } from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -135,7 +136,7 @@ const HistoricoFrequenciaOficina = () => {
       )}
       <FlatList
         data={presencasPorOficina}
-        keyExtractor={({ id }) => String(id)}
+        keyExtractor={() => uniqueId('presenca')}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <PresencaOfertaItem presenca={item} />}
         ItemSeparatorComponent={() => <Divider />}

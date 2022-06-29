@@ -15,7 +15,7 @@ import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useEspUserInfo } from '~/hooks/useEspUserInfo';
 import { useEspUserPresencas } from '~/hooks/useEspUserPresencas';
-import { marcarPresenca, updateEspUserInfo } from '~/services/frequencias';
+import { marcarPresenca, updateEspUserInfo } from '~/services/espFrequencias';
 import { ArrowLeftIcon } from '~/icons';
 import schema from './schema';
 import {
@@ -50,23 +50,20 @@ const ConfirmarPresencaOficina = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [areaEsp, setAreaEsp] = useState('');
-  const [areaOutros, setAreaOutros] = useState('');
-
   const [dialogVisible, setDialogVisible] = useState(false);
 
   const { control, watch, setValue, getValues, handleSubmit } = useForm({
     defaultValues: {
-      area_esp: areaEsp,
-      area_outros: areaOutros,
+      isOutrosSelected: false,
+      area_esp: '',
+      area_outros: '',
     },
     resolver: yupResolver(schema),
   });
 
-  const areaWatch = watch('area');
+  const areaWatch = watch('area_esp');
 
-
-  const { espUserInfo, error, isLoading: espUserInfoIsLoading, fetchEspUserInfo } = useEspUserInfo(user.id);
+  const { espUserInfo, fetchEspUserInfo } = useEspUserInfo(user.id);
 
   const { presencas, fetchEspUserPresencas } = useEspUserPresencas(
     user.id,
@@ -97,49 +94,44 @@ const ConfirmarPresencaOficina = () => {
     });
   });
 
-  // TODO: implementar
-  // const onPressMarcarPresenca = async data => {
-  //   try {
-  //     setIsLoading(true);
+  const handleMarcarPresenca = async (novaPresenca) => {
 
-  //     setTimeout(() => {
-  //       console.log('handleMarcarPresenca:', data);
-  //       navigation.navigate(rotas.OFICINA_DESIGN_SUCESSO, { oficina });
-  //     }, 1000);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+    await marcarPresenca(user.id, oficina.id, novaPresenca);
+  };
 
-  useEffect(() => {
-    fetchEspUserInfo();
-    fetchEspUserPresencas();
-  }, []);
+  const handleUpdateEspUserInfo = async (areaEsp, areaOutros) => {
 
-  useEffect(() => {
-    setAreaEsp(espUserInfo?.area_esp);
-    setAreaOutros(espUserInfo?.area_outros);
-  }, [espUserInfo]);
+    await updateEspUserInfo(user.id, {
+      area_esp: areaEsp,
+      area_outros: areaOutros
+    });
 
-  const handleUpdateEspUserInfo = async () => {
+    navigation.navigate(rotas.OFICINA_DESIGN_SUCESSO, { oficina });
+  };
+
+  const onPressMarcarPresenca = async () => {
     try {
       setIsLoading(true);
 
-      await Promise.all([
-        updateEspUserInfo(user.id, {
-          area_esp: areaEsp,
-          area_outros: areaOutros
-        }),
-        marcarPresenca(user.id, oficina.id, {
-          data: moment().format('DD-MM-YYYY hh:mm:ss'),
-        }),
-      ]);
+      const newPresenca = {
+        data: moment(), //"2014-09-08T08:02:17-03:00" (ISO 8601)
+      };
 
-      // ROTA SUCESSO PRESENCA TEM QUE SER DA OFICINA!
-      // ATENCAO!
-      navigation.navigate(rotas.SUCESSO_PRESENCA, { oficina });
+      // Verifica se já existe uma presença pro dia.
+      const presencaMarcada = presencas.some(
+        item =>
+          moment(newPresenca.data).format('DD/MM/YYYY') === moment(item.data).format('DD/MM/YYYY')
+      );
+
+      if (presencaMarcada) {
+        setDialogVisible(true);
+        return;
+      }
+
+      await handleMarcarPresenca(newPresenca);
+
+      setDialogVisible(true);
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -147,23 +139,15 @@ const ConfirmarPresencaOficina = () => {
     }
   };
 
-  const onPressMarcarPresenca = async () => {
-    const newPresenca = {
-      data: moment().format('DD-MM-YYYY hh:mm:ss'),
-    };
+  useEffect(() => {
+    fetchEspUserInfo();
+    fetchEspUserPresencas();
+  }, []);
 
-    // Verifica se já existe uma presença para aquele dia para o usuário e oficina
-    const presencaMarcada = presencas.some(
-      (item) => newPresenca.data === moment(item.data).format('DD/MM/YYYY')
-    );
-
-    if (presencaMarcada) {
-      setDialogVisible(true);
-      return;
-    }
-
-    await handleUpdateEspUserInfo();
-  };
+  useEffect(() => {
+    setValue('area_esp', espUserInfo?.area_esp);
+    getValues('area_esp') === 'OUTROS' && setValue('area_outros', espUserInfo?.area_outros);
+  }, [espUserInfo]);
 
 
   const handleMarcarPresencaDialogVoltarButton = () => {
@@ -172,11 +156,18 @@ const ConfirmarPresencaOficina = () => {
 
   const handleMarcarPresencaDialogConfirmarButton = async () => {
     setDialogVisible(false);
-    await handleUpdateEspUserInfo();
+    const areaEsp = getValues('area_esp');
+    const areaOutros = getValues('area_outros');
+    await handleUpdateEspUserInfo(areaEsp, areaOutros);
   };
 
   useEffect(() => {
-    setValue('area_outros', '');
+    if (areaWatch !== 'OUTROS') {
+      setValue('area_outros', '');
+      setValue('isOutrosSelected', false);
+    } else {
+      setValue('isOutrosSelected', true);
+    }
   }, [areaWatch]);
 
   return (
@@ -197,18 +188,21 @@ const ConfirmarPresencaOficina = () => {
           label: String(item),
         }))}
         mode="outlined"
-        name="area"
+        name="area_esp"
         placeholder="Selecione sua área na ESP"
         title="Área"
       />
-      <ControlledTextInput
-        testID="descricaoInput"
-        control={control}
-        disabled={areaWatch !== 'OUTROS'}
-        name="especArea"
-        mode="outlined"
-        label="Especifique a área"
-      />
+      {
+        areaWatch === 'OUTROS' &&
+        <ControlledTextInput
+          testID="descricaoInput"
+          control={control}
+          disabled={areaWatch !== 'OUTROS'}
+          name="area_outros"
+          mode="outlined"
+          label="Especifique a área"
+        />
+      }
       <Content>
         <View>
           <AlunoInfo>Participante: {user.name}</AlunoInfo>
