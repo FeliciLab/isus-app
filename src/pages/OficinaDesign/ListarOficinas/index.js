@@ -1,26 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
-import moment from 'moment';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
-import { Divider } from 'react-native-paper';
+import { ActivityIndicator, Divider } from 'react-native-paper';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 import OficinaItem from './OficinaItem';
-import { Container, Title } from './styles';
+import { ActivityIndicatorWrapper, Container, Title } from './styles';
+import { useEspOfertas } from '~/hooks/useEspOfertas';
 
 const ListarOficinas = () => {
   const navigation = useNavigation();
 
-  // TODO: criar o hook para buscar as oficinas cadastradas
-  const oficinasMock = [
-    {
-      id: 1,
-      nome: 'Oficina de Design de Serviços | ESP',
-      inicio: moment().subtract(7, 'days'), // sete dias antes de hj
-      fim: moment().add(7, 'days'), // sete dias depois de hj
-    },
-  ];
+  const { ofertas, fetchEspOfertas, isLoading } = useEspOfertas();
+
+  useEffect(() => {
+    fetchEspOfertas();
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,6 +42,14 @@ const ListarOficinas = () => {
     });
   });
 
+  if (isLoading) {
+    return (
+      <ActivityIndicatorWrapper>
+        <ActivityIndicator size="large" />
+      </ActivityIndicatorWrapper>
+    );
+  }
+
   return (
     <Container>
       <BarraDeStatus
@@ -54,7 +58,7 @@ const ListarOficinas = () => {
       />
       <Title>Frequências</Title>
       <FlatList
-        data={oficinasMock.map(({ id, nome, inicio, fim }) => ({
+        data={ofertas.map(({ id, nome, inicio, fim }) => ({
           id,
           title: nome,
           inicio,
