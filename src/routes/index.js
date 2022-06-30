@@ -21,6 +21,7 @@ import AppDrawerScreen from './appDrawerScreen.routes';
 import CadastroRoutes from './cadastro.routes';
 import FrequenciasStackScreen from './frequencias.routes';
 import LoginStackScreen from './login.routes';
+import OficinaDesignStackScreen from './oficinaDesign.routes';
 import PreCadastroRoutes from './preCadastro.routes';
 import QualiquizRoutes from './qualiquiz.routes';
 import SearchStackScreen from './search.routes';
@@ -130,6 +131,11 @@ const Routes = ({ navigationRef }) => {
         <Screen
           name={rotas.FREQUENCIAS}
           component={FrequenciasStackScreen}
+          options={{ headerShown: false }}
+        />
+        <Screen
+          name={rotas.OFICINA_DESIGN}
+          component={OficinaDesignStackScreen}
           options={{ headerShown: false }}
         />
         <Screen

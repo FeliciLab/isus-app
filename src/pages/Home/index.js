@@ -12,6 +12,7 @@ import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
 import Servicos from './Servicos';
 import UserInfo from './UserInfo';
+
 // import LinhasDeCuidado from './LinhasDeCuidado';
 // import MeusConteudos from './MeusConteudos';
 

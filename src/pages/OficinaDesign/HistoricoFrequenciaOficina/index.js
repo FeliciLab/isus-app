@@ -1,53 +1,50 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { uniqueId } from 'lodash';
 import moment from 'moment';
+import { uniqueId } from 'lodash';
 import React, { useEffect, useLayoutEffect, useMemo } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, View, ActivityIndicator } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Divider } from 'react-native-paper';
-import CustonFAB from '~/components/CustonFAB/index';
+import BarraDeStatus from '~/components/BarraDeStatus';
+import CustonFAB from '~/components/CustonFAB';
 import HistoricoEmBranco from '~/components/HistoricoEmBranco';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
-import useAutenticacao from '~/hooks/useAutenticacao';
-import { useUserPresencas } from '~/hooks/useUserPresencas';
 import { ArrowLeftIcon } from '~/icons';
-import PresencaItem from './PresencaItem';
+import PresencaOfertaItem from './PresencaOfertaItem';
 import {
-  ActivityIndicatorWrapper,
   Container,
   PercentIndicator,
   SubTitle,
   Title,
+  ActivityIndicatorWrapper
 } from './styles';
+import { useEspUserPresencas } from '~/hooks/useEspUserPresencas';
+import useAutenticacao from '~/hooks/useAutenticacao';
 
-const HistoricoFrequencia = () => {
+const HistoricoFrequenciaOficina = () => {
   const navigation = useNavigation();
 
   const {
-    params: { oferta },
+    params: { oficina },
   } = useRoute();
 
   const { user } = useAutenticacao();
 
-  const { presencas, featchUserPresencas, isLoading } = useUserPresencas(
+  const { presencas, isLoading, fetchEspUserPresencas } = useEspUserPresencas(
     user.id,
-    oferta.id,
+    oficina.id,
   );
 
   useEffect(() => {
-    featchUserPresencas();
+    fetchEspUserPresencas();
   }, []);
 
-  const presecasPorOferta = useMemo(() => {
-    const initialDate = moment(oferta.inicio);
+  const presencasPorOficina = useMemo(() => {
+    const initialDate = moment(oficina.inicio);
 
     // min entre o dia atual e o fim da oferta
-    const lastDate = moment.min(moment(), moment(oferta.fim));
+    const lastDate = moment.min(moment(), moment(oficina.fim));
 
     const diffDays = lastDate.diff(initialDate, 'days');
 
@@ -60,49 +57,44 @@ const HistoricoFrequencia = () => {
       if ([1, 2, 3, 4, 5].some(item => item === auxData.day())) {
         presenciables.push({
           data: auxData,
-          turno: 'manhã',
-        });
-        presenciables.push({
-          data: auxData,
-          turno: 'tarde',
         });
       }
     }
 
-    return presenciables.reverse().map(({ data, turno }) => ({
+    return presenciables.reverse().map(({ data }) => ({
       data,
-      turno,
       isPresent: presencas.some(
         item =>
           moment(item.data).format('DD/MM/YYYY') ===
-            moment(data).format('DD/MM/YYYY') && item.turno == turno,
+          moment(data).format('DD/MM/YYYY'),
       ),
     }));
-  }, [presencas, oferta]);
+
+  }, [presencas, oficina]);
 
   const percentualPresencas = useMemo(() => {
-    const countIsPresent = presecasPorOferta.reduce((acc, curr) => {
+    const countIsPresent = presencasPorOficina.reduce((acc, curr) => {
       if (curr.isPresent) {
         acc++;
       }
       return acc;
     }, 0);
 
-    const percent = countIsPresent / presecasPorOferta.length;
+    const percent = countIsPresent / presencasPorOficina.length;
 
     return `${parseFloat(percent * 100).toFixed(1)}%`;
-  }, [presecasPorOferta]);
+  }, [presencasPorOficina]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.AZUL_OFICINA,
         elevation: 0,
         shadowOpacity: 0,
       },
       headerTintColor: '#fff',
       headerTitleAlign: 'center',
-      headerTitle: 'Residências em Saúde',
+      headerTitle: 'Oficinas',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -125,12 +117,17 @@ const HistoricoFrequencia = () => {
     );
   }
 
+
   return (
     <Container>
-      <Title>Histórico de frequência</Title>
+      <BarraDeStatus
+        backgroundColor={CORES.AZUL_OFICINA_DARK}
+        barStyle="light-content"
+      />
+      <Title>{oficina.title}</Title>
       <SubTitle>
-        {oferta.title} | {moment(oferta.inicio).format('DD/MM')} a{' '}
-        {moment(oferta.fim).format('DD/MM/YYYY')}
+        {moment(oficina.inicio).format('DD/MM')} a{' '}
+        {moment(oficina.fim).format('DD/MM/YYYY')}
       </SubTitle>
       {presencas.length > 0 && (
         <PercentIndicator>
@@ -138,10 +135,10 @@ const HistoricoFrequencia = () => {
         </PercentIndicator>
       )}
       <FlatList
-        data={presecasPorOferta}
+        data={presencasPorOficina}
         keyExtractor={() => uniqueId('presenca')}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <PresencaItem presenca={item} />}
+        renderItem={({ item }) => <PresencaOfertaItem presenca={item} />}
         ItemSeparatorComponent={() => <Divider />}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<View style={{ height: 90 }} />}
@@ -150,10 +147,10 @@ const HistoricoFrequencia = () => {
       <CustonFAB
         label="Home"
         small
-        onPress={() => navigation.navigate(rotas.RESIDENCIA_MEDICA)}
+        onPress={() => navigation.navigate(rotas.OFICINA_DESIGN_HOME)}
       />
     </Container>
   );
 };
 
-export default HistoricoFrequencia;
+export default HistoricoFrequenciaOficina;
