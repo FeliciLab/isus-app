@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-paper';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -82,6 +83,14 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
+      {/* TODO: remover esse button */}
+      <Button
+        style={{ margin: 10 }}
+        icon="camera"
+        mode="contained"
+        onPress={() => navigation.navigate(rotas.FREQUENCIAS)}>
+        Press me
+      </Button>
       <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
         <Banners sliderWidth={width} itemWidth={width} />
         <Servicos navigation={navigation} />
