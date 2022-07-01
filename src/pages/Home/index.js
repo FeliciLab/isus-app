@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import { MagnifyIcon, MenuIcon } from '~/icons';
 import Banners from './Banners';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
@@ -56,11 +56,7 @@ export default function Home() {
             await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate(rotas.SEARCH_STACK_SCREEN);
           }}>
-          <Icon
-            name="magnify"
-            size={28}
-            color={user ? CORES.VERDE : CORES.BRANCO}
-          />
+          <MagnifyIcon size={28} color={user ? CORES.VERDE : CORES.BRANCO} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -71,11 +67,7 @@ export default function Home() {
           onPress={() => {
             navigation.toggleDrawer();
           }}>
-          <Icon
-            name="menu"
-            size={28}
-            color={user ? CORES.VERDE : CORES.BRANCO}
-          />
+          <MenuIcon size={28} color={user ? CORES.VERDE : CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
