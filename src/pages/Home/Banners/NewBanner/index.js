@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Dimensions } from 'react-native';
 import { SvgCssUri } from 'react-native-svg';
