@@ -5,7 +5,7 @@ import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import CustonDialog from '~/components/CustonDialog';
 import CustonFAB from '~/components/CustonFAB/index';
-import Select from '~/components/Select';
+import SelectModal from '~/components/SelectModal';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -26,10 +26,8 @@ import {
   SubTitle,
   Title,
   Warning,
-  WrapperSelect,
 } from './styles';
 
-// TODO: mudar o nome desse componente para ConfirmarPresencaOferta
 const ConfirmarPresenca = () => {
   const navigation = useNavigation();
 
@@ -206,51 +204,48 @@ const ConfirmarPresenca = () => {
         {moment(oferta.fim).format('DD/MM/YYYY')}
       </SubTitle>
       {useSaguUserInfo && (
-        <WrapperSelect>
-          <Select
-            label="Componente Hospitalar"
-            value={componente}
-            setValue={value => {
-              setComponente(value);
-              setProgramaResidencia(null);
-              setResidenciaMunicipio(null);
-            }}
-            items={componentes.map(item => ({
-              label: item,
-              value: item,
-            }))}
-          />
-        </WrapperSelect>
+        <SelectModal
+          title="Componente Hospitalar"
+          placeholder="Componente Hospitalar"
+          items={componentes.map(item => ({
+            label: item,
+            value: item,
+          }))}
+          value={componente}
+          setValue={value => {
+            setComponente(value);
+            setProgramaResidencia(null);
+            setResidenciaMunicipio(null);
+          }}
+        />
       )}
       {componente && (
-        <WrapperSelect>
-          <Select
-            label="Programa de Residência"
-            value={programaResidencia}
-            setValue={value => {
-              setProgramaResidencia(value);
-              setResidenciaMunicipio(null);
-            }}
-            items={getProgramasResidencias(componente).map(item => ({
-              label: item,
-              value: item,
-            }))}
-          />
-        </WrapperSelect>
+        <SelectModal
+          title="Programa de Residência"
+          placeholder="Programa de Residência"
+          items={getProgramasResidencias(componente).map(item => ({
+            label: item,
+            value: item,
+          }))}
+          value={programaResidencia}
+          setValue={value => {
+            setProgramaResidencia(value);
+            setResidenciaMunicipio(null);
+          }}
+        />
       )}
       {programaResidencia &&
         getResidenciaMunicipios(programaResidencia).length > 0 && (
-        <WrapperSelect>
-          <Select
-            label="Selecione o Município"
-            value={residenciaMunicipio}
-            setValue={setResidenciaMunicipio}
-            items={getResidenciaMunicipios(programaResidencia).map(item => ({
-              label: item,
-              value: item,
-            }))}
-          />
-        </WrapperSelect>
+        <SelectModal
+          title="Selecione o Município"
+          placeholder="Selecione o Município"
+          items={getResidenciaMunicipios(programaResidencia).map(item => ({
+            label: item,
+            value: item,
+          }))}
+          value={residenciaMunicipio}
+          setValue={setResidenciaMunicipio}
+        />
       )}
       {atualSaguUserInfoIsValid && (
         <Content>
@@ -270,12 +265,14 @@ const ConfirmarPresenca = () => {
             disabled={isLoading || !isPresenceIsCheckable}
             loading={isLoading}
           />
-          <Warning>
-            Atenção: O botão de presença só ficará ativo no horário previsto.
-            Você só poderá marcar sua frequência no período da manhã (de 9h às
-            10h) ou durante as tardes (de 15 às 16h). Se você errar a seleção de
-            alguma informação, poderá corrigir no período permitido.
-          </Warning>
+          <View>
+            <Warning>
+              Atenção: O botão de presença só ficará ativo no horário previsto.
+              Você só poderá marcar sua frequência no período da manhã (de 9h às
+              10h) ou durante as tardes (de 15 às 16h). Se você errar a seleção
+              de alguma informação, poderá corrigir no período permitido.
+            </Warning>
+          </View>
           <CustonDialog
             visible={dialogVisible}
             setVisible={setDialogVisible}
