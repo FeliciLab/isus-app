@@ -17,5 +17,4 @@ export const IconeWrapper = styled.View`
   overflow: hidden;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  overflow: hidden;
 `;
