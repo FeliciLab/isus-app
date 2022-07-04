@@ -1,13 +1,14 @@
 import React from 'react';
 import { pegarBanners } from '~/apis/apiHome';
-import Banner from '~/components/Banner';
+import Banner from '~/pages/Home/Banners/Banner';
 import { listaDeImagens } from '~/constantes/imagens';
 
 const buscarImagem = ({ imagem, localImagem }) => {
   if (localImagem !== 'web' || !localImagem) {
     return listaDeImagens[imagem];
   }
-  if (imagem.substr(-4) === '.svg') {
+
+  if (imagem.endsWith('.svg')) {
     return { svg: imagem };
   }
 

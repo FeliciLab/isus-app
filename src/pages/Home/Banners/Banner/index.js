@@ -18,7 +18,7 @@ export default function Banner({
   imagem,
   enderecoUrl = '',
   pagina = '',
-  testID,
+  ...rest
 }) {
   const { analyticsData } = useAnalytics();
 
@@ -30,7 +30,7 @@ export default function Banner({
 
   const temPagina = pagina.length > 0;
 
-  const lidarComClick = () => {
+  const onPress = () => {
     analyticsData(labelDoAnalytics, 'Click', 'Home');
 
     if (temEnderecoUrl && netInfo.isConnected) {
@@ -72,7 +72,7 @@ export default function Banner({
   };
 
   return (
-    <Cartao testID={testID} onPress={lidarComClick}>
+    <Cartao onPress={onPress} {...rest}>
       <ConteudoImagem>{exibirImg()}</ConteudoImagem>
     </Cartao>
   );

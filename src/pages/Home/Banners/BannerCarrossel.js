@@ -1,21 +1,43 @@
 import React, { useState } from 'react';
+import {
+  // Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { CORES } from '~/constantes/estiloBase';
+import NewBanner from './NewBanner';
 
-export default function BannerCarrossel({ sliderWidth, itemWidth, banners }) {
-  const [indiceAtivo, setIndiceAtivo] = useState(0);
+function BannerCarrossel({ banners }) {
+  const [activeDotIndex, setActiveDotIndex] = useState(0);
 
-  function cardItem({ item }) {
-    return item.banner;
-  }
+  const { width } = useWindowDimensions();
 
-  function paginacao() {
-    return (
+  return (
+    <View>
+      <Carousel
+        data={banners}
+        renderItem={({ item }) => (
+          <NewBanner
+            labelDoAnalytics={item.options?.labelAnalytics || 'home-banner'}
+            testID={`home-banner-${item.ordem}`}
+            titulo={item.titulo}
+            // imagem={buscarImagem({ imagem, localImagem: options?.localImagem })}
+            enderecoUrl={item.valor}
+          />
+        )}
+        sliderWidth={width}
+        itemWidth={width}
+        onSnapToItem={indice => setActiveDotIndex(indice)}
+        autoplay
+        autoplayInterval={5000}
+        hasParallaxImages
+      />
       <Pagination
         dotsLength={banners.length}
         dotColor={CORES.LARANJA}
         inactiveDotColor={CORES.PRETO_INATIVO}
-        activeDotIndex={indiceAtivo}
+        activeDotIndex={activeDotIndex}
         dotStyle={{
           height: 12,
           width: 12,
@@ -30,22 +52,8 @@ export default function BannerCarrossel({ sliderWidth, itemWidth, banners }) {
         animatedTension={100}
         delayPressInDot={50}
       />
-    );
-  }
-
-  return (
-    <>
-      <Carousel
-        data={banners}
-        renderItem={cardItem}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth}
-        onSnapToItem={indice => setIndiceAtivo(indice)}
-        autoplay
-        autoplayInterval={5000}
-        hasParallaxImages
-      />
-      {paginacao()}
-    </>
+    </View>
   );
 }
+
+export default BannerCarrossel;

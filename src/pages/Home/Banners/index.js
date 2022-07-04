@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Dimensions } from 'react-native';
 import MessageErrorCard from '~/components/MessageErrorCard';
 import { CORES } from '~/constantes/estiloBase';
 import { useBanners } from '~/hooks/useBanners';
 import BannerCarrossel from './BannerCarrossel';
 
-const Banners = ({ sliderWidth, itemWidth }) => {
+const Banners = () => {
   const { banners, error, isLoading, featchBanners } = useBanners();
+
+  const { width } = Dimensions.get('screen');
 
   useEffect(() => {
     featchBanners();
@@ -37,8 +39,8 @@ const Banners = ({ sliderWidth, itemWidth }) => {
   return (
     <BannerCarrossel
       testID="home-banner-index"
-      sliderWidth={sliderWidth}
-      itemWidth={itemWidth}
+      sliderWidth={width}
+      itemWidth={width}
       banners={banners}
     />
   );
