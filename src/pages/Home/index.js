@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
-import { Dimensions, ScrollView, TouchableOpacity, View } from 'react-native';
+import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
@@ -76,7 +76,7 @@ export default function Home() {
   const { width } = Dimensions.get('screen');
 
   return (
-    <View>
+    <>
       <BarraDeStatus
         backgroundColor={user ? CORES.BRANCO : CORES.VERDE}
         barStyle={user ? 'dark-content' : 'light-content'}
@@ -89,6 +89,6 @@ export default function Home() {
         <ForcaTarefa navigation={navigation} />
         <LinhasDeCuidado navigation={navigation} />
       </ScrollView>
-    </View>
+    </>
   );
 }
