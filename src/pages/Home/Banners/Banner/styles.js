@@ -6,8 +6,3 @@ export const Container = styled(Card)`
   border-radius: 10px;
   margin: 20px 16px;
 `;
-
-export const ConteudoImagem = styled.View`
-  width: 100%;
-  height: 130px;
-`;
