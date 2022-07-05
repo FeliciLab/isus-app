@@ -117,7 +117,7 @@ function EdicaoInfoPessoal() {
           'Click',
           'atualizar informacao pessoal',
         );
-        navigation.navigate('TelaDeSucesso', {
+        navigation.navigate(ROTAS.TELA_SUCESSO, {
           textoApresentacao: PERFIL.EDICAO_INFO_PESSOAIS.MSG_SUCESSO,
           telaDeRedirecionamento: ROTAS.PERFIL,
           telaDeBackground: CORES.VERDE,
