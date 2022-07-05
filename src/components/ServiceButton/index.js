@@ -3,11 +3,11 @@ import { Card } from 'react-native-paper';
 import { CardTitle, Container, IconeWrapper } from './styles';
 
 const ServiceButton = props => {
-  const { Icone, ativo, titulo, onPress, testID, ...rest } = props;
+  const { Icone, ativo, titulo, onPress, ...rest } = props;
 
   if (ativo) {
     return (
-      <Container elevation={4} onPress={onPress} testID={testID} {...rest}>
+      <Container elevation={4} onPress={onPress} {...rest}>
         <IconeWrapper>
           <Icone />
         </IconeWrapper>

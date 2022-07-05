@@ -8,6 +8,7 @@ export const Container = styled.ScrollView`
 export const Content = styled.View`
   flex: 1;
   margin-top: 20px;
+  padding-bottom: 80px;
 `;
 
 export const ActivityIndicatorWrapper = styled.View`
@@ -44,8 +45,4 @@ export const Warning = styled.Text`
   line-height: 20px;
   letter-spacing: 0.25px;
   color: rgba(0, 0, 0, 0.87);
-`;
-
-export const WrapperSelect = styled.View`
-  margin-top: 8px;
 `;
