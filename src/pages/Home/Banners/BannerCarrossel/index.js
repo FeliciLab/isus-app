@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { CORES } from '~/constantes/estiloBase';
-import NewBanner from './NewBanner';
+import NewBanner from '../NewBanner';
 
 function BannerCarrossel({ banners }) {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
@@ -17,18 +17,10 @@ function BannerCarrossel({ banners }) {
     <View>
       <Carousel
         data={banners}
-        renderItem={({ item }) => (
-          <NewBanner
-            labelDoAnalytics={item.options?.labelAnalytics || 'home-banner'}
-            testID={`home-banner-${item.ordem}`}
-            titulo={item.titulo}
-            // imagem={buscarImagem({ imagem, localImagem: options?.localImagem })}
-            enderecoUrl={item.valor}
-          />
-        )}
+        renderItem={({ item }) => <NewBanner data={item} />}
         sliderWidth={width}
         itemWidth={width}
-        onSnapToItem={indice => setActiveDotIndex(indice)}
+        onSnapToItem={index => setActiveDotIndex(index)}
         autoplay
         autoplayInterval={5000}
         hasParallaxImages

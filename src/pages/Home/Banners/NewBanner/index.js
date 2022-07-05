@@ -1,50 +1,50 @@
-/* eslint-disable no-unused-vars */
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions } from 'react-native';
-import { SvgCssUri } from 'react-native-svg';
+import rotas from '~/constantes/rotas';
+import useAnalytics from '~/hooks/useAnalytics';
+import BannerImagem from '../BannerImagem';
+import { Container } from './styles';
 
-import { Container, Imagem } from './styles';
+const NewBanner = ({ data }) => {
+  const { titulo, valor, imagem, options } = data;
 
-const { width } = Dimensions.get('screen');
+  const { localImagem, labelAnalytics } = options;
 
-const imageWidth = width * 0.8;
+  const { analyticsData } = useAnalytics();
 
-const NewBanner = props => {
-  const {
-    labelDoAnalytics,
-    titulo,
-    imagem,
-    enderecoUrl = '',
-    pagina = '',
-    ...rest
-  } = props;
+  const { isConnected } = useNetInfo();
 
-  const BannerImagem = () => {
-    if (imagem?.svg) {
-      return (
-        <SvgCssUri width="100%" height="100%" uri={imagem.svg} cache="reload" />
-      );
+  const navigation = useNavigation();
+
+  const temEnderecoUrl = valor.length > 0;
+
+  // const temPagina = pagina.length > 0;
+
+  const handleOnPress = () => {
+    analyticsData(labelAnalytics, 'Click', 'Home');
+
+    if (temEnderecoUrl && isConnected) {
+      return navigation.navigate(rotas.WEBVIEW_PAGE, {
+        title: titulo,
+        url: valor,
+      });
     }
 
-    let source = imagem;
+    // if (temPagina) {
+    //   return navigation.navigate(pagina);
+    // }
 
-    if (imagem?.uri) {
-      source = { ...imagem, cache: 'reload' };
-    }
-
-    return (
-      <Imagem
-        width={imageWidth}
-        height={100}
-        resizeMode="cover"
-        source={source}
-      />
-    );
+    return navigation.navigate(rotas.SEM_CONEXAO, {
+      componente: 'webview',
+      title: titulo,
+      url: valor,
+    });
   };
 
   return (
-    <Container {...rest}>
-      <BannerImagem />
+    <Container onPress={handleOnPress}>
+      <BannerImagem imagem={imagem} localImagem={localImagem} />
     </Container>
   );
 };
