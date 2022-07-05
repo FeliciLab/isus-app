@@ -4,9 +4,6 @@ import { SvgCssUri } from 'react-native-svg';
 import { listaDeImagens } from '~/constantes/imagens';
 import { Imagem } from './styles';
 
-/**
- * A imagem do banner pode ser uma svg ou um png
- */
 const BannerImagem = ({ imagem, localImagem }) => {
   const { width } = useWindowDimensions();
 
@@ -30,7 +27,7 @@ const BannerImagem = ({ imagem, localImagem }) => {
       width={width * 0.8}
       height={100}
       resizeMode="cover"
-      source={imagem}
+      source={{ uri: imagem }}
     />
   );
 };

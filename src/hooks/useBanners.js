@@ -1,19 +1,6 @@
 import { useCallback, useState } from 'react';
 import { pegarBanners } from '~/apis/apiHome';
-
-// export interface BannerInterface {
-//   id: number;
-//   titulo: string;
-//   imagem: string;
-//   valor: string;
-//   tipo: 'webwiew || 'rota';
-//   ordem: number;
-//   options: {
-//      localImagem: string;
-//      labelAnalytics: string;
-//      login?: boolean;
-//   }
-// }
+import { sortBy } from 'lodash';
 
 export function useBanners() {
   const [banners, setBanners] = useState([]);
@@ -25,8 +12,11 @@ export function useBanners() {
   const featchBanners = useCallback(async () => {
     try {
       setIsLoading(true);
-      const { data } = await pegarBanners(); // !! => trasnforma o obj em boolean
-      setBanners(data);
+
+      const { data } = await pegarBanners();
+
+      setBanners(sortBy(data, ['ordem'])); // ordena pela ordem que vem da API
+
       setError(false);
     } catch (e) {
       setError(e);

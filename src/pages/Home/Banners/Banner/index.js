@@ -1,79 +1,54 @@
-/* eslint-disable no-nested-ternary */
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions } from 'react-native';
-import { SvgCssUri } from 'react-native-svg';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
-import { Cartao, ConteudoImagem, Imagem } from './styles';
+import BannerImagem from '../BannerImagem';
+import { Container } from './styles';
 
-const { width } = Dimensions.get('screen');
+const Banner = ({ data }) => {
+  const {
+    titulo,
+    tipo,
+    valor,
+    imagem,
+    options: { localImagem, labelAnalytics },
+  } = data;
 
-const imageWidth = width * 0.8;
-
-export default function Banner({
-  labelDoAnalytics,
-  titulo,
-  imagem,
-  enderecoUrl = '',
-  pagina = '',
-  ...rest
-}) {
   const { analyticsData } = useAnalytics();
 
-  const netInfo = useNetInfo();
+  const { isConnected } = useNetInfo();
 
   const navigation = useNavigation();
 
-  const temEnderecoUrl = enderecoUrl.length > 0;
+  const handleOnPress = () => {
+    analyticsData(labelAnalytics, 'Click', 'Home');
 
-  const temPagina = pagina.length > 0;
+    // Para quando deve abrir uma rota interna
+    if (tipo === 'rota') {
+      return navigation.navigate(valor);
+    }
 
-  const onPress = () => {
-    analyticsData(labelDoAnalytics, 'Click', 'Home');
-
-    if (temEnderecoUrl && netInfo.isConnected) {
-      return navigation.navigate('webview', {
+    // Para quando for tentar abrir uma página na web
+    if (isConnected) {
+      return navigation.navigate(rotas.WEBVIEW_PAGE, {
         title: titulo,
-        url: enderecoUrl,
+        url: valor,
+      });
+    } else {
+      return navigation.navigate(rotas.SEM_CONEXAO, {
+        componente: 'webview',
+        title: titulo,
+        url: valor,
       });
     }
-    if (temPagina) {
-      return navigation.navigate(pagina);
-    }
-    return navigation.navigate(rotas.SEM_CONEXAO, {
-      componente: 'webview',
-      title: titulo,
-      url: enderecoUrl,
-    });
-  };
-
-  const exibirImg = () => {
-    if (imagem.svg) {
-      return (
-        <SvgCssUri width="100%" height="100%" uri={imagem.svg} cache="reload" />
-      );
-    }
-
-    let source = imagem;
-
-    if (imagem.uri) {
-      source = { ...imagem, cache: 'reload' };
-    }
-    return (
-      <Imagem
-        width={imageWidth}
-        height={100}
-        resizeMode="cover"
-        source={source}
-      />
-    );
   };
 
   return (
-    <Cartao onPress={onPress} {...rest}>
-      <ConteudoImagem>{exibirImg()}</ConteudoImagem>
-    </Cartao>
+    <Container onPress={handleOnPress}>
+      <BannerImagem imagem={imagem} localImagem={localImagem} />
+    </Container>
   );
-}
+};
+
+export default Banner;

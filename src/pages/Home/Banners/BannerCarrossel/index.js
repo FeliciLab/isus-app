@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import {
-  // Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { CORES } from '~/constantes/estiloBase';
-import NewBanner from '../NewBanner';
+import Banner from '../Banner';
 
 function BannerCarrossel({ banners }) {
   const [activeDotIndex, setActiveDotIndex] = useState(0);
@@ -17,7 +13,7 @@ function BannerCarrossel({ banners }) {
     <View>
       <Carousel
         data={banners}
-        renderItem={({ item }) => <NewBanner data={item} />}
+        renderItem={({ item }) => <Banner data={item} />}
         sliderWidth={width}
         itemWidth={width}
         onSnapToItem={index => setActiveDotIndex(index)}
