@@ -7,6 +7,8 @@ import { DefaultTheme } from 'react-native-paper';
 import { cadastrarUsuario } from '~/apis/apiCadastro';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
+import { CORES } from '~/constantes/estiloBase';
+import rotas from '~/constantes/rotas';
 // import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 // import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
@@ -72,11 +74,11 @@ export default function FormularioSenha({ navigation }) {
         'Cadastro',
       );
 
-      navigation.navigate('TelaDeSucesso', {
+      navigation.navigate(rotas.TELA_SUCESSO, {
         textoApresentacao:
           'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
-        telaDeRedirecionamento: 'HOME',
-        telaDeBackground: '#304FFE',
+        telaDeRedirecionamento: rotas.HOME,
+        telaDeBackground: CORES.AZUL,
       });
     } catch (error) {
       console.log(error);

@@ -1,5 +1,4 @@
 import {
-  alteraDadosDoUsuario,
   atualizarUsuarioApi,
   cadastrarUsuario,
   deletarUsuario,
@@ -16,11 +15,6 @@ describe('apiCadastro', () => {
   test('Deve enviar os parâmetros corretamente do cadastrar usuário', () => {
     cadastrarUsuario(dadosUsuarioMock);
     expect(request.post).toHaveBeenCalledWith('/user', dadosUsuarioMock);
-  });
-
-  test('Deve enviar parâmetros corretamente do alterar dados do  usuário', () => {
-    alteraDadosDoUsuario(dadosUsuarioMock);
-    expect(request.put).toHaveBeenCalledWith('/user', dadosUsuarioMock);
   });
 
   test('Deve enviar parâmetros corretamente do deletar dados do  usuário', () => {

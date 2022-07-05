@@ -8,6 +8,7 @@ import Alerta from '~/components/Alerta';
 import ControlledMultipleSelectModal from '~/components/ControlledMultipleSelectModal/index';
 import ControlledSelectModal from '~/components/ControlledSelectModal/index';
 import CustonFAB from '~/components/CustonFAB/index';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import { useCategoriasProfissionais } from '~/hooks/useCategoriasProfissionais';
@@ -91,7 +92,13 @@ const PreCadastroInfoProfissional = () => {
 
       await updateUser(); // atualiza as informações do usuário internamente no app
 
-      navigation.navigate(rotas.PRE_CADASTRO_SUCESSO);
+      navigation.navigate(rotas.TELA_SUCESSO, {
+        textoApresentacao:
+          'Parabéns! Você finalizou seu cadastro do ID Saúde. Conheça seu perfil no iSUS.',
+        telaDeRedirecionamento: rotas.HOME,
+        telaDeBackground: CORES.VERDE,
+      });
+
     } catch (error) {
       mostrarAlerta('Problema ao atualizar perfil.');
       console.log('Problema ao atualizar perfil.', error);
