@@ -100,11 +100,11 @@ const Routes = ({ navigationRef }) => {
           options={{ headerShown: false }}
         />
         <Screen
-          name="TelaDeSucesso"
+          name={rotas.TELA_SUCESSO}
           component={TelaDeSucesso}
           initialParams={{
             textoApresentacao: 'Sucesso!',
-            telaDeRedirecionamento: 'HOME',
+            telaDeRedirecionamento: rotas.HOME,
           }}
           options={{ headerShown: false }}
         />

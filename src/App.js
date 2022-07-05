@@ -83,7 +83,6 @@ function App() {
     });
   };
 
-  // TODO verificar se statusbar deve ficar fora do safearea
   return (
     <>
       <StatusBar backgroundColor={CORES.VERDE} barStyle="light-content" />

@@ -114,7 +114,7 @@ function EdicaoInfoProfissional() {
       // o erro não era percebido
       // Rever como enviar essas informações para o analytics
 
-      navigation.navigate('TelaDeSucesso', {
+      navigation.navigate(rotas.TELA_SUCESSO, {
         textoApresentacao: PERFIL.EDICAO_INFO_PROFISSIONAL.MSG_SUCESSO,
         telaDeRedirecionamento: rotas.PERFIL,
         telaDeBackground: CORES.VERDE,
