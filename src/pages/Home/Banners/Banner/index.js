@@ -6,7 +6,7 @@ import useAnalytics from '~/hooks/useAnalytics';
 import BannerImagem from '../BannerImagem';
 import { Container } from './styles';
 
-const Banner = ({ data }) => {
+const Banner = ({ data, ...rest }) => {
   const {
     titulo,
     tipo,
@@ -45,7 +45,7 @@ const Banner = ({ data }) => {
   };
 
   return (
-    <Container onPress={handleOnPress}>
+    <Container onPress={handleOnPress} {...rest}>
       <BannerImagem imagem={imagem} localImagem={localImagem} />
     </Container>
   );

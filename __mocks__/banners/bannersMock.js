@@ -1,58 +1,62 @@
 const banners = [
   {
-    id: 1,
-    titulo: 'Vacina\u00e7\u00e3o',
-    imagem: 'images/banners/vacinaCovid19.png',
-    valor: 'https://coronavirus.ceara.gov.br/vacina',
+    id: 6,
+    titulo: 'Regulação de Pacientes',
+    imagem:
+      'https://coronavirus.ceara.gov.br/wp-content/uploads/2022/01/BANNER-ISUS.png',
+    valor:
+      'https://coronavirus.ceara.gov.br/project/nota-informativa-orienta-sobre-os-procedimentos-de-regulacao-de-pacientes-com-sindrome-gripal-sindrome-respiratoria-aguda-grave/',
     tipo: 'webview',
     ordem: 1,
     ativo: true,
-    options: { localImage: 'app', labelAnalytics: 'banner_vacina_covid19' },
+    options: {
+      localImagem: 'web',
+      labelAnalytics: 'banner_regulacao_pacientes',
+    },
   },
   {
-    id: 2,
-    titulo: 'Guia de Assist\u00eancia Farmac\u00eautica',
-    imagem: 'images/banners/guiaAssistenciaFarmaceutica.jpg',
+    id: 13,
+    titulo: 'Nota Técnica ESP/SESA',
+    imagem:
+      'https://coronavirus.ceara.gov.br/wp-content/uploads/2022/01/unnamed-1.png',
     valor:
-      'https://coronavirus.ceara.gov.br/project/secretaria-de-saude-disponibiliza-guia-da-assistencia-farmaceutica-no-estado-do-ceara/',
+      'https://coronavirus.ceara.gov.br/project/nt-esp-sesa-01-2021-orientacoes-sore-uso-de-oseltamivir-para-tratamento-de-influenza/',
     tipo: 'webview',
     ordem: 2,
     ativo: true,
     options: {
-      localImage: 'app',
-      labelAnalytics: 'guia_assistencia_farmaceutica',
+      localImagem: 'web',
+      labelAnalytics: 'notaTecnica_esp_sesa',
     },
   },
   {
-    id: 3,
-    titulo: 'ID Sa\u00fade',
-    imagem: 'images/banners/IDSaude.png',
-    valor: 'PERFIL',
-    tipo: 'rota',
+    id: 16,
+    titulo: 'Guia de Diversidade',
+    imagem:
+      'https://coronavirus.ceara.gov.br/wp-content/uploads/2022/05/Manual-de-Diversidade.png',
+    valor:
+      'https://coronavirus.ceara.gov.br/project/guia-de-diversidade-igualdade-no-servico-publico-de-saude-do-ceara/',
+    tipo: 'webview',
     ordem: 3,
     ativo: true,
-    options: { localImage: 'app', login: true, labelAnalytics: 'id_saude' },
+    options: {
+      localImagem: 'web',
+      labelAnalytics: 'banner_guia_diversidade',
+    },
   },
   {
-    id: 4,
-    titulo: 'ID Sa\u00fade',
-    imagem: 'images/banners/IDSaude.png',
-    valor: 'LOGIN',
+    id: 17,
+    titulo: 'Oficina de Design',
+    imagem: 'images/banners/oficinaDesign.png',
+    valor: 'OFICINA_DESIGN',
     tipo: 'rota',
-    ordem: 3,
+    ordem: 4,
     ativo: true,
-    options: { localImage: 'app', login: false, labelAnalytics: 'id_saude' },
+    options: {
+      localImagem: 'app',
+      labelAnalytics: 'OFICINA_DESIGN',
+    },
   },
 ];
-
-export const bannersAutenticado = banners.filter(
-  banner => banner.options.login !== false,
-);
-
-export const bannersNaoAutenticado = banners.filter(
-  banner => banner.options.login !== true,
-);
-
-export const bannersRota = banners.filter(i => i.tipo === 'rota');
 
 export default banners;

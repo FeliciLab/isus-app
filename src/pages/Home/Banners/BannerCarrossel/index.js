@@ -13,7 +13,9 @@ function BannerCarrossel({ banners }) {
     <View>
       <Carousel
         data={banners}
-        renderItem={({ item }) => <Banner data={item} />}
+        renderItem={({ item }) => (
+          <Banner data={item} testID={`banner-${item.id}`} />
+        )}
         sliderWidth={width}
         itemWidth={width}
         onSnapToItem={index => setActiveDotIndex(index)}
