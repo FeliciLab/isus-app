@@ -6,7 +6,8 @@ export default function useAppReview() {
   const isAppReviewAvailable = InAppReview.isAvailable();
 
   const { getItem, setItem } = useAsyncStorage(
-    '@isus:app-review', 10
+    '@isus:app-review',
+    null
   );
 
   const onAppReview = async () => {
