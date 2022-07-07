@@ -19,7 +19,7 @@ export default function RotasCadastro() {
       elevation: 0,
       shadowOpacity: 0,
     },
-    headerTintColor: 'rgba(0, 0, 0, 0.87)',
+    headerTintColor: CORES.PRETO87,
     headerTitleAlign: 'center',
     headerTitle: 'Cadastro',
     headerLeft: () => (
@@ -36,7 +36,7 @@ export default function RotasCadastro() {
   };
 
   return (
-    <Navigator defaultScreenOptions={options}>
+    <Navigator screenOptions={options}>
       <Screen
         name={rotas.FORMULARIO_PESSOAL}
         component={FormularioInfoPessoal}
