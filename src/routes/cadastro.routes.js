@@ -36,23 +36,17 @@ export default function RotasCadastro() {
   };
 
   return (
-    <Navigator>
+    <Navigator defaultScreenOptions={options}>
       <Screen
         name={rotas.FORMULARIO_PESSOAL}
         component={FormularioInfoPessoal}
-        options={options}
       />
       <Screen
         name={rotas.FORMULARIO_PROFISSIONAL}
         component={FormularioInfoProfissional}
         initialParams={{ tela_anterior: rotas.FORMULARIO_PESSOAL }}
-        options={options}
       />
-      <Screen
-        name={rotas.FORMULARIO_SENHA}
-        component={FormularioSenha}
-        options={options}
-      />
+      <Screen name={rotas.FORMULARIO_SENHA} component={FormularioSenha} />
     </Navigator>
   );
 }
