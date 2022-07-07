@@ -80,7 +80,9 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
-      <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
+      <ScrollView
+        style={{ backgroundColor: CORES.BRANCO, flex: 1 }}
+        showsVerticalScrollIndicator={false}>
         <Banners />
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
