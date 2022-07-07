@@ -6,6 +6,7 @@ import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
+import useAppReview from '~/hooks/useAppReview';
 import useAutenticacao from '~/hooks/useAutenticacao';
 import Banners from './Banners';
 import ForcaTarefa from './ForcaTarefa';
@@ -23,6 +24,8 @@ export default function Home() {
 
   const { user, showTutorial } = useAutenticacao();
 
+  const { onAppReview, isAppReviewAvailable } = useAppReview();
+
   async function redirectToWelcome() {
     if (showTutorial) {
       return navigation.reset({
@@ -35,6 +38,12 @@ export default function Home() {
 
   useEffect(() => {
     redirectToWelcome();
+  }, []);
+
+  useEffect(() => {
+    if (isAppReviewAvailable) {
+      onAppReview();
+    }
   }, []);
 
   useLayoutEffect(() => {
