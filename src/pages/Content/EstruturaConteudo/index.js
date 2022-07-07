@@ -9,10 +9,11 @@ import rotas from '~/constantes/rotas';
 import useConteudo from '~/hooks/useConteudo';
 import TelaConteudo from '../TelaConteudo';
 
-const Tab = createMaterialTopTabNavigator();
+const { Navigator, Screen } = createMaterialTopTabNavigator();
 
 // Componente responsável pelas "Tabs" de navegação carregadas na barra superior
 // Localizada dentro da Barra inferior: "Minha Saúde", "Educação" e "Pesquisa"
+// TODO: Tentar dar uma melhorada aqui
 export default function EstruturaConteudo({ navigation }) {
   const {
     titulo,
@@ -35,8 +36,9 @@ export default function EstruturaConteudo({ navigation }) {
     pegarCategorias();
   }, []);
 
-  if (isLoading)
+  if (isLoading) {
     return <ActivityIndicator size="large" style={{ marginTop: 20 }} />;
+  }
 
   if (erroCarregamento)
     return (
@@ -56,21 +58,23 @@ export default function EstruturaConteudo({ navigation }) {
   }
 
   return (
-    <Tab.Navigator
-      tabBarOptions={{
-        scrollEnabled: true,
-        labelStyle: {
+    <Navigator
+      screenOptions={{
+        tabBarActiveTintColor: CORES.BRANCO,
+        tabBarInactiveTintColor: CORES.PRETO54,
+        tabBarScrollEnabled: true,
+        tabBarLabelStyle: {
           fontSize: 14,
         },
-        indicatorStyle: { backgroundColor: CORES.BRANCO },
-        inactiveTintColor: CORES.PRETO54,
-        activeTintColor: CORES.BRANCO,
-        style: {
+        tabBarIndicatorStyle: {
+          backgroundColor: CORES.BRANCO,
+        },
+        tabBarStyle: {
           backgroundColor: CORES.VERDE,
         },
       }}>
       {categorias.map(item => (
-        <Tab.Screen
+        <Screen
           options={{ title: item.name }}
           name={`${categoria}_${item.slug.replace('-', '_')}`}
           key={uniqueId('tab-screen')}
@@ -78,6 +82,6 @@ export default function EstruturaConteudo({ navigation }) {
           initialParams={{ categoria: item }}
         />
       ))}
-    </Tab.Navigator>
+    </Navigator>
   );
 }
