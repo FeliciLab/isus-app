@@ -6,7 +6,7 @@ import ResidenciaMedicaIcon from '~/assets/icons/servicos/residencia_medica.svg'
 import Servico1 from '~/assets/icons/servicos/servico_1.svg';
 import Servico2 from '~/assets/icons/servicos/servico_2.svg';
 import Servico3 from '~/assets/icons/servicos/servico_3.svg';
-import Servico4 from '~/assets/icons/servicos/servico_4.svg';
+// import Servico4 from '~/assets/icons/servicos/servico_4.svg';
 import Servico5 from '~/assets/icons/servicos/servico_5.svg';
 import Servico6 from '~/assets/icons/servicos/servico_6.svg';
 import Servico7 from '~/assets/icons/servicos/servico_7.svg';
@@ -74,18 +74,19 @@ function Servicos({ navigation }) {
         componente: ROTAS.SUS_NO_CEARA,
       },
     },
-    {
-      id: 'Acoes_do_governo',
-      titulo: 'Ações do governo',
-      ativo: true,
-      icone: Servico4,
-      navegacao: {
-        net: true,
-        componente: 'webview',
-        titulo: 'Ações do governo',
-        url: 'https://coronavirus.ceara.gov.br/isus/governo/',
-      },
-    },
+    // TODO: abilitar Acoes_do_governo ao fim do período eleitoral
+    // {
+    //   id: 'Acoes_do_governo',
+    //   titulo: 'Ações do governo',
+    //   ativo: true,
+    //   icone: Servico4,
+    //   navegacao: {
+    //     net: true,
+    //     componente: 'webview',
+    //     titulo: 'Ações do governo',
+    //     url: 'https://coronavirus.ceara.gov.br/isus/governo/',
+    //   },
+    // },
     {
       id: 'ESP',
       titulo: 'Escola de Saúde Pública - ESP/CE',
