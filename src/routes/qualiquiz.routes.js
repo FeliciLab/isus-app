@@ -11,18 +11,13 @@ const QualiquizRoutes = () => {
   const { user } = useAutenticacao();
 
   return (
-    <Navigator>
+    <Navigator screenOptions={{ headerShown: false }}>
       {user ? (
-        <Screen
-          name={rotas.QUALIQUIZ_INTRODUCAO}
-          component={QualiQuiz}
-          options={{ headerShown: false }}
-        />
+        <Screen name={rotas.QUALIQUIZ_INTRODUCAO} component={QualiQuiz} />
       ) : (
         <Screen
           name={rotas.QUALIQUIZ_LOGIN}
           component={LoginStackScreen}
-          options={{ headerShown: false }}
           initialParams={{ redirectRoute: rotas.QUALIQUIZ_INTRODUCAO }}
         />
       )}

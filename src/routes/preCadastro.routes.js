@@ -16,21 +16,18 @@ export default function PreCadastroRoutes() {
   });
 
   return (
-    <Navigator>
+    <Navigator screenOptions={options}>
       <Screen
         name={rotas.PRE_CADASTRO_INTRODUCAO}
         component={PreCadastroIntroducao}
-        options={options}
       />
       <Screen
         name={rotas.PRE_CADASTRO_INFO_PESSOAL}
         component={PreCadastroInfoPessoal}
-        options={options}
       />
       <Screen
         name={rotas.PRE_CADASTRO_INFO_PROFISSIONAL}
         component={PreCadastroInfoProfissional}
-        options={options}
       />
     </Navigator>
   );

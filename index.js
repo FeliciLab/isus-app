@@ -5,7 +5,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import theme from '~/theme/index';
 import { name as appName } from './app.json';
 import App from './src/App';
-import './src/utils/reactotronConfig';
+import './src/configs/reactotronConfig';
 
 export default function Main() {
   return (

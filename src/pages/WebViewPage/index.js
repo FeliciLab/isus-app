@@ -10,6 +10,8 @@ import { WebView } from 'react-native-webview';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { ArrowLeftIcon } from '~/icons';
 
+// TODO: Melhorar esse componente para que ele possa receber BarraDeStatus backgroundColor
+// Possivelmente usar um barraDeStatusPops como params da rota
 const WebViewPage = () => {
   const navigation = useNavigation();
 

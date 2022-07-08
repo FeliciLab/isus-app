@@ -33,7 +33,11 @@ export default function AppDrawerScreen() {
           routeName={props.state.routeNames[props.state.index]}
         />
       )}>
-      <Screen name={rotas.HOME} component={AppTab} />
+      <Screen
+        name={rotas.HOME}
+        component={AppTab}
+        options={{ headerShown: false }}
+      />
       <Screen
         name={rotas.PERFIL}
         component={Perfil}

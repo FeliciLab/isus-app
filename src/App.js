@@ -6,7 +6,7 @@ import codePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import CaixaDialogo from './components/caixaDialogo';
+import CaixaDialogo from './components/CaixaDialogo';
 import { CORES } from './constantes/estiloBase';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
