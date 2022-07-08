@@ -37,13 +37,14 @@ describe('Servicos', () => {
     expect(analyticsData).toHaveBeenCalled();
   });
 
-  test('deve chamar o analytics data ao clicar no serviço Ações do governo', () => {
-    const item = renderedObject.getByTestId(
-      'cartaoHome-servicos-Acoes_do_governo',
-    );
-    fireEvent.press(item);
-    expect(analyticsData).toHaveBeenCalled();
-  });
+  // TODO: voltar esse teste depois do período eleitoral
+  // test('deve chamar o analytics data ao clicar no serviço Ações do governo', () => {
+  //   const item = renderedObject.getByTestId(
+  //     'cartaoHome-servicos-Acoes_do_governo',
+  //   );
+  //   fireEvent.press(item);
+  //   expect(analyticsData).toHaveBeenCalled();
+  // });
 
   test('deve chamar o analytics data ao clicar no serviço ESP', () => {
     const item = renderedObject.getByTestId('cartaoHome-servicos-ESP');
