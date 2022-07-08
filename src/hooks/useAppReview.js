@@ -5,10 +5,7 @@ import moment from 'moment';
 export default function useAppReview() {
   const isAppReviewAvailable = InAppReview.isAvailable();
 
-  const { getItem, setItem } = useAsyncStorage(
-    '@isus:app-review',
-    null
-  );
+  const { getItem, setItem } = useAsyncStorage('@isus:app-review');
 
   const onAppReview = async () => {
     const today = moment();
