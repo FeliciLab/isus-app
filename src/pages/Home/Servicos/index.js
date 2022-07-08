@@ -10,6 +10,7 @@ import Servico3 from '~/assets/icons/servicos/servico_3.svg';
 import Servico5 from '~/assets/icons/servicos/servico_5.svg';
 import Servico6 from '~/assets/icons/servicos/servico_6.svg';
 import Servico7 from '~/assets/icons/servicos/servico_7.svg';
+import Servico8 from '~/assets/icons/servicos/servico_8.svg';
 import ListServices from '~/components/ListServices';
 import ServiceButton from '~/components/ServiceButton';
 import ROTAS from '~/constantes/rotas';
@@ -52,6 +53,18 @@ function Servicos({ navigation }) {
         componente: 'webview',
         titulo: 'IntegraSUS',
         url: 'https://integrasus.saude.ce.gov.br',
+      },
+    },
+    {
+      id: 'Forca_Trabalho_Saude_CE',
+      titulo: 'Força Trabalho CE',
+      ativo: true,
+      icone: Servico8,
+      navegacao: {
+        net: true,
+        componente: 'browser',
+        titulo: 'ForcaTrabalhoSaudeCE',
+        url: 'https://cisec.esp.ce.gov.br/forca-de-trabalho',
       },
     },
     {
