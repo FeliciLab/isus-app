@@ -20,14 +20,12 @@ const OficinaItem = ({ oficina }) => {
     return false;
   }, [oficina]);
 
-  // TODO: colocar a rota para a tela adequada
   const handleNavigateToConfirmarPresenca = useCallback(
     () =>
       navigation.navigate(rotas.OFICINA_DESIGN_CONFIRMAR_PRESENCA, { oficina }),
     [],
   );
 
-  // TODO: colocar a rota para a tela adequada
   const handleNavigateToHisoricoFrequencias = useCallback(
     () =>
       navigation.navigate(rotas.OFICINA_DESIGN_HISTORICO_FREQUENCIA, {

@@ -1,12 +1,12 @@
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 import React, { useEffect } from 'react';
-import { Platform, StatusBar } from 'react-native';
+import { LogBox, Platform, StatusBar } from 'react-native';
 import codePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import CaixaDialogo from './components/caixaDialogo';
+import CaixaDialogo from './components/CaixaDialogo';
 import { CORES } from './constantes/estiloBase';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
@@ -14,7 +14,6 @@ import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
 import Routes from './routes';
 import { navigate, navigationRef } from './routes/rootNavigation';
 import OneSignalActions from './utils/oneSignalActions';
-import { LogBox } from 'react-native';
 
 function App() {
   // Ignora warnings relacionados a nova versão do RN com os módulos:
@@ -83,21 +82,18 @@ function App() {
     });
   };
 
-  // TODO verificar se statusbar deve ficar fora do safearea
   return (
-    <>
+    <AutenticacaoProvider>
       <StatusBar backgroundColor={CORES.VERDE} barStyle="light-content" />
-      <AutenticacaoProvider>
-        <AppTrackTransparencyProvider>
-          <CaixaDialogoProvider>
-            <SafeAreaProvider>
-              <Routes navigationRef={navigationRef} />
-              <CaixaDialogo />
-            </SafeAreaProvider>
-          </CaixaDialogoProvider>
-        </AppTrackTransparencyProvider>
-      </AutenticacaoProvider>
-    </>
+      <AppTrackTransparencyProvider>
+        <CaixaDialogoProvider>
+          <SafeAreaProvider>
+            <Routes navigationRef={navigationRef} />
+            <CaixaDialogo />
+          </SafeAreaProvider>
+        </CaixaDialogoProvider>
+      </AppTrackTransparencyProvider>
+    </AutenticacaoProvider>
   );
 }
 

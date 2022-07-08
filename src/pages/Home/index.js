@@ -1,12 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
-import { Dimensions, ScrollView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import { MagnifyIcon, MenuIcon } from '~/icons';
 import Banners from './Banners';
 import ForcaTarefa from './ForcaTarefa';
 import LinhasDeCuidado from './LinhasDeCuidado';
@@ -56,11 +56,7 @@ export default function Home() {
             await analyticsData('Home', 'Click', 'lupa pesquisa');
             navigation.navigate(rotas.SEARCH_STACK_SCREEN);
           }}>
-          <Icon
-            name="magnify"
-            size={28}
-            color={user ? CORES.VERDE : CORES.BRANCO}
-          />
+          <MagnifyIcon size={28} color={user ? CORES.VERDE : CORES.BRANCO} />
         </TouchableOpacity>
       ),
       headerLeft: () => (
@@ -71,17 +67,11 @@ export default function Home() {
           onPress={() => {
             navigation.toggleDrawer();
           }}>
-          <Icon
-            name="menu"
-            size={28}
-            color={user ? CORES.VERDE : CORES.BRANCO}
-          />
+          <MenuIcon size={28} color={user ? CORES.VERDE : CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
   }, [user]);
-
-  const { width } = Dimensions.get('screen');
 
   return (
     <>
@@ -90,8 +80,10 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
-      <ScrollView style={{ backgroundColor: CORES.BRANCO, flex: 1 }}>
-        <Banners sliderWidth={width} itemWidth={width} />
+      <ScrollView
+        style={{ backgroundColor: CORES.BRANCO, flex: 1 }}
+        showsVerticalScrollIndicator={false}>
+        <Banners />
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
         <ForcaTarefa navigation={navigation} />
