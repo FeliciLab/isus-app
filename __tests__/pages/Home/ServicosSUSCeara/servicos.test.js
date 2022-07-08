@@ -46,6 +46,14 @@ describe('Servicos', () => {
   //   expect(analyticsData).toHaveBeenCalled();
   // });
 
+  test('deve chamar o analytics data ao clicar no serviço Força de trabalho em saúde do Ceará', () => {
+    const item = renderedObject.getByTestId(
+      'cartaoHome-servicos-Forca_Trabalho_Saude_CE',
+    );
+    fireEvent.press(item);
+    expect(analyticsData).toHaveBeenCalled();
+  });
+
   test('deve chamar o analytics data ao clicar no serviço ESP', () => {
     const item = renderedObject.getByTestId('cartaoHome-servicos-ESP');
     fireEvent.press(item);
