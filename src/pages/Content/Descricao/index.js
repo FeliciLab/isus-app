@@ -2,11 +2,12 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import 'moment/locale/pt-br';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Alert, Share } from 'react-native';
+import WebView from 'react-native-webview';
 import { pegarProjetosPorId } from '~/apis/apiHome';
+import ArticleSkeletonPlaceholder from '~/components/ArticleSkeletonPlaceholder';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import BarraInferior from '~/components/BarraInferior';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
-import WebViewContent from '../../../components/WebViewContent';
 import rotas from '~/constantes/rotas';
 import {
   converterImagemParaBase64,
@@ -23,17 +24,15 @@ import { AreaConteudo, Barra, TextoLateral } from './style';
 const Descricao = ({ route, navigation }) => {
   const { parametros, title } = route.params;
 
-  const estaConectado = useNetInfo().isConnected;
+  const { isConnected } = useNetInfo();
 
   const [postagem, alterarPostagem] = useState();
 
-  const [visivel, alterarVisibilidade] = useState(false);
+  const [visivel, setVisibilidade] = useState(false);
 
-  const [textoDoFeedback, alterarTextoDoFeedback] = useState('');
+  const [textoDoFeedback, setTextoDoFeedback] = useState('');
 
-  const [conteudoBaixado, alterarConteudoBaixado] = useState(
-    !!parametros.offline,
-  );
+  const [conteudoBaixado, setConteudoBaixado] = useState(!!parametros.offline);
 
   const dataDePostagem = postagem?.post_date || '';
 
@@ -46,7 +45,7 @@ const Descricao = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (!estaConectado && estaConectado !== null) {
+    if (!isConnected && isConnected !== null) {
       navigation.navigate(rotas.SEM_CONEXAO);
       return;
     }
@@ -121,7 +120,7 @@ const Descricao = ({ route, navigation }) => {
         `@categoria_${parametros.categoria_id}_postagem_${parametros.id}`,
         postagemOffline,
       );
-      alterarConteudoBaixado(true);
+      setConteudoBaixado(true);
       alterarPostagem(postagemOffline);
       mostrarFeedback(`A página foi salva offline em "${title}"`);
     } catch (e) {
@@ -148,7 +147,7 @@ const Descricao = ({ route, navigation }) => {
 
   const removerConteudo = async () => {
     try {
-      alterarConteudoBaixado(false);
+      setConteudoBaixado(false);
       mostrarFeedback('A página foi excluida da leitura offline');
       await removerDados(
         `@categoria_${parametros.categoria_id}_postagem_${parametros.id}`,
@@ -161,10 +160,10 @@ const Descricao = ({ route, navigation }) => {
   };
 
   const mostrarFeedback = texto => {
-    alterarTextoDoFeedback(texto);
-    alterarVisibilidade(true);
+    setTextoDoFeedback(texto);
+    setVisibilidade(true);
     setTimeout(() => {
-      alterarVisibilidade(false);
+      setVisibilidade(false);
     }, 3000);
   };
 
@@ -174,11 +173,14 @@ const Descricao = ({ route, navigation }) => {
 
   return (
     <AreaConteudo>
-      <WebViewContent url={wordpress.urlPostagem(postagem.id)} />
-
       <BarraDeStatus
         backgroundColor={parametros.barraStatus}
         barStyle={route.params.estiloBarra}
+      />
+      <WebView
+        source={{ uri: wordpress.urlPostagem(postagem.id) }}
+        startInLoadingState
+        renderLoading={ArticleSkeletonPlaceholder}
       />
       <Barra visible={visivel}>{textoDoFeedback}</Barra>
       <BarraInferior
