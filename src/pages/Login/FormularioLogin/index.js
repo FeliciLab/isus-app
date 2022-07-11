@@ -116,7 +116,17 @@ const FormularioLogin = () => {
     navigation.navigate(rotas.WEBVIEW_PAGE, {
       title: 'Esqueci minha senha',
       url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
-      idSaude: true,
+      barraDeStatusProps: {
+        backgroundColor: CORES.AZUL,
+      },
+      activityIndicatorProps: {
+        color: CORES.AZUL,
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: CORES.AZUL,
+        },
+      },
     });
   }, []);
 

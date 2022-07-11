@@ -26,6 +26,7 @@ export const CORES = {
   PRETO_MISTERIOSO: '#1e1e1e',
   PRETO54: 'rgba(0, 0, 0, 0.54)',
   PRETO87: 'rgba(0,0,0, 0.87)',
+  QUALIQUIZ: '#4E377C',
 };
 
 export const INPUT_THEMES = {
