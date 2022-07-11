@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import {
   ActivityIndicator,
   TouchableOpacity,
@@ -11,8 +11,6 @@ import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 
-// TODO: Melhorar esse componente para que ele possa receber BarraDeStatus backgroundColor
-// Possivelmente usar um barraDeStatusPops como params da rota
 const WebViewPage = () => {
   const navigation = useNavigation();
 
@@ -29,7 +27,7 @@ const WebViewPage = () => {
     activityIndicatorProps,
   } = route.params;
 
-  const definirTituloWebView = title => {
+  const definirTituloWebView = useCallback(title => {
     if (title.length <= 35) {
       return title;
     }
@@ -39,7 +37,7 @@ const WebViewPage = () => {
     }
 
     return `${title.substring(0, 35).trim()}...`;
-  };
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
