@@ -1,20 +1,22 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useLayoutEffect, useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
 import IconSvgMaterno from '~/assets/icons/linhasDeCuidado/maternoInfantilBanner.svg';
+import BarraDeStatus from '~/components/BarraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import useAnalytics from '~/hooks/useAnalytics';
 import { ArrowLeftIcon } from '~/icons';
 import { Container, ScrollView, SvgView, Texto, Titulo } from './styles';
 
-export default function MaternoInfantil({ route }) {
+export default function MaternoInfantil() {
   const { analyticsData } = useAnalytics();
 
-  const { params } = route;
+  const route = useRoute();
 
-  const { expanded } = params;
+  const { expanded } = route;
 
   const navigation = useNavigation();
 
@@ -47,11 +49,11 @@ export default function MaternoInfantil({ route }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#9C27B0',
+        backgroundColor: CORES.ROXO,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#FFF',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Linha Materno-Infantil',
       headerLeft: () => (
@@ -62,7 +64,7 @@ export default function MaternoInfantil({ route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <ArrowLeftIcon size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
@@ -105,6 +107,7 @@ export default function MaternoInfantil({ route }) {
 
   return (
     <ScrollView style={{ flex: 1 }}>
+      <BarraDeStatus backgroundColor={CORES.ROXO} />
       <Container>
         <SvgView style={{ alignSelf: 'center' }}>
           <IconSvgMaterno width={335} height={170} />

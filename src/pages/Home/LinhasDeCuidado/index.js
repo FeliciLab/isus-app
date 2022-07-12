@@ -52,24 +52,27 @@ const LinhasDeCuidado = ({ navigation }) => {
     },
   ];
 
-  const handleOnPressServiceButton = useCallback(item => {
-    analyticsData(item.labelDoAnalytics, 'Click', 'Home');
+  const handleOnPressServiceButton = useCallback(
+    item => {
+      analyticsData(item.labelDoAnalytics, 'Click', 'Home');
 
-    if (netInfo.isConnected) {
-      return navigation.navigate(item.navegacao.componente, {
+      if (netInfo.isConnected) {
+        return navigation.navigate(item.navegacao.componente, {
+          title: item.navegacao.titulo,
+          url: item.navegacao.url,
+          expanded: true,
+        });
+      }
+
+      return navigation.navigate(rotas.SEM_CONEXAO, {
+        componente: item.navegacao.componente,
         title: item.navegacao.titulo,
         url: item.navegacao.url,
         expanded: true,
       });
-    }
-
-    return navigation.navigate(rotas.SEM_CONEXAO, {
-      componente: item.navegacao.componente,
-      title: item.navegacao.titulo,
-      url: item.navegacao.url,
-      expanded: true,
-    });
-  }, [analyticsData]);
+    },
+    [analyticsData],
+  );
 
   return (
     <View>

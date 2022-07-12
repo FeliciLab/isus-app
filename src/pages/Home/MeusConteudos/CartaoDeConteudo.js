@@ -4,7 +4,6 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 // Formato do item { link: string, data: string, imagem: string, tipo_conteudo: string }
-
 function CartaoDeConteudo(props) {
   const { conteudo } = props;
 
