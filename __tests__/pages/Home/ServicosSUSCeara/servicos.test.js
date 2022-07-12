@@ -37,9 +37,18 @@ describe('Servicos', () => {
     expect(analyticsData).toHaveBeenCalled();
   });
 
-  test('deve chamar o analytics data ao clicar no serviço Ações do governo', () => {
+  // TODO: voltar esse teste depois do período eleitoral
+  // test('deve chamar o analytics data ao clicar no serviço Ações do governo', () => {
+  //   const item = renderedObject.getByTestId(
+  //     'cartaoHome-servicos-Acoes_do_governo',
+  //   );
+  //   fireEvent.press(item);
+  //   expect(analyticsData).toHaveBeenCalled();
+  // });
+
+  test('deve chamar o analytics data ao clicar no serviço Força de trabalho em saúde do Ceará', () => {
     const item = renderedObject.getByTestId(
-      'cartaoHome-servicos-Acoes_do_governo',
+      'cartaoHome-servicos-Forca_Trabalho_Saude_CE',
     );
     fireEvent.press(item);
     expect(analyticsData).toHaveBeenCalled();

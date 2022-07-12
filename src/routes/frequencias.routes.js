@@ -8,7 +8,7 @@ import ListarOfertas from '~/pages/Residencias/frequencias/ListarOfertas';
 import SucessoPresenca from '~/pages/Residencias/frequencias/SucessoPresenca';
 import LoginStackScreen from './login.routes';
 
-const { Navigator, Screen } = createStackNavigator();
+const { Navigator, Screen, Group } = createStackNavigator();
 
 export default function FrequenciasStackScreen() {
   const { user } = useAutenticacao();
@@ -16,7 +16,7 @@ export default function FrequenciasStackScreen() {
   return (
     <Navigator>
       {user ? (
-        <>
+        <Group>
           <Screen name={rotas.LISTAR_OFERTAS} component={ListarOfertas} />
           <Screen
             name={rotas.HISTORICO_FREQUENCIA}
@@ -27,14 +27,16 @@ export default function FrequenciasStackScreen() {
             component={ConfirmarPresenca}
           />
           <Screen name={rotas.SUCESSO_PRESENCA} component={SucessoPresenca} />
-        </>
+        </Group>
       ) : (
-        <Screen
-          name={rotas.LOGIN_FREQUENCIA}
-          component={LoginStackScreen}
-          options={{ headerShown: false }}
-          initialParams={{ redirectRoute: rotas.LISTAR_OFERTAS }}
-        />
+        <Group>
+          <Screen
+            name={rotas.LOGIN_FREQUENCIA}
+            component={LoginStackScreen}
+            options={{ headerShown: false }}
+            initialParams={{ redirectRoute: rotas.LISTAR_OFERTAS }}
+          />
+        </Group>
       )}
     </Navigator>
   );

@@ -1,16 +1,42 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Dimensions } from 'react-native';
 import MessageErrorCard from '~/components/MessageErrorCard';
 import { CORES } from '~/constantes/estiloBase';
+import useAutenticacao from '~/hooks/useAutenticacao';
 import { useBanners } from '~/hooks/useBanners';
 import BannerCarrossel from './BannerCarrossel';
 
-const Banners = ({ sliderWidth, itemWidth }) => {
+const Banners = () => {
   const { banners, error, isLoading, featchBanners } = useBanners();
+
+  const { width } = Dimensions.get('screen');
+
+  const { user } = useAutenticacao();
 
   useEffect(() => {
     featchBanners();
   }, []);
+
+  // TODO: provavelmente precisaremos rever essa lógica
+  // Precisamos mesmo ter dois banners iguais???
+  const verificarLogin = banner => {
+    if (banner.options?.login === undefined) {
+      return true;
+    }
+    if (banner.options?.login === true && user) {
+      return true;
+    }
+    if (banner.options?.login === false && !user) {
+      return true;
+    }
+    return false;
+  };
+
+  // TODO: provavelmente precisaremos rever essa lógica
+  // Precisamos mesmo ter dois banners iguais???
+  const getBannnerListFilteredLogin = () => {
+    return banners.filter(verificarLogin);
+  };
 
   if (isLoading) {
     return (
@@ -37,9 +63,9 @@ const Banners = ({ sliderWidth, itemWidth }) => {
   return (
     <BannerCarrossel
       testID="home-banner-index"
-      sliderWidth={sliderWidth}
-      itemWidth={itemWidth}
-      banners={banners}
+      sliderWidth={width}
+      itemWidth={width}
+      banners={getBannnerListFilteredLogin()}
     />
   );
 };

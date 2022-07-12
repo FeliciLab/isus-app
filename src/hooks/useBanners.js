@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import listaDeBanners from '~/pages/Home/Banners/listaDeBanners';
-import useAutenticacao from './useAutenticacao';
+import { useCallback, useState } from 'react';
+import { pegarBanners } from '~/apis/apiHome';
+import { sortBy } from 'lodash';
 
 export function useBanners() {
   const [banners, setBanners] = useState([]);
@@ -9,13 +9,14 @@ export function useBanners() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { user } = useAutenticacao();
-
   const featchBanners = useCallback(async () => {
     try {
       setIsLoading(true);
-      const data = await listaDeBanners(user); // !! => trasnforma o obj em boolean
-      setBanners(data);
+
+      const { data } = await pegarBanners();
+
+      setBanners(sortBy(data, ['ordem'])); // ordena pela ordem que vem da API
+
       setError(false);
     } catch (e) {
       setError(e);

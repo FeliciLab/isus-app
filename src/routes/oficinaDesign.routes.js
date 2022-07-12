@@ -9,7 +9,7 @@ import ListarOficinas from '~/pages/OficinaDesign/ListarOficinas';
 import SucessoPresencaOficina from '~/pages/OficinaDesign/SucessoPresencaOficina';
 import LoginStackScreen from './login.routes';
 
-const { Navigator, Screen } = createStackNavigator();
+const { Navigator, Screen, Group } = createStackNavigator();
 
 export default function OficinaDesignStackScreen() {
   const { user } = useAutenticacao();
@@ -17,7 +17,7 @@ export default function OficinaDesignStackScreen() {
   return (
     <Navigator>
       {user ? (
-        <>
+        <Group>
           <Screen name={rotas.OFICINA_DESIGN_HOME} component={OficinaDesign} />
           <Screen
             name={rotas.OFICINA_DESIGN_LISTAR_OFICINAS}
@@ -35,14 +35,16 @@ export default function OficinaDesignStackScreen() {
             name={rotas.OFICINA_DESIGN_SUCESSO}
             component={SucessoPresencaOficina}
           />
-        </>
+        </Group>
       ) : (
-        <Screen
-          name={rotas.LOGIN_FREQUENCIA}
-          component={LoginStackScreen}
-          options={{ headerShown: false }}
-          initialParams={{ redirectRoute: rotas.OFICINA_DESIGN_HOME }}
-        />
+        <Group>
+          <Screen
+            name={rotas.LOGIN_FREQUENCIA}
+            component={LoginStackScreen}
+            options={{ headerShown: false }}
+            initialParams={{ redirectRoute: rotas.OFICINA_DESIGN_HOME }}
+          />
+        </Group>
       )}
     </Navigator>
   );

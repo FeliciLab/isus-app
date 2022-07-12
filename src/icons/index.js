@@ -8,6 +8,10 @@ export const ArrowLeftIcon = props => (
   <MaterialCommunityIcons name="arrow-left" {...props} />
 );
 
+export const MenuIcon = props => (
+  <MaterialCommunityIcons name="menu" {...props} />
+);
+
 export const MagnifyIcon = props => (
   <MaterialCommunityIcons name="magnify" {...props} />
 );
