@@ -16,7 +16,7 @@ export default function MaternoInfantil() {
 
   const route = useRoute();
 
-  const { expanded } = route;
+  const { expanded } = route.params;
 
   const navigation = useNavigation();
 
