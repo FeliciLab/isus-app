@@ -82,9 +82,7 @@ export default function Home() {
       />
       <UserInfo />
       <AppRateModal />
-      <ScrollView
-        style={{ backgroundColor: CORES.BRANCO, flex: 1 }}
-        showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <Banners />
         <Servicos navigation={navigation} />
         {/* {estaLogado && <MeusConteudos />} */}
