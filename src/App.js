@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import CaixaDialogo from './components/CaixaDialogo';
 import { CORES } from './constantes/estiloBase';
+import rotas from './constantes/rotas';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
 import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
@@ -76,7 +77,7 @@ function App() {
       'isusapp',
       'https',
     );
-    return navigate('webview', {
+    return navigate(rotas.WEBVIEW_PAGE, {
       title: openResult.notification.payload.title,
       url: urlWebview,
     });
