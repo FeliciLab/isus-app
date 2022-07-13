@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from 'util-teste';
-import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
+import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/MaternoInfantil';
 import { analyticsData } from '~/utils/analytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
@@ -16,6 +16,11 @@ jest.mock('@react-navigation/native', () => ({
   }),
   useFocusEffect: jest.fn(),
   useIsFocused: jest.fn(),
+  useRoute: jest.fn().mockReturnValue({
+    params: {
+      expanded: false,
+    },
+  }),
 }));
 
 describe('LinhasDeCuidad > MaternoInfantil', () => {
@@ -37,10 +42,16 @@ describe('LinhasDeCuidad > MaternoInfantil', () => {
 
     test(`deve chamar o analytics data ao clicar no item
     ${TESTIDS.MATERNO_INFANTIL.NASCER_CEARA}`, () => {
-      const item = renderedObject.getByTestId(
-        TESTIDS.MATERNO_INFANTIL.NASCER_CEARA,
-      );
+      const { getByTestId, getByText } = renderedObject;
+
+      const button = getByText('Nascer no Ceará'); // Apertando no botão para continuar o teste
+
+      fireEvent.press(button);
+
+      const item = getByTestId(TESTIDS.MATERNO_INFANTIL.NASCER_CEARA);
+
       fireEvent.press(item);
+
       expect(analyticsData).toBeCalled();
     });
 

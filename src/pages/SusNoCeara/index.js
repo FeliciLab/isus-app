@@ -1,26 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useLayoutEffect } from 'react';
-import {
-  Image,
-  Linking,
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { Image, Linking, Platform, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Divider, List } from 'react-native-paper';
-import useAnalytics from '~/hooks/useAnalytics';
 import IconeSus30Anos from '~/assets/images/sus_30_anos.png';
+import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
+import useAnalytics from '~/hooks/useAnalytics';
 import {
   TextoSobreESP,
   TextoSobreSESA,
   TextoSobreSUS,
-  TextoSobreSUSCeara
+  TextoSobreSUSCeara,
 } from './textos';
-import { cabecalhoMenuBusca } from '~/components/layoutEffect/cabecalhoLayout';
 
 const informacoes = {
   InstagramESP: {
@@ -76,6 +69,7 @@ const informacoes = {
 
 const SusNoCearaScreen = () => {
   const { analyticsData } = useAnalytics();
+
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
