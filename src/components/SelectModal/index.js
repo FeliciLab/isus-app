@@ -52,6 +52,22 @@ const SelectModal = props => {
     );
   };
 
+  const renderItem = ({ item }) => {
+    return (
+      <List.Item
+        title={item.label}
+        onPress={() => handleOnPressItem(item)}
+        right={props =>
+          item.value === value ? (
+            <List.Icon {...props} icon="check" color={CORES.VERDE} />
+          ) : (
+            <List.Icon {...props} color={CORES.VERDE} />
+          )
+        }
+      />
+    );
+  };
+
   return (
     <List.Section title={title}>
       <List.Accordion
@@ -86,21 +102,10 @@ const SelectModal = props => {
           <FlatList
             data={getItemsFiltered}
             keyExtractor={item => item.value.toString()}
-            renderItem={({ item }) => (
-              <List.Item
-                title={item.label}
-                onPress={() => handleOnPressItem(item)}
-                right={props =>
-                  item.value === value ? (
-                    <List.Icon {...props} icon="check" color={CORES.VERDE} />
-                  ) : (
-                    <List.Icon {...props} color={CORES.VERDE} />
-                  )
-                }
-              />
-            )}
+            renderItem={renderItem}
             ItemSeparatorComponent={Divider}
             ListEmptyComponent={ListEmptyComponent}
+            initialNumToRender={5}
           />
         </SafeAreaView>
       </Modal>
