@@ -4,11 +4,10 @@ import {
   Modal,
   SafeAreaView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Divider, List, TextInput } from 'react-native-paper';
+import { Divider, List, Text, TextInput } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import useDebounce from '~/hooks/useDebounce';
 import { ArrowLeftIcon } from '~/icons/index';
@@ -43,6 +42,14 @@ const SelectModal = props => {
       setValue(item.value);
     }
     setOpen(false);
+  };
+
+  const ListEmptyComponent = () => {
+    return (
+      <View style={styles.listEmpty}>
+        <Text>Nada encontrado</Text>
+      </View>
+    );
   };
 
   return (
@@ -93,6 +100,7 @@ const SelectModal = props => {
               />
             )}
             ItemSeparatorComponent={Divider}
+            ListEmptyComponent={ListEmptyComponent}
           />
         </SafeAreaView>
       </Modal>
@@ -120,6 +128,9 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomColor: '#999',
     borderBottomWidth: 0.5,
+  },
+  listEmpty: {
+    padding: 8,
   },
 });
 
