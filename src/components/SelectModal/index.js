@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Divider, List, Text, TextInput } from 'react-native-paper';
+import { Divider, List, Searchbar, Text } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import useDebounce from '~/hooks/useDebounce';
 import { ArrowLeftIcon } from '~/icons/index';
@@ -91,11 +91,10 @@ const SelectModal = props => {
           </View>
           {items.length >= 25 && (
             <View style={styles.wraperSearch}>
-              <TextInput
-                label="Campo de busca"
-                mode="outlined"
-                value={searchTerm}
+              <Searchbar
+                placeholder="Campo de busca"
                 onChangeText={setSearchTerm}
+                value={searchTerm}
               />
             </View>
           )}
