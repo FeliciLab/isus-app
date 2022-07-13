@@ -2,17 +2,20 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { Linking, View } from 'react-native';
 import QualiQuizIcon from '~/assets/icons/servicos/qualiquiz.svg';
-import ResidenciaMedicaIcon from '~/assets/icons/servicos/residencia_medica.svg';
+// import ResidenciaMedicaIcon from '~/assets/icons/servicos/residencia_medica.svg';
+import NewResidenciasIcon from '~/assets/icons/servicos/residencias.svg';
 import Servico1 from '~/assets/icons/servicos/servico_1.svg';
 import Servico2 from '~/assets/icons/servicos/servico_2.svg';
 import Servico3 from '~/assets/icons/servicos/servico_3.svg';
-// import Servico4 from '~/assets/icons/servicos/servico_4.svg';
+import Servico4 from '~/assets/icons/servicos/servico_4.svg';
 import Servico5 from '~/assets/icons/servicos/servico_5.svg';
 import Servico6 from '~/assets/icons/servicos/servico_6.svg';
 import Servico7 from '~/assets/icons/servicos/servico_7.svg';
 import Servico8 from '~/assets/icons/servicos/servico_8.svg';
 import ListServices from '~/components/ListServices';
-import ServiceButton from '~/components/ServiceButton';
+import NewServiceButton from '~/components/NewServiceButton';
+import { CORES } from '~/constantes/estiloBase';
+// import ServiceButton from '~/components/ServiceButton';
 import ROTAS from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import { Titulo } from '../styles';
@@ -22,12 +25,14 @@ function Servicos({ navigation }) {
 
   const { isConnected } = useNetInfo();
 
+  const iconBackgroundColor = CORES.LARANJA;
+
   const listaServicos = [
     {
       id: 'residencia_medica',
       titulo: 'Residências',
       ativo: true,
-      icone: ResidenciaMedicaIcon,
+      icone: NewResidenciasIcon,
       navegacao: {
         net: true,
         componente: ROTAS.RESIDENCIA_MEDICA,
@@ -88,18 +93,18 @@ function Servicos({ navigation }) {
       },
     },
     // TODO: abilitar Acoes_do_governo ao fim do período eleitoral
-    // {
-    //   id: 'Acoes_do_governo',
-    //   titulo: 'Ações do governo',
-    //   ativo: true,
-    //   icone: Servico4,
-    //   navegacao: {
-    //     net: true,
-    //     componente: 'webview',
-    //     titulo: 'Ações do governo',
-    //     url: 'https://coronavirus.ceara.gov.br/isus/governo/',
-    //   },
-    // },
+    {
+      id: 'Acoes_do_governo',
+      titulo: 'Ações do governo',
+      ativo: false, // desativado
+      icone: Servico4,
+      navegacao: {
+        net: true,
+        componente: 'webview',
+        titulo: 'Ações do governo',
+        url: 'https://coronavirus.ceara.gov.br/isus/governo/',
+      },
+    },
     {
       id: 'ESP',
       titulo: 'Escola de Saúde Pública - ESP/CE',
@@ -172,14 +177,15 @@ function Servicos({ navigation }) {
     <View>
       <Titulo>Serviços SUS Ceará</Titulo>
       <ListServices
-        dados={listaServicos}
+        dados={listaServicos.filter(item => item.ativo)}
         renderItem={({ item }) => (
-          <ServiceButton
+          <NewServiceButton
             ativo={item.ativo}
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
             onPress={() => handleOnPressServiceButton(item)}
+            iconBackgroundColor={iconBackgroundColor}
           />
         )}
       />
