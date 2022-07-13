@@ -1,21 +1,19 @@
 import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { Linking, View } from 'react-native';
-import QualiQuizIcon from '~/assets/icons/servicos/qualiquiz.svg';
-// import ResidenciaMedicaIcon from '~/assets/icons/servicos/residencia_medica.svg';
-import NewResidenciasIcon from '~/assets/icons/servicos/residencias.svg';
-import Servico1 from '~/assets/icons/servicos/servico_1.svg';
-import Servico2 from '~/assets/icons/servicos/servico_2.svg';
-import Servico3 from '~/assets/icons/servicos/servico_3.svg';
-import Servico4 from '~/assets/icons/servicos/servico_4.svg';
-import Servico5 from '~/assets/icons/servicos/servico_5.svg';
-import Servico6 from '~/assets/icons/servicos/servico_6.svg';
-import Servico7 from '~/assets/icons/servicos/servico_7.svg';
-import Servico8 from '~/assets/icons/servicos/servico_8.svg';
+import AcoesGovernoIcon from '~/assets/icons/servicos/acoes-governo-icon.svg';
+import ElmoIcon from '~/assets/icons/servicos/elmo-icon.svg';
+import EspIcon from '~/assets/icons/servicos/esp-icon.svg';
+import EspVirtualIcon from '~/assets/icons/servicos/esp-virtual-icon.svg';
+import FaleConoscoIcon from '~/assets/icons/servicos/fale-conosco-icon.svg';
+import ForcaTrabalhoIcon from '~/assets/icons/servicos/forca-trabalho-icon.svg';
+import IntegraSusIcon from '~/assets/icons/servicos/integra-sus-icon.svg';
+import QualiquizIcon from '~/assets/icons/servicos/qualiquiz-icon.svg';
+import ResidenciasIcon from '~/assets/icons/servicos/residencias-icon.svg';
+import SusNoCeIcon from '~/assets/icons/servicos/sus-no-ce-icon.svg';
 import ListServices from '~/components/ListServices';
 import NewServiceButton from '~/components/NewServiceButton';
 import { CORES } from '~/constantes/estiloBase';
-// import ServiceButton from '~/components/ServiceButton';
 import ROTAS from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import { Titulo } from '../styles';
@@ -32,7 +30,7 @@ function Servicos({ navigation }) {
       id: 'residencia_medica',
       titulo: 'Residências',
       ativo: true,
-      icone: NewResidenciasIcon,
+      icone: ResidenciasIcon,
       navegacao: {
         net: true,
         componente: ROTAS.RESIDENCIA_MEDICA,
@@ -42,7 +40,7 @@ function Servicos({ navigation }) {
       id: 'qualiquiz',
       titulo: 'QualiQuiz',
       ativo: true,
-      icone: QualiQuizIcon,
+      icone: QualiquizIcon,
       navegacao: {
         net: true,
         componente: 'QUALIQUIZ',
@@ -52,7 +50,7 @@ function Servicos({ navigation }) {
       id: 'Integra_SUS',
       titulo: 'IntegraSUS',
       ativo: true,
-      icone: Servico1,
+      icone: IntegraSusIcon,
       navegacao: {
         net: true,
         componente: 'webview',
@@ -64,7 +62,7 @@ function Servicos({ navigation }) {
       id: 'Forca_Trabalho_Saude_CE',
       titulo: 'Força Trabalho CE',
       ativo: true,
-      icone: Servico8,
+      icone: ForcaTrabalhoIcon,
       navegacao: {
         net: true,
         componente: 'browser',
@@ -76,7 +74,7 @@ function Servicos({ navigation }) {
       id: 'elmo',
       titulo: 'Elmo',
       ativo: true,
-      icone: Servico7,
+      icone: ElmoIcon,
       navegacao: {
         net: true,
         componente: ROTAS.ELMO,
@@ -87,7 +85,7 @@ function Servicos({ navigation }) {
       id: 'SUS_no_Ceara',
       titulo: 'SUS no Ceará',
       ativo: true,
-      icone: Servico2,
+      icone: SusNoCeIcon,
       navegacao: {
         componente: ROTAS.SUS_NO_CEARA,
       },
@@ -97,7 +95,7 @@ function Servicos({ navigation }) {
       id: 'Acoes_do_governo',
       titulo: 'Ações do governo',
       ativo: false, // desativado
-      icone: Servico4,
+      icone: AcoesGovernoIcon,
       navegacao: {
         net: true,
         componente: 'webview',
@@ -108,7 +106,7 @@ function Servicos({ navigation }) {
     {
       id: 'ESP',
       titulo: 'Escola de Saúde Pública - ESP/CE',
-      icone: Servico5,
+      icone: EspIcon,
       ativo: true,
       navegacao: {
         net: true,
@@ -121,7 +119,7 @@ function Servicos({ navigation }) {
       id: 'ESP_Virtual',
       titulo: 'ESP Virtual',
       ativo: true,
-      icone: Servico6,
+      icone: EspVirtualIcon,
       navegacao: {
         net: true,
         componente: 'browser',
@@ -133,7 +131,7 @@ function Servicos({ navigation }) {
       id: 'Fale_Conosco',
       titulo: 'Fale Conosco',
       ativo: true,
-      icone: Servico3,
+      icone: FaleConoscoIcon,
       navegacao: {
         componente: ROTAS.FALE_CONOSCO,
       },
@@ -180,7 +178,6 @@ function Servicos({ navigation }) {
         dados={listaServicos.filter(item => item.ativo)}
         renderItem={({ item }) => (
           <NewServiceButton
-            ativo={item.ativo}
             testID={`cartaoHome-servicos-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
