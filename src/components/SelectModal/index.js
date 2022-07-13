@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   FlatList,
   Modal,
@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { Divider, List } from 'react-native-paper';
+import { Divider, List, TextInput } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
+import useDebounce from '~/hooks/useDebounce';
 import { ArrowLeftIcon } from '~/icons/index';
 
 const SelectModal = props => {
@@ -24,6 +25,16 @@ const SelectModal = props => {
   } = props;
 
   const [open, setOpen] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const searchTermDebounced = useDebounce(searchTerm, 300);
+
+  const getItemsFiltered = useMemo(() => {
+    return items.filter(item =>
+      item.label.toLowerCase().includes(searchTermDebounced.toLowerCase()),
+    );
+  }, [items, searchTermDebounced]);
 
   const handleOnPressItem = item => {
     if (deselectable) {
@@ -55,8 +66,18 @@ const SelectModal = props => {
             </TouchableOpacity>
             <Text style={styles.modalHeaderText}>{title}</Text>
           </View>
+          {items.length >= 25 && (
+            <View style={styles.wraperSearch}>
+              <TextInput
+                label="Campo de busca"
+                mode="outlined"
+                value={searchTerm}
+                onChangeText={setSearchTerm}
+              />
+            </View>
+          )}
           <FlatList
-            data={items}
+            data={getItemsFiltered}
             keyExtractor={item => item.value.toString()}
             renderItem={({ item }) => (
               <List.Item
@@ -94,6 +115,11 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     fontWeight: '600',
+  },
+  wraperSearch: {
+    padding: 8,
+    borderBottomColor: '#999',
+    borderBottomWidth: 0.5,
   },
 });
 
