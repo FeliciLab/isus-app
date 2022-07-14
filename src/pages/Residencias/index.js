@@ -5,7 +5,7 @@ import { FlatList, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
 import BarraDeStatus from '~/components/BarraDeStatus';
-import NewServiceButton from '~/components/NewServiceButton';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -99,7 +99,7 @@ const Residencias = () => {
         }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <NewServiceButton
+          <ServiceButton
             testID={`cards-${item.id}`}
             key={`cards-${item.id}`}
             titulo={item.titulo}

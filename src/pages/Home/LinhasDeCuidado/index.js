@@ -2,7 +2,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import ListServices from '~/components/ListServices';
-import NewServiceButton from '~/components/NewServiceButton';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -44,7 +44,7 @@ const LinhasDeCuidado = ({ navigation }) => {
       <ListServices
         dados={listaLinhasDeCuidado.filter(item => item.ativo)}
         renderItem={({ item }) => (
-          <NewServiceButton
+          <ServiceButton
             testID={`cartaoHome-linhasDeCuidado-${item.id}`}
             key={`cartaoHome-linhasDeCuidado-${item.id}`}
             titulo={item.titulo}

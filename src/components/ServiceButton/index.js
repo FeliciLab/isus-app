@@ -1,24 +1,19 @@
 import React from 'react';
-import { Card } from 'react-native-paper';
-import { CardTitle, Container, IconeWrapper } from './styles';
+import { CardTitle, Container, Content, IconeWrapper } from './styles';
 
 const ServiceButton = props => {
-  const { Icone, ativo, titulo, onPress, ...rest } = props;
+  const { Icone, titulo, iconBackgroundColor, ...rest } = props;
 
-  if (ativo) {
-    return (
-      <Container elevation={4} onPress={onPress} {...rest}>
-        <IconeWrapper>
-          <Icone />
-        </IconeWrapper>
-        <Card.Content>
-          <CardTitle>{titulo}</CardTitle>
-        </Card.Content>
-      </Container>
-    );
-  }
-
-  return <></>;
+  return (
+    <Container {...rest}>
+      <IconeWrapper iconBackgroundColor={iconBackgroundColor}>
+        <Icone />
+      </IconeWrapper>
+      <Content>
+        <CardTitle>{titulo}</CardTitle>
+      </Content>
+    </Container>
+  );
 };
 
 export default ServiceButton;

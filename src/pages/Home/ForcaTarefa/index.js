@@ -2,7 +2,7 @@ import { useNetInfo } from '@react-native-community/netinfo';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import ListServices from '~/components/ListServices';
-import NewServiceButton from '~/components/NewServiceButton';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -49,7 +49,7 @@ const ForcaTarefa = ({ navigation }) => {
       <ListServices
         dados={listaForcaTarefa.filter(item => item.ativo)}
         renderItem={({ item }) => (
-          <NewServiceButton
+          <ServiceButton
             testID={`cartaoHome-forcaTarefa-${item.id}`}
             key={`cartaoHome-forcaTarefa-${item.id}`}
             titulo={item.titulo}

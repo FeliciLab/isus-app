@@ -6,7 +6,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Paragraph } from 'react-native-paper';
 import OficinaDesignBG from '~/assets/backgrounds/oficina_design.png';
 import BarraDeStatus from '~/components/BarraDeStatus';
-import NewServiceButton from '~/components/NewServiceButton';
+import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -102,7 +102,7 @@ const OficinaDesign = () => {
         }}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <NewServiceButton
+          <ServiceButton
             testID={`cards-${item.id}`}
             key={item.id}
             ativo={item.ativo}
