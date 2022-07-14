@@ -1,11 +1,10 @@
-import { urls } from '~/constantes/urls';
-
 import FrequenciasIcon from '~/assets/icons/residenciaMedica/frequencias-icon.svg';
 import MatriculasIcon from '~/assets/icons/residenciaMedica/matriculas-icon.svg';
 import SaguIcon from '~/assets/icons/residenciaMedica/sagu-icon.svg';
 import SigResidenciasIcon from '~/assets/icons/residenciaMedica/sig-residencias-icon.svg';
 import EspVirtualIcon from '~/assets/icons/servicos/esp-virtual-icon.svg';
 import rotas from '~/constantes/rotas';
+import { urls } from '~/constantes/urls';
 
 const listaResidenciasCards = [
   {
