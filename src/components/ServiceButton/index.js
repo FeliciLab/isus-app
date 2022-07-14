@@ -5,7 +5,7 @@ const ServiceButton = props => {
   const { Icone, titulo, iconBackgroundColor, ...rest } = props;
 
   return (
-    <Container {...rest}>
+    <Container activeOpacity={0.8} {...rest}>
       <IconeWrapper
         testID="service-button-icone-wrapper"
         iconBackgroundColor={iconBackgroundColor}>
