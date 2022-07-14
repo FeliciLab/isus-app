@@ -1,10 +1,10 @@
-import Boletins from '~/assets/icons/forcaTarefa/boletins.svg';
-import Denuncias from '~/assets/icons/forcaTarefa/denuncias.svg';
-import FarmacoVigilancia from '~/assets/icons/forcaTarefa/farmacoVigilancia.svg';
-import NotasTecnicas from '~/assets/icons/forcaTarefa/notasTecnicas.svg';
-import NotificacaoDeCasos from '~/assets/icons/forcaTarefa/notificacaoDeCasos.svg';
-import PlanoContigencia from '~/assets/icons/forcaTarefa/planoDeContigencia.svg';
-import VacinaCOVID19 from '~/assets/icons/forcaTarefa/vacinaCovid19.svg';
+import BoletinsIcon from '~/assets/icons/forcaTarefa/boletins-icon.svg';
+import DenunciasIcon from '~/assets/icons/forcaTarefa/denuncias-icon.svg';
+import DocumentosOficiaisIcon from '~/assets/icons/forcaTarefa/documentos-oficiais-icon.svg';
+import FarmacoVigilanciaIcon from '~/assets/icons/forcaTarefa/farmaco-vigilancia-icon.svg';
+import NotificacaoDeCasosIcon from '~/assets/icons/forcaTarefa/notificacao-de-casos-icon.svg';
+import PlanoDeContingenciaIcon from '~/assets/icons/forcaTarefa/plano-de-contingencia-icon.svg';
+import VacinacaoIcon from '~/assets/icons/forcaTarefa/vacinacao-icon.svg';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import rotas from '~/constantes/rotas';
 import { urls } from '~/constantes/urls';
@@ -15,7 +15,7 @@ const listForcaTarefa = [
     titulo: 'Documentos Oficiais',
     ativo: true,
     labelDoAnalytics: 'documentos_oficiais',
-    icone: NotasTecnicas,
+    icone: DocumentosOficiaisIcon,
     navegacao: {
       componente: 'webview',
       titulo: 'Documentos Oficiais',
@@ -27,7 +27,7 @@ const listForcaTarefa = [
     titulo: 'Boletins',
     ativo: true,
     labelDoAnalytics: 'boletins',
-    icone: Boletins,
+    icone: BoletinsIcon,
     navegacao: {
       componente: 'webview',
       titulo: 'Boletins',
@@ -39,7 +39,7 @@ const listForcaTarefa = [
     titulo: 'Plano de Contingência',
     labelDoAnalytics: labelsAnalytics.CARTAO_PLANO_CONTIGENCIA,
     ativo: true,
-    icone: PlanoContigencia,
+    icone: PlanoDeContingenciaIcon,
     navegacao: {
       componente: 'webview',
       titulo: 'Plano de Contingência',
@@ -51,7 +51,7 @@ const listForcaTarefa = [
     titulo: 'Vacinação',
     labelDoAnalytics: labelsAnalytics.CARTAO_VACINA_COVID19,
     ativo: true,
-    icone: VacinaCOVID19,
+    icone: VacinacaoIcon,
     navegacao: {
       componente: 'webview',
       titulo: 'Vacinação',
@@ -63,7 +63,7 @@ const listForcaTarefa = [
     titulo: 'Notificação de casos',
     ativo: true,
     labelDoAnalytics: 'notificacao_de_casos',
-    icone: NotificacaoDeCasos,
+    icone: NotificacaoDeCasosIcon,
     navegacao: {
       componente: 'webview',
       titulo: 'Notificações de casos',
@@ -75,7 +75,7 @@ const listForcaTarefa = [
     titulo: 'Farmaco-vigilância',
     ativo: true,
     labelDoAnalytics: 'farmaco_vigilancia',
-    icone: FarmacoVigilancia,
+    icone: FarmacoVigilanciaIcon,
     navegacao: {
       componente: 'webview',
       titulo: 'Farmaco-vigilância',
@@ -87,7 +87,7 @@ const listForcaTarefa = [
     titulo: 'Denúncias',
     ativo: true,
     labelDoAnalytics: 'denuncias',
-    icone: Denuncias,
+    icone: DenunciasIcon,
     navegacao: {
       componente: rotas.DENUNCIAR,
       titulo: 'Denunciar',
