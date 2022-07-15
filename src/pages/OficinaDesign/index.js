@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useNavigation } from '@react-navigation/native';
-import { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { Paragraph } from 'react-native-paper';
@@ -12,10 +11,8 @@ import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import { ArrowLeftIcon } from '~/icons';
+import listaOficinasCards from './listaOficinasCards';
 import { Container, Content, OficinaDesignImage } from './styles';
-import FrequenciasSVG from '~/assets/icons/oficinaDesign/frequencias.svg';
-import SiteOficinaSVG from '~/assets/icons/oficinaDesign/site-oficial.svg';
-import { urls } from '~/constantes/urls';
 
 const OficinaDesign = () => {
   const navigation = useNavigation();
@@ -24,28 +21,7 @@ const OficinaDesign = () => {
 
   const { analyticsData } = useAnalytics();
 
-  const residenciasCards = [
-    {
-      id: 'frequencias',
-      titulo: 'Frequências',
-      ativo: true,
-      icone: FrequenciasSVG,
-      navegacao: {
-        componente: rotas.OFICINA_DESIGN_LISTAR_OFICINAS,
-      },
-    },
-    {
-      id: 'matriculas',
-      titulo: 'Site da Oficina',
-      ativo: true,
-      icone: SiteOficinaSVG,
-      navegacao: {
-        componente: 'browser',
-        titulo: 'Oficina de Design',
-        url: urls.OFICINA_DESIGN,
-      },
-    },
-  ];
+  const iconBackgroundColor = CORES.AZUL_OFICINA;
 
   const handleOnPressServiceButton = useCallback(
     item => {
@@ -98,7 +74,10 @@ const OficinaDesign = () => {
 
   return (
     <Container>
-      <BarraDeStatus backgroundColor="#0091AC" barStyle="light-content" />
+      <BarraDeStatus
+        backgroundColor={CORES.AZUL_OFICINA_DARK}
+        barStyle="light-content"
+      />
       <OficinaDesignImage source={OficinaDesignBG} />
       <Content>
         <Paragraph>
@@ -115,7 +94,7 @@ const OficinaDesign = () => {
       </Content>
       <FlatList
         horizontal
-        data={residenciasCards}
+        data={listaOficinasCards.filter(item => item.ativo)}
         keyExtractor={({ id }) => String(id)}
         style={{
           flexDirection: 'row',
@@ -130,6 +109,7 @@ const OficinaDesign = () => {
             titulo={item.titulo}
             Icone={item.icone}
             onPress={() => handleOnPressServiceButton(item)}
+            iconBackgroundColor={iconBackgroundColor}
           />
         )}
       />

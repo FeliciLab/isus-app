@@ -2,7 +2,7 @@ import { Title } from 'react-native-paper';
 import styled from 'styled-components/native';
 
 export const Titulo = styled(Title)`
-  margin: 0 16px 0 16px;
+  margin: 0 10px;
   font-size: 19px;
   color: rgba(0, 0, 0, 0.6);
 `;

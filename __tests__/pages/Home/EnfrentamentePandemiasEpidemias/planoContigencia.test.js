@@ -4,7 +4,7 @@ import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { urls } from '~/constantes/urls';
 import { AppTrackTransparencyContext } from '~/context/AppTrackTransparencyContext';
 import ForcaTarefa from '~/pages/Home/ForcaTarefa';
-import listaForcaTarefa from '~/pages/Home/ForcaTarefa/listaForcaTarefaAntiCorona';
+import listaForcaTarefa from '~/pages/Home/ForcaTarefa/listaForcaTarefa';
 import { analyticsData } from '~/utils/analytics';
 
 const navigation = {

@@ -32,6 +32,11 @@ function App() {
 
     OneSignal.setLogLevel(6, 0);
 
+    // Deescomentar caso queria saber o user id no OneSingal
+    // OneSignal.getDeviceState().then(response => {
+    //   console.log(JSON.stringify(response));
+    // });
+
     OneSignal.setAppId('917766a7-c01e-4655-89a1-86f648be2fc8');
 
     OneSignal.promptForPushNotificationsWithUserResponse(n => console.log(n));

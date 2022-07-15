@@ -1,20 +1,32 @@
+import { Paragraph } from 'react-native-paper';
 import styled from 'styled-components/native';
-import { Card, Paragraph } from 'react-native-paper';
 
-export const Container = styled(Card)`
+export const Container = styled.TouchableOpacity`
+  border-radius: 8px;
   margin: 10px;
+  overflow: hidden;
 `;
 
 export const CardTitle = styled(Paragraph)`
   font-size: 12px;
   letter-spacing: 0.25px;
   line-height: 16px;
-  margin-top: 10px;
   max-width: 112px;
 `;
 
 export const IconeWrapper = styled.View`
-  overflow: hidden;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  display: flex;
+  background-color: ${props => props.iconBackgroundColor};
+  align-items: center;
+  justify-content: center;
+  width: 136px;
+  height: 136px;
+`;
+
+export const Content = styled.View`
+  display: flex;
+  padding: 8px;
+  background-color: #fff;
+  width: 136px;
+  height: 52px;
 `;
