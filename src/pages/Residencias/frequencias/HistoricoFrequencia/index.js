@@ -34,13 +34,13 @@ const HistoricoFrequencia = () => {
 
   const { user } = useAutenticacao();
 
-  const { presencas, featchUserPresencas, isLoading } = useUserPresencas(
+  const { presencas, fetchUserPresencas, isLoading } = useUserPresencas(
     user.id,
     oferta.id,
   );
 
   useEffect(() => {
-    featchUserPresencas();
+    fetchUserPresencas();
   }, []);
 
   const presecasPorOferta = useMemo(() => {
@@ -75,7 +75,7 @@ const HistoricoFrequencia = () => {
       isPresent: presencas.some(
         item =>
           moment(item.data).format('DD/MM/YYYY') ===
-            moment(data).format('DD/MM/YYYY') && item.turno == turno,
+          moment(data).format('DD/MM/YYYY') && item.turno == turno,
       ),
     }));
   }, [presencas, oferta]);
@@ -96,11 +96,11 @@ const HistoricoFrequencia = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#fff',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Residências em Saúde',
       headerLeft: () => (

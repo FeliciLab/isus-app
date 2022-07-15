@@ -17,14 +17,14 @@ describe('useBanners', () => {
     expect(result.current.banners).toEqual([]);
     expect(result.current.error).toEqual(false);
     expect(result.current.isLoading).toEqual(false);
-    expect(typeof result.current.featchBanners).toEqual('function');
+    expect(typeof result.current.fetchBanners).toEqual('function');
   });
 
-  it('Deve chamar o pegarBanners quando executar o featchBanners', () => {
+  it('Deve chamar o pegarBanners quando executar o fetchBanners', () => {
     const { result } = renderHook(() => useBanners());
 
     act(async () => {
-      result.current.featchBanners();
+      result.current.fetchBanners();
     });
 
     expect(pegarBanners).toHaveBeenCalled();

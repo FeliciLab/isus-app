@@ -8,7 +8,7 @@ export function useOfertas() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchOfertas = useCallback(async () => {
+  const fetchOfertas = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -25,5 +25,5 @@ export function useOfertas() {
     }
   }, []);
 
-  return { ofertas, error, isLoading, featchOfertas };
+  return { ofertas, error, isLoading, fetchOfertas };
 }
