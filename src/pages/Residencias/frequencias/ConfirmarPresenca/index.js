@@ -236,17 +236,17 @@ const ConfirmarPresenca = () => {
       )}
       {programaResidencia &&
         getResidenciaMunicipios(programaResidencia).length > 0 && (
-          <SelectModal
-            title="Selecione o Município"
-            placeholder="Selecione o Município"
-            items={getResidenciaMunicipios(programaResidencia).map(item => ({
-              label: item,
-              value: item,
-            }))}
-            value={residenciaMunicipio}
-            setValue={setResidenciaMunicipio}
-          />
-        )}
+        <SelectModal
+          title="Selecione o Município"
+          placeholder="Selecione o Município"
+          items={getResidenciaMunicipios(programaResidencia).map(item => ({
+            label: item,
+            value: item,
+          }))}
+          value={residenciaMunicipio}
+          setValue={setResidenciaMunicipio}
+        />
+      )}
       {atualSaguUserInfoIsValid && (
         <Content>
           <View>
