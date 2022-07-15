@@ -12,6 +12,7 @@ import { useServicos } from '~/hooks/useServicos';
 import { ArrowLeftIcon } from '~/icons';
 import { Botao, Container, Titulo, SubTitulo } from './styles';
 import { find, filter } from 'lodash';
+import { CORES } from '~/constantes/estiloBase';
 
 function FormularioInfoProfissional({ navigation }) {
   const route = useRoute();
@@ -30,42 +31,49 @@ function FormularioInfoProfissional({ navigation }) {
     'categoriaProfissionalSelectedId',
   );
 
-  const { servicos, featchServicos } = useServicos();
+  const { servicos, fetchServicos } = useServicos();
 
   const {
     categoriasProfissionais,
-    featchCategoriasProfissionais,
+    fetchCategoriasProfissionais,
   } = useCategoriasProfissionais();
 
-  const { especialidades, featchEspecialidades } = useEspecialidades();
+  const { especialidades, fetchEspecialidades } = useEspecialidades();
 
   const handleOnPressNextButton = dataForm => {
     const infoProfissional = {
       categoriaProfissional: find(categoriasProfissionais, [
         'id',
-        Number(dataForm.categoriaProfissionalSelectedId),
-      ]),
-      especialidades: filter(especialidades, item =>
-        dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
-      ),
-      servicos: filter(servicos, item =>
-        dataForm.servicosSelectedsIds.map(Number).includes(item.id),
-      ),
+        Number(dataForm?.categoriaProfissionalSelectedId),
+      ]) || '',
+
+      especialidades:
+        filter(especialidades, item =>
+          dataForm?.especialidadesSelectedsIds.map(Number).includes(item.id),
+        ) || [],
+
+      unidadeServico:
+        filter(servicos, item =>
+          dataForm?.servicosSelectedsIds.map(Number).includes(item.id),
+        ) || [],
     };
 
-    navigation.navigate('FormularioSenha', { infoPessoal, infoProfissional });
+    navigation.navigate(
+      rotas.FORMULARIO_SENHA,
+      { infoPessoal, infoProfissional }
+    );
   };
 
   const veioDoPerfil = route.params.tela_anterior === rotas.PERFIL;
 
   useEffect(() => {
-    featchServicos();
-    featchCategoriasProfissionais();
+    fetchServicos();
+    fetchCategoriasProfissionais();
   }, []);
 
   useEffect(() => {
     setValue('especialidadesSelectedsIds', []);
-    featchEspecialidades(categoriaProfissionalSelectedIdWatch);
+    fetchEspecialidades(categoriaProfissionalSelectedIdWatch);
   }, [categoriaProfissionalSelectedIdWatch]);
 
   useLayoutEffect(() => {
@@ -81,18 +89,22 @@ function FormularioInfoProfissional({ navigation }) {
           }}>
           <ArrowLeftIcon
             size={28}
-            color={veioDoPerfil ? '#4CAF50' : '#304FFE'}
+            color={veioDoPerfil ? CORES.VERDE : CORES.AZUL}
           />
         </TouchableOpacity>
       ),
     });
   }, []);
 
-  const definirCorDosElementos = () => (veioDoPerfil ? '#FF9800' : '#304FFE');
+  const definirCorDosElementos = () => (
+    veioDoPerfil
+      ? CORES.LARANJA
+      : CORES.AZUL
+  );
 
   return (
     <Container>
-      <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+      <BarraDeStatus barStyle="dark-content" backgroundColor={CORES.BRANCO} />
       <Titulo>
         {veioDoPerfil
           ? 'Vamos agora adicionar suas informações profissionais, para isso, selecione as opções abaixo:'
@@ -139,7 +151,7 @@ function FormularioInfoProfissional({ navigation }) {
       <Botao
         cor={definirCorDosElementos()}
         disabled={false}
-        labelStyle={{ color: '#fff' }}
+        labelStyle={{ color: CORES.BRANCO }}
         onPress={handleSubmit(handleOnPressNextButton)}
         mode="contained">
         {veioDoPerfil ? 'salvar' : 'Próximo'}

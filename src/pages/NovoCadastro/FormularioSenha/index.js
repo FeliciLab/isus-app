@@ -50,15 +50,16 @@ export default function FormularioSenha({ navigation }) {
         cpf: infoPessoal.cpf,
         cidadeId: infoPessoal.municipio.id,
         cidade: infoPessoal.municipio.nome,
+        // TODO: Objeto vazio vs String vazia
+        // Verificar o padrão, pois na edição usamos String Vazia ''
+        // Na criação a API exige pelo menos um objeto {}
         categoriaProfissional: infoProfissional.categoriaProfissional || {},
         especialidades: infoProfissional.especialidades || [],
-        unidadeServico: infoProfissional.servicos || [],
+        unidadeServico: infoProfissional.unidadeServico || [],
         senha: dataForm.password,
         repetirsenha: dataForm.confirmPassword,
         termos: true,
       };
-
-      console.log(newUserData);
 
       await cadastrarUsuario(newUserData);
 
@@ -97,7 +98,7 @@ export default function FormularioSenha({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <ArrowLeftIcon size={28} color="#304FFE" />
+          <ArrowLeftIcon size={28} color={CORES.AZUL} />
         </TouchableOpacity>
       ),
     });
@@ -106,13 +107,13 @@ export default function FormularioSenha({ navigation }) {
   const theme = {
     ...DefaultTheme,
     colors: {
-      primary: '#304FFE',
+      primary: CORES.AZUL,
     },
   };
 
   return (
     <Container>
-      <BarraDeStatus barStyle="dark-content" backgroundColor="#FFF" />
+      <BarraDeStatus barStyle="dark-content" backgroundColor={CORES.BRANCO} />
       <Titulo>
         Para finalizar seu cadastro, precisamos apenas de mais uma informação:
       </Titulo>
@@ -138,9 +139,9 @@ export default function FormularioSenha({ navigation }) {
         theme={theme}
       />
       <Botao
-        cor="#304FFE"
+        cor={CORES.AZUL}
         disabled={isLoading}
-        labelStyle={{ color: '#fff' }}
+        labelStyle={{ color: CORES.BRANCO }}
         mode="contained"
         onPress={handleSubmit(handleOnPressNextButton)}
         loading={isLoading}>
