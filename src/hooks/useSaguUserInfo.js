@@ -8,7 +8,7 @@ export function useSaguUserInfo(userId) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchSaguUserInfo = useCallback(async () => {
+  const fetchSaguUserInfo = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -25,5 +25,5 @@ export function useSaguUserInfo(userId) {
     }
   }, []);
 
-  return { saguUserInfo, error, isLoading, featchSaguUserInfo };
+  return { saguUserInfo, error, isLoading, fetchSaguUserInfo };
 }

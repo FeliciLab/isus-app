@@ -11,7 +11,7 @@ export function useCategoriasArquitetura() {
 
   const { user } = useAutenticacao();
 
-  const featchCategoriasArquitetura = useCallback(async () => {
+  const fetchCategoriasArquitetura = useCallback(async () => {
     try {
       setIsLoading(true);
       const data = await pegarCategoriasArquitetura(!!user);
@@ -24,5 +24,5 @@ export function useCategoriasArquitetura() {
     }
   }, []);
 
-  return { categorias, error, isLoading, featchCategoriasArquitetura };
+  return { categorias, error, isLoading, fetchCategoriasArquitetura };
 }

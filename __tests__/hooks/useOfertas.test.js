@@ -17,14 +17,14 @@ describe('useOfertas', () => {
     expect(result.current.ofertas).toEqual([]);
     expect(result.current.error).toEqual(false);
     expect(result.current.isLoading).toEqual(false);
-    expect(typeof result.current.featchOfertas).toEqual('function');
+    expect(typeof result.current.fetchOfertas).toEqual('function');
   });
 
-  it('Deve chamar o getListOgertas quando executar o featchOfertas', () => {
+  it('Deve chamar o getListOgertas quando executar o fetchOfertas', () => {
     const { result } = renderHook(() => useOfertas());
 
     act(async () => {
-      result.current.featchOfertas();
+      result.current.fetchOfertas();
     });
 
     expect(getListOgertas).toHaveBeenCalled();

@@ -7,14 +7,14 @@ import { useBanners } from '~/hooks/useBanners';
 import BannerCarrossel from './BannerCarrossel';
 
 const Banners = () => {
-  const { banners, error, isLoading, featchBanners } = useBanners();
+  const { banners, error, isLoading, fetchBanners } = useBanners();
 
   const { width } = Dimensions.get('screen');
 
   const { user } = useAutenticacao();
 
   useEffect(() => {
-    featchBanners();
+    fetchBanners();
   }, []);
 
   // TODO: provavelmente precisaremos rever essa lógica

@@ -8,7 +8,7 @@ export function useServicos() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchServicos = useCallback(async () => {
+  const fetchServicos = useCallback(async () => {
     try {
       setIsLoading(true);
       const data = await pegarListaDeServicos();
@@ -22,5 +22,5 @@ export function useServicos() {
     }
   }, []);
 
-  return { servicos, error, isLoading, featchServicos };
+  return { servicos, error, isLoading, fetchServicos };
 }
