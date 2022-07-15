@@ -10,7 +10,7 @@ import {
 import { Divider, List, Searchbar, Text } from 'react-native-paper';
 import { CORES } from '~/constantes/estiloBase';
 import useDebounce from '~/hooks/useDebounce';
-import { ArrowLeftIcon } from '~/icons/index';
+import { ArrowLeftIcon } from '~/icons';
 
 const SelectModal = props => {
   const {
@@ -37,7 +37,7 @@ const SelectModal = props => {
 
   const handleOnPressItem = item => {
     if (deselectable) {
-      setValue(item.value === value ? undefined : item.value);
+      setValue(item.value === value ? '' : item.value);
     } else {
       setValue(item.value);
     }
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderBottomWidth: 0.5,
-    borderBottomColor: '#999',
+    borderBottomColor: CORES.CINZA_INPUT_DARK,
   },
   modalHeaderText: {
     marginLeft: 10,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   wraperSearch: {
     padding: 8,
-    borderBottomColor: '#999',
+    borderBottomColor: CORES.CINZA_INPUT_DARK,
     borderBottomWidth: 0.5,
   },
   listEmpty: {
