@@ -37,6 +37,16 @@ export const TESTIDS = {
       'materno-infantil-sindromes-hipertensivas-em-gestacao',
     HEMORRAGIA_GESTACAO: 'materno-infantil-hemorragia-em-gestacao',
   },
+  ARBOVIROSES: {
+    AGENTES_COMBATE_ENDEMIA: 'arboviroses_agentes_combate_endemia',
+    DEFINICAO_CASO_SUSPEITO_DENGUE:
+      'arboviroses_definicao_caso_suspeito_dengue',
+    DEFINICAO_CASO_SUSPEITO_CHIKUNGUNYA:
+      'arboviroses_definicao_caso_suspeito_chikungunya',
+    DEFINICAO_CASO_SUSPEITO_ZIKA: 'arboviroses_definicao_caso_suspeito_zika',
+    DEFINICAO_CASO_SUSPEITO_FEBRE_AMARELA:
+      'arboviroses_definicao_caso_suspeito_febre_amarela',
+  },
   SEM_CONEXAO: {
     BOTAO_VOLTAR: 'botao-semconexao-voltar',
     BOTAO_TENTAR_NOVAMENTE: 'botao_semconexao_tentar_novamente',
