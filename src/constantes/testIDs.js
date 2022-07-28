@@ -38,7 +38,7 @@ export const TESTIDS = {
     HEMORRAGIA_GESTACAO: 'materno-infantil-hemorragia-em-gestacao',
   },
   ARBOVIROSES: {
-    AGENTES_COMBATE_ENDEMIA: 'arboviroses_agentes_combate_endemia',
+    AGENTES_COMBATE_ENDEMIAS: 'arboviroses_agentes_combate_endemias',
     DEFINICAO_CASO_SUSPEITO_DENGUE:
       'arboviroses_definicao_caso_suspeito_dengue',
     DEFINICAO_CASO_SUSPEITO_CHIKUNGUNYA:
@@ -46,6 +46,15 @@ export const TESTIDS = {
     DEFINICAO_CASO_SUSPEITO_ZIKA: 'arboviroses_definicao_caso_suspeito_zika',
     DEFINICAO_CASO_SUSPEITO_FEBRE_AMARELA:
       'arboviroses_definicao_caso_suspeito_febre_amarela',
+    BOLETINS_EPIDEMIOLOGICOS: 'arboviroses_link_boletins_epidemiologicos',
+    VIGILANCIA_ENTOMOLOGICA: 'arboviroses_link_vigilancia_entomologica',
+    VIGILANCIA_EPIDEMIOLOGICA: 'arboviroses_link_vigilancia_epidemiologica',
+    DIAGNOSTICO_LAB_ARBOVIROSES: 'arboviroses_link_diagnostico_lab_arboviroses',
+    CONTROLE_VETOR: 'arboviroses_link_controle_vetor',
+    MELHOR_DEFESA_PREVENCAO: 'arboviroses_link_melhor_defesa_prevencao',
+    JOGO_TABULEIRO: 'arboviroses_link_jogo_tabuleiro_arboviroses',
+    MANUAL_PROTECAO_AGENTES_ENDEMIAS:
+      'arboviroses_link_manual_protecao_agentes_endemias',
   },
   SEM_CONEXAO: {
     BOTAO_VOLTAR: 'botao-semconexao-voltar',
