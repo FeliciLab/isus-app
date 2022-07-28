@@ -25,4 +25,13 @@ export const labelsAnalytics = {
     SINDROMES_HIPERTENSIVAS_GESTACAO: 'guias_sindromes_hipertensivas_gestacao',
     GUIA_HEMORRAGIA_GESTACAO: 'guias_hemorragia_gestacao',
   },
+  ARBOVIROSES: {
+    AGENTES_COMBATE_ENDEMIA: 'guias_agentes_combate_endemia',
+    DEFINICAO_CASO_SUSPEITO_DENGUE: 'guias_definicao_caso_suspeito_dengue',
+    DEFINICAO_CASO_SUSPEITO_CHIKUNGUNYA:
+      'guias_definicao_caso_suspeito_chikungunya',
+    DEFINICAO_CASO_SUSPEITO_ZIKA: 'guias_definicao_caso_suspeito_zika',
+    DEFINICAO_CASO_SUSPEITO_FEBRE_AMARELA:
+      'guias_definicao_caso_suspeito_febre_amarela',
+  },
 };
