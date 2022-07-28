@@ -1,5 +1,5 @@
 import FrequenciasIcon from '~/assets/icons/residenciaMedica/frequencias-icon.svg';
-import MatriculasIcon from '~/assets/icons/residenciaMedica/matriculas-icon.svg';
+import InscricoesIcon from '~/assets/icons/residenciaMedica/inscricoes-icon.svg';
 import SaguIcon from '~/assets/icons/residenciaMedica/sagu-icon.svg';
 import SigResidenciasIcon from '~/assets/icons/residenciaMedica/sig-residencias-icon.svg';
 import EspVirtualIcon from '~/assets/icons/servicos/esp-virtual-icon.svg';
@@ -17,14 +17,14 @@ const listaResidenciasCards = [
     },
   },
   {
-    id: 'matriculas',
-    titulo: 'MATRÍCULAS',
+    id: 'inscricoes',
+    titulo: 'Inscrições',
     ativo: true,
-    icone: MatriculasIcon,
+    icone: InscricoesIcon,
     navegacao: {
       componente: 'webview',
-      titulo: 'MATRÍCULAS',
-      url: urls.MATRICULA_RESIDENCIA,
+      titulo: 'Inscrições',
+      url: urls.INSCRICOES_RESIDENCIA,
     },
   },
   {
