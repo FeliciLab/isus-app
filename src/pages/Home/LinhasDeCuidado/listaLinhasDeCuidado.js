@@ -1,5 +1,6 @@
 import ManejoCovid19Icon from '~/assets/icons/linhasDeCuidado/manejo-covid-19-icon.svg';
 import ManejoInfantilIcon from '~/assets/icons/linhasDeCuidado/manejo-infantil-icon.svg';
+import ArbovirosesIcon from '~/assets/icons/linhasDeCuidado/arboviroses-icon.svg';
 import ProtocolosIcon from '~/assets/icons/linhasDeCuidado/protocolos-icon.svg';
 import rotas from '~/constantes/rotas';
 
@@ -14,6 +15,16 @@ const listaLinhasDeCuidado = [
       componente: 'webview',
       titulo: 'Manejo Clínico',
       url: 'https://coronavirus.ceara.gov.br/profissional/manejoclinico/',
+    },
+  },
+  {
+    id: 'arbovirosesDengue',
+    titulo: 'Arboviroses',
+    ativo: true,
+    icone: ArbovirosesIcon,
+    labelDoAnalytics: 'arboviroses',
+    navegacao: {
+      componente: rotas.ARBOVIROSES,
     },
   },
   {
