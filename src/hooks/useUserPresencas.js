@@ -8,7 +8,7 @@ export function useUserPresencas(userId, ofertaId) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchUserPresencas = useCallback(async () => {
+  const fetchUserPresencas = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -25,5 +25,5 @@ export function useUserPresencas(userId, ofertaId) {
     }
   }, []);
 
-  return { presencas, error, isLoading, featchUserPresencas };
+  return { presencas, error, isLoading, fetchUserPresencas };
 }

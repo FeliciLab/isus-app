@@ -9,7 +9,8 @@ import Elmo from '~/pages/Elmo';
 import CapacitacaoElmo from '~/pages/Elmo/CapacitacaoElmo';
 import NovidadesElmo from '~/pages/Elmo/NovidadesElmo';
 import SobreElmo from '~/pages/Elmo/SobreElmo';
-import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/maternoInfantil';
+import Arboviroses from '~/pages/Home/LinhasDeCuidado/Arboviroses';
+import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/MaternoInfantil';
 import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
@@ -92,6 +93,11 @@ const Routes = ({ navigationRef }) => {
         <Screen
           name={rotas.MATERNO_INFANTIL}
           component={MaternoInfantil}
+          options={{ headerShown: true }}
+        />
+        <Screen
+          name={rotas.ARBOVIROSES}
+          component={Arboviroses}
           options={{ headerShown: true }}
         />
         <Screen

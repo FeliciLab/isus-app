@@ -9,7 +9,7 @@ export function useBanners() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchBanners = useCallback(async () => {
+  const fetchBanners = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -26,5 +26,5 @@ export function useBanners() {
     }
   }, []);
 
-  return { banners, error, isLoading, featchBanners };
+  return { banners, error, isLoading, fetchBanners };
 }

@@ -1,18 +1,20 @@
 import { useNetInfo } from '@react-native-community/netinfo';
-import { uniqueId } from 'lodash';
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import ListServices from '~/components/ListServices';
 import ServiceButton from '~/components/ServiceButton';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
 import { Titulo } from '../styles';
-import listaForcaTarefaAntiCorona from './listaForcaTarefaAntiCorona';
+import listaForcaTarefa from './listaForcaTarefa';
 
 const ForcaTarefa = ({ navigation }) => {
   const { analyticsData } = useAnalytics();
 
   const { isConnected } = useNetInfo();
+
+  const iconBackgroundColor = CORES.VERDE;
 
   const handleOnPressServiceButton = useCallback(
     item => {
@@ -45,15 +47,15 @@ const ForcaTarefa = ({ navigation }) => {
     <View>
       <Titulo>Enfrentamento às Pandemias e Epidemias</Titulo>
       <ListServices
-        dados={listaForcaTarefaAntiCorona}
+        dados={listaForcaTarefa.filter(item => item.ativo)}
         renderItem={({ item }) => (
           <ServiceButton
             testID={`cartaoHome-forcaTarefa-${item.id}`}
-            key={uniqueId()}
-            ativo={item.ativo}
+            key={`cartaoHome-forcaTarefa-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
             onPress={() => handleOnPressServiceButton(item)}
+            iconBackgroundColor={iconBackgroundColor}
           />
         )}
       />

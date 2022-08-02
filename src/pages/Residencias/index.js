@@ -4,75 +4,14 @@ import React, { useCallback, useLayoutEffect } from 'react';
 import { FlatList, Linking, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 import residenciaMedicaBG from '~/assets/backgrounds/residencia_medica.png';
-import ESPVirtualSVG from '~/assets/icons/residenciaMedica/esp-virtual.svg';
-import FrequenciasSVG from '~/assets/icons/residenciaMedica/frequencias.svg';
-import MatriculasSVG from '~/assets/icons/residenciaMedica/matricula_residencia.svg';
-import SaguSVG from '~/assets/icons/residenciaMedica/sagu.svg';
-import SIGResidenciasSVG from '~/assets/icons/residenciaMedica/sig-residencias.svg';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import ServiceButton from '~/components/ServiceButton';
 import { CORES } from '~/constantes/estiloBase';
 import ROTAS from '~/constantes/rotas';
-import { urls } from '~/constantes/urls';
 import useAnalytics from '~/hooks/useAnalytics';
 import { ArrowLeftIcon } from '~/icons';
+import listaResidenciasCards from './listaResidenciasCards';
 import { Container, Content, ResidenciasEmSaudeImage } from './styles';
-
-const residenciasCards = [
-  {
-    id: 'frequencias',
-    titulo: 'Frequências',
-    ativo: true,
-    icone: FrequenciasSVG,
-    navegacao: {
-      componente: ROTAS.FREQUENCIAS,
-    },
-  },
-  {
-    id: 'matriculas',
-    titulo: 'MATRÍCULAS',
-    ativo: true,
-    icone: MatriculasSVG,
-    navegacao: {
-      componente: 'webview',
-      titulo: 'MATRÍCULAS',
-      url: urls.MATRICULA_RESIDENCIA,
-    },
-  },
-  {
-    id: 'sagu',
-    titulo: 'SAGU',
-    ativo: true,
-    icone: SaguSVG,
-    navegacao: {
-      componente: 'webview',
-      titulo: 'SAGU',
-      url: urls.SAGU,
-    },
-  },
-  {
-    id: 'esp-virtual',
-    titulo: 'ESP Virtual',
-    ativo: true,
-    icone: ESPVirtualSVG,
-    navegacao: {
-      componente: 'webview',
-      titulo: 'ESP Virtual',
-      url: urls.ESP_VIRTUAL,
-    },
-  },
-  {
-    id: 'sig-residencias',
-    titulo: 'SIG Residências',
-    ativo: true,
-    icone: SIGResidenciasSVG,
-    navegacao: {
-      componente: 'webview',
-      titulo: 'SIG Residências',
-      url: urls.SIG_RESIDENCIAS,
-    },
-  },
-];
 
 const Residencias = () => {
   const navigation = useNavigation();
@@ -80,6 +19,8 @@ const Residencias = () => {
   const { isConnected } = useNetInfo();
 
   const { analyticsData } = useAnalytics();
+
+  const iconBackgroundColor = CORES.AZUL_RESIDENCIAS;
 
   const handleOnPressServiceButton = useCallback(
     item => {
@@ -150,7 +91,7 @@ const Residencias = () => {
       </Content>
       <FlatList
         horizontal
-        data={residenciasCards}
+        data={listaResidenciasCards.filter(item => item.ativo)}
         keyExtractor={item => `${item.id}`}
         style={{
           flexDirection: 'row',
@@ -160,11 +101,11 @@ const Residencias = () => {
         renderItem={({ item }) => (
           <ServiceButton
             testID={`cards-${item.id}`}
-            key={item.id}
-            ativo={item.ativo}
+            key={`cards-${item.id}`}
             titulo={item.titulo}
             Icone={item.icone}
             onPress={() => handleOnPressServiceButton(item)}
+            iconBackgroundColor={iconBackgroundColor}
           />
         )}
       />

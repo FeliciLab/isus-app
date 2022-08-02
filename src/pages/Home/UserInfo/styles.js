@@ -1,8 +1,11 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.View.attrs({
+  borderBottomLeftRadius: 16,
+  borderBottomRightRadius: 16,
+})`
   background-color: #fff;
-  padding: 8px 16px;
+  padding: 16px;
 `;
 
 export const Perfil = styled.Text`

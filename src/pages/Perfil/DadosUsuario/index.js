@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { CORES } from '~/constantes/estiloBase';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import rotas from '~/constantes/rotas';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -59,7 +60,7 @@ function Especialidades({ dados }) {
 }
 
 function DadosUsuarioProfissional({ dados }) {
-  return dados && dados.categoriaProfissional && dados.unidadesServicos ? (
+  return dados && dados.categoriaProfissional && dados.unidadeServico ? (
     MostrarDadosUsuarioProfissional(dados)
   ) : (
     <AdicionarDadosProfissionais />
@@ -78,9 +79,10 @@ function MostrarDadosUsuarioProfissional(dados) {
       <Especialidades dados={dados} />
       <Text style={estilos.label}>SERVIÇOS EM QUE ATUA</Text>
       <Text style={estilos.dado}>
-        {dados && dados.unidadesServicos.length
-          ? dados.unidadesServicos.map(dado => dado.nome).join(', ')
-          : ''}
+        {dados && dados.unidadeServico.length
+          ? dados.unidadeServico.map(dado => dado.nome).join(', ')
+          : ''
+        }
       </Text>
       <Botao
         uri={rotas.EDICAO_PROFISSIONAL}
@@ -116,7 +118,7 @@ const Botao = ({ children, uri, params = '', testID }) => {
   return (
     <Button
       testID={testID}
-      color="#FF9800"
+      color={CORES.LARANJA}
       contentStyle={{ justifyContent: 'flex-start' }}
       onPress={() => {
         if (testID === labelsAnalytics.EDITAR_INFORMACOES_PROFISSIONAIS) {

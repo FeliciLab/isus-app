@@ -85,7 +85,7 @@ const FormularioLogin = () => {
         isCpf === true
           ? username.replace(/[^\d]+/g, '').trim()
           : username.trim(),
-        senha
+        senha,
       );
 
       setValue('username', '');
@@ -113,10 +113,20 @@ const FormularioLogin = () => {
 
   const abrirWebViewEsqueciMinhaSenha = useCallback(() => {
     analyticsData('esqueci_minha_senha', 'Click', 'Perfil');
-    navigation.navigate('webview', {
+    navigation.navigate(rotas.WEBVIEW_PAGE, {
       title: 'Esqueci minha senha',
       url: `${Config.IDSAUDE_URL}/auth/realms/saude/login-actions/reset-credentials?client_id=account`,
-      idSaude: true,
+      barraDeStatusProps: {
+        backgroundColor: CORES.AZUL,
+      },
+      activityIndicatorProps: {
+        color: CORES.AZUL,
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: CORES.AZUL,
+        },
+      },
     });
   }, []);
 
@@ -133,7 +143,7 @@ const FormularioLogin = () => {
   const consideraEmailRegex = /@/;
   const cpfRegex = /^(\d{3})[.]?(\d{3})[.]?(\d{3})[-.]?(\d{2})/;
 
-  const handleOnChangeText = (text) => {
+  const handleOnChangeText = text => {
     if (!consideraEmailRegex.test(text) && consideraCpfRegex.test(text)) {
       // Avisa ao validador do Yup que é um CPF
       setValue('isCpf', true);

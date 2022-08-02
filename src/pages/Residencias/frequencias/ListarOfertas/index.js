@@ -13,20 +13,20 @@ import { ActivityIndicatorWrapper, Container, SubTitle, Title } from './styles';
 const ListarOfertas = () => {
   const navigation = useNavigation();
 
-  const { ofertas, featchOfertas, isLoading } = useOfertas();
+  const { ofertas, fetchOfertas, isLoading } = useOfertas();
 
   useEffect(() => {
-    featchOfertas();
+    fetchOfertas();
   }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#fff',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Residências em Saúde',
       headerLeft: () => (
@@ -53,7 +53,7 @@ const ListarOfertas = () => {
 
   return (
     <Container>
-      <BarraDeStatus backgroundColor="#4CAF50" barStyle="light-content" />
+      <BarraDeStatus backgroundColor={CORES.VERDE} barStyle="light-content" />
       <Title>Frequências</Title>
       <SubTitle>Residência Multiprofissional</SubTitle>
       <FlatList

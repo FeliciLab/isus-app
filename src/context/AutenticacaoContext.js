@@ -51,9 +51,9 @@ const AutenticacaoProvider = ({ children }) => {
       categoriaProfissional: perfil.data?.profissional?.categoria_profissional,
       tiposContratacoes: perfil.data?.profissional?.tipos_contratacoes,
       titulacoesAcademica: perfil.data?.profissional?.titulacoes_academica,
-      unidadesServicos: perfil.data?.profissional?.unidades_servicos,
+      unidadeServico: perfil.data?.profissional?.unidades_servicos,
       especialidades: perfil.data?.profissional?.especialidades,
-      cadastrado: perfil?.cadastrado,
+      cadastrado: perfil.cadastrado,
     });
 
     // verificar se o usuário já está cadastrado no iSUS
@@ -85,9 +85,9 @@ const AutenticacaoProvider = ({ children }) => {
       categoriaProfissional: perfil.data.profissional.categoria_profissional,
       tiposContratacoes: perfil.data.profissional.tipos_contratacoes,
       titulacoesAcademica: perfil.data.profissional.titulacoes_academica,
-      unidadesServicos: perfil.data.profissional.unidades_servicos,
+      unidadeServico: perfil.data.profissional.unidades_servicos,
       especialidades: perfil.data.profissional.especialidades,
-      cadastrado: perfil.data.cadastrado,
+      cadastrado: perfil.cadastrado,
     };
 
     await setUser(newUserData);
