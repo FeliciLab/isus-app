@@ -8,7 +8,7 @@ export function useCategoriasProfissionais() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchCategoriasProfissionais = useCallback(async () => {
+  const fetchCategoriasProfissionais = useCallback(async () => {
     try {
       setIsLoading(true);
       const data = await pegarListaDeCategoriasProfissionais();
@@ -26,6 +26,6 @@ export function useCategoriasProfissionais() {
     categoriasProfissionais,
     error,
     isLoading,
-    featchCategoriasProfissionais,
+    fetchCategoriasProfissionais,
   };
 }

@@ -1,9 +1,8 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
-import { ArrowLeftIcon } from '~/icons';
+import { ArrowLeftIcon, MagnifyIcon, MenuIcon } from '~/icons';
 
 const estiloCores = {
   verde: {
@@ -42,7 +41,7 @@ const TouchableSearch = ({ navegador, cor }) => (
     onPress={() => {
       navegador.navigate(rotas.SEARCH_STACK_SCREEN);
     }}>
-    <Icon name="magnify" size={28} color={cor} />
+    <MagnifyIcon size={28} color={cor} />
   </TouchableOpacity>
 );
 
@@ -52,7 +51,7 @@ const TouchableMenu = ({ navegador, cor }) => (
     onPress={() => {
       navegador.toggleDrawer();
     }}>
-    <Icon name="menu" size={28} color={cor} />
+    <MenuIcon size={28} color={cor} />
   </TouchableOpacity>
 );
 
@@ -146,13 +145,13 @@ export const cabecalhoVoltarRota = ({ navegador, titulo, cor, rota }) =>
 
 export const getOptionsCabecalhoSemBotao = ({ titulo, cor }) => ({
   ...getOptions({ titulo, cor }),
-  headerLeft: () => { },
-  headerRight: () => { },
+  headerLeft: () => {},
+  headerRight: () => {},
 });
 
 export const cabecalhoSemBotao = ({ navegador, titulo, cor }) =>
   navegador.setOptions({
     ...getOptions({ titulo, cor }),
-    headerLeft: () => { },
-    headerRight: () => { },
+    headerLeft: () => {},
+    headerRight: () => {},
   });

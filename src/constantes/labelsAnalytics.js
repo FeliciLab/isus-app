@@ -25,4 +25,20 @@ export const labelsAnalytics = {
     SINDROMES_HIPERTENSIVAS_GESTACAO: 'guias_sindromes_hipertensivas_gestacao',
     GUIA_HEMORRAGIA_GESTACAO: 'guias_hemorragia_gestacao',
   },
+  ARBOVIROSES: {
+    AGENTES_COMBATE_ENDEMIAS: 'guias_agentes_combate_endemias',
+    DEFINICAO_CASO_SUSPEITO_DENGUE: 'guias_def_caso_suspeito_dengue',
+    DEFINICAO_CASO_SUSPEITO_CHIKUNGUNYA: 'guias_def_caso_suspeito_chikungunya',
+    DEFINICAO_CASO_SUSPEITO_ZIKA: 'guias_def_caso_suspeito_zika',
+    DEFINICAO_CASO_SUSPEITO_FEBRE_AMARELA:
+      'guias_def_caso_suspeito_febre_amarela',
+    BOLETINS_EPIDEMIOLOGICOS: 'arboviroses_link_bolet_epidemiologicos',
+    VIGILANCIA_ENTOMOLOGICA: 'arboviroses_link_vigi_entomologica',
+    VIGILANCIA_EPIDEMIOLOGICA: 'arboviroses_link_vigi_epidemiologica',
+    DIAGNOSTICO_LAB_ARBOVIROSES: 'arboviroses_link_diag_lab_arboviroses',
+    CONTROLE_VETOR: 'arboviroses_link_controle_vetor',
+    MELHOR_DEFESA_PREVENCAO: 'arboviroses_link_melhor_defesa_prevencao',
+    JOGO_TABULEIRO: 'arboviroses_link_jogo_tabuleiro',
+    MANUAL_PROTECAO_AGENTES_ENDEMIAS: 'arboviroses_link_manual_agen_endemias',
+  },
 };

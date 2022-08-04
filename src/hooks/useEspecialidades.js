@@ -8,7 +8,7 @@ export function useEspecialidades() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const featchEspecialidades = useCallback(async categoriaProfissionalId => {
+  const fetchEspecialidades = useCallback(async categoriaProfissionalId => {
     try {
       setIsLoading(true);
       const data = await pegarListaDeEspecialidades(categoriaProfissionalId);
@@ -26,6 +26,6 @@ export function useEspecialidades() {
     especialidades,
     error,
     isLoading,
-    featchEspecialidades,
+    fetchEspecialidades,
   };
 }

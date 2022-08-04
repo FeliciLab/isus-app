@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React from 'react';
+import rotas from '~/constantes/rotas';
 import { Container, DateText, PostImage, PostTitle } from './styles';
 
 // post { data: string, post_link: string, image: string }
@@ -11,7 +12,7 @@ function CardNewsElmo({ post }) {
   return (
     <Container
       onPress={() =>
-        navigation.navigate('webview', {
+        navigation.navigate(rotas.WEBVIEW_PAGE, {
           title: 'Novidades Elmo',
           url: post.post_link,
         })

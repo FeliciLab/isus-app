@@ -3,20 +3,21 @@ import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import SetaEsquerda from '~/assets/icons/seta_esquerda.svg';
+import { CORES } from '~/constantes/estiloBase';
 import politicaPrivacidade from './politica-privacidade.json';
 import estilos from './styles';
 
-export default function PoliticaDePrivacidadeScreen() {
+export default function PoliticaDePrivacidade() {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#FFF',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Política de Privacidade',
       headerLeft: () => (
@@ -34,7 +35,7 @@ export default function PoliticaDePrivacidadeScreen() {
   }, []);
 
   return (
-    <ScrollView style={{ backgroundColor: '#fff' }}>
+    <ScrollView style={{ backgroundColor: CORES.BRANCO }}>
       <View style={estilos.conteudoTexto}>
         {politicaPrivacidade.paragrafos.map(paragrafo => (
           <Text key={uniqueId('paragrafo')} style={estilos.texto}>

@@ -4,6 +4,7 @@ import { BackHandler, View } from 'react-native';
 import { Config } from 'react-native-config';
 import IsusSvg from '~/assets/icons/isus_hor.svg';
 import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
 
@@ -19,12 +20,18 @@ export default function QualiQuiz({ navigation }) {
       navigator.navigate(rotas.WEBVIEW_PAGE, {
         title: 'Voltar ao iSUS',
         url: `${Config.QUALIQUIZ_URL}/isus/login/1/${token.accessToken}`,
-        rota: 'HOME',
         navigationOptions: {
           headerStyle: {
-            backgroundColor: '#4E377C',
+            backgroundColor: CORES.QUALIQUIZ,
           },
           headerTitleAlign: 'left',
+        },
+        barraDeStatusProps: {
+          backgroundColor: CORES.QUALIQUIZ,
+        },
+        backButtonRedirectRoute: rotas.HOME,
+        activityIndicatorProps: {
+          color: CORES.QUALIQUIZ,
         },
       });
     }, 1500);

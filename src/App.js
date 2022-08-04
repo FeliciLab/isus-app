@@ -8,6 +8,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import CaixaDialogo from './components/CaixaDialogo';
 import { CORES } from './constantes/estiloBase';
+import rotas from './constantes/rotas';
 import { AppTrackTransparencyProvider } from './context/AppTrackTransparencyContext';
 import { AutenticacaoProvider } from './context/AutenticacaoContext';
 import { CaixaDialogoProvider } from './context/CaixaDialogoContext';
@@ -30,6 +31,11 @@ function App() {
     SimpleLineIcons.loadFont();
 
     OneSignal.setLogLevel(6, 0);
+
+    // Deescomentar caso queria saber o user id no OneSingal
+    // OneSignal.getDeviceState().then(response => {
+    //   console.log(JSON.stringify(response));
+    // });
 
     OneSignal.setAppId('917766a7-c01e-4655-89a1-86f648be2fc8');
 
@@ -76,7 +82,7 @@ function App() {
       'isusapp',
       'https',
     );
-    return navigate('webview', {
+    return navigate(rotas.WEBVIEW_PAGE, {
       title: openResult.notification.payload.title,
       url: urlWebview,
     });

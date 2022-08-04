@@ -1,63 +1,68 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import BarraDeStatus from '~/components/BarraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 
-// TODO: Melhorar esse componente para que ele possa receber BarraDeStatus backgroundColor
-// Possivelmente usar um barraDeStatusPops como params da rota
 const WebViewPage = () => {
   const navigation = useNavigation();
 
+  const { width } = useWindowDimensions();
+
   const route = useRoute();
 
-  const windowWidth = Dimensions.get('window').width;
+  const {
+    url,
+    title,
+    backButtonRedirectRoute,
+    navigationOptions,
+    barraDeStatusProps,
+    activityIndicatorProps,
+  } = route.params;
 
-  const definirTituloWebView = title => {
+  const definirTituloWebView = useCallback(title => {
     if (title.length <= 35) {
       return title;
     }
 
-    if (windowWidth <= 320) {
+    if (width <= 320) {
       return `${title.substring(0, 24).trim()}...`;
     }
 
     return `${title.substring(0, 35).trim()}...`;
-  };
-
-  const alterarBackground = () =>
-    route?.params?.idSaude ? '#304FFE' : '#4CAF50';
+  }, []);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: alterarBackground(),
+        backgroundColor: CORES.VERDE,
       },
-      headerTintColor: '#FFF',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
-      headerTitle: definirTituloWebView(route.params.title),
+      headerTitle: definirTituloWebView(title),
       headerLeft: () => (
         <TouchableOpacity
           style={{
             marginHorizontal: 19,
           }}
           onPress={() => {
-            if (route.params.rota) {
-              navigation.navigate(route.params.rota);
+            if (backButtonRedirectRoute) {
+              navigation.navigate(backButtonRedirectRoute);
               return;
             }
             navigation.goBack();
           }}>
-          <ArrowLeftIcon size={28} color="#FFF" />
+          <ArrowLeftIcon size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
-      ...route.params.navigationOptions,
+      ...navigationOptions,
     });
   }, []);
 
@@ -72,15 +77,19 @@ const WebViewPage = () => {
         bottom: 0,
         top: 0,
       }}>
-      <ActivityIndicator size={'large'} color={alterarBackground()} />
+      <ActivityIndicator
+        size="large"
+        color={CORES.VERDE}
+        {...activityIndicatorProps}
+      />
     </View>
   );
 
   return (
     <>
-      <BarraDeStatus backgroundColor={alterarBackground()} />
+      <BarraDeStatus backgroundColor={CORES.VERDE} {...barraDeStatusProps} />
       <WebView
-        source={{ uri: route.params.url }}
+        source={{ uri: url }}
         startInLoadingState
         renderLoading={LoadingIndicator}
       />

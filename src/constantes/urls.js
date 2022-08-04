@@ -13,7 +13,7 @@ export const urls = {
   SAGU: 'https://academico.esp.ce.gov.br/',
   ESP_VIRTUAL: 'https://espvirtual.esp.ce.gov.br/',
   SIG_RESIDENCIAS: 'https://sigresidencias.saude.gov.br',
-  MATRICULA_RESIDENCIA:
+  INSCRICOES_RESIDENCIA:
     'https://www.esp.ce.gov.br/ensino/residencia-em-saude/matricula/',
   OFICINA_DESIGN: 'https://sus.ce.gov.br/felicilab/oficinadesignesp/',
 };

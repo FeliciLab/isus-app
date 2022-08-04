@@ -76,11 +76,11 @@ const ConfirmarPresenca = () => {
 
   const {
     saguUserInfo,
-    featchSaguUserInfo,
+    fetchSaguUserInfo,
     isLoading: saguUserInfoIsLoading,
   } = useSaguUserInfo(user.id);
 
-  const { presencas, featchUserPresencas } = useUserPresencas(
+  const { presencas, fetchUserPresencas } = useUserPresencas(
     user.id,
     oferta.id,
   );
@@ -90,11 +90,11 @@ const ConfirmarPresenca = () => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#fff',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Residências em Saúde',
       headerLeft: () => (
@@ -112,8 +112,8 @@ const ConfirmarPresenca = () => {
   });
 
   useEffect(() => {
-    featchSaguUserInfo();
-    featchUserPresencas();
+    fetchSaguUserInfo();
+    fetchUserPresencas();
   }, []);
 
   useEffect(() => {

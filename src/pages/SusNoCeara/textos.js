@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, Linking } from 'react-native';
+import rotas from '~/constantes/rotas';
 import { navigate } from '~/routes/rootNavigation';
 
 const informacoes = {
@@ -195,7 +196,7 @@ export const TextoSobreESP = () => (
 );
 
 const navegar = titulo => {
-  navigate('webview', {
+  navigate(rotas.WEBVIEW_PAGE, {
     title: informacoes[titulo].tituloCompleto,
     url: informacoes[titulo].url,
   });

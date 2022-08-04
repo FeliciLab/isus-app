@@ -43,7 +43,7 @@ function EdicaoInfoProfissional() {
       especialidadesSelectedsIds:
         user.especialidades?.map(item => String(item.id)) || [],
       servicosSelectedsIds:
-        user.unidadesServicos?.map(item => String(item.id)) || [],
+        user.unidadeServico?.map(item => String(item.id)) || [],
     },
   });
 
@@ -51,25 +51,25 @@ function EdicaoInfoProfissional() {
     'categoriaProfissionalSelectedId',
   );
 
-  const { servicos, featchServicos } = useServicos();
+  const { servicos, fetchServicos } = useServicos();
 
   const {
     categoriasProfissionais,
-    featchCategoriasProfissionais,
+    fetchCategoriasProfissionais,
   } = useCategoriasProfissionais();
 
-  const { especialidades, featchEspecialidades } = useEspecialidades();
+  const { especialidades, fetchEspecialidades } = useEspecialidades();
 
   useEffect(() => {
-    featchServicos();
-    featchCategoriasProfissionais();
-    featchEspecialidades(user.categoriaProfissional?.id);
+    fetchServicos();
+    fetchCategoriasProfissionais();
+    fetchEspecialidades(user.categoriaProfissional?.id);
   }, []);
 
   useEffect(() => {
     if (isDirty) {
       setValue('especialidadesSelectedsIds', []);
-      featchEspecialidades(categoriaProfissionalSelectedIdWatch);
+      fetchEspecialidades(categoriaProfissionalSelectedIdWatch);
     }
   }, [categoriaProfissionalSelectedIdWatch]);
 
@@ -80,16 +80,17 @@ function EdicaoInfoProfissional() {
       const infoProfissional = {
         categoriaProfissional: find(categoriasProfissionais, [
           'id',
-          Number(dataForm.categoriaProfissionalSelectedId) || '',
-        ]),
+          Number(dataForm?.categoriaProfissionalSelectedId)
+        ]) || '',
+
         especialidades:
           filter(especialidades, item =>
-            dataForm.especialidadesSelectedsIds.map(Number).includes(item.id),
+            dataForm?.especialidadesSelectedsIds.map(Number).includes(item.id),
           ) || [],
-        // lá na api está no singular
+
         unidadeServico:
           filter(servicos, item =>
-            dataForm.servicosSelectedsIds.map(Number).includes(item.id),
+            dataForm?.servicosSelectedsIds.map(Number).includes(item.id),
           ) || [],
       };
 
@@ -142,7 +143,7 @@ function EdicaoInfoProfissional() {
 
   return (
     <Container>
-      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
+      <BarraDeStatus backgroundColor={CORES.BRANCO} barStyle="dark-content" />
       <TituloPrincipal>
         Vamos agora adicionar suas informações profissionais, para isso,
         selecione as opções abaixo
@@ -184,7 +185,7 @@ function EdicaoInfoProfissional() {
       />
 
       <BotaoSalvar
-        labelStyle={{ color: '#fff' }}
+        labelStyle={{ color: CORES.BRANCO }}
         onPress={handleSubmit(handleOnPressNextButton)}
         loading={isLoading}
         mode="contained">

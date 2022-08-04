@@ -23,7 +23,7 @@ const PreCadastroInfoProfissional = () => {
 
   const { infoPessoal } = route.params;
 
-  const { updateUser } = useAutenticacao();
+  const { updateUser, user } = useAutenticacao();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,14 +48,14 @@ const PreCadastroInfoProfissional = () => {
     'categoriaProfissionalSelectedId',
   );
 
-  const { servicos, featchServicos } = useServicos();
+  const { servicos, fetchServicos } = useServicos();
 
   const {
     categoriasProfissionais,
-    featchCategoriasProfissionais,
+    fetchCategoriasProfissionais,
   } = useCategoriasProfissionais();
 
-  const { especialidades, featchEspecialidades } = useEspecialidades();
+  const { especialidades, fetchEspecialidades } = useEspecialidades();
 
   const handlerOnPressConcluir = async dataForm => {
     try {
@@ -64,25 +64,30 @@ const PreCadastroInfoProfissional = () => {
       const infoProfissional = {
         categoriaProfissional: find(categoriasProfissionais, [
           'id',
-          Number(dataForm?.categoriaProfissionalSelectedId) || '',
-        ]),
+          Number(dataForm?.categoriaProfissionalSelectedId),
+        ]) || '',
+
         especialidades:
           filter(especialidades, item =>
             dataForm?.especialidadesSelectedsIds.map(Number).includes(item.id),
           ) || [],
-        // lá na api está no singular
+
         unidadeServico:
           filter(servicos, item =>
             dataForm?.servicosSelectedsIds.map(Number).includes(item.id),
           ) || [],
       };
 
+      // "idKeycloak" no newUserData:
+      // Serve de ID da pessoa ainda sem entrada/cadastro na isus-api.
+      // Somente necessário no Pré-Cadastro.
       const newUserData = {
         ...infoPessoal,
         ...infoProfissional,
         cidade: infoPessoal.municipio,
         cidadeId: infoPessoal.municipio.id,
         nomeCompleto: infoPessoal.nomeCompleto,
+        idKeycloak: user.idKeycloak
       };
 
       await atualizarUsuarioApi({
@@ -108,13 +113,13 @@ const PreCadastroInfoProfissional = () => {
   };
 
   useEffect(() => {
-    featchServicos();
-    featchCategoriasProfissionais();
+    fetchServicos();
+    fetchCategoriasProfissionais();
   }, []);
 
   useEffect(() => {
     setValue('especialidadesSelectedsIds', []);
-    featchEspecialidades(categoriaProfissionalSelectedIdWatch);
+    fetchEspecialidades(categoriaProfissionalSelectedIdWatch);
   }, [categoriaProfissionalSelectedIdWatch]);
 
   return (
@@ -157,7 +162,7 @@ const PreCadastroInfoProfissional = () => {
         />
         <RowButton>
           <CustonFAB
-            labelStyle={{ color: '#fff' }}
+            labelStyle={{ color: CORES.BRANCO }}
             loading={isLoading}
             disabled={isLoading}
             mode="contained"
