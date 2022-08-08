@@ -49,7 +49,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Precisamos de acesso à biblioteca de fotos para seu uso</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>$(PRODUCT_NAME) requisita sua permissão para rastrear alguns dados a fim de promover uma melhor experiência no aplicativo.</string>
+	<string>$(PRODUCT_NAME) requisita sua permissão para rastrear alguns dados a fim de promover uma melhor experiência no aplicativo. Essas informações são usadas para provermos conteúdos personalizados de acordo com seu perfil e para obter informações de quais conteúdos são mais acessados para que possamos prover uma melhor experiência.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
