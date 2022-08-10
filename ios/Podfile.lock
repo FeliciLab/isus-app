@@ -394,7 +394,7 @@ PODS:
     - React
   - react-native-netinfo (8.3.1):
     - React-Core
-  - react-native-onesignal (4.3.11):
+  - react-native-onesignal (4.4.0):
     - OneSignalXCFramework (= 3.11.2)
     - React (< 1.0.0, >= 0.13.0)
   - react-native-pager-view (5.4.25):
@@ -822,7 +822,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: cffb727cf2f59bd5c0408e30b3dbe0b935f88835
   react-native-in-app-review: c5ba75cc2c91238f42bd2de44fa0e65e93b7c9ea
   react-native-netinfo: 1a6035d3b9780221d407c277ebfb5722ace00658
-  react-native-onesignal: dfc675fafef0bfdda49b09a8e2099903e5e85f15
+  react-native-onesignal: dd51f7c4771983f0169a6f06df12a4cf096ca28e
   react-native-pager-view: da490aa1f902c9a5aeecf0909cc975ad0e92e53e
   react-native-safe-area-context: 6c12e3859b6f27b25de4fee8201cfb858432d8de
   react-native-text-input-mask: 36a546b378fadd2efe1b7484a859d34bc2c80395
