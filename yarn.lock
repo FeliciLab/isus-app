@@ -9377,10 +9377,10 @@ react-native-keyboard-aware-scroll-view@^0.9.1:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
-react-native-onesignal@^4.3.3:
-  version "4.3.11"
-  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.3.11.tgz#ad017f8daf0f1674babf19eb10f70b2bda80e32d"
-  integrity sha512-sBIFu6/+I/fXeH+GAOP1zUYUy2eJmchPOPj7RRDsArURTGcSR5jcGgoFjo9b6BT2tHkIeo39GkeojQD7pIvPzA==
+react-native-onesignal@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-onesignal/-/react-native-onesignal-4.4.0.tgz#731651bf074bac7d5e1576e8670a5850aacce362"
+  integrity sha512-1yYo/SI8dc9mEC0AaaMrY06aIylaV5EDsnQIFupRAjetwyk7fTSrblNk16MBOT5PSMjeDaBvC9PofPd8A1sUyQ==
   dependencies:
     invariant "^2.2.2"
 

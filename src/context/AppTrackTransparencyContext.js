@@ -22,7 +22,7 @@ export const AppTrackTransparencyProvider = ({ children }) => {
   const [isTrackingAuthorized, setIsTrackingAuthorized] = useState(false);
 
   useEffect(() => {
-    const listener = AppState.addEventListener('change', status => {
+    const updateTrackingStatus = status => {
       if (status === 'active') {
         // issue da lib para iOS 15
         (async () => {
@@ -41,12 +41,23 @@ export const AppTrackTransparencyProvider = ({ children }) => {
           }
         })();
       }
-    });
-
-    return () => {
-      listener && listener.remove();
     };
-  }, []);
+
+    // Ready to check the permission now
+    if (AppState.currentState === 'active') {
+      updateTrackingStatus(AppState.currentState);
+    } else {
+      // Need to wait until the app is ready before checking the permission
+      const listener = AppState.addEventListener(
+        'change',
+        updateTrackingStatus,
+      );
+
+      return () => {
+        listener.remove();
+      };
+    }
+  }, [AppState.currentState]);
 
   const values = {
     trackingStatus,
