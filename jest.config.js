@@ -16,6 +16,7 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(react-native|@react-native' +
       '|react-navigation-tabs' +
+      '|react-native-permissions' +
       '|react-native-snap-carousel' +
       '|react-native-splash-screen' +
       '|react-native-screens' +
