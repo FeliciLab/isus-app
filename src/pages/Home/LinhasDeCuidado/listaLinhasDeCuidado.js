@@ -18,6 +18,16 @@ const listaLinhasDeCuidado = [
     },
   },
   {
+    id: 'monkeypox',
+    titulo: 'Monkeypox',
+    ativo: true,
+    icone: ArbovirosesIcon,
+    labelDoAnalytics: 'monkeypox',
+    navegacao: {
+      componente: rotas.MONKEYPOX,
+    },
+  },
+  {
     id: 'arbovirosesDengue',
     titulo: 'Arboviroses',
     ativo: true,
