@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { Texto } from './styles';
@@ -10,186 +9,122 @@ const { ARBOVIROSES: TESTID_ARBOVIROSES } = TESTIDS;
 export const mainText = (
   <>
     <Texto style={{ marginBottom: 8 }}>
-      Os arbovírus (Arthropod-borne Virus) são hoje uma grande preocupação para
-      a saúde pública no cenário mundial. São patologias formadas por centenas
-      de vírus que possuem características comuns, inclusive de serem
-      transmitidos por artrópodes. Os vírus mais importantes para a saúde humana
-      são os transmitidos por culicídeos, principalmente dos gêneros{' '}
-      <Texto style={{ fontStyle: 'italic' }}>Culex e Aedes</Texto> (WEAVER, S.C;
-      REISEN, W.K, 2010).
-    </Texto>
-    <Texto style={{ marginBottom: 8 }}>
-      Existe no contexto epidemiológico brasileiro a cocirculação de infecção
-      por DENV, CHIKV e ZIKV, dificultando o manejo clínico em razão de suas
-      similaridades, tendo implicações na população geral, mas principalmente
-      nos grupos considerados de risco como: crianças, idosos, gestantes e
-      pessoas com comorbidades. O impacto gerado por esses vírus ainda não é
-      conhecido em toda sua totalidade, porém casos de reinfecção pelos
-      diferentes sorotipos do DENV, a interação de arboviroses (DENV sorotipos
-      1-4, CHIKV e ZIKV) podem, teoricamente, resultar em viremias mais intensas
-      ou outras alterações imunológicas que, por sua vez, agiriam como gatilho
-      para doenças autoimunes, como a síndrome de Guillain-Barré (WEAVER, S.C;
-      REISEN, W.K, 2010).
-    </Texto>
-    <Texto style={{ marginBottom: 8 }}>
-      A iminente crise ambiental brasileira desencadeada pela propagação das
-      arboviroses, por intermédio do mosquito{' '}
-      <Texto style={{ fontStyle: 'italic' }}>Aedes aegypti</Texto>, representam
-      desafios à saúde pública. Este problema, além de soluções técnicas, requer
-      soluções educacionais que se configurem na construção de conhecimentos,
-      mudanças de hábitos, a internalização de novos valores e atitudes que
-      contribuam para a superação dos problemas apresentados (FILHO; SANTOS,
-      2016).
+      A Monkeypox é uma zoonose viral (doença originada de animais que passa a
+      acometer seres humanos), por vírus de mesmo nome, pertencente ao gênero{' '}
+      <Texto style={{ fontStyle: 'italic' }}>Orthopoxirus</Texto>, da família{' '}
+      <Texto style={{ fontStyle: 'italic' }}>Poxviridae</Texto>. Tem grande
+      semelhança com a varíola humana, considerada como erradicada desde 1980,
+      porém com apresentação clínica de menor gravidade. Desde os anos 1970 a
+      doença ocorre em região endêmica, localizada na África Central e
+      Ocidental, inicialmente como casos isolados, nas proximidades de florestas
+      tropicais. Nos últimos 20 anos foi observado nestas regiões o aumento
+      progressivo de casos, cada vez mais frequentes em áreas urbanas. Nestes
+      anos, casos e surtos esporádicos foram relatados fora da região endêmica,
+      usualmente relacionados a viajantes ou comércio de animais. A partir de
+      abril/2022 passaram a ser notificados milhares de casos da doença,
+      ocorrendo em dezenas de países de todos os continentes. Em 23 de julho de
+      2022 o diretor-geral da Organização Mundial de Saúde declarou o surto de
+      Monkeypox como uma situação de Emergência de Saúde Pública de Preocupação
+      Internacional.
     </Texto>
   </>
 );
 
+// TODO: ajustar os nomes dos tests ids
 export const articleList = [
   {
-    title: 'Agentes de Combate às Endemias',
+    title: 'Transmissão',
     testId: TESTID_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
     analyticsId: LABEL_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
     text: () => (
       <>
         <Texto style={{ marginBottom: 8 }}>
-          Qualquer recipiente que acumule água é um potencial foco de
-          proliferação do{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Aedes aegypti</Texto>. Apenas a
-          eliminação do foco não é o suficiente para o combate, é preciso cuidar
-          para que na próxima estação chuvosa o local não venha a acumular água
-          novamente. Os ovos são resistentes e continuam viáveis por meses,
-          mesmo em locais secos, basta entrar em contato com a água para que
-          continuem o ciclo.
+          A transmissão para humanos pode ocorrer por meio do contato com
+          animais, embora, mais recentemente, tenha se tornado cada vez mais
+          comum o contágio entre humanos. A transmissão ocorre principalmente
+          por meio do contato direto com a pele ou mucosa de indivíduos
+          infectados. O fluido e a crosta das lesões de pele são altamente
+          infecciosos. O contágio também pode ocorrer de forma indireta, por
+          meio do contato com objetos, roupas, toalhas ou outros fômites, que
+          estejam contaminados com as secreções corporais do indivíduo
+          infectado. É possível ainda a transmissão por meio de gotículas
+          respiratórias, quando o indivíduo suscetível permanece próximo por
+          muito tempo, sem a utilização de máscaras, usualmente no próprio
+          domicílio. Nos casos relatados no surto de 2022 tem sido observada a
+          ocorrência da doença em muitos indivíduos após a exposição sexual.
+          Apesar de não haver consenso entre os especialistas, a transmissão
+          sexual tem sido considerada cada vez mais provável. São descritas mais
+          raramente a transmissão materno-fetal e por acidentes em laboratórios
+          de análises clínicas ou de pesquisa.
         </Texto>
         <Texto style={{ marginBottom: 8 }}>
-          As medidas de controle são fundamentais, destacando-se o trabalho da
-          Atenção Básica, especialmente as funções desenvolvidas na visita
-          domiciliar pelos Agentes de Combate às Endemias (ACE), que realizam
-          ações de Vigilância em Saúde para identificação e prevenção de
-          criadouros do mosquito, adotando medidas de controle em conjunto com o
-          domiciliado/população.
-        </Texto>
-        <Texto style={{ marginBottom: 8 }}>
-          Os Agentes de Combate às Endemias (ACE) são o forte elo para aliar
-          conscientização da população e trabalho direcionado frente às
-          arboviroses vigentes, o trabalho realizado por estes profissionais
-          visam a redução da incidência das arboviroses no Estado.
+          A Monkeypox costuma ter curso benigno e autolimitado, que dura entre 2
+          e 4 semanas. Casos graves podem ocorrer mais comumente em crianças e
+          indivíduos com comprometimento do sistema imune, costumando estar
+          relacionados à extensão da exposição ao vírus, estado de saúde do
+          paciente e natureza das complicações. A infecção de gestantes pode
+          resultar em abortamento ou morte fetal, sendo por isso considerada
+          como população mais vulnerável. Em uma minoria dos indivíduos pode ser
+          necessário o tratamento em regime de internamento hospitalar. A
+          letalidade da doença é variável, mas tem sido estimada em cerca de 1%.
         </Texto>
       </>
     ),
   },
   {
-    title: 'Definição de Caso Suspeito de Dengue',
-    testId: TESTID_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_DENGUE,
-    analyticsId: LABEL_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_DENGUE,
+    title: 'Tratamento',
+    testId: TESTID_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
+    analyticsId: LABEL_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
     text: () => (
       <>
         <Texto style={{ marginBottom: 8 }}>
-          Se o paciente é residente ou procedente de área com presença de{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Aedes aegypti</Texto> ou tiver
-          viajado nos últimos 14 dias para local que tenha a presença do
-          mosquito e apresentar:
-        </Texto>
-
-        <View style={{ marginLeft: 16, marginBottom: 8 }}>
-          <Texto>● febre (entre dois e sete dias)</Texto>
-          <Texto>● náuseas</Texto>
-          <Texto>● vômitos</Texto>
-          <Texto>● manchas e coceiras na pele</Texto>
-          <Texto>● dor muscular/articular</Texto>
-          <Texto>● dor de cabeça</Texto>
-          <Texto>● dor atrás dos olhos</Texto>
-        </View>
-
-        <Texto>
-          <Texto style={{ fontWeight: '600' }}>Agente Etiológico: </Texto>
-          Vírus Chikungunya (CHIKV), da família{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Togaviridae</Texto> e do gênero{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Alphavirus</Texto>.
+          O indivíduo infectado deve ser acompanhado pelo serviço de saúde,
+          usualmente mediante monitoramento ambulatorial. Costumam ser
+          prescritos medicamentos para o alívio dos sintomas, fornecidas
+          orientações gerais sobre a doença, incluindo medidas para a prevenção
+          e controle da transmissão da doença. Indivíduos com manifestações mais
+          intensas, como dor acentuada, infecção das lesões, dificuldade na
+          respiração ou alimentação, desidratação (por vômitos e/ou diarreia),
+          queda da pressão arterial, com lesões oculares ou sonolência excessiva
+          podem necessitar de internamento hospitalar. Existem medicamentos com
+          potencial para combater diretamente o vírus, embora estes ainda não
+          estejam disponíveis na atualidade. É importante cuidar das lesões de
+          pele, deixando-as secar ou cobrindo-as com curativo úmido para
+          proteger a área afetada, se necessário.
         </Texto>
       </>
     ),
   },
   {
-    title: 'Definição de Caso Supeito de Chikungunya',
-    testId: TESTID_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_CHIKUNGUNYA,
-    analyticsId: LABEL_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_CHIKUNGUNYA,
+    title: 'Prevenção',
+    testId: TESTID_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
+    analyticsId: LABEL_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
     text: () => (
       <>
         <Texto style={{ marginBottom: 8 }}>
-          Se o paciente é residente ou procedente de área com presença de{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Aedes aegypti</Texto> ou tiver
-          viajado nos últimos 14 dias para local que tenha a presença do
-          mosquito e apresentar:
+          O indivíduo infectado continua sendo fonte de contaminação até que
+          todas as lesões de pele estejam completamente cicatrizadas. A doença
+          deve ser obrigatoria e imediatamente notificada para a autoridade de
+          saúde (vigilância epidemiológica), Seus contatos próximos devem ser
+          avaliados e acompanhados pelo serviço de saúde. É importante manter o
+          isolamento domiciliar do doente até resolução das lesões cutâneas, ou
+          seja, cicatrização e desaparecimento de todas as lesões e crostas e
+          evitar contato próximo e/ou prolongado com outras pessoas até
+          resolução do quadro clínico. Medidas de proteção, como isolamento em
+          um quarto do domicílio, o uso de máscaras quando se aproximar, a
+          higiene das mãos e dos objetos devem ser implementadas tão logo tenha
+          sido suspeitado da doença, mesmo antes da confirmação. Também é
+          importante não compartilhar objetos como toalhas, roupas, lençóis,
+          pratos, copos e itens individuais durante o período de
+          transmissibilidade.
         </Texto>
-        <View style={{ marginLeft: 16, marginBottom: 8 }}>
-          <Texto>● febre maior que 38,5°C</Texto>
-          <Texto>
-            ● dores/inflamações nas articulações intensas de início agudo, não
-            explicadas por outras condições
-          </Texto>
-        </View>
-
-        <Texto>
-          <Texto style={{ fontWeight: '600' }}>Agente Etiológico: </Texto>
-          Vírus Chikungunya (CHIKV), da família{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Togaviridae</Texto> e do gênero{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Alphavirus</Texto>.
-        </Texto>
-      </>
-    ),
-  },
-  {
-    title: 'Definição de Caso Supeito de Zika',
-    testId: TESTID_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_ZIKA,
-    analyticsId: LABEL_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_ZIKA,
-    text: () => (
-      <View key="1">
         <Texto style={{ marginBottom: 8 }}>
-          Se o indivíduo apresentar manchas acompanhadas de um dos seguintes
-          sinais e sintomas:
-        </Texto>
-        <View style={{ marginLeft: 16, marginBottom: 8 }}>
-          <Texto>● febre baixa ou ausente</Texto>
-          <Texto>● conjuntivite não purulenta</Texto>
-          <Texto>● dor muscular/articular</Texto>
-        </View>
-        <Texto>
-          <Texto style={{ fontWeight: '600' }}>Agente Etiológico: </Texto>
-          Vírus zika (ZIKAV) é um RNA vírus do gênero{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Flavivirus</Texto>, pertencente
-          à família <Texto style={{ fontStyle: 'italic' }}>Flaviviridae</Texto>.
-        </Texto>
-      </View>
-    ),
-  },
-  {
-    title: 'Definição de Caso Supeito de Febre Amarela',
-    testId: TESTID_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_FEBRE_AMARELA,
-    analyticsId: LABEL_ARBOVIROSES.DEFINICAO_CASO_SUSPEITO_FEBRE_AMARELA,
-    text: () => (
-      <>
-        <Texto style={{ marginBottom: 8 }}>
-          Se o paciente não vacinado ou com quadro vacinal ignorado for
-          residente ou tenha visitado áreas endêmicas ou epidêmicas até duas
-          semanas antes do início dos sintomas e apresenta quadro de:
-        </Texto>
-        <View style={{ marginLeft: 16, marginBottom: 8 }}>
-          <Texto>● febre aguda (até 7 dias)</Texto>
-          <Texto>● olhos e pele amarelados</Texto>
-          <Texto>● dor nas costas ou corpo todo</Texto>
-          <Texto>● náuseas e vômitos</Texto>
-          <Texto>● dor de cabeça</Texto>
-          <Texto>● calafrios</Texto>
-        </View>
-        <Texto style={{ marginBottom: 8 }}>
-          <Texto style={{ fontWeight: '600' }}>Agente Etiológico: </Texto>
-          Arbovírus do gênero{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Flavivirus</Texto>, família{' '}
-          <Texto style={{ fontStyle: 'italic' }}>Flaviviridae</Texto>.
-        </Texto>
-        <Texto>
-          Vacinação é a principal forma de prevenção contra a febre amarela.
+          Existem produtos vacinais que podem ser úteis na prevenção da
+          transmissão, podendo ser utilizados mesmo após a exposição à doença.
+          Tais vacinas deverão brevemente estar disponíveis em nosso país, em
+          quantidade limitada, devendo ser direcionadas para utilização em
+          indivíduos com risco aumentado de exposição (eg. profissionais da
+          saúde) ou contatos de casos notificados (profilaxia pós-exposição).
         </Texto>
       </>
     ),

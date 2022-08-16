@@ -2,14 +2,14 @@ import { useNavigation } from '@react-navigation/native';
 import React, { Fragment, useLayoutEffect } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
 import { Divider, List } from 'react-native-paper';
-import ArbovirosesIcon from '~/assets/icons/linhasDeCuidado/arboviroses-icon.svg';
+import MonkeyPoxIcon from '~/assets/icons/linhasDeCuidado/monkeypox-icon.svg';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import useAnalytics from '~/hooks/useAnalytics';
 import { ArrowLeftIcon } from '~/icons';
 import { linkList } from './linkList';
-import { articleList, mainText } from './textContent';
 import { Container, ScrollView, SvgView, Titulo } from './styles';
+import { articleList, mainText } from './textContent';
 
 export default function Monkeypox() {
   const navigation = useNavigation();
@@ -25,7 +25,7 @@ export default function Monkeypox() {
       },
       headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
-      headerTitle: 'Linha Arboviroses',
+      headerTitle: 'Monkeypox',
       headerLeft: () => (
         <TouchableOpacity
           style={{
@@ -52,7 +52,7 @@ export default function Monkeypox() {
             backgroundColor: CORES.ROXO,
             borderRadius: 6,
           }}>
-          <ArbovirosesIcon width={335} height={165} />
+          <MonkeyPoxIcon width={335} height={165} />
         </SvgView>
       </Container>
       <View style={{ marginHorizontal: 16, marginTop: 18 }}>{mainText}</View>
@@ -69,7 +69,7 @@ export default function Monkeypox() {
               onPress={() => {
                 expanded = !expanded;
                 expanded &&
-                  analyticsData(article.analyticsId, 'Click', 'Arboviroses');
+                  analyticsData(article.analyticsId, 'Click', 'Monkeypox');
               }}>
               <List.Item titleNumberOfLines={80} title={article.text} />
             </List.Accordion>
@@ -80,9 +80,7 @@ export default function Monkeypox() {
         );
       })}
 
-      <List.Item
-        title={<Titulo>Materiais de apoio sobre as arboviroses:</Titulo>}
-      />
+      <List.Item title={<Titulo>Materiais de apoio sobre Monkeypox:</Titulo>} />
       {linkList.map((link, index) => (
         <Fragment key={link.title}>
           <List.Item
@@ -94,7 +92,7 @@ export default function Monkeypox() {
             testID={link.testId}
             right={() => <List.Icon icon="chevron-right" />}
             onPress={() => {
-              analyticsData(link.analyticsId, 'Click', 'Arboviroses');
+              analyticsData(link.analyticsId, 'Click', 'Monkeypox');
               return Linking.openURL(link.url);
             }}
           />

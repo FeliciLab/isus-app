@@ -1,6 +1,7 @@
+import ArbovirosesIcon from '~/assets/icons/linhasDeCuidado/arboviroses-icon.svg';
 import ManejoCovid19Icon from '~/assets/icons/linhasDeCuidado/manejo-covid-19-icon.svg';
 import ManejoInfantilIcon from '~/assets/icons/linhasDeCuidado/manejo-infantil-icon.svg';
-import ArbovirosesIcon from '~/assets/icons/linhasDeCuidado/arboviroses-icon.svg';
+import MonkeyPoxIcon from '~/assets/icons/linhasDeCuidado/monkeypox-icon.svg';
 import ProtocolosIcon from '~/assets/icons/linhasDeCuidado/protocolos-icon.svg';
 import rotas from '~/constantes/rotas';
 
@@ -21,7 +22,7 @@ const listaLinhasDeCuidado = [
     id: 'monkeypox',
     titulo: 'Monkeypox',
     ativo: true,
-    icone: ArbovirosesIcon,
+    icone: MonkeyPoxIcon,
     labelDoAnalytics: 'monkeypox',
     navegacao: {
       componente: rotas.MONKEYPOX,
