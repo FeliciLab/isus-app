@@ -1,14 +1,14 @@
 import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 
-const { ARBOVIROSES: LABEL_ARBOVIROSES } = labelsAnalytics;
-const { ARBOVIROSES: TESTID_ARBOVIROSES } = TESTIDS;
+const { MONKEYPOX: LABEL_MONKEYPOX } = labelsAnalytics;
+const { MONKEYPOX: TESTID_MONKEYPOX } = TESTIDS;
 
 export const linkList = [
   {
     title: 'Manejo Clinico e Prevencao de Controle de infecção para Monkeypox',
-    testId: TESTID_ARBOVIROSES.BOLETINS_EPIDEMIOLOGICOS,
-    analyticsId: LABEL_ARBOVIROSES.BOLETINS_EPIDEMIOLOGICOS,
+    testId: TESTID_MONKEYPOX.MANEJO_CLINICO,
+    analyticsId: LABEL_MONKEYPOX.MANEJO_CLINICO,
     url: 'https://coronavirus.ceara.gov.br/wp-content/uploads/2022/08/manejo_clinico_e_prevencao_de_controle_de_infeccao_para_monkeypox-1.pdf',
   },
 ];

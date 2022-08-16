@@ -42,6 +42,9 @@ export const labelsAnalytics = {
     MANUAL_PROTECAO_AGENTES_ENDEMIAS: 'arboviroses_link_manual_agen_endemias',
   },
   MONKEYPOX: {
-
+    TRATAMENTO: 'monkeypox_tratamento',
+    TRANSMISSAO: 'monkeypox_transmissao',
+    PREVENCAO: 'monkeypox_prevencao',
+    MANEJO_CLINICO: 'monkeypox_manejo_clinico'
   }
 };

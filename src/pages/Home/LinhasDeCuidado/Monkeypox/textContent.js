@@ -3,8 +3,8 @@ import { labelsAnalytics } from '~/constantes/labelsAnalytics';
 import { TESTIDS } from '~/constantes/testIDs';
 import { Texto } from './styles';
 
-const { ARBOVIROSES: LABEL_ARBOVIROSES } = labelsAnalytics;
-const { ARBOVIROSES: TESTID_ARBOVIROSES } = TESTIDS;
+const { MONKEYPOX: LABEL_MONKEYPOX } = labelsAnalytics;
+const { MONKEYPOX: TESTID_MONKEYPOX } = TESTIDS;
 
 export const mainText = (
   <>
@@ -30,12 +30,11 @@ export const mainText = (
   </>
 );
 
-// TODO: ajustar os nomes dos tests ids
 export const articleList = [
   {
     title: 'Transmissão',
-    testId: TESTID_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
-    analyticsId: LABEL_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
+    testId: TESTID_MONKEYPOX.TRANSMISSAO,
+    analyticsId: LABEL_MONKEYPOX.TRANSMISSAO,
     text: () => (
       <>
         <Texto style={{ marginBottom: 8 }}>
@@ -73,8 +72,8 @@ export const articleList = [
   },
   {
     title: 'Tratamento',
-    testId: TESTID_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
-    analyticsId: LABEL_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
+    testId: TESTID_MONKEYPOX.TRATAMENTO,
+    analyticsId: LABEL_MONKEYPOX.TRATAMENTO,
     text: () => (
       <>
         <Texto style={{ marginBottom: 8 }}>
@@ -97,8 +96,8 @@ export const articleList = [
   },
   {
     title: 'Prevenção',
-    testId: TESTID_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
-    analyticsId: LABEL_ARBOVIROSES.AGENTES_COMBATE_ENDEMIAS,
+    testId: TESTID_MONKEYPOX.PREVENCAO,
+    analyticsId: LABEL_MONKEYPOX.PREVENCAO,
     text: () => (
       <>
         <Texto style={{ marginBottom: 8 }}>
