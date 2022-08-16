@@ -42,3 +42,5 @@ jest.mock('react-native-keyboard-aware-scroll-view', () => {
   const KeyboardAwareScrollView = require('react-native').ScrollView;
   return { KeyboardAwareScrollView };
 });
+
+jest.mock('react-native-permissions', () => require('react-native-permissions/mock'));
