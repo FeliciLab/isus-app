@@ -43,6 +43,7 @@ export const labelsAnalytics = {
   },
   MONKEYPOX: {
     TRATAMENTO: 'monkeypox_tratamento',
+    MANIFERSTACOES_CLINICAS: 'monkeypox_manifestacoes_clinicas',
     TRANSMISSAO: 'monkeypox_transmissao',
     PREVENCAO: 'monkeypox_prevencao',
     MANEJO_CLINICO: 'monkeypox_manejo_clinico'

@@ -56,6 +56,48 @@ export const articleList = [
           raramente a transmissão materno-fetal e por acidentes em laboratórios
           de análises clínicas ou de pesquisa.
         </Texto>
+      </>
+    ),
+  },
+  {
+    title: 'Manifestações clínicas',
+    testId: TESTID_MONKEYPOX.MANIFERSTACOES_CLINICAS,
+    analyticsId: LABEL_MONKEYPOX.MANIFERSTACOES_CLINICAS,
+    text: () => (
+      <>
+        <Texto style={{ marginBottom: 8 }}>
+          Como a maioria das doenças infecciosas, a Monkeypox pode se apresentar
+          de forma variada, de acordo com as características virais (cepas), do
+          hospedeiro e influência ambiental. As manifestações típicas da doença
+          costumam se iniciar após período de incubação de cerca de uma semana,
+          mas que pode variar de 5 a 21 dias. Inicialmente a doença costuma se
+          apresentar, na maioria dos indivíduos (62%), como{' '}
+          <Texto style={{ fontWeight: 'bold' }}>
+            síndrome febril aguda indiferenciada
+          </Texto>{' '}
+          (febre elevada, cefaléia, adinamia e mialgias). Tal período
+          prodrômico, quando está presente, costuma durar de 1 a 5 dias, podendo
+          estar associado a{' '}
+          <Texto style={{ fontWeight: 'bold' }}>linfadenopatia</Texto> (56%).
+          Após tal período prodrômico costumam surgir as{' '}
+          <Texto style={{ fontWeight: 'bold' }}>lesões cutaneomucosas</Texto>{' '}
+          (95-100%), que representam a manifestação clínica mais características
+          da doença. As lesões podem ser únicas ou múltiplas, tipicamente
+          apresentando evolução característica em estágios, com máculas que
+          evoluem para pápulas, vesículas, pústulas e crostas, com duração de 1
+          a 2 dias em cada fase. As lesões vesiculares típicas costumam ter
+          localização profunda (tensas, com paredes espessas) e serem
+          circunscritas, monomórficas (mesmo estágio), podendo ser umbilicadas,
+          pruriginosas ou dolorosas. As lesões classicamente são múltiplas e
+          predominantes em face, membros e regiões palmo-plantares. Durante o
+          surto atual têm sido relatadas lesões menos numerosas (até 10 lesões
+          em 64%) e predominantes em região anogenital (73%). Também foram
+          relatados casos menos frequentes (até 5%) em que não foram
+          evidenciadas lesões cutâneas, predominando a manifestação com edema
+          peniano ou quadro de proctite (dor anal, tenesmo e diarreia). Têm sido
+          relatados casos de infecção assintomática, mas sua frequência ainda
+          não foi devidamente determinada.
+        </Texto>
         <Texto style={{ marginBottom: 8 }}>
           A Monkeypox costuma ter curso benigno e autolimitado, que dura entre 2
           e 4 semanas. Casos graves podem ocorrer mais comumente em crianças e
