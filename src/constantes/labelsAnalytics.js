@@ -41,4 +41,11 @@ export const labelsAnalytics = {
     JOGO_TABULEIRO: 'arboviroses_link_jogo_tabuleiro',
     MANUAL_PROTECAO_AGENTES_ENDEMIAS: 'arboviroses_link_manual_agen_endemias',
   },
+  MONKEYPOX: {
+    TRATAMENTO: 'monkeypox_tratamento',
+    MANIFERSTACOES_CLINICAS: 'monkeypox_manifestacoes_clinicas',
+    TRANSMISSAO: 'monkeypox_transmissao',
+    PREVENCAO: 'monkeypox_prevencao',
+    MANEJO_CLINICO: 'monkeypox_manejo_clinico'
+  }
 };

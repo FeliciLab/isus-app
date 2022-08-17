@@ -11,6 +11,7 @@ import NovidadesElmo from '~/pages/Elmo/NovidadesElmo';
 import SobreElmo from '~/pages/Elmo/SobreElmo';
 import Arboviroses from '~/pages/Home/LinhasDeCuidado/Arboviroses';
 import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/MaternoInfantil';
+import Monkeypox from '~/pages/Home/LinhasDeCuidado/Monkeypox';
 import MeusConteudos from '~/pages/MeusConteudos';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
@@ -98,6 +99,11 @@ const Routes = ({ navigationRef }) => {
         <Screen
           name={rotas.ARBOVIROSES}
           component={Arboviroses}
+          options={{ headerShown: true }}
+        />
+        <Screen
+          name={rotas.MONKEYPOX}
+          component={Monkeypox}
           options={{ headerShown: true }}
         />
         <Screen
