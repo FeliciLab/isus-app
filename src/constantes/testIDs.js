@@ -56,6 +56,13 @@ export const TESTIDS = {
     MANUAL_PROTECAO_AGENTES_ENDEMIAS:
       'arboviroses_link_manual_protecao_agentes_endemias',
   },
+  MONKEYPOX: {
+    TRATAMENTO: 'monkeypox-tratamento',
+    MANIFERSTACOES_CLINICAS: 'monkeypox-manifestacoes-clinicas',
+    TRANSMISSAO: 'monkeypox-transmissao',
+    PREVENCAO: 'monkeypox-prevencao',
+    MANEJO_CLINICO: 'monkeypox-manejo-clinico'
+  },
   SEM_CONEXAO: {
     BOTAO_VOLTAR: 'botao-semconexao-voltar',
     BOTAO_TENTAR_NOVAMENTE: 'botao_semconexao_tentar_novamente',
