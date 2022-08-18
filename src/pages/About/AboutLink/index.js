@@ -1,5 +1,6 @@
 import React from 'react';
 import { Linking, Text } from 'react-native';
+import { CORES } from '~/constantes/estiloBase';
 
 const AboutLink = props => {
   const { children, to } = props;
@@ -7,7 +8,7 @@ const AboutLink = props => {
   return (
     <Text
       style={{
-        color: '#4CAF50',
+        color: CORES.VERDE,
         textDecorationLine: 'underline',
       }}
       onPress={() => Linking.openURL(to)}>

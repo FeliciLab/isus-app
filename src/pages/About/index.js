@@ -18,6 +18,7 @@ import GovernoSVG from '~/assets/images/sobreOiSUS/governo_ceara.svg';
 import IsusSVG from '~/assets/images/sobreOiSUS/isus.svg';
 import SesaSVG from '~/assets/images/sobreOiSUS/secretaria_saude.svg';
 import ThoughtworksSVG from '~/assets/images/sobreOiSUS/thoughtworks.svg';
+import { CORES } from '~/constantes/estiloBase';
 import AboutLink from './AboutLink';
 import {
   AboutHeader,
@@ -31,17 +32,17 @@ import {
   TitleISUS,
 } from './styles';
 
-export default function AboutScreen() {
+export default function About() {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#FFF',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Sobre o iSUS',
       headerLeft: () => (
@@ -52,7 +53,7 @@ export default function AboutScreen() {
           onPress={() => {
             navigation.toggleDrawer();
           }}>
-          <Icon name="menu" size={28} color="#FFF" />
+          <Icon name="menu" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
@@ -68,61 +69,40 @@ export default function AboutScreen() {
           </AboutHeaderTitle>
         </AboutHeader>
         <View>
-          <TitleISUS>O que é o iSUS?</TitleISUS>
+          <TitleISUS>Sobre o iSUS</TitleISUS>
           <AboutParagraph>
             O iSUS é um produto digital criado para ser um cinto de utilidades e
-            apoiar os profissionais do Sistema Único de Saúde (SUS) no combate
-            ao Covid-19, diante de desafios de urgência, emergência e proteção à
-            vida.
+            apoiar os profissionais e gestores do Sistema Único de Saúde (SUS)
+            diante de desafios de urgência, emergência e proteção à vida.
           </AboutParagraph>
           <AboutParagraph>
-            Desenvolvido em meio à pandemia do novo coronavírus, responde à
-            demanda de relacionamento entre usuários, trabalhadores e gestores
-            do SUS.
+            Desenvolvido em meio à pandemia do novo coronavírus, respondeu à
+            demanda de integração e entrega de informações oficiais para os
+            profissionais de saúde, e está evoluindo para consolidar-se como
+            canal de relacionamento entre trabalhadores e gestores do SUS.
           </AboutParagraph>
           <AboutParagraph>
             O objetivo é entregar informações, serviços e oportunidades, de
-            forma automatizada, personalizada e segura, na palma da mão dos
-            profissionais, otimizando seu tempo e apoiando a tomada de decisões
-            baseadas em dados e evidências científicas.
+            forma automatizada, personalizada e segura, na palma da mão das
+            pessoas, otimizando seu tempo e fortalecendo as decisões baseadas em
+            dados e evidências científicas.
           </AboutParagraph>
           <TitleISUS>Quem faz?</TitleISUS>
           <AboutParagraph>
             Iniciativa da{' '}
             <AboutLink to="https://www.esp.ce.gov.br/">
-              Escola de saúde publica
+              Escola de Saúde Pública do Ceará (ESP)
             </AboutLink>
-            , com apoio da{' '}
+            , o iSUS foi desenvolvido com apoio voluntário da{' '}
+            <AboutLink to="https://www.thoughtworks.com/pt">
+              ThoughtWorks
+            </AboutLink>
+            , consultora global em tecnologias, e com apoio financeiro da{' '}
             <AboutLink to="https://www.funcap.ce.gov.br/">
               Fundação Cearense de Apoio ao Desenvolvimento Científico e
               Tecnológico (Funcap)
             </AboutLink>
-            , por meio do projeto {'"SMART Health"'}, desenvolvido em parceria
-            com o{' '}
-            <AboutLink to="https://http://www.uece.br/gesad/">
-              Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD)
-            </AboutLink>{' '}
-            da{' '}
-            <AboutLink to="http://www.uece.br/">
-              Universidade Estadual do Ceará (UECE)
-            </AboutLink>
             .
-          </AboutParagraph>
-          <AboutParagraph>
-            A criação do aplicativo compõe as ações da{' '}
-            <AboutLink to="http://bit.ly/ForcaTarefaAntiCorona">
-              Força Tarefa Digital de Combate ao Coronavírus
-            </AboutLink>
-            , que estão sendo realizadas de forma aberta para promover a
-            inovação e viabilizar a colaboração em rede.
-          </AboutParagraph>
-          <AboutParagraph>
-            O projeto conta ainda com o apoio da{' '}
-            <AboutLink to="https://www.thoughtworks.com/pt">
-              ThoughtWorks
-            </AboutLink>
-            , consultoria em tecnologia que está apoiando o projeto de forma
-            voluntária, como parte de seu enfrentamento à pandemia.
           </AboutParagraph>
           <TitleISUS>Colabore!</TitleISUS>
           <AboutParagraph>
