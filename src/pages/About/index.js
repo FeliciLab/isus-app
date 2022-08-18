@@ -19,6 +19,7 @@ import IsusSVG from '~/assets/images/sobreOiSUS/isus.svg';
 import SesaSVG from '~/assets/images/sobreOiSUS/secretaria_saude.svg';
 import ThoughtworksSVG from '~/assets/images/sobreOiSUS/thoughtworks.svg';
 import { CORES } from '~/constantes/estiloBase';
+import { urls } from '~/constantes/urls';
 import AboutLink from './AboutLink';
 import {
   AboutHeader,
@@ -90,15 +91,13 @@ export default function About() {
           <TitleISUS>Quem faz?</TitleISUS>
           <AboutParagraph>
             Iniciativa da{' '}
-            <AboutLink to="https://www.esp.ce.gov.br/">
+            <AboutLink to={urls.SITE_ESP}>
               Escola de Saúde Pública do Ceará (ESP)
             </AboutLink>
             , o iSUS foi desenvolvido com apoio voluntário da{' '}
-            <AboutLink to="https://www.thoughtworks.com/pt">
-              ThoughtWorks
-            </AboutLink>
-            , consultora global em tecnologias, e com apoio financeiro da{' '}
-            <AboutLink to="https://www.funcap.ce.gov.br/">
+            <AboutLink to={urls.SITE_TW}>ThoughtWorks</AboutLink>, consultora
+            global em tecnologias, e com apoio financeiro da{' '}
+            <AboutLink to={urls.SITE_FUNCAP}>
               Fundação Cearense de Apoio ao Desenvolvimento Científico e
               Tecnológico (Funcap)
             </AboutLink>
@@ -107,11 +106,9 @@ export default function About() {
           <TitleISUS>Colabore!</TitleISUS>
           <AboutParagraph>
             Faça parte do time do iSUS acessando o{' '}
-            <AboutLink to="https://github.com/EscolaDeSaudePublica/isus-app">
-              repositório no github
-            </AboutLink>{' '}
+            <AboutLink to={urls.GITHUB_ISUS}>repositório no github</AboutLink>{' '}
             para ver os códigos fonte ou fale com a gente através do{' '}
-            <AboutLink to="https://t.me/iSUSapp">
+            <AboutLink to={urls.GRUPO_TELEGRAM_ISUS}>
               grupo no Telegram
             </AboutLink>
             .
@@ -120,61 +117,41 @@ export default function About() {
         <Fotter>
           <FotterRow>
             <FotterRowWrapper>
-              <GesadSVG
-                onPress={() => Linking.openURL('http://www.uece.br/gesad/')}
-              />
+              <GesadSVG onPress={() => Linking.openURL(urls.SITE_GESAD)} />
             </FotterRowWrapper>
             <FotterRowWrapper>
               <Image
                 source={Uece}
-                onPress={() => Linking.openURL('http://www.uece.br/')}
+                onPress={() => Linking.openURL(urls.SITE_UECE)}
               />
             </FotterRowWrapper>
           </FotterRow>
           <FotterRow>
             <FotterRowWrapper>
-              <FuncapSVG
-                onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}
-              />
+              <FuncapSVG onPress={() => Linking.openURL(urls.SITE_FUNCAP)} />
             </FotterRowWrapper>
             <FotterRowWrapper>
-              <ThoughtworksSVG
-                onPress={() =>
-                  Linking.openURL(
-                    'https://www.thoughtworks.com/locations/brasil',
-                  )
-                }
-              />
+              <ThoughtworksSVG onPress={() => Linking.openURL(urls.SITE_TW)} />
             </FotterRowWrapper>
           </FotterRow>
           <Divider />
           <FotterRow>
             <FotterRowWrapper>
               <FelicilabSVG
-                onPress={() =>
-                  Linking.openURL(
-                    'https://escoladesaudepublica.github.io/#FeliciLab',
-                  )
-                }
+                onPress={() => Linking.openURL(urls.SITE_FELICILAB)}
               />
             </FotterRowWrapper>
             <FotterRowWrapper>
-              <EspSVG
-                onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
-              />
+              <EspSVG onPress={() => Linking.openURL(urls.SITE_ESP)} />
             </FotterRowWrapper>
           </FotterRow>
           <Divider />
           <FotterRowGov>
-            <SesaSVG
-              onPress={() => Linking.openURL('https://www.saude.ce.gov.br/')}
-            />
+            <SesaSVG onPress={() => Linking.openURL(urls.SITE_SESA)} />
           </FotterRowGov>
           <Divider />
           <FotterRowGov>
-            <GovernoSVG
-              onPress={() => Linking.openURL('https://www.ceara.gov.br/')}
-            />
+            <GovernoSVG onPress={() => Linking.openURL(urls.SITE_GOV_CE)} />
           </FotterRowGov>
         </Fotter>
       </Container>
