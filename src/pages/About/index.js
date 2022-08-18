@@ -110,13 +110,8 @@ export default function About() {
             <AboutLink to="https://github.com/EscolaDeSaudePublica/isus-app">
               repositório no github
             </AboutLink>{' '}
-            para ver os códigos fonte, o{' '}
-            <AboutLink to="https://github.com/orgs/EscolaDeSaudePublica/projects/20">
-              painel de atividades
-            </AboutLink>{' '}
-            para acompanhar o processo de desenvolvimento ou fale com a gente
-            através do{' '}
-            <AboutLink to="https://t.me/grupoanticorona">
+            para ver os códigos fonte ou fale com a gente através do{' '}
+            <AboutLink to="https://t.me/iSUSapp">
               grupo no Telegram
             </AboutLink>
             .
