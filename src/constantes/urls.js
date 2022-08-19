@@ -16,4 +16,14 @@ export const urls = {
   INSCRICOES_RESIDENCIA:
     'https://www.esp.ce.gov.br/ensino/residencia-em-saude/matricula/',
   OFICINA_DESIGN: 'https://sus.ce.gov.br/felicilab/oficinadesignesp/',
+  GRUPO_TELEGRAM_ISUS: 'https://t.me/iSUSapp',
+  GITHUB_ISUS: 'https://github.com/EscolaDeSaudePublica/isus-app',
+  SITE_ESP: 'https://www.esp.ce.gov.br/',
+  SITE_FUNCAP: 'https://www.funcap.ce.gov.br/',
+  SITE_TW: 'https://www.thoughtworks.com/pt-br', // thoughtworks
+  SITE_UECE: 'https://www.uece.br/',
+  SITE_GESAD: 'http://www.uece.br/gesad/',
+  SITE_SESA: 'https://www.saude.ce.gov.br/',
+  SITE_GOV_CE: 'https://www.ceara.gov.br/',
+  SITE_FELICILAB: 'https://sus.ce.gov.br/felicilab/',
 };
