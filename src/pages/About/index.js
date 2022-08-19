@@ -90,13 +90,21 @@ export default function About() {
           </AboutParagraph>
           <TitleISUS>Quem faz?</TitleISUS>
           <AboutParagraph>
-            Iniciativa da{' '}
+            O iSUS é uma iniciativa da{' '}
             <AboutLink to={urls.SITE_ESP}>
               Escola de Saúde Pública do Ceará (ESP)
             </AboutLink>
-            , o iSUS foi desenvolvido com apoio voluntário da{' '}
+            , por meio do{' '}
+            <AboutLink to={urls.SITE_FELICILAB}>
+              Laboratório de Inovação no SUS do Ceará - Felicilab
+            </AboutLink>
+            . Foi desenvolvido com apoio da{' '}
             <AboutLink to={urls.SITE_TW}>ThoughtWorks</AboutLink>, consultora
-            global em tecnologias, e com apoio financeiro da{' '}
+            global em tecnologias, da{' '}
+            <AboutLink to={urls.SITE_UECE}>
+              Universidade Estadual do Ceará (UECE)
+            </AboutLink>{' '}
+            e da{' '}
             <AboutLink to={urls.SITE_FUNCAP}>
               Fundação Cearense de Apoio ao Desenvolvimento Científico e
               Tecnológico (Funcap)

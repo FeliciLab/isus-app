@@ -25,6 +25,5 @@ export const urls = {
   SITE_GESAD: 'http://www.uece.br/gesad/',
   SITE_SESA: 'https://www.saude.ce.gov.br/',
   SITE_GOV_CE: 'https://www.ceara.gov.br/',
-  SITE_FELICILAB:
-    'https://sus.ce.gov.br/felicilab/onboarding/conhecendo-o-felicilab/',
+  SITE_FELICILAB: 'https://sus.ce.gov.br/felicilab/',
 };
