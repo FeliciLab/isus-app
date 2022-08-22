@@ -61,7 +61,7 @@ export default function About() {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Container>
         <AboutHeader>
           <IsusSVG width={130} />
@@ -77,16 +77,10 @@ export default function About() {
             diante de desafios de urgência, emergência e proteção à vida.
           </AboutParagraph>
           <AboutParagraph>
-            Desenvolvido em meio à pandemia do novo coronavírus, respondeu à
-            demanda de integração e entrega de informações oficiais para os
-            profissionais de saúde, e está evoluindo para consolidar-se como
-            canal de relacionamento entre trabalhadores e gestores do SUS.
-          </AboutParagraph>
-          <AboutParagraph>
             O objetivo é entregar informações, serviços e oportunidades, de
-            forma automatizada, personalizada e segura, na palma da mão das
-            pessoas, otimizando seu tempo e fortalecendo as decisões baseadas em
-            dados e evidências científicas.
+            forma automatizada e segura, otimizando o tempo das pessoas e
+            oportunizando a tomada de decisões que sejam baseadas em dados e
+            evidências científicas.
           </AboutParagraph>
           <TitleISUS>Quem faz?</TitleISUS>
           <AboutParagraph>
