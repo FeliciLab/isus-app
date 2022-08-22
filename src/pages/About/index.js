@@ -61,7 +61,7 @@ export default function About() {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Container>
         <AboutHeader>
           <IsusSVG width={130} />
