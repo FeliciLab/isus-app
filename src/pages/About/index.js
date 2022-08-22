@@ -18,6 +18,8 @@ import GovernoSVG from '~/assets/images/sobreOiSUS/governo_ceara.svg';
 import IsusSVG from '~/assets/images/sobreOiSUS/isus.svg';
 import SesaSVG from '~/assets/images/sobreOiSUS/secretaria_saude.svg';
 import ThoughtworksSVG from '~/assets/images/sobreOiSUS/thoughtworks.svg';
+import { CORES } from '~/constantes/estiloBase';
+import { urls } from '~/constantes/urls';
 import AboutLink from './AboutLink';
 import {
   AboutHeader,
@@ -31,17 +33,17 @@ import {
   TitleISUS,
 } from './styles';
 
-export default function AboutScreen() {
+export default function About() {
   const navigation = useNavigation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: CORES.VERDE,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#FFF',
+      headerTintColor: CORES.BRANCO,
       headerTitleAlign: 'center',
       headerTitle: 'Sobre o iSUS',
       headerLeft: () => (
@@ -52,14 +54,14 @@ export default function AboutScreen() {
           onPress={() => {
             navigation.toggleDrawer();
           }}>
-          <Icon name="menu" size={28} color="#FFF" />
+          <Icon name="menu" size={28} color={CORES.BRANCO} />
         </TouchableOpacity>
       ),
     });
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Container>
         <AboutHeader>
           <IsusSVG width={130} />
@@ -68,75 +70,47 @@ export default function AboutScreen() {
           </AboutHeaderTitle>
         </AboutHeader>
         <View>
-          <TitleISUS>O que é o iSUS?</TitleISUS>
+          <TitleISUS>Sobre o iSUS</TitleISUS>
           <AboutParagraph>
             O iSUS é um produto digital criado para ser um cinto de utilidades e
-            apoiar os profissionais do Sistema Único de Saúde (SUS) no combate
-            ao Covid-19, diante de desafios de urgência, emergência e proteção à
-            vida.
-          </AboutParagraph>
-          <AboutParagraph>
-            Desenvolvido em meio à pandemia do novo coronavírus, responde à
-            demanda de relacionamento entre usuários, trabalhadores e gestores
-            do SUS.
+            apoiar os profissionais e gestores do Sistema Único de Saúde (SUS)
+            diante de desafios de urgência, emergência e proteção à vida.
           </AboutParagraph>
           <AboutParagraph>
             O objetivo é entregar informações, serviços e oportunidades, de
-            forma automatizada, personalizada e segura, na palma da mão dos
-            profissionais, otimizando seu tempo e apoiando a tomada de decisões
-            baseadas em dados e evidências científicas.
+            forma automatizada e segura, otimizando o tempo das pessoas e
+            oportunizando a tomada de decisões que sejam baseadas em dados e
+            evidências científicas.
           </AboutParagraph>
           <TitleISUS>Quem faz?</TitleISUS>
           <AboutParagraph>
-            Iniciativa da{' '}
-            <AboutLink to="https://www.esp.ce.gov.br/">
-              Escola de saúde publica
+            O iSUS é uma iniciativa da{' '}
+            <AboutLink to={urls.SITE_ESP}>
+              Escola de Saúde Pública do Ceará (ESP)
             </AboutLink>
-            , com apoio da{' '}
-            <AboutLink to="https://www.funcap.ce.gov.br/">
+            , por meio do{' '}
+            <AboutLink to={urls.SITE_FELICILAB}>
+              Laboratório de Inovação no SUS do Ceará - Felicilab
+            </AboutLink>
+            . Foi desenvolvido com apoio da{' '}
+            <AboutLink to={urls.SITE_TW}>ThoughtWorks</AboutLink>, consultora
+            global em tecnologias, da{' '}
+            <AboutLink to={urls.SITE_UECE}>
+              Universidade Estadual do Ceará (UECE)
+            </AboutLink>{' '}
+            e da{' '}
+            <AboutLink to={urls.SITE_FUNCAP}>
               Fundação Cearense de Apoio ao Desenvolvimento Científico e
               Tecnológico (Funcap)
             </AboutLink>
-            , por meio do projeto {'"SMART Health"'}, desenvolvido em parceria
-            com o{' '}
-            <AboutLink to="https://http://www.uece.br/gesad/">
-              Grupo de Engenharia de Software Adaptativo e Distribuído (GESAD)
-            </AboutLink>{' '}
-            da{' '}
-            <AboutLink to="http://www.uece.br/">
-              Universidade Estadual do Ceará (UECE)
-            </AboutLink>
             .
-          </AboutParagraph>
-          <AboutParagraph>
-            A criação do aplicativo compõe as ações da{' '}
-            <AboutLink to="http://bit.ly/ForcaTarefaAntiCorona">
-              Força Tarefa Digital de Combate ao Coronavírus
-            </AboutLink>
-            , que estão sendo realizadas de forma aberta para promover a
-            inovação e viabilizar a colaboração em rede.
-          </AboutParagraph>
-          <AboutParagraph>
-            O projeto conta ainda com o apoio da{' '}
-            <AboutLink to="https://www.thoughtworks.com/pt">
-              ThoughtWorks
-            </AboutLink>
-            , consultoria em tecnologia que está apoiando o projeto de forma
-            voluntária, como parte de seu enfrentamento à pandemia.
           </AboutParagraph>
           <TitleISUS>Colabore!</TitleISUS>
           <AboutParagraph>
             Faça parte do time do iSUS acessando o{' '}
-            <AboutLink to="https://github.com/EscolaDeSaudePublica/isus-app">
-              repositório no github
-            </AboutLink>{' '}
-            para ver os códigos fonte, o{' '}
-            <AboutLink to="https://github.com/orgs/EscolaDeSaudePublica/projects/20">
-              painel de atividades
-            </AboutLink>{' '}
-            para acompanhar o processo de desenvolvimento ou fale com a gente
-            através do{' '}
-            <AboutLink to="https://t.me/grupoanticorona">
+            <AboutLink to={urls.GITHUB_ISUS}>repositório no github</AboutLink>{' '}
+            para ver os códigos fonte ou fale com a gente através do{' '}
+            <AboutLink to={urls.GRUPO_TELEGRAM_ISUS}>
               grupo no Telegram
             </AboutLink>
             .
@@ -145,61 +119,41 @@ export default function AboutScreen() {
         <Fotter>
           <FotterRow>
             <FotterRowWrapper>
-              <GesadSVG
-                onPress={() => Linking.openURL('http://www.uece.br/gesad/')}
-              />
+              <GesadSVG onPress={() => Linking.openURL(urls.SITE_GESAD)} />
             </FotterRowWrapper>
             <FotterRowWrapper>
               <Image
                 source={Uece}
-                onPress={() => Linking.openURL('http://www.uece.br/')}
+                onPress={() => Linking.openURL(urls.SITE_UECE)}
               />
             </FotterRowWrapper>
           </FotterRow>
           <FotterRow>
             <FotterRowWrapper>
-              <FuncapSVG
-                onPress={() => Linking.openURL('https://www.funcap.ce.gov.br/')}
-              />
+              <FuncapSVG onPress={() => Linking.openURL(urls.SITE_FUNCAP)} />
             </FotterRowWrapper>
             <FotterRowWrapper>
-              <ThoughtworksSVG
-                onPress={() =>
-                  Linking.openURL(
-                    'https://www.thoughtworks.com/locations/brasil',
-                  )
-                }
-              />
+              <ThoughtworksSVG onPress={() => Linking.openURL(urls.SITE_TW)} />
             </FotterRowWrapper>
           </FotterRow>
           <Divider />
           <FotterRow>
             <FotterRowWrapper>
               <FelicilabSVG
-                onPress={() =>
-                  Linking.openURL(
-                    'https://escoladesaudepublica.github.io/#FeliciLab',
-                  )
-                }
+                onPress={() => Linking.openURL(urls.SITE_FELICILAB)}
               />
             </FotterRowWrapper>
             <FotterRowWrapper>
-              <EspSVG
-                onPress={() => Linking.openURL('https://www.esp.ce.gov.br/')}
-              />
+              <EspSVG onPress={() => Linking.openURL(urls.SITE_ESP)} />
             </FotterRowWrapper>
           </FotterRow>
           <Divider />
           <FotterRowGov>
-            <SesaSVG
-              onPress={() => Linking.openURL('https://www.saude.ce.gov.br/')}
-            />
+            <SesaSVG onPress={() => Linking.openURL(urls.SITE_SESA)} />
           </FotterRowGov>
           <Divider />
           <FotterRowGov>
-            <GovernoSVG
-              onPress={() => Linking.openURL('https://www.ceara.gov.br/')}
-            />
+            <GovernoSVG onPress={() => Linking.openURL(urls.SITE_GOV_CE)} />
           </FotterRowGov>
         </Fotter>
       </Container>

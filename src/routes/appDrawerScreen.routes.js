@@ -5,12 +5,12 @@ import ConteudoDrawer from '~/components/ConteudoDrawer';
 import { CORES } from '~/constantes/estiloBase';
 import { DUVIDAS_ELMO, RELATAR_SUGESTAO } from '~/constantes/ocorrencias';
 import rotas from '~/constantes/rotas';
-import AboutScreen from '~/pages/About';
+import About from '~/pages/About';
 import Denunciar from '~/pages/Denunciar';
 import FaleConosco from '~/pages/FaleConosco';
+import Perfil from '~/pages/Perfil';
 import ContaExcluida from '~/pages/Perfil/ContaExcluida';
 import ExcluirPerfil from '~/pages/Perfil/ExcluirPerfil';
-import Perfil from '~/pages/Perfil';
 import PoliticaDePrivacidadeScreen from '~/pages/Perfil/PoliticaDePrivacidade';
 import TermoDeUsoScreen from '~/pages/Perfil/TermosDeUso';
 import SusNoCearaScreen from '~/pages/SusNoCeara';
@@ -72,7 +72,7 @@ export default function AppDrawerScreen() {
       />
       <Screen
         name={rotas.SOBRE}
-        component={AboutScreen}
+        component={About}
         options={{ headerShown: true }}
       />
       <Screen
