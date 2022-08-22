@@ -146,8 +146,8 @@ android {
         applicationId "com.esp.isus"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 266
-        versionName "3.22.5"
+        versionCode 267
+        versionName "3.22.6"
         resValue "string", "build_config_package", "com.esp.isus"
         manifestPlaceholders = [onesignal_app_id: project.env.get("ONE_SIGNAL_KEY"), onesignal_google_project_number: project.env.get("ONE_SIGNAL_PROJECT_NUMBER")]
     }
