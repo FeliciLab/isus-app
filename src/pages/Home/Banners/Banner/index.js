@@ -26,6 +26,11 @@ const Banner = ({ data, ...rest }) => {
 
     // Para quando deve abrir uma rota interna
     if (tipo === 'rota') {
+      // Para quando a rota informada não existe
+      if (!rotas[valor]) {
+        return navigation.navigate(rotas.NOT_FOUND);
+      }
+
       return navigation.navigate(valor);
     }
 
