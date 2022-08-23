@@ -2,6 +2,7 @@ import analytics from '@react-native-firebase/analytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useRef } from 'react';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import BemVindo from '~/pages/BemVindo';
 import Descricao from '~/pages/Content/Descricao';
@@ -13,6 +14,7 @@ import Arboviroses from '~/pages/Home/LinhasDeCuidado/Arboviroses';
 import MaternoInfantil from '~/pages/Home/LinhasDeCuidado/MaternoInfantil';
 import Monkeypox from '~/pages/Home/LinhasDeCuidado/Monkeypox';
 import MeusConteudos from '~/pages/MeusConteudos';
+import NotFound from '~/pages/NotFound';
 import EdicaoInfoPessoal from '~/pages/Perfil/EdicaoInfoPessoal';
 import EdicaoInfoProfissional from '~/pages/Perfil/EdicaoInfoProfissional';
 import Residencias from '~/pages/Residencias';
@@ -159,6 +161,20 @@ const Routes = ({ navigationRef }) => {
         <Screen name={rotas.CAPACITACAO_ELMO} component={CapacitacaoElmo} />
         <Screen name={rotas.NOVIDADES_ELMO} component={NovidadesElmo} />
         <Screen name={rotas.WEBVIEW_PAGE} component={WebViewPage} />
+        <Screen
+          name={rotas.NOT_FOUND}
+          component={NotFound}
+          options={{
+            headerStyle: {
+              backgroundColor: CORES.VERDE,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+            headerTintColor: CORES.BRANCO,
+            headerTitleAlign: 'center',
+            headerTitle: 'iSUS',
+          }}
+        />
       </Navigator>
     </NavigationContainer>
   );
