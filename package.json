@@ -61,6 +61,7 @@
     "react-native-text-input-mask": "^3.1.4",
     "react-native-tracking-transparency": "^0.1.1",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-version-check": "^3.4.3",
     "react-native-webview": "^11.22.5",
     "rn-fetch-blob": "^0.12.0",
     "rn-placeholder": "^3.0.3",
