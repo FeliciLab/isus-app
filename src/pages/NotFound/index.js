@@ -1,10 +1,34 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import VersionCheck from 'react-native-version-check';
 import SvgDoacoes from '~/assets/images/notfound/no-data.svg';
 import { CORES } from '~/constantes/estiloBase';
 
 const NotFound = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleVerifyUpdateVersionApp = async () => {
+    try {
+      setIsLoading(true);
+      const { isNeedend, storeUrl } = await VersionCheck.needUpdate();
+
+      if (isNeedend) {
+        console.log(isNeedend ? 'precisa atualizar' : 'não precisa atualizar');
+        Linking.openURL(storeUrl);
+      } else {
+        Alert.alert(
+          'iSUS já atualizado',
+          'Você já tem a versão mais recente do iSUS',
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <SvgDoacoes />
@@ -15,9 +39,10 @@ const NotFound = () => {
       </Text>
       <Button
         icon="reload"
+        loading={isLoading}
         color={CORES.LARANJA}
         style={{ marginTop: 40 }}
-        onPress={() => console.log('reload')}>
+        onPress={handleVerifyUpdateVersionApp}>
         Verificar atualizações
       </Button>
     </View>
