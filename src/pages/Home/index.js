@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useLayoutEffect } from 'react';
 import { ScrollView, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-paper';
 import AppRateModal from '~/components/AppRateModal';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
@@ -82,7 +81,6 @@ export default function Home() {
         barStyle={user ? 'dark-content' : 'light-content'}
       />
       <UserInfo />
-      <Button onPress={() => navigation.navigate(rotas.NOT_FOUND)}>Teste</Button>
       <AppRateModal />
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         <Banners />
