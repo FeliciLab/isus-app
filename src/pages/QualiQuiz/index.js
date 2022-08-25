@@ -1,12 +1,13 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useLayoutEffect, useRef } from 'react';
-import { BackHandler, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { BackHandler } from 'react-native';
 import { Config } from 'react-native-config';
-import IsusSvg from '~/assets/icons/isus_hor.svg';
-import { cabecalhoVoltar } from '~/components/layoutEffect/cabecalhoLayout';
+import QualiQuizLogo from '~/assets/images/qualiquiz/logo.svg';
+import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import { Container, Content, TextContent } from './styles';
 
 export default function QualiQuiz({ navigation }) {
   const navigator = useNavigation();
@@ -55,24 +56,16 @@ export default function QualiQuiz({ navigation }) {
     handleEffect();
   });
 
-  useLayoutEffect(
-    () =>
-      cabecalhoVoltar({
-        title: 'QualiQuiz',
-        navegador: navigation,
-        cor: 'verde',
-      }),
-    [],
-  );
-
   return (
-    <View
-      style={{
-        flexDirection: 'column',
-        paddingTop: '20%',
-        alignItems: 'center',
-      }}>
-      <IsusSvg height={250} width={250} />
-    </View>
+    <Container>
+      <BarraDeStatus
+        backgroundColor={CORES.QUALIQUIZ}
+        barStyle="light-content"
+      />
+      <Content>
+        <QualiQuizLogo height={250} width={250} />
+        <TextContent>Carregando, aguarde um instante...</TextContent>
+      </Content>
+    </Container>
   );
 }

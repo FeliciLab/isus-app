@@ -30,6 +30,7 @@ export const CORES = {
   PRETO54: 'rgba(0, 0, 0, 0.54)',
   PRETO87: 'rgba(0,0,0, 0.87)',
   QUALIQUIZ: '#4E377C',
+  QUALIQUIZ_LIGTH: '#8E6ADB',
 };
 
 export const INPUT_THEMES = {
