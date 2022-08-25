@@ -1,12 +1,13 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
-import { BackHandler, StyleSheet, Text, View } from 'react-native';
+import { BackHandler } from 'react-native';
 import { Config } from 'react-native-config';
 import QualiQuizLogo from '~/assets/images/qualiquiz/logo.svg';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import useAutenticacao from '~/hooks/useAutenticacao';
+import { Container, Content, TextContent } from './styles';
 
 export default function QualiQuiz({ navigation }) {
   const navigator = useNavigation();
@@ -56,38 +57,15 @@ export default function QualiQuiz({ navigation }) {
   });
 
   return (
-    <View style={styles.container}>
+    <Container>
       <BarraDeStatus
         backgroundColor={CORES.QUALIQUIZ}
         barStyle="light-content"
       />
-      <View style={styles.content}>
+      <Content>
         <QualiQuizLogo height={250} width={250} />
-        <Text style={styles.textContent}>
-          Carregando, aguarde um instante...
-        </Text>
-      </View>
-    </View>
+        <TextContent>Carregando, aguarde um instante...</TextContent>
+      </Content>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: CORES.QUALIQUIZ_LIGTH,
-  },
-  content: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textContent: {
-    textAlign: 'center',
-    color: CORES.BRANCO,
-    lineHeight: 19,
-    fontWeight: '500',
-    fontSize: 16.5,
-    marginTop: 38,
-  },
-});
