@@ -3,14 +3,20 @@ import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import VersionCheck from 'react-native-version-check';
 import SvgDoacoes from '~/assets/images/notfound/no-data.svg';
+import Alerta from '~/components/Alerta';
 import { CORES } from '~/constantes/estiloBase';
 
 const NotFound = () => {
   const [isLoading, setIsLoading] = useState(false);
 
+  const [exibicaoDoAlerta, setExibicaoDoAlerta] = useState(false);
+
+  const [mensagemDoAlerta, setMensagemDoAlerta] = useState('');
+
   const handleVerifyUpdateVersionApp = async () => {
     try {
       setIsLoading(true);
+
       const { isNeedend, storeUrl } = await VersionCheck.needUpdate();
 
       if (isNeedend) {
@@ -23,7 +29,8 @@ const NotFound = () => {
         );
       }
     } catch (error) {
-      console.log(error);
+      setMensagemDoAlerta(error);
+      setExibicaoDoAlerta(true);
     } finally {
       setIsLoading(false);
     }
@@ -45,6 +52,12 @@ const NotFound = () => {
         onPress={handleVerifyUpdateVersionApp}>
         Verificar atualizações
       </Button>
+      <Alerta
+        visivel={exibicaoDoAlerta}
+        textoDoAlerta={mensagemDoAlerta}
+        duration={4000}
+        onDismiss={() => setExibicaoDoAlerta(false)}
+      />
     </View>
   );
 };

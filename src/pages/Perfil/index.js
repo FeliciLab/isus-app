@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useLayoutEffect } from 'react';
 import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import BarraDeStatus from '~/components/BarraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
 import rotas from '~/constantes/rotas';
 import { CaixaDialogoContext } from '~/context/CaixaDialogoContext';
 import useAnalytics from '~/hooks/useAnalytics';
@@ -54,11 +55,11 @@ export default function Perfil() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#FFF',
+        backgroundColor: CORES.BRANCO,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#000',
+      headerTintColor: CORES.PRETO,
       headerTitleAlign: 'center',
       headerTitle: 'Perfil',
       headerLeft: () => (
@@ -69,7 +70,7 @@ export default function Perfil() {
           onPress={() => {
             navigation.goBack();
           }}>
-          <ArrowLeftIcon size={28} color="#4CAF50" />
+          <ArrowLeftIcon size={28} color={CORES.VERDE} />
         </TouchableOpacity>
       ),
     });
@@ -78,8 +79,8 @@ export default function Perfil() {
   if (!user) return null;
 
   return (
-    <ScrollView style={{ backgroundColor: '#FFF' }}>
-      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
+    <ScrollView style={{ backgroundColor: CORES.BRANCO }}>
+      <BarraDeStatus backgroundColor={CORES.BRANCO} barStyle="dark-content" />
       <View style={estilos.margem}>
         <CabecalhoPerfil nome={user.name} />
         <MenuPerfil titulo="Informações pessoais">
