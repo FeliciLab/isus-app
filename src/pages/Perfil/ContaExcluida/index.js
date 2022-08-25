@@ -12,13 +12,14 @@ import { Button } from 'react-native-paper';
 import DeletarConta from '~/assets/images/deletar_conta.svg';
 import BarraDeStatus from '~/components/BarraDeStatus';
 import rotas from '~/constantes/rotas';
+import { CORES } from '~/constantes/estiloBase';
 
 export default function ContaExcluida() {
   const navigation = useNavigation();
 
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate('HOME');
+      navigation.navigate(rotas.HOME);
       return true;
     };
 
@@ -33,11 +34,11 @@ export default function ContaExcluida() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#4054B2',
+        backgroundColor: CORES.INDIGO,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#4054B2',
+      headerTintColor: CORES.INDIGO,
       headerTitleAlign: 'center',
       headerTitle: '',
     });
@@ -45,7 +46,7 @@ export default function ContaExcluida() {
 
   return (
     <ScrollView>
-      <BarraDeStatus backgroundColor="#4054B2" barStyle="light-content" />
+      <BarraDeStatus backgroundColor={CORES.INDIGO} barStyle="light-content" />
       <View style={estilos.container}>
         <View style={estilos.parteCenter}>
           <DeletarConta style={estilos.imagemUser} />
@@ -57,7 +58,7 @@ export default function ContaExcluida() {
             Esperamos que você retorne em breve.
           </Text>
           <Button
-            color="#fff"
+            color={CORES.BRANCO}
             mode="contained"
             style={estilos.botaoOk}
             onPress={() => navigation.navigate(rotas.HOME)}>
@@ -83,7 +84,7 @@ const estilos = StyleSheet.create({
   parteCenter: {
     alignSelf: 'center',
     height: heightView,
-    backgroundColor: '#4054B2',
+    backgroundColor: CORES.INDIGO,
     flex: 1,
   },
   imagemUser: {
@@ -92,7 +93,7 @@ const estilos = StyleSheet.create({
   },
   textoInfo: {
     width: widthView - widthView * 0.05,
-    color: '#fff',
+    color: CORES.BRANCO,
     alignSelf: 'center',
     marginTop: 32,
     fontSize: 24,

@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { uniqueId } from 'lodash';
 import React, { useLayoutEffect } from 'react';
 import {
   ScrollView,
@@ -9,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import BarraDeStatus from '~/components/BarraDeStatus';
+import { CORES } from '~/constantes/estiloBase';
 import { ArrowLeftIcon } from '~/icons';
 import CartaoDeConteudo from './CartaoDeConteudo';
 
@@ -20,11 +20,11 @@ function MeusConteudos({ route }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: '#FFF',
+        backgroundColor: CORES.BRANCO,
         elevation: 0,
         shadowOpacity: 0,
       },
-      headerTintColor: '#000',
+      headerTintColor: CORES.PRETO,
       headerTitleAlign: 'center',
       headerTitle: 'Meus Conteúdos',
       headerLeft: () => (
@@ -35,30 +35,28 @@ function MeusConteudos({ route }) {
           onPress={() => {
             navigation.goBack();
           }}>
-          <ArrowLeftIcon size={28} color="#4CAF50" />
+          <ArrowLeftIcon size={28} color={CORES.VERDE} />
         </TouchableOpacity>
       ),
     });
   }, []);
 
   return (
-    <>
-      <BarraDeStatus backgroundColor="#ffffff" barStyle="dark-content" />
-      <ScrollView style={{ backgroundColor: '#ffffff', height: '100%' }}>
-        <Text style={styles.titulo}>Meus Conteúdos</Text>
-        <View>
-          {conteudos.map(item => (
-            <CartaoDeConteudo key={uniqueId('card-conteudo')} conteudo={item} />
-          ))}
-        </View>
-      </ScrollView>
-    </>
+    <ScrollView style={{ backgroundColor: CORES.BRANCO, height: '100%' }}>
+      <BarraDeStatus backgroundColor={CORES.BRANCO} barStyle="dark-content" />
+      <Text style={styles.titulo}>Meus Conteúdos</Text>
+      <View>
+        {conteudos.map(item => (
+          <CartaoDeConteudo key={String(item.id)} conteudo={item} />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   titulo: {
-    color: '#000',
+    color: CORES.PRETO,
     fontSize: 24,
     marginLeft: 16,
     marginTop: 24,

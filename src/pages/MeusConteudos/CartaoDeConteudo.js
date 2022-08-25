@@ -3,6 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Surface, Text } from 'react-native-paper';
+import { CORES } from '~/constantes/estiloBase';
 
 export default function CartaoDeConteudo(props) {
   const navigation = useNavigation();
@@ -53,14 +54,14 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 14,
     letterSpacing: 0.25,
-    color: 'rgba(0, 0, 0, 0.87)',
+    color: CORES.PRETO87,
     lineHeight: 20,
   },
   data: {
     fontWeight: '500',
     fontSize: 10,
     letterSpacing: 1.5,
-    color: '#4CAF50',
+    color: CORES.VERDE,
     marginTop: 10,
   },
   textos: {

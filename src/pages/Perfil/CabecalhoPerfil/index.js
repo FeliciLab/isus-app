@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { CORES } from '~/constantes/estiloBase';
 
 export default function CabecalhoPerfil({ nome }) {
   return (
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
   nome: {
     fontSize: 24,
     fontWeight: 'normal',
-    color: '#000',
+    color: CORES.PRETO,
   },
   espacamento: {
     marginVertical: 10,
