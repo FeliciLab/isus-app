@@ -3,6 +3,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
+import { Button, Chip } from 'react-native-paper';
+import ControlledSelectModal from '~/components/ControlledSelectModal';
 // import { postDemandaEducacao } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
@@ -12,11 +14,29 @@ import { CORES } from '~/constantes/estiloBase';
 import { TESTIDS } from '~/constantes/testIDs';
 // import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
+import { launchImageLibrary } from 'react-native-image-picker';
+
+const assuntos = [
+  {
+    id: 'DUVIDA',
+    nome: 'Dúvida',
+  },
+  {
+    id: 'SUGESTAO',
+    nome: 'Sugestão',
+  },
+  {
+    id: 'RELATAR_PROBLEMA',
+    nome: 'Relatar Problema',
+  },
+];
 
 const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
   // const { analyticsData } = useAnalytics();
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [imagem, setImagem] = useState();
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -42,8 +62,26 @@ const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
   //   return '';
   // };
 
-  const onSubmit = async ({ duvida, curso, email }) => {
-    console.log({ duvida, curso, email }); // TODO: remover depois
+  const handleAttachmentImage = async () => {
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        includeBase64: true,
+      });
+
+      setImagem(result.assets[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onSubmit = async ({ assuntoSelectedId, mensagem, curso, email }) => {
+    console.log({
+      assuntos: assuntos.find(assunto => assunto.id === assuntoSelectedId),
+      mensagem,
+      curso,
+      email,
+    }); // TODO: remover depois
 
     try {
       setIsLoading(true);
@@ -87,30 +125,56 @@ const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
 
   return (
     <View>
-      <ControlledTextInput
-        testID="descricaoInput"
-        style={{ marginVertical: 5 }}
+      <ControlledSelectModal
         control={control}
-        name="descricao"
+        name="assuntoSelectedId"
         mode="outlined"
-        label="Descreva a situação atual *"
+        placeholder="Selecione o Assunto"
+        items={assuntos.map(item => ({
+          value: String(item.id),
+          label: String(item.nome),
+        }))}
       />
       <ControlledTextInput
-        testID="unidadeDeSaudeInput"
         style={{ marginVertical: 5 }}
         control={control}
-        name="unidadeDeSaude"
+        multiline
+        numberOfLines={5}
+        name="mensagem"
         mode="outlined"
-        label="Unidade de Saúde *"
+        label="Escreve aqui sua mensagem"
       />
       <ControlledTextInput
-        testID="emailInput"
+        style={{ marginVertical: 5 }}
+        control={control}
+        name="curso"
+        mode="outlined"
+        label="Seu Curso"
+      />
+      <ControlledTextInput
         style={{ marginVertical: 5 }}
         control={control}
         name="email"
         mode="outlined"
-        label="Email"
+        label="Seu e-mail"
       />
+      <View style={{ flexDirection: 'row', marginBottom: 8, marginTop: 8 }}>
+        <Button
+          mode="text"
+          color="#FF9800"
+          compact
+          onPress={handleAttachmentImage}>
+          ANEXAR IMAGEM
+        </Button>
+        {imagem && (
+          <Chip
+            style={{ maxWidth: 200 }}
+            ellipsizeMode="middle"
+            onClose={() => setImagem(null)}>
+            {imagem.fileName}
+          </Chip>
+        )}
+      </View>
       <View
         style={{
           display: 'flex',
