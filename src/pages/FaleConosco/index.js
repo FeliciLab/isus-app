@@ -13,6 +13,7 @@ import { ocorrencias } from '~/constantes/ocorrencias';
 import AlertarFaltaEPIFrom from './AlertarFaltaEPIFrom';
 import DemandaEducacaoFrom from './DemandaEducacaoFrom';
 import DuvidasElmoFrom from './DuvidasElmoFrom';
+import DuvidasResidenciasFrom from './DuvidasResidenciasFrom';
 import RelatarProblemaFrom from './RelatarProblemaFrom';
 import RelatarSujestaoFrom from './RelatarSujestaoFrom';
 
@@ -52,6 +53,9 @@ export default function FaleConosco() {
       ),
       DUVIDAS_ELMO: (
         <DuvidasElmoFrom showFeedBackMessage={showFeedBackMessage} />
+      ),
+      DUVIDAS_RESIDENCIAS: (
+        <DuvidasResidenciasFrom showFeedBackMessage={showFeedBackMessage} />
       ),
     };
     return forms[ocorrenciaSelectedId] ? (
