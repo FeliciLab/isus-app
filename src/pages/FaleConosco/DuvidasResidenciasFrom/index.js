@@ -3,17 +3,18 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { postDemandaEducacao } from '~/apis/apiHome';
+// import { postDemandaEducacao } from '~/apis/apiHome';
 import ControlledTextInput from '~/components/ControlledTextInput/index';
 import CustonFAB from '~/components/CustonFAB/index';
-import { labelsAnalytics } from '~/constantes/labelsAnalytics';
-import { DEMANDA_EDUCACAO } from '~/constantes/ocorrencias';
+import { CORES } from '~/constantes/estiloBase';
+// import { labelsAnalytics } from '~/constantes/labelsAnalytics';
+// import { DEMANDA_EDUCACAO } from '~/constantes/ocorrencias';
 import { TESTIDS } from '~/constantes/testIDs';
-import useAnalytics from '~/hooks/useAnalytics';
+// import useAnalytics from '~/hooks/useAnalytics';
 import schema from './schema';
 
 const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
-  const { analyticsData } = useAnalytics();
+  // const { analyticsData } = useAnalytics();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,35 +35,39 @@ const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
     });
   };
 
-  const extrairMensagemDeErro = ({ errors }) => {
-    if (errors.descricao) return errors.descricao[0];
-    if (errors.unidadeDeSaude) return errors.unidadeDeSaude[0];
-    if (errors.email) return errors.email[0];
-    return '';
-  };
+  // const extrairMensagemDeErro = ({ errors }) => {
+  //   if (errors.descricao) return errors.descricao[0];
+  //   if (errors.unidadeDeSaude) return errors.unidadeDeSaude[0];
+  //   if (errors.email) return errors.email[0];
+  //   return '';
+  // };
 
-  const onSubmit = async ({ descricao, unidadeDeSaude, email }) => {
+  const onSubmit = async ({ duvida, curso, email }) => {
+    console.log({ duvida, curso, email }); // TODO: remover depois
+
     try {
       setIsLoading(true);
 
-      analyticsData(
-        labelsAnalytics.ENVIAR_DEMANDA_EDUCACAO,
-        'Click',
-        'Fale Conosco',
-      );
+      // analyticsData(
+      //   labelsAnalytics.ENVIAR_DUVIDAS_RESIDENCIAS,
+      //   'Click',
+      //   'Fale Conosco',
+      // );
 
-      const { data } = await postDemandaEducacao(
-        descricao,
-        unidadeDeSaude,
-        email,
-      );
+      // TODO: criar o postDuvidaResidencias
+      // const { data } = await postDemandaEducacao(
+      //   descricao,
+      //   unidadeDeSaude,
+      //   email,
+      // );
 
-      if (data.errors) {
-        showFeedBackMessage(extrairMensagemDeErro(data));
-      } else {
-        showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
-        limparCampos();
-      }
+      // TODO: usar essa parte quando tivermos a rota na api
+      // if (data.errors) {
+      //   showFeedBackMessage(extrairMensagemDeErro(data));
+      // } else {
+      //   showFeedBackMessage(DEMANDA_EDUCACAO.feedback);
+      //   limparCampos();
+      // }
     } catch (error) {
       if (error.message === 'Network Error') {
         showFeedBackMessage(
@@ -114,7 +119,7 @@ const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
         }}>
         <CustonFAB
           testID={TESTIDS.BOTAO_DEMANDAEDUCACAO_ENVIAR}
-          labelStyle={{ color: '#fff' }}
+          labelStyle={{ color: CORES.BRANCO }}
           loading={isLoading}
           disabled={isLoading}
           mode="contained"
