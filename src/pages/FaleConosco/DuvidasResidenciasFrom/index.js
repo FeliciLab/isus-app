@@ -77,7 +77,7 @@ const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
 
   const onSubmit = async ({ assuntoSelectedId, mensagem, curso, email }) => {
     console.log({
-      assuntos: assuntos.find(assunto => assunto.id === assuntoSelectedId),
+      assunto: assuntos.find(assunto => assunto.id === assuntoSelectedId).nome,
       mensagem,
       curso,
       email,
@@ -161,7 +161,7 @@ const DuvidasResidenciasFrom = ({ showFeedBackMessage }) => {
       <View style={{ flexDirection: 'row', marginBottom: 8, marginTop: 8 }}>
         <Button
           mode="text"
-          color="#FF9800"
+          color={CORES.LARANJA}
           compact
           onPress={handleAttachmentImage}>
           ANEXAR IMAGEM
