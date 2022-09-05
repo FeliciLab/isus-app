@@ -61,7 +61,8 @@ export const TESTIDS = {
     MANIFERSTACOES_CLINICAS: 'monkeypox-manifestacoes-clinicas',
     TRANSMISSAO: 'monkeypox-transmissao',
     PREVENCAO: 'monkeypox-prevencao',
-    MANEJO_CLINICO: 'monkeypox-manejo-clinico'
+    MANEJO_CLINICO: 'monkeypox-manejo-clinico',
+    DOCUMENTOS_OFICIAIS: 'monkeypox-documntos-oficiais',
   },
   SEM_CONEXAO: {
     BOTAO_VOLTAR: 'botao-semconexao-voltar',
