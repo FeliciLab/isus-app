@@ -24,6 +24,10 @@ export const urls = {
   SITE_UECE: 'https://www.uece.br/',
   SITE_GESAD: 'http://www.uece.br/gesad/',
   SITE_SESA: 'https://www.saude.ce.gov.br/',
+  SITE_SESA_DOWNLOAD_MONKEYPOX:
+    'https://www.saude.ce.gov.br/download/monkeypox/',
   SITE_GOV_CE: 'https://www.ceara.gov.br/',
   SITE_FELICILAB: 'https://sus.ce.gov.br/felicilab/',
+  MANEJO_CLINICO_MONKEYPOX:
+    'https://coronavirus.ceara.gov.br/wp-content/uploads/2022/08/manejo_clinico_e_prevencao_de_controle_de_infeccao_para_monkeypox-1.pdf',
 };
