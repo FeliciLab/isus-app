@@ -46,6 +46,7 @@ export const labelsAnalytics = {
     MANIFERSTACOES_CLINICAS: 'monkeypox_manifestacoes_clinicas',
     TRANSMISSAO: 'monkeypox_transmissao',
     PREVENCAO: 'monkeypox_prevencao',
-    MANEJO_CLINICO: 'monkeypox_manejo_clinico'
-  }
+    MANEJO_CLINICO: 'monkeypox_manejo_clinico',
+    DOCUMENTOS_OFICIAIS: 'monkeypox_documentos_oficiais',
+  },
 };
