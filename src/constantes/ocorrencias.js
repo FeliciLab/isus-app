@@ -34,10 +34,18 @@ export const ALERTA_FALTA_EPI = {
   feedback: 'Seu alerta foi enviado',
 };
 
+export const DUVIDAS_RESIDENCIAS = {
+  id: 'DUVIDAS_RESIDENCIAS',
+  header: 'Dúvidas Residências',
+  label: 'Dúvidas Residências',
+  feedback: 'Seu alerta foi enviado',
+};
+
 export const ocorrencias = [
   RELATAR_SUGESTAO,
   RELATAR_PROBLEMA,
   DEMANDA_EDUCACAO,
   DUVIDAS_ELMO,
   ALERTA_FALTA_EPI,
+  DUVIDAS_RESIDENCIAS,
 ];

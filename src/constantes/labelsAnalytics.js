@@ -9,6 +9,7 @@ export const labelsAnalytics = {
   CARTAO_PLANO_CONTIGENCIA: 'cartao_plano_contingencia',
   ENVIAR_ALERTA_FALTA_EPI: 'enviar_alerta_falta_epi',
   ENVIAR_DEMANDA_EDUCACAO: 'enviar_demanda_educacao',
+  ENVIAR_DUVIDAS_RESIDENCIAS: 'enviar_duvidas_residencias',
   ENVIAR_DUVIDAS_ELMO: 'enviar_duvidas_elmo',
   ENVIAR_FEEDBACK: 'enviar_feedback',
   PULAR_TUTORIAL: 'pular_tutorial',
@@ -46,6 +47,6 @@ export const labelsAnalytics = {
     MANIFERSTACOES_CLINICAS: 'monkeypox_manifestacoes_clinicas',
     TRANSMISSAO: 'monkeypox_transmissao',
     PREVENCAO: 'monkeypox_prevencao',
-    MANEJO_CLINICO: 'monkeypox_manejo_clinico'
-  }
+    MANEJO_CLINICO: 'monkeypox_manejo_clinico',
+  },
 };
